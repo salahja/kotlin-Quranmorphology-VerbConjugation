@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+
+    >
+
+    <RelativeLayout
+
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/partno"
+            style="@style/textStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="Category"
+
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@id/chapterNoView"
+            android:layout_width="35.0dip"
+
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/partno"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="7.0dip"
+            android:gravity="start"
+            android:textSize="16.0sp" />
+
+        <ImageView
+            android:id="@id/chapterTypeView"
+            android:layout_width="18.0dip"
+            android:layout_height="18.0dip"
+            android:layout_below="@+id/partno"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8.0dip"
+            android:contentDescription="@null"
+            app:tint="@color/dark_grays" />
+
+
+        <TextView
+            android:id="@id/chapterAlphaArabicNameView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/partno"
+            android:layout_marginLeft="20dp"
+            android:layout_toEndOf="@+id/chapterNoView"
+
+            android:textSize="14.0sp" />
+
+        <TextView
+            android:id="@id/chapterEnglishNameView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/chapterAlphaArabicNameView"
+            android:layout_marginLeft="60dp"
+
+            android:textSize="12.289978sp" />
+
+        <View
+            android:id="@id/divider"
+            style="@style/HorizontalLine"
+
+            android:layout_below="@+id/chapterEnglishNameView" />
+
+        <ImageView
+            android:id="@id/chapterArabicNameView"
+            android:layout_width="70.0dip"
+            android:layout_height="35.0dip"
+
+            android:layout_below="@id/partno"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@null" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

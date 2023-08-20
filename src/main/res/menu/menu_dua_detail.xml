@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--item
+        android:id="@+id/action_night_mode"
+        android:title="@string/action_night_mode"
+        android:checkable="true"
+        android:checked="false"
+        app:showAsAction="never" /-->
+
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_action_setting"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/backButtonView"
+        android:icon="@drawable/baseline_arrow_back_36"
+        android:title="Back"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/bookmark"
+        android:icon="@drawable/ic_baseline_bookmark_add_36"
+        android:title="Back"
+        app:showAsAction="always" />
+
+</menu>

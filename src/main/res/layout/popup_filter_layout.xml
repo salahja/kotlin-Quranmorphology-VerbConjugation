@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/background_color_light_brown"
+    android:padding="5dp"
+    tools:context=".Activity.QuranGrammarAct">
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/mySwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:text="Colorize"
+        android:textColor="@color/bg_black" />
+
+    <TextView
+        android:id="@+id/jumpto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mySwitch"
+        android:icon="@drawable/ic_baseline_open_in_browser_36"
+        android:text="Jumpto"
+        android:textColor="@color/bg_black"
+        android:title="@string/go_to_surah_ayah" />
+
+    <TextView
+        android:id="@+id/bookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/jumpto"
+        android:icon="@drawable/ic_baseline_bookmark_add_24"
+        android:text="Bookmark"
+        android:textColor="@color/bg_black"
+
+        />
+
+
+</RelativeLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_3">
+
+        <TextView
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+            android:textStyle="bold"
+            android:id="@+id/tvTitle"
+            android:text="Bookmarks"
+            android:paddingLeft="@dimen/space_2"
+            android:layout_above="@+id/imgCompact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true" />
+
+        <ImageButton
+            android:id="@+id/imgCompact"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/imgSort"
+            android:layout_marginEnd="@dimen/space_3"
+            app:tint="@color/neutral5" />
+
+        <ImageButton
+            android:id="@+id/imgSort"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sort"
+
+            android:layout_marginEnd="@dimen/layout_padding"
+            android:layout_alignParentEnd="true"
+            app:tint="@color/neutral5" />
+        <ImageButton
+            android:id="@+id/pin"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:layout_marginRight="40dp"
+            android:src="@drawable/ic_pin_color"
+            android:layout_marginEnd="@dimen/layout_padding"
+
+            app:tint="@color/neutral5" />
+
+        <ListView
+            android:id="@+id/bookmarlist"
+            android:layout_alignRight="@+id/pin"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawSelectorOnTop="false" />
+    </RelativeLayout>
+
+
+</LinearLayout>

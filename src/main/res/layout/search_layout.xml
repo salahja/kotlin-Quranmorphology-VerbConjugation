@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/searchViewRoot"
+    android:background="@color/color_secondary"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_width="fill_parent"
+    android:layout_height="50dp"
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="MissingDefaultResource">
+
+    <EditText
+        android:id="@id/searchView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="10.0dip"
+        android:layout_marginTop="10.0dip"
+        android:layout_marginEnd="10.0dip"
+        android:layout_marginBottom="10.0dip"
+        android:background="@drawable/search_box_bg"
+        android:hint="@string/search_with_dots"
+        android:imeActionLabel="Search"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:paddingStart="55.0dip"
+        android:paddingTop="8.0dip"
+        android:paddingEnd="40.0dip"
+        android:paddingBottom="8.0dip" />
+
+    <ImageView
+        android:layout_width="25.0dip"
+        android:layout_height="25.0dip"
+        android:src="@drawable/ic_tab_search"
+        android:layout_centerVertical="true"
+        android:contentDescription="@null"
+        android:layout_marginEnd="10.0dip"
+        android:layout_alignEnd="@id/searchView"
+        app:tint="@color/tab_deselected_color" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:id="@id/clearAllContainer"
+        android:background="@drawable/root_view_box_bg"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_margin="10.0dip"
+        android:paddingStart="10.0dip"
+        android:paddingEnd="10.0dip"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:padding="3.5dip"
+            android:layout_width="27.0dip"
+            android:layout_height="27.0dip"
+            android:src="@drawable/ic_cross"
+            android:contentDescription="@null" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".DuaListActivity">
+
+    <item
+        android:id="@+id/search"
+        android:contentDescription="@string/content_description_one"
+        android:icon="@drawable/ic_baseline_search_36"
+        android:title="@string/action_search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
+
+
+
+
+    <item
+        android:id="@+id/bookmark"
+        android:contentDescription="@string/content_description_one"
+        android:icon="@drawable/baseline_bookmarks_red_900_36dp"
+        android:title="Setting"
+        app:showAsAction="always" />
+
+    <!--item
+        android:id="@+id/action_night_mode"
+        android:title="@string/action_night_mode"
+        android:checkable="true"
+        android:checked="false"
+        app:showAsAction="never" /-->
+</menu>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!--Shape-->
+    <style name="ShapeAppearance.mushaf.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/mushaf_small_component_corner_radius</item>
+    </style>
+
+    <style name="ShapeAppearance.mushaf.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/mushaf_medium_component_corner_radius</item>
+    </style>
+
+    <style name="ShapeAppearance.mushaf.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/mushaf_large_component_corner_radius</item>
+    </style>
+
+
+</resources>

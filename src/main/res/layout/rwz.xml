@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dualistview_height"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/dualistchild_margin">
+
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/txtReference"
+            android:layout_width="@dimen/dualistchild_duanum_width"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="@dimen/dualistview_topmargin"
+            android:layout_marginRight="9dp"
+            android:layout_marginBottom="@dimen/dualistview_topmargin"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:textSize="@dimen/dualistchild_duaname_textsize" />
+
+        <ImageView
+            android:id="@+id/imgview"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_social_manners" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:cacheColorHint="#00000000"
+            android:gravity="center"
+            android:layoutAnimation="@anim/layout_flyincenter"
+
+            android:listSelector="?attr/selectableItemBackground"
+
+            android:scrollingCache="false"
+            android:stretchMode="columnWidth"
+            />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/txtDuaName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginRight="@dimen/dualistduatextpadding"
+        android:textSize="@dimen/dualistchild_duaname_textsize" />
+
+</LinearLayout>

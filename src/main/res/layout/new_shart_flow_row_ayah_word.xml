@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:windowBackground="@android:color/transparent">
+
+    <RelativeLayout
+        android:id="@id/topItemsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/bismillah"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="6dp"
+            android:gravity="center_horizontal"
+            android:paddingTop="1dp"
+            android:text="@string/header_msg"
+            android:textSize="20sp"
+
+            android:visibility="gone">
+
+        </TextView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@id/bookmarkView"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:elevation="10dp"
+            app:srcCompat="@drawable/baseline_bookmarks_red_900_36dp" />
+
+        <TextView
+            android:id="@id/chaptername"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10.0dip"
+            android:layout_toEndOf="@+id/bookmarkView"
+            android:paddingStart="5.0dip"
+
+            android:paddingTop="3.0dip"
+            android:paddingEnd="5.0dip"
+            android:paddingBottom="3.0dip"
+            android:textSize="18.0sp" />
+
+
+    </RelativeLayout>
+
+
+    <com.example.utility.FlowLayout
+        android:id="@+id/flow_word_by_word"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/arabic_textView"
+
+        android:layout_width="fill_parent"
+
+
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15.0dip"
+        android:paddingStart="10.0dip"
+        android:paddingEnd="3.0dip"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="16.0sp" />
+
+    <com.example.mushafconsolidated.model.CutCopyPasteEditText
+        android:id="@+id/quran_textView"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:lineSpacingExtra="@dimen/lineSpacingExtra"
+        android:padding="@dimen/textViewPadding"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+
+        android:textIsSelectable="true"
+        android:visibility="visible" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/phraseone"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:lineSpacingExtra="@dimen/lineSpacingExtra"
+            android:padding="@dimen/textViewPadding"
+            android:text="a"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textEditPasteWindowLayout="@android:id/pasteAsPlainText"
+
+            android:textIsSelectable="true"
+            android:textSize="25sp"
+            android:visibility="visible" />
+
+
+        <TextView
+            android:id="@+id/setlength"
+            android:layout_width="107dp"
+            android:layout_height="33dp"
+
+
+            android:layout_alignParentEnd="true"
+
+            android:layout_marginTop="-3dp" />
+
+
+        <EditText
+            android:id="@+id/phrasetwo"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/phraseone"
+            android:lineSpacingExtra="@dimen/lineSpacingExtra"
+            android:padding="@dimen/textViewPadding"
+            android:text="b"
+
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textEditPasteWindowLayout="@android:id/pasteAsPlainText"
+
+            android:textIsSelectable="true"
+            android:textSize="25sp"
+            android:visibility="visible" />
+
+
+        <TextView
+            android:id="@+id/setlengthtwo"
+            android:layout_width="107dp"
+            android:layout_height="33dp"
+            android:layout_below="@id/phraseone"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-3dp"
+
+            android:layout_toEndOf="@+id/phrasetwo" />
+
+        <Button
+            android:id="@+id/reset"
+            android:layout_width="51dp"
+            android:layout_height="37dp"
+            android:layout_below="@+id/setlengthtwo"
+            android:layout_marginTop="20dp"
+            android:text="RESET" />
+
+        <Button
+            android:id="@+id/doneb"
+            android:layout_width="51dp"
+            android:layout_height="37dp"
+            android:layout_below="@+id/setlengthtwo"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/reset"
+            android:text="DONE" />
+
+        <Button
+            android:id="@+id/finalize"
+            android:layout_width="51dp"
+            android:layout_height="37dp"
+            android:layout_below="@+id/setlengthtwo"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/doneb"
+            android:text="DONE" />
+
+
+        <Button
+            android:id="@+id/harfonlyshart"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reset"
+
+            android:text="harf and shart only"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/harfshartandjawab"
+            android:layout_width="451dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/harfonlyshart"
+
+
+            android:text="shart and jawab"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
+
+        <TextView
+            android:id="@+id/translate_textView"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:lineSpacingExtra="@dimen/lineSpacingExtra"
+            android:padding="@dimen/textViewPadding"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/quran_jalalaynnote"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="@dimen/lineSpacingExtra"
+            android:padding="@dimen/textViewPadding"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/quran_jalalayn"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/quran_jalalaynnote"
+            android:lineSpacingExtra="@dimen/lineSpacingExtra"
+            android:padding="@dimen/textViewPadding"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/expandImageButton"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:foregroundGravity="center_horizontal"
+            android:scaleType="fitCenter"
+            android:tooltipText="@string/Alert"
+            app:srcCompat="@drawable/ic_drop_down" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/erab_textViewnote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:lineSpacingExtra="@dimen/lineSpacingExtra"
+            android:padding="@dimen/textViewPadding"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/erab_textView"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/erab_textViewnote"
+            android:lineSpacingExtra="@dimen/lineSpacingExtra"
+            android:padding="@dimen/textViewPadding"
+
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/lineWidth"
+        android:background="@android:color/darker_gray" />
+
+
+</LinearLayout>

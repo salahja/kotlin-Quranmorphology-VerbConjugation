@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="?odd_item_bg"
+    android:orientation="horizontal"
+    android:padding="6.0dip">
+
+    <ImageView
+        android:id="@id/ivDragArea"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="start"
+        android:alpha="0.5"
+        android:scaleType="center"
+        app:srcCompat="@drawable/drag_vertical"
+        app:tint="?textColorLight" />
+
+    <TextView
+        android:id="@id/tvFolderName"
+        android:layout_width="0.0dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1.0"
+        android:paddingLeft="6.0dip"
+        android:paddingRight="6.0dip"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="?colorPrimaryDark"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@id/tvNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="6.0dip"
+        android:paddingRight="6.0dip"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="?colorAccent"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@id/ivArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:padding="8.0dip"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_expand_more" />
+
+    <ImageView
+        android:id="@id/ivJump"
+        android:layout_width="wrap_content"
+        android:layout_height="40.0dip"
+        android:layout_gravity="end"
+        app:srcCompat="@drawable/ic_action_jump"
+        app:tint="?colorAccent" />
+</LinearLayout>

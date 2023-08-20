@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="wbw_action_list">
+        <item>English</item>
+        <item>Bangla</item>
+        <item>Indonesian</item>
+        <item>Urdu</item>
+
+    </string-array>
+    <string-array name="wbw_values">
+        <item>en</item>
+        <item>bn</item>
+        <item>in</item>
+        <item>ur</item>
+    </string-array>
+
+
+    <string-array name="translation_action">
+        <item>English Sahih International</item>
+        <item>Urdu Junagarhi -Translation</item>
+        <item>English Jalalayn -Tafsir</item>
+        <item>Urdu Jalalayn- Tafsir</item>
+        <item>A.J.Arberry</item>
+
+    </string-array>
+    <string-array name="translation_values">
+        <item>en_sahih</item>
+        <item>ur_junagarhi</item>
+        <item>en_jalalayn</item>
+        <item>ur_jalalayn</item>
+        <item>en_arberry</item>
+    </string-array>
+
+
+</resources>

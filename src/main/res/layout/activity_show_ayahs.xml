@@ -1,0 +1,139 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAyahsPages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="80dp"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/footerbar"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:animateLayoutChanges="true"
+        android:visibility="visible">
+        <!-- start play -->
+        <LinearLayout
+            android:id="@+id/normalfooter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primaryColorBrown"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageButton
+                android:id="@+id/play"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:onClick="onMediaPlayerButtonClick"
+                android:src="@drawable/ic_play" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF" />
+
+            <Spinner
+                android:id="@+id/selectReader"
+                style="@style/spinner_style"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:entries="@array/quran_readers_name"></Spinner>
+        </LinearLayout>
+        <!-- start download -->
+        <LinearLayout
+            android:id="@+id/footerdownload"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/redhot"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageButton
+                android:id="@+id/canceldownload"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="onMediaPlayerButtonClick"
+                android:src="@drawable/ic_close" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextAppearance.Material3.ActionBar.Subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1.30"
+                    android:text="@string/download"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12dp" />
+
+                <ProgressBar
+                    android:id="@+id/downloadProgress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:indeterminate="false" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+    <!-- media player -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        <RelativeLayout
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            android:id="@+id/footerplayer"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:visibility="visible"
+            app:behavior_peekHeight="20dp"
+            android:gravity="bottom"
+            android:layout_gravity="bottom"
+
+            >
+
+            <include layout="@layout/exoplayer"
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+
+                android:visibility="visible"
+                />
+
+
+
+            <!--  <include layout="@layout/exoplayer"-->
+
+
+
+
+
+        </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>

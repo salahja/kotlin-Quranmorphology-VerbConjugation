@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="?android:attr/selectableItemBackground"
+
+    android:orientation="horizontal">
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:id="@+id/toprow"
+
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/dal"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="د"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+
+                android:id="@+id/kha"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="خ"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/ha"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ح"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/jeem"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="چ"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/tha"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ث"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/ta"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ت"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/ba"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ب"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/hamza"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ا"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/firstrow"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/toprow">
+
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/toay"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ط"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/dhad"
+
+
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ض"
+                android:textAllCaps="true"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/suwad"
+
+
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ص"
+                android:textSize="24sp"
+                android:textStyle="bold"
+
+                />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/sheen"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ش"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/seen"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="س"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/zaa"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ز"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/raa"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ر"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/dhal"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ذ"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/secondrow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/firstrow"
+            android:gravity="top">
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/lam"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ل"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/kaf"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ك"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+
+                android:id="@+id/qaf"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="top"
+                 
+                android:text="ق"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+
+                android:id="@+id/fa"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ف"
+                android:textSize="24sp"
+                android:textStyle="bold">
+
+            </com.google.android.material.button.MaterialButton>
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+
+                android:id="@+id/ghain"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="غ"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+
+                android:id="@+id/ayn"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ع"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/zoay"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ظ"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/thirdrow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/secondrow"
+            android:gravity="top">
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/tamarboota"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ة"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/ya"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ي"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/waw"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="و"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+
+                android:id="@+id/haaa"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ه"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/nun"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ن"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/meem"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="م"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/thirdrow"
+            android:gravity="top">
+
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/key_AC"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ac"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/key_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="DEL"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:id="@+id/key_enter"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                 
+                android:text="ENTER"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

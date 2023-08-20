@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/space_2"
+    android:paddingTop="@dimen/space_3"
+    android:paddingRight="@dimen/space_2"
+    android:paddingBottom="@dimen/space_3">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etSura"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_margin="@dimen/space_1"
+            android:layout_weight="60"
+            android:hint="@string/quran_sura" />
+
+        <EditText
+            android:id="@+id/etAyah"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/space_1"
+            android:layout_weight="20"
+            android:hint="@string/quran_ayah"
+            android:imeOptions="actionUnspecified|actionGo|flagNoFullscreen"
+            android:inputType="number" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/space_1">
+
+        <TextView
+            android:id="@+id/wvSuraSpinner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_gravity="start"
+            android:layout_marginEnd="@dimen/space_2"
+            android:layout_marginRight="@dimen/space_2"
+            android:layout_weight="60" />
+
+        <TextView
+            android:id="@+id/wvAyahSpinner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/space_1"
+            android:layout_marginRight="@dimen/space_1"
+            android:layout_weight="20" />
+
+
+    </LinearLayout>
+</LinearLayout>

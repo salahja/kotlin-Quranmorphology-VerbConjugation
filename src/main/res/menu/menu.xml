@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/surahnav"
+        android:icon="@drawable/ic_surah_collection"
+        android:title="Surah"
+
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/conjugationnav"
+        android:icon="@drawable/ic_baseline_construction_24"
+        android:title="Conjugator"
+
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/bookmarksnav"
+        android:icon="@drawable/ic_baseline_bookmark_add_24"
+        android:title="Bookmarks"
+
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/jumptoverse"
+        android:icon="@drawable/ic_baseline_open_in_browser_24"
+        android:title="Grammar"
+
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/settingnav"
+        android:icon="@drawable/ic_action_setting"
+        android:title="Settings"
+
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/Names"
+
+        android:icon="@drawable/baseline_mosque_24"
+        android:title="Dua"
+
+
+        app:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/duanav"
+
+        android:icon="@drawable/baseline_anchor_24"
+        android:title="Dua"
+
+
+        app:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/searchnav"
+
+        android:icon="@drawable/xldabc_ic_search_api_material"
+        android:title="Search"
+
+
+        app:showAsAction="collapseActionView" />
+
+
+</menu>

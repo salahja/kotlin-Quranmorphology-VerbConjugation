@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:orientation="horizontal">
+
+    <View
+        android:id="@id/viewColorStrip"
+        android:layout_width="4.0dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8.0dip" />
+
+    <ImageView
+        android:id="@id/ivDragArea"
+        android:layout_width="12.0dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12.0dip"
+        android:alpha="0.3"
+        android:gravity="center"
+        android:padding="@dimen/space_1"
+        android:scaleType="center"
+        app:srcCompat="@drawable/ic_drag_handle_black_24dp"
+        app:tint="?textColorLight" />
+
+    <TextView
+        android:id="@id/tvSura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32.0dip"
+        android:gravity="center"
+        android:padding="@dimen/space_1"
+        android:paddingLeft="@dimen/space_2"
+        android:paddingRight="@dimen/space_2"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+    <TextView
+        android:id="@id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:padding="@dimen/space_1"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textSize="12.0sp" />
+</FrameLayout>

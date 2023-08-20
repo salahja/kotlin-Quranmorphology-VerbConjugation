@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="?selectableItemBackground"
+    android:orientation="horizontal"
+    tools:context="org.sj.conjugator.activity.ConjugatorAct">
+
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="40dp">
+
+            <org.sj.conjugator.CustomKeyboard.OvalCustomKeyboard
+                android:id="@+id/arabic_keyboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:visibility="visible" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/firstrow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+
+        android:paddingTop="3dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="50dp"
+            android:hint="@string/root_word"
+            android:padding="5dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+    <RadioGroup
+        android:layout_below="@+id/autoCompleteTextView"
+        android:id="@+id/verbcase"
+
+        android:orientation='horizontal'
+        android:layout_alignParentStart="true"
+        style="@style/Widget.Material3.CompoundButton.RadioButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/autoCompleteTextView"
+        android:layoutDirection="rtl"
+        android:paddingTop="10dp"
+
+        app:layout_anchorGravity="center">
+
+        <RadioButton
+            android:id="@+id/rdindicative"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/indicative" />
+
+        <RadioButton
+            android:id="@id/rdsubjunctive"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/subjunctive"
+
+            android:visibility="visible" />
+
+        <RadioButton
+            android:id="@id/rdjussive"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/jussive"
+
+            android:visibility="visible" />
+
+        <RadioButton
+            android:id="@id/emphasized"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/emphasized"
+
+            android:visibility="visible" />
+    </RadioGroup>
+
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
+
+
+

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="vertical"
+
+
+    android:paddingTop="10.0dip">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10.0dip"
+        android:orientation="horizontal"
+        android:paddingStart="10.0dip"
+        android:paddingTop="5.0dip"
+        android:paddingEnd="3.0dip"
+        android:paddingBottom="5.0dip">
+
+        <TextView
+            android:id="@id/chapterNoView"
+            android:layout_width="35.0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="7.0dip"
+            android:gravity="start"
+            android:textSize="16.0sp" />
+
+        <ImageView
+            android:id="@id/chapterTypeView"
+            android:layout_width="18.0dip"
+            android:layout_height="18.0dip"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8.0dip"
+            android:contentDescription="@null"
+            app:tint="@color/dark_grays" />
+
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1.0"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@id/chapterAlphaArabicNameView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="14.0sp" />
+
+            <TextView
+                android:id="@id/chapterEnglishNameView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:textSize="12.289978sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@id/chapterArabicNameView"
+            android:layout_width="70.0dip"
+            android:layout_height="35.0dip"
+            android:layout_gravity="center_vertical"
+
+            android:contentDescription="@null" />
+    </LinearLayout>
+
+    <View
+        android:id="@id/divider"
+
+        style="@style/HorizontalLine" />
+</LinearLayout>

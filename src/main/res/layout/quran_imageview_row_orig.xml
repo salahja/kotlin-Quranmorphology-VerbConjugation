@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@id/chaptername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:paddingTop="3.0dip"
+            android:paddingEnd="5.0dip"
+            android:paddingBottom="3.0dip"
+            android:text="chapter"
+            android:textSize="18.0sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_horizontal" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/colorized"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/arrowback" />
+
+        <ImageView
+            android:id="@id/arrowforward"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+
+
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@+id/jumpto"
+
+            android:cropToPadding="true"
+            android:elevation="10dp"
+            android:padding="1dp"
+            android:scaleType="centerCrop"
+            android:visibility="visible"
+
+
+            app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
+
+        <ImageView
+            android:id="@id/arrowback"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+
+            android:layout_marginEnd="10dp"
+
+            android:layout_toEndOf="@+id/arrowforward"
+
+            android:cropToPadding="true"
+            android:elevation="10dp"
+            android:padding="1dp"
+            android:scaleType="centerCrop"
+            android:visibility="visible"
+
+
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+
+        <ImageView
+            android:id="@id/jumpto"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@+id/bookmark"
+
+
+            android:cropToPadding="true"
+            android:elevation="10dp"
+            android:padding="1dp"
+            android:scaleType="centerCrop"
+            android:visibility="visible"
+
+
+            app:srcCompat="@drawable/ic_baseline_open_in_browser_24" />
+
+
+        <ImageView
+            android:id="@id/ivHelp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+
+
+            android:backgroundTint="@color/white"
+            android:paddingStart="@dimen/space_2"
+
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_baseline_help_24" />
+
+        <ImageView
+            android:id="@id/bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_toEndOf="@+id/ivHelp"
+
+            android:backgroundTint="@color/white"
+            android:paddingStart="@dimen/space_2"
+
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_baseline_bookmarks_24" />
+
+
+        <ImageView
+
+            android:id="@id/ivActionOverflow"
+            android:layout_width="40dp"
+            android:layout_height="40.0dip"
+            android:layout_alignParentEnd="true"
+
+            android:backgroundTint="@color/white"
+            android:paddingStart="@dimen/space_2"
+            android:scaleType="fitEnd"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_more_horiz_black_24dp" />
+    </RelativeLayout>
+</RelativeLayout>

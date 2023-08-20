@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/space_2"
+    android:paddingTop="@dimen/space_3"
+    android:paddingRight="@dimen/space_2"
+    android:paddingBottom="@dimen/space_3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_gravity="top"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_gravity="start"
+            android:id="@+id/etSura"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_1"
+            android:hint="@string/quran_sura"
+            android:layout_weight="60" />
+
+        <EditText
+            android:layout_gravity="end"
+            android:id="@+id/etAyah"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_1"
+            android:hint="@string/quran_ayah"
+            android:layout_weight="20"
+            android:inputType="number"
+            android:imeOptions="actionUnspecified|actionGo|flagNoFullscreen" />
+
+        <EditText
+            android:layout_gravity="end"
+            android:id="@+id/etPage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/quran_page"
+            android:layout_weight="20"
+            android:inputType="number"
+            android:imeOptions="actionUnspecified|actionGo|flagNoFullscreen" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/space_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <NumberPicker
+            android:layout_gravity="start"
+            android:id="@+id/wvSuraSpinner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/space_2"
+            android:layout_weight="60"
+            android:layout_marginEnd="@dimen/space_2" />
+
+        <NumberPicker
+            android:layout_gravity="end"
+            android:id="@+id/wvAyahSpinner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/space_1"
+            android:layout_weight="20"
+            android:layout_marginEnd="@dimen/space_1" />
+
+        <NumberPicker
+            android:layout_gravity="end"
+            android:id="@+id/wvPageSpinner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20" />
+    </LinearLayout>
+</LinearLayout>

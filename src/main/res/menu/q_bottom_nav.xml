@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@id/action_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/read" />
+    <item
+        android:id="@id/action_quran_planner"
+        android:icon="@drawable/ic_quran_planner"
+        android:title="@string/menu_quran_planner" />
+    <item
+        android:id="@id/action_bookmark"
+        android:icon="@drawable/ic_bookmark"
+        android:title="@string/menu_bookmarks" />
+    <item
+        android:id="@id/action_note"
+        android:icon="@drawable/note"
+        android:title="@string/menu_notes" />
+    <item
+        android:id="@id/action_day_ayah"
+        android:icon="@drawable/ic_today_black_24dp"
+        android:title="@string/menu_day_ayah" />
+</menu>

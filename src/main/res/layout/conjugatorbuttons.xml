@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ru.dimorinny.floatingtextbutton.FloatingTextButton
+        android:id="@+id/action_buttons"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="start|bottom|center"
+
+        android:layout_marginStart="16dp"
+
+        android:background="?selectableItemBackground"
+
+
+        android:foregroundGravity="bottom"
+        app:floating_background_color="@color/color_surface"
+        app:floating_left_icon="@drawable/baseline_history_black_48dp"
+
+
+        app:floating_title="Back    "
+
+
+        app:floating_title_color="@color/colorOnPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+
+        android:id="@+id/mujarradbtn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="28dp"
+        android:hint="@string/mujarrad_listing"
+        app:layout_constraintBottom_toBottomOf="@+id/action_buttons"
+        app:layout_constraintEnd_toStartOf="@+id/mazeedbtn"
+        app:layout_constraintHorizontal_bias="0.431"
+        app:layout_constraintStart_toEndOf="@+id/action_buttons"
+        app:layout_constraintTop_toTopOf="@+id/action_buttons" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mazeedbtn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:layout_margin="5.0dip"
+        android:layout_marginEnd="92dp"
+        android:hint="@string/mazeed_listing"
+        app:elevation="7dp"
+        app:layout_constraintBottom_toBottomOf="@+id/mujarradbtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mujarradbtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

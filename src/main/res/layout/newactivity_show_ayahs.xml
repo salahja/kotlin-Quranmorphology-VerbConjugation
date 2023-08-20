@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/rvAyahsPages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:visibility="visible" />
+
+    <include layout="@layout/fbarnormalfooter"
+
+
+        android:visibility="visible"
+        />
+    <include layout="@layout/downloadfooter"
+
+
+
+        android:visibility="gone"
+        />
+    <include layout="@layout/testfloating"
+
+        android:layout_gravity="bottom"
+         android:layout_marginBottom="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        <RelativeLayout
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            android:id="@+id/footerplayer"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:visibility="visible"
+            app:behavior_peekHeight="20dp"
+            android:gravity="bottom"
+            android:layout_gravity="bottom"
+
+            >
+
+            <include layout="@layout/exoplayer"
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+
+                android:visibility="visible"
+                />
+
+
+
+            <!--  <include layout="@layout/exoplayer"-->
+
+
+
+
+
+        </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+<!--    <include layout="@layout/expandable_fbuttons"
+
+         android:layout_gravity="bottom"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />-->
+
+</FrameLayout>
