@@ -1,73 +1,20 @@
 package org.sj.conjugator.CustomKeyboard
 
-
-
 import android.content.Context
-import android.os.Bundle
 import android.util.AttributeSet
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
-import android.view.inputmethod.InputConnection
-import android.widget.Button
 import android.widget.LinearLayout
-import com.example.Constant.QURAN_VERB_ROOT
-import com.example.Constant.QURAN_VERB_WAZAN
 import com.example.mushafconsolidated.R
-import com.example.utility.QuranGrammarApplication
 import com.google.android.material.button.MaterialButton
-
-
-
-
-
-
 
 class OvalCustomKeyboard : LinearLayout, View.OnClickListener {
     private val keyValues = SparseArray<String>()
-
-    // --Commented out by Inspection (18/08/23, 6:13 am):private final String LogTag = "Keyboard";
     var mycontext: Context? = null
     var keyboard: OvalCustomKeyboard? = null
+    private val radioText: String? = null
 
-    // --Commented out by Inspection (18/08/23, 6:13 am):private MaterialButton key1;
-    // --Commented out by Inspection (18/08/23, 6:13 am):private MaterialButton key2;
-    // --Commented out by Inspection (18/08/23, 6:13 am):private MaterialButton key3;
-    // --Commented out by Inspection (18/08/23, 6:13 am):private MaterialButton key4;
-    // --Commented out by Inspection (18/08/23, 6:13 am):private MaterialButton key5;
-    // --Commented out by Inspection (18/08/23, 6:13 am):private MaterialButton key6;
-    // --Commented out by Inspection (18/08/23, 6:13 am):private MaterialButton key7;
-    // --Commented out by Inspection (18/08/23, 6:13 am):private MaterialButton key8;
-    // --Commented out by Inspection (18/08/23, 6:13 am):private MaterialButton key9;
-    // --Commented out by Inspection (18/08/23, 6:13 am):private MaterialButton key00;
-    // --Commented out by Inspection (18/08/23, 6:13 am):private MaterialButton key_dot;
-    private var key_enter: MaterialButton? = null
-
-    // --Commented out by Inspection (18/08/23, 6:13 am):private MaterialButton key_exit;
-    // --Commented out by Inspection (18/08/23, 6:12 am):private RadioGroup formone, formtwo;
-    private val inputtext: String? = null
-    private val inputConnection: InputConnection? = null
-
-    // --Commented out by Inspection START (18/08/23, 6:12 am):
-    //    public String getInputtext() {
-    //        return inputtext;
-    //    }
-    // --Commented out by Inspection STOP (18/08/23, 6:12 am)
-    // --Commented out by Inspection START (18/08/23, 6:13 am):
-    //    public void setInputtext(String inputtext) {
-    //        this.inputtext = inputtext;
-    //    }
-    // --Commented out by Inspection STOP (18/08/23, 6:13 am)
-    //  private com.sjconjugatortwo.keyboard.KeyBoardInitActivity InitActivity;
-    val radioText: String? = null
-
-    /*
-        constructor(keyBoardInitActivity: ConjugatorAct?) : super(keyBoardInitActivity) {
-            mycontext = keyBoardInitActivity
-        }
-    */
-
-    //  constructor(context: ConjugatorAct?, s: String?) : super(context) {}
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         init(context)
     }
@@ -80,19 +27,12 @@ class OvalCustomKeyboard : LinearLayout, View.OnClickListener {
         init(context)
     }
 
-    // --Commented out by Inspection START (18/08/23, 6:13 am):
-    //    public void setRadioText(String radioText) {
-    //        this.radioText = radioText;
-    //    }
-    // --Commented out by Inspection STOP (18/08/23, 6:13 am)
     private fun init(context: Context) {
         LayoutInflater.from(context).inflate(R.layout.round_arabic_keyboard, this, true)
-        //  LayoutInflater.from(context).inflate(R.layout.back_round_arabic_keyboard, this, true);
         val key_delete = findViewById<MaterialButton>(R.id.key_delete)
         val key_AC = findViewById<MaterialButton>(R.id.key_AC)
-        key_enter = findViewById(R.id.key_enter)
+        val key_enter = findViewById<MaterialButton>(R.id.key_enter)
         keyboard = findViewById(R.id.arabic_keyboard)
-        //   key_exit=findViewById(R.id.key_exit);
         val dhad = findViewById<MaterialButton>(R.id.dhad)
         val suwad = findViewById<MaterialButton>(R.id.suwad)
         val qaf = findViewById<MaterialButton>(R.id.qaf)
@@ -146,9 +86,7 @@ class OvalCustomKeyboard : LinearLayout, View.OnClickListener {
         //   key00.setOnClickListener(this);
         key_delete.setOnClickListener(this)
         key_AC.setOnClickListener(this)
-        key_enter!!.setOnClickListener(this)
-        //  key_exit.setOnClickListener(this);
-        //  key_dot.setOnClickListener(this);
+        key_enter.setOnClickListener(this)
         keyValues.put(R.id.sheen, "ش")
         keyValues.put(R.id.seen, "س")
         keyValues.put(R.id.ya, "ي")
@@ -186,43 +124,6 @@ class OvalCustomKeyboard : LinearLayout, View.OnClickListener {
         keyValues.put(R.id.waw, "و")
         keyValues.put(R.id.tamarboota, "ة")
         keyValues.put(R.id.tha, "ث")
-        //    keyValues.put(R.id.key_00, "00");
-        //    keyValues.put(R.id.key_dot, ".");
-    }
-
-    fun getKey_enter(): Button? {
-        return key_enter
-    }
-
-    // --Commented out by Inspection START (18/08/23, 6:13 am):
-    //    public void setInputConnection(InputConnection ic) {
-    //        inputConnection = ic;
-    //    }
-    // --Commented out by Inspection STOP (18/08/23, 6:13 am)
-    private fun InitDiaalog(root: String) {
-        // val applicationContext: Context = ConjugatorAct.getContextOfApplication()
-        //   GRadioGroup gr=new GRadioGroup(nasara,zaraba,samia,fatha,karuma,hasiba);
-        val sp = QuranGrammarApplication.context!!.getSharedPreferences("key", 0)
-        val babs = sp.getString("bab", "")
-        val dataBundle = Bundle()
-        dataBundle.putString(QURAN_VERB_WAZAN, radioText)
-        dataBundle.putString(QURAN_VERB_WAZAN, babs)
-        dataBundle.putString(QURAN_VERB_ROOT, root)
-        //   QuranVerbConjDialog dialog = new QuranVerbConjDialog(getContext());
-        //  dialog.setArguments(dataBundle);
-        //   Intent i = new Intent(getContext(), VerbQueryActivity.class);
-        //   i.putExtra(QURAN_VERB_ROOT,root);
-        //   i.putExtra(QURAN_VERB_FORM,babs);
-        //   getContext().startActivity(i);
-        //      FragmentActivity activity = (FragmentActivity) getContext();
-        //      final FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-        //     transaction.add(R.id.frame_container ,dialog,VERSEFRAGMENT);
-        //     transaction.commit();
-    }
-
-    private fun inputConnectionCommitText(view: View) {
-        val value = keyValues[view.id]
-        inputConnection!!.commitText(value, 1)
     }
 
     override fun onClick(view: View) {}

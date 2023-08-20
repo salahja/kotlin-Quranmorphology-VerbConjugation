@@ -1,0 +1,57 @@
+package org.sj.verbConjugation.trilateral.Substitution
+
+import org.sj.verbConjugation.trilateral.TrilateralRoot
+//todo possible error
+abstract class SubstitutionsApplier {
+    open fun apply(words: MutableList<String>, root: TrilateralRoot) {
+        for (i in appliedPronounsIndecies.indices) {
+            val index = appliedPronounsIndecies[i].toString().toInt() - 1
+            val wordObj = words[index] ?: continue
+            val word = wordObj.toString().trim { it <= ' ' }
+            val list = substitutions
+            val subIter = substitutions.iterator()
+            while (subIter.hasNext()) {
+                val substitution = subIter.next() as Substitution
+                val result = substitution.apply(word, root)
+                if (result != null) {
+                    val set = words.set(index, result)!!
+                    break
+                }
+            }
+        }
+    }
+
+    fun applySarfSagheer(words: MutableList<String?>, root: TrilateralRoot) {
+        for (i in 0..0) {
+            val index = appliedPronounsIndecies[i].toString().toInt() - 1
+            val wordObj = words[index] ?: continue
+            val word = wordObj.trim { it <= ' ' }
+            val list = substitutions
+            val subIter = substitutions.iterator()
+            while (subIter.hasNext()) {
+                val substitution = subIter.next() as Substitution
+                val result = substitution.apply(word, root)
+                if (result != null) {
+                    val set: Any? = words.set(index, result)
+                    break
+                }
+            }
+        }
+    }
+
+    abstract val substitutions: List<*>
+    protected open val appliedPronounsIndecies: List<*>
+        protected get() = defaultAppliedProunounsIndecies
+
+    companion object {
+        protected var defaultAppliedProunounsIndecies: MutableList<String> = ArrayList(13)
+
+        init {
+            for (i in 0..12) {
+                defaultAppliedProunounsIndecies.add((i + 1).toString() + "")
+            }
+        }
+    }
+
+    abstract fun getSubstitutions(): List<*>?
+}

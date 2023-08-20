@@ -93,14 +93,6 @@
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
 
-        <activity
-            android:name=".Activity.ActivitySettings"
-            android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="fullSensor">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
-        </activity>
 
 
 
@@ -138,14 +130,6 @@
 
 
 
-        <activity
-            android:name=".Activityimport.ActivitySettings"
-            android:parentActivityName=".Activity.QuranGrammarAct">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
-        </activity>
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -157,6 +141,34 @@
             android:value="true" />
 
 
+        <activity
+            android:name="org.sj.conjugator.activity.SarfSagheerActivity"
+            android:parentActivityName=".Activity.QuranGrammarAct">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.sj.conjugator.activity.ConjugatorTabsActivity"
+            android:parentActivityName=".Activity.QuranGrammarAct">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.sj.conjugator.activity.ConjugatorAct"
+            android:parentActivityName=".Activity.QuranGrammarAct">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.ActivitySettings"
+            android:parentActivityName=".Activity.QuranGrammarAct">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
 
 
     </application>
