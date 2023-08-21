@@ -14,9 +14,7 @@ class RaaImperativeMahmouz : SubstitutionsApplier(), IAugmentedTrilateralModifie
         substitutions.add(InfixSubstitution("ْءُ", "ُ")) // EX: (أَرُوا، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val root: TrilateralRoot? = mazeedConjugationResult.root

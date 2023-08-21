@@ -31,9 +31,7 @@ class CLafifNakesVocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("َيَ", "َا")) // EX: (مَرقاة )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val nounFormula = conjugationResult.nounFormula

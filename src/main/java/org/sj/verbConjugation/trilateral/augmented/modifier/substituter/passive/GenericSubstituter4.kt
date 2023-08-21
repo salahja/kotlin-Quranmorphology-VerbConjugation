@@ -12,9 +12,7 @@ class GenericSubstituter4 : AbstractGenericSubstituter() {
         substitutions.add(InfixSubstitution("ذْت", "ذْد")) // EX: (اذْدُكِرَ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         return mazeedConjugationResult.root.c1 == 'ذ' && super.isApplied(mazeedConjugationResult)

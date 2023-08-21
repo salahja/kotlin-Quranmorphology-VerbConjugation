@@ -55,7 +55,7 @@ class UnaugmentedTrilateralModifier private constructor() {
         hamzaModifier.apply(tense, active, conjResult)
         //خصيصاُ للفعل أثأ
         postHamzaModifier.apply(tense, active, conjResult)
-        VerbLamAlefModifier.getInstance().apply(conjResult)
+        VerbLamAlefModifier.getInstance().apply(conjResult.finalResult, conjResult)
         return conjResult
     }
 

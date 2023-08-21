@@ -36,11 +36,11 @@ class ActiveParticipleModifier private constructor() : IUnaugmentedTrilateralNou
         formula: String
     ): ConjugationResult {
         val conjResult = ConjugationResult(kov, root, conjugations, formula)
-        if (geminator.isApplied(conjResult)) geminator.apply(conjResult.getFinalResult() as MutableList<String>, root!!)
+        if (geminator.isApplied(conjResult)) geminator.apply(conjResult.finalResult as MutableList<String>, root!!)
         vocalizer.apply(conjResult)
         mahmouz.apply(conjResult)
-        NounLamAlefModifier.getInstance().apply(conjResult)
-        NounSunLamModifier.getInstance().apply(conjResult)
+        NounLamAlefModifier.getInstance().apply(conjResult.finalResult, conjResult)
+        NounSunLamModifier.getInstance().apply(conjResult.finalResult, conjResult)
         return conjResult
     }
 

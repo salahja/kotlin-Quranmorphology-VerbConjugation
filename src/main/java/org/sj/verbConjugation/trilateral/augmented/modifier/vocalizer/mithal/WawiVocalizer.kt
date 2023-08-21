@@ -13,9 +13,7 @@ class WawiVocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifier {
         substitutions.add(InfixSubstitution("ُوْ", "ُو")) // EX: (يُوجِبُ، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov

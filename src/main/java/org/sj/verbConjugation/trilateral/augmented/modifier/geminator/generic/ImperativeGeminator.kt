@@ -28,7 +28,5 @@ class ImperativeGeminator : SubstitutionsApplier() {
         ) // EX: (تآجُّوا، تآجَّا، تآجِّي)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

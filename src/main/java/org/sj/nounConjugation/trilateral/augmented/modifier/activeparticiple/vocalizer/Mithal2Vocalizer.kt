@@ -36,7 +36,5 @@ class Mithal2Vocalizer : TrilateralNounSubstitutionApplier(), IAugmentedTrilater
         return formulaNo == 1 && (kov == 13 || kov == 14)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 }

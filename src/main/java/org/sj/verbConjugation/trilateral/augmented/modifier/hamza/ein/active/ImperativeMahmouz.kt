@@ -31,7 +31,5 @@ class ImperativeMahmouz : AbstractEinMahmouz() {
         substitutions.add(InfixSubstitution("اءُ", "اؤُ")) // EX: (راؤُوا، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 }

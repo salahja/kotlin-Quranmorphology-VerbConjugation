@@ -9,73 +9,64 @@ import database.entity.kov
 import database.entity.verbcorpus
 
 class VerbDatabaseUtils(context: Context?) {
-    // {
-    //     LiveData<List<wordbyword>> liveUsers = WordbywordPojoDao.getWords(new
-    //             SimpleSQLiteQuery("SELECT * FROM "));
-    // }
     init {
+
         database = VerbDatabase.getInstance(context)!!
-
     }
 
-    //  public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
-    //   @Override
-    //    public void migrate(SupportSQLiteDatabase database) {
-    //       database.execSQL("CREATE TABLE IF NOT EXISTS `quranicverbs` (`verb` TEXT, `root` TEXT, `thulathibab` TEXT, `form` INTEGER NOT NULL, `chaptername` TEXT, `frequency` INTEGER NOT NULL, `meaning` TEXT, `id` INTEGER NOT NULL, PRIMARY KEY(`id`))");
-    //  }
-    //  };
-    val kov: List<kov?>?
-        get() = VerbDatabaseUtils.Companion.database.kovDao()?.rules
+    val kov: ArrayList<kov?>?
+        get() = database.kovDao()!!.rules as ArrayList<kov?>?
 
-    fun getQuranVerbsbyFrequency(sort: Int): List<QuranVerbsEntity?>? {
-        return VerbDatabaseUtils.Companion.database.QuranVerbsDao()
-            ?.getverbsbyFrequency(sort)
+    fun getQuranVerbsbyFrequency(sort: Int): ArrayList<QuranVerbsEntity?>? {
+        return database.QuranVerbsDao()!!.getverbsbyFrequency(sort) as ArrayList<QuranVerbsEntity?>?
     }
 
-    val quranicVerbsMazeed: ArrayList<QuranicVerbsEntity>
-        get() = VerbDatabaseUtils.Companion.database.QuranicVerbsDao()
-            ?.getverbsMazeed() as ArrayList<QuranicVerbsEntity>
-    val quranicVerbsbyForm: ArrayList<QuranicVerbsEntity>
-        get() = VerbDatabaseUtils.Companion.database.QuranicVerbsDao()
-            ?.getverbsbyForm() as ArrayList<QuranicVerbsEntity>
+    val quranicVerbsMazeed: ArrayList<QuranicVerbsEntity?>?
+        get() = database.QuranicVerbsDao()!!.getverbsMazeed() as ArrayList<QuranicVerbsEntity?>?
+    val quranicVerbsbyForm: ArrayList<QuranicVerbsEntity?>?
+        get() = database.QuranicVerbsDao()!!.getverbsbyForm() as ArrayList<QuranicVerbsEntity?>?
 
     fun updateTrimRoots(nroot: String?, id: Int): Int {
-        return VerbDatabaseUtils.Companion.database.QuranicVerbsDao()!!.updadateRoots(nroot, id)
+        return database.QuranicVerbsDao()!!.updadateRoots(nroot, id)
     }
 
     fun updateThulathibab(nroot: String?, id: Int): Int {
-        return VerbDatabaseUtils.Companion.database.QuranicVerbsDao()!!.updadateThulathibab(nroot, id)
+        return database.QuranicVerbsDao()!!
+            .updadateThulathibab(nroot, id)
     }
 
-    fun getMujarradVerbs(root: String?): List<MujarradVerbs?>? {
-        return VerbDatabaseUtils.Companion.database.mujarradDao()
-            ?.getverbTri(root)
+    fun getMujarradVerbs(root: String?): ArrayList<MujarradVerbs?>? {
+        return database.mujarradDao()!!.getverbTri(root) as ArrayList<MujarradVerbs?>?
     }
 
-    val mujarradAall: ArrayList<MujarradVerbs>
-        get() = VerbDatabaseUtils.Companion.database.mujarradDao()
-            ?.getverbTriAll() as ArrayList<MujarradVerbs>
+    val mujarradAall: ArrayList<MujarradVerbs?>?
+        get() = database.mujarradDao()!!.getverbTriAll() as ArrayList<MujarradVerbs?>?
 
-    fun getMujarradBYWeakness(kov: String?): List<MujarradVerbs?>? {
-        return VerbDatabaseUtils.Companion.database.mujarradDao()
-            ?.getMujarradWeakness(kov)
+    fun getMujarradBYWeakness(kov: String?): ArrayList<MujarradVerbs?>? {
+        return database.mujarradDao()!!.getMujarradWeakness(kov) as ArrayList<MujarradVerbs?>?
     }
 
-    fun getMazeedWeakness(kov: String?): List<Mazeed?>? {
-        return VerbDatabaseUtils.Companion.database.mazeedDao()
-            ?.getMazeedWeakness(kov)
+    fun getMazeedWeakness(kov: String?): ArrayList<Mazeed?>? {
+        return database.mazeedDao()!!.getMazeedWeakness(kov) as ArrayList<Mazeed?>?
     }
 
-    fun getMazeedRoot(root: String?): List<Mazeed?>? {
-        return VerbDatabaseUtils.Companion.database.mazeedDao()
-            ?.getMazeedRoot(root)
+    fun getMazeedRoot(root: String?): ArrayList<Mazeed?>? {
+        return database.mazeedDao()!!.getMazeedRoot(root) as ArrayList<Mazeed?>?
     }
 
-    fun verbcorpuses(): List<verbcorpus?>? {
-        return VerbDatabaseUtils.Companion.database.verbcorpusDao()?.getmazeedform("I")
+    fun verbcorpuses(): ArrayList<verbcorpus?>? {
+        return database.verbcorpusDao()!!.getmazeedform("I") as ArrayList<verbcorpus?>?
     }
 
     companion object {
-        private var database: VerbDatabase = TODO()
+        private lateinit var database: VerbDatabase
     }
 }
+
+
+
+
+
+
+
+

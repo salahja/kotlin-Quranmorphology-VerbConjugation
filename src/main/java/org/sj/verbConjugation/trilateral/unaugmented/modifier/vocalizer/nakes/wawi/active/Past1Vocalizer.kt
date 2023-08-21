@@ -38,9 +38,7 @@ class Past1Vocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralModifier {
         ) // EX: (غَزَتْ، غَزَتَا، أسَتْ، أسَتَا، عَثَتْ، عَثَتَا)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

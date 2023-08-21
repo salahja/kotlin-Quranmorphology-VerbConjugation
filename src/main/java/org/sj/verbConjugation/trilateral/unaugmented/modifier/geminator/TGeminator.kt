@@ -43,13 +43,8 @@ class TGeminator : SubstitutionsApplier(), IUnaugmentedTrilateralModifier {
         appliedPronounsIndecies.add("7")
     }
 
-      override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+     
 
-    protected fun getAppliedPronounsIndecies(): List<*> {
-        return appliedPronounsIndecies
-    }
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

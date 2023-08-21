@@ -30,7 +30,5 @@ class ActivePresentAjwafYaeiListedVocalizer : AbstractAjwafYaeiListedVocalizer()
         substitutions.add(ExpressionInfixSubstitution("ْيَC3ْ", "َC3ْ"))
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

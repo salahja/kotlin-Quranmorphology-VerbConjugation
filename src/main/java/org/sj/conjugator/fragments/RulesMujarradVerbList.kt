@@ -33,7 +33,7 @@ class RulesMujarradVerbList : Fragment {
 
     // --Commented out by Inspection (13/6/21 6:51 PM):Button llPdf;
     lateinit var verbtype: String
-    lateinit var context: Context
+    lateinit var contexts: Context
     var ssagheer = ArrayList<SarfSagheer>()
     lateinit var recyclerView: RecyclerView
 
@@ -42,7 +42,7 @@ class RulesMujarradVerbList : Fragment {
 
     constructor(context: Context?) {
         if (context != null) {
-            this.context = context
+            this.contexts = context
         }
     }
 

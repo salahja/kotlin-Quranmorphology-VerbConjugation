@@ -30,7 +30,5 @@ class EinMahmouz : AbstractEinMahmouz() {
         substitutions.add(InfixSubstitution("ْءِ", "ْئِ")) // EX: (مَرْئِيّ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

@@ -20,9 +20,7 @@ class Imperative2Vocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifie
         substitutions.add(InfixSubstitution("وَ", "يَ")) // EX: (أنتما تسامَيا، تزكَّيا)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov

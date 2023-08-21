@@ -42,7 +42,5 @@ class ImperativeMahmouz : AbstractLamMahmouz() {
         substitutions.add(InfixSubstitution("ِء", "ِئ")) // EX: (قِئْ، قِئْنَ، قِئُنَّ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 }

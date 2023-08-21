@@ -34,9 +34,7 @@ class RaaImperativeMahmouz : SubstitutionsApplier(), IUnaugmentedTrilateralModif
         ) // EX: (رَ، رَيْ، رَيا، رَوْا، رَيْنَ، رَيَنَّ، رَيِنَّ، رَيانِّ، رَوُنَّ، رَيْنانِّ)
     }
 
-     override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val root: TrilateralRoot? = conjugationResult.root

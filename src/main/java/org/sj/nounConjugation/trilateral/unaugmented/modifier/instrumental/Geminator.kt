@@ -32,7 +32,5 @@ class Geminator : AbstractGeminator() {
         substitutions.add(ExpressionInfixSubstitution("اC3ِC3", "اC3ّ")) // EX: (مَاصَّة)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

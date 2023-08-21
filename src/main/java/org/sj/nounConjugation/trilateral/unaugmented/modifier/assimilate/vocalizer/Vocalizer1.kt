@@ -32,9 +32,7 @@ class Vocalizer1 : TrilateralNounSubstitutionApplier(),
         substitutions.add(SuffixSubstitution("ِيِ", "َى")) // EX: (مررتُ على الأعمى ، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val nounFormula = conjugationResult.nounFormula

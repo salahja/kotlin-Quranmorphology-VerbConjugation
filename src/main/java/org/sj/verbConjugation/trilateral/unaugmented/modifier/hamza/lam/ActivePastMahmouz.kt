@@ -42,7 +42,5 @@ class ActivePastMahmouz : AbstractLamMahmouz() {
         substitutions.add(InfixSubstitution("اءُ", "اؤُ")) // EX: (باؤوا، قاؤوا )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

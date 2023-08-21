@@ -30,9 +30,7 @@ class ACAjwaf1Vocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("ْوَ", "َا")) // EX: (مَزَار، مَقامَة)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val nounFormula = conjugationResult.nounFormula

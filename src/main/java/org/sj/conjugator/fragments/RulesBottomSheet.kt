@@ -1,7 +1,6 @@
 package org.sj.conjugator.fragments
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +21,7 @@ import org.sj.conjugator.interfaces.OnItemClickListener
 
 class RulesBottomSheet : BottomSheetDialogFragment() {
     var adapter: rulesbottomsheetadapter? = null
-    var context: Context? = null
+    //var context: Context? = null
     private var kovArrayList: ArrayList<kov>? = null
     private var verbtype: Array<String>? = null
     override fun onCreateView(
@@ -32,7 +31,7 @@ class RulesBottomSheet : BottomSheetDialogFragment() {
         val view = inflater.inflate(R.layout.mujarrad_bottom_fragment, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recview)
         recyclerView.layoutManager =
-            LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
         val bundle = this.arguments
         verbtype = bundle!!.getStringArray(ARG_OPTIONS_DATA)
         val mLayoutManager = GridLayoutManager(activity, 2)

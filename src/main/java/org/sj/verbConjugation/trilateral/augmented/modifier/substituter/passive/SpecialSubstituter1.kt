@@ -13,9 +13,7 @@ class SpecialSubstituter1 : SubstitutionsApplier(), IAugmentedTrilateralModifier
         substitutions.add(InfixSubstitution("وْت", "تّ")) // EX: (اتُّصِلَ ، اتُّقِيَ، اتُّئِيَ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov

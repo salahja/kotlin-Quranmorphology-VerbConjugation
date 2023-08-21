@@ -29,9 +29,7 @@ class WawiPassivePresentVocalizer : SubstitutionsApplier(), IUnaugmentedTrilater
         substitutions.add(InfixSubstitution("ُوْ", "ُو")) // EX: (يُوعَدُ، يُوهَبُ، يُورَثُ، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

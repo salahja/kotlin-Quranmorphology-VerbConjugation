@@ -39,9 +39,7 @@ class Imperative1Vocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralModif
         substitutions.add(InfixSubstitution("اوْ", ""))
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     /**
      * فحص أحد ثلاثة احتمالات

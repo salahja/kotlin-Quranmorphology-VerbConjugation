@@ -19,9 +19,7 @@ class TEndedGeminator : SubstitutionsApplier(), IAugmentedTrilateralModifier {
         ) // EX: (أنا سَكَّتُّ ، أنتَ سَكَّتَّ ، أنتِ سَكَّتِّ )    }
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov

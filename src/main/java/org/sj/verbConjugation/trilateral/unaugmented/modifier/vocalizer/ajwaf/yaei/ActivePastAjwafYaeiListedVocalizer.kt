@@ -30,7 +30,5 @@ class ActivePastAjwafYaeiListedVocalizer : AbstractAjwafYaeiListedVocalizer() {
         substitutions.add(ExpressionInfixSubstitution("َيِC3ُ", "َاC3ُ")) // EX: (شاؤوا، باتوا)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

@@ -26,7 +26,5 @@ class PassivePastGeminator : SubstitutionsApplier() {
         ) // EX: (حُوجُّوا، احْمُورُّوا)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

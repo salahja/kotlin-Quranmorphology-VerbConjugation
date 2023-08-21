@@ -45,7 +45,5 @@ class ImperativeMahmouz : AbstractEinMahmouz() {
         ) // EX: (اضْؤُل، امْؤُ[المتطرفة عروضاً لها حكم المتوسطة أصالة])
     }
 
-     override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

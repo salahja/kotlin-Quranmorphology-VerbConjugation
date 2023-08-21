@@ -19,9 +19,7 @@ class Present5Vocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifier {
         substitutions.add(InfixSubstitution("ِّيْ", "ِّي")) // EX: (أنتن تُقَوِّينَ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov

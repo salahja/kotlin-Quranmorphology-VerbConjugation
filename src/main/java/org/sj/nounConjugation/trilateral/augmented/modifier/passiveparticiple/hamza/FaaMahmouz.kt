@@ -20,8 +20,8 @@ import java.util.LinkedList
  * @author Haytham Mohtasseb Billah
  * @version 1.0
  */
-class FaaMahmouz : AbstractFaaMahmouz() {
-     override  var substitutions: MutableList<InfixSubstitution> = LinkedList()
+class FaaMahmouz( override  var substitutions: MutableList<InfixSubstitution> = LinkedList()) : AbstractFaaMahmouz() {
+
 
     init {
         substitutions.add(InfixSubstitution("َءَا", "َآ")) // EX: (مُتآكَلٌ)
@@ -32,7 +32,5 @@ class FaaMahmouz : AbstractFaaMahmouz() {
         substitutions.add(InfixSubstitution("ُء", "ُؤ")) // EX: (مُؤْثَرٌ، مُؤَثَّرٌ، مُؤَاجَرٌ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

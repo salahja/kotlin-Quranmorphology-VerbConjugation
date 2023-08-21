@@ -32,7 +32,5 @@ class PassivePastMahmouz : AbstractLamMahmouz() {
         substitutions.add(InfixSubstitution("ُءْ", "ُؤْ")) // EX: (جُؤْتُ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 }

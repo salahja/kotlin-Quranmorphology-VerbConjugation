@@ -40,7 +40,5 @@ class ActivePresentGeminator : SubstitutionsApplier() {
         substitutions.add(ExpressionSuffixSubstitution("ْC3َC3ْ", "َC3َّ"))
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

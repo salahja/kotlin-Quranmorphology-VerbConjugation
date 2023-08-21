@@ -21,9 +21,7 @@ class Imperative6Vocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifie
         substitutions.add(InfixSubstitution("وِن", "يِن")) // EX: (أنتِ تَساوَيِنَّ، تَسَوَّيِنَّ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov

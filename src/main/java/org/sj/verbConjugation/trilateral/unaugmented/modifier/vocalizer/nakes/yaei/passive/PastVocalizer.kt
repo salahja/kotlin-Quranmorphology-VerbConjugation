@@ -30,9 +30,7 @@ class PastVocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralModifier {
         substitutions.add(InfixSubstitution("ِيُ", "ُ"))
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

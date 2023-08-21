@@ -21,7 +21,5 @@ class ActivePastGeminator : SubstitutionsApplier() {
         substitutions.add(ExpressionInfixSubstitution("َC3َC3ُ", "َC3ُّ")) // EX: (احمرُّوا)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 }

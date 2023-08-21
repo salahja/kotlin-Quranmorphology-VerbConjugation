@@ -38,9 +38,7 @@ class ImperativeVocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralModifi
         substitutions.add(InfixSubstitution("َيُن", "َوُن")) // EX: (أنتم اسعَوُنَّ، اخشَوُنَّ )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

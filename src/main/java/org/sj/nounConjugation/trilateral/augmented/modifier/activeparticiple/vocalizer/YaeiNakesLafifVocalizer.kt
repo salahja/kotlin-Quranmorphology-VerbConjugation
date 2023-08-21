@@ -125,7 +125,5 @@ class YaeiNakesLafifVocalizer : TrilateralNounSubstitutionApplier(),
         return false
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

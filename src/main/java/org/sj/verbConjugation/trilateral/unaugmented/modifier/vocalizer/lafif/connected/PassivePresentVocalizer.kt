@@ -45,9 +45,7 @@ class PassivePresentVocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralMo
         substitutions.add(InfixSubstitution("َوُو", "َوْ")) // EX: (أنتم تُسْوَوْنَ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

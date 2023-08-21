@@ -29,9 +29,7 @@ class SpecialSubstituter1 : TrilateralNounSubstitutionApplier(), IAugmentedTrila
         substitutions.add(InfixSubstitution("وْت", "تّ")) // EX: (اتِّصال، اتِّقاء، اتِّأء)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov

@@ -50,9 +50,7 @@ class PastVocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifier {
         ) // EX: (هما أدنَيَا، سَمَّيَا ، حابَيَا، انْجَلَيَا، ارتضيا، ارعَوَيَا، تسامَيَا، تزكَّيَا ، استرضيا، احلوليا)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov

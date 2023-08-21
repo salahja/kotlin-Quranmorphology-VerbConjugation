@@ -37,7 +37,5 @@ class LamMahmouz : AbstractLamMahmouz() {
         substitutions.add(InfixSubstitution("ِء", "ِئ")) // EX: (قارئة)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

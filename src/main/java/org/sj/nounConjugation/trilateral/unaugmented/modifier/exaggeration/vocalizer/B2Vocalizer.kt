@@ -30,9 +30,7 @@ class B2Vocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("ُوي", "ِيّ")) // EX: (جَنِيّ، قَوِيّ، وَفِيّ )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val nounFormula = conjugationResult.nounFormula

@@ -39,9 +39,7 @@ class Present1Vocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifier {
         ) // EX: (أنتن تُحْيِينَ، تُحايِين، تزديين، تستحيين)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov

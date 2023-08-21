@@ -30,9 +30,7 @@ class WawiLafifNakes1Vocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("ُوو", "ُوّ")) // EX: (مأسُوّ، مَغْزُوّ، مَسْرُوّ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

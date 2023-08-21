@@ -3,6 +3,7 @@ package org.sj.verbConjugation.util;
 import org.sj.verbConjugation.trilateral.Substitution.InfixSubstitution;
 import org.sj.verbConjugation.trilateral.Substitution.SubstitutionsApplier;
 import org.sj.verbConjugation.trilateral.augmented.MazeedConjugationResult;
+import org.sj.verbConjugation.trilateral.unaugmented.ConjugationResult;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class VerbLamAlefModifier extends SubstitutionsApplier {
         return instance;
     }
 
-    public void apply(org.sj.verbConjugation.trilateral.unaugmented.ConjugationResult conjResult) {
+    public void apply(List<Object> finalResult, ConjugationResult conjResult) {
         apply(conjResult.getFinalResult(), null);
     }
 

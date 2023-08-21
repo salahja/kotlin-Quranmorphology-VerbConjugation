@@ -30,9 +30,7 @@ class B1Vocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("ُوو", "ُوّ")) // EX: (عَفُوّ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val nounFormula = conjugationResult.nounFormula

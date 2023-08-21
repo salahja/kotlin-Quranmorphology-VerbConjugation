@@ -40,9 +40,7 @@ class I1Vocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("ِوِ", "ِ")) // EX: (زَهِينَ، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val nounFormula = conjugationResult.nounFormula

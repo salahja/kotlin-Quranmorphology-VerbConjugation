@@ -33,7 +33,5 @@ class Geminator : AbstractGeminator() {
         ) // EX: (صَمَّاء، رَيَّان، رَثٌّ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

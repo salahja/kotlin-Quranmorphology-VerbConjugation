@@ -30,9 +30,7 @@ class BAjwafVocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("ْيِ", "ِي")) // EX: (مَبِيع)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val nounFormula = conjugationResult.nounFormula

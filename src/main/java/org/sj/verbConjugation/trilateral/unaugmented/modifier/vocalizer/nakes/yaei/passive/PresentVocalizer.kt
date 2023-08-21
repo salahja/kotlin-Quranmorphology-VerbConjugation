@@ -51,9 +51,7 @@ class PresentVocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralModifier 
         ) // EX: (أنتم تُرمَوُنَّ، تُسعَوُنَّ، تُخشوُنَّ )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

@@ -90,7 +90,5 @@ class WawiNakesLafifVocalizer : TrilateralNounSubstitutionApplier(), IAugmentedT
         return false
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

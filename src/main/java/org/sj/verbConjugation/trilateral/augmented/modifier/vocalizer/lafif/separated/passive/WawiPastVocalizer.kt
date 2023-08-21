@@ -25,9 +25,7 @@ class WawiPastVocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifier {
         substitutions.add(InfixSubstitution("ِّيُ", "ُّ")) // EX: (هم وُفُّوا، تُوُلُّوا)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         if (mazeedConjugationResult.root.c1 != 'و') return false

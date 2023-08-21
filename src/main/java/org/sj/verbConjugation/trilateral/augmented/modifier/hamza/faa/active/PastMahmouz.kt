@@ -35,7 +35,5 @@ class PastMahmouz : AbstractFaaMahmouz() {
         ) // EX: (اسْتَأْمَرَ، اسْتَأْوَرَ، استأيَكَ، اسْتَأمَى، استأنَى، اسْتَأْوَى، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

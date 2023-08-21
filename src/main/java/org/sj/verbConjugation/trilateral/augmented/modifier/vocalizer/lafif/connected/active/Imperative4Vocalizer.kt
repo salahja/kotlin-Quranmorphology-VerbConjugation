@@ -44,9 +44,7 @@ class Imperative4Vocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifie
         ) // EX: (أنتن أسْوِينَ، ساوِينَ، انْغَوِينَ، استَوِينَ، استَغْوِينَ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov

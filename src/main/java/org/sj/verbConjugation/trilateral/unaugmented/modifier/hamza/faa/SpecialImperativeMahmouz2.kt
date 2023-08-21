@@ -21,14 +21,11 @@ import org.sj.verbConjugation.trilateral.unaugmented.modifier.IUnaugmentedTrilat
  * @author Haytham Mohtasseb Billah
  * @version 1.0
  */
-class SpecialImperativeMahmouz2 : SubstitutionsApplier(),
+class SpecialImperativeMahmouz2() : SubstitutionsApplier(),
     IUnaugmentedTrilateralModifier {
-    override val substitutions: List<*>
-        get() = TODO("Not yet implemented")
+    
 
-    override fun getSubstitutions(): List<*>? {
-        return null
-    }
+  
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val root = conjugationResult.root
@@ -48,4 +45,7 @@ class SpecialImperativeMahmouz2 : SubstitutionsApplier(),
         words.set(5, "كُلُوا")
         words.set(6, "كُلْنَ")
     }
+
+    override val substitutions: List<*>
+        get() =  substitutions
 }

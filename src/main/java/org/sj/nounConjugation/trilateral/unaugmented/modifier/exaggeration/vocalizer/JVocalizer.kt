@@ -30,9 +30,7 @@ class JVocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("ِوَ", "ِيَ")) // EX: (داعِيَة، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val nounFormula = conjugationResult.nounFormula

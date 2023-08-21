@@ -40,9 +40,7 @@ class Ajwaf2Vocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("اوِءِ", "ائِ")) // EX: (نائِينَ، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

@@ -41,9 +41,7 @@ class YaeiNakesLafifVocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("اي", "اء")) // EX: (مِسراء )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         if (conjugationResult.root.c3 != 'ي') return false

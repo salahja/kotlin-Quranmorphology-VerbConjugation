@@ -30,9 +30,7 @@ class C1Vocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("مِوْ", "مِي")) // EX: (مِيصال )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val nounFormula = conjugationResult.nounFormula

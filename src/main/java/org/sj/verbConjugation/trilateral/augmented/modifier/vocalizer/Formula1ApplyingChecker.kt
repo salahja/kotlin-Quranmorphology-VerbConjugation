@@ -56,11 +56,5 @@ class Formula1ApplyingChecker : IFormulaApplyingChecker() {
         notVocalizedList.add("هيق")
     }
 
-    fun getNotVocalizedList(): List<String> {
-        return notVocalizedList
-    }
 
-    fun getTwoStateList(): List<String> {
-        return twoStateList
-    }
 }

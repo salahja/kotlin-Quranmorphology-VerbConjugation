@@ -53,5 +53,5 @@ abstract class SubstitutionsApplier {
         }
     }
 
-    abstract fun getSubstitutions(): List<*>?
+  //  abstract fun getSubstitutions(): List<*>?
 }

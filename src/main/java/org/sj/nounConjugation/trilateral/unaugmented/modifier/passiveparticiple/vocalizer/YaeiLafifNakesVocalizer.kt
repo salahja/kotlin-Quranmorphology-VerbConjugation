@@ -35,9 +35,7 @@ class YaeiLafifNakesVocalizer : TrilateralNounSubstitutionApplier(),
         ) // EX: (مأتِيّ، مرئِيّ، مرمِيّ، مَشْوِيّ، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

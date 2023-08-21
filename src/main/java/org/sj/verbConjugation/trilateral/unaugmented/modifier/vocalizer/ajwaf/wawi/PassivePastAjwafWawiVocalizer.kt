@@ -50,7 +50,5 @@ class PassivePastAjwafWawiVocalizer : AbstractAjwafWawiVocalizer() {
      * @todo Implement this
      * org.sj.verb.trilateral.Substitution.SubstitutionsApplier method
      */
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 }

@@ -43,7 +43,5 @@ class PresentMahmouz : AbstractLamMahmouz() {
         ) // EX: (يُجْزِّئُ، لن يُجْزِّئَ، لم يُجْزِّئْ، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 }

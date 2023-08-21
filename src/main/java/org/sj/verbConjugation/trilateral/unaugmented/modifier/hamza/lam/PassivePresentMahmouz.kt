@@ -39,7 +39,5 @@ class PassivePresentMahmouz : AbstractLamMahmouz() {
         substitutions.add(InfixSubstitution("اءُن", "اؤُن")) // EX: (هم يساؤُنَّ، يجاؤنَّ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 }

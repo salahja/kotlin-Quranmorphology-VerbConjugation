@@ -37,9 +37,7 @@ class ActivePresent1Vocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralMo
         substitutions.add(ExpressionInfixSubstitution("َيْC2ِيَ", "َC2ِيَ")) // EX: (أنتما تَدِيان)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

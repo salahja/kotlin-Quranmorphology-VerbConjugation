@@ -40,9 +40,7 @@ abstract class AbstractAjwafWawiListedVocalizer : ListedVocalizer() {
         appliedRoots.add("هوع")
     }
 
-    fun getAppliedRoots(): List<String> {
-        return appliedRoots
-    }
+
 
     protected override val noc: Int
         protected get() = 4

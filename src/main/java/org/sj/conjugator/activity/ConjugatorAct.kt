@@ -83,10 +83,10 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
         this.isautocomplete = isautocomplete
     }
 
-    fun setSarfKabeed(sarfKabeed: Boolean) {
+   /* fun setSarfKabeed(sarfKabeed: Boolean) {
         isSarfKabeed = sarfKabeed
     }
-
+*/
     override fun onBackPressed() {
         super.onBackPressed()
     }
@@ -125,12 +125,12 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
         KeyboardUtil.hideKeyboard(this@ConjugatorAct)
         val root: Array<String?>
         val util = VerbDatabaseUtils(this@ConjugatorAct)
-        val verbAll: ArrayList<MujarradVerbs> = util.mujarradAall
-        val size = verbAll.size
+        val verbAll: ArrayList<MujarradVerbs?>? = util.mujarradAall
+        val size = verbAll!!.size
         root = arrayOfNulls(size)
         var i = 0
         for (entity in verbAll) {
-            val roots: String = entity.root
+            val roots: String = entity!!.root
             root[i++] = roots
         }
         keyboard = findViewById(R.id.arabic_keyboard)
@@ -149,14 +149,14 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
         KeyboardUtil.hideKeyboard(this@ConjugatorAct)
         val root: Array<String?>
         val util = VerbDatabaseUtils(this@ConjugatorAct)
-        val verbAll: ArrayList<MujarradVerbs> = util.mujarradAall
-        val size = verbAll.size
-        root = arrayOfNulls(size)
+        val verbAll: ArrayList<MujarradVerbs?>? = util.mujarradAall
+        val size = verbAll?.size
+        root = arrayOfNulls(size!!)
         var i = 0
         for (entity in verbAll) {
-            val roots: String = entity.root
-            root[i++] = roots
-        }
+                val roots: String = entity!!.root
+                root[i++] = roots
+            }
   /*      val h = HashSet(Arrays.asList(*root))
         val aList2: List<String> = java.util.ArrayList(h)
   */
@@ -695,7 +695,7 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
         dataBundle.putString(QURAN_VERB_ROOT, root)
         dataBundle.putString(VERBTYPE, verbtype)
         dataBundle.putBoolean(SARFKABEER, isSarfKabeed)
-        setSarfKabeed(false)
+        isSarfKabeed=false;
         val intent = Intent(this@ConjugatorAct, ConjugatorTabsActivity::class.java)
         intent.putExtras(dataBundle)
         startActivity(intent)

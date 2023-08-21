@@ -50,9 +50,7 @@ class Imperative1Vocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifie
         ) // EX: (أنتما أدْنِيا، حابِيا، انجلِيا، ارتضيا، ارعويا، استرضيا، احلوليا)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov

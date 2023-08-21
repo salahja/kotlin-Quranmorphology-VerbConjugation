@@ -4,6 +4,7 @@ import org.sj.verbConjugation.trilateral.Substitution.Substitution;
 import org.sj.verbConjugation.trilateral.Substitution.SubstitutionsApplier;
 import org.sj.verbConjugation.trilateral.TrilateralRoot;
 import org.sj.verbConjugation.trilateral.augmented.MazeedConjugationResult;
+import org.sj.verbConjugation.trilateral.unaugmented.ConjugationResult;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -59,7 +60,7 @@ public class NounSunLamModifier extends SubstitutionsApplier {
         return instance;
     }
 
-    public void apply(org.sj.verbConjugation.trilateral.unaugmented.ConjugationResult conjResult) {
+    public void apply(List<Object> finalResult, ConjugationResult conjResult) {
         apply(conjResult.getFinalResult(), null);
     }
 
@@ -108,11 +109,12 @@ public class NounSunLamModifier extends SubstitutionsApplier {
         }
 
         public String apply(String word, String sl) {
-            String wordSegment = segment.replaceAll("SL", sl);
+            String wordSegment =    getSegment().replaceAll("SL",sl);
             if (word.indexOf(wordSegment) == -1) {
                 return null;
             }
-            String replacedResult = result.replaceAll("SL", sl);
+            String replacedResult =    getResult().replaceAll("SL",sl);
+
             return word.replaceAll(wordSegment, replacedResult);
         }
 

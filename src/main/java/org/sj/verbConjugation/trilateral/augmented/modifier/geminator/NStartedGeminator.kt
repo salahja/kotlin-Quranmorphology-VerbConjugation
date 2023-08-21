@@ -23,7 +23,5 @@ class NStartedGeminator : SubstitutionsApplier(), IAugmentedTrilateralModifier {
         apply(conjResult.finalResult as MutableList<String>, conjResult.root)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

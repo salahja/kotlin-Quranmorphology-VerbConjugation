@@ -31,9 +31,7 @@ class PreMithalLafifVocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("مِيْ", "مِي")) // EX: (مِيقَن، مِيقنة، مِيقان، مِيداء)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

@@ -51,9 +51,7 @@ class NGeminator : SubstitutionsApplier(), IUnaugmentedTrilateralModifier {
         indeciesMap[SystemConstants.EMPHASIZED_IMPERATIVE_TENSE] = indecies
     }
 
-     override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

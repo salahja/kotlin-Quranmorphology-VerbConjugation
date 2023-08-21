@@ -43,9 +43,7 @@ class Ajwaf4Vocalizer : TrilateralNounSubstitutionApplier(),
         ) // EX: (جائيان، جائيَيْن، جائية، جائيًا، رأيتُ الجائِيَ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

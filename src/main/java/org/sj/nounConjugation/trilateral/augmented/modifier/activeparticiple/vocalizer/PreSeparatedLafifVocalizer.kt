@@ -37,7 +37,5 @@ class PreSeparatedLafifVocalizer : TrilateralNounSubstitutionApplier(),
         return kov == 30 && formulaNo == 1
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

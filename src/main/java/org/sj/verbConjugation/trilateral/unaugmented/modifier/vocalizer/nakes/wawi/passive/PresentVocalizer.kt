@@ -39,14 +39,12 @@ class PresentVocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralModifier 
         substitutions.add(InfixSubstitution("َوُو", "َوْ")) // EX: (أنتم تُغْزَوْنَ )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
-        val kov = conjugationResult.getKov()
-        val noc = conjugationResult.getRoot().conjugation!!.toInt()
+        val kov = conjugationResult.kov
+        val noc = conjugationResult.root.conjugation!!.toInt()
         return (((kov == 21 || kov == 22 || kov == 23 && noc == 1 || kov == 21 || kov == 23) && noc == 5 || (kov == 22 || kov == 23) && noc == 3 || kov == 23) && noc == 4)
     }
 

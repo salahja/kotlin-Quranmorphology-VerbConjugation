@@ -56,7 +56,5 @@ class PassivePresentAjwafYaeiListedVocalizer : AbstractAjwafYaeiListedVocalizer(
         ) // EX: (أنتن تُلَنَّ، هن يُلَنَّ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 }

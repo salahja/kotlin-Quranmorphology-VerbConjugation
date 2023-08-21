@@ -14,4 +14,7 @@ class ExpressionSuffixSubstitution(segment: String, result: String) :
         replacedResult = replacedResult.replace("C3".toRegex(), root.c3.toString() + "")
         return word.replace(wordSegment.toRegex(), replacedResult)
     }
+
+
+
 }

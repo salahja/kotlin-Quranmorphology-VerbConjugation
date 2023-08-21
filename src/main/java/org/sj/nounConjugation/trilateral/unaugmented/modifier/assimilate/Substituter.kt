@@ -31,9 +31,7 @@ class Substituter : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("اءَي", "اوَي")) // EX: (عَمْياوين)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         return conjugationResult.nounFormula == "فَعْلان"

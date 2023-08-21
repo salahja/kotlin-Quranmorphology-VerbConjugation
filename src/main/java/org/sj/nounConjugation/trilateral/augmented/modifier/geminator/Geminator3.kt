@@ -36,7 +36,5 @@ class Geminator3 : TrilateralNounSubstitutionApplier(),
         return mazeedConjugationResult.root.c1 == 'ت' && (kov == 1 || kov == 6) && formulaNo == 5
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

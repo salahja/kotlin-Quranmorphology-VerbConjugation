@@ -53,7 +53,7 @@ class BookmarksShowAdapter : RecyclerView.Adapter<BookmarksShowAdapter.ViewHolde
         viewType: Int
     ): BookmarksShowAdapter.ViewHolder {
         val view: View =
-            LayoutInflater.from(parent.getContext()).inflate(R.layout.row_bookmar_two, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.row_bookmar_two, parent, false)
         //   sendVerseClick=(SendVerseClick) getActivity();
         return ViewHolder(view, viewType)
     }

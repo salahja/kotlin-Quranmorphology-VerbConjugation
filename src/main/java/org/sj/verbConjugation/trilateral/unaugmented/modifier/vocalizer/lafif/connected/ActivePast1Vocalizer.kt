@@ -33,9 +33,7 @@ class ActivePast1Vocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralModif
         substitutions.add(InfixSubstitution("َيَت", "َت"))
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

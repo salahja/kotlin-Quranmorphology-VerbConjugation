@@ -53,9 +53,7 @@ class ActivePresentVocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralMod
         substitutions.add(InfixSubstitution("َوَ", "َيَ")) // EX: (أنتما تسْويانِ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

@@ -30,13 +30,8 @@ class Ajwaf3YaeiListedVocalizer : AbstractAjwafYaeiListedVocalizer(),
         substitutions.add(InfixSubstitution("ايِ", "ائِ")) // EX: (بائِعٌ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
 
-      fun getAppliedPronounsIndecies(): List<*> {
-        return appliedProunounsIndecies
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         return super.isApplied(conjugationResult)

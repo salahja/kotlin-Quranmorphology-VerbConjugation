@@ -70,7 +70,5 @@ class Geminator1 : TrilateralNounSubstitutionApplier(),
         return false
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

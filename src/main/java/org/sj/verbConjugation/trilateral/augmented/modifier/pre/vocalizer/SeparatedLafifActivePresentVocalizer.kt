@@ -14,9 +14,7 @@ class SeparatedLafifActivePresentVocalizer : SubstitutionsApplier(), IAugmentedT
         substitutions.add(InfixSubstitution("ُيْ", "ُو")) // EX: (يُودِي)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov

@@ -15,9 +15,7 @@ class YaeiPastVocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifier {
         substitutions.add(InfixSubstitution("ِّيُ", "ُّ")) // EX: (هم يُدُّوا، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         if (mazeedConjugationResult.root.c1 != 'ي') {

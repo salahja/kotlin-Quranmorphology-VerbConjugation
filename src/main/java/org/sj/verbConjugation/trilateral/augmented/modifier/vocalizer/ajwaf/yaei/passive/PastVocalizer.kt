@@ -35,9 +35,7 @@ class PastVocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifier {
         ) // EX: (انهِيلوا، اكتِيلوا)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov

@@ -29,7 +29,5 @@ class PassivePastMahmouz : AbstractFaaMahmouz() {
         substitutions.add(PrefixSubstitution("ءُ", "أُ")) // EX: (أُكِلَ)
     }
 
-      override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

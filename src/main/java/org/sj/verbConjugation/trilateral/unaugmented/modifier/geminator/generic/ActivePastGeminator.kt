@@ -32,7 +32,5 @@ class ActivePastGeminator : SubstitutionsApplier() {
         substitutions.add(ExpressionInfixSubstitution("C2ُC3ُ", "C3ُّ"))
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

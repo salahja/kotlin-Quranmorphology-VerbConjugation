@@ -39,9 +39,7 @@ class ActivePrenentVocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralMod
         substitutions.add(InfixSubstitution("َوْ", "َ"))
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     /**
      * فحص أحد ثلاثة احتمالات

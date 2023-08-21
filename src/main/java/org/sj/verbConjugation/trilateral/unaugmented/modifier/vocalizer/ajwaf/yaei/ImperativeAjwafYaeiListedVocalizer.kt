@@ -30,7 +30,5 @@ class ImperativeAjwafYaeiListedVocalizer : AbstractAjwafYaeiListedVocalizer() {
         substitutions.add(ExpressionInfixSubstitution("اC1ْيَC3ْ", "C1َC3ْ"))
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 }

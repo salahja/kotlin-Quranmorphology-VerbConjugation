@@ -51,7 +51,5 @@ class PassivePastAjwafYaeiListedVocalizer : AbstractAjwafYaeiListedVocalizer() {
         ) // EX: (بِيعوا، قِيئوا، إينوا، شِيئوا، بِيتوا)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

@@ -23,7 +23,5 @@ class PresentMahmouz : AbstractEinMahmouz() {
         substitutions.add(InfixSubstitution("اءَ", "اءَ")) // EX: (يُلاءَمُ، يُتَساءَلُ، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 }

@@ -38,9 +38,7 @@ class Vocalizer42 : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("ِيِي", "ِي")) // EX: (صَدِينَ )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val nounFormula = conjugationResult.nounFormula

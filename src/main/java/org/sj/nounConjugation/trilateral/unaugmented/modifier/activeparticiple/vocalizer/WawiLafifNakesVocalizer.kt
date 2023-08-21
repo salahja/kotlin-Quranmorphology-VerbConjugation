@@ -50,9 +50,7 @@ class WawiLafifNakesVocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("ِوِ", "ِ")) // EX: (غازِينَ، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         if (conjugationResult.root.c3 != 'و') return false

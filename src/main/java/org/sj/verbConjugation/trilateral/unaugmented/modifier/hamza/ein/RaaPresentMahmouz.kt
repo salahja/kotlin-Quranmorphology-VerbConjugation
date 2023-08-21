@@ -29,9 +29,7 @@ class RaaPresentMahmouz : SubstitutionsApplier(), IUnaugmentedTrilateralModifier
         substitutions.add(InfixSubstitution("ْءَ", "َ")) // EX: (يَرَى)
     }
 
-     override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val root: TrilateralRoot? = conjugationResult.root

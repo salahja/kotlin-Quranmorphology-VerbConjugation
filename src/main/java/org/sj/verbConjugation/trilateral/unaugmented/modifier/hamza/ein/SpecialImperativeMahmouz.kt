@@ -23,12 +23,9 @@ import org.sj.verbConjugation.trilateral.unaugmented.modifier.IUnaugmentedTrilat
  */
 class SpecialImperativeMahmouz : SubstitutionsApplier(),
     IUnaugmentedTrilateralModifier {
-    override val substitutions: List<*>
-        get() = TODO("Not yet implemented")
+    
 
-    override fun getSubstitutions(): List<*>? {
-        return null
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val root = conjugationResult.root
@@ -48,4 +45,7 @@ class SpecialImperativeMahmouz : SubstitutionsApplier(),
         words.set(5, "سَلُوا/اسْأَلُوا")
         words.set(6, "سَلْنَ/اسْأَلْنَ")
     }
+    override val substitutions: List<*>
+        get() =  substitutions
+
 }

@@ -29,9 +29,7 @@ class Imperative2Vocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralModif
         substitutions.add(InfixSubstitution("اوْ", "اي")) // EX: (ايجل، ايبأ، ايدد، ايئب )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

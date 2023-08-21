@@ -51,7 +51,5 @@ class ActivePresentAjwafYaeiVocalizer : AbstractAjwafYaeiVocalizer() {
         ) // EX: (أنتن تَلِنَّ ، هن يَلِنَّ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

@@ -39,7 +39,5 @@ class Mithal1Vocalizer : TrilateralNounSubstitutionApplier(),
 
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

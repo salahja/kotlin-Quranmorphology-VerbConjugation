@@ -59,7 +59,5 @@ class PassivePresentGeminator : SubstitutionsApplier() {
         substitutions.add(ExpressionInfixSubstitution("َC3َC3ِ", "َC3ِّ")) // EX: (تُنقَضِّين)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

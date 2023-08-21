@@ -30,9 +30,7 @@ class WawiLafifNakes2Vocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("ُوو", "ِيّ")) // EX: (مَرْضِيّ , مسوِيٌّ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         if (conjugationResult.root.c3 != 'و') return false

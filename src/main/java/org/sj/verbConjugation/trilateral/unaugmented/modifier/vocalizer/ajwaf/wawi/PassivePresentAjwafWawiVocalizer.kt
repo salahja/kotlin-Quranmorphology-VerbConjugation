@@ -57,7 +57,5 @@ class PassivePresentAjwafWawiVocalizer : AbstractAjwafWawiVocalizer() {
         ) // EX: (أنتن تُصَنَّ، هن يُصَنَّ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

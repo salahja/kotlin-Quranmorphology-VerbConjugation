@@ -39,9 +39,7 @@ class WawiPassivePresentVocalizer : SubstitutionsApplier(), IUnaugmentedTrilater
         substitutions.add(ExpressionInfixSubstitution("ْC2َيُن", "C2َوُن")) // EX: (أنتم تُوقَوُنَّ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         if (conjugationResult.root.c1 != 'و') {

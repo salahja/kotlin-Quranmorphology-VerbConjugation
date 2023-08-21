@@ -36,9 +36,7 @@ class ALafifNakesVocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("َي", "َى")) // EX: (مَمْشَى )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val nounFormula = conjugationResult.nounFormula

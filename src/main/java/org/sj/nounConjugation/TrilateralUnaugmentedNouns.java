@@ -33,13 +33,13 @@ public class TrilateralUnaugmentedNouns {
     private UnaugmentedTrilateralRoot root;
 
     public TrilateralUnaugmentedNouns(UnaugmentedTrilateralRoot root) {
-        standardExaggerations = StandardExaggerationConjugator.getInstance().getAppliedFormulaList(root);
-        nonStandardExaggerations = org.sj.nounConjugation.trilateral.unaugmented.exaggeration.NonStandardExaggerationConjugator.getInstance().getAppliedFormulaList(root);
-        timeAndPlaces = org.sj.nounConjugation.trilateral.unaugmented.timeandplace.TimeAndPlaceConjugator.getInstance().getAppliedFormulaList(root);
-        standardInstrumentals = org.sj.nounConjugation.trilateral.unaugmented.instrumental.StandardInstrumentalConjugator.getInstance().getAppliedFormulaList(root);
-        nonStandardInstrumentals = org.sj.nounConjugation.trilateral.unaugmented.instrumental.NonStandardInstrumentalConjugator.getInstance().getAppliedFormulaList(root);
-        elatives = org.sj.nounConjugation.trilateral.unaugmented.elative.ElativeNounConjugator.getInstance().getAppliedFormulaList(root);
-        assimilates = org.sj.nounConjugation.trilateral.unaugmented.assimilate.AssimilateAdjectiveConjugator.getInstance().getAppliedFormulaList(root);
+        standardExaggerations = StandardExaggerationConjugator.Companion.getInstance().getAppliedFormulaList(root);
+        nonStandardExaggerations = org.sj.nounConjugation.trilateral.unaugmented.exaggeration.NonStandardExaggerationConjugator.Companion.getInstance().getAppliedFormulaList(root);
+        timeAndPlaces = org.sj.nounConjugation.trilateral.unaugmented.timeandplace.TimeAndPlaceConjugator.Companion.getInstance().getAppliedFormulaList(root);
+        standardInstrumentals = org.sj.nounConjugation.trilateral.unaugmented.instrumental.StandardInstrumentalConjugator.Companion.getInstance().getAppliedFormulaList(root);
+        nonStandardInstrumentals = org.sj.nounConjugation.trilateral.unaugmented.instrumental.NonStandardInstrumentalConjugator.Companion.getInstance().getAppliedFormulaList(root);
+        elatives = org.sj.nounConjugation.trilateral.unaugmented.elative.ElativeNounConjugator.Companion.getInstance().getAppliedFormulaList(root);
+        assimilates = org.sj.nounConjugation.trilateral.unaugmented.assimilate.AssimilateAdjectiveConjugator.Companion.getInstance().getAppliedFormulaList(root);
     }
 
     public List getAssimilates() {

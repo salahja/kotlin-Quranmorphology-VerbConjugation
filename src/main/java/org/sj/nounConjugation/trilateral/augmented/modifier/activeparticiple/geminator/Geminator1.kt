@@ -24,7 +24,7 @@ import java.util.LinkedList
  */
 class Geminator1 : TrilateralNounSubstitutionApplier(),
     IAugmentedTrilateralModifier {
-    override val substitutions: MutableList<ExpressionInfixSubstitution> = LinkedList()
+      override var substitutions: MutableList<ExpressionInfixSubstitution> = LinkedList()
 
     init {
         substitutions.add(
@@ -70,7 +70,5 @@ class Geminator1 : TrilateralNounSubstitutionApplier(),
         return false
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

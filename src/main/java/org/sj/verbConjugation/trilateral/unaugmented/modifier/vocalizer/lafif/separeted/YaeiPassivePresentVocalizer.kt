@@ -43,9 +43,7 @@ class YaeiPassivePresentVocalizer : SubstitutionsApplier(), IUnaugmentedTrilater
         ) // EX: (أنتم تُودَوُنَّ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         if (conjugationResult.root.c1 != 'ي') {

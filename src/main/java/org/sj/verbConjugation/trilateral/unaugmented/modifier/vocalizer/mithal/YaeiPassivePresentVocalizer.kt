@@ -29,9 +29,7 @@ class YaeiPassivePresentVocalizer : SubstitutionsApplier(), IUnaugmentedTrilater
         substitutions.add(InfixSubstitution("ُيْ", "ُو")) // EX: (يُوسَرُ، يوقَظُ، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

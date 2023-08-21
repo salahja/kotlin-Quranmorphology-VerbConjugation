@@ -35,17 +35,10 @@ open class ConjugationResult(kov: Int, root: UnaugmentedTrilateralRoot?, origina
         finalResult = ArrayList(originalResult)
     }
 
-    fun getFinalResult(): List<Any> {
-        return finalResult
-    }
 
-    fun getKov(): Int {
-        return kov
-    }
 
-    fun getRoot(): UnaugmentedTrilateralRoot {
-        return root
-    }
+
+
 
     override fun toString(): String {
         return "ConjugationResult{" +

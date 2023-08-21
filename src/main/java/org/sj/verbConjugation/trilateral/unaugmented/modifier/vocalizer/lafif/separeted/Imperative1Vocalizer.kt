@@ -35,9 +35,7 @@ class Imperative1Vocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralModif
         substitutions.add(ExpressionInfixSubstitution("ايْC2ِيَ", "C2ِيَ")) // EX: (أنتما دِيا)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov

@@ -51,7 +51,5 @@ class ImperativeAjwafWawiVocalizer : AbstractAjwafWawiVocalizer() {
         substitutions.add(ExpressionInfixSubstitution("اC1ْوُC3ّ", "C1ُC3ّ")) // EX: (أنتن صُنَّ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 }

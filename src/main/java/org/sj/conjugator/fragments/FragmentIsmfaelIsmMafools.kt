@@ -41,9 +41,7 @@ class FragmentIsmfaelIsmMafools : Fragment() {
         return f
     }
 
-    fun setRegularverb(regularverb: Boolean) {
-        this.regularverb = regularverb
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

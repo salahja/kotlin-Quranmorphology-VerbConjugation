@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room.databaseBuilder
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import database.Dao.BuckwaterDao
 import database.Dao.QuranVerbsDao
@@ -21,8 +20,6 @@ import database.entity.QuranicVerbsEntity
 import database.entity.kov
 import database.entity.verbcorpus
 
-
-//@Database(entities= {VerseEntit.class,ErabEntity.class,ChaptersAnaEntity.class},version= 1)
 @Database(
     entities = [Mazeed::class, MujarradVerbs::class, kov::class, verbcorpus::class, BuckwaterEntitiy::class, QuranVerbsEntity::class, QuranicVerbsEntity::class],
     version = 2
@@ -60,12 +57,6 @@ abstract class VerbDatabase : RoomDatabase() {
                     .build()
             }
             return verbDatabaseInstance
-        }
-
-        val MIGRATION_1_2: Migration = object : Migration(1, 2) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("CREATE TABLE IF NOT EXISTS `mazeeddictionary` (`root` TEXT NOT NULL, `form` TEXT NOT NULL, `verbtype` TEXT NOT NULL, `id` INTEGER NOT NULL, `babname` TEXT NOT NULL, PRIMARY KEY(`id`))")
-            }
         }
     }
 }

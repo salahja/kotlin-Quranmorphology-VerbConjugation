@@ -14,9 +14,7 @@ class SeparatedLafifPassviePastVocalizer : SubstitutionsApplier(), IAugmentedTri
         substitutions.add(InfixSubstitution("ُيْ", "ُو")) // EX: (أنا أُودِيتُ، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov

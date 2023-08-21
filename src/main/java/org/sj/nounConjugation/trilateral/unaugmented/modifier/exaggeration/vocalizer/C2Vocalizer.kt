@@ -31,9 +31,7 @@ class C2Vocalizer : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("اي", "اء")) // EX: (مِجْناء، مِعْواء )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val nounFormula = conjugationResult.nounFormula

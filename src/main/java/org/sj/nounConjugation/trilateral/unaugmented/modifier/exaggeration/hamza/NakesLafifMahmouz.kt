@@ -47,9 +47,7 @@ class NakesLafifMahmouz : TrilateralNounSubstitutionApplier(),
         substitutions.add(InfixSubstitution("اءِ", "ائِ")) // EX: (معطائِينَ )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val nounFormula = conjugationResult.nounFormula

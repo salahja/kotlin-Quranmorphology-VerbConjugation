@@ -47,8 +47,8 @@ class ElativeModifier private constructor() : IUnaugmentedTrilateralNounModifier
             )
             vocalizer.apply(conjResult)
             mahmouz.apply(conjResult)
-            NounLamAlefModifier.getInstance().apply(conjResult)
-            NounSunLamModifier.getInstance().apply(conjResult)
+            NounLamAlefModifier.getInstance().apply(conjResult.finalResult, conjResult)
+            NounSunLamModifier.getInstance().apply(conjResult.finalResult, conjResult)
         }
         return conjResult
     }

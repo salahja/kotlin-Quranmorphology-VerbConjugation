@@ -31,9 +31,7 @@ class RaaEinMahmouz : TrilateralNounSubstitutionApplier(), IAugmentedTrilateralM
         substitutions.add(InfixSubstitution("ْءُ", "ُ")) // EX: (مُرُونَ، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val root = mazeedConjugationResult.root

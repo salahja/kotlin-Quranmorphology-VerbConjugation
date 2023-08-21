@@ -33,7 +33,5 @@ class ActivePresentMahmouz : AbstractEinMahmouz() {
         substitutions.add(InfixSubstitution("َءُ", "َؤُ")) // EX: (أنتم تَؤُوا، هم يَؤُوا)
     }
 
-      override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

@@ -18,7 +18,5 @@ class ImperativeMahmouz : AbstractFaaMahmouz() {
         substitutions.add(InfixSubstitution("ءَ", "أَ")) // EX: (أثِّرْ، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }

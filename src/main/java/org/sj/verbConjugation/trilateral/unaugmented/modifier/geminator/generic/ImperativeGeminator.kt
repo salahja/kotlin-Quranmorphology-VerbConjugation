@@ -40,7 +40,5 @@ class ImperativeGeminator : SubstitutionsApplier() {
         substitutions.add(ExpressionSuffixSubstitution("اC1ْC3َC3ْ", "C1َC3َّ")) // EX: (عَضَّ)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 }

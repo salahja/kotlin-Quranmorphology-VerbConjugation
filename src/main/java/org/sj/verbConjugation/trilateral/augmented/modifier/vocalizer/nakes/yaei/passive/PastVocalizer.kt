@@ -25,9 +25,7 @@ class PastVocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifier {
         substitutions.add(InfixSubstitution("ِّيُ", "ُّ")) // EX: (هم رُقُّوا، تُرُقُّوا، اجؤُوُّوا)
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+   
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov

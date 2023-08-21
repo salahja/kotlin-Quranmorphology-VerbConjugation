@@ -34,7 +34,7 @@ class RulesMazeedVerbList : Fragment {
     lateinit var verbmood: String
     lateinit   var verbtype: String
        var ssagheer = ArrayList<SarfSagheer>()
-    lateinit  var context: Context
+    lateinit  var contexts: Context
     lateinit   var recyclerView: RecyclerView
 
     //   private ArrayList sarfSagheerThulathiArray = new ArrayList();
@@ -44,7 +44,7 @@ class RulesMazeedVerbList : Fragment {
     constructor() {}
     constructor(context: Context?) {
         if (context != null) {
-            this.context = context
+            this.contexts = context
         }
     }
 

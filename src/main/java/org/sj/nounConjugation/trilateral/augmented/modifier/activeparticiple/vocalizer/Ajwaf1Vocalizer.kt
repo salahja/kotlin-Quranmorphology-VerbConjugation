@@ -62,9 +62,7 @@ class Ajwaf1Vocalizer : TrilateralNounSubstitutionApplier(), IAugmentedTrilatera
         return false
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 }
 
 

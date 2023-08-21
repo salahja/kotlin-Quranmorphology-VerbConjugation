@@ -28,9 +28,7 @@ class GenericSubstituter7 : AbstractGenericSubstituter() {
         substitutions.add(InfixSubstitution("ضْت", "ضْط")) // EX: (اضطلاع، )
     }
 
-    override fun getSubstitutions(): List<*> {
-        return substitutions
-    }
+
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         return mazeedConjugationResult.root.c1 == 'ض' && super.isApplied(mazeedConjugationResult)
