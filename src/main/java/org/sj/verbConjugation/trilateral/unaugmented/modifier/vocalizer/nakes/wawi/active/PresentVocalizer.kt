@@ -89,7 +89,7 @@ class PresentVocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralModifier 
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         return ((((kov == 21 || kov == 22 || kov == 23 && noc == 1 || kov == 21 || kov == 23) && noc == 5 || kov == 22 || kov == 23) && noc == 3 || kov == 23 && noc == 4))
     }
 }

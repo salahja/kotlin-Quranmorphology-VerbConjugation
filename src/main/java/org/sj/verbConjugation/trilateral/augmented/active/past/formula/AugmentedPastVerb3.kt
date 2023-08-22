@@ -5,10 +5,10 @@ import org.sj.verbConjugation.trilateral.augmented.AugmentedTrilateralRoot
 import org.sj.verbConjugation.util.ArabCharUtil
 
 class AugmentedPastVerb3(
-    root: AugmentedTrilateralRoot?,
+    root:AugmentedTrilateralRoot,
     lastDpa: String?,
     connectedPronoun: String?
-) : AugmentedPastVerb(root, lastDpa, connectedPronoun) {
+) : AugmentedPastVerb(root!!, lastDpa, connectedPronoun) {
     /**
      * form
      *
@@ -17,7 +17,7 @@ class AugmentedPastVerb3(
      * method
      */
     override fun form(): String {
-        //    return root.getC1()+ArabCharUtil.FATHA+"�"+root.getC2()+ArabCharUtil.FATHA+root.getC3()+lastDpa+connectedPronoun;
+        //    return root!!.getC1()+ArabCharUtil.FATHA+"�"+root!!.getC2()+ArabCharUtil.FATHA+root!!.getC3()+lastDpa+connectedPronoun;
         return root!!.c1.toString() + ArabCharUtil.FATHA + "ا" + root!!.c2 + ArabCharUtil.FATHA + root!!.c3 + lastDpa + connectedPronoun
     }
 }

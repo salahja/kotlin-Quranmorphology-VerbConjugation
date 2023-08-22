@@ -35,7 +35,7 @@ class PreMithalLafifVocalizer : TrilateralNounSubstitutionApplier(),
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         when (kov) {
             8 -> return noc == 4
             9 -> return noc == 2

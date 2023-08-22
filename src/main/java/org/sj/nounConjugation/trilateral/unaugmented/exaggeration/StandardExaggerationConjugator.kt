@@ -26,7 +26,7 @@ class StandardExaggerationConjugator private constructor() : IUnaugmentedTrilate
     override fun createNounList(root: UnaugmentedTrilateralRoot, formulaName: String): List<*> {
         val result: MutableList<NounFormula> = LinkedList()
         for (i in 0..17) {
-            val noun: NounFormula = NounFormula1(root, i.toString() + "")
+            val noun: NounFormula = NounFormula1(root!!, i.toString() + "")
             result.add(noun)
         }
         return result

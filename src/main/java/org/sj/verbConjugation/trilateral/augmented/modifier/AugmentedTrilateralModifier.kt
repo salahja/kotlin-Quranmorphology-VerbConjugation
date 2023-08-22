@@ -22,13 +22,13 @@ class AugmentedTrilateralModifier private constructor() {
         applyGemination: Boolean,
         listener: Boolean
     ): MazeedConjugationResult {
-        val conjResult = MazeedConjugationResult(kov, formulaNo, root, conjugations)
+        val conjResult = MazeedConjugationResult(kov, formulaNo, root!!, conjugations)
         substituter.apply(tense, active, conjResult)
         if (applyGemination) {
             mazeedGeminator.apply(tense, active, conjResult)
         }
         var applyVocalization = true
-        val result: Int = FormulaApplyingChecker.Companion.instance.check(root, formulaNo)
+        val result: Int = FormulaApplyingChecker.Companion.instance.check(root!!, formulaNo)
         if (result == IFormulaApplyingChecker.Companion.NOT_VOCALIZED) {
             applyVocalization = false
         } else if (result == IFormulaApplyingChecker.Companion.TWO_STATE) {
@@ -41,7 +41,7 @@ class AugmentedTrilateralModifier private constructor() {
             vocalizerAugmented.apply(tense, active, conjResult)
         }
         sarfHamzaModifier.apply(tense, active, conjResult)
-        VerbLamAlefModifier.getInstance().apply(conjResult)
+        VerbLamAlefModifier.instance.apply(conjResult)
         return conjResult
     }
 
@@ -54,7 +54,7 @@ class AugmentedTrilateralModifier private constructor() {
         active: Boolean,
         listener: Boolean
     ): MazeedConjugationResult {
-        return build(root, kov, formulaNo, conjugations, tense, active, true, listener)
+        return build(root!!, kov, formulaNo, conjugations, tense, active, true, listener)
     }
 
     companion object {

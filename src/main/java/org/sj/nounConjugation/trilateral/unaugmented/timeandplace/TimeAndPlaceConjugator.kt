@@ -48,7 +48,7 @@ class TimeAndPlaceConjugator private constructor() : IUnaugmentedTrilateralNounC
         suffixNo: Int,
         formulaName: String
     ): NounFormula? {
-        val parameters = arrayOf(root, suffixNo.toString() + "")
+        val parameters = arrayOf(root!!, suffixNo.toString() + "")
         try {
             val formulaClass =
                 formulaClassNamesMap[formulaName]!!
@@ -62,7 +62,7 @@ class TimeAndPlaceConjugator private constructor() : IUnaugmentedTrilateralNounC
     override fun createNounList(root: UnaugmentedTrilateralRoot, formulaName: String): List<*> {
         val result: MutableList<NounFormula?> = LinkedList()
         for (i in 0..17) {
-            val noun = createNoun(root, i, formulaName)
+            val noun = createNoun(root!!, i, formulaName)
             result.add(noun)
         }
         return result
@@ -71,18 +71,18 @@ class TimeAndPlaceConjugator private constructor() : IUnaugmentedTrilateralNounC
     /**
      * إعادة الصيغ الممكنة للجذر
      *
-     * @param root UnaugmentedTrilateralRoot
+     * @param root!! UnaugmentedTrilateralRoot
      * @return List
      */
     override fun getAppliedFormulaList(root: UnaugmentedTrilateralRoot): List<*>? {
         //todo
-        //  XmlTimeAndPlaceNounFormulaTree formulaTree =  DatabaseManager.getInstance().getTimeAndPlaceNounFormulaTree(root.getC1());
+        //  XmlTimeAndPlaceNounFormulaTree formulaTree =  DatabaseManager.getInstance().getTimeAndPlaceNounFormulaTree(root!!.getC1());
     /*    val formulaTree = null ?: return null
         val result: MutableList<String?> = LinkedList()
         val iter: Iterator<XmlTimeAndPlaceNounFormula?> = formulaTree.formulaList.iterator()
         while (iter.hasNext()) {
             val formula = iter.next()
-            if (formula.getNoc() == root.conjugation && formula.getC2() == root.c2 && formula.getC3() == root.c3) {
+            if (formula.getNoc() == root!!.conjugation && formula.getC2() == root!!.c2 && formula.getC3() == root!!.c3) {
                 if (formula.getForm1() != null && formula.getForm1() !== "") //add the formula pattern insteaed of the symbol (form1)
                     result.add(formulaSymbolsNamesMap[formula.getForm1()])
                 //may the verb has two forms of instumentals

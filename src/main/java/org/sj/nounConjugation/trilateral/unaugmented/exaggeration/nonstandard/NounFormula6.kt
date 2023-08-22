@@ -22,7 +22,7 @@ import org.sj.verbConjugation.util.ArabCharUtil
  * @version 1.0
  */
 class NounFormula6 : NonStandardExaggerationNounFormula {
-    constructor(root: UnaugmentedTrilateralRoot?, suffixNo: String?) : super(root, suffixNo) {
+    constructor(root: UnaugmentedTrilateralRoot, suffixNo: String?) : super(root, suffixNo) {
         if (this.suffixNo == 7 && GenericNounSuffixContainer.getInstance().isInDefiniteMode) {
             suffix = "ً"
         }

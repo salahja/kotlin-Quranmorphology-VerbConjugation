@@ -55,7 +55,7 @@ class AssimilateAdjectiveConjugator private constructor() :
         suffixNo: Int,
         formulaID: String?
     ): NounFormula? {
-        val parameters = arrayOf(root, suffixNo.toString() + "")
+        val parameters = arrayOf(root!!, suffixNo.toString() + "")
         try {
             val formulaClassName =
                 javaClass.getPackage().name + ".nonstandard.NounFormula" + formulaID
@@ -71,7 +71,7 @@ class AssimilateAdjectiveConjugator private constructor() :
         val formulaID = formulaIDsMap[formulaName]
         val result: MutableList<NounFormula?> = LinkedList()
         for (i in 0..17) {
-            val noun = createNoun(root, i, formulaID)
+            val noun = createNoun(root!!, i, formulaID)
             result.add(noun)
         }
         return result
@@ -86,16 +86,16 @@ class AssimilateAdjectiveConjugator private constructor() :
     }
 
     override fun getAppliedFormulaList(root: UnaugmentedTrilateralRoot): List<*>? {
-        //    AssimilateAdjectiveFormulaTree formulaTree = DatabaseManager.getInstance().getAssimilateAdjectiveFormulaTree(root.getC1());
-        //   AssimilateAdjectiveFormulaTree formulaTree = DatabaseManager.getInstance().getAssimilateAdjectiveFormulaTree(root.getC1());
+        //    AssimilateAdjectiveFormulaTree formulaTree = DatabaseManager.getInstance().getAssimilateAdjectiveFormulaTree(root!!.getC1());
+        //   AssimilateAdjectiveFormulaTree formulaTree = DatabaseManager.getInstance().getAssimilateAdjectiveFormulaTree(root!!.getC1());
         val formulaTree = null
-            ?: return null //= DatabaseManager.getInstance().getAssimilateAdjectiveFormulaTree(root.getC1());
+            ?: return null //= DatabaseManager.getInstance().getAssimilateAdjectiveFormulaTree(root!!.getC1());
         val result: MutableList<String?> = LinkedList()
       //  val iter = formulaTree.formulaList.iterator()
        /**/
         /*while (iter.hasNext()) {
             val formula = iter.next()
-            if (formula.conjugation == root.conjugation && formula.c2 == root.c2 && formula.c3 == root.c3) {
+            if (formula.conjugation == root!!.conjugation && formula.c2 == root!!.c2 && formula.c3 == root!!.c3) {
                 addAdjectiveResult(result, formula.adj1)
                 addAdjectiveResult(result, formula.adj2)
                 addAdjectiveResult(result, formula.adj3)

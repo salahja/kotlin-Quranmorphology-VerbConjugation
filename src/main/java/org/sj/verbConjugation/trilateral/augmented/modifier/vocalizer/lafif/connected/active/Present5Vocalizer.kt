@@ -25,7 +25,7 @@ class Present5Vocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifier {
         val kov = mazeedConjugationResult.kov
         val formulaNo = mazeedConjugationResult.formulaNo
         val root =
-            mazeedConjugationResult.root
-        return root!!.c2 == 'و' && root.c3 == 'ي' && (kov == 28 || kov == 27) && formulaNo == 2
+            mazeedConjugationResult.root!!
+        return root!!.c2 == 'و' && root!!.c3 == 'ي' && (kov == 28 || kov == 27) && formulaNo == 2
     }
 }

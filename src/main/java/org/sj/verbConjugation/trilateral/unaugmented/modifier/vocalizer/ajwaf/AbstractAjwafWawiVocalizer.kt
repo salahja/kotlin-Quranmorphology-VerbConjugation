@@ -23,6 +23,6 @@ import org.sj.verbConjugation.trilateral.unaugmented.modifier.IUnaugmentedTrilat
 abstract class AbstractAjwafWawiVocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralModifier {
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         // تطبيق القانون العام للفحص
-        return conjugationResult.root.conjugation == "1" && (conjugationResult.kov == 15 || conjugationResult.kov == 16 || conjugationResult.kov == 17)
+        return conjugationResult.root!!.conjugation == "1" && (conjugationResult.kov == 15 || conjugationResult.kov == 16 || conjugationResult.kov == 17)
     }
 }

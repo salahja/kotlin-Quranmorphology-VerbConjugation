@@ -51,7 +51,7 @@ class NonStandardExaggerationConjugator private constructor() :
         suffixNo: Int,
         formulaName: String
     ): NounFormula? {
-        val parameters = arrayOf(root, suffixNo.toString() + "")
+        val parameters = arrayOf(root!!, suffixNo.toString() + "")
         try {
             val formulaClass =
                 formulaClassNamesMap[formulaName]!!
@@ -65,7 +65,7 @@ class NonStandardExaggerationConjugator private constructor() :
     override fun createNounList(root: UnaugmentedTrilateralRoot, formulaName: String): List<*> {
         val result: MutableList<NounFormula?> = LinkedList()
         for (i in 0..17) {
-            val noun = createNoun(root, i, formulaName)
+            val noun = createNoun(root!!, i, formulaName)
             result.add(noun)
         }
         return result
@@ -73,14 +73,14 @@ class NonStandardExaggerationConjugator private constructor() :
 
     override fun getAppliedFormulaList(root: UnaugmentedTrilateralRoot): List<*>? {
         //todo xml
-        //  XmExaggerationNounFormulaTree formulaTree =  DatabaseManager.getInstance().getExaggerationNounFormulaTree(root.getC1());
+        //  XmExaggerationNounFormulaTree formulaTree =  DatabaseManager.getInstance().getExaggerationNounFormulaTree(root!!.getC1());
       /*  val formulaTree = null ?: return null
         val result: MutableList<String?> = LinkedList()
         val iter: Iterator<XmExaggerationNounFormula> =XmExaggerationNounFormulaTree.getFormulaList().iterator()
 
         while (iter.hasNext()) {
             val formula = iter.next()
-            if (formula.c2 == root.c2 && formula.c3() == root.c3) {
+            if (formula.c2 == root!!.c2 && formula.c3() == root!!.c3) {
                 if (formula.form1 != null && formula.form1 !== "") //add the formula pattern insteaed of the symbol (form1)
                     result.add(formulaSymbolsNamesMap[formula.form1])
                 //may the verb has two forms of instumentals

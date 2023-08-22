@@ -20,10 +20,10 @@ import org.sj.verbConjugation.util.ArabCharUtil
  * @version 1.0
  */
 class AugmentedPastVerb4(
-    root: AugmentedTrilateralRoot?,
+    root:AugmentedTrilateralRoot,
     lastDpa: String?,
     connectedPronoun: String?
-) : AugmentedPastVerb(root, lastDpa, connectedPronoun) {
+) : AugmentedPastVerb(root!!, lastDpa, connectedPronoun) {
     /**
      * form
      *

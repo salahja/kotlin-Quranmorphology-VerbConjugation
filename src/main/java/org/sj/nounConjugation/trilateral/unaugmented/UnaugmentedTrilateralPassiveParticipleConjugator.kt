@@ -27,12 +27,12 @@ class UnaugmentedTrilateralPassiveParticipleConjugator private constructor() :
         suffixIndex: Int
     ): UnaugmentedTrilateralPassiveParticiple {
         val suffix = GenericNounSuffixContainer.getInstance()[suffixIndex]
-        return UnaugmentedTrilateralPassiveParticiple(root, suffix)
+        return UnaugmentedTrilateralPassiveParticiple(root!!, suffix)
     }
 
     override fun createNounList(root: UnaugmentedTrilateralRoot, formulaName: String): List<*> {
         val result: MutableList<UnaugmentedTrilateralPassiveParticiple> = ArrayList(18)
-        for (i in 0..17) result.add(createNoun(root, i))
+        for (i in 0..17) result.add(createNoun(root!!, i))
         return result
     }
 

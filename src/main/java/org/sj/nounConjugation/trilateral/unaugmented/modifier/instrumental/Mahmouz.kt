@@ -39,11 +39,11 @@ class Mahmouz {
         while (iter.hasNext()) {
             val modifier = iter.next() as IUnaugmentedTrilateralNounModificationApplier
             if (modifier.isApplied(conjResult)) {
-                (modifier as SubstitutionsApplier).apply(conjResult.finalResult as MutableList<String>, conjResult.root)
+                (modifier as SubstitutionsApplier).apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
                 break
             }
         }
         //الأفعال الثلاثية المجردة المهموزة الفاء والمهموزة اللام (وهي: أبأ، أثأ، أجأ، أزأ، أكأ)
-        if (conjResult.root.c3 == 'ء') modifiers[2].apply(conjResult.finalResult as MutableList<String>, conjResult.root)
+        if (conjResult.root!!.c3 == 'ء') modifiers[2].apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
     }
 }

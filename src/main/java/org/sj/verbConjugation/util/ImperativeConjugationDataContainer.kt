@@ -1,105 +1,106 @@
-package org.sj.verbConjugation.util;
-
-import java.util.ArrayList;
-import java.util.List;
+package org.sj.verbConjugation.util
 
 /**
  * يحتوي على  المعلومات  الصرفية المطلوبة لتصريف الأفعال  في الأمر
- * <p>Title: Sarf</p>
- * <p>Description: برنامج التصريف</p>
- * <p>Copyright: Copyright (c) 2006</p>
- * <p>Company: </p>
+ *
+ * Title: Sarf
+ *
+ * Description: برنامج التصريف
+ *
+ * Copyright: Copyright (c) 2006
+ *
+ * Company:
  *
  * @author Haytham Mohtasseb Billah
  * @version 1.0
  */
-public class ImperativeConjugationDataContainer {
-    private static final ImperativeConjugationDataContainer instance = new ImperativeConjugationDataContainer();
+class ImperativeConjugationDataContainer private constructor() {
     //قائمة حركات عين الفعل حسب باب التصريف
     //الأمر غير المؤكد
-    private final List<String> lastDimList = new ArrayList<>(13);
+    val lastDimList: MutableList<String?> = ArrayList(13)
+
     //الأمر المؤكد
-    private final List<String> emphasizedLastDimList = new ArrayList<>(13);
+    val emphasizedLastDimList: MutableList<String?> = ArrayList(13)
+
     //قائمة ضمائر الرفع المتصلة
     //الأمر غير المؤكد
-    private final List<String> connectedPronounList = new ArrayList<String>(13);
+    val connectedPronounList: MutableList<String> = ArrayList(13)
+
     //الأمر المؤكد
-    private final List<String> emphasizedConnectedPronounList = new ArrayList<String>(13);
+    val emphasizedConnectedPronounList: MutableList<String> = ArrayList(13)
 
-    private ImperativeConjugationDataContainer() {
-        lastDimList.add("");
-        lastDimList.add("");
-        lastDimList.add(ArabCharUtil.SKOON);
-        lastDimList.add(ArabCharUtil.KASRA);
-        lastDimList.add(ArabCharUtil.FATHA);
-        lastDimList.add(ArabCharUtil.DAMMA);
-        lastDimList.add(ArabCharUtil.SKOON);
-        lastDimList.add("");
-        lastDimList.add("");
-        lastDimList.add("");
-        lastDimList.add("");
-        lastDimList.add("");
-        lastDimList.add("");
-        connectedPronounList.add("");
-        connectedPronounList.add("");
-        connectedPronounList.add("");
-        connectedPronounList.add("ي");
-        connectedPronounList.add("ا");
-        connectedPronounList.add("وا");
-        connectedPronounList.add("نَ");
-        connectedPronounList.add("");
-        connectedPronounList.add("");
-        connectedPronounList.add("");
-        connectedPronounList.add("");
-        connectedPronounList.add("");
-        connectedPronounList.add("");
-        emphasizedLastDimList.add("");
-        emphasizedLastDimList.add("");
-        emphasizedLastDimList.add(ArabCharUtil.FATHA);
-        emphasizedLastDimList.add(ArabCharUtil.KASRA);
-        emphasizedLastDimList.add(ArabCharUtil.FATHA);
-        emphasizedLastDimList.add(ArabCharUtil.DAMMA);
-        emphasizedLastDimList.add(ArabCharUtil.SKOON);
-        emphasizedLastDimList.add("");
-        emphasizedLastDimList.add("");
-        emphasizedLastDimList.add("");
-        emphasizedLastDimList.add("");
-        emphasizedLastDimList.add("");
-        emphasizedLastDimList.add("");
-        emphasizedConnectedPronounList.add("");
-        emphasizedConnectedPronounList.add("");
-        emphasizedConnectedPronounList.add("نَّ");
-        emphasizedConnectedPronounList.add("نَّ");
-        emphasizedConnectedPronounList.add("انِّ");
-        emphasizedConnectedPronounList.add("نَّ");
-        emphasizedConnectedPronounList.add("نَانِّ");
-        emphasizedConnectedPronounList.add("");
-        emphasizedConnectedPronounList.add("");
-        emphasizedConnectedPronounList.add("");
-        emphasizedConnectedPronounList.add("");
-        emphasizedConnectedPronounList.add("");
-        emphasizedConnectedPronounList.add("");
+    init {
+        lastDimList.add("")
+        lastDimList.add("")
+        lastDimList.add(ArabCharUtil.SKOON)
+        lastDimList.add(ArabCharUtil.KASRA)
+        lastDimList.add(ArabCharUtil.FATHA)
+        lastDimList.add(ArabCharUtil.DAMMA)
+        lastDimList.add(ArabCharUtil.SKOON)
+        lastDimList.add("")
+        lastDimList.add("")
+        lastDimList.add("")
+        lastDimList.add("")
+        lastDimList.add("")
+        lastDimList.add("")
+        connectedPronounList.add("")
+        connectedPronounList.add("")
+        connectedPronounList.add("")
+        connectedPronounList.add("ي")
+        connectedPronounList.add("ا")
+        connectedPronounList.add("وا")
+        connectedPronounList.add("نَ")
+        connectedPronounList.add("")
+        connectedPronounList.add("")
+        connectedPronounList.add("")
+        connectedPronounList.add("")
+        connectedPronounList.add("")
+        connectedPronounList.add("")
+        emphasizedLastDimList.add("")
+        emphasizedLastDimList.add("")
+        emphasizedLastDimList.add(ArabCharUtil.FATHA)
+        emphasizedLastDimList.add(ArabCharUtil.KASRA)
+        emphasizedLastDimList.add(ArabCharUtil.FATHA)
+        emphasizedLastDimList.add(ArabCharUtil.DAMMA)
+        emphasizedLastDimList.add(ArabCharUtil.SKOON)
+        emphasizedLastDimList.add("")
+        emphasizedLastDimList.add("")
+        emphasizedLastDimList.add("")
+        emphasizedLastDimList.add("")
+        emphasizedLastDimList.add("")
+        emphasizedLastDimList.add("")
+        emphasizedConnectedPronounList.add("")
+        emphasizedConnectedPronounList.add("")
+        emphasizedConnectedPronounList.add("نَّ")
+        emphasizedConnectedPronounList.add("نَّ")
+        emphasizedConnectedPronounList.add("انِّ")
+        emphasizedConnectedPronounList.add("نَّ")
+        emphasizedConnectedPronounList.add("نَانِّ")
+        emphasizedConnectedPronounList.add("")
+        emphasizedConnectedPronounList.add("")
+        emphasizedConnectedPronounList.add("")
+        emphasizedConnectedPronounList.add("")
+        emphasizedConnectedPronounList.add("")
+        emphasizedConnectedPronounList.add("")
+    }
+/*
+
+    fun getEmphasizedConnectedPronounList(): List<String> {
+        return emphasizedConnectedPronounList
     }
 
-    public static ImperativeConjugationDataContainer getInstance() {
-        return instance;
+    fun getEmphasizedLastDimList(): List<String?> {
+        return emphasizedLastDimList
     }
 
-    public List<String> getEmphasizedConnectedPronounList() {
-        return emphasizedConnectedPronounList;
+    fun getConnectedPronounList(): List<String> {
+        return connectedPronounList
     }
 
-    public List<String> getEmphasizedLastDimList() {
-        return emphasizedLastDimList;
+    fun getLastDimList(): List<String?> {
+        return lastDimList
     }
-
-    public List<String> getConnectedPronounList() {
-        return connectedPronounList;
-    }
-
-    public List<String> getLastDimList() {
-        return lastDimList;
-    }
+*/
 
     /**
      * الحصول  على  حركة لام الفعل حسب الضمير
@@ -108,8 +109,8 @@ public class ImperativeConjugationDataContainer {
      * @param pronounIndex int
      * @return String
      */
-    public String getLastDim(int pronounIndex) {
-        return lastDimList.get(pronounIndex);
+    fun getLastDim(pronounIndex: Int): String? {
+        return lastDimList[pronounIndex]
     }
 
     /**
@@ -119,8 +120,8 @@ public class ImperativeConjugationDataContainer {
      * @param pronounIndex int
      * @return String
      */
-    public String getEmphasizedLastDim(int pronounIndex) {
-        return emphasizedLastDimList.get(pronounIndex);
+    fun getEmphasizedLastDim(pronounIndex: Int): String? {
+        return emphasizedLastDimList[pronounIndex]
     }
 
     /**
@@ -130,8 +131,8 @@ public class ImperativeConjugationDataContainer {
      * @param pronounIndex int
      * @return String
      */
-    public String getConnectedPronoun(int pronounIndex) {
-        return connectedPronounList.get(pronounIndex);
+    fun getConnectedPronoun(pronounIndex: Int): String {
+        return connectedPronounList[pronounIndex]
     }
 
     /**
@@ -141,7 +142,11 @@ public class ImperativeConjugationDataContainer {
      * @param pronounIndex int
      * @return String
      */
-    public String getEmphasizedConnectedPronoun(int pronounIndex) {
-        return emphasizedConnectedPronounList.get(pronounIndex);
+    fun getEmphasizedConnectedPronoun(pronounIndex: Int): String {
+        return emphasizedConnectedPronounList[pronounIndex]
+    }
+
+    companion object {
+        val instance = ImperativeConjugationDataContainer()
     }
 }

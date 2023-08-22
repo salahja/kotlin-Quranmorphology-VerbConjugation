@@ -23,7 +23,7 @@ import org.sj.verbConjugation.util.ArabCharUtil
  * @version 1.0
  */
 class NounFormulaE2 : NounFormula {
-    constructor(root: UnaugmentedTrilateralRoot?, suffixNo: String?) : super(root, suffixNo) {}
+    constructor(root: UnaugmentedTrilateralRoot, suffixNo: String?) : super(root!!, suffixNo) {}
 
     //to be used in refection getting the formula name
     constructor() {}
@@ -40,14 +40,14 @@ class NounFormulaE2 : NounFormula {
     fun form1(): String {
         suffix = AssimilateFormulaE2SuffixContainer.Companion.instance.get(suffixNo - 1)
             .replace(" ".toRegex(), "")
-        return root.c1.toString() + ArabCharUtil.FATHA + root.c2 + ArabCharUtil.SKOON + root.c3 + suffix
+        return root!!.c1.toString() + ArabCharUtil.FATHA + root!!.c2 + ArabCharUtil.SKOON + root!!.c3 + suffix
     }
 
     //فَعْلان
     fun form2(): String {
         suffix = AssimilateFormulaE1SuffixContainer.Companion.instance.get(suffixNo - 1)
             .replace(" ".toRegex(), "")
-        return root.c1.toString() + ArabCharUtil.FATHA + root.c2 + ArabCharUtil.SKOON + root.c3 + ArabCharUtil.FATHA + "ان" + suffix
+        return root!!.c1.toString() + ArabCharUtil.FATHA + root!!.c2 + ArabCharUtil.SKOON + root!!.c3 + ArabCharUtil.FATHA + "ان" + suffix
     }
 
     override fun getFormulaName(): String {

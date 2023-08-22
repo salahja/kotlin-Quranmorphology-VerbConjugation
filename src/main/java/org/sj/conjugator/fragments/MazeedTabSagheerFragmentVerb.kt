@@ -29,8 +29,8 @@ class MazeedTabSagheerFragmentVerb(private val context: Context) : Fragment() {
 
     // ArrayList sarfSagheerThulathiArray = new ArrayList();
     private val sarfSagheerThulathiArray: ArrayList<*>? = null
-    private var augmentedFormula: String? = null
-    private var unaugmentedFormula: String? = null
+    private lateinit var augmentedFormula: String
+    private lateinit var unaugmentedFormula: String
     private var verbroot: String? = null
     private var verbmood: String? = null
     private var skabeer = ArrayList<ArrayList<*>>()
@@ -57,9 +57,9 @@ class MazeedTabSagheerFragmentVerb(private val context: Context) : Fragment() {
         dataBundle = arguments
         if (dataBundle!!.getString(VERBTYPE) == "mujarrad") {
             isUnAugmented = true
-            unaugmentedFormula = dataBundle!!.getString(QURAN_VERB_WAZAN)
+            unaugmentedFormula = dataBundle!!.getString(QURAN_VERB_WAZAN)!!
         } else {
-            augmentedFormula = dataBundle!!.getString(QURAN_VERB_WAZAN)
+            augmentedFormula = dataBundle!!.getString(QURAN_VERB_WAZAN)!!
             isAugmented = true
         }
         verbroot = dataBundle!!.getString(QURAN_VERB_ROOT)
@@ -175,7 +175,7 @@ class MazeedTabSagheerFragmentVerb(private val context: Context) : Fragment() {
                                 form = form + "X"
                             }
                             val item = VerbFormsDialogFrag()
-                            //    item.setdata(rootWordMeanings,wbwRootwords,grammarRootsCombined);
+                            //    item.setdata(root!!WordMeanings,wbwRootwords,grammarRootsCombined);
                             val fragmentManager = requireActivity().supportFragmentManager
                             val data = arrayOf<String?>(form)
                             val transactions = fragmentManager.beginTransaction()
@@ -196,7 +196,7 @@ class MazeedTabSagheerFragmentVerb(private val context: Context) : Fragment() {
                     augmentedFormula = dataBundle.getString(QURAN_VERB_WAZAN);
                     dataBundle.putString(VERBTYPE, "mujarrad");
                     int color = context.getResources().getColor(R.color.background_color_light_brown);
-                    final ArrayList<ArrayList> indictive = GatherAll.getInstance().getMazeedListing(verbmood, root, augmentedFormula);
+                    final ArrayList<ArrayList> indictive = GatherAll.getInstance().getMazeedListing(verbmood, root!!, augmentedFormula);
                     VerbconjuationBottom frag=new VerbconjuationBottom();
                     Bundle bundle=new Bundle();
                     ArrayList list = indictive.get(1);
@@ -211,7 +211,7 @@ class MazeedTabSagheerFragmentVerb(private val context: Context) : Fragment() {
                     /*unaugmentedFormula = dataBundle.getString(QURAN_VERB_WAZAN);
                     dataBundle.putString(VERBTYPE, "mazeed");
                     isAugmented = true;
-                    final ArrayList<ArrayList> lists = GatherAll.getInstance().getMujarradListing(verbmood, root, unaugmentedFormula);
+                    final ArrayList<ArrayList> lists = GatherAll.getInstance().getMujarradListing(verbmood, root!!, unaugmentedFormula);
                     VerbconjuationBottom frag=new VerbconjuationBottom();
                     Bundle bundle=new Bundle();
                     ArrayList list = lists.get(1);
@@ -229,11 +229,11 @@ class MazeedTabSagheerFragmentVerb(private val context: Context) : Fragment() {
                 dataBundle.putInt(AYAHNUMBER, ayah_number);
                 dataBundle.putInt(WORDNUMBER, word_no);
                 dataBundle.putString(SURAH_ARABIC_NAME, suraharabicname);
-                RootDialog rootDialog = new RootDialog();
+                RootDialog root!!Dialog = new RootDialog();
                 FragmentManager fragmentManager = getFragmentManager();
-                rootDialog.setArguments(dataBundle);
+                root!!Dialog.setArguments(dataBundle);
                 assert fragmentManager != null;
-                fragmentManager.beginTransaction().add(R.id.fragmentParentViewGroup, rootDialog).addToBackStack(ROOTDIALOGFRAG).commit();
+                fragmentManager.beginTransaction().add(R.id.fragmentParentViewGroup, root!!Dialog).addToBackStack(ROOTDIALOGFRAG).commit();
 */
             }
         })

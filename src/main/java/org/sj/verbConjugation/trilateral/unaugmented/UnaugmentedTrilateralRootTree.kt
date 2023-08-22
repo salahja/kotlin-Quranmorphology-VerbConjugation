@@ -21,7 +21,7 @@ import java.util.LinkedList
 class UnaugmentedTrilateralRootTree {
     private val roots: MutableList<UnaugmentedTrilateralRoot> = LinkedList()
     fun addRoot(root: UnaugmentedTrilateralRoot) {
-        roots.add(root)
+        roots.add(root!!)
     }
 
     fun getRoots(): List<UnaugmentedTrilateralRoot> {

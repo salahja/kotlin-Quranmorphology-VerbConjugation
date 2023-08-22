@@ -15,7 +15,7 @@ class UnaugmentedTrilateralPassiveParticiple(
      * @todo Implement this org.sj.noun.Trilateral.TrilateralNoun method
      */
     fun form(): String {
-        return GenericNounSuffixContainer.getInstance().prefix + ArabCharUtil.MEEM + ArabCharUtil.FATHA + root.c1 + ArabCharUtil.SKOON + root.c2 + ArabCharUtil.DAMMA + ArabCharUtil.WAW + root.c3 + suffix
+        return GenericNounSuffixContainer.getInstance().prefix + ArabCharUtil.MEEM + ArabCharUtil.FATHA + root!!.c1 + ArabCharUtil.SKOON + root!!.c2 + ArabCharUtil.DAMMA + ArabCharUtil.WAW + root!!.c3 + suffix
     }
 
     override fun toString(): String {

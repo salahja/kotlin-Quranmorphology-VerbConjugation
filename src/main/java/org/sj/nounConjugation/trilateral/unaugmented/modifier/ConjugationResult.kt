@@ -21,7 +21,7 @@ import org.sj.verbConjugation.trilateral.unaugmented.UnaugmentedTrilateralRoot
  */
 class ConjugationResult(
     kov: Int,
-    root: UnaugmentedTrilateralRoot?,
-    originalResult: List<*>?,
+    root: UnaugmentedTrilateralRoot,
+    originalResult: MutableList<*>?,
     val nounFormula: String
-) : ConjugationResult(kov, root, originalResult as List<Any>)
+) : ConjugationResult(kov, root!!, originalResult )

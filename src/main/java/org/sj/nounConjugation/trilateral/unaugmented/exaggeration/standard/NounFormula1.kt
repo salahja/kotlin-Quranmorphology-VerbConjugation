@@ -20,7 +20,7 @@ import org.sj.verbConjugation.util.ArabCharUtil
  * @author Haytham Mohtasseb Billah
  * @version 1.0
  */
-class NounFormula1(root: UnaugmentedTrilateralRoot?, suffixNo: String?) :
+class NounFormula1(root: UnaugmentedTrilateralRoot, suffixNo: String?) :
     NounFormula(root, suffixNo) {
     override fun form(): String {
         return root.c1.toString() + ArabCharUtil.FATHA + root.c2 + ArabCharUtil.SHADDA + ArabCharUtil.FATHA + ArabCharUtil.Aleph + root.c3 + suffix

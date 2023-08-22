@@ -33,7 +33,7 @@ class Geminator3 : TrilateralNounSubstitutionApplier(),
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov
         val formulaNo = mazeedConjugationResult.formulaNo
-        return mazeedConjugationResult.root.c1 == 'ت' && (kov == 1 || kov == 6) && formulaNo == 5
+        return mazeedConjugationResult.root!!.c1 == 'ت' && (kov == 1 || kov == 6) && formulaNo == 5
     }
 
 

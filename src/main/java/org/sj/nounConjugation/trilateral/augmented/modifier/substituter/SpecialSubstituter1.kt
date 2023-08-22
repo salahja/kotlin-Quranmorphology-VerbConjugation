@@ -34,10 +34,10 @@ class SpecialSubstituter1 : TrilateralNounSubstitutionApplier(), IAugmentedTrila
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov
         val formulaNo = mazeedConjugationResult.formulaNo
-        var b = (mazeedConjugationResult.root.c1 == 'و') && (formulaNo == 5)
+        var b = (mazeedConjugationResult.root!!.c1 == 'و') && (formulaNo == 5)
         val b1 = (kov == 9) || (kov == 10) || (kov == 11) || (kov == 29) || (kov == 30)
      return   b==b1
 
-      //  return mazeedConjugationResult.root.c1 == 'و' && formulaNo == 5 && (kov == 9 || kov == 10 || kov == 11 || kov == 29 || kov) == 30
+      //  return mazeedConjugationResult.root!!.c1 == 'و' && formulaNo == 5 && (kov == 9 || kov == 10 || kov == 11 || kov == 29 || kov) == 30
     }
 }

@@ -33,7 +33,7 @@ class YaeiPassivePresentVocalizer : SubstitutionsApplier(), IUnaugmentedTrilater
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         return (kov == 12 && (noc == 2 || noc == 4) || kov == 13 && (noc == 4 || noc == 6) || kov == 14) && (noc == 1 || noc == 2 || noc == 3 || noc == 4 || noc == 5 || noc == 6)
     }
 }

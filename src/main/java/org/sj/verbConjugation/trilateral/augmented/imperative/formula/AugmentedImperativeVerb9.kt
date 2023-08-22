@@ -5,10 +5,10 @@ import org.sj.verbConjugation.trilateral.augmented.imperative.AugmentedImperativ
 import org.sj.verbConjugation.util.ArabCharUtil
 
 class AugmentedImperativeVerb9(
-    root: AugmentedTrilateralRoot?,
+    root:AugmentedTrilateralRoot,
     lastDim: String?,
     connectedPronoun: String?
-) : AugmentedImperativeVerb(root, lastDim, connectedPronoun) {
+) : AugmentedImperativeVerb(root!!, lastDim, connectedPronoun) {
     /**
      * form
      *
@@ -17,7 +17,7 @@ class AugmentedImperativeVerb9(
      * method
      */
     override fun form(): String {
-        //   return "�"+"�"+ArabCharUtil.SKOON+ "�"+ArabCharUtil.FATHA+root.getC1()+ArabCharUtil.SKOON+root.getC2()+ArabCharUtil.KASRA+root.getC3()+lastDim+connectedPronoun;
+        //   return "�"+"�"+ArabCharUtil.SKOON+ "�"+ArabCharUtil.FATHA+root!!.getC1()+ArabCharUtil.SKOON+root!!.getC2()+ArabCharUtil.KASRA+root!!.getC3()+lastDim+connectedPronoun;
         return "ا" + "س" + ArabCharUtil.SKOON + "ت" + ArabCharUtil.FATHA + root!!.c1 + ArabCharUtil.SKOON + root!!.c2 + ArabCharUtil.KASRA + root!!.c3 + lastDim + connectedPronoun
     }
 }

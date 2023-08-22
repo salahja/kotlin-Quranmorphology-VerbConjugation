@@ -20,7 +20,7 @@ import org.sj.verbConjugation.trilateral.unaugmented.UnaugmentedTrilateralRoot
  */
 interface IUnaugmentedTrilateralNounModifier {
     fun build(
-        root: UnaugmentedTrilateralRoot?,
+        root: UnaugmentedTrilateralRoot,
         kov: Int,
         conjugations: List<Any?>?,
         formula: String

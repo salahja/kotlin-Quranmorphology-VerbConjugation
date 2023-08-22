@@ -16,7 +16,7 @@ class AugmentedPassivePastConjugator private constructor() {
             PastConjugationDataContainer.getInstance().getConnectedPronoun(pronounIndex)
         val formulaClassName =
             javaClass.getPackage().name + ".formula." + "AugmentedPastVerb" + formulaNo
-        val parameters = arrayOf(root, lastDpa, connectedPronoun)
+        val parameters = arrayOf(root!!, lastDpa, connectedPronoun)
         try {
             return Class.forName(formulaClassName).constructors[0]
                 .newInstance(*parameters) as AugmentedPastVerb
@@ -27,16 +27,16 @@ class AugmentedPassivePastConjugator private constructor() {
     }
 
     fun createVerbList(root: AugmentedTrilateralRoot, formulaNo: Int): List<AugmentedPastVerb?> {
-        val augmentationFormula = root.getAugmentationFormula(formulaNo)
+        val augmentationFormula = root!!.getAugmentationFormula(formulaNo)
         //todo correct
         return if (formulaNo == 20) {
             // if (augmentationFormula.getTransitive() == 'ل') {
-            createLazzemVerbList(root, formulaNo)
+            createLazzemVerbList(root!!, formulaNo)
         } else {
             val result: MutableList<AugmentedPastVerb?> =
                 LinkedList()
             for (i in 0..12) {
-                val verb = createVerb(root, i, formulaNo)
+                val verb = createVerb(root!!, i, formulaNo)
                 result.add(verb)
             }
             result
@@ -51,7 +51,7 @@ class AugmentedPassivePastConjugator private constructor() {
         val result: MutableList<AugmentedPastVerb?> = LinkedList()
         for (i in 0..12) {
             if (i == 7 || i == 8) {
-                val verb = createVerb(root, i, formulaNo)
+                val verb = createVerb(root!!, i, formulaNo)
                 result.add(verb)
             } else {
                 result.add(null)

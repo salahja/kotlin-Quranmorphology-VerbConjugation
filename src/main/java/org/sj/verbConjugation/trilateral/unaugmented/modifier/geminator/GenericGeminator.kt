@@ -48,12 +48,12 @@ class GenericGeminator : IUnaugmentedTrilateralModifier {
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         return (kov == 2) && ((noc == 1) || (noc == 2) || (noc == 3) || (noc == 4) || (noc == 5) || ((kov == 3) && ((noc == 1) || (noc == 2))) || ((kov == 8) && (noc == 4)) || ((kov == 12) && ((noc == 2) || (noc == 4))))
     }
 
     fun apply(tense: String, active: Boolean, conjResult: ConjugationResult) {
         val geminator = geminators[tense + active]
-        geminator!!.apply(conjResult.finalResult as MutableList<String>, conjResult.root)
+        geminator!!.apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
     }
 }

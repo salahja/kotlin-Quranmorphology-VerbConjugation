@@ -6,7 +6,7 @@
     "entities": [
       {
         "tableName": "quranicverbs",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`verb` TEXT, `root` TEXT, `thulathibab` TEXT, `form` INTEGER NOT NULL, `chaptername` TEXT, `frequency` INTEGER NOT NULL, `meaning` TEXT, `id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`verb` TEXT, `root!!` TEXT, `thulathibab` TEXT, `form` INTEGER NOT NULL, `chaptername` TEXT, `frequency` INTEGER NOT NULL, `meaning` TEXT, `id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "verb",
@@ -15,8 +15,8 @@
             "notNull": false
           },
           {
-            "fieldPath": "root",
-            "columnName": "root",
+            "fieldPath": "root!!",
+            "columnName": "root!!",
             "affinity": "TEXT",
             "notNull": false
           },

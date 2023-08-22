@@ -4,12 +4,12 @@ import org.sj.verbConjugation.util.ImperativeConjugationDataContainer
 
 class AugmentedImperativeConjugator private constructor() {
     val notEmphsizedConjugator = AbstractAugmentedImperativeConjugator(
-        ImperativeConjugationDataContainer.getInstance().lastDimList,
-        ImperativeConjugationDataContainer.getInstance().connectedPronounList
+        ImperativeConjugationDataContainer.instance.lastDimList,
+        ImperativeConjugationDataContainer.instance.connectedPronounList
     )
     val emphsizedConjugator = AbstractAugmentedImperativeConjugator(
-        ImperativeConjugationDataContainer.getInstance().emphasizedLastDimList,
-        ImperativeConjugationDataContainer.getInstance().emphasizedConnectedPronounList
+        ImperativeConjugationDataContainer.instance.emphasizedLastDimList,
+        ImperativeConjugationDataContainer.instance.emphasizedConnectedPronounList
     )
 
     companion object {

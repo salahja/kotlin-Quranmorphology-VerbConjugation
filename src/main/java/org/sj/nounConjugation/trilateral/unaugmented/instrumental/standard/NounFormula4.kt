@@ -20,9 +20,9 @@ import org.sj.verbConjugation.util.ArabCharUtil
  * @author Haytham Mohtasseb Billah
  * @version 1.0
  */
-class NounFormula4(root: UnaugmentedTrilateralRoot?, suffix: String?) : NounFormula(root, suffix) {
+class NounFormula4(root: UnaugmentedTrilateralRoot, suffix: String?) : NounFormula(root!!, suffix) {
     override fun form(): String {
-        return if (suffixNo % 2 == 0) root.c1.toString() + ArabCharUtil.FATHA + root.c2 + ArabCharUtil.SHADDA + ArabCharUtil.FATHA + ArabCharUtil.Aleph + root.c3 + suffix else ""
+        return if (suffixNo % 2 == 0) root!!.c1.toString() + ArabCharUtil.FATHA + root!!.c2 + ArabCharUtil.SHADDA + ArabCharUtil.FATHA + ArabCharUtil.Aleph + root!!.c3 + suffix else ""
     }
 
     override fun getFormulaName(): String {

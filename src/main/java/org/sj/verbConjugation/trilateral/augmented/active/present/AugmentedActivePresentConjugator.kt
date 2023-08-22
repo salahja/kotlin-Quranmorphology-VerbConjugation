@@ -4,20 +4,20 @@ import org.sj.verbConjugation.util.PresentConjugationDataContainer
 
 class AugmentedActivePresentConjugator private constructor() {
     val nominativeConjugator = AbstractAugmentedPresentConjugator(
-        PresentConjugationDataContainer.getInstance().nominativeLastDprList,
-        PresentConjugationDataContainer.getInstance().nominativeConnectedPronounList
+        PresentConjugationDataContainer.instance.nominativeLastDprList,
+        PresentConjugationDataContainer.instance.nominativeConnectedPronounList
     )
     val accusativeConjugator = AbstractAugmentedPresentConjugator(
-        PresentConjugationDataContainer.getInstance().accusativeLastDprList,
-        PresentConjugationDataContainer.getInstance().accusativeConnectedPronounList
+        PresentConjugationDataContainer.instance.accusativeLastDprList,
+        PresentConjugationDataContainer.instance.accusativeConnectedPronounList
     )
     val jussiveConjugator = AbstractAugmentedPresentConjugator(
-        PresentConjugationDataContainer.getInstance().jussiveLastDprList,
-        PresentConjugationDataContainer.getInstance().jussiveConnectedPronounList
+        PresentConjugationDataContainer.instance.jussiveLastDprList,
+        PresentConjugationDataContainer.instance.jussiveConnectedPronounList
     )
     val emphasizedConjugator = AbstractAugmentedPresentConjugator(
-        PresentConjugationDataContainer.getInstance().emphasizedLastDprList,
-        PresentConjugationDataContainer.getInstance().emphasizedConnectedPronounList
+        PresentConjugationDataContainer.instance.emphasizedLastDprList,
+        PresentConjugationDataContainer.instance.emphasizedConnectedPronounList
     )
 
     companion object {

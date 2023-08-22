@@ -5,10 +5,10 @@ import org.sj.verbConjugation.trilateral.augmented.imperative.AugmentedImperativ
 import org.sj.verbConjugation.util.ArabCharUtil
 
 class AugmentedImperativeVerb2(
-    root: AugmentedTrilateralRoot?,
+    root:AugmentedTrilateralRoot,
     lastDim: String?,
     connectedPronoun: String?
-) : AugmentedImperativeVerb(root, lastDim, connectedPronoun) {
+) : AugmentedImperativeVerb(root!!, lastDim, connectedPronoun) {
     override fun form(): String {
         return root!!.c1.toString() + ArabCharUtil.FATHA + root!!.c2 + ArabCharUtil.SHADDA + ArabCharUtil.KASRA + root!!.c3 + lastDim + connectedPronoun
     }

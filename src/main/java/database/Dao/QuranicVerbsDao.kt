@@ -9,7 +9,7 @@ interface QuranicVerbsDao {
     @Query(value = "SELECT * FROM quranicverbs where form=0")
     fun getverbsbyForm(): List<QuranicVerbsEntity?>?
 
-    @Query(value = "UPDATE quranicverbs set roots=:uroot where id=:id")
+    @Query(value = "UPDATE quranicverbs set root=:uroot where id=:id")
     fun updadateRoots(uroot: String?, id: Int): Int
 
     @Query(value = "UPDATE quranicverbs set thulathibab=:wazan where id=:id")

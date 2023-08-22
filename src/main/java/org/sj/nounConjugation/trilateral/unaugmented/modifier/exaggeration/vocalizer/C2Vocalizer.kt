@@ -39,7 +39,7 @@ class C2Vocalizer : TrilateralNounSubstitutionApplier(),
             return false
         }
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         when (kov) {
             23 -> {
                 when (noc) {

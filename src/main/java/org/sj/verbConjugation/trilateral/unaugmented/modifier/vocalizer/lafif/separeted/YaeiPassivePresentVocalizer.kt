@@ -46,11 +46,11 @@ class YaeiPassivePresentVocalizer : SubstitutionsApplier(), IUnaugmentedTrilater
 
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
-        if (conjugationResult.root.c1 != 'ي') {
+        if (conjugationResult.root!!.c1 != 'ي') {
             return false
         }
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         return (kov == 29 || kov == 30) && noc == 2 || kov == 30 && (noc == 6 || noc == 4)
     }
 }

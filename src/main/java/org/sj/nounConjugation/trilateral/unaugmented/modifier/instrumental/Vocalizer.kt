@@ -37,14 +37,14 @@ class Vocalizer {
     fun apply(conjResult: ConjugationResult) {
         // تطبيق اعلال واحد اولا
         if (preMithalLafifVocalizer.isApplied(conjResult)) preMithalLafifVocalizer.apply(
-            conjResult.finalResult as MutableList<String>,
-            conjResult.root
+            conjResult.finalResult as MutableList<Any>,
+            conjResult.root!!
         )
         val iter: Iterator<TrilateralNounSubstitutionApplier> = modifiers.iterator()
         while (iter.hasNext()) {
             val modifier = iter.next() as IUnaugmentedTrilateralNounModificationApplier
             if (modifier.isApplied(conjResult)) {
-                (modifier as SubstitutionsApplier).apply(conjResult.finalResult as MutableList<String>, conjResult.root)
+                (modifier as SubstitutionsApplier).apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
                 break
             }
         }

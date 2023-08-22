@@ -37,8 +37,8 @@ class Past2Vocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifier {
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov
         val formulaNo = mazeedConjugationResult.formulaNo
-        val root = mazeedConjugationResult.root
-        if (root!!.c2 == 'و' && root.c3 == 'ي') {
+        val root = mazeedConjugationResult.root!!
+        if (root!!.c2 == 'و' && root!!.c3 == 'ي') {
             when (kov) {
                 27 -> {
                     when (formulaNo) {

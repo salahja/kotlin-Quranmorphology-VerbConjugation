@@ -28,16 +28,16 @@ class PassiveParticipleModifier private constructor() : IUnaugmentedTrilateralNo
     private val vocalizer = Vocalizer()
     private val mahmouz = Mahmouz()
     override fun build(
-        root: UnaugmentedTrilateralRoot?,
+        root: UnaugmentedTrilateralRoot,
         kov: Int,
         conjugations: List<Any?>?,
         formula: String
     ): ConjugationResult {
-        val conjResult = ConjugationResult(kov, root, conjugations, formula)
+        val conjResult = ConjugationResult(kov, root!!, conjugations as MutableList<*>?, formula)
         vocalizer.apply(conjResult)
         mahmouz.apply(conjResult)
-        NounLamAlefModifier.getInstance().apply(conjResult.finalResult, conjResult)
-        NounSunLamModifier.getInstance().apply(conjResult.finalResult, conjResult)
+        NounLamAlefModifier.getInstance().apply(conjResult.finalResult as MutableList<Any>, conjResult)
+        NounSunLamModifier.getInstance().apply(conjResult.finalResult as MutableList<Any>, conjResult)
         return conjResult
     }
 

@@ -17,7 +17,7 @@ class AbstractAugmentedImperativeConjugator(
         val connectedPronoun = connectedPronounList[pronounIndex] as String
         val formulaClassName =
             javaClass.getPackage().name + ".formula." + "AugmentedImperativeVerb" + formulaNo
-        val parameters = arrayOf(root, lastDim, connectedPronoun)
+        val parameters = arrayOf(root!!, lastDim, connectedPronoun)
         try {
             return Class.forName(formulaClassName).constructors[0]
                 .newInstance(*parameters) as AugmentedImperativeVerb
@@ -36,7 +36,7 @@ class AbstractAugmentedImperativeConjugator(
         result.add(null)
         //that indexing because the pronouns is existed only for that indecis
         for (i in 2..6) {
-            val verb = createVerb(root, i, formulaNo)
+            val verb = createVerb(root!!, i, formulaNo)
             result.add(verb)
         }
         result.add(null)
@@ -50,10 +50,10 @@ class AbstractAugmentedImperativeConjugator(
 
     fun createAllVerbList(root: AugmentedTrilateralRoot): Map<String, List<AugmentedImperativeVerb?>> {
         val result: MutableMap<String, List<AugmentedImperativeVerb?>> = HashMap()
-        val iter: Iterator<*> = root.augmentationList.iterator()
+        val iter: Iterator<*> = root!!.augmentationList.iterator()
         while (iter.hasNext()) {
             val formula = iter.next() as AugmentationFormula
-            val formulaVerbList = createVerbList(root, formula.formulaNo)
+            val formulaVerbList = createVerbList(root!!, formula.formulaNo)
             result[formula.formulaNo.toString() + ""] = formulaVerbList
         }
         return result

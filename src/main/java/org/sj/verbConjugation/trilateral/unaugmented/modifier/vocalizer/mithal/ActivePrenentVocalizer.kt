@@ -49,7 +49,7 @@ class ActivePrenentVocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralMod
      */
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         return kov == 9 || kov == 10 || kov == 11 &&
                 (noc == 2 || noc == 6 //احمال1
                         || isApplied1(conjugationResult) //احتمال2
@@ -57,31 +57,31 @@ class ActivePrenentVocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralMod
     }
 
     private fun isApplied1(conjugationResult: ConjugationResult): Boolean {
-        val root = conjugationResult.root
+        val root = conjugationResult.root!!
         //فحص الباب التصريفي أولاً
-        if (root.conjugation != "4") return false
+        if (root!!.conjugation != "4") return false
         val iter: Iterator<String> = acceptList.iterator()
         while (iter.hasNext()) {
             val appliedRoot = iter.next()
             val c1 = appliedRoot[0]
             val c2 = appliedRoot[1]
             val c3 = appliedRoot[2]
-            if (c1 == root!!.c1 && c2 == root.c2 && root.c3 == c3) return true
+            if (c1 == root!!.c1 && c2 == root!!.c2 && root!!.c3 == c3) return true
         }
         return false
     }
 
     private fun isApplied2(conjugationResult: ConjugationResult): Boolean {
-        val root = conjugationResult.root
+        val root = conjugationResult.root!!
         //فحص الباب التصريفي أولاً
-        if (root.conjugation != "3") return false
+        if (root!!.conjugation != "3") return false
         val iter: Iterator<String> = declineList.iterator()
         while (iter.hasNext()) {
             val appliedRoot = iter.next()
             val c1 = appliedRoot[0]
             val c2 = appliedRoot[1]
             val c3 = appliedRoot[2]
-            if (c1 == root!!.c1 && c2 == root.c2 && root.c3 == c3) return false
+            if (c1 == root!!.c1 && c2 == root!!.c2 && root!!.c3 == c3) return false
         }
         return true
     }

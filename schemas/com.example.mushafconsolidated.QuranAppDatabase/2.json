@@ -575,7 +575,7 @@
       },
       {
         "tableName": "wbw",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`word_no` INTEGER NOT NULL, `chapter_no` INTEGER NOT NULL, `verse_no` INTEGER NOT NULL, `root` TEXT NOT NULL, `translation` TEXT NOT NULL, `verse_tbl_id` INTEGER NOT NULL, `word_by_word_translationID` INTEGER NOT NULL, `word` TEXT NOT NULL, PRIMARY KEY(`word_by_word_translationID`), FOREIGN KEY(`verse_tbl_id`) REFERENCES `VerseNew`(`verseID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`word_no` INTEGER NOT NULL, `chapter_no` INTEGER NOT NULL, `verse_no` INTEGER NOT NULL, `root!!` TEXT NOT NULL, `translation` TEXT NOT NULL, `verse_tbl_id` INTEGER NOT NULL, `word_by_word_translationID` INTEGER NOT NULL, `word` TEXT NOT NULL, PRIMARY KEY(`word_by_word_translationID`), FOREIGN KEY(`verse_tbl_id`) REFERENCES `VerseNew`(`verseID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "word_no",
@@ -596,8 +596,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "root",
-            "columnName": "root",
+            "fieldPath": "root!!",
+            "columnName": "root!!",
             "affinity": "TEXT",
             "notNull": true
           },

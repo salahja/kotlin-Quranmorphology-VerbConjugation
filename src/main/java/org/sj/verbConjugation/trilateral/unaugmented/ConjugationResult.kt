@@ -18,19 +18,19 @@ package org.sj.verbConjugation.trilateral.unaugmented
  * @author Haytham Mohtasseb Billah
  * @version 1.0
  */
-open class ConjugationResult(kov: Int, root: UnaugmentedTrilateralRoot?, originalResult: List<Any>) {
+open class ConjugationResult(kov: Int, root: UnaugmentedTrilateralRoot, originalResult: MutableList<*>?) {
     var kov: Int
-    var root: UnaugmentedTrilateralRoot
+    lateinit var root: UnaugmentedTrilateralRoot
 
     //13 conjugated verbs
-    var originalResult: List<Any>
+    var originalResult: MutableList<Any>
 
     //القائمة بعد  الادغام والاعلال والهمزة
     var finalResult: List<Any>
 
     init {
         this.kov = kov
-        this.originalResult = originalResult
+        this.originalResult = originalResult as MutableList<Any>
         this.root = root!!
         finalResult = ArrayList(originalResult)
     }
@@ -43,7 +43,7 @@ open class ConjugationResult(kov: Int, root: UnaugmentedTrilateralRoot?, origina
     override fun toString(): String {
         return "ConjugationResult{" +
                 "kov=" + kov +
-                ", root=" + root +
+                ", root!!=" + root!! +
                 ", originalResult=" + originalResult +
                 ", finalResult=" + finalResult +
                 '}'

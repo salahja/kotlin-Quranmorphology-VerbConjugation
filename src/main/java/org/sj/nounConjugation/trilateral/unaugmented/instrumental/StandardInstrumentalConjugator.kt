@@ -25,7 +25,7 @@ import java.util.LinkedList
 class StandardInstrumentalConjugator private constructor() : IUnaugmentedTrilateralNounConjugator {
     fun createNoun(root: UnaugmentedTrilateralRoot, suffixNo: Int, formulaNo: Int): NounFormula? {
         val formulaClassName = javaClass.getPackage().name + ".standard.NounFormula" + formulaNo
-        val parameters = arrayOf(root, suffixNo.toString() + "")
+        val parameters = arrayOf(root!!, suffixNo.toString() + "")
         try {
             return Class.forName(formulaClassName).constructors[0]
                 .newInstance(*parameters) as NounFormula
@@ -38,19 +38,19 @@ class StandardInstrumentalConjugator private constructor() : IUnaugmentedTrilate
     fun createNounList(root: UnaugmentedTrilateralRoot, formulaNo: Int): List<NounFormula?> {
         val result: MutableList<NounFormula?> = LinkedList()
         for (i in 0..17) {
-            val noun = createNoun(root, i, formulaNo)
+            val noun = createNoun(root!!, i, formulaNo)
             result.add(noun)
         }
         return result
     }
 
     override fun createNounList(root: UnaugmentedTrilateralRoot, formulaName: String): List<*> {
-        return createNounList(root, formulas.indexOf(formulaName) + 1)
+        return createNounList(root!!, formulas.indexOf(formulaName) + 1)
     }
 
     override fun getAppliedFormulaList(root: UnaugmentedTrilateralRoot): List<*> {
         //فقط للفعل المتعدي
-        return if (root.verbtype == ArabCharUtil.MEEM || root.verbtype == "ك") formulas else LinkedList<Any?>()
+        return if (root!!.verbtype == ArabCharUtil.MEEM || root!!.verbtype == "ك") formulas else LinkedList<Any?>()
     }
 
     companion object {

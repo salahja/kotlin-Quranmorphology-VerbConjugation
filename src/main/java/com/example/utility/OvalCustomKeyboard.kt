@@ -203,11 +203,11 @@ class OvalCustomKeyboard : LinearLayout, View.OnClickListener {
         val dataBundle = Bundle()
         dataBundle.putString(QURAN_VERB_WAZAN, radioText)
         dataBundle.putString(QURAN_VERB_WAZAN, babs)
-        dataBundle.putString(QURAN_VERB_ROOT, root)
+        dataBundle.putString(QURAN_VERB_ROOT, root!!)
         //   QuranVerbConjDialog dialog = new QuranVerbConjDialog(getContext());
         //  dialog.setArguments(dataBundle);
         //   Intent i = new Intent(getContext(), VerbQueryActivity.class);
-        //   i.putExtra(QURAN_VERB_ROOT,root);
+        //   i.putExtra(QURAN_VERB_ROOT,root!!);
         //   i.putExtra(QURAN_VERB_FORM,babs);
         //   getContext().startActivity(i);
         //      FragmentActivity activity = (FragmentActivity) getContext();

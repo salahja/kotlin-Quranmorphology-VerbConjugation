@@ -35,7 +35,7 @@ class Past3Vocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralModifier {
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         return kov == 23 && noc == 4
     }
 }

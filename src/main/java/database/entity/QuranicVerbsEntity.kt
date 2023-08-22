@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "quranicverbs")
 class QuranicVerbsEntity {
     var verb: String? = null
-    var roots: String? = null
+    var root: String? = null
     var thulathibab: String? = null
     var form = 0
     var chaptername: String? = null
@@ -15,7 +15,5 @@ class QuranicVerbsEntity {
 
     @PrimaryKey
     var id = 0
-    fun setRoot(root: String?) {
-        roots = root
-    }
+
 }

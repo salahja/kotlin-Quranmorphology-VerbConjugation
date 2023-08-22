@@ -29,7 +29,7 @@ class AugmentedTrilateralActiveParticipleConjugator private constructor() {
         val suffix = GenericNounSuffixContainer.getInstance()[suffixIndex]
         val formulaClassName =
             javaClass.getPackage().name + ".activeparticiple." + "NounFormula" + formulaNo
-        val parameters = arrayOf(root, suffix)
+        val parameters = arrayOf(root!!, suffix)
         try {
             return Class.forName(formulaClassName).constructors[0]
                 .newInstance(*parameters) as AugmentedTrilateralNoun
@@ -42,7 +42,7 @@ class AugmentedTrilateralActiveParticipleConjugator private constructor() {
     fun createNounList(root: AugmentedTrilateralRoot, formulaNo: Int): List<*> {
         val result = LinkedList<AugmentedTrilateralNoun?>()
         for (i in 0..17) {
-            val noun = createNoun(root, i, formulaNo)
+            val noun = createNoun(root!!, i, formulaNo)
             result.add(noun)
         }
         return result

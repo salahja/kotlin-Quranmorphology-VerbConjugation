@@ -24,18 +24,18 @@ import org.sj.verbConjugation.trilateral.unaugmented.UnaugmentedTrilateralRoot
 class GenericElativeNounFormula : NounFormula {
     private var appliedNounFormula: NounFormula? = null
 
-    constructor(root: UnaugmentedTrilateralRoot?, suffixNo: String) {
+    constructor(root: UnaugmentedTrilateralRoot, suffixNo: String) {
         appliedNounFormula =
             if ((suffixNo.toInt() + 1) % 2 == 0 && (ElativeSuffixContainer.Companion.instance
                     .isDefinite || ElativeSuffixContainer.Companion.instance.isAnnexed)
             ) {
                 NounFormula2(
-                    root,
+                    root!!,
                     suffixNo
                 )
             } else {
                 NounFormula1(
-                    root,
+                    root!!,
                     suffixNo
                 )
             }

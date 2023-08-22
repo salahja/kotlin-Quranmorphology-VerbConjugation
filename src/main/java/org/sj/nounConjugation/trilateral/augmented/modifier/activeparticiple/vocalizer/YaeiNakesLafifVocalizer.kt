@@ -39,7 +39,7 @@ class YaeiNakesLafifVocalizer : TrilateralNounSubstitutionApplier(),
     }
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
-        if (mazeedConjugationResult.root.c3 != 'ي') return false
+        if (mazeedConjugationResult.root!!.c3 != 'ي') return false
         val kov = mazeedConjugationResult.kov
         val formulaNo = mazeedConjugationResult.formulaNo
         when (kov) {

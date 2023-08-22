@@ -20,7 +20,7 @@ import org.sj.verbConjugation.util.ArabCharUtil
  * @author Haytham Mohtasseb Billah
  * @version 1.0
  */
-class NounFormula12(root: AugmentedTrilateralRoot?, suffix: String?) :
+class NounFormula12(root: AugmentedTrilateralRoot, suffix: String?) :
     AugmentedTrilateralNoun(root, suffix) {
     /**
      * form

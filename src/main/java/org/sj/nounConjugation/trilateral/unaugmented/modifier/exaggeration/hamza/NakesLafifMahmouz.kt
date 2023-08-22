@@ -55,7 +55,7 @@ class NakesLafifMahmouz : TrilateralNounSubstitutionApplier(),
             return false
         }
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         when (kov) {
             21 -> return noc == 1 || noc == 5
             22 -> return noc == 1 || noc == 3

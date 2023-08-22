@@ -33,9 +33,9 @@ class WawiLafifNakes2Vocalizer : TrilateralNounSubstitutionApplier(),
    
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
-        if (conjugationResult.root.c3 != 'و') return false
+        if (conjugationResult.root!!.c3 != 'و') return false
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         return (kov == 23 || kov == 28) && noc == 4
     }
 }

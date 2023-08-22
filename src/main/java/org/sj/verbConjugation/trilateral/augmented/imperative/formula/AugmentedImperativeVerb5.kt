@@ -5,10 +5,10 @@ import org.sj.verbConjugation.trilateral.augmented.imperative.AugmentedImperativ
 import org.sj.verbConjugation.util.ArabCharUtil
 
 class AugmentedImperativeVerb5(
-    root: AugmentedTrilateralRoot?,
+    root:AugmentedTrilateralRoot,
     lastDim: String?,
     connectedPronoun: String?
-) : AugmentedImperativeVerb(root, lastDim, connectedPronoun) {
+) : AugmentedImperativeVerb(root!!, lastDim, connectedPronoun) {
     /**
      * form
      *
@@ -17,9 +17,9 @@ class AugmentedImperativeVerb5(
      * method
      */
     override fun form(): String {
-        // return "�"+root.getC1()+ArabCharUtil.SKOON+"�"+ArabCharUtil.FATHA+root.getC2()+ArabCharUtil.KASRA+root.getC3()+lastDim+connectedPronoun;
+        // return "�"+root!!.getC1()+ArabCharUtil.SKOON+"�"+ArabCharUtil.FATHA+root!!.getC2()+ArabCharUtil.KASRA+root!!.getC3()+lastDim+connectedPronoun;
         var s = ""
-        //  return "�"+root.getC1()+ArabCharUtil.SKOON+"�"+ArabCharUtil.FATHA+root.getC2()+ArabCharUtil.FATHA+root.getC3()+lastDpa+connectedPronoun;
+        //  return "�"+root!!.getC1()+ArabCharUtil.SKOON+"�"+ArabCharUtil.FATHA+root!!.getC2()+ArabCharUtil.FATHA+root!!.getC3()+lastDpa+connectedPronoun;
         val c1 = root!!.c1
         s = if (c1.toString() == "ء") {
             "ا" + "ت" + ArabCharUtil.SHADDA + ArabCharUtil.FATHA + root!!.c2 + ArabCharUtil.KASRA + root!!.c3 + lastDim + connectedPronoun

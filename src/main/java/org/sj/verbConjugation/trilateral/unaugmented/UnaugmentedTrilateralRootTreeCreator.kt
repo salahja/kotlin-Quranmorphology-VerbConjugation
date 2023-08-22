@@ -25,21 +25,21 @@ object UnaugmentedTrilateralRootTreeCreator {
         Digester digester = new Digester();
         digester.setValidating( false );
 
-        digester.addObjectCreate("roots", UnaugmentedTrilateralRootTree.class );
+        digester.addObjectCreate("root!!s", UnaugmentedTrilateralRootTree.class );
 
-        digester.addObjectCreate("roots/root", UnaugmentedTrilateralRoot.class );
-        digester.addSetProperties("roots/root", "c1","c1" );
-        digester.addSetProperties( "roots/root", "c2","c2" );
-        digester.addSetProperties( "roots/root", "c3", "c3" );
-        digester.addSetProperties( "roots/root", "conjugation","conjugation" );
-        digester.addSetProperties( "roots/root", "transitive","transitive" );
+        digester.addObjectCreate("root!!s/root!!", UnaugmentedTrilateralRoot.class );
+        digester.addSetProperties("root!!s/root!!", "c1","c1" );
+        digester.addSetProperties( "root!!s/root!!", "c2","c2" );
+        digester.addSetProperties( "root!!s/root!!", "c3", "c3" );
+        digester.addSetProperties( "root!!s/root!!", "conjugation","conjugation" );
+        digester.addSetProperties( "root!!s/root!!", "transitive","transitive" );
 
-        digester.addObjectCreate("roots/root/gerund", Gerund.class );
-        digester.addSetProperties( "roots/root/gerund", "symbol","symbol" );
-        digester.addSetProperties( "roots/root/gerund", "value","value" );
-        digester.addSetNext( "roots/root/gerund" , "addGerund" );
+        digester.addObjectCreate("root!!s/root!!/gerund", Gerund.class );
+        digester.addSetProperties( "root!!s/root!!/gerund", "symbol","symbol" );
+        digester.addSetProperties( "root!!s/root!!/gerund", "value","value" );
+        digester.addSetNext( "root!!s/root!!/gerund" , "addGerund" );
 
-        digester.addSetNext( "roots/root" , "addRoot" );
+        digester.addSetNext( "root!!s/root!!" , "addRoot" );
 
         return (UnaugmentedTrilateralRootTree)digester.parse(xmlDiagramFile);
       */

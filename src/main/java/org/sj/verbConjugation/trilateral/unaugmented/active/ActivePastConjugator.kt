@@ -25,27 +25,27 @@ class ActivePastConjugator private constructor() {
      * إنشاء الفعل حسب الضمير
      *
      * @param pronounIndex int
-     * @param root         UnaugmentedTrilateralRoot
+     * @param root!!         UnaugmentedTrilateralRoot
      * @return PastConjugation
      */
     fun createVerb(pronounIndex: Int, root: UnaugmentedTrilateralRoot): ActivePastVerb {
-        val dpa2 = PastConjugationDataContainer.getInstance().getDpa2(root)
+        val dpa2 = PastConjugationDataContainer.getInstance().getDpa2(root!!)
         val lastDpa = PastConjugationDataContainer.getInstance().getLastDpa(pronounIndex)
         val connectedPronoun =
             PastConjugationDataContainer.getInstance().getConnectedPronoun(pronounIndex)
-        return ActivePastVerb(root, dpa2, lastDpa, connectedPronoun)
+        return ActivePastVerb(root!!, dpa2, lastDpa, connectedPronoun)
     }
 
     /**
      * إنشاء  قائمة تحتوي الأفعال مع الضمائر الثلاثة عشر
      *
-     * @param root UnaugmentedTrilateralRoot
+     * @param root!! UnaugmentedTrilateralRoot
      * @return List
      */
     fun createVerbList(root: UnaugmentedTrilateralRoot): List<ActivePastVerb> {
         val result: MutableList<ActivePastVerb> = LinkedList()
         for (i in 0..12) {
-            val add = result.add(createVerb(i, root))
+            val add = result.add(createVerb(i, root!!))
         }
         ////System.out.println(result);
         return result
@@ -54,7 +54,7 @@ class ActivePastConjugator private constructor() {
     fun createVerbHua(root: UnaugmentedTrilateralRoot): List<ActivePastVerb> {
         val result: MutableList<ActivePastVerb> = LinkedList()
         for (i in 0..0) {
-            val add = result.add(createVerb(i, root))
+            val add = result.add(createVerb(i, root!!))
         }
         ////System.out.println(result);
         return result

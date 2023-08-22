@@ -5,11 +5,11 @@ import org.sj.verbConjugation.trilateral.augmented.AugmentedTrilateralRoot
 import org.sj.verbConjugation.util.ArabCharUtil
 
 class AugmentedPresentVerb11(
-    root: AugmentedTrilateralRoot?,
+    root:AugmentedTrilateralRoot,
     cp: String?,
     lastDpr: String?,
     connectedPronoun: String?
-) : AugmentedPresentVerb(root, cp, lastDpr, connectedPronoun) {
+) : AugmentedPresentVerb(root!!, cp, lastDpr, connectedPronoun) {
     /**
      * form
      *
@@ -18,7 +18,7 @@ class AugmentedPresentVerb11(
      * method
      */
     override fun form(): String {
-        //  return cp+ArabCharUtil.FATHA+root.getC1()+ArabCharUtil.SKOON+root.getC2()+ArabCharUtil.FATHA+"�"+ArabCharUtil.SHADDA+ArabCharUtil.KASRA+root.getC3()+lastDpr+connectedPronoun;
+        //  return cp+ArabCharUtil.FATHA+root!!.getC1()+ArabCharUtil.SKOON+root!!.getC2()+ArabCharUtil.FATHA+"�"+ArabCharUtil.SHADDA+ArabCharUtil.KASRA+root!!.getC3()+lastDpr+connectedPronoun;
         return cp + ArabCharUtil.FATHA + root!!.c1 + ArabCharUtil.SKOON + root!!.c2 + ArabCharUtil.FATHA + "و" + ArabCharUtil.SHADDA + ArabCharUtil.KASRA + root!!.c3 + lastDpr + connectedPronoun
     }
 }

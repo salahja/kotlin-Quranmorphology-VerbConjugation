@@ -3,7 +3,7 @@ package org.sj.verbConjugation.trilateral.augmented.imperative
 import org.sj.verbConjugation.trilateral.augmented.AugmentedTrilateralRoot
 
 abstract class AugmentedImperativeVerb(
-    var root: AugmentedTrilateralRoot?,
+    var root:AugmentedTrilateralRoot,
     var lastDim: String?,
     var connectedPronoun: String?
 ) {
@@ -17,12 +17,12 @@ abstract class AugmentedImperativeVerb(
 
 
 public abstract class AugmentedImperativeVerb {
-    protected AugmentedTrilateralRoot root;
+    protected AugmentedTrilateralRoot root!!;
     protected String lastDim;
     protected String connectedPronoun;
 
-    public AugmentedImperativeVerb(AugmentedTrilateralRoot root, String lastDim, String connectedPronoun) {
-        this.root = root;
+    public AugmentedImperativeVerb(AugmentedTrilateralRoot root!!, String lastDim, String connectedPronoun) {
+        this.root!! = root!!;
         this.lastDim = lastDim;
         this.connectedPronoun = connectedPronoun;
     }
@@ -34,7 +34,7 @@ public abstract class AugmentedImperativeVerb {
     }
 
     public AugmentedTrilateralRoot getRoot() {
-        return root;
+        return root!!;
     }
 
     public String getLastDpr() {

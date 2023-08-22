@@ -46,7 +46,7 @@ class WawiLafifNakesVocalizer : TrilateralNounSubstitutionApplier(),
         if (kov != 23) {
             return false
         }
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         when (noc) {
             1, 3, 4, 5 -> return true
         }

@@ -34,7 +34,7 @@ class ActiveParticipleModifier private constructor() {
 
     // AugmentedTrilateralModifierListener listener //todo
     fun build(
-        root: AugmentedTrilateralRoot?,
+        root:AugmentedTrilateralRoot,
         kov: Int,
         formulaNo: Int,
         conjugations: List<Any?>?,
@@ -47,7 +47,7 @@ class ActiveParticipleModifier private constructor() {
         substituter.apply(conjResult)
         geminator.apply(conjResult)
         var applyVocalization = true
-        val result: Int = FormulaApplyingChecker.instance.check(root, formulaNo)
+        val result: Int = FormulaApplyingChecker.instance.check(root!!, formulaNo)
         if (result == IFormulaApplyingChecker.NOT_VOCALIZED) {
             applyVocalization = false
         } else if (result == IFormulaApplyingChecker.TWO_STATE) {

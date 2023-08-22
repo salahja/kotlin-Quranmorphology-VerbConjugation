@@ -44,9 +44,9 @@ class YaeiNakesLafifVocalizer : TrilateralNounSubstitutionApplier(),
    
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
-        if (conjugationResult.root.c3 != 'ي') return false
+        if (conjugationResult.root!!.c3 != 'ي') return false
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         when (kov) {
             21 -> return noc == 1 || noc == 5
             22 -> return noc == 1 || noc == 3

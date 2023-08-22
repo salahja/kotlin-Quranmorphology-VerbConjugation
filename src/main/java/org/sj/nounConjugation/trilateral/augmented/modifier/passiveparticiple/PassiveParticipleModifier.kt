@@ -33,7 +33,7 @@ class PassiveParticipleModifier private constructor() {
     private val vocalizer = Vocalizer()
     private val mahmouz = Mahmouz()
     fun build(
-        root: AugmentedTrilateralRoot?,
+        root:AugmentedTrilateralRoot,
         kov: Int,
         formulaNo: Int,
         conjugations: List<Any?>?,
@@ -43,7 +43,7 @@ class PassiveParticipleModifier private constructor() {
         substituter.apply(conjResult)
         geminator.apply(conjResult)
         var applyVocalization = true
-        val result = FormulaApplyingChecker.instance.check(root, formulaNo)
+        val result = FormulaApplyingChecker.instance.check(root!!, formulaNo)
         if (result == IFormulaApplyingChecker.NOT_VOCALIZED) {
             applyVocalization = false
         } else if (result == IFormulaApplyingChecker.TWO_STATE) {

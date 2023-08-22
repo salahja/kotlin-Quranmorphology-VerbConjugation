@@ -23,7 +23,7 @@ class FragmentVerb : Fragment() {
     var isUnAugmented = false
     private var skabeer = ArrayList<ArrayList<*>>()
     private var augmentedFormula: String? = null
-    private var unaugmentedFormula: String? = null
+    private lateinit var unaugmentedFormula: String
     private var verbroot: String? = null
     private var verbmood: String? = null
     fun newInstance(): FragmentVerb {
@@ -67,7 +67,7 @@ class FragmentVerb : Fragment() {
         assert(dataBundle != null)
         if (dataBundle!!.getString(VERBTYPE) == "mujarrad") {
             isUnAugmented = true
-            unaugmentedFormula = dataBundle.getString(QURAN_VERB_WAZAN)
+            unaugmentedFormula = dataBundle.getString(QURAN_VERB_WAZAN)!!
         } else {
             augmentedFormula = dataBundle.getString(QURAN_VERB_WAZAN)
             isAugmented = true

@@ -5,10 +5,10 @@ import org.sj.verbConjugation.trilateral.augmented.AugmentedTrilateralRoot
 import org.sj.verbConjugation.util.ArabCharUtil
 
 class AugmentedPastVerb9(
-    root: AugmentedTrilateralRoot?,
+    root:AugmentedTrilateralRoot,
     lastDpa: String?,
     connectedPronoun: String?
-) : AugmentedPastVerb(root, lastDpa, connectedPronoun) {
+) : AugmentedPastVerb(root!!, lastDpa, connectedPronoun) {
     /**
      * form
      *

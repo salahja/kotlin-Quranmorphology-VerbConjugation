@@ -68,6 +68,6 @@ class UnaugmentedTrilateralRoot : TrilateralRoot {
 
     override fun equals(obj: Any?): Boolean {
         val root = obj as UnaugmentedTrilateralRoot?
-        return root!!.c1 == c1 && root.c2 == c2 && root.c3 == c3
+        return root!!.c1 == c1 && root!!.c2 == c2 && root!!.c3 == c3
     }
 }

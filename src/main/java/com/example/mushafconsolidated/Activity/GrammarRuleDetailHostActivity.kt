@@ -20,7 +20,7 @@ class GrammarRuleDetailHostActivity : BaseActivity() {
         val binding = ActivityGrammarruleDetailBinding.inflate(
             layoutInflater
         )
-        setContentView(binding.root)
+        setContentView(binding.root!!)
         val navHostFragment = (supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment_grammarrule_detail) as NavHostFragment?)!!
         val navController = navHostFragment.navController

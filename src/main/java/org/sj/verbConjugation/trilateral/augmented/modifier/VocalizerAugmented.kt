@@ -129,7 +129,7 @@ class VocalizerAugmented {
         while (iter.hasNext()) {
             val vocalizer = iter.next()
             if (vocalizer.isApplied(conjResult)) {
-                (vocalizer as SubstitutionsApplier).apply(conjResult.finalResult as MutableList<String>, conjResult.root)
+                (vocalizer as SubstitutionsApplier).apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
                 break
             }
         }

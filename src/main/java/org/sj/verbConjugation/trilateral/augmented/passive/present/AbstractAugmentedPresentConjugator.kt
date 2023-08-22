@@ -14,12 +14,12 @@ class AbstractAugmentedPresentConjugator(
         pronounIndex: Int,
         formulaNo: Int
     ): AugmentedPresentVerb? {
-        val cp = PresentConjugationDataContainer.getInstance().getCp(pronounIndex)
+        val cp = PresentConjugationDataContainer.instance.getCp(pronounIndex)
         val lastDpr = lastDprList[pronounIndex] as String
         val connectedPronoun = connectedPronounList[pronounIndex] as String
         val formulaClassName =
             javaClass.getPackage().name + ".formula." + "AugmentedPresentVerb" + formulaNo
-        val parameters = arrayOf(root, cp, lastDpr, connectedPronoun)
+        val parameters = arrayOf(root!!, cp, lastDpr, connectedPronoun)
         try {
             return Class.forName(formulaClassName).constructors[0]
                 .newInstance(*parameters) as AugmentedPresentVerb
@@ -30,15 +30,15 @@ class AbstractAugmentedPresentConjugator(
     }
 
     fun createVerbList(root: AugmentedTrilateralRoot, formulaNo: Int): List<AugmentedPresentVerb?> {
-        val augmentationFormula = root.getAugmentationFormula(formulaNo)
+        val augmentationFormula = root!!.getAugmentationFormula(formulaNo)
         return if (formulaNo == 29) {
             //   if (augmentationFormula.getTransitive() == 'ل') {
-            createLazzemVerbList(root, formulaNo)
+            createLazzemVerbList(root!!, formulaNo)
         } else {
             val result: MutableList<AugmentedPresentVerb?> =
                 LinkedList()
             for (i in 0..12) {
-                val verb = createVerb(root, i, formulaNo)
+                val verb = createVerb(root!!, i, formulaNo)
                 result.add(verb)
             }
             result
@@ -53,7 +53,7 @@ class AbstractAugmentedPresentConjugator(
         val result: MutableList<AugmentedPresentVerb?> = LinkedList()
         for (i in 0..12) {
             if (i == 7 || i == 8) {
-                val verb = createVerb(root, i, formulaNo)
+                val verb = createVerb(root!!, i, formulaNo)
                 result.add(verb)
             } else {
                 result.add(null)

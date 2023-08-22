@@ -46,7 +46,7 @@ class WawiNakesLafifVocalizer : TrilateralNounSubstitutionApplier(),
     }
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
-        if (mazeedConjugationResult.root.c3 != 'و') return false
+        if (mazeedConjugationResult.root!!.c3 != 'و') return false
         val kov = mazeedConjugationResult.kov
         val formulaNo = mazeedConjugationResult.formulaNo
         when (kov) {

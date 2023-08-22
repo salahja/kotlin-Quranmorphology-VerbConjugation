@@ -16,7 +16,7 @@ class NEndedGeminator : SubstitutionsApplier(), IAugmentedTrilateralModifier {
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov
         val formulaNo = mazeedConjugationResult.formulaNo
-        if (mazeedConjugationResult.root.c3 != 'ن') return false
+        if (mazeedConjugationResult.root!!.c3 != 'ن') return false
         when (formulaNo) {
             1, 2, 3, 4, 5, 7, 8, 9, 10, 11 -> when (kov) {
                 1, 2, 3, 5, 6, 11, 14, 15, 17, 18, 20 -> return true
@@ -26,7 +26,7 @@ class NEndedGeminator : SubstitutionsApplier(), IAugmentedTrilateralModifier {
     }
 
     fun apply(tense: String?, active: Boolean, conjResult: MazeedConjugationResult) {
-        apply(conjResult.finalResult as MutableList<String>, conjResult.root)
+        apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
     }
 
    

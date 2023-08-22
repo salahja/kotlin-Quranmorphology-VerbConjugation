@@ -34,7 +34,7 @@ class UnaugmentedTrilateralModifier private constructor() {
      * اخراج قائمة الأفعال بعد التعديلات
      * البدء بالادغام
      *
-     * @param root         UnaugmentedTrilateralRoot
+     * @param root!!         UnaugmentedTrilateralRoot
      * @param kov          int
      * @param conjugations List
      * @param tense        String (From SystemConstans class the values are stored)  ماضي أو مضارع او أمر
@@ -44,18 +44,19 @@ class UnaugmentedTrilateralModifier private constructor() {
     fun build(
         root: UnaugmentedTrilateralRoot,
         kov: Int,
-        conjugations: List<*>,
+        conjugations: MutableList<*>,
         tense: String,
         active: Boolean,
         applyGemination: Boolean = true
     ): ConjugationResult {
-        val conjResult = ConjugationResult(kov, root, conjugations as List<Any>)
+        val conjResult = ConjugationResult(kov, root!!, conjugations  )
         if (applyGemination) geminator.apply(tense, active, conjResult)
         vocalizer.apply(tense, active, conjResult)
         hamzaModifier.apply(tense, active, conjResult)
         //خصيصاُ للفعل أثأ
         postHamzaModifier.apply(tense, active, conjResult)
-        VerbLamAlefModifier.getInstance().apply(conjResult.finalResult, conjResult)
+
+        VerbLamAlefModifier.instance.apply(conjResult)
         return conjResult
     }
 

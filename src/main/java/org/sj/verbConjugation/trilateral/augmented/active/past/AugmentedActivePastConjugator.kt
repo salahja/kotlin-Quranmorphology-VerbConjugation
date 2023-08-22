@@ -17,7 +17,7 @@ class AugmentedActivePastConjugator private constructor() {
             PastConjugationDataContainer.getInstance().getConnectedPronoun(pronounIndex)
         val formulaClassName =
             javaClass.getPackage().name + ".formula." + "AugmentedPastVerb" + formulaNo
-        val parameters = arrayOf(root, lastDpa, connectedPronoun)
+        val parameters = arrayOf(root!!, lastDpa, connectedPronoun)
         try {
             return Class.forName(formulaClassName).constructors[0]
                 .newInstance(*parameters) as AugmentedPastVerb
@@ -30,7 +30,7 @@ class AugmentedActivePastConjugator private constructor() {
     fun createVerbList(root: AugmentedTrilateralRoot, formulaNo: Int): List<AugmentedPastVerb?> {
         val result: MutableList<AugmentedPastVerb?> = LinkedList()
         for (i in 0..12) {
-            val verb = createVerb(root, i, formulaNo)
+            val verb = createVerb(root!!, i, formulaNo)
             result.add(verb)
         }
         return result
@@ -38,10 +38,10 @@ class AugmentedActivePastConjugator private constructor() {
 
     fun createAllVerbList(root: AugmentedTrilateralRoot): Map<String, List<AugmentedPastVerb?>> {
         val result: MutableMap<String, List<AugmentedPastVerb?>> = HashMap()
-        val iter: Iterator<*> = root.augmentationList.iterator()
+        val iter: Iterator<*> = root!!.augmentationList.iterator()
         while (iter.hasNext()) {
             val formula = iter.next() as AugmentationFormula
-            val formulaVerbList = createVerbList(root, formula.formulaNo)
+            val formulaVerbList = createVerbList(root!!, formula.formulaNo)
             result[formula.formulaNo.toString() + ""] = formulaVerbList
         }
         return result

@@ -31,7 +31,7 @@ abstract class VerbDatabase : RoomDatabase() {
     //    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
     //        @Override
     //        public void migrate(SupportSQLiteDatabase database) {
-    //            database.execSQL("CREATE TABLE IF NOT EXISTS `mazeeddictionary` (`root` TEXT NOT NULL, `form` TEXT NOT NULL, `verbtype` TEXT NOT NULL, `id` INTEGER NOT NULL, `babname` TEXT NOT NULL, PRIMARY KEY(`id`))");
+    //            database.execSQL("CREATE TABLE IF NOT EXISTS `mazeeddictionary` (`root!!` TEXT NOT NULL, `form` TEXT NOT NULL, `verbtype` TEXT NOT NULL, `id` INTEGER NOT NULL, `babname` TEXT NOT NULL, PRIMARY KEY(`id`))");
     //
     //        }
     //    };

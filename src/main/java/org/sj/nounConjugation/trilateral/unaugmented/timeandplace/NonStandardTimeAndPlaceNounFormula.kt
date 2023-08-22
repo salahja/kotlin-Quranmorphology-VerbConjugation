@@ -21,7 +21,7 @@ import org.sj.verbConjugation.trilateral.unaugmented.UnaugmentedTrilateralRoot
  */
 abstract class NonStandardTimeAndPlaceNounFormula : NounFormula {
     constructor() {}
-    constructor(root: UnaugmentedTrilateralRoot?, suffixNo: String?) : super(root, suffixNo) {}
+    constructor(root: UnaugmentedTrilateralRoot, suffixNo: String?) : super(root!!, suffixNo) {}
 
     /**
      * Every non standard time and place has a symbol to be represented by

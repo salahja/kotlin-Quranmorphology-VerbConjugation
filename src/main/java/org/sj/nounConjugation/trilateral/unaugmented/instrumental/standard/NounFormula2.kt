@@ -20,10 +20,10 @@ import org.sj.verbConjugation.util.ArabCharUtil
  * @author Haytham Mohtasseb Billah
  * @version 1.0
  */
-class NounFormula2(root: UnaugmentedTrilateralRoot?, suffix: String?) : NounFormula(root, suffix) {
+class NounFormula2(root: UnaugmentedTrilateralRoot, suffix: String?) : NounFormula(root!!, suffix) {
     override fun form(): String {
         when (suffixNo) {
-            2, 4, 8, 10, 14, 16 -> return ArabCharUtil.MEEM + ArabCharUtil.KASRA + root.c1 + ArabCharUtil.SKOON + root.c2 + ArabCharUtil.FATHA + root.c3 + suffix
+            2, 4, 8, 10, 14, 16 -> return ArabCharUtil.MEEM + ArabCharUtil.KASRA + root!!.c1 + ArabCharUtil.SKOON + root!!.c2 + ArabCharUtil.FATHA + root!!.c3 + suffix
         }
         return ""
     }

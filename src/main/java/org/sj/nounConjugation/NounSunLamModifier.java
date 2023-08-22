@@ -61,11 +61,11 @@ public class NounSunLamModifier extends SubstitutionsApplier {
     }
 
     public void apply(List<Object> finalResult, ConjugationResult conjResult) {
-        apply(conjResult.getFinalResult(), null);
+        apply(conjResult.getFinalResult(), (ConjugationResult) null);
     }
 
     public void apply(MazeedConjugationResult conjResult) {
-        apply(conjResult.getFinalResult(), null);
+        apply(conjResult.getFinalResult(), (ConjugationResult) null);
     }
 
     //todo

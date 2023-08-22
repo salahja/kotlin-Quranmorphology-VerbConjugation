@@ -18,6 +18,6 @@ class SpecialSubstituter2 : SubstitutionsApplier(), IAugmentedTrilateralModifier
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov
         val formulaNo = mazeedConjugationResult.formulaNo
-        return mazeedConjugationResult.root.c1 == 'ي' && formulaNo == 5 && (kov == 13 || kov == 14)
+        return mazeedConjugationResult.root!!.c1 == 'ي' && formulaNo == 5 && (kov == 13 || kov == 14)
     }
 }

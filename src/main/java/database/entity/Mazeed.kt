@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "mazeed")
 class Mazeed(/*
-   root     TEXT    NOT NULL,
+   root!!     TEXT    NOT NULL,
     form     TEXT    NOT NULL,
     verbtype TEXT    NOT NULL,
     babname  TEXT    NOT NULL,

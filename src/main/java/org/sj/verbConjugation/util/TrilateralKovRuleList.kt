@@ -1,19 +1,12 @@
-package org.sj.verbConjugation.util;
+package org.sj.verbConjugation.util
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class TrilateralKovRuleList {
-    private final List<TrilateralKovRule> rules = new ArrayList<TrilateralKovRule>(33);
-
-    public TrilateralKovRuleList() {
+class TrilateralKovRuleList {
+    private val rules: MutableList<TrilateralKovRule> = ArrayList(33)
+    fun addRule(rule: TrilateralKovRule) {
+        rules.add(rule)
     }
 
-    public void addRule(TrilateralKovRule rule) {
-        rules.add(rule);
-    }
-
-    public List<TrilateralKovRule> getRules() {
-        return rules;
+    fun getRules(): List<TrilateralKovRule> {
+        return rules
     }
 }

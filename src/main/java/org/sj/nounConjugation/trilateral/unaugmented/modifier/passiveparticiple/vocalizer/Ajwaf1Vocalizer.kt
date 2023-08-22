@@ -34,7 +34,7 @@ class Ajwaf1Vocalizer : TrilateralNounSubstitutionApplier(),
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         return ((kov == 15 || kov == 16) && (noc == 1 || noc == 4) || kov == 17) && (noc == 4 || noc == 1 || noc == 5)
     }
 }

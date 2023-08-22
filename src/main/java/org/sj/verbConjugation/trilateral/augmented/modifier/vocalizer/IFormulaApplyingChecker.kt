@@ -4,7 +4,7 @@ import org.sj.verbConjugation.trilateral.augmented.AugmentedTrilateralRoot
 
 abstract class IFormulaApplyingChecker {
     fun check(root: AugmentedTrilateralRoot): Int {
-        val rootString = root.c1.toString() + "" + root.c2 + "" + root.c3
+        val rootString = root!!.c1.toString() + "" + root!!.c2 + "" + root!!.c3
         if (notVocalizedList.contains(rootString)) return NOT_VOCALIZED
         return if (twoStateList.contains(rootString)) TWO_STATE else NO_THING
     }

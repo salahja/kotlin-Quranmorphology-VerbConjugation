@@ -5,9 +5,9 @@ class MazeedConjugationResult(
     val originalResult: List<Any?>?
 ) {
 
-    val finalResult: List<Any>
+    val finalResult: MutableList<Any>
 
     init {
-        finalResult = listOf(ArrayList(originalResult))
+        finalResult = listOf(ArrayList(originalResult)).toMutableList()
     }
 }

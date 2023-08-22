@@ -35,7 +35,7 @@ class ActivePresentVerb(
     }
 
     override fun toString(): String {
-        return cp + vcp + root.c1 + dpr1 + root.c2 + dpr2 + root.c3 + lastDpr + connectedPronoun
+        return cp + vcp + root!!.c1 + dpr1 + root!!.c2 + dpr2 + root!!.c3 + lastDpr + connectedPronoun
     }
 
     companion object {

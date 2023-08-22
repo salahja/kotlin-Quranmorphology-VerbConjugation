@@ -33,7 +33,7 @@ class WawiPassivePresentVocalizer : SubstitutionsApplier(), IUnaugmentedTrilater
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         return ((((((kov == 9) && (noc == 2)) || (kov == 10)) && ((noc == 3) || (noc == 4) || (noc == 5))) || ((kov == 11) && ((noc == 2) || (noc == 3) || (noc == 4) || (noc == 5)))))
     }
 }

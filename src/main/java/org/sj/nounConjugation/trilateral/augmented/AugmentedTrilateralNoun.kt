@@ -20,7 +20,7 @@ import org.sj.verbConjugation.trilateral.augmented.AugmentedTrilateralRoot
  * @version 1.0
  */
 abstract class AugmentedTrilateralNoun(
-    protected var root: AugmentedTrilateralRoot?,
+    protected var root: AugmentedTrilateralRoot,
     protected var suffix: String?
 ) {
     abstract fun form(): String

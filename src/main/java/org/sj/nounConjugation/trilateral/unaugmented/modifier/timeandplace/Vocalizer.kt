@@ -43,7 +43,7 @@ class Vocalizer {
         while (iter.hasNext()) {
             val modifier = iter.next() as IUnaugmentedTrilateralNounModificationApplier
             if (modifier.isApplied(conjResult)) {
-                (modifier as SubstitutionsApplier).apply(conjResult.finalResult as MutableList<String>, conjResult.root)
+                (modifier as SubstitutionsApplier).apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
                 break
             }
         }

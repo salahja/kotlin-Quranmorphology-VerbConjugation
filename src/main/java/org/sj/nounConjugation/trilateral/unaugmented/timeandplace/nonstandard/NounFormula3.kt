@@ -21,14 +21,14 @@ import org.sj.verbConjugation.util.ArabCharUtil
  * @version 1.0
  */
 class NounFormula3 : NonStandardTimeAndPlaceNounFormula {
-    constructor(root: UnaugmentedTrilateralRoot?, suffixNo: String?) : super(root, suffixNo) {}
+    constructor(root: UnaugmentedTrilateralRoot, suffixNo: String?) : super(root!!, suffixNo) {}
 
     //to be used in refection getting the formula name
     constructor() {}
 
     override fun form(): String {
         when (suffixNo) {
-            2, 4, 8, 10, 14, 16 -> return ArabCharUtil.MEEM + ArabCharUtil.FATHA + root.c1 + ArabCharUtil.SKOON + root.c2 + ArabCharUtil.FATHA + root.c3 + suffix
+            2, 4, 8, 10, 14, 16 -> return ArabCharUtil.MEEM + ArabCharUtil.FATHA + root!!.c1 + ArabCharUtil.SKOON + root!!.c2 + ArabCharUtil.FATHA + root!!.c3 + suffix
         }
         return ""
     }

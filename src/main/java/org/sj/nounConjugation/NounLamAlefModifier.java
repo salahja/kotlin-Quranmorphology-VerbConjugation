@@ -46,15 +46,15 @@ public class NounLamAlefModifier extends SubstitutionsApplier {
     }
 
     public void apply(List<Object> finalResult, ConjugationResult conjResult) {
-        apply(conjResult.getFinalResult(), null);
+        apply(conjResult.getFinalResult(), (ConjugationResult) null);
         //قد يوجد لام ألف أخرى تتطابق مع قانون أخر
-        apply(conjResult.getFinalResult(), null);
+        apply(conjResult.getFinalResult(), (ConjugationResult) null);
     }
 
     public void apply(MazeedConjugationResult conjResult) {
-        apply(conjResult.getFinalResult(), null);
+        apply((List<Object>) conjResult.getFinalResult(), (ConjugationResult) null);
         //قد يوجد لام ألف أخرى تتطابق مع قانون أخر
-        apply(conjResult.getFinalResult(), null);
+        apply((List<Object>) conjResult.getFinalResult(), (ConjugationResult) null);
     }
 //todo quadri
 /*

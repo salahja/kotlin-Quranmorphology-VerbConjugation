@@ -36,7 +36,7 @@ class ACAjwaf1Vocalizer : TrilateralNounSubstitutionApplier(),
         val nounFormula = conjugationResult.nounFormula
         if (nounFormula != "مَفْعَل" && nounFormula != "مَفْعَلَة") return false
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         when (kov) {
             15, 16 -> return noc == 1 || noc == 4
             17 -> when (noc) {

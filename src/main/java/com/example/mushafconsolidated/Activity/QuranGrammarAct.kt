@@ -354,29 +354,29 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                // drawerLayout.closeDrawers()
               //  val bundle = Bundle()
 
-             //   val roots = Intent(this, arabicrootDetailHostActivity::class.java)
+             //   val roots = Intent(this, arabicroot!!DetailHostActivity::class.java)
              //   bundle.putString(Constant.WORDDETAILS, "word")
-              //  roots.putExtras(bundle)
+              //  root!!s.putExtras(bundle)
 
-              //  startActivity(roots)
+              //  startActivity(root!!s)
             }
             if (item.itemId == R.id.verbdetails) {
         /*        drawerLayout.closeDrawers()
 
-                val verbdetails = Intent(this, arabicrootDetailHostActivity::class.java)
+                val verbdetails = Intent(this, arabicroot!!DetailHostActivity::class.java)
                 verbdetails.putExtra(Constant.WORDDETAILS, "verb")
                 startActivity(verbdetails)*/
             }
             if (item.itemId == R.id.jumptoverse) {
                 drawerLayout.closeDrawers()
                 val grammar = Intent(this, GrammarRuleDetailHostActivity::class.java)
-                //  Intent grammar = new Intent(this, arabicrootDetailHostActivity.class);
+                //  Intent grammar = new Intent(this, arabicroot!!DetailHostActivity.class);
                 startActivity(grammar)
             }
             if (item.itemId == R.id.search) {
                 drawerLayout.closeDrawers()
                 materialToolbar!!.title = "Root Word Search"
-                //  Intent search = new Intent(this, arabicrootDetailHostActivity.class);
+                //  Intent search = new Intent(this, arabicroot!!DetailHostActivity.class);
             //    val search = Intent(this, SearchKeyBoardAct::class.java)
            //     startActivity(search)
             }
@@ -1298,7 +1298,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             val item = BookMarkCreateFrag()
             item.arguments = dataBundle
             val data = arrayOf(chapter_no.toString(), verse.toString(), surahArabicName)
-            //    item.setdata(rootWordMeanings,wbwRootwords,grammarRootsCombined);
+            //    item.setdata(root!!WordMeanings,wbwRootwords,grammarRootsCombined);
             //   transactions.show(item);
             BookMarkCreateFrag.newInstance(data)
                 .show(this@QuranGrammarAct.supportFragmentManager, WordAnalysisBottomSheet.TAG)

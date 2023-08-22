@@ -56,6 +56,6 @@ class MazeedGenericGeminator : IAugmentedTrilateralModifier {
 
     fun apply(tense: String, active: Boolean, conjResult: MazeedConjugationResult) {
         val geminator = geminators[tense + active]
-        geminator!!.apply(conjResult.finalResult as MutableList<String>, conjResult.root)
+        geminator!!.apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
     }
 }

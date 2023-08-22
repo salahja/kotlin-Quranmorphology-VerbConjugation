@@ -1,102 +1,40 @@
-package org.sj.verbConjugation.util;
+package org.sj.verbConjugation.util
 
-import com.example.utility.QuranGrammarApplication;
+import com.example.utility.QuranGrammarApplication
+import database.VerbDatabaseUtils
+import database.entity.kov
 
-import java.util.ArrayList;
+class KovRulesManager private constructor() {
+    var c1: String? = null
+    var c2: String? = null
+    var c3: String? = null
+    var kov = 0
 
-import database.VerbDatabaseUtils;
-import database.entity.kov;
+    // private QuadrilateralKovRuleList quadrilateralRulesList;
+    var desc: String? = null
+    var example: String? = null
+    private val trilateralRulesLists: TrilateralKovRuleList? = null
+    private var trilateralRulesList: ArrayList<kov?>? = ArrayList()
 
-public class KovRulesManager {
-    private static final KovRulesManager instance = new KovRulesManager();
-    private String c1;
-    private String c2;
-    private String c3;
-    private int kov;
-    private String desc;
-    private String example;
-    private TrilateralKovRuleList trilateralRulesLists;
-    private ArrayList<database.entity.kov> trilateralRulesList = new ArrayList<>();
-
-    private KovRulesManager() {
-        String tri = "./src/main/resources/db/Trilateralkov.xml";
-        String quad = "./src/main/resources/db/Quadrilateralkov.xml";
+    init {
+        val tri = "./src/main/resources/db/Trilateralkov.xml"
+        val quad = "./src/main/resources/db/Quadrilateralkov.xml"
         try {
             //    trilateralRulesList = buildTrilateral(new File("/Trilateralkov.xml"));
             //   quadrilateralRulesList = buildQuadrilateral(new File("/Quadrilateralkov.xml"));
-            trilateralRulesList = buildTrilateral();
+            trilateralRulesList = buildTrilateral()
             //   quadrilateralRulesList = buildQuadrilateral(new File(quad));
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (ex: Exception) {
+            ex.printStackTrace()
         }
     }
 
-    public static KovRulesManager getInstance() {
-        return instance;
-    }
-
-    public static void main(String[] args) {
-        char c1 = 'ح';
-        char c2 = 'ي';
-        char c3 = 'ح';
-        char c4 = 'ي';
-        //   ////System.out.println(""+ KovRulesManager.getInstance().getQuadrilateralKov(c1,c2,c3,c4));
-    }
-
-    public String getC1() {
-        return c1;
-    }
-
-    public void setC1(String c1) {
-        this.c1 = c1;
-    }
-
-    public String getC2() {
-        return c2;
-    }
-
-    public void setC2(String c2) {
-        this.c2 = c2;
-    }
-
-    public String getC3() {
-        return c3;
-    }
-
-    public void setC3(String c3) {
-        this.c3 = c3;
-    }
-
-    public int getKov() {
-        return kov;
-    }
-
-    public void setKov(int kov) {
-        this.kov = kov;
-    }
-    // private QuadrilateralKovRuleList quadrilateralRulesList;
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public String getExample() {
-        return example;
-    }
-
-    public void setExample(String example) {
-        this.example = example;
-    }
-
-    private ArrayList<database.entity.kov> buildTrilateral() throws Exception {
+    @Throws(Exception::class)
+    private fun buildTrilateral(): ArrayList<kov?>? {
         // Context context = DarkThemeApplication.getContext();
-        VerbDatabaseUtils utils = new VerbDatabaseUtils(QuranGrammarApplication.context);
-        trilateralRulesList = (ArrayList<database.entity.kov>) utils.getKov();
-        return trilateralRulesList;
+        val utils = VerbDatabaseUtils(QuranGrammarApplication.context)
+        trilateralRulesList = utils.kov
+        return trilateralRulesList
     }
 
     /**
@@ -108,39 +46,38 @@ public class KovRulesManager {
      * @param c3 char
      * @return int
      */
-    public int getTrilateralKov(char c1, char c2, char c3) {
-        TrilateralKovRule rule = getTrilateralKovRule(c1, c2, c3);
-        return rule != null ? rule.getKov() : -1;
+    fun getTrilateralKov(c1: Char, c2: Char, c3: Char): Int {
+        val rule = getTrilateralKovRule(c1, c2, c3)
+        return rule?.kov ?: -1
     }
 
-    public TrilateralKovRule getTrilateralKovRule(char c1, char c2, char c3) {
-        for (kov iter : trilateralRulesList) {
-            setC1(iter.getC1());
-            setC2(iter.getC2());
-            setC3(iter.getC3());
-            setKov(Integer.parseInt(iter.getKov()));
-            setExample(iter.getExample());
-            setDesc(iter.getRulename());
-            char cc1 = iter.getC1().charAt(0);
-            char cc2 = iter.getC2().charAt(0);
-            char cc3 = iter.getC3().charAt(0);
-            boolean ifrule = check(c1, c2, c3);
+    fun getTrilateralKovRule(c1: Char, c2: Char, c3: Char): TrilateralKovRule? {
+        for (iter in trilateralRulesList!!) {
+            this.c1 = iter!!.c1
+            this.c2 = iter.c2
+            this.c3 = iter.c3
+            kov = iter.kov.toInt()
+            example = iter.example
+            desc = iter.rulename
+            val cc1 = iter.c1[0]
+            val cc2 = iter.c2[0]
+            val cc3 = iter.c3[0]
+            val ifrule = check(c1, c2, c3)
             if (ifrule) {
-                TrilateralKovRule rule = new TrilateralKovRule();
-                rule.setC1(iter.getC1());
-                rule.setC2(iter.getC2());
-                rule.setC3(iter.getC3());
-                rule.setKov(Integer.parseInt(iter.getKov()));
-                rule.setExample(iter.getExample());
-                rule.setDesc(iter.getRulename());
-                return rule;
+                val rule = TrilateralKovRule()
+                rule.setC1(iter.c1)
+                rule.setC2(iter.c2)
+                rule.setC3(iter.c3)
+                rule.kov = iter.kov.toInt()
+                rule.example = iter.example
+                rule.desc = iter.rulename
+                return rule
             }
         }
-        return null;
+        return null
     }
 
-
-  /*
+    /*
    public int getQuadrilateralKov(char c1, char c2, char c3, char c4) {
     QuadrilateralKovRule rule = getQuadrilateralKovRule(c1, c2, c3 ,c4);
     return rule!= null? rule.getKov(): -1;
@@ -158,17 +95,29 @@ public class KovRulesManager {
 
 
    */
-
-    public boolean check(char verbC1, char verbC2, char verbC3) {
-        boolean b1 = (c1.equals("?")) || c1.equals("null") || (c1.equals(verbC1 + ""));
-        boolean b2 = false, b3 = false;
-        if (c2.equalsIgnoreCase("c3") && c3.equalsIgnoreCase("c2")) {
-            b2 = b3 = (verbC2 == verbC3);
+    fun check(verbC1: Char, verbC2: Char, verbC3: Char): Boolean {
+        val b1 = c1 == "?" || c1 == "null" || c1 == verbC1.toString() + ""
+        var b2 = false
+        var b3 = false
+        if (c2.equals("c3", ignoreCase = true) && c3.equals("c2", ignoreCase = true)) {
+            b3 = verbC2 == verbC3
+            b2 = b3
         } else {
-            b2 = (c2.equals("?")) || c2.equals("null") || (c2.equals(verbC2 + ""));
-            b3 = (c3.equals("?")) || c3.equals("null") || (c3.equals(verbC3 + ""));
+            b2 = c2 == "?" || c2 == "null" || c2 == verbC2.toString() + ""
+            b3 = c3 == "?" || c3 == "null" || c3 == verbC3.toString() + ""
         }
-        return b1 && b2 && b3;
+        return b1 && b2 && b3
     }
 
+    companion object {
+        val instance = KovRulesManager()
+        @JvmStatic
+        fun main(args: Array<String>) {
+            val c1 = 'ح'
+            val c2 = 'ي'
+            val c3 = 'ح'
+            val c4 = 'ي'
+            //   ////System.out.println(""+ KovRulesManager.getInstance().getQuadrilateralKov(c1,c2,c3,c4));
+        }
+    }
 }

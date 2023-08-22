@@ -8,21 +8,22 @@ import androidx.room.PrimaryKey
 class MujarradVerbs {
     var verb: String
     var root: String
-    var bab: String? = null
+    var bab: String
     var verbtype: String
     var babname: String
-    var kov: String? = null
-    var kovname: String? = null
+    lateinit var kov: String
+    lateinit var kovname: String
 
     @PrimaryKey(autoGenerate = true)
     var id = 0
 
     @Ignore
-    constructor(verb: String, root: String, babname: String, verbtype: String) {
+    constructor(verb: String, root: String, babname: String, verbtype: String, bab: String) {
         this.verb = verb
-        this.root = root
+        this.root = root!!
         this.babname = babname
         this.verbtype = verbtype
+        this.bab = bab
     }
 
     constructor(
@@ -36,7 +37,7 @@ class MujarradVerbs {
         id: Int
     ) {
         this.verb = verb
-        this.root = root
+        this.root = root!!
         this.bab = bab
         this.verbtype = verbtype
         this.babname = babname

@@ -1,7 +1,7 @@
 package org.sj.verbConjugation.trilateral.augmented
 
 abstract class AugmentedPastVerb(
-    var root: AugmentedTrilateralRoot?,
+    var root:AugmentedTrilateralRoot,
     var lastDpa: String?,
     var connectedPronoun: String?
 ) {

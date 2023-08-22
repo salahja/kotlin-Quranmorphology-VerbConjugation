@@ -86,7 +86,7 @@ public class Constants {
     //publicstatic final String MUDHARAYMAJHOOL="mudharaymajhool";
     //publicstatic final String AMR="amr";
     //publicstatic final String QURAN_VERB_WAZAN = "form";
-    //publicstatic final String QURAN_VERB_ROOT = "root";
+    //publicstatic final String QURAN_VERB_ROOT = "root!!";
     //publicstatic final String VERBTYPE ="verbtype";
     //publicstatic final  String MUJARRADVERBTAG ="thulathiverblist";
     //publicstatic final  String MAZEEDVERBTAG="mazeedverblist";

@@ -15,10 +15,10 @@ class UnaugmentedTrilateralActiveParticiple(
      * @todo Implement this org.sj.noun.Trilateral.TrilateralNoun method
      */
     fun form(): String {
-        //   return GenericNounSuffixContainer.getInstance().getPrefix()+root.getC1()+ArabCharUtil.FATHA+ArabCharUtil.Aleph+root.getC2()+ArabCharUtil.KASRA+root.getC3()+suffix;
+        //   return GenericNounSuffixContainer.getInstance().getPrefix()+root!!.getC1()+ArabCharUtil.FATHA+ArabCharUtil.Aleph+root!!.getC2()+ArabCharUtil.KASRA+root!!.getC3()+suffix;
         val str: String
         str =
-            GenericNounSuffixContainer.getInstance().prefix + root.c1 + ArabCharUtil.FATHA + ArabCharUtil.Aleph + root.c2 + ArabCharUtil.KASRA + root.c3 + suffix
+            GenericNounSuffixContainer.getInstance().prefix + root!!.c1 + ArabCharUtil.FATHA + ArabCharUtil.Aleph + root!!.c2 + ArabCharUtil.KASRA + root!!.c3 + suffix
         return str
     }
 

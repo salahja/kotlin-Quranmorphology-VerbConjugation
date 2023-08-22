@@ -25,7 +25,7 @@ class PassivePresentConjugator private constructor() {
      * إنشاء الفعل المضارع بغض النظر عن حالته الإعرابية
      *
      * @param pronounIndex         int
-     * @param root                 UnaugmentedTrilateralRoot
+     * @param root!!                 UnaugmentedTrilateralRoot
      * @param lastDprList          List
      * @param connectedPronounList List
      * @return PassivePresentVerb
@@ -37,20 +37,20 @@ class PassivePresentConjugator private constructor() {
         connectedPronounList: List<*>
     ): PassivePresentVerb? {
         //	اظهار مع هو وهي فقط للمجهول اللازم
-        if (root.verbtype == "ل" && pronounIndex != 7 && pronounIndex != 8) {
+        if (root!!.verbtype == "ل" && pronounIndex != 7 && pronounIndex != 8) {
             return null
         }
-        val cp = PresentConjugationDataContainer.getInstance().getCp(pronounIndex)
+        val cp = PresentConjugationDataContainer.instance.getCp(pronounIndex)
         val lastDpr = lastDprList[pronounIndex] as String
         val connectedPronoun = connectedPronounList[pronounIndex] as String
-        return PassivePresentVerb(root, cp, lastDpr, connectedPronoun)
+        return PassivePresentVerb(root!!, cp, lastDpr, connectedPronoun)
     }
 
     /**
      * إنشاء الفعل المضارع في حالة الرفع
      *
      * @param pronounIndex int
-     * @param root         TrilateralVerb
+     * @param root!!         TrilateralVerb
      * @return PresentConjugation
      */
     fun createNominativeVerb(
@@ -59,9 +59,9 @@ class PassivePresentConjugator private constructor() {
     ): PassivePresentVerb? {
         return createVerb(
             pronounIndex,
-            root,
-            PresentConjugationDataContainer.getInstance().nominativeLastDprList,
-            PresentConjugationDataContainer.getInstance().nominativeConnectedPronounList
+            root!!,
+            PresentConjugationDataContainer.instance.nominativeLastDprList,
+            PresentConjugationDataContainer.instance.nominativeConnectedPronounList
         )
     }
 
@@ -69,7 +69,7 @@ class PassivePresentConjugator private constructor() {
      * إنشاء الفعل المضارع في حالة النصب
      *
      * @param pronounIndex int
-     * @param root         TrilateralVerb
+     * @param root!!         TrilateralVerb
      * @return PresentConjugation
      */
     fun createAccusativeVerb(
@@ -78,9 +78,9 @@ class PassivePresentConjugator private constructor() {
     ): PassivePresentVerb? {
         return createVerb(
             pronounIndex,
-            root,
-            PresentConjugationDataContainer.getInstance().accusativeLastDprList,
-            PresentConjugationDataContainer.getInstance().accusativeConnectedPronounList
+            root!!,
+            PresentConjugationDataContainer.instance.accusativeLastDprList,
+            PresentConjugationDataContainer.instance.accusativeConnectedPronounList
         )
     }
 
@@ -88,15 +88,15 @@ class PassivePresentConjugator private constructor() {
      * إنشاء الفعل المضارع في حالة الجزم
      *
      * @param pronounIndex int
-     * @param root         TrilateralVerb
+     * @param root!!         TrilateralVerb
      * @return PresentConjugation
      */
     fun createJussiveVerb(pronounIndex: Int, root: UnaugmentedTrilateralRoot): PassivePresentVerb? {
         return createVerb(
             pronounIndex,
-            root,
-            PresentConjugationDataContainer.getInstance().jussiveLastDprList,
-            PresentConjugationDataContainer.getInstance().jussiveConnectedPronounList
+            root!!,
+            PresentConjugationDataContainer.instance.jussiveLastDprList,
+            PresentConjugationDataContainer.instance.jussiveConnectedPronounList
         )
     }
 
@@ -104,7 +104,7 @@ class PassivePresentConjugator private constructor() {
      * إنشاء الفعل المضارع في حالة التأكيد
      *
      * @param pronounIndex int
-     * @param root         TrilateralVerb
+     * @param root!!         TrilateralVerb
      * @return PresentConjugation
      */
     fun createEmphasizedVerb(
@@ -113,9 +113,9 @@ class PassivePresentConjugator private constructor() {
     ): PassivePresentVerb? {
         return createVerb(
             pronounIndex,
-            root,
-            PresentConjugationDataContainer.getInstance().emphasizedLastDprList,
-            PresentConjugationDataContainer.getInstance().emphasizedConnectedPronounList
+            root!!,
+            PresentConjugationDataContainer.instance.emphasizedLastDprList,
+            PresentConjugationDataContainer.instance.emphasizedConnectedPronounList
         )
     }
 
@@ -123,13 +123,13 @@ class PassivePresentConjugator private constructor() {
      * إنشاء قائمة تحتوي الأفعال حسب الضمائر
      * في حالة الرفع
      *
-     * @param root TripleVerb
+     * @param root!! TripleVerb
      * @return List
      */
     fun createNominativeVerbList(root: UnaugmentedTrilateralRoot): List<PassivePresentVerb?> {
         val result: MutableList<PassivePresentVerb?> = LinkedList()
         for (i in 0..12) {
-            result.add(createNominativeVerb(i, root))
+            result.add(createNominativeVerb(i, root!!))
         }
         return result
     }
@@ -138,13 +138,13 @@ class PassivePresentConjugator private constructor() {
      * إنشاء قائمة تحتوي الأفعال حسب الضمائر
      * في حالة النصب
      *
-     * @param root TripleVerb
+     * @param root!! TripleVerb
      * @return List
      */
     fun createAccusativeVerbList(root: UnaugmentedTrilateralRoot): List<PassivePresentVerb?> {
         val result: MutableList<PassivePresentVerb?> = LinkedList()
         for (i in 0..12) {
-            result.add(createAccusativeVerb(i, root))
+            result.add(createAccusativeVerb(i, root!!))
         }
         return result
     }
@@ -153,13 +153,13 @@ class PassivePresentConjugator private constructor() {
      * إنشاء قائمة تحتوي الأفعال حسب الضمائر
      * في حالة الجزم
      *
-     * @param root TripleVerb
+     * @param root!! TripleVerb
      * @return List
      */
     fun createJussiveVerbList(root: UnaugmentedTrilateralRoot): List<PassivePresentVerb?> {
         val result: MutableList<PassivePresentVerb?> = LinkedList()
         for (i in 0..12) {
-            result.add(createJussiveVerb(i, root))
+            result.add(createJussiveVerb(i, root!!))
         }
         return result
     }
@@ -168,13 +168,13 @@ class PassivePresentConjugator private constructor() {
      * إنشاء قائمة تحتوي الأفعال حسب الضمائر
      * في حالة التأكيد
      *
-     * @param root TripleVerb
+     * @param root!! TripleVerb
      * @return List
      */
     fun createEmphasizedVerbList(root: UnaugmentedTrilateralRoot): List<PassivePresentVerb?> {
         val result: MutableList<PassivePresentVerb?> = LinkedList()
         for (i in 0..12) {
-            result.add(createEmphasizedVerb(i, root))
+            result.add(createEmphasizedVerb(i, root!!))
         }
         return result
     }
@@ -183,7 +183,7 @@ class PassivePresentConjugator private constructor() {
     fun createNominativeVerbHua(root: UnaugmentedTrilateralRoot): List<PassivePresentVerb?> {
         val result: MutableList<PassivePresentVerb?> = LinkedList()
         for (i in 0..0) {
-            result.add(createNominativeVerb(i, root))
+            result.add(createNominativeVerb(i, root!!))
         }
         return result
     }
@@ -191,7 +191,7 @@ class PassivePresentConjugator private constructor() {
     fun createAccusativeVerbHua(root: UnaugmentedTrilateralRoot): List<PassivePresentVerb?> {
         val result: MutableList<PassivePresentVerb?> = LinkedList()
         for (i in 0..0) {
-            result.add(createAccusativeVerb(i, root))
+            result.add(createAccusativeVerb(i, root!!))
         }
         return result
     }
@@ -199,7 +199,7 @@ class PassivePresentConjugator private constructor() {
     fun createJussiveVerbHua(root: UnaugmentedTrilateralRoot): List<PassivePresentVerb?> {
         val result: MutableList<PassivePresentVerb?> = LinkedList()
         for (i in 0..0) {
-            result.add(createJussiveVerb(i, root))
+            result.add(createJussiveVerb(i, root!!))
         }
         return result
     }
@@ -207,7 +207,7 @@ class PassivePresentConjugator private constructor() {
     fun createEmphasizedVerbHua(root: UnaugmentedTrilateralRoot): List<PassivePresentVerb?> {
         val result: MutableList<PassivePresentVerb?> = LinkedList()
         for (i in 0..0) {
-            result.add(createEmphasizedVerb(i, root))
+            result.add(createEmphasizedVerb(i, root!!))
         }
         return result
     }

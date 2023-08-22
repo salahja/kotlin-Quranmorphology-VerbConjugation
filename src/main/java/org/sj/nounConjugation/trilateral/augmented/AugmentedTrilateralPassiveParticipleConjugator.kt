@@ -29,7 +29,7 @@ class AugmentedTrilateralPassiveParticipleConjugator private constructor() {
         val suffix = GenericNounSuffixContainer.getInstance()[suffixIndex]
         val formulaClassName =
             javaClass.getPackage().name + ".passiveparticiple." + "NounFormula" + formulaNo
-        val parameters = arrayOf(root, suffix)
+        val parameters = arrayOf(root!!, suffix)
         try {
             return Class.forName(formulaClassName).constructors[0]
                 .newInstance(*parameters) as AugmentedTrilateralNoun
@@ -45,7 +45,7 @@ class AugmentedTrilateralPassiveParticipleConjugator private constructor() {
     ): List<AugmentedTrilateralNoun?> {
         val result: MutableList<AugmentedTrilateralNoun?> = LinkedList()
         for (i in 0..17) {
-            val noun = createNoun(root, i, formulaNo)
+            val noun = createNoun(root!!, i, formulaNo)
             result.add(noun)
         }
         return result
@@ -63,18 +63,18 @@ class AugmentedTrilateralPassiveParticipleConjugator private constructor() {
         }
         for (i in indecies.indices) {
             val index = indecies[i].toInt()
-            val noun = createNoun(root, index, formulaNo)
+            val noun = createNoun(root!!, index, formulaNo)
             result[index] = noun
         }
         return result
     }
 
     fun createTimeAndPlaceNounList(root: AugmentedTrilateralRoot, formulaNo: Int): List<Any?> {
-        return createNounList(root, formulaNo, timeAndPlaceIndeciesList)
+        return createNounList(root!!, formulaNo, timeAndPlaceIndeciesList)
     }
 
     fun createMeemGerundNounList(root: AugmentedTrilateralRoot, formulaNo: Int): List<Any?> {
-        return createNounList(root, formulaNo, meemGerundIndeciesList)
+        return createNounList(root!!, formulaNo, meemGerundIndeciesList)
     }
 
     companion object {

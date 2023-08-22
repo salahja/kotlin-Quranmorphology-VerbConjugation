@@ -21,13 +21,13 @@ import org.sj.verbConjugation.util.ArabCharUtil
  * @version 1.0
  */
 class NounFormulaA : NounFormula {
-    constructor(root: UnaugmentedTrilateralRoot?, suffixNo: String?) : super(root, suffixNo) {}
+    constructor(root: UnaugmentedTrilateralRoot, suffixNo: String?) : super(root!!, suffixNo) {}
 
     //to be used in refection getting the formula name
     constructor() {}
 
     override fun form(): String {
-        return root.c1.toString() + ArabCharUtil.FATHA + root.c2 + ArabCharUtil.KASRA + ArabCharUtil.YA + root.c3 + suffix
+        return root!!.c1.toString() + ArabCharUtil.FATHA + root!!.c2 + ArabCharUtil.KASRA + ArabCharUtil.YA + root!!.c3 + suffix
     }
 
     override fun getFormulaName(): String {

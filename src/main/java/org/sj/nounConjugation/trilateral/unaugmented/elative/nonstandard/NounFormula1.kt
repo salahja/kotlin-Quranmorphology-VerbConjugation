@@ -23,7 +23,7 @@ import org.sj.verbConjugation.util.ArabCharUtil
  * @version 1.0
  */
 class NounFormula1 : NounFormula {
-    constructor(root: UnaugmentedTrilateralRoot?, suffixNo: String) {
+    constructor(root: UnaugmentedTrilateralRoot, suffixNo: String) {
         this.root = root
         this.suffixNo = suffixNo.toInt() + 1
         suffix = ElativeSuffixContainer.Companion.instance.get(this.suffixNo - 1)

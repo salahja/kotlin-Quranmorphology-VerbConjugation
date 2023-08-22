@@ -23,8 +23,8 @@ import org.sj.verbConjugation.util.ArabCharUtil
  * @version 1.0
  */
 class NounFormulaE1 : NounFormula {
-    constructor(root: UnaugmentedTrilateralRoot?, suffixNo: String) {
-        this.root = root
+    constructor(root: UnaugmentedTrilateralRoot, suffixNo: String) {
+        this.root = root!!
         this.suffixNo = suffixNo.toInt() + 1
         suffix = AssimilateFormulaE1SuffixContainer.Companion.instance.get(this.suffixNo - 1)
             .replace(" ".toRegex(), "")
@@ -35,7 +35,7 @@ class NounFormulaE1 : NounFormula {
 
     override fun form(): String {
         when (suffixNo) {
-            1, 3, 7, 9, 13, 15, 2, 4, 8, 10, 14, 16 -> return root.c1.toString() + ArabCharUtil.FATHA + root.c2 + ArabCharUtil.SKOON + root.c3 + ArabCharUtil.FATHA + "ان" + suffix
+            1, 3, 7, 9, 13, 15, 2, 4, 8, 10, 14, 16 -> return root!!.c1.toString() + ArabCharUtil.FATHA + root!!.c2 + ArabCharUtil.SKOON + root!!.c3 + ArabCharUtil.FATHA + "ان" + suffix
         }
         return ""
     }

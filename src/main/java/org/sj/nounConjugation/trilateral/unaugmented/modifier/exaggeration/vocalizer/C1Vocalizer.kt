@@ -35,7 +35,7 @@ class C1Vocalizer : TrilateralNounSubstitutionApplier(),
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val nounFormula = conjugationResult.nounFormula
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         return (nounFormula == "مِفْعَال") && (kov == 11) && ((noc == 2) || (noc == 3) || (noc == 5) || (noc == 6))
     }
 }

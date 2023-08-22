@@ -33,7 +33,7 @@ class Imperative2Vocalizer : SubstitutionsApplier(), IUnaugmentedTrilateralModif
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov
-        val noc = conjugationResult.root.conjugation!!.toInt()
+        val noc = conjugationResult.root!!.conjugation!!.toInt()
         return kov == 8 || kov == 9 || kov == 10 || kov == 11 && noc == 4
     }
 }

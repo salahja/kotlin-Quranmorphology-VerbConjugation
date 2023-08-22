@@ -9,5 +9,5 @@ class BuckwaterEntitiy(
     var hex: String,
     var ascii: String,
     var orthography: String,
-    var arabic: String
+    var arabic: String?=null
 )

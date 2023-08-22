@@ -125,7 +125,7 @@ class RulesMazeedVerbList : Fragment {
     ) {
         for (s in mujarradBYWeakness) {
             val listing: ArrayList<ArrayList<*>> = GatherAll.instance.getMazeedListing(
-                verbmood, s.root
+                verbmood, s.root!!
             )
             val ss = SarfSagheer()
             ss.weakness = listing[0][0].toString()
@@ -172,7 +172,7 @@ class RulesMazeedVerbList : Fragment {
                 val rootParadigm = ArrayList<String>()
                 val dataBundle = Bundle()
                 if (v!!.findViewById<View?>(R.id.conjugateall) != null) {
-                    //  rootParadigm = Harakah.getMujarradRootParadigm(arrayList);
+                    //  root!!Paradigm = Harakah.getMujarradRootParadigm(arrayList);
                     // dataBundle.putString(QURAN_VERB_WAZAN, arrayList.get(2));
                     dataBundle.putString(QURAN_VERB_WAZAN, arrayList.wazan)
                     dataBundle.putString(QURAN_VERB_ROOT, arrayList.verbroot)

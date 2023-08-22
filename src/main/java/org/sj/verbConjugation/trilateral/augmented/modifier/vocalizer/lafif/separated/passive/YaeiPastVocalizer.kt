@@ -18,7 +18,7 @@ class YaeiPastVocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifier {
 
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
-        if (mazeedConjugationResult.root.c1 != 'ي') {
+        if (mazeedConjugationResult.root!!.c1 != 'ي') {
             return false
         }
         val kov = mazeedConjugationResult.kov

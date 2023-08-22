@@ -36,8 +36,8 @@ class ActivePresentConjugator private constructor() {
         lastDprList: List<*>,
         connectedPronounList: List<*>
     ): ActivePresentVerb {
-        val cp = PresentConjugationDataContainer.getInstance().getCp(pronounIndex)
-        val dpr2 = PresentConjugationDataContainer.getInstance().getDpr2(root)
+        val cp = PresentConjugationDataContainer.Companion.instance.getCp(pronounIndex)
+        val dpr2 = PresentConjugationDataContainer.instance.getDpr2(root)
         val lastDpr = lastDprList[pronounIndex] as String
         val connectedPronoun = connectedPronounList[pronounIndex] as String
         return ActivePresentVerb(root, cp, dpr2, lastDpr, connectedPronoun)
@@ -57,8 +57,8 @@ class ActivePresentConjugator private constructor() {
         return createVerb(
             pronounIndex,
             root,
-            PresentConjugationDataContainer.getInstance().nominativeLastDprList,
-            PresentConjugationDataContainer.getInstance().nominativeConnectedPronounList
+            PresentConjugationDataContainer.instance.nominativeLastDprList,
+            PresentConjugationDataContainer.instance.nominativeConnectedPronounList
         )
     }
 
@@ -76,8 +76,8 @@ class ActivePresentConjugator private constructor() {
         return createVerb(
             pronounIndex,
             root,
-            PresentConjugationDataContainer.getInstance().accusativeLastDprList,
-            PresentConjugationDataContainer.getInstance().accusativeConnectedPronounList
+            PresentConjugationDataContainer.instance.accusativeLastDprList,
+            PresentConjugationDataContainer.instance.accusativeConnectedPronounList
         )
     }
 
@@ -92,8 +92,8 @@ class ActivePresentConjugator private constructor() {
         return createVerb(
             pronounIndex,
             root,
-            PresentConjugationDataContainer.getInstance().jussiveLastDprList,
-            PresentConjugationDataContainer.getInstance().jussiveConnectedPronounList
+            PresentConjugationDataContainer.instance.jussiveLastDprList,
+            PresentConjugationDataContainer.instance.jussiveConnectedPronounList
         )
     }
 
@@ -111,8 +111,8 @@ class ActivePresentConjugator private constructor() {
         return createVerb(
             pronounIndex,
             root,
-            PresentConjugationDataContainer.getInstance().emphasizedLastDprList,
-            PresentConjugationDataContainer.getInstance().emphasizedConnectedPronounList
+            PresentConjugationDataContainer.instance.emphasizedLastDprList,
+            PresentConjugationDataContainer.instance.emphasizedConnectedPronounList
         )
     }
 

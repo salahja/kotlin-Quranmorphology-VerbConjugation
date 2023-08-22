@@ -26,17 +26,17 @@ import org.sj.verbConjugation.trilateral.unaugmented.modifier.IUnaugmentedTrilat
 class SpecialEmphsizedImperativeMahmouz : SubstitutionsApplier(), IUnaugmentedTrilateralModifier {
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
-        val root = conjugationResult.root
-        return root.c1 == 'س' && root.c2 == 'ء' && root.c3 == 'ل'
+        val root = conjugationResult.root!!
+        return root!!.c1 == 'س' && root!!.c2 == 'ء' && root!!.c3 == 'ل'
     }
 
     /**
      * override this method to return the custom list
      *
      * @param words List
-     * @param root  TrilateralRoot
+     * @param root!!  TrilateralRoot
      */
-    override fun apply(words: MutableList<String>, root: TrilateralRoot) {
+    override fun apply(words:  MutableList<Any>, root: TrilateralRoot?) {
         words.set(2, "سَلَنَّ/اسْألَنَّ")
         words.set(3, "سَلِنَّ/اسْألِنَّ")
         words.set(4, "سَلاَنِّ/اسْألاَنِّ")

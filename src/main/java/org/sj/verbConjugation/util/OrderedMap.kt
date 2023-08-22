@@ -1,14 +1,9 @@
-package org.sj.verbConjugation.util;
+package org.sj.verbConjugation.util
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedList
 
-public class OrderedMap extends HashMap {
-    protected List<Object> orderedKeys = new LinkedList<>();
-
-    public OrderedMap() {
-    }
+class OrderedMap : HashMap<Any?, Any?>() {
+    var orderedKeys: MutableList<Any?> = LinkedList()
 
     /**
      * according to the order of put method a list of keys is ccreated
@@ -17,18 +12,19 @@ public class OrderedMap extends HashMap {
      * @param value Object
      * @return Object
      */
-    public Object put(Object key, Object value) {
-        orderedKeys.add(key);
-        return super.put(key, value);
+    override fun put(key: Any?, value: Any?): Any? {
+        orderedKeys.add(key)
+        return super.put(key, value)
     }
 
-    public Object remove(Object key) {
-        orderedKeys.remove(key);
-        return super.remove(key);
+    override fun remove(key: Any?): Any? {
+        orderedKeys.remove(key)
+        return super.remove(key)
     }
-
-    public List<Object> getOrderedKeys() {
-        return orderedKeys;
-    }
-
 }
+/*
+
+    fun getOrderedKeys(): List<Any?> {
+        return orderedKeys
+    }
+}*/

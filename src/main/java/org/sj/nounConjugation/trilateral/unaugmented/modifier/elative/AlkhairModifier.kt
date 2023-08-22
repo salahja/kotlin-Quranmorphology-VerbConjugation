@@ -59,7 +59,7 @@ class AlkhairModifier {
     }
 
     fun isApplied(conjugationResult: ConjugationResult): Boolean {
-        val root = conjugationResult.root
-        return root.c1 == 'خ' && root.c2 == 'ي' && root.c3 == 'ر'
+        val root = conjugationResult.root!!
+        return root!!.c1 == 'خ' && root!!.c2 == 'ي' && root!!.c3 == 'ر'
     }
 }

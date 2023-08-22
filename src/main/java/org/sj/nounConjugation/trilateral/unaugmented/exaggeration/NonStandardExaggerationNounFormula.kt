@@ -21,7 +21,7 @@ import org.sj.verbConjugation.trilateral.unaugmented.UnaugmentedTrilateralRoot
  */
 abstract class NonStandardExaggerationNounFormula : NounFormula {
     constructor() {}
-    constructor(root: UnaugmentedTrilateralRoot?, suffixNo: String?) : super(root, suffixNo) {}
+    constructor(root: UnaugmentedTrilateralRoot, suffixNo: String?) : super(root!!, suffixNo) {}
 
     /**
      * Every non standard instrumental has a symbol to be represented by

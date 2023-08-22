@@ -49,8 +49,8 @@ class Imperative4Vocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifie
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov
         val formulaNo = mazeedConjugationResult.formulaNo
-        val root = mazeedConjugationResult.root
-        if (root!!.c2 == root.c3 && root.c3 == 'و' && kov == 28) {
+        val root = mazeedConjugationResult.root!!
+        if (root!!.c2 == root!!.c3 && root!!.c3 == 'و' && kov == 28) {
             when (formulaNo) {
                 1, 3, 4, 5, 9 -> return true
             }

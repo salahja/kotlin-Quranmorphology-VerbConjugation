@@ -1,13 +1,10 @@
-package org.sj.verbConjugation.util;
+package org.sj.verbConjugation.util
 
-public class SystemConstants {
-    public static final String PAST_TENSE = "Past";
-    public static final String PRESENT_TENSE = "Present";
-    public static final String NOT_EMPHASIZED_IMPERATIVE_TENSE = "Imperative";
-    public static final String EMPHASIZED_IMPERATIVE_TENSE = "Emphasized Imperative";
-    public static final String ACTIVE = "Active";
-    public static final String PASSIVE = "Passive";
-
-    private SystemConstants() {
-    }
+object SystemConstants {
+    const val PAST_TENSE = "Past"
+    const val PRESENT_TENSE = "Present"
+    const val NOT_EMPHASIZED_IMPERATIVE_TENSE = "Imperative"
+    const val EMPHASIZED_IMPERATIVE_TENSE = "Emphasized Imperative"
+    const val ACTIVE = "Active"
+    const val PASSIVE = "Passive"
 }

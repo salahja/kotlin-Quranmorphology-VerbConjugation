@@ -32,7 +32,7 @@ class RaaPresentMahmouz : SubstitutionsApplier(), IUnaugmentedTrilateralModifier
 
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
-        val root: TrilateralRoot? = conjugationResult.root
-        return root!!.c1 == 'ر' && root.c2 == 'ء' && root.c3 == 'ي'
+        val root: TrilateralRoot? = conjugationResult.root!!
+        return root!!.c1 == 'ر' && root!!.c2 == 'ء' && root!!.c3 == 'ي'
     }
 }

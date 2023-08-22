@@ -48,10 +48,10 @@ class TGeminator : SubstitutionsApplier(), IUnaugmentedTrilateralModifier {
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov
-        return conjugationResult.root.c3 == 'ت' && (kov == 1 || kov == 2 || kov == 3 || kov == 5 || kov == 6 || kov == 11 || kov == 17 || kov == 20)
+        return conjugationResult.root!!.c3 == 'ت' && (kov == 1 || kov == 2 || kov == 3 || kov == 5 || kov == 6 || kov == 11 || kov == 17 || kov == 20)
     }
 //TODO possible
     fun apply(tense: String?, active: Boolean, conjResult: ConjugationResult) {
-        apply(conjResult.finalResult as MutableList<String>, conjResult.root)
+        apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
     }
 }

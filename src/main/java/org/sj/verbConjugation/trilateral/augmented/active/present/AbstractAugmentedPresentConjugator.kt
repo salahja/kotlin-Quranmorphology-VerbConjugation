@@ -15,12 +15,12 @@ class AbstractAugmentedPresentConjugator(
         pronounIndex: Int,
         formulaNo: Int
     ): AugmentedPresentVerb? {
-        val cp = PresentConjugationDataContainer.getInstance().getCp(pronounIndex)
+        val cp = PresentConjugationDataContainer.instance.getCp(pronounIndex)
         val lastDpr = lastDprList[pronounIndex] as String
         val connectedPronoun = connectedPronounList[pronounIndex] as String
         val formulaClassName =
             javaClass.getPackage().name + ".formula." + "AugmentedPresentVerb" + formulaNo
-        val parameters = arrayOf(root, cp, lastDpr, connectedPronoun)
+        val parameters = arrayOf(root!!, cp, lastDpr, connectedPronoun)
         try {
             return Class.forName(formulaClassName).constructors[0]
                 .newInstance(*parameters) as AugmentedPresentVerb
@@ -33,7 +33,7 @@ class AbstractAugmentedPresentConjugator(
     fun createVerbList(root: AugmentedTrilateralRoot, formulaNo: Int): List<AugmentedPresentVerb?> {
         val result: MutableList<AugmentedPresentVerb?> = LinkedList()
         for (i in 0..12) {
-            val verb = createVerb(root, i, formulaNo)
+            val verb = createVerb(root!!, i, formulaNo)
             result.add(verb)
         }
         return result
@@ -41,10 +41,10 @@ class AbstractAugmentedPresentConjugator(
 
     fun createAllVerbList(root: AugmentedTrilateralRoot): Map<String, List<AugmentedPresentVerb?>> {
         val result: MutableMap<String, List<AugmentedPresentVerb?>> = HashMap()
-        val iter: Iterator<*> = root.augmentationList.iterator()
+        val iter: Iterator<*> = root!!.augmentationList.iterator()
         while (iter.hasNext()) {
             val formula = iter.next() as AugmentationFormula
-            val formulaVerbList = createVerbList(root, formula.formulaNo)
+            val formulaVerbList = createVerbList(root!!, formula.formulaNo)
             result[formula.formulaNo.toString() + ""] = formulaVerbList
         }
         return result

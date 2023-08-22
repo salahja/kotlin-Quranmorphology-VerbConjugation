@@ -15,18 +15,18 @@ class PreVocalizer {
             if (tense == SystemConstants.PRESENT_TENSE && separatedLafifActivePresentVocalizer.isApplied(
                     conjResult
                 )
-            ) separatedLafifActivePresentVocalizer.apply(conjResult.finalResult as MutableList<String>, conjResult.root)
+            ) separatedLafifActivePresentVocalizer.apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
         } else {
             if (tense == SystemConstants.PRESENT_TENSE && separatedLafifPassivePresentVocalizer.isApplied(
                     conjResult
                 )
             ) separatedLafifPassivePresentVocalizer.apply(
-                conjResult.finalResult as MutableList<String>,
-                conjResult.root
+                conjResult.finalResult as MutableList<Any>,
+                conjResult.root!!
             ) else if (tense == SystemConstants.PAST_TENSE && separatedLafifPassivePastVocalizer.isApplied(
                     conjResult
                 )
-            ) separatedLafifPassivePastVocalizer.apply(conjResult.finalResult as MutableList<String>, conjResult.root)
+            ) separatedLafifPassivePastVocalizer.apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
         }
     }
 }

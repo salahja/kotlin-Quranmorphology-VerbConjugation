@@ -24,7 +24,7 @@ class TEndedGeminator : SubstitutionsApplier(), IAugmentedTrilateralModifier {
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov
         val formulaNo = mazeedConjugationResult.formulaNo
-        if (mazeedConjugationResult.root.c3 != 'ت') return false
+        if (mazeedConjugationResult.root!!.c3 != 'ت') return false
         when (formulaNo) {
             1, 2, 3, 4, 5, 7, 8, 9, 10, 11 -> when (kov) {
                 1, 2, 3, 5, 6, 11, 17, 20 -> return true
@@ -37,6 +37,6 @@ class TEndedGeminator : SubstitutionsApplier(), IAugmentedTrilateralModifier {
         if (tense != SystemConstants.PAST_TENSE) {
             return
         }
-        apply(conjResult.finalResult as MutableList<String>, conjResult.root)
+        apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
     }
 }

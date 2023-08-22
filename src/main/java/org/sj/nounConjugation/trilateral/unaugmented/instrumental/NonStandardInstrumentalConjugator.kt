@@ -52,7 +52,7 @@ class NonStandardInstrumentalConjugator private constructor() :
         suffixNo: Int,
         formulaName: String
     ): NounFormula? {
-        val parameters = arrayOf(root, suffixNo.toString() + "")
+        val parameters = arrayOf(root!!, suffixNo.toString() + "")
         try {
             val formulaClass =
                 formulaClassNamesMap[formulaName]!!
@@ -66,7 +66,7 @@ class NonStandardInstrumentalConjugator private constructor() :
     override fun createNounList(root: UnaugmentedTrilateralRoot, formulaName: String): List<*> {
         val result: MutableList<NounFormula?> = LinkedList()
         for (i in 0..17) {
-            val noun = createNoun(root, i, formulaName)
+            val noun = createNoun(root!!, i, formulaName)
             result.add(noun)
         }
         return result
@@ -74,18 +74,18 @@ class NonStandardInstrumentalConjugator private constructor() :
 
     override fun getAppliedFormulaList(root: UnaugmentedTrilateralRoot): List<*>? {
         //فقط للفعل المتعدي
-        if (root.verbtype != ArabCharUtil.MEEM && root.verbtype != "ك") {
+        if (root!!.verbtype != ArabCharUtil.MEEM && root!!.verbtype != "ك") {
             return null
         }
         //todo
-        //    XmlNonStandardInstrumentalNounFormulaTree formulaTree = DatabaseManager.getInstance().getInstrumentalNounFormulaTree(root.getC1());
+        //    XmlNonStandardInstrumentalNounFormulaTree formulaTree = DatabaseManager.getInstance().getInstrumentalNounFormulaTree(root!!.getC1());
       /*  val formulaTree = null ?: return null
         val result: MutableList<String?> = LinkedList()
         val iter: Iterator<XmlNonStandardInstrumentalNounFormula?> =
             formulaTree.formulaList.iterator()
         while (iter.hasNext()) {
             val formula = iter.next()
-            if (formula.getC2() == root.c2 && formula.getC3() == root.c3) {
+            if (formula.getC2() == root!!.c2 && formula.getC3() == root!!.c3) {
                 if (formula.getForm1() != null && formula.getForm1() !== "") {
                     //add the formula pattern insteaed of the symbol (form1)
                     result.add(formulaSymbolsNamesMap[formula.getForm1()])

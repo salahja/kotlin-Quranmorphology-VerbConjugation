@@ -30,18 +30,18 @@ class AssimilateModifier private constructor() : IUnaugmentedTrilateralNounModif
     private val vocalizer = Vocalizer()
     private val mahmouz = Mahmouz()
     override fun build(
-        root: UnaugmentedTrilateralRoot?,
+        root: UnaugmentedTrilateralRoot,
         kov: Int,
         conjugations: List<Any?>?,
         formula: String
     ): ConjugationResult {
-        val conjResult = ConjugationResult(kov, root, conjugations, formula)
-        substituter.apply(conjResult.finalResult as MutableList<String>, root!!)
-        geminator.apply(conjResult.finalResult as MutableList<String>, root!!)
+        val conjResult = ConjugationResult(kov, root!!, conjugations as MutableList<*>?, formula)
+        substituter.apply(conjResult.finalResult as MutableList<Any>, root!!)
+        geminator.apply(conjResult.finalResult as MutableList<Any>, root!!)
         vocalizer.apply(conjResult)
         mahmouz.apply(conjResult)
-        NounLamAlefModifier.getInstance().apply(conjResult.finalResult, conjResult)
-        NounSunLamModifier.getInstance().apply(conjResult.finalResult, conjResult)
+        NounLamAlefModifier.getInstance().apply(conjResult.finalResult as MutableList<Any>, conjResult)
+        NounSunLamModifier.getInstance().apply(conjResult.finalResult as MutableList<Any>, conjResult)
         return conjResult
     }
 

@@ -28,17 +28,17 @@ class SpecialImperativeMahmouz : SubstitutionsApplier(),
 
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
-        val root = conjugationResult.root
-        return root.c1 == 'س' && root.c2 == 'ء' && root.c3 == 'ل'
+        val root = conjugationResult.root!!
+        return root!!.c1 == 'س' && root!!.c2 == 'ء' && root!!.c3 == 'ل'
     }
 
     /**
      * override this method to return the custom list
      *
      * @param words List
-     * @param root  TrilateralRoot
+     * @param root!!  TrilateralRoot
      */
-    override fun apply(words: MutableList<String>, root: TrilateralRoot) {
+    override fun apply(words: MutableList<Any>, root: TrilateralRoot?) {
         words.set(2, "سَلْ/اسْأَلْ")
         words.set(3, "سَلِي/اسْأَلِي")
         words.set(4, "سَلاَ/اسْأَلاَ")

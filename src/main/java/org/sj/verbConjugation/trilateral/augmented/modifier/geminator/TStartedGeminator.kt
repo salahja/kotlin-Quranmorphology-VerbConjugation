@@ -18,10 +18,10 @@ class TStartedGeminator : SubstitutionsApplier(), IAugmentedTrilateralModifier {
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov
         val formulaNo = mazeedConjugationResult.formulaNo
-        return mazeedConjugationResult.root.c1 == 'ت' && (kov == 1 || kov == 6) && formulaNo == 5
+        return mazeedConjugationResult.root!!.c1 == 'ت' && (kov == 1 || kov == 6) && formulaNo == 5
     }
 
     fun apply(tense: String?, active: Boolean, conjResult: MazeedConjugationResult) {
-        apply(conjResult.finalResult as MutableList<String>, conjResult.root)
+        apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
     }
 }

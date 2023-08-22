@@ -38,7 +38,7 @@ class Imperative3Vocalizer : SubstitutionsApplier(), IAugmentedTrilateralModifie
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov
         val formulaNo = mazeedConjugationResult.formulaNo
-        val root = mazeedConjugationResult.root
-        return (root!!.c2 == 'و' || root.c2 == 'ي') && root.c3 == 'ي' && (kov == 27 || kov == 28) && (formulaNo == 7 || formulaNo == 8)
+        val root = mazeedConjugationResult.root!!
+        return (root!!.c2 == 'و' || root!!.c2 == 'ي') && root!!.c3 == 'ي' && (kov == 27 || kov == 28) && (formulaNo == 7 || formulaNo == 8)
     }
 }

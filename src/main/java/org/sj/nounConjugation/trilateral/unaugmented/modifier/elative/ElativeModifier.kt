@@ -31,18 +31,19 @@ class ElativeModifier private constructor() : IUnaugmentedTrilateralNounModifier
     private val alkhairModifier = AlkhairModifier()
     private val alSharModifier = AlSharModifier()
     override fun build(
-        root: UnaugmentedTrilateralRoot?,
+        root: UnaugmentedTrilateralRoot,
         kov: Int,
         conjugations: List<Any?>?,
         formula: String
     ): ConjugationResult {
-        val conjResult = ConjugationResult(kov, root, conjugations, formula)
+        val conjResult = ConjugationResult(kov, root, conjugations as MutableList<*>?, formula)
         if (alkhairModifier.isApplied(conjResult)) {
             alkhairModifier.apply(conjResult)
         } else if (alSharModifier.isApplied(conjResult)) {
             alSharModifier.apply(conjResult)
         } else {
-            if (geminator.isApplied(conjResult)) geminator.apply(conjResult.finalResult as MutableList<String>,
+            if (geminator.isApplied(conjResult)) geminator.apply(
+                conjResult.finalResult as MutableList<Any>,
                 root!!
             )
             vocalizer.apply(conjResult)

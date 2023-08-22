@@ -48,7 +48,7 @@ class CollectionFrag constructor() : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //    View rootView = inflater.inflate(R.layout.activity_collection, container, false);
+        //    View root!!View = inflater.inflate(R.layout.activity_collection, container, false);
         val view: View = inflater.inflate(R.layout.fragment_bookmark_collection, container, false)
         val utils: Utils = Utils(getActivity())
         val bookMarksNew: List<BookMarksPojo?>? = utils.collectionC
@@ -67,7 +67,7 @@ class CollectionFrag constructor() : Fragment() {
         //    mRecview.setLayoutManager(new LinearLayoutManager(getActivity()));
         enableSwipeToDeleteAndUndo()
         return view
-        //  return rootView;
+        //  return root!!View;
     }
 
     private fun enableSwipeToDeleteAndUndo() {

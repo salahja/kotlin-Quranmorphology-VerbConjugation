@@ -26,7 +26,7 @@ class ActivePastVerb(
 
     override fun toString(): String {
         ////System.out.printf(ss);
-        return root.c1.toString() + dpa1 + root.c2 + dpa2 + root.c3 + lastDpa + connectedPronoun
+        return root!!.c1.toString() + dpa1 + root!!.c2 + dpa2 + root!!.c3 + lastDpa + connectedPronoun
     }
 
     companion object {

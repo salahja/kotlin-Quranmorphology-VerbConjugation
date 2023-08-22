@@ -59,7 +59,7 @@ class AlSharModifier {
     }
 
     fun isApplied(conjugationResult: ConjugationResult): Boolean {
-        val root = conjugationResult.root
-        return root.c1 == 'ش' && root.c2 == 'ر' && root.c3 == 'ر'
+        val root = conjugationResult.root!!
+        return root!!.c1 == 'ش' && root!!.c2 == 'ر' && root!!.c3 == 'ر'
     }
 }

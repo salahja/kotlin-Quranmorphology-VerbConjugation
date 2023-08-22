@@ -31,6 +31,6 @@ class GenericSubstituter7 : AbstractGenericSubstituter() {
 
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
-        return mazeedConjugationResult.root.c1 == 'ض' && super.isApplied(mazeedConjugationResult)
+        return mazeedConjugationResult.root!!.c1 == 'ض' && super.isApplied(mazeedConjugationResult)
     }
 }

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "7b0cd9d6456b189a964ea23b273b73e1",
+    "identityHash": "0defbceb8f55cf32179a99f36115bc9d",
     "entities": [
       {
         "tableName": "mazeed",
@@ -62,7 +62,7 @@
       },
       {
         "tableName": "mujarrad",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`verb` TEXT NOT NULL, `root` TEXT NOT NULL, `bab` TEXT, `verbtype` TEXT NOT NULL, `babname` TEXT NOT NULL, `kov` TEXT, `kovname` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`verb` TEXT NOT NULL, `root` TEXT NOT NULL, `bab` TEXT NOT NULL, `verbtype` TEXT NOT NULL, `babname` TEXT NOT NULL, `kov` TEXT NOT NULL, `kovname` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
         "fields": [
           {
             "fieldPath": "verb",
@@ -80,7 +80,7 @@
             "fieldPath": "bab",
             "columnName": "bab",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "verbtype",
@@ -98,13 +98,13 @@
             "fieldPath": "kov",
             "columnName": "kov",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "kovname",
             "columnName": "kovname",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "id",
@@ -124,7 +124,7 @@
       },
       {
         "tableName": "kov",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`c1` TEXT NOT NULL, `c2` TEXT, `c3` TEXT, `kov` TEXT, `rulename` TEXT, `example` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`c1` TEXT NOT NULL, `c2` TEXT NOT NULL, `c3` TEXT NOT NULL, `kov` TEXT NOT NULL, `rulename` TEXT NOT NULL, `example` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
         "fields": [
           {
             "fieldPath": "c1",
@@ -136,31 +136,31 @@
             "fieldPath": "c2",
             "columnName": "c2",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "c3",
             "columnName": "c3",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "kov",
             "columnName": "kov",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "rulename",
             "columnName": "rulename",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "example",
             "columnName": "example",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "id",
@@ -308,7 +308,7 @@
       },
       {
         "tableName": "buckwater",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`decimel` INTEGER NOT NULL, `hex` TEXT NOT NULL, `ascii` TEXT NOT NULL, `orthography` TEXT NOT NULL, `arabic` TEXT NOT NULL, PRIMARY KEY(`decimel`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`decimel` INTEGER NOT NULL, `hex` TEXT NOT NULL, `ascii` TEXT NOT NULL, `orthography` TEXT NOT NULL, `arabic` TEXT, PRIMARY KEY(`decimel`))",
         "fields": [
           {
             "fieldPath": "decimel",
@@ -338,7 +338,7 @@
             "fieldPath": "arabic",
             "columnName": "arabic",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -352,43 +352,43 @@
       },
       {
         "tableName": "quranverbs",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`verb` TEXT NOT NULL, `roots` TEXT NOT NULL, `thulathibab` TEXT NOT NULL, `form` TEXT NOT NULL, `frequency` TEXT NOT NULL, `meaning` TEXT NOT NULL, `id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`verb` TEXT, `root` TEXT, `thulathibab` TEXT, `form` TEXT, `frequency` TEXT, `meaning` TEXT, `id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "verb",
             "columnName": "verb",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
-            "fieldPath": "roots",
-            "columnName": "roots",
+            "fieldPath": "root",
+            "columnName": "root",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "thulathibab",
             "columnName": "thulathibab",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "form",
             "columnName": "form",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "frequency",
             "columnName": "frequency",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "meaning",
             "columnName": "meaning",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "id",
@@ -408,7 +408,7 @@
       },
       {
         "tableName": "quranicverbs",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`verb` TEXT, `roots` TEXT, `thulathibab` TEXT, `form` INTEGER NOT NULL, `chaptername` TEXT, `frequency` INTEGER NOT NULL, `meaning` TEXT, `id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`verb` TEXT, `root` TEXT, `thulathibab` TEXT, `form` INTEGER NOT NULL, `chaptername` TEXT, `frequency` INTEGER NOT NULL, `meaning` TEXT, `id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "verb",
@@ -417,8 +417,8 @@
             "notNull": false
           },
           {
-            "fieldPath": "roots",
-            "columnName": "roots",
+            "fieldPath": "root",
+            "columnName": "root",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -472,7 +472,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7b0cd9d6456b189a964ea23b273b73e1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0defbceb8f55cf32179a99f36115bc9d')"
     ]
   }
 }

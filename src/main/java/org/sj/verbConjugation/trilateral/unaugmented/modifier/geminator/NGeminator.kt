@@ -55,13 +55,13 @@ class NGeminator : SubstitutionsApplier(), IUnaugmentedTrilateralModifier {
 
     override fun isApplied(conjugationResult: ConjugationResult): Boolean {
         val kov = conjugationResult.kov
-        return (conjugationResult.root.c3 == 'ن') && ((kov == 1) || (kov == 2) || (kov == 3) || (kov == 5) || (kov == 6) || (kov == 11) || (kov == 14) || (kov == 15) || (kov == 17) || (kov == 18) || (kov == 20))
+        return (conjugationResult.root!!.c3 == 'ن') && ((kov == 1) || (kov == 2) || (kov == 3) || (kov == 5) || (kov == 6) || (kov == 11) || (kov == 14) || (kov == 15) || (kov == 17) || (kov == 18) || (kov == 20))
     }
 
     //todo possible
     fun apply(tense: String?, active: Boolean, conjResult: ConjugationResult) {
         //it is the same active or passive
-        apply(conjResult.finalResult as MutableList<String>, conjResult.root)
+        apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
     } /*protected List getAppliedPronounsIndecies(String tense) {
         return (List) indeciesMap.get(tense);
     }*/

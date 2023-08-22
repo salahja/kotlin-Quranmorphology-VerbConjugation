@@ -23,8 +23,8 @@ import org.sj.verbConjugation.util.ArabCharUtil
  * @version 1.0
  */
 class NounFormulaC : NounFormula {
-    constructor(root: UnaugmentedTrilateralRoot?, suffixNo: String) {
-        this.root = root
+    constructor(root: UnaugmentedTrilateralRoot, suffixNo: String) {
+        this.root = root!!
         this.suffixNo = suffixNo.toInt() + 1
         suffix = AssimilateFormulaCSuffixContainer.Companion.instance.get(this.suffixNo - 1)
             .replace(" ".toRegex(), "")
@@ -39,9 +39,9 @@ class NounFormulaC : NounFormula {
 
     override fun form(): String {
         when (suffixNo) {
-            1, 3, 7, 9, 13, 15 -> return "أ" + ArabCharUtil.FATHA + root.c1 + ArabCharUtil.SKOON + root.c2 + ArabCharUtil.FATHA + root.c3 + suffix
-            2, 4, 8, 10, 14, 16 -> return root.c1.toString() + ArabCharUtil.FATHA + root.c2 + ArabCharUtil.SKOON + root.c3 + suffix
-            5, 6, 11, 12, 17, 18 -> return root.c1.toString() + ArabCharUtil.DAMMA + root.c2 + ArabCharUtil.SKOON + root.c3 + suffix
+            1, 3, 7, 9, 13, 15 -> return "أ" + ArabCharUtil.FATHA + root!!.c1 + ArabCharUtil.SKOON + root!!.c2 + ArabCharUtil.FATHA + root!!.c3 + suffix
+            2, 4, 8, 10, 14, 16 -> return root!!.c1.toString() + ArabCharUtil.FATHA + root!!.c2 + ArabCharUtil.SKOON + root!!.c3 + suffix
+            5, 6, 11, 12, 17, 18 -> return root!!.c1.toString() + ArabCharUtil.DAMMA + root!!.c2 + ArabCharUtil.SKOON + root!!.c3 + suffix
         }
         return ""
     }

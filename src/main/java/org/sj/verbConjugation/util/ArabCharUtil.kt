@@ -1,20 +1,16 @@
-package org.sj.verbConjugation.util;
+package org.sj.verbConjugation.util
 
-public class ArabCharUtil {
-    public static final String SEEN = "س";
-    public static final String TA = "ت";
-    public static final String WAW = "و";
-    public static final String YA = "ي";
-    public static final String NUUN = "";
-    public static final String Aleph = "ا";
-    public static final String FATHA = "َ";
-    public static final String DAMMA = "ُ";
-    public static final String KASRA = "ِ";
-    public static final String SKOON = "ْ";
-    public static final String SHADDA = "ّ";
-    public static final String MEEM = "م";
-
-    private ArabCharUtil() {
-    }
-
+object ArabCharUtil {
+    const val SEEN = "س"
+    const val TA = "ت"
+    const val WAW = "و"
+    const val YA = "ي"
+    const val NUUN = ""
+    const val Aleph = "ا"
+    const val FATHA = "َ"
+    const val DAMMA = "ُ"
+    const val KASRA = "ِ"
+    const val SKOON = "ْ"
+    const val SHADDA = "ّ"
+    const val MEEM = "م"
 }

@@ -34,7 +34,7 @@ class RaaEinMahmouz : TrilateralNounSubstitutionApplier(),
 
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
-        val root = mazeedConjugationResult.root
-        return root.c1 == 'ر' && root.c2 == 'ء' && root.c3 == 'ي' && mazeedConjugationResult.formulaNo == 1
+        val root = mazeedConjugationResult.root!!
+        return root!!.c1 == 'ر' && root!!.c2 == 'ء' && root!!.c3 == 'ي' && mazeedConjugationResult.formulaNo == 1
     }
 }

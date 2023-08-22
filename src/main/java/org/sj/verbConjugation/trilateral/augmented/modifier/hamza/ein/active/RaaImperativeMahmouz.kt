@@ -17,7 +17,7 @@ class RaaImperativeMahmouz : SubstitutionsApplier(), IAugmentedTrilateralModifie
 
 
     override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
-        val root: TrilateralRoot? = mazeedConjugationResult.root
+        val root: TrilateralRoot? = mazeedConjugationResult.root!!
         return mazeedConjugationResult.formulaNo == 1 && root!!.c1 == 'ر' && root!!.c2 == 'ء' && root!!.c3 == 'ي'
     }
 }

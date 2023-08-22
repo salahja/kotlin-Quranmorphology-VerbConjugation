@@ -20,8 +20,8 @@ import org.sj.verbConjugation.util.ArabCharUtil
  * @author Haytham Mohtasseb Billah
  * @version 1.0
  */
-class NounFormula8(root: AugmentedTrilateralRoot?, suffix: String?) :
-    AugmentedTrilateralNoun(root, suffix) {
+class NounFormula8(root:AugmentedTrilateralRoot, suffix: String?) :
+    AugmentedTrilateralNoun(root!!, suffix) {
     /**
      * form
      *
