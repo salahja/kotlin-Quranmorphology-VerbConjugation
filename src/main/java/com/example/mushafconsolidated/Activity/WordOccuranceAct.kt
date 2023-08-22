@@ -24,7 +24,6 @@ import com.example.Constant.WORDNUMBER
 import com.example.Constant.particlespanDark
 import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.Adapters.NounVerbOccuranceListAdapter
-
 import com.example.mushafconsolidated.Entities.CorpusNounWbwOccurance
 import com.example.mushafconsolidated.Entities.CorpusVerbWbwOccurance
 import com.example.mushafconsolidated.Entities.NounCorpusBreakup
@@ -32,27 +31,26 @@ import com.example.mushafconsolidated.Entities.VerbCorpusBreakup
 import com.example.mushafconsolidated.Entities.hanslexicon
 import com.example.mushafconsolidated.Entities.lanelexicon
 import com.example.mushafconsolidated.R
-
 import com.example.mushafconsolidated.Utils.Utils
 import com.example.mushafconsolidated.fragments.QuranMorphologyDetails
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet
 import com.example.utility.CorpusUtilityorig.Companion.getSpannableVerses
 import com.example.utility.QuranGrammarApplication
-
 import ru.dimorinny.floatingtextbutton.FloatingTextButton
 import java.util.Objects
 import java.util.concurrent.Executors
 import java.util.regex.Pattern
 
-class WordOccuranceAct : BaseActivity() {
+open class WordOccuranceAct : BaseActivity() {
     var expandableListView: ExpandableListView? = null
     var harf = false
     lateinit var expandNounTitles: MutableList<String>
     lateinit var expandVerbTitles: List<String>
     var root: String? = null
     var dialog: AlertDialog? = null
-    val expandNounVerses = LinkedHashMap<String, List<SpannableString?>>()
-    val expandVerbVerses = LinkedHashMap<String, List<SpannableString?>>()
+
+    val expandNounVerses = LinkedHashMap<String, ArrayList<SpannableString>>()
+    val expandVerbVerses = LinkedHashMap<String, ArrayList<SpannableString>>()
     lateinit var utils: Utils
     var firstcolortat = 0
     var maincolortag = 0
@@ -135,7 +133,7 @@ class WordOccuranceAct : BaseActivity() {
             }
             nounCorpusArrayList = nounroot?.let { utils.getNounBreakup(it) } as ArrayList<NounCorpusBreakup>?
             verbCorpusArrayList = verbroot?.let { utils.getVerbBreakUp(it) } as ArrayList<VerbCorpusBreakup>?
-            val alist = ArrayList<SpannableString?>()
+            val alist = ArrayList<SpannableString>()
             if (harf) {
                 for (vers in occurances!!) {
                     //    alist.add("");
@@ -157,12 +155,14 @@ class WordOccuranceAct : BaseActivity() {
                     }
                     val charSequence = TextUtils.concat(ref, "\n ", spannableVerses)
                     alist.add(SpannableString.valueOf(charSequence))
-                    alist.add(trans)
+                    if (trans != null) {
+                        alist.add(trans)
+                    }
                     expandNounVerses[sb.toString()] = alist
                 }
             }
             for (noun in nounCorpusArrayList!!) {
-                val list: MutableList<SpannableString?> =
+                val list: ArrayList<SpannableString> =
                     ArrayList()
                 list.add(SpannableString.valueOf(""))
                 if (noun.form == "null") {
@@ -203,7 +203,7 @@ class WordOccuranceAct : BaseActivity() {
                 }
             }
             for (verbCorpusBreakup in verbCorpusArrayList!!) {
-                val list = ArrayList<SpannableString?>()
+                val list = ArrayList<SpannableString>()
                 list.add(SpannableString.valueOf(""))
                 if (verbCorpusBreakup.form == "I") {
                     val sb = StringBuilder()
@@ -238,11 +238,16 @@ class WordOccuranceAct : BaseActivity() {
 
 
                 var listAdapter: NounVerbOccuranceListAdapter
+
+                //   listAdapter = new NounVerbOccuranceListAdapter(WordOccuranceAct.this, expandNounTitles, expandNounVerses);
                 listAdapter = NounVerbOccuranceListAdapter(
                     this@WordOccuranceAct,
                     expandNounTitles,
-                    expandNounVerses
+                    expandNounVerses,
+                    expandVerbVerses,
+                    expandVerbTitles
                 )
+
 
                 expandableListView?.setAdapter(listAdapter)
                 expandableListView!!.setOnGroupExpandListener { groupPosition ->
@@ -270,7 +275,7 @@ class WordOccuranceAct : BaseActivity() {
                                             AlifMaksuraString
                                         )
                                     }
-                                    var list: MutableList<SpannableString?> =
+                                    var list: ArrayList<SpannableString> =
                                         ArrayList()
                                     //   ArrayList<CorpusNounWbwOccurance> verses = utils.getNounOccuranceBreakVerses(split[1]);
                                     val lanesDifinition: ArrayList<hanslexicon> =
@@ -280,8 +285,8 @@ class WordOccuranceAct : BaseActivity() {
                                         list.add(SpannableString.valueOf(hans.definition))
                                         //
                                     }
-                                    list = highLightParadigm(list) as MutableList<SpannableString?>
-                                    val finalList: List<SpannableString?> =
+                                    list = highLightParadigm(list) as ArrayList<SpannableString>
+                                    val finalList: ArrayList<SpannableString> =
                                         list
                                     runOnUiThread(Runnable {
                                         ex.shutdown()
@@ -346,7 +351,7 @@ class WordOccuranceAct : BaseActivity() {
                                         ex.shutdown()
                                         dialog!!.dismiss()
                                         expandNounVerses[expandNounTitles.get(groupPosition)] =
-                                            finalList as List<SpannableString?>
+                                            finalList as ArrayList<SpannableString>
                                         listAdapter.notifyDataSetChanged()
                                     })
                                 }
@@ -402,7 +407,7 @@ class WordOccuranceAct : BaseActivity() {
                             val dialog = builder.create()
                             ex.execute {
                                 runOnUiThread { dialog.show() }
-                                val list: MutableList<SpannableString?> =
+                                val list: ArrayList<SpannableString> =
                                     ArrayList()
                                 val verses: ArrayList<CorpusNounWbwOccurance> =
                                     utils.getNounOccuranceBreakVerses(
@@ -447,7 +452,7 @@ class WordOccuranceAct : BaseActivity() {
                                     val charSequence =
                                         TextUtils.concat(ref, "\n ", spannableVerses)
                                     list.add(SpannableString.valueOf(charSequence))
-                                    list.add(trans)
+                                    list.add(trans!!)
                                 }
                                 runOnUiThread(Runnable {
                                     ex.shutdown()
@@ -462,7 +467,7 @@ class WordOccuranceAct : BaseActivity() {
                                 Executors.newSingleThreadExecutor()
                             ex.execute {
                                 runOnUiThread(Runnable { dialog!!.show() })
-                                val list: MutableList<SpannableString?> =
+                                val list: ArrayList<SpannableString> =
                                     ArrayList()
                                 val verses: ArrayList<CorpusVerbWbwOccurance> =
                                     utils.getVerbOccuranceBreakVerses(split[1]) as ArrayList<CorpusVerbWbwOccurance>
@@ -506,7 +511,7 @@ class WordOccuranceAct : BaseActivity() {
                                     val charSequence =
                                         TextUtils.concat(ref, "\n ", spannableVerses)
                                     list.add(SpannableString.valueOf(charSequence))
-                                    list.add(trans)
+                                    trans?.let { list.add(it) }
                                 }
                                 runOnUiThread(Runnable {
                                     ex.shutdown()

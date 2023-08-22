@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/primary_details_nav_graph"
         tools:layout="@layout/fragment_arabicroot_detail" />
-<!--        -->
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

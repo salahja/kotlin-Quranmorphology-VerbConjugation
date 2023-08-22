@@ -1,4 +1,4 @@
-package com.example.mushafconsolidated.Activityimport
+package com.example.mushafconsolidated.Activity
 
 
 import SharedPref
@@ -14,6 +14,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.example.Constant
+import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.fragments.Dictionary_frag
 import com.example.utility.QuranGrammarApplication

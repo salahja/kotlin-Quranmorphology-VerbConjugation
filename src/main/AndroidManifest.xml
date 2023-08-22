@@ -39,12 +39,18 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
 
+        <activity
+            android:name="com.example.roots.RootBreakupAct"
+            android:exported="false"
+            android:label="@string/title_activity_root_breakup"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar" />
 
-
-        <service
-            android:name=".receiversimport.DownloadService"
-            android:enabled="true"
-            android:exported="false" />
+        <activity
+            android:name="com.example.roots.arabicrootDetailHostActivity"
+            android:exported="false"
+            android:label="@string/title_activity_arabicroot_detail_host"
+            android:resizeableActivity="true"
+            />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -56,15 +62,7 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity
-            android:name=".Activity.WordOccuranceAct"
-            android:exported="true"
-            android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="fullSensor">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
-        </activity>
+
 
         <activity
             android:name=".Activity.SplashActivity"
@@ -98,29 +96,9 @@
 
 
         <activity
-            android:name=".Activityimport.GrammarRuleDetailHostActivity"
-            android:exported="true"
-            android:label="@string/title_activity_grammarrulelist_detail_host"
-            android:resizeableActivity="true"
-             />
-
-        <activity
-            android:name=".Activity.QuranGrammarAct"
+            android:name=".Activity.WordOccuranceAct"
             android:exported="true"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="fullSensor"
-            android:windowSoftInputMode="stateVisible|adjustResize">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
-        </activity>
-
-
-
-        <activity
-            android:name=".Activityimport.LughatWordDetailsAct"
-            android:exported="true"
-            android:label="@string/title_activity_verb_conjugation"
             android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -128,18 +106,33 @@
         </activity>
 
 
-
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/secret_google_maps_api_key" />
-        <meta-data
-            android:name="com.google.android.wearable.standalone"
-            android:value="true" />
-
+        <activity
+            android:name=".Activity.KeyboardSearchResult"
+            android:exported="true"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="fullSensor">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.SearchKeyBoardAct"
+            android:exported="true"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="fullSensor">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.LughatWordDetailsAct"
+            android:exported="true"
+            android:label="@string/title_activity_verb_conjugation"
+            android:screenOrientation="fullSensor">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
 
         <activity
             android:name="org.sj.conjugator.activity.SarfSagheerActivity"
@@ -169,6 +162,68 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
+
+
+        <service
+            android:name=".receiversimport.DownloadService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+
+
+
+
+        <activity
+            android:name="arabicrootListFragment"
+            android:parentActivityName=".Activity.QuranGrammarAct">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+
+
+        <activity
+            android:name=".Activityimport.GrammarRuleDetailHostActivity"
+            android:exported="true"
+            android:label="@string/title_activity_grammarrulelist_detail_host"
+            android:resizeableActivity="true"
+             />
+
+        <activity
+            android:name=".Activity.QuranGrammarAct"
+            android:exported="true"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateVisible|adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+
+
+
+
+
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/secret_google_maps_api_key" />
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
 
 
     </application>

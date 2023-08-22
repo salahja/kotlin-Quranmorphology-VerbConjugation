@@ -36,8 +36,9 @@ import com.example.Constant.SHADDA
 import com.example.Constant.SURAH_ID
 import com.example.Constant.VERBMOOD
 import com.example.Constant.VERBTYPE
+import com.example.mushafconsolidated.Activity.LughatWordDetailsAct
 import com.example.mushafconsolidated.Activity.WordOccuranceAct
-import com.example.mushafconsolidated.Activityimport.LughatWordDetailsAct
+
 import com.example.mushafconsolidated.Adaptersimport.RootWordDisplayAdapter
 import com.example.mushafconsolidated.Entities.HalEnt
 import com.example.mushafconsolidated.Entities.LiajlihiEnt
@@ -998,7 +999,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
         private const val ARG_OPTIONS_DATA = "options_data"
 
         // TODO: Customize parameters
-        fun newInstance(data: Array<String?>?): WordAnalysisBottomSheet {
+        fun newInstance(data: Array<String?>): WordAnalysisBottomSheet {
             val fragment = WordAnalysisBottomSheet()
             val args = Bundle()
             args.putStringArray(ARG_OPTIONS_DATA, data)

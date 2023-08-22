@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant
+import com.example.mushafconsolidated.Activity.LughatWordDetailsAct
 
-import com.example.mushafconsolidated.Activityimport.LughatWordDetailsAct
 
 import com.example.mushafconsolidated.Adaptersimport.LexiconAdapter
 import com.example.mushafconsolidated.Adaptersimport.WordLughatAdapter

@@ -50,7 +50,7 @@ class ThemeListPrefrence constructor() : BottomSheetDialogFragment() {
 
     public override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setLayoutManager(LinearLayoutManager(context!!))
+        recyclerView.setLayoutManager(LinearLayoutManager(requireContext()))
         val details: ArrayList<String> = ArrayList()
         fontQuranAdapter = FontQuranAdapter()
         recyclerView.setAdapter(fontQuranAdapter)
@@ -83,7 +83,7 @@ class ThemeListPrefrence constructor() : BottomSheetDialogFragment() {
             dark_blue = itemView.findViewById(R.id.Dark_Blue)
             green = itemView.findViewById(R.id.green)
             brown = itemView.findViewById(R.id.Brown)
-            frameLayout = itemView.findViewById(R.id.bottomSheet)
+          //  frameLayout = itemView.findViewById(R.id.bottomSheet)
             itemView.setOnClickListener(this)
             purple.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {

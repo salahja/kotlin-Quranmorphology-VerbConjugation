@@ -81,6 +81,7 @@ import com.example.mushafconsolidated.model.CorpusAyahWord
 import com.example.mushafconsolidated.model.CorpusWbwWord
 import com.example.mushafconsolidatedimport.NamesDetail
 import com.example.mushafconsolidatedimport.ParticleColorScheme
+import com.example.roots.arabicrootDetailHostActivity
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -89,6 +90,7 @@ import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import org.ahocorasick.trie.Trie
+import org.sj.conjugator.activity.ConjugatorAct
 import wheel.OnWheelChangedListener
 import wheel.WheelView
 import java.io.File
@@ -97,6 +99,7 @@ import java.io.IOException
 import java.util.Date
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+
 
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
@@ -317,9 +320,9 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 navigationView.setCheckedItem(R.id.surahnav)
             }
             if (item.itemId == R.id.conjugationnav) {
-       /*         materialToolbar!!.title = "Conjugator"
+              materialToolbar!!.title = "Conjugator"
                 val conjugatorintent = Intent(this@QuranGrammarAct, ConjugatorAct::class.java)
-                startActivity(conjugatorintent)*/
+                startActivity(conjugatorintent)
             }
             if (item.itemId == R.id.dua) {
            /*     materialToolbar!!.title = "Hisnul Muslim-Dua;s"
@@ -351,21 +354,21 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 transactions.commit()*/
             }
             if (item.itemId == R.id.rootdetails) {
-               // drawerLayout.closeDrawers()
-              //  val bundle = Bundle()
+              drawerLayout.closeDrawers()
+            val bundle = Bundle()
 
-             //   val roots = Intent(this, arabicroot!!DetailHostActivity::class.java)
+               val roots = Intent(this, arabicrootDetailHostActivity::class.java)
              //   bundle.putString(Constant.WORDDETAILS, "word")
-              //  root!!s.putExtras(bundle)
+            roots.putExtras(bundle)
 
-              //  startActivity(root!!s)
+               startActivity(roots)
             }
             if (item.itemId == R.id.verbdetails) {
-        /*        drawerLayout.closeDrawers()
+           drawerLayout.closeDrawers()
 
-                val verbdetails = Intent(this, arabicroot!!DetailHostActivity::class.java)
+                val verbdetails = Intent(this, arabicrootDetailHostActivity::class.java)
                 verbdetails.putExtra(Constant.WORDDETAILS, "verb")
-                startActivity(verbdetails)*/
+                startActivity(verbdetails)
             }
             if (item.itemId == R.id.jumptoverse) {
                 drawerLayout.closeDrawers()
@@ -376,16 +379,17 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             if (item.itemId == R.id.search) {
                 drawerLayout.closeDrawers()
                 materialToolbar!!.title = "Root Word Search"
-                //  Intent search = new Intent(this, arabicroot!!DetailHostActivity.class);
-            //    val search = Intent(this, SearchKeyBoardAct::class.java)
-           //     startActivity(search)
+
+                val search = Intent(this, SearchKeyBoardAct::class.java)
+                startActivity(search)
+
             }
-            if (item.itemId == R.id.setting) {
-             /*   drawerLayout.closeDrawers()
-                materialToolbar!!.title = "Prayer"
-                val pray = Intent(this@QuranGrammarAct, MainTwoActivityPrayer::class.java)
-                startActivity(pray)*/
-            }
+            /*       if (item.itemId == R.id.setting) {
+                   drawerLayout.closeDrawers()
+                     materialToolbar!!.title = "Prayer"
+                     val pray = Intent(this@QuranGrammarAct, MainTwoActivityPrayer::class.java)
+                     startActivity(pray)
+            }*/
             if (item.itemId == R.id.searchtopic) {
                 drawerLayout.closeDrawers()
                 materialToolbar!!.title = "Topics"
