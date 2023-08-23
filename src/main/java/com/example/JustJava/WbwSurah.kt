@@ -87,7 +87,7 @@ class WbwSurah(
                         val en: Any = wbw[verseglobal]!!.en
                         val bn: Any = wbw[verseglobal]!!.bn
                         val ind: Any = wbw[verseglobal]!!.`in`
-                        val ur: String = wbw[verseglobal]!!.ur
+                        val ur: String? = wbw[verseglobal]!!.ur
                         word.rootword=(wbw[verseglobal]!!.root_a)
                         word.surahId=(wbw[verseglobal]!!.surah)
                         word.verseId=(wbw[verseglobal]!!.ayah)

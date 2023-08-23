@@ -91,6 +91,14 @@
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
 
+        <activity
+            android:name=".Activity.TafsirFullscreenActivity"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="fullSensor">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
 
 
 

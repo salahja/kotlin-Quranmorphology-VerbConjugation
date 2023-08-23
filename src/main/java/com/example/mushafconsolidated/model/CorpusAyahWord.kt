@@ -17,10 +17,10 @@ import android.text.SpannableString
 
 
 class CorpusAyahWord {
-    var word: ArrayList<CorpusWbwWord>? = null
+    lateinit var word: ArrayList<CorpusWbwWord>
     var isHasProstration = false
     var quranArabic: String? = null
-    var quranTranslate: String? = null
+    lateinit var quranTranslate: String
     var spannableverse: SpannableString? = null
     var ar_irab_two: String? = null
     var tafsir_kathir: String? = null
@@ -35,10 +35,10 @@ class CorpusAyahWord {
 
     constructor()
     constructor(
-        word: ArrayList<CorpusWbwWord>?,
+        word: ArrayList<CorpusWbwWord>,
         hasProstration: Boolean,
         quranArabic: String?,
-        quranTranslate: String?,
+        quranTranslate: String,
         spannableverse: SpannableString?
     ) {
         this.word = word

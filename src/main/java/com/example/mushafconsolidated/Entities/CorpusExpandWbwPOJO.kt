@@ -28,7 +28,7 @@ class CorpusExpandWbwPOJO constructor(
     var en: String,
     var bn: String,
     var `in`: String,
-    var ur: String
+    var ur: String?
 ) {
     var qurantext: String? = null
     var passage_no: Int = 0

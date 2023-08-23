@@ -234,8 +234,8 @@ class TopicDetailAct() : BaseActivity(), OnItemClickListenerOnLong {
         val fragmentManager: FragmentManager = getSupportFragmentManager()
         item.arguments = dataBundle
         val data = arrayOf(
-            word.word!![0].surahId.toString(),
-            word.word!![0].verseId.toString(),
+            word.word[0].surahId.toString(),
+            word.word[0].verseId.toString(),
             word.quranTranslate,
             (1).toString()
 
@@ -342,7 +342,5 @@ class TopicDetailAct() : BaseActivity(), OnItemClickListenerOnLong {
         snackbar.show()
     }
 
-    fun onItemLongClick(position: Int, v: View?) {
-        //    Toast.makeText(this, "longclick", Toast.LENGTH_SHORT).show();
-    }
+
 }

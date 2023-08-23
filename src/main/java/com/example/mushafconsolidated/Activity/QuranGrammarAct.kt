@@ -1271,7 +1271,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         // transactions.show(item);
 
         val data =
-            arrayOf(word.surah.toString(), word.ayah.toString(), word.translation, 1.toString())!!
+            arrayOf(word.surah.toString(), word.ayah.toString(), word.translation, 1.toString())
         GrammerFragmentsBottomSheet.newInstance(data)
             .show(supportFragmentManager, WordAnalysisBottomSheet.TAG)
     }
@@ -1399,18 +1399,18 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             menuBuilder.setCallback(object : MenuBuilder.Callback {
                 override fun onMenuItemSelected(menu: MenuBuilder, item: MenuItem): Boolean {
                     if (item.itemId == R.id.actionTafsir) { // Handle option1 Click
-                      /*  val readingintent =
+                    val readingintent =
                             Intent(this@QuranGrammarAct, TafsirFullscreenActivity::class.java)
 
-                        val chapter_no = corpusayahWordArrayList!![position - 1].word!![0].surahId
-                        val verse = corpusayahWordArrayList!![position - 1].word!![0].verseId
+                        val chapter_no = corpusayahWordArrayList!![position - 1].word[0].surahId
+                        val verse = corpusayahWordArrayList!![position - 1].word[0].verseId
 
                         readingintent.putExtra(Constant.SURAH_ID, chapter_no)
                         readingintent.putExtra(Constant.AYAH_ID, verse)
                         readingintent.putExtra(Constant.SURAH_ARABIC_NAME, surahArabicName)
                         startActivity(readingintent)
                         optionsMenu.dismiss()
-                        return true*/
+                        return true
                     }
                     if (item.itemId == R.id.bookmark) { // Handle option2 Click
                         bookMarkSelected(position)

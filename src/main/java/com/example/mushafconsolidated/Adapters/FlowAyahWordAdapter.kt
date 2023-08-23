@@ -41,6 +41,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import com.example.Constant
+import com.example.mushafconsolidated.Activity.TafsirFullscreenActivity
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.Entities.HalEnt
@@ -814,7 +815,7 @@ class FlowAyahWordAdapter(
                         .setGravity(Gravity.TOP)
                         .setArrowEnabled(true)
                         .setBackgroundColor(color)
-                    //    .setText(workBreakDown)
+                     .setText(workBreakDown)
                     builder.show()
                     true
                 })
@@ -867,7 +868,7 @@ class FlowAyahWordAdapter(
                         .setGravity(Gravity.TOP)
                         .setArrowEnabled(true)
                         .setBackgroundColor(color)
-
+                        .setText(workBreakDown)
                     builder.show()
 
 
@@ -1120,6 +1121,7 @@ class FlowAyahWordAdapter(
                 fabmenu.setOnClickListener(this)
                 tafsir.setOnClickListener(this)
                 jumptofb.setOnClickListener(this)
+                tafsir.setOnClickListener(this)
                 bookmarfb.setOnClickListener(this)
                 summbaryfb.setOnClickListener(this)
                 helpfb.setOnClickListener(this)
@@ -1225,7 +1227,7 @@ class FlowAyahWordAdapter(
                             sharescreenfb.animate().duration = 500
                         }
                         tafsir.setOnClickListener(View.OnClickListener { view12: View? ->
-                        /*    closeFABMenu()
+                    closeFABMenu()
 
                             val readingintent =  Intent(context, TafsirFullscreenActivity::class.java)
 
@@ -1236,7 +1238,7 @@ class FlowAyahWordAdapter(
                             readingintent.putExtra(Constant.SURAH_ID, chapter_no)
                             readingintent.putExtra(Constant.AYAH_ID, verse)
                             readingintent.putExtra(Constant.SURAH_ARABIC_NAME, SurahName)
-                            context.startActivity(readingintent)*/
+                            context.startActivity(readingintent)
                         })
                         summbaryfb.setOnClickListener(View.OnClickListener { v: View? ->
                             closeFABMenu()
