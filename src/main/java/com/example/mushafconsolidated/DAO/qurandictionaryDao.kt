@@ -14,4 +14,7 @@ interface qurandictionaryDao {
 
     @Query("select *  from qurandictionary where rootarabic=:root  order by rootarabic  ")
     fun getDictionaryroot(root: String?): List<qurandictionary?>?
+
+    @Query("select * from qurandictionary where rootarabic  LIKE  :arg  group by rootarabic order by rootarabic  ")
+    fun getByfirstletter(arg: String?): List<qurandictionary>
 }

@@ -18,14 +18,25 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.Constant
+import com.example.Constant.ARABICWORD
+import com.example.Constant.AYAH_ID
 import com.example.Constant.QURAN_VERB_ROOT
+import com.example.Constant.QURAN_VERB_WAZAN
+import com.example.Constant.SARFKABEER
+import com.example.Constant.SURAH_ARABIC_NAME
+import com.example.Constant.SURAH_ID
+import com.example.Constant.VERBMOOD
+import com.example.Constant.VERBTYPE
 import com.example.Constant.WORDDETAILS
+import com.example.Constant.WORDMEANING
 import com.example.mushafconsolidated.Activity.LughatWordDetailsAct
+import com.example.mushafconsolidated.Activity.TopicDetailAct
 import com.example.mushafconsolidated.Entities.CorpusNounWbwOccurance
 import com.example.mushafconsolidated.Entities.NounCorpusBreakup
 import com.example.mushafconsolidated.Entities.RootVerbDetails
 import com.example.mushafconsolidated.Entities.RootWordDetails
 import com.example.mushafconsolidated.Entities.VerbCorpusBreakup
+import com.example.mushafconsolidated.Entities.VerbWazan
 import com.example.mushafconsolidated.Entities.hanslexicon
 import com.example.mushafconsolidated.Entities.lanelexicon
 import com.example.mushafconsolidated.Entities.lughat
@@ -36,6 +47,7 @@ import com.example.mushafconsolidated.databinding.ActivityRootBreakupBinding
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.chip.Chip
 import org.sj.conjugator.activity.BaseActivity
+import org.sj.conjugator.activity.ConjugatorTabsActivity
 import org.sj.conjugator.interfaces.OnItemClickListener
 
 class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener {
@@ -84,7 +96,10 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
         expandableListView = findViewById(R.id.expandableListView) as ExpandableListView
         lanes = findViewById(R.id.lanelexicon)
         val rootoccurance: TextView = binding.rootoccurance
+
+        root= bundle.getStringExtra(QURAN_VERB_ROOT)!!
         rootoccurance.text = root
+
         lanes.setOnClickListener(this)
         lanes.setOnClickListener {
             val bundle = Bundle()
@@ -145,7 +160,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
             recyclerView.layoutManager = GridLayoutManager(this, 2)
             adapter = MyRootBreakRecyclerViewAdapter(rootdetails!!)
             recyclerView.adapter = adapter
- /*           adapter!!.SetOnItemClickListener(object : OnItemClickListener() {
+ /*        adapter!!.SetOnItemClickListener(object : OnItemClickListener() {
                 override fun onItemClick(v: View?, position: Int) {
                     val wordDetails = rootdetails!![position]
                     val datas = HashMap<String, String>()
@@ -176,51 +191,56 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
             verbdetails = utils.getRootVerbDetails(root) as ArrayList<RootVerbDetails>?
             verbDetailsRecAdapter = VerbDetailsRecAdapter(verbdetails!!)
             recyclerView.adapter = verbDetailsRecAdapter
-      /*      verbDetailsRecAdapter.SetOnItemClickListener(object : OnItemClickListener {
-                fun onItemClick(v: View, position: Int) {
+            verbDetailsRecAdapter.SetOnItemClickListener(object : OnItemClickListener {
+
+                override fun onItemClick(v: View?, position: Int) {
                     val dataBundle = Bundle()
                     val newbundle = Bundle()
                     val wordDetails = verbdetails!![position]
                     val datas = HashMap<String, String>()
-                    if (v.tag == "conjugate") {
-                        newbundle.putInt(SURAH_ID, wordDetails.surah)
-                        newbundle.putInt(AYAH_ID, wordDetails.ayah)
-                        newbundle.putString(SURAH_ARABIC_NAME, wordDetails.namearabic)
-                        newbundle.putString(ARABICWORD, wordDetails.arabic)
-                        newbundle.putString(WORDMEANING, wordDetails.en)
-                        newbundle.putString(
-                            VERBMOOD,
-                            VerbWazan.getVerbMood(wordDetails.mood_kananumbers)
-                        )
-                        if (wordDetails.thulathibab!!.length == 0) {
+                    if (v != null) {
+                        if (v.tag == "conjugate") {
+                            newbundle.putInt(SURAH_ID, wordDetails.surah)
+                            newbundle.putInt(AYAH_ID, wordDetails.ayah)
+                            newbundle.putString(SURAH_ARABIC_NAME, wordDetails.namearabic)
+                            newbundle.putString(ARABICWORD, wordDetails.arabic)
+                            newbundle.putString(WORDMEANING, wordDetails.en)
                             newbundle.putString(
-                                QURAN_VERB_WAZAN,
-                                VerbWazan.getMazeedWazan(wordDetails.form)
+                                VERBMOOD,
+                                VerbWazan.getVerbMood(wordDetails.mood_kananumbers)
                             )
-                            newbundle.putString(VERBTYPE, "mazeed")
+                            if (wordDetails.thulathibab!!.length == 0) {
+                                newbundle.putString(
+                                    QURAN_VERB_WAZAN,
+                                    VerbWazan.getMazeedWazan(wordDetails.form)
+                                )
+                                newbundle.putString(VERBTYPE, "mazeed")
+                            } else {
+                                newbundle.putString(QURAN_VERB_WAZAN, wordDetails.thulathibab)
+                                newbundle.putString(VERBTYPE, "mujarrad")
+                            }
+                            newbundle.putString(QURAN_VERB_ROOT, wordDetails.rootarabic)
+                            //       dataBundle.putString(VERBTYPE, verbtype);
+                            newbundle.putBoolean(SARFKABEER, true)
+                            val intent = Intent(this@RootBreakupAct, ConjugatorTabsActivity::class.java)
+                            intent.putExtras(newbundle)
+                            startActivity(intent)
                         } else {
-                            newbundle.putString(QURAN_VERB_WAZAN, wordDetails.thulathibab)
-                            newbundle.putString(VERBTYPE, "mujarrad")
+                            newbundle.putInt(SURAH_ID, wordDetails.surah)
+                            newbundle.putInt(AYAH_ID, wordDetails.ayah)
+                            newbundle.putString(SURAH_ARABIC_NAME, wordDetails.namearabic)
+                            newbundle.putString(ARABICWORD, wordDetails.arabic)
+                            newbundle.putString(WORDMEANING, wordDetails.en)
+                            newbundle.putSerializable("map", datas)
+                            val intents = Intent(this@RootBreakupAct, TopicDetailAct::class.java)
+                            intents.putExtras(newbundle)
+                            startActivity(intents)
                         }
-                        newbundle.putString(QURAN_VERB_ROOT, wordDetails.rootarabic)
-                        //       dataBundle.putString(VERBTYPE, verbtype);
-                        newbundle.putBoolean(SARFKABEER, true)
-                        val intent = Intent(this@RootBreakupAct, ConjugatorTabsActivity::class.java)
-                        intent.putExtras(newbundle)
-                        startActivity(intent)
-                    } else {
-                        newbundle.putInt(SURAH_ID, wordDetails.surah)
-                        newbundle.putInt(AYAH_ID, wordDetails.ayah)
-                        newbundle.putString(SURAH_ARABIC_NAME, wordDetails.namearabic)
-                        newbundle.putString(ARABICWORD, wordDetails.arabic)
-                        newbundle.putString(WORDMEANING, wordDetails.en)
-                        newbundle.putSerializable("map", datas)
-                        val intents = Intent(this@RootBreakupAct, TopicDetailAct::class.java)
-                        intents.putExtras(newbundle)
-                        startActivity(intents)
                     }
                 }
-            })*/
+
+
+            })
         }
         //    rootDictionary.get(0).getHansweir();
     }

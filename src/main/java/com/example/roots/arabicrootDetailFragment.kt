@@ -116,15 +116,15 @@ class arabicrootDetailFragment
                 val bmark = adapter!!.getItem(position) as String
                 //        ChaptersAnaEntity surah = (ChaptersAnaEntity) bookmarksShowAdapter.getItem(position);
                 val dataBundle = Bundle()
-                dataBundle.putString("root", bmark)
-                val bundle = Bundle()
+                dataBundle.putString(QURAN_VERB_ROOT, bmark)
+
                 assert(arguments != null)
                 if (arguments!!.containsKey(WORDDETAILS)) {
-                    bundle.putString(WORDDETAILS, arguments!!.getString(WORDDETAILS))
+                    dataBundle.putString(WORDDETAILS, arguments!!.getString(WORDDETAILS))
                 }
                 val intent = Intent(activity, RootBreakupAct::class.java)
-                bundle.putString(QURAN_VERB_ROOT, bmark)
-                intent.putExtras(bundle)
+                dataBundle.putString(QURAN_VERB_ROOT, bmark)
+                intent.putExtras(dataBundle)
                 startActivity(intent)
             }
         })

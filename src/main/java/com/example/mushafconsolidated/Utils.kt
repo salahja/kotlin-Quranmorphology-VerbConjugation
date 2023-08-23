@@ -61,7 +61,7 @@ class Utils {
     var thiscontext: Context? = null
 
     constructor(context: Context?) {
-        Utils.Companion.database = context?.let { QuranAppDatabase.Companion.getInstance(it) }
+        Utils.Companion.database = context?.let { QuranAppDatabase.Companion.getInstance(it) }!!
         thiscontext = context
     }
 
@@ -388,7 +388,7 @@ class Utils {
         return Utils.Companion.database?.RawDao()?.getCorpusWbw(query)
     }
 
-    fun getCorpusWbwBySurahAyahtopic(tid: Int, aid: Int): List<CorpusExpandWbwPOJO?>? {
+    fun getCorpusWbwBySurahAyahtopic(tid: Int, aid: Int): List<CorpusExpandWbwPOJO>{
         val sqlverb: String =
             ("SELECT CorpusExpand.rootaraone || rootaratwo || rootarathree || rootarafour || rootarafive AS root_a,\n" +
                     "       CorpusExpand.surah,\n" +
@@ -441,7 +441,7 @@ class Utils {
                     "          corpusexpand.ayah")
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
         //  List<Book> result = booksDao.getBooks(query);
-        return Utils.Companion.database?.RawDao()?.getCorpusWbwSurahAyah(query)
+        return Utils.Companion.database.RawDao().getCorpusWbwSurahAyah(query)
     }
 
     fun getnounoccuranceHarfNasbZarf(tid: String): List<CorpusNounWbwOccurance?>? {
@@ -1089,18 +1089,9 @@ class Utils {
 
     companion object {
         private val TAG: String = "Utils"
-        private var database: QuranAppDatabase? = null
-
-        /*  public static Utils getInstance(Application context) {
-        if (instance == null) {
-            instance = new Utils();
-            database? = QuranAppDatabase.getInstance(context);
+        private lateinit var database: QuranAppDatabase
 
 
-
-        }
-        return instance;
-    }*/
         fun getRootwordsbyLetter(tid: String): List<qurandictionary?>? {
             val sb = StringBuilder()
 
@@ -1121,8 +1112,10 @@ class Utils {
             val verb: String =
                 "SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like %" + tid
             val fs: String = let + ")"
+
+            val qquery="SELECT distinct ROOTARABIC FROM QURANDICTIONARY "
             val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sb.toString())
-            return Utils.Companion.database?.RawDao()?.getRootsbyLetter(query)
+            return Utils.Companion.database.RawDao().getRootsbyLetter(query)
         }
 
         val bookMarksNew: List<BookMarks?>?
@@ -1137,6 +1130,12 @@ class Utils {
         fun getsurahayahVerses(id: Int, aid: Int): List<QuranEntity?>? {
             return Utils.Companion.database?.QuranDao()?.getsurahayahVerses(id, aid)
         }
+
+            fun getByfirstletter(id: String,): List<qurandictionary> {
+            return Utils.Companion.database?.qurandictionaryDao()!!.getByfirstletter(id)
+        }
+
+
 
 
         fun getQuranbySurahAyahrange(surahid: Int, from: Int, to: Int): List<QuranEntity?>? {

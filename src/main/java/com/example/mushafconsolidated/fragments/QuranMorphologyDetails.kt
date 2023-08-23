@@ -16,8 +16,8 @@ import java.util.Objects
 
 
 open class QuranMorphologyDetails {
-    var form = 0
-    var Thulathi: String? = null
+    open var form = 0
+    open var Thulathi: String? = null
 
     // --Commented out by Inspection (16/08/23, 1:44 pm):private CorpusWbwWord word;
     private var corpusNoun: ArrayList<NounCorpus>? = null
@@ -38,7 +38,7 @@ open class QuranMorphologyDetails {
 
 
     //     pngsb.append("," + "(form").append(verbcorpusform.get(0).getForm()).append(")");
-    val verbDetails: HashMap<String, String?>
+    open val verbDetails: HashMap<String, String?>
         get() {
             val vbdetail = HashMap<String, String?>()
             val roots: String
@@ -214,7 +214,7 @@ open class QuranMorphologyDetails {
     //get the root,since vercopus is not checked
 //    wordbdetail.put("form", SpannableStringBuilder.valueOf("I"));
     //chedk if particple
-    val wordDetails: HashMap<String, SpannableStringBuilder?>
+    open val wordDetails: HashMap<String, SpannableStringBuilder?>
         get() {
             val wordbdetail = HashMap<String, SpannableStringBuilder?>()
             wordbdetail["surahid"] = SpannableStringBuilder.valueOf(

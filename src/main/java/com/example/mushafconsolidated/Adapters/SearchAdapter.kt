@@ -82,7 +82,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.MyViewHolder>, Filterab
                                     Locale.getDefault()
                                 )
                             ) ||
-                            details.rootbuckwater.lowercase(Locale.getDefault()).contains(
+                            details.rootbuckwater!!.lowercase(Locale.getDefault()).contains(
                                 charString.lowercase(
                                     Locale.getDefault()
                                 )

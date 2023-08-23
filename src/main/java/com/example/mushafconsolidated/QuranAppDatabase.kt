@@ -77,7 +77,7 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
 
     // public abstract WordbywordPojoDao WordbywordPojoDao();
     abstract fun BookMarkDao(): BookMarkDao?
-    abstract fun RawDao(): RawDao?
+    abstract fun RawDao(): RawDao
     abstract fun CorpusExpandedDao(): CorpusExpandedDao?
     abstract fun QuranDao(): QuranDao?
     abstract fun VerbCorpusDao(): VerbCorpusDao?
@@ -97,7 +97,7 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
     abstract fun LaneDao(): LaneDao?
     abstract fun LaneRootDao(): LaneRootDao?
     abstract fun HansDao(): HansDao?
-    abstract fun qurandictionaryDao(): qurandictionaryDao?
+    abstract fun qurandictionaryDao(): qurandictionaryDao
     abstract fun grammarRulesDao(): grammarRulesDao?
     abstract fun tameezDao(): tameezDao?
     abstract fun liajlihiDao(): liajlihiDao?

@@ -88,6 +88,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
         dialog = builder.create()
         val bundle = this.requireArguments()
         val stringArray = bundle.getStringArray(ARG_OPTIONS_DATA)
+
         chapterid = stringArray!![0].toInt()
         val shared = PreferenceManager.getDefaultSharedPreferences(
             requireContext()

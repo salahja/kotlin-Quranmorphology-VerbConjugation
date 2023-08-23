@@ -65,7 +65,9 @@ object PlaceholderContent {
         strings: ArrayList<String>
     ): ArrayList<String> {
         val builder = StringBuilder()
-        val letter: ArrayList<qurandictionary> = Utils.getRootwordsbyLetter(s) as ArrayList<qurandictionary>
+        val searchs=s+'%';
+        //%
+        val letter: ArrayList<qurandictionary> = Utils.getByfirstletter(searchs) as ArrayList<qurandictionary>
         for (qurandictionary in letter) {
             strings.add(qurandictionary.rootarabic)
             //    builder.append(qurandictionary.getRootarabic()).append("\n");

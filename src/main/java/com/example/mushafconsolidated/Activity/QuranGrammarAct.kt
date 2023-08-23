@@ -358,7 +358,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             val bundle = Bundle()
 
                val roots = Intent(this, arabicrootDetailHostActivity::class.java)
-             //   bundle.putString(Constant.WORDDETAILS, "word")
+              bundle.putString(Constant.WORDDETAILS, "word")
             roots.putExtras(bundle)
 
                startActivity(roots)
@@ -1265,11 +1265,13 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         val item = GrammerFragmentsBottomSheet()
         val fragmentManager = supportFragmentManager
         item.arguments = dataBundle
-        val data =
-            arrayOf(word.surah.toString(), word.ayah.toString(), word.translation, 1.toString())
+
         @SuppressLint("CommitTransaction") val transactions = fragmentManager.beginTransaction()
             .setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out).show(item)
         // transactions.show(item);
+
+        val data =
+            arrayOf(word.surah.toString(), word.ayah.toString(), word.translation, 1.toString())!!
         GrammerFragmentsBottomSheet.newInstance(data)
             .show(supportFragmentManager, WordAnalysisBottomSheet.TAG)
     }

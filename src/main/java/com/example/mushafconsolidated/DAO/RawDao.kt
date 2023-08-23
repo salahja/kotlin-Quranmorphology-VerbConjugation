@@ -30,7 +30,7 @@ import com.example.mushafconsolidated.model.Juz
 @Dao
 interface RawDao {
     @RawQuery
-    fun getRootsbyLetter(query: SupportSQLiteQuery): List<qurandictionary?>?
+    fun getRootsbyLetter(query: SupportSQLiteQuery): List<qurandictionary>
 
     @RawQuery
     fun getnounoccurance(query: SupportSQLiteQuery): List<CorpusNounWbwOccurance?>?
@@ -51,7 +51,7 @@ interface RawDao {
     fun getCorpusWbw(query: SupportSQLiteQuery): List<CorpusExpandWbwPOJO?>?
 
     @RawQuery
-    fun getCorpusWbwSurahAyah(query: SupportSQLiteQuery): List<CorpusExpandWbwPOJO?>?
+    fun getCorpusWbwSurahAyah(query: SupportSQLiteQuery): List<CorpusExpandWbwPOJO>
 
     @RawQuery
     fun getSifaIndexes(query: SupportSQLiteQuery): List<SifaEntityPojo?>?
