@@ -39,11 +39,16 @@ class NounVerbOccuranceListAdapter(// private   HashMap<String, List<SpannableSt
     }
 
     override fun getChildView(
-        listPosition: Int, expandedListPosition: Int,
-        isLastChild: Boolean, convertView: View, parent: ViewGroup
+        listPosition: Int,
+        expandedListPosition: Int,
+        isLastChild: Boolean,
+        convertView: View?,
+        parent: ViewGroup
     ): View {
         //  SpannableString expandedListText = (SpannableString) getChild(listPosition, expandedListPosition);
-        var convertView = convertView
+      //  var convertView: View?=convertView
+        var convertView : View? =null
+        //    var convertView = convertView
         val child = getChild(listPosition, expandedListPosition)
         if (convertView == null) {
             val layoutInflater = context
@@ -53,8 +58,7 @@ class NounVerbOccuranceListAdapter(// private   HashMap<String, List<SpannableSt
         val mequran =
             Typeface.createFromAsset(QuranGrammarApplication.context!!.getAssets(), "Taha.ttf")
         //  Typeface mequran = Typeface.createFromAsset(DarkThemeApplication.getContext().getAssets(), quranfont);
-        val expandedListTextView = convertView
-            .findViewById<View>(R.id.expandedListItem) as TextView
+        val expandedListTextView = convertView!!.findViewById<View>(R.id.expandedListItem) as TextView
         val expandedListTextViewlane = convertView
             .findViewById<View>(R.id.expandedListItemverb) as TextView
         val contains = false
@@ -91,17 +95,16 @@ class NounVerbOccuranceListAdapter(// private   HashMap<String, List<SpannableSt
 
     override fun getGroupView(
         listPosition: Int, isExpanded: Boolean,
-        convertView: View, parent: ViewGroup
+        convertView: View?, parent: ViewGroup
     ): View {
-        var convertView = convertView
+        var convertView: View? = null
         val listTitle = getGroup(listPosition) as String
         if (convertView == null) {
             val layoutInflater =
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = layoutInflater.inflate(R.layout.list_group, null)
         }
-        val listTitleTextView = convertView
-            .findViewById<View>(R.id.listTitle) as TextView
+        val listTitleTextView = convertView!!.findViewById<View>(R.id.listTitle) as TextView
         listTitleTextView.setTypeface(null, Typeface.BOLD)
         val prefs =
             PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context)

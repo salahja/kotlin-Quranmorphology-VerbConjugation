@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "0defbceb8f55cf32179a99f36115bc9d",
+    "identityHash": "0b6885ceb98f334c811debac3d4fec5d",
     "entities": [
       {
         "tableName": "mazeed",
@@ -180,7 +180,7 @@
       },
       {
         "tableName": "verbcorpus",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`chapterno` INTEGER NOT NULL, `verseno` INTEGER NOT NULL, `wordno` INTEGER NOT NULL, `token` INTEGER NOT NULL, `root_a` TEXT NOT NULL, `form` TEXT NOT NULL, `thulathibab` TEXT NOT NULL, `tag` TEXT NOT NULL, `details` TEXT NOT NULL, `pOS` TEXT NOT NULL, `tense` TEXT NOT NULL, `voice` TEXT NOT NULL, `lemma_b` TEXT NOT NULL, `root_b` TEXT NOT NULL, `gendernumber` TEXT NOT NULL, `mood_kananumbers` TEXT NOT NULL, `kana_mood` TEXT NOT NULL, `lemma_a` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`chapterno` INTEGER NOT NULL, `verseno` INTEGER NOT NULL, `wordno` INTEGER NOT NULL, `token` INTEGER NOT NULL, `root_a` TEXT, `form` TEXT, `thulathibab` TEXT, `tag` TEXT, `details` TEXT, `POS` TEXT, `tense` TEXT, `voice` TEXT, `lemma_b` TEXT, `root_b` TEXT, `gendernumber` TEXT, `mood_kananumbers` TEXT, `kana_mood` TEXT, `lemma_a` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
         "fields": [
           {
             "fieldPath": "chapterno",
@@ -210,85 +210,85 @@
             "fieldPath": "root_a",
             "columnName": "root_a",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "form",
             "columnName": "form",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "thulathibab",
             "columnName": "thulathibab",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "tag",
             "columnName": "tag",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "details",
             "columnName": "details",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
-            "fieldPath": "pOS",
-            "columnName": "pOS",
+            "fieldPath": "POS",
+            "columnName": "POS",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "tense",
             "columnName": "tense",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "voice",
             "columnName": "voice",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "lemma_b",
             "columnName": "lemma_b",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "root_b",
             "columnName": "root_b",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "gendernumber",
             "columnName": "gendernumber",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "mood_kananumbers",
             "columnName": "mood_kananumbers",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "kana_mood",
             "columnName": "kana_mood",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "lemma_a",
             "columnName": "lemma_a",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "id",
@@ -472,7 +472,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0defbceb8f55cf32179a99f36115bc9d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0b6885ceb98f334c811debac3d4fec5d')"
     ]
   }
 }
