@@ -55,8 +55,8 @@ class PassiveParticipleModifier private constructor() {
             vocalizer.apply(conjResult)
         }
         mahmouz.apply(conjResult)
-        NounLamAlefModifier.getInstance().apply(conjResult)
-        NounSunLamModifier.getInstance().apply(conjResult)
+        NounLamAlefModifier.instance.apply(conjResult)
+        NounSunLamModifier.instance.apply(conjResult)
         return conjResult
     }
 

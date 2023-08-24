@@ -1013,7 +1013,7 @@ class VerbSarfKabeerAdapter(
         val antunnaid: TextView
         val anaid: TextView
         val nahnuid: TextView
-        val pronouns: TextView
+       // val pronouns: TextView
         val pastactive: TextView
         val presentactive: TextView
         val pastpassive: TextView
@@ -1022,14 +1022,14 @@ class VerbSarfKabeerAdapter(
         val negcommand: TextView
 
         init {
-            pronouns = view.findViewById(R.id.pronouns)
+          //  pronouns = view.findViewById(R.id.pronouns)
             pastactive = view.findViewById(R.id.pastactive)
             presentactive = view.findViewById(R.id.presentactive)
             pastpassive = view.findViewById(R.id.pastpassive)
             presentpassive = view.findViewById(R.id.presentpassive)
             command = view.findViewById(R.id.command)
             negcommand = view.findViewById(R.id.negcommand)
-            huaid = view.findViewById(R.id.huaid)
+//            huaid = view.findViewById(R.id.huaid)
             humamid = view.findViewById(R.id.humamid)
             humid = view.findViewById(R.id.humid)
             hiaid = view.findViewById(R.id.hiaid)

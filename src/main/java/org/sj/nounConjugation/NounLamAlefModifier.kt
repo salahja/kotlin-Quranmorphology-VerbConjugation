@@ -1,63 +1,54 @@
-package org.sj.nounConjugation;
+package org.sj.nounConjugation
 
-import org.sj.verbConjugation.trilateral.Substitution.InfixSubstitution;
-import org.sj.verbConjugation.trilateral.Substitution.SubstitutionsApplier;
-import org.sj.verbConjugation.trilateral.augmented.MazeedConjugationResult;
-import org.sj.verbConjugation.trilateral.unaugmented.ConjugationResult;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import org.sj.verbConjugation.trilateral.Substitution.InfixSubstitution
+import org.sj.verbConjugation.trilateral.Substitution.SubstitutionsApplier
+import org.sj.verbConjugation.trilateral.augmented.MazeedConjugationResult
+import org.sj.verbConjugation.trilateral.unaugmented.ConjugationResult
+import java.util.LinkedList
 
 /**
- * <p>Title: Sarf Program</p>
  *
- * <p>Description: </p>
+ * Title: Sarf Program
  *
- * <p>Copyright: Copyright (c) 2006</p>
  *
- * <p>Company: ALEXO</p>
+ * Description:
+ *
+ *
+ * Copyright: Copyright (c) 2006
+ *
+ *
+ * Company: ALEXO
  *
  * @author Haytham Mohtasseb Billah
  * @version 1.0
  */
-public class NounLamAlefModifier extends SubstitutionsApplier {
-    private static final NounLamAlefModifier instance = new NounLamAlefModifier();
-    protected static List appliedProunounsIndecies = new ArrayList(13);
-
-    static {
-        for (int i = 0; i < 18; i++) {
-            appliedProunounsIndecies.add(i + 1 + "");
-        }
+class NounLamAlefModifier private constructor() : SubstitutionsApplier() {
+ //   override var substitutions: MutableList<*> = LinkedList<Any?>()
+ override  var substitutions: MutableList<InfixSubstitution> = LinkedList()
+    init {
+        substitutions.add(InfixSubstitution("لَا", "لا")) // EX: (قالا)
+        substitutions.add(InfixSubstitution("لَّا", "لاَّ")) // EX: (انْشَلاَّ)
+        substitutions.add(InfixSubstitution("لَأ", "لأ")) // EX: (مَلأَ، مَلأْتُ)
+        substitutions.add(InfixSubstitution("لًا", "لاً")) // EX: (حملاً)
     }
 
-    List substitutions = new LinkedList();
 
-    private NounLamAlefModifier() {
-        substitutions.add(new InfixSubstitution("لَا", "لا"));// EX: (قالا)
-        substitutions.add(new InfixSubstitution("لَّا", "لاَّ"));// EX: (انْشَلاَّ)
-        substitutions.add(new InfixSubstitution("لَأ", "لأ"));// EX: (مَلأَ، مَلأْتُ)
-        substitutions.add(new InfixSubstitution("لًا", "لاً"));// EX: (حملاً)
-
-    }
-
-    public static NounLamAlefModifier getInstance() {
-        return instance;
-    }
-
-    public void apply(List<Object> finalResult, ConjugationResult conjResult) {
-        apply(conjResult.getFinalResult(), (ConjugationResult) null);
+    fun apply(conjResult: ConjugationResult) {
+        apply(conjResult.finalResult as MutableList<Any>, null)
         //قد يوجد لام ألف أخرى تتطابق مع قانون أخر
-        apply(conjResult.getFinalResult(), (ConjugationResult) null);
+        apply(conjResult.finalResult as MutableList<Any>, null)
     }
 
-    public void apply(MazeedConjugationResult conjResult) {
-        apply((List<Object>) conjResult.getFinalResult(), (ConjugationResult) null);
+    fun apply(conjResult: MazeedConjugationResult) {
+        apply(conjResult.finalResult, null)
         //قد يوجد لام ألف أخرى تتطابق مع قانون أخر
-        apply((List<Object>) conjResult.getFinalResult(), (ConjugationResult) null);
+        apply(conjResult.finalResult, null)
     }
-//todo quadri
-/*
+
+
+
+    //todo quadri
+    /*
 
   public void apply(org.sj.verb.quadriliteral.ConjugationResult conjResult) {
     apply(conjResult.getFinalResult(), null);
@@ -65,13 +56,23 @@ public class NounLamAlefModifier extends SubstitutionsApplier {
     apply(conjResult.getFinalResult(), null);
   }
  */
-
-    public List getSubstitutions() {
-        return substitutions;
+/*
+    override fun getSubstitutions(): List<*> {
+        return substitutions
     }
+*/
 
-    protected List getAppliedPronounsIndecies() {
-        return appliedProunounsIndecies;
+    override val appliedPronounsIndecies: List<*>
+        protected get() = appliedProunounsIndecies
+
+    companion object {
+        val instance = NounLamAlefModifier()
+        protected var appliedProunounsIndecies: MutableList<String> = ArrayList(18)
+
+        init {
+            for (i in 0..17) {
+                appliedProunounsIndecies.add((i + 1).toString() + "")
+            }
+        }
     }
-
 }

@@ -24,7 +24,7 @@ open class ConjugationResult(kov: Int, root: UnaugmentedTrilateralRoot, original
 
     //13 conjugated verbs
     var originalResult: MutableList<Any>
-
+  //  val finalResult: MutableList<Any>
     //القائمة بعد  الادغام والاعلال والهمزة
     var finalResult: List<Any>
 

@@ -40,8 +40,9 @@ class AssimilateModifier private constructor() : IUnaugmentedTrilateralNounModif
         geminator.apply(conjResult.finalResult as MutableList<Any>, root!!)
         vocalizer.apply(conjResult)
         mahmouz.apply(conjResult)
-        NounLamAlefModifier.getInstance().apply(conjResult.finalResult as MutableList<Any>, conjResult)
-        NounSunLamModifier.getInstance().apply(conjResult.finalResult as MutableList<Any>, conjResult)
+
+        NounLamAlefModifier.instance.apply(conjResult)
+        NounSunLamModifier.instance.apply(conjResult)
         return conjResult
     }
 

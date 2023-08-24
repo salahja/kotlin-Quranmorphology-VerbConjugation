@@ -831,7 +831,7 @@ class GatherAll {
         var madhimajhool: List<*>
         var mudharay: List<*>? = null
         var amr: MutableList<*>
-        var nahiamr: List<*>
+        var nahiamr: MutableList<*>
         var madhi: List<*>
         var mudharaymajhool: List<*>? = null
         val c1 = verbroot[0]
@@ -901,7 +901,7 @@ class GatherAll {
                 AugmentedActivePresentConjugator.instance.jussiveConjugator.createVerbList(
                     augmentedRoot,
                     augmentedFormula.toInt()
-                )
+                ).toMutableList()
             amr = AugmentedImperativeConjugator.instance.notEmphsizedConjugator.createVerbList(
                 augmentedRoot,
                 augmentedFormula.toInt()
@@ -950,12 +950,22 @@ class GatherAll {
             nahiamr = nahiamrconj.finalResult
             amr.removeAll(setOf<Any?>(null))
             val la = "لا"
-            val list = nahiamr.subList(6, 11)
+        //    var arraylist = ArrayList(nahiamr)
+          //  val list = arraylist.subList(6, 11)
             val nm = ArrayList<String>()
             var sb: StringBuilder
-            for (o in list) {
+//            for (i in 6..nahiamr.size) {
+//                sb = java.lang.StringBuilder()
+//                nm.add(sb.append(la).append(" ").append(o.toString()).toString())
+//            }
+            var i=6;
+            for (o in nahiamr) {
+                i++
                 sb = StringBuilder()
                 nm.add(sb.append(la).append(" ").append(o.toString()).toString())
+                if(i==6){
+                    break
+                }
             }
             val listmadhi: MutableList<String> = ArrayList()
             val listmadhimajhool: MutableList<String> = ArrayList()

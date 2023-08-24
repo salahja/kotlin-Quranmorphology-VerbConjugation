@@ -36,8 +36,10 @@ class ExaggerationModifier private constructor() : IUnaugmentedTrilateralNounMod
         val conjResult = ConjugationResult(kov, root, conjugations as MutableList<*>?, formula)
         vocalizer.apply(conjResult)
         mahmouz.apply(conjResult)
-        NounLamAlefModifier.getInstance().apply(conjResult.finalResult, conjResult)
-        NounSunLamModifier.getInstance().apply(conjResult.finalResult, conjResult)
+
+
+        NounLamAlefModifier.instance.apply(conjResult)
+        NounSunLamModifier.instance.apply(conjResult)
         return conjResult
     }
 

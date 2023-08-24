@@ -1,123 +1,119 @@
-package org.sj.nounConjugation;
+package org.sj.nounConjugation
 
-import org.sj.verbConjugation.trilateral.Substitution.Substitution;
-import org.sj.verbConjugation.trilateral.Substitution.SubstitutionsApplier;
-import org.sj.verbConjugation.trilateral.TrilateralRoot;
-import org.sj.verbConjugation.trilateral.augmented.MazeedConjugationResult;
-import org.sj.verbConjugation.trilateral.unaugmented.ConjugationResult;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import org.sj.verbConjugation.trilateral.Substitution.Substitution
+import org.sj.verbConjugation.trilateral.Substitution.SubstitutionsApplier
+import org.sj.verbConjugation.trilateral.TrilateralRoot
+import org.sj.verbConjugation.trilateral.augmented.MazeedConjugationResult
+import org.sj.verbConjugation.trilateral.unaugmented.ConjugationResult
+import java.util.LinkedList
 
 /**
- * <p>Title: Sarf Program</p>
  *
- * <p>Description: </p>
+ * Title: Sarf Program
  *
- * <p>Copyright: Copyright (c) 2006</p>
  *
- * <p>Company: ALEXO</p>
+ * Description:
+ *
+ *
+ * Copyright: Copyright (c) 2006
+ *
+ *
+ * Company: ALEXO
  *
  * @author Haytham Mohtasseb Billah
  * @version 1.0
  */
-public class NounSunLamModifier extends SubstitutionsApplier {
-    private static final NounSunLamModifier instance = new NounSunLamModifier();
-    protected static List appliedProunounsIndecies = new ArrayList(13);
+class NounSunLamModifier private constructor() : SubstitutionsApplier() {
 
-    static {
-        for (int i = 0; i < 18; i++) {
-            appliedProunounsIndecies.add(i + 1 + "");
-        }
+    override  var substitutions: MutableList<ListedInfixSubstitution> = LinkedList()
+    init {
+        val sunLetters: MutableList<Any> = LinkedList()
+        sunLetters.add("ت")
+        sunLetters.add("ث")
+        sunLetters.add("د")
+        sunLetters.add("ذ")
+        sunLetters.add("ر")
+        sunLetters.add("ز")
+        sunLetters.add("س")
+        sunLetters.add("ش")
+        sunLetters.add("ص")
+        sunLetters.add("ض")
+        sunLetters.add("ط")
+        sunLetters.add("ظ")
+        sunLetters.add("ل")
+        sunLetters.add("ن")
+        substitutions.add(ListedInfixSubstitution(sunLetters, "الSLَ", "الSLَّ"))
+        substitutions.add(ListedInfixSubstitution(sunLetters, "الSLُ", "الSLُّ"))
+        substitutions.add(ListedInfixSubstitution(sunLetters, "الSLِ", "الSLِّ"))
     }
 
-    List substitutions = new LinkedList();
 
-    private NounSunLamModifier() {
-        List sunLetters = new LinkedList();
-        sunLetters.add("ت");
-        sunLetters.add("ث");
-        sunLetters.add("د");
-        sunLetters.add("ذ");
-        sunLetters.add("ر");
-        sunLetters.add("ز");
-        sunLetters.add("س");
-        sunLetters.add("ش");
-        sunLetters.add("ص");
-        sunLetters.add("ض");
-        sunLetters.add("ط");
-        sunLetters.add("ظ");
-        sunLetters.add("ل");
-        sunLetters.add("ن");
-        substitutions.add(new ListedInfixSubstitution(sunLetters, "الSLَ", "الSLَّ"));
-        substitutions.add(new ListedInfixSubstitution(sunLetters, "الSLُ", "الSLُّ"));
-        substitutions.add(new ListedInfixSubstitution(sunLetters, "الSLِ", "الSLِّ"));
+
+    fun apply(conjResult: ConjugationResult) {
+        apply(conjResult.finalResult as MutableList<Any>, null)
     }
 
-    public static NounSunLamModifier getInstance() {
-        return instance;
+    fun apply(conjResult: MazeedConjugationResult) {
+        apply(conjResult.finalResult, null)
     }
 
-    public void apply(List<Object> finalResult, ConjugationResult conjResult) {
-        apply(conjResult.getFinalResult(), (ConjugationResult) null);
-    }
-
-    public void apply(MazeedConjugationResult conjResult) {
-        apply(conjResult.getFinalResult(), (ConjugationResult) null);
-    }
 
     //todo
-/*
+    /*
 
   public void apply(org.sj.verb.quadriliteral.ConjugationResult conjResult) {
     apply(conjResult.getFinalResult(), null);
   }
 
  */
-    public List getSubstitutions() {
-        return substitutions;
+  /*   fun getSubstitutions(): List<*> {
+        return substitutions
     }
+*/
+    override val appliedPronounsIndecies: List<*>
+        protected get() = appliedProunounsIndecies
 
-    protected List getAppliedPronounsIndecies() {
-        return appliedProunounsIndecies;
-    }
-
-    class ListedInfixSubstitution extends Substitution {
-        private final List probableChars;
-
-        public ListedInfixSubstitution(List probableChars, String segment, String result) {
-            super(segment, result);
-            this.probableChars = probableChars;
-        }
-
+    inner class ListedInfixSubstitution(
+        private val probableChars: List<*>,
+        segment: String?,
+        result: String?
+    ) : Substitution(
+        segment!!, result!!
+    ) {
         /**
          * @param word String
          * @return String
          */
-        public String apply(String word, TrilateralRoot root) {
-            Iterator iter = probableChars.iterator();
+        override fun apply(word: String, root: TrilateralRoot): String? {
+            val iter = probableChars.iterator()
             while (iter.hasNext()) {
-                String sl = (String) iter.next();
-                String appliedResut = apply(word, sl);
+                val sl = iter.next() as String
+                val appliedResut = apply(word, sl)
                 if (appliedResut != null) {
-                    return appliedResut;
+                    return appliedResut
                 }
             }
-            return null;
+            return null
         }
 
-        public String apply(String word, String sl) {
-            String wordSegment =    getSegment().replaceAll("SL",sl);
+        fun apply(word: String, sl: String?): String? {
+            val wordSegment = segment.replace("SL".toRegex(), sl!!)
             if (word.indexOf(wordSegment) == -1) {
-                return null;
+                return null
             }
-            String replacedResult =    getResult().replaceAll("SL",sl);
-
-            return word.replaceAll(wordSegment, replacedResult);
+            val replacedResult = result.replace("SL".toRegex(), sl)
+            return word.replace(wordSegment.toRegex(), replacedResult)
         }
-
     }
 
+    companion object {
+        val instance = NounSunLamModifier()
+        protected var appliedProunounsIndecies: MutableList<String> = ArrayList(18)
+
+        init {
+            for (i in 0..17) {
+                appliedProunounsIndecies.add((i + 1).toString() + "")
+            }
+        }
+    }
 }

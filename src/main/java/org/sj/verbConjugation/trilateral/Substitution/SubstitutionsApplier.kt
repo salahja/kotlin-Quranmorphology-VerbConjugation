@@ -5,16 +5,26 @@ import org.sj.verbConjugation.trilateral.TrilateralRoot
 //todo possible error
 abstract class SubstitutionsApplier {
     open fun apply(words: MutableList<Any>, root: TrilateralRoot?) {
+        val wordObj = words[0]
+        val word = wordObj.toString().trim { it <= ' ' }
+        val split = word.split(",")
         for (i in appliedPronounsIndecies.indices) {
             val index = appliedPronounsIndecies[i].toString().toInt() - 1
-            val wordObj = words[index] ?: continue
-         //   val word=wordObj
-            val word = wordObj.toString().trim { it <= ' ' }
+
+            val oneword=split[index]
+            var replace = oneword.replace("]", "")
+          try{
+              replace = replace.replace("\\[".toRegex(), "").replace("\\]".toRegex(), "")
+          } catch (e:NullPointerException ) {
+              println(e.localizedMessage)
+            //  Toast.makeText(ShowMushafActivity.this, "null pointer udapte", Toast.LENGTH_SHORT).show();
+          }
+
             val list = substitutions
             val subIter = substitutions.iterator()
             while (subIter.hasNext()) {
                 val substitution = subIter.next() as Substitution
-                val result = substitution.apply(word , root!!)
+                val result = root?.let { substitution.apply(replace , it) }
                 if (result != null) {
                     val set = words.set(index, result )
                     break
