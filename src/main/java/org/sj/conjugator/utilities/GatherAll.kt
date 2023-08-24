@@ -684,13 +684,13 @@ class GatherAll {
                 "مَفْعَلَة"
             )
             val zarffinalmafalatun = mafalatun.finalResult
-            madhi = madhiconjresult.finalResult
+  /*          madhi = madhiconjresult.finalResult
             madhimajhool = madhimajhoolconj.finalResult
             mudharay = mudharayconj.finalResult
             mudharaymajhool = mudharaymajhoolconj.finalResult
             amr = amrconj.finalResult.toMutableList()
             nahiamr = nahiamrconj.finalResult
-            amr.removeAll(setOf<Any?>(null))
+            amr.removeAll(setOf<Any?>(null))*/
             val la = "لا"
             val list = nahiamr.subList(6, 11)
             val nm = ArrayList<String>()
@@ -935,30 +935,43 @@ class GatherAll {
             val conjResult =
                 org.sj.nounConjugation.trilateral.augmented.modifier.activeparticiple.ActiveParticipleModifier.instance
                     .build(augmentedRoot, rule!!.kov, augmentedRoot.form!!.toInt(), ismfael, true)
-            ismfael = conjResult.finalResult
+
             ismmafool = AugmentedTrilateralPassiveParticipleConjugator.instance
                 .createNounList(augmentedRoot, augmentedFormula.toInt())
             val ismmafoolresult =
                 org.sj.nounConjugation.trilateral.augmented.modifier.activeparticiple.ActiveParticipleModifier.instance
                     .build(augmentedRoot, rule!!.kov, augmentedRoot.form!!.toInt(), ismmafool, true)
+ /*           ismfael = conjResult.finalResult
             ismmafool = ismmafoolresult.finalResult
             madhi = madhiconjresult.finalResult
             madhimajhool = madhimajhoolconj.finalResult
             mudharay = mudharayconj.finalResult
             mudharaymajhool = mudharaymajhoolconj.finalResult
             amr = amrconj.finalResult.toMutableList()
-            nahiamr = nahiamrconj.finalResult
+           nahiamr = nahiamrconj.finalResult*/
             amr.removeAll(setOf<Any?>(null))
             val la = "لا"
         //    var arraylist = ArrayList(nahiamr)
-          //  val list = arraylist.subList(6, 11)
+          //  val list = arraylist.subList(6, 11)يُبْصِرْ
+         //   val productNameList: List<Unit> = nahiamr.map { it.ProductType }
+
+
             val nm = ArrayList<String>()
+       val splits=       nahiamr.toString().split(",")
+
+
             var sb: StringBuilder
-//            for (i in 6..nahiamr.size) {
-//                sb = java.lang.StringBuilder()
-//                nm.add(sb.append(la).append(" ").append(o.toString()).toString())
-//            }
-            var i=6;
+           for (i in 6..splits.size) {
+               if(i==13){
+                   break
+               }
+                sb = java.lang.StringBuilder()
+                nm.add(sb.append(la).append(" ").append(splits[i]).toString())
+
+          }
+      /*      for (i in 1..5) {
+                println(i)
+            }
             for (o in nahiamr) {
                 i++
                 sb = StringBuilder()
@@ -966,7 +979,7 @@ class GatherAll {
                 if(i==6){
                     break
                 }
-            }
+            }*/
             val listmadhi: MutableList<String> = ArrayList()
             val listmadhimajhool: MutableList<String> = ArrayList()
             val listmudharay: MutableList<String> = ArrayList()
@@ -990,14 +1003,18 @@ class GatherAll {
                     listmadhimajhool.add("-")
                 }
             }
-            for (s in mudharay) {
-                listmudharay.add(s.toString())
+            if (mudharay != null) {
+                for (s in mudharay) {
+                    listmudharay.add(s.toString())
+                }
             }
-            for (s in mudharaymajhool) {
-                try {
-                    listmudharymajhool.add(s.toString())
-                } catch (e: NullPointerException) {
-                    listmudharymajhool.add("-")
+            if (mudharaymajhool != null) {
+                for (s in mudharaymajhool) {
+                    try {
+                        listmudharymajhool.add(s.toString())
+                    } catch (e: NullPointerException) {
+                        listmudharymajhool.add("-")
+                    }
                 }
             }
             for (s in ismfael) {

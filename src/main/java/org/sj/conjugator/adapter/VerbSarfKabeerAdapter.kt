@@ -69,7 +69,7 @@ class VerbSarfKabeerAdapter(
 
     private fun pronouns(holder: ViewHolder) {
         val array = context.resources.getStringArray(R.array.arabicpronouns)
-        holder.huaid.text = array[0]
+        holder.huaid!!.text = array[0]
         holder.humamid.text = array[1]
         holder.humid.text = array[2]
         holder.hiaid.text = array[3]
@@ -455,7 +455,7 @@ class VerbSarfKabeerAdapter(
                 holder.nahiamrantumaf.textSize = arabicFontsize.toFloat()
                 holder.nahiamrantunna.textSize = arabicFontsize.toFloat()
                 if (!aBoolean) {
-                    holder.huaid.textSize = arabicFontsize.toFloat() //(array[0]);
+                    holder.huaid!!.textSize = arabicFontsize.toFloat() //(array[0]);
                     holder.humamid.textSize = arabicFontsize.toFloat() //(array[1]);
                     holder.humid.textSize = arabicFontsize.toFloat() //(array[2]);
                     holder.hiaid.textSize = arabicFontsize.toFloat() //(array[3]);
@@ -999,7 +999,7 @@ class VerbSarfKabeerAdapter(
         val nahiamranti: TextView
         val nahiamrantumaf: TextView
         val nahiamrantunna: TextView
-        val huaid: TextView
+        val huaid: TextView?
         val humamid: TextView
         val humid: TextView
         val hiaid: TextView
@@ -1029,7 +1029,7 @@ class VerbSarfKabeerAdapter(
             presentpassive = view.findViewById(R.id.presentpassive)
             command = view.findViewById(R.id.command)
             negcommand = view.findViewById(R.id.negcommand)
-//            huaid = view.findViewById(R.id.huaid)
+            huaid = view.findViewById(R.id.huaid)
             humamid = view.findViewById(R.id.humamid)
             humid = view.findViewById(R.id.humid)
             hiaid = view.findViewById(R.id.hiaid)
