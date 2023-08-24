@@ -38,10 +38,19 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
     private var arabicTypeface: Typeface? = null
     private var isTraditional = false
     private var newsarf = false
-
-    constructor(lists: ArrayList<ArrayList<*>>, context: Context, newsarf: Boolean) {
+   lateinit var fael: java.util.ArrayList<*>
+    lateinit var mafool: java.util.ArrayList<*>
+    constructor(
+        lists: ArrayList<ArrayList<*>>,
+        fael: java.util.ArrayList<*>,
+        mafool: java.util.ArrayList<*>,
+        context: Context,
+        newsarf: Boolean
+    ) {
         this.context = context
         sarfSagheer = lists
+        this.fael =fael
+        this.mafool=mafool
         this.newsarf = newsarf
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     }
@@ -63,6 +72,7 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
         sarfSagheer = skabeer
         this.madhi = madhi
     }
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -131,15 +141,15 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
             holder.nom.text = array[0]
             holder.acc.text = array[1]
             holder.gen.text = array[2]
-            holder.nom1.text = array[0]
-            holder.acc1.text = array[1]
-            holder.gen1.text = array[2]
-            holder.nom2.text = array[0]
-            holder.acc2.text = array[1]
-            holder.gen2.text = array[2]
-            holder.nom3.text = array[0]
-            holder.acc3.text = array[1]
-            holder.gen3.text = array[2]
+            holder.nom1!!.text = array[0]
+            holder.acc1!!.text = array[1]
+            holder.gen1!!.text = array[2]
+            holder.nom2!!.text = array[0]
+            holder.acc2!!.text = array[1]
+            holder.gen2!!.text = array[2]
+            holder.nom3!!.text = array[0]
+            holder.acc3!!.text = array[1]
+            holder.gen3!!.text = array[2]
         } else {
             holder.nom.text = array[0]
             holder.acc.text = array[1]
@@ -164,9 +174,9 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
             holder.sin3.text = array[0]
             holder.dual3.text = array[1]
             holder.plu3.text = array[2]
-            holder.sin4.text = array[0]
-            holder.dual4.text = array[1]
-            holder.plu4.text = array[2]
+            holder.sin4!!.text = array[0]
+            holder.dual4!!.text = array[1]
+            holder.plu4!!.text = array[2]
         } else {
             holder.sin1.text = array[0]
             holder.dual1.text = array[1]
@@ -287,15 +297,15 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
             holder.nom.typeface = arabicTypeface // (array[0]);
             holder.acc.typeface = arabicTypeface // (array[1]);
             holder.gen.typeface = arabicTypeface // (array[2]);
-            holder.nom1.typeface = arabicTypeface // (array[0]);
-            holder.acc1.typeface = arabicTypeface // (array[1]);
-            holder.gen1.typeface = arabicTypeface // (array[2]);
-            holder.nom2.typeface = arabicTypeface // (array[0]);
-            holder.acc2.typeface = arabicTypeface // (array[1]);
-            holder.gen2.typeface = arabicTypeface // (array[2]);
-            holder.nom3.typeface = arabicTypeface // (array[0]);
-            holder.acc3.typeface = arabicTypeface // (array[1]);
-            holder.gen3.typeface = arabicTypeface // (array[2]);
+            holder.nom1!!.typeface = arabicTypeface // (array[0]);
+            holder.acc1!!.typeface = arabicTypeface // (array[1]);
+            holder.gen1!!.typeface = arabicTypeface // (array[2]);
+            holder.nom2!!.typeface = arabicTypeface // (array[0]);
+            holder.acc2!!.typeface = arabicTypeface // (array[1]);
+            holder.gen2!!.typeface = arabicTypeface // (array[2]);
+            holder.nom3!!.typeface = arabicTypeface // (array[0]);
+            holder.acc3!!.typeface = arabicTypeface // (array[1]);
+            holder.gen3!!.typeface = arabicTypeface // (array[2]);
             holder.sin1.typeface = arabicTypeface //(array[0]);
             holder.dual1.typeface = arabicTypeface //(array[1]);
             holder.plu1.typeface = arabicTypeface //(array[2]);
@@ -305,9 +315,9 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
             holder.sin3.typeface = arabicTypeface //(array[0]);
             holder.dual3.typeface = arabicTypeface //(array[1]);
             holder.plu3.typeface = arabicTypeface //(array[2]);
-            holder.sin4.typeface = arabicTypeface //(array[0]);
-            holder.dual4.typeface = arabicTypeface //(array[1]);
-            holder.plu4.typeface = arabicTypeface //(array[2]);
+            holder.sin4!!.typeface = arabicTypeface //(array[0]);
+            holder.dual4!!.typeface = arabicTypeface //(array[1]);
+            holder.plu4!!.typeface = arabicTypeface //(array[2]);
             FontSIzeSelection(holder)
         } else {
             holder.nom.typeface = arabicTypeface //(array[0]);
@@ -379,16 +389,16 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
                     holder.nom.textSize = arabicFontsize.toFloat() //(array[0]);
                     holder.acc.textSize = arabicFontsize.toFloat() //(array[1]);
                     holder.gen.textSize = arabicFontsize.toFloat() //(array[2]);
-                    holder.nom1.textSize = arabicFontsize.toFloat() //(array[0]);
-                    holder.acc1.textSize = arabicFontsize.toFloat() //(array[1]);
-                    holder.gen1.textSize = arabicFontsize.toFloat() //(array[2]);
-                    holder.nom2.textSize = arabicFontsize.toFloat() //(array[0]);
-                    holder.acc2.textSize = arabicFontsize.toFloat() //(array[1]);
-                    holder.gen2.textSize = arabicFontsize.toFloat() //(array[2]);
-                    holder.nom3.textSize = arabicFontsize.toFloat() //(array[0]);
-                    holder.acc3.textSize = arabicFontsize.toFloat() //(array[1]);
-                    holder.gen3.textSize = arabicFontsize.toFloat() //(array[2]);
-                    holder.sin1.textSize = arabicFontsize.toFloat() //(array[0]);
+                    holder.nom1!!.textSize = arabicFontsize.toFloat() //(array[0]);
+                    holder.acc1!!.textSize = arabicFontsize.toFloat() //(array[1]);
+                    holder.gen1!!.textSize = arabicFontsize.toFloat() //(array[2]);
+                    holder.nom2!!.textSize = arabicFontsize.toFloat() //(array[0]);
+                    holder.acc2!!.textSize = arabicFontsize.toFloat() //(array[1]);
+                    holder.gen2!!.textSize = arabicFontsize.toFloat() //(array[2]);
+                    holder.nom3!!.textSize = arabicFontsize.toFloat() //(array[0]);
+                    holder.acc3!!.textSize = arabicFontsize.toFloat() //(array[1]);
+                    holder.gen3!!.textSize = arabicFontsize.toFloat() //(array[2]);
+                    holder.sin1!!.textSize = arabicFontsize.toFloat() //(array[0]);
                     holder.dual1.textSize = arabicFontsize.toFloat() //(array[1]);
                     holder.plu1.textSize = arabicFontsize.toFloat() //(array[2]);
                     holder.sin2.textSize = arabicFontsize.toFloat() //(array[0]);
@@ -397,9 +407,9 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
                     holder.sin3.textSize = arabicFontsize.toFloat() //(array[0]);
                     holder.dual3.textSize = arabicFontsize.toFloat() //(array[1]);
                     holder.plu3.textSize = arabicFontsize.toFloat() //(array[2]);
-                    holder.sin4.textSize = arabicFontsize.toFloat() //(array[0]);
-                    holder.dual4.textSize = arabicFontsize.toFloat() //(array[1]);
-                    holder.plu4.textSize = arabicFontsize.toFloat() //(array[2]);
+                    holder.sin4!!.textSize = arabicFontsize.toFloat() //(array[0]);
+                    holder.dual4!!.textSize = arabicFontsize.toFloat() //(array[1]);
+                    holder.plu4!!.textSize = arabicFontsize.toFloat() //(array[2]);
                 } else {
                     if (!defaultfont) {
                         holder.nom.textSize = arabicFontsize.toFloat() //(array[0]);
@@ -486,7 +496,7 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
         View.OnClickListener // current clickListerner
     {
         //  public final TextView ayah_number;
-        val madhihua: TextView
+     /*   var madhihua: TextView?=null
         val madhihuma: TextView
         val madhihum: TextView
         val madhihia: TextView
@@ -554,7 +564,7 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
         val nahiamranti: TextView
         val nahiamrantumaf: TextView
         val nahiamrantunna: TextView
-
+*/
         // imafmnine
         val isone: TextView
         val istwo: TextView
@@ -592,7 +602,7 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
         val imafoolfemseven: TextView
         val imafoolfemeight: TextView
         val imafoolfemnine: TextView
-        val mifalone: TextView
+    /*    val mifalone: TextView
         val mifaltwo: TextView
         val mifalthree: TextView
         val mifalfour: TextView
@@ -636,7 +646,7 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
         val mifalunsix: TextView
         val mifalunseven: TextView
         val mifaluneight: TextView
-        val mifalunnine: TextView
+        val mifalunnine: TextView*/
         val sin1: TextView
         val dual1: TextView
         val plu1: TextView
@@ -646,44 +656,46 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
         val sin3: TextView
         val dual3: TextView
         val plu3: TextView
-        val sin4: TextView
-        val dual4: TextView
-        val plu4: TextView
+        var sin4: TextView?=null
+        var dual4: TextView?=null
+        var plu4: TextView?=null
         val nom: TextView
         val acc: TextView
         val gen: TextView
-        val nom1: TextView
-        val acc1: TextView
-        val gen1: TextView
-        val nom2: TextView
-        val acc2: TextView
-        val gen2: TextView
-        val nom3: TextView
-        val acc3: TextView
-        val gen3: TextView
+        var nom1: TextView?=null
+        var acc1: TextView?=null
+        var gen1: TextView?=null
+        var nom2: TextView?=null
+        var acc2: TextView?=null
+        var gen2: TextView?=null
+        var nom3: TextView?=null
+        var acc3: TextView?=null
+        var gen3: TextView?=null
         var apmas: TextView
         var apfem: TextView
         var ppmas: TextView
         var ppfem: TextView
 
         init {
-            //   if(isTraditional){
+            if(isTraditional){
             sin4 = view.findViewById(R.id.singular4)
             dual4 = view.findViewById(R.id.dual4)
             plu4 = view.findViewById(R.id.plural4)
-            //    }
+
+                nom1 = view.findViewById(R.id.nominative1)
+                acc1 = view.findViewById(R.id.accusative1)
+                gen1 = view.findViewById(R.id.genitive1)
+                nom2 = view.findViewById(R.id.nominative2)
+                acc2 = view.findViewById(R.id.accusative2)
+                gen2 = view.findViewById(R.id.genitive2)
+                nom3 = view.findViewById(R.id.nominative3)
+                acc3 = view.findViewById(R.id.accusative3)
+                gen3 = view.findViewById(R.id.genitive3)
+             }
             nom = view.findViewById(R.id.nominative)
             acc = view.findViewById(R.id.accusative)
             gen = view.findViewById(R.id.genitive)
-            nom1 = view.findViewById(R.id.nominative1)
-            acc1 = view.findViewById(R.id.accusative1)
-            gen1 = view.findViewById(R.id.genitive1)
-            nom2 = view.findViewById(R.id.nominative2)
-            acc2 = view.findViewById(R.id.accusative2)
-            gen2 = view.findViewById(R.id.genitive2)
-            nom3 = view.findViewById(R.id.nominative3)
-            acc3 = view.findViewById(R.id.accusative3)
-            gen3 = view.findViewById(R.id.genitive3)
+
             sin1 = view.findViewById(R.id.singular1)
             dual1 = view.findViewById(R.id.dual1)
             plu1 = view.findViewById(R.id.plural1)
@@ -697,7 +709,7 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
             apfem = view.findViewById(R.id.apfem)
             ppmas = view.findViewById(R.id.ppmas)
             ppfem = view.findViewById(R.id.ppfem)
-            madhihua = view.findViewById(R.id.madhihua)
+/*            madhihua = view.findViewById(R.id.madhihua)
             madhihuma = view.findViewById(R.id.madhihuma)
             madhihum = view.findViewById(R.id.madihum)
             madhihia = view.findViewById(R.id.madhihia)
@@ -724,9 +736,9 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
             muzantumaf = view.findViewById(R.id.muzantumaf)
             muzantunna = view.findViewById(R.id.muzantunna)
             muzana = view.findViewById(R.id.muzana)
-            muznahnu = view.findViewById(R.id.muznahnu)
+            muznahnu = view.findViewById(R.id.muznahnu)*/
             //
-            madimajhua = view.findViewById(R.id.madimajhua)
+/*            madimajhua = view.findViewById(R.id.madimajhua)
             madimajhuma = view.findViewById(R.id.madimajhuma)
             madimajhum = view.findViewById(R.id.madimajhum)
             madimajhia = view.findViewById(R.id.madimajhia)
@@ -767,7 +779,7 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
             nahiamrantum = view.findViewById(R.id.nahiamrantum)
             nahiamranti = view.findViewById(R.id.nahiamranti)
             nahiamrantumaf = view.findViewById(R.id.nahiamrantumaf)
-            nahiamrantunna = view.findViewById(R.id.nahiamrantunna)
+            nahiamrantunna = view.findViewById(R.id.nahiamrantunna)*/
             //ismfael masculine
             ismfemone = view.findViewById(R.id.ismfemone)
             //  tv.setText(R.string.faelmazi); // 2
@@ -810,7 +822,7 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
             imafoolfemseven = view.findViewById(R.id.imafoolfemseven)
             imafoolfemeight = view.findViewById(R.id.imafoolfemeight)
             imafoolfemnine = view.findViewById(R.id.imafoolfemnine)
-            mifalone = view.findViewById(R.id.mifalone)
+           /* mifalone = view.findViewById(R.id.mifalone)
             mifaltwo = view.findViewById(R.id.mifaltwo)
             mifalthree = view.findViewById(R.id.mifalthree)
             mifalfour = view.findViewById(R.id.mifalfour)
@@ -854,7 +866,7 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
             mifalunsix = view.findViewById(R.id.mifalunsix)
             mifalunseven = view.findViewById(R.id.mifalunseven)
             mifaluneight = view.findViewById(R.id.mifaluneight)
-            mifalunnine = view.findViewById(R.id.mifalunnine)
+            mifalunnine = view.findViewById(R.id.mifalunnine)*/
             view.setOnClickListener(this) // current clickListerner
             view.setOnClickListener(this) // current clickListerner
         }
