@@ -16,35 +16,33 @@ import androidx.room.PrimaryKey
         onDelete = CASCADE
     )]
 )
-data class QuranEntity constructor(
+ class QuranEntity constructor(
 
- var   surah: Int,
-  var  ayah: Int,
-  var  page: Int,
- var   quarter: Int,
-  var  hizb: Int,
-  var  juz: Int,
+    var surah: Int,
+    var ayah: Int,
+    var page: Int,
+    var quarter: Int,
+    var hizb: Int,
+    var juz: Int,
     var qurantext: String,
-  var  passage_no: Int,
- var   has_prostration: Int,
- var   translation: String,
-   var en_transliteration: String,
-  var  en_jalalayn: String,
-  var  en_arberry: String,
- var   ar_irab_two: String,
-  var  ur_jalalayn: String,
-  var  ur_junagarhi: String,
-  var  tafsir_kathir: String,
+    var passage_no: Int,
+    var has_prostration: Int,
+    var translation: String,
+    var en_transliteration: String,
+    var en_jalalayn: String,
+    var en_arberry: String,
+    var ar_irab_two: String,
+    var ur_jalalayn: String,
+    var ur_junagarhi: String,
+    var tafsir_kathir: String,
     @field:PrimaryKey(
-autoGenerate = true
-) var docid: Int
+        autoGenerate = true
+    ) var docid: Int,
 
 
-) {
+    ) {
     @Ignore
     var erabspnabble: SpannableStringBuilder? = null
-
-
 
 
 }

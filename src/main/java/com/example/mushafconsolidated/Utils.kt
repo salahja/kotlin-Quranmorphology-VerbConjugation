@@ -155,7 +155,7 @@ class Utils {
     fun getCorpusWbwBySurahAyahWordid(
         tid: Int,
         aid: Int,
-        wid: Int
+        wid: Int,
     ): List<NewCorpusExpandWbwPOJO?>? {
         val sqlverb: String =
             ("SELECT CorpusExpand.rootaraone || rootaratwo || rootarathree || rootarafour || rootarafive AS root_a,\n" +
@@ -825,7 +825,7 @@ class Utils {
         sid: Int,
         aid: Int,
         firstwordindex: Int,
-        lastwordindex: Int
+        lastwordindex: Int,
     ): List<wbwentity?>? {
         return Utils.Companion.database?.wbwDao()?.getwbwQuranbTranslation(sid, aid, firstwordindex, lastwordindex)
     }
@@ -934,16 +934,23 @@ class Utils {
     fun getMafoolMutlaqword(
         surah: Int,
         ayah: Int,
-        wordno: Int
+        wordno: Int,
     ): List<MafoolMutlaqEnt?>? {
         return database?.MafoolMutlaqEntDao()
             ?.getMafoolbihiword(surah, ayah, wordno)
     }
 
-    fun getQuranbySurah(id: Int): List<QuranEntity?>?{
-        return Utils.Companion.database?.QuranDao()?.getQuranVersesBySurah(id)
+    fun getQuranbySurah(id: Int): List<QuranEntity?>? {
+        return database.QuranDao()?.getQuranVersesBySurah(id)
     }
 
+    fun getAyahsByPageQuran(surah: Int, pageno: Int): List<QuranEntity?>? {
+        return database.QuranDao()?.getAyahsByPage(surah, pageno)
+    }
+
+    fun getsurahayahVerses(id: Int, aid: Int): List<QuranEntity?>? {
+        return database.QuranDao()?.getsurahayahVerses(id, aid)
+    }
 
     /*
        public ArrayList<MafoolMutlaqEnt> getMafoolMutlaqword(int surah, int ayah, int wordno) {
@@ -1082,9 +1089,9 @@ class Utils {
             return Utils.Companion.database?.RawDao()!!.getJuz(query)
         }
 
-    val qaris: List<Qari?>?
+    val qaris: List<Qari>
         get() {
-            return Utils.Companion.database?.QariDao()?.qaris
+            return Utils.Companion.database?.QariDao()!!.qaris
         }
 
     companion object {
@@ -1131,7 +1138,7 @@ class Utils {
             return Utils.Companion.database?.QuranDao()?.getsurahayahVerses(id, aid)
         }
 
-            fun getByfirstletter(id: String,): List<qurandictionary> {
+            fun getByfirstletter(id: String): List<qurandictionary> {
             return Utils.Companion.database?.qurandictionaryDao()!!.getByfirstletter(id)
         }
 

@@ -1,7 +1,6 @@
 package com.example.roots
 
 
-
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -72,32 +71,32 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
     var maincolortag = 0
     var pronouncolortag = 0
     var fourcolortag = 0
-    private val appBarConfiguration: AppBarConfiguration?=null
+    private val appBarConfiguration: AppBarConfiguration? = null
     private lateinit var root: String
-    private lateinit  var wordorverb: String
+    private lateinit var wordorverb: String
     private lateinit var verbCorpusArrayList: ArrayList<VerbCorpusBreakup>
     private var occurances: ArrayList<CorpusNounWbwOccurance>? = null
     private lateinit var nounCorpusArrayList: ArrayList<NounCorpusBreakup>
     var corpusNounWbwOccurances: ArrayList<CorpusNounWbwOccurance>? = null
-    lateinit var  expandableListView: ExpandableListView
-    lateinit var  viewPager2: ViewPager2
+    lateinit var expandableListView: ExpandableListView
+    lateinit var viewPager2: ViewPager2
     var harf = false
-    lateinit var  expandNounTitles: MutableList<String>
-    lateinit var  expandVerbTitles: List<String>
-    var  mPageNo = 0
-    lateinit var  imgPg: ImageView
-    lateinit var  link: TextView
+    lateinit var expandNounTitles: MutableList<String>
+    lateinit var expandVerbTitles: List<String>
+    var mPageNo = 0
+    lateinit var imgPg: ImageView
+    lateinit var link: TextView
     var counter = 0
-    lateinit var  dialog: AlertDialog
+    lateinit var dialog: AlertDialog
     var updatechild: LinkedHashMap<String, List<SpannableString>> =
         LinkedHashMap<String, List<SpannableString>>()
 
     var expandNounVerses: LinkedHashMap<String, ArrayList<SpannableString>> =
         LinkedHashMap<String, ArrayList<SpannableString>>()
-    var  expandVerbVerses: LinkedHashMap<String, ArrayList<SpannableString>> =
+    var expandVerbVerses: LinkedHashMap<String, ArrayList<SpannableString>> =
         LinkedHashMap<String, ArrayList<SpannableString>>()
-    private     lateinit var  utils: Utils
-    lateinit var  lanes: Chip
+    private lateinit var utils: Utils
+    lateinit var lanes: Chip
     lateinit var hanes: Chip
     private var rootdetails: ArrayList<RootWordDetails>? = null
     private var verbdetails: ArrayList<RootVerbDetails>? = null
@@ -113,7 +112,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
         lanes = findViewById(R.id.lanelexicon)
         val rootoccurance: TextView = binding.rootoccurance
 
-        root= bundle.getStringExtra(QURAN_VERB_ROOT)!!
+        root = bundle.getStringExtra(QURAN_VERB_ROOT)!!
         rootoccurance.text = root
 
         lanes.setOnClickListener(this)
@@ -154,15 +153,20 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
         }
         utils = Utils(this)
         rootdetails = utils.getRootDetails(root) as ArrayList<RootWordDetails>?
-        val rootDictionary: java.util.ArrayList<lughat?>? = utils.getRootDictionary(root) as java.util.ArrayList<lughat?>?
-        val lanes: java.util.ArrayList<lanelexicon?>? = utils.getLanesDifinition(root) as java.util.ArrayList<lanelexicon?>?
-        val hans: java.util.ArrayList<hanslexicon?>? = utils.getHansDifinition(root) as java.util.ArrayList<hanslexicon?>?
+        val rootDictionary: java.util.ArrayList<lughat?>? =
+            utils.getRootDictionary(root) as java.util.ArrayList<lughat?>?
+        val lanes: java.util.ArrayList<lanelexicon?>? =
+            utils.getLanesDifinition(root) as java.util.ArrayList<lanelexicon?>?
+        val hans: java.util.ArrayList<hanslexicon?>? =
+            utils.getHansDifinition(root) as java.util.ArrayList<hanslexicon?>?
         val sb = StringBuilder()
         sb.append(root).append(" ").append("Ocurrance").append(" ").append(rootdetails!!.size)
         rootoccurance.text = sb.toString()
-        val allroots: java.util.ArrayList<qurandictionary?>? = utils.getQuranDictionarybyroot(root) as java.util.ArrayList<qurandictionary?>?
+        val allroots: java.util.ArrayList<qurandictionary?>? =
+            utils.getQuranDictionarybyroot(root) as java.util.ArrayList<qurandictionary?>?
         if (root == "ACC" || root == "LOC" || root == "T") {
-            occurances = utils.getnounoccuranceHarfNasbZarf(root) as ArrayList<CorpusNounWbwOccurance>?
+            occurances =
+                utils.getnounoccuranceHarfNasbZarf(root) as ArrayList<CorpusNounWbwOccurance>?
             harf = true
             ExecuteNounOcurrance()
         } else {
@@ -176,31 +180,31 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
             recyclerView.layoutManager = GridLayoutManager(this, 2)
             adapter = MyRootBreakRecyclerViewAdapter(rootdetails!!)
             recyclerView.adapter = adapter
-            /*        adapter!!.SetOnItemClickListener(object : OnItemClickListener() {
-                           override fun onItemClick(v: View?, position: Int) {
-                               val wordDetails = rootdetails!![position]
-                               val datas = HashMap<String, String>()
-                               val newbundle = Bundle()
-                               newbundle.putInt(SURAH_ID, wordDetails.surah)
-                               newbundle.putInt(AYAH_ID, wordDetails.ayah)
-                               newbundle.putString(SURAH_ARABIC_NAME, wordDetails.namearabic)
-                               newbundle.putString(ARABICWORD, wordDetails.arabic)
-                               newbundle.putString(WORDMEANING, wordDetails.en)
-                               newbundle.putSerializable("map", datas)
-                               val intents = Intent(this@RootBreakupAct, TopicDetailAct::class.java)
-                               intents.putExtras(newbundle)
-                               startActivity(intents)
+            adapter!!.SetOnItemClickListener(object : OnItemClickListener {
+                override fun onItemClick(v: View?, position: Int) {
+                    val wordDetails = rootdetails!![position]
+                    val datas = HashMap<String, String>()
+                    val newbundle = Bundle()
+                    newbundle.putInt(SURAH_ID, wordDetails.surah)
+                    newbundle.putInt(AYAH_ID, wordDetails.ayah)
+                    newbundle.putString(SURAH_ARABIC_NAME, wordDetails.namearabic)
+                    newbundle.putString(ARABICWORD, wordDetails.arabic)
+                    newbundle.putString(WORDMEANING, wordDetails.en)
+                    newbundle.putSerializable("map", datas)
+                    val intents = Intent(this@RootBreakupAct, TopicDetailAct::class.java)
+                    intents.putExtras(newbundle)
+                    startActivity(intents)
 
-                               //   Fragment ayahfragment=new Fragment();
-                               //   ayahfragment.setArguments(newbundle);
-                               //  SelectedWordAyah item = new SelectedWordAyah();
-                               //  item.setArguments(newbundle);
-                               //  String[] data = {String.valueOf(wordDetails.getSurah()), String.valueOf(wordDetails.getAyah()), wordDetails.getNamearabic(), String.valueOf((wordDetails.getArabic())), wordDetails.getEn()};
-                               //   SelectedWordAyah.newInstance(data).show(getSupportFragmentManager(), SelectedWordAyah.TAG);
+                    //   Fragment ayahfragment=new Fragment();
+                    //   ayahfragment.setArguments(newbundle);
+                    //  SelectedWordAyah item = new SelectedWordAyah();
+                    //  item.setArguments(newbundle);
+                    //  String[] data = {String.valueOf(wordDetails.getSurah()), String.valueOf(wordDetails.getAyah()), wordDetails.getNamearabic(), String.valueOf((wordDetails.getArabic())), wordDetails.getEn()};
+                    //   SelectedWordAyah.newInstance(data).show(getSupportFragmentManager(), SelectedWordAyah.TAG);
 
-                               //   Toast.makeText(RootBreakupAct.this, "chipclecked", Toast.LENGTH_LONG).show();
-                           }
-                       })*/
+                    //   Toast.makeText(RootBreakupAct.this, "chipclecked", Toast.LENGTH_LONG).show();
+                }
+            })
         } else {
             recyclerView.layoutManager = GridLayoutManager(this, 1)
             recyclerView.adapter = adapter
@@ -238,7 +242,8 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                             newbundle.putString(QURAN_VERB_ROOT, wordDetails.rootarabic)
                             //       dataBundle.putString(VERBTYPE, verbtype);
                             newbundle.putBoolean(SARFKABEER, true)
-                            val intent = Intent(this@RootBreakupAct, ConjugatorTabsActivity::class.java)
+                            val intent =
+                                Intent(this@RootBreakupAct, ConjugatorTabsActivity::class.java)
                             intent.putExtras(newbundle)
                             startActivity(intent)
                         } else {
@@ -285,7 +290,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
             verbCorpusArrayList = utils.getVerbBreakUp(verbroot) as ArrayList<VerbCorpusBreakup>
             var Lemma = ""
             val incexofgroup = 0
-            val alist: ArrayList<SpannableString> =ArrayList<SpannableString>()
+            val alist: ArrayList<SpannableString> = ArrayList<SpannableString>()
             if (harf) {
                 for (vers in occurances!!) {
                     //    alist.add("");
@@ -310,7 +315,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                         trans = SpannableString.valueOf(vers.en_jalalayn)
                     }
                     val charSequence = TextUtils.concat(ref, "\n ", spannableVerses)
-                   // alist.add(charSequence as SpannableString)
+                    // alist.add(charSequence as SpannableString)
                     alist.add(SpannableString.valueOf(charSequence))
 
                     if (trans != null) {
@@ -322,12 +327,12 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
 
 
             for (noun in nounCorpusArrayList) {
-                val list: ArrayList<SpannableString> =ArrayList<SpannableString>()
+                val list: ArrayList<SpannableString> = ArrayList<SpannableString>()
                 list.add(SpannableString.valueOf(""))
                 Lemma = noun.lemma_a!!
                 if (noun.form.equals("null")) {
                     val sb = java.lang.StringBuilder()
-                    val nounexpand = QuranMorphologyDetails.expandTags(noun.toString())
+                    val nounexpand = noun.tag?.let { QuranMorphologyDetails.expandTags(it) }
                     var times = ""
                     times = if (noun.count === 1) {
                         "Once"
@@ -365,7 +370,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
 
             for (verbCorpusBreakup in verbCorpusArrayList!!) {
 
-                val list:       ArrayList<SpannableString> =ArrayList<SpannableString>()
+                val list: ArrayList<SpannableString> = ArrayList<SpannableString>()
 
                 list.add(SpannableString.valueOf("yes"))
                 Lemma = verbCorpusBreakup.lemma_a!!
@@ -445,7 +450,8 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                                             ArabicLiterals.AlifMaksuraString
                                         )
                                     }
-                                    var list:       ArrayList<SpannableString> =ArrayList<SpannableString>()
+                                    var list: ArrayList<SpannableString> =
+                                        ArrayList<SpannableString>()
 
                                     //   ArrayList<CorpusNounWbwOccurance> verses = utils.getNounOccuranceBreakVerses(split[1]);
                                     val lanesDifinition: java.util.ArrayList<hanslexicon?>? =
@@ -460,7 +466,8 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                                         //
                                     }
                                     list = highLightParadigm(list) as ArrayList<SpannableString>
-                                    val finalList:       ArrayList<SpannableString> =ArrayList<SpannableString>()
+                                    val finalList: ArrayList<SpannableString> =
+                                        ArrayList<SpannableString>()
                                     //   val finalList: List<*> = list
                                     runOnUiThread {
                                         ex.shutdown()
@@ -472,7 +479,8 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                                 }
 
                                 private fun highLightParadigm(list: ArrayList<*>): MutableList<*> {
-                                    var lists:       ArrayList<SpannableString> =ArrayList<SpannableString>()
+                                    var lists: ArrayList<SpannableString> =
+                                        ArrayList<SpannableString>()
 
                                     val REGEX = "aor.([\\s\\S]){3}"
                                     val pattern = Pattern.compile(REGEX)
@@ -507,7 +515,8 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                             ex.execute(object : Runnable {
                                 override fun run() {
                                     runOnUiThread { dialog.show() }
-                                    var list:       ArrayList<SpannableString> =ArrayList<SpannableString>()
+                                    var list: ArrayList<SpannableString> =
+                                        ArrayList<SpannableString>()
                                     val lanesDifinition: java.util.ArrayList<lanelexicon?>? =
                                         utils.getLanesDifinition(root) as java.util.ArrayList<lanelexicon?>?
                                     for (lanes in lanesDifinition!!) {
@@ -529,7 +538,8 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                                 }
 
                                 private fun highLightParadigm(list: List<*>): MutableList<*> {
-                                    var lists:       ArrayList<SpannableString> =ArrayList<SpannableString>()
+                                    var lists: ArrayList<SpannableString> =
+                                        ArrayList<SpannableString>()
                                     val REGEX = "aor.([\\s\\S]){3}"
                                     val pattern = Pattern.compile(REGEX)
                                     for (l in list) {
@@ -570,7 +580,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                             val dialog = builder.create()
                             ex.execute {
                                 runOnUiThread { dialog.show() }
-                                var list:       ArrayList<SpannableString> =ArrayList<SpannableString>()
+                                var list: ArrayList<SpannableString> = ArrayList<SpannableString>()
                                 val verses: java.util.ArrayList<CorpusNounWbwOccurance?>? =
                                     utils.getNounOccuranceBreakVerses(
                                         split[1]
@@ -610,7 +620,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                                     }
                                     val charSequence =
                                         TextUtils.concat(ref, "\n ", spannableVerses)
-                                 //   list.add(charSequence as SpannableString)
+                                    //   list.add(charSequence as SpannableString)
                                     list.add(SpannableString.valueOf(charSequence))
                                     list.add(SpannableString.valueOf(trans))
                                 }
@@ -626,7 +636,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                             val ex = Executors.newSingleThreadExecutor()
                             ex.execute {
                                 runOnUiThread { dialog.show() }
-                                var list:       ArrayList<SpannableString> =ArrayList<SpannableString>()
+                                var list: ArrayList<SpannableString> = ArrayList<SpannableString>()
                                 val verses: java.util.ArrayList<CorpusVerbWbwOccurance?>? =
                                     utils.getVerbOccuranceBreakVerses(split[1]) as java.util.ArrayList<CorpusVerbWbwOccurance?>?
                                 for (vers in verses!!) {
@@ -668,7 +678,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                                     }
                                     val charSequence =
                                         TextUtils.concat(ref, "\n ", spannableVerses)
-                                    list.add(SpannableString.valueOf(charSequence ) )
+                                    list.add(SpannableString.valueOf(charSequence))
                                     list.add(SpannableString.valueOf(trans))
                                 }
                                 runOnUiThread {
@@ -685,7 +695,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                 expandableListView.setOnChildClickListener(object : OnChildClickListener {
                     override fun onChildClick(
                         parent: ExpandableListView, v: View,
-                        groupPosition: Int, childPosition: Int, id: Long
+                        groupPosition: Int, childPosition: Int, id: Long,
                     ): Boolean {
                         //   final String selected = String.valueOf((SpannableString) listAdapter.getChild(
                         //      groupPosition, childPosition));
@@ -733,7 +743,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                         dataBundle: Bundle,
                         surah: String,
                         ayah: String,
-                        wordno: String
+                        wordno: String,
                     ) {
                         val item = WordAnalysisBottomSheet()
                         //    item.setdata(rootWordMeanings,wbwRootwords,grammarRootsCombined);
@@ -753,6 +763,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
         //  ExpandableRecAdapter expandableRecAdapter=new ExpandableRecAdapter(WordOccuranceAsynKAct.this,expandNounVerses,expandNounTitles);
         //  recview.setAdapter(expandableRecAdapter);
     }
+
     override fun onItemClick(v: View?, position: Int) {
         Toast.makeText(this, "itemclicked", Toast.LENGTH_SHORT).show()
     }

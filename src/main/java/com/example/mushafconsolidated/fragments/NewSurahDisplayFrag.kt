@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant
 import com.example.mushafconsolidated.Activity.QuranGrammarAct
+import com.example.mushafconsolidated.Activity.ShowMushafActivity
 
 
 import com.example.mushafconsolidated.Adaptersimport.JuzSurahDisplayAdapter
@@ -44,6 +45,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigation.NavigationBarView.OnItemReselectedListener
 import com.google.android.material.textview.MaterialTextView
+import org.sj.conjugator.activity.ConjugatorAct
 
 import java.util.Objects
 
@@ -317,8 +319,8 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
                 transaction.commit()
             }
             if (item.itemId == R.id.conjugationnav) {
-              /*  val conjugatorintent = Intent(activity, ConjugatorAct::class.java)
-                startActivity(conjugatorintent)*/
+            val conjugatorintent = Intent(activity, ConjugatorAct::class.java)
+                startActivity(conjugatorintent)
             }
             if (item.itemId == R.id.dua) {
             /*    val searchintent = Intent(activity, HisnulBottomACT::class.java)
@@ -330,9 +332,9 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
                 startActivity(settingint)*/
             }
             if (item.itemId == R.id.mushafview) {
-          /*      val settingints = Intent(activity, ShowMushafActivity::class.java)
+              val settingints = Intent(activity, ShowMushafActivity::class.java)
 
-                startActivity(settingints)*/
+                startActivity(settingints)
             }
         })
     }

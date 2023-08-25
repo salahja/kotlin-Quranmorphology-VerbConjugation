@@ -296,7 +296,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         btnBottomSheet = findViewById(R.id.fab)
         drawerLayout = findViewById(R.id.drawer)
         navigationView = findViewById(R.id.navigationView)
-        bottomNavigationView = findViewById(R.id.bottomNavView)
+        bottomNavigationView = findViewById(R.id.bottomNavView) as BottomNavigationView
         val toggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
@@ -307,7 +307,10 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         btnBottomSheet.setOnClickListener(View.OnClickListener { v: View? -> toggleBottomSheets() })
-        bottomNavigationView.setOnItemReselectedListener(NavigationBarView.OnItemReselectedListener { item: MenuItem ->
+      //  bottomNavigationView.setOnItemSelectedListener { new  }OnItemReselectedListener
+
+
+       bottomNavigationView.setOnItemReselectedListener(NavigationBarView.OnItemReselectedListener { item: MenuItem ->
             if (item.itemId == R.id.surahnav) {
                 materialToolbar!!.title = "Surah"
                 val fragmentManager = supportFragmentManager
@@ -325,12 +328,12 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 startActivity(conjugatorintent)
             }
             if (item.itemId == R.id.dua) {
-           /*     materialToolbar!!.title = "Hisnul Muslim-Dua;s"
+       /*     materialToolbar!!.title = "Hisnul Muslim-Dua;s"
                 val searchintent = Intent(this@QuranGrammarAct, HisnulBottomACT::class.java)
                 startActivity(searchintent)*/
             }
             if (item.itemId == R.id.names) {
-        /*        materialToolbar!!.title = "Quran Audio"
+       /*        materialToolbar!!.title = "Quran Audio"
                 val settingint = Intent(this@QuranGrammarAct, GridImageAct::class.java)
                 settingint.putExtra(Constants.SURAH_INDEX, chapterno)
                 startActivity(settingint)*/
@@ -1651,6 +1654,6 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
 }
 
-private fun WheelView.setEntries(anies: ArrayList<*>) {
+fun WheelView.setEntries(anies: ArrayList<*>) {
 
 }

@@ -11,8 +11,8 @@ import com.example.mushafconsolidated.Entities.Qari
 @Dao
 interface QariDao {
     @get:Query("SELECT * FROM audio ORDER BY id")
-    val qaris: List<Qari?>?
+    val qaris: List<Qari>
 
     @Query("SELECT * FROM audio where name=:id")
-    fun getSelectedQari(id: String?): List<Qari?>?
+    fun getSelectedQari(id: String?): List<Qari>
 }

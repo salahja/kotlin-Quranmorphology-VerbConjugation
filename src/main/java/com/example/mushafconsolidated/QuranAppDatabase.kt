@@ -109,7 +109,7 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
     abstract fun NamesDetailsDao(): NamesDetailsDao?
     abstract fun QuranExplorerDao(): QuranExplorerDao?
     abstract fun surahsummaryDao(): surahsummaryDao?
-    abstract fun QariDao(): QariDao?
+    abstract fun QariDao(): QariDao
 
 
 /*    abstract fun NamesDao(): NamesDao?
