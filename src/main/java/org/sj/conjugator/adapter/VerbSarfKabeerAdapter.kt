@@ -70,19 +70,19 @@ class VerbSarfKabeerAdapter(
     private fun pronouns(holder: ViewHolder) {
         val array = context.resources.getStringArray(R.array.arabicpronouns)
         holder.huaid!!.text = array[0]
-        holder.humamid.text = array[1]
-        holder.humid.text = array[2]
-        holder.hiaid.text = array[3]
-        holder.humafid.text = array[4]
-        holder.hunnaid.text = array[5]
-        holder.antaid.text = array[6]
-        holder.antumamid.text = array[7]
-        holder.antumid.text = array[8]
-        holder.antiid.text = array[9]
-        holder.antumafid.text = array[10]
-        holder.antunnaid.text = array[11]
-        holder.anaid.text = array[12]
-        holder.nahnuid.text = array[13]
+        holder.humamid!!.text = array[1]
+        holder.humid!!.text = array[2]
+        holder.hiaid!!.text = array[3]
+        holder.humafid!!.text = array[4]
+        holder.hunnaid!!.text = array[5]
+        holder.antaid!!.text = array[6]
+        holder.antumamid!!.text = array[7]
+        holder.antumid!!.text = array[8]
+        holder.antiid!!.text = array[9]
+        holder.antumafid!!.text = array[10]
+        holder.antunnaid!!.text = array[11]
+        holder.anaid!!.text = array[12]
+        holder.nahnuid!!.text = array[13]
         holder.huaid.setTypeface(arabicTypeface) //(array[0]);
         holder.humamid.setTypeface(arabicTypeface) //(array[1]);
         holder.humid.setTypeface(arabicTypeface) //(array[2]);
@@ -456,19 +456,19 @@ class VerbSarfKabeerAdapter(
                 holder.nahiamrantunna.textSize = arabicFontsize.toFloat()
                 if (!aBoolean) {
                     holder.huaid!!.textSize = arabicFontsize.toFloat() //(array[0]);
-                    holder.humamid.textSize = arabicFontsize.toFloat() //(array[1]);
-                    holder.humid.textSize = arabicFontsize.toFloat() //(array[2]);
-                    holder.hiaid.textSize = arabicFontsize.toFloat() //(array[3]);
-                    holder.humafid.textSize = arabicFontsize.toFloat() //(array[4]);
-                    holder.hunnaid.textSize = arabicFontsize.toFloat() //(array[5]);
-                    holder.antaid.textSize = arabicFontsize.toFloat() //(array[6]);
-                    holder.antumamid.textSize = arabicFontsize.toFloat() //(array[7]);
-                    holder.antumid.textSize = arabicFontsize.toFloat() //(array[8]);
-                    holder.antiid.textSize = arabicFontsize.toFloat() //(array[9]);
-                    holder.antumafid.textSize = arabicFontsize.toFloat() //(array[10]);
-                    holder.antunnaid.textSize = arabicFontsize.toFloat() //(array[11]);
-                    holder.anaid.textSize = arabicFontsize.toFloat() //(array[12]);
-                    holder.nahnuid.textSize = arabicFontsize.toFloat() //(array[13]);
+                    holder.humamid!!.textSize = arabicFontsize.toFloat() //(array[1]);
+                    holder.humid!!.textSize = arabicFontsize.toFloat() //(array[2]);
+                    holder.hiaid!!.textSize = arabicFontsize.toFloat() //(array[3]);
+                    holder.humafid!!.textSize = arabicFontsize.toFloat() //(array[4]);
+                    holder.hunnaid!!.textSize = arabicFontsize.toFloat() //(array[5]);
+                    holder.antaid!!.textSize = arabicFontsize.toFloat() //(array[6]);
+                    holder.antumamid!!.textSize = arabicFontsize.toFloat() //(array[7]);
+                    holder.antumid!!.textSize = arabicFontsize.toFloat() //(array[8]);
+                    holder.antiid!!.textSize = arabicFontsize.toFloat() //(array[9]);
+                    holder.antumafid!!.textSize = arabicFontsize.toFloat() //(array[10]);
+                    holder.antunnaid!!.textSize = arabicFontsize.toFloat() //(array[11]);
+                    holder.anaid!!.textSize = arabicFontsize.toFloat() //(array[12]);
+                    holder.nahnuid!!.textSize = arabicFontsize.toFloat() //(array[13]);
                 }
             }
         }
@@ -1000,19 +1000,19 @@ class VerbSarfKabeerAdapter(
         val nahiamrantumaf: TextView
         val nahiamrantunna: TextView
         val huaid: TextView?
-        val humamid: TextView
-        val humid: TextView
-        val hiaid: TextView
-        val humafid: TextView
-        val hunnaid: TextView
-        val antaid: TextView
-        val antumamid: TextView
-        val antumid: TextView
-        val antiid: TextView
-        val antumafid: TextView
-        val antunnaid: TextView
-        val anaid: TextView
-        val nahnuid: TextView
+        val humamid: TextView?
+        val humid: TextView?
+        val hiaid: TextView?
+        val humafid: TextView?
+        val hunnaid: TextView?
+        val antaid: TextView?
+        val antumamid: TextView?
+        val antumid: TextView?
+        val antiid: TextView?
+        val antumafid: TextView?
+        val antunnaid: TextView?
+        val anaid: TextView?
+        val nahnuid: TextView?
        // val pronouns: TextView
         val pastactive: TextView
         val presentactive: TextView

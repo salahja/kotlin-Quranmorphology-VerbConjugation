@@ -33,14 +33,14 @@ class FragmentIsmZarf : Fragment() {
     private   lateinit var unaugmentedFormula: String
     private  lateinit  var verbroot: String
     private lateinit   var verbmood: String
-    private lateinit   var verbweakness: String
+    private    var verbweakness: String?=null
     fun newInstance(): FragmentIsmZarf {
         val f = FragmentIsmZarf()
         val b = Bundle()
         //  f.setArguments(b);
         val dataBundle = requireArguments()
         verbformthulathi = dataBundle.getString(QURAN_VERB_WAZAN)!!
-        verbweakness = dataBundle.getString(SARFKABEERWEAKNESS)!!
+        verbweakness = dataBundle.getString(SARFKABEERWEAKNESS)
         f.arguments = dataBundle
         return f
     }
@@ -115,7 +115,7 @@ class FragmentIsmZarf : Fragment() {
         layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
         val ref: ImageView
-        ref = view.findViewById(R.id.dismissView)
+     //   ref = view.findViewById(R.id.dismissView)
         //dismiss(ref);
     }
 

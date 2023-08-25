@@ -105,16 +105,16 @@ class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.Vie
             holder.nom.text = array[0]
             holder.acc.text = array[1]
             holder.gen.text = array[2]
-            holder.nom1.text = array[0]
-            holder.acc1.text = array[1]
-            holder.gen1.text = array[2]
-            holder.nom2.text = array[0]
-            holder.acc2.text = array[1]
-            holder.gen2.text = array[2]
+            holder.nom1!!.text = array[0]
+            holder.acc1!!.text = array[1]
+            holder.gen1!!.text = array[2]
+            holder.nom2!!.text = array[0]
+            holder.acc2!!.text = array[1]
+            holder.gen2!!.text = array[2]
         } else {
-            holder.nom.text = array[0]
-            holder.acc.text = array[1]
-            holder.gen.text = array[2]
+            holder.nom!!.text = array[0]
+            holder.acc!!.text = array[1]
+            holder.gen!!.text = array[2]
         }
     }
 
@@ -126,7 +126,7 @@ class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.Vie
             context.resources.getStringArray(R.array.arnumbers)
         }
         if (isTraditional) {
-            holder.sin1.text = array[0]
+            holder.sin1!!.text = array[0]
             holder.dual1.text = array[1]
             holder.plu1.text = array[2]
             holder.sin2.text = array[0]
@@ -258,12 +258,12 @@ class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.Vie
                     holder.nom.textSize = arabicFontsize.toFloat() //(array[0]);
                     holder.acc.textSize = arabicFontsize.toFloat() //(array[1]);
                     holder.gen.textSize = arabicFontsize.toFloat() //(array[2]);
-                    holder.nom1.textSize = arabicFontsize.toFloat() //(array[0]);
-                    holder.acc1.textSize = arabicFontsize.toFloat() //(array[1]);
-                    holder.gen1.textSize = arabicFontsize.toFloat() //(array[2]);
-                    holder.nom2.textSize = arabicFontsize.toFloat() //(array[0]);
-                    holder.acc2.textSize = arabicFontsize.toFloat() //(array[1]);
-                    holder.gen2.textSize = arabicFontsize.toFloat() //(array[2]);
+                    holder.nom1!!.textSize = arabicFontsize.toFloat() //(array[0]);
+                    holder.acc1!!.textSize = arabicFontsize.toFloat() //(array[1]);
+                    holder.gen1!!.textSize = arabicFontsize.toFloat() //(array[2]);
+                    holder.nom2!!.textSize = arabicFontsize.toFloat() //(array[0]);
+                    holder.acc2!!.textSize = arabicFontsize.toFloat() //(array[1]);
+                    holder.gen2!!.textSize = arabicFontsize.toFloat() //(array[2]);
                     holder.sin1.textSize = arabicFontsize.toFloat() //(array[0]);
                     holder.dual1.textSize = arabicFontsize.toFloat() //(array[1]);
                     holder.plu1.textSize = arabicFontsize.toFloat() //(array[2]);
@@ -395,77 +395,9 @@ class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.Vie
         View.OnClickListener // current clickListerner
     {
         //  public final TextView ayah_number;
-        val madhihua: TextView
-        val madhihuma: TextView
-        val madhihum: TextView
-        val madhihia: TextView
-        val madhihumaf: TextView
-        val madhihunna: TextView
-        val madhianta: TextView
-        val madhiantuma: TextView
-        val madhiantum: TextView
-        val madhianti: TextView
-        val madhiantumaf: TextView
-        val madhiantunna: TextView
-        val madhiana: TextView
-        val madhinahnu: TextView
-        val muzhua: TextView
-        val muzhuma: TextView
-        val muzhum: TextView
-        val muzhia: TextView
-        val muzhumaf: TextView
-        val muzhunna: TextView
-        val muzanta: TextView
-        val muzantuma: TextView
-        val muzantum: TextView
-        val muzanti: TextView
-        val muzantumaf: TextView
-        val muzantunna: TextView
-        val muzana: TextView
-        val muznahnu: TextView
-        val madimajhua: TextView
-        val madimajhuma: TextView
-        val madimajhum: TextView
-        val madimajhia: TextView
-        val madimajhumaf: TextView
-        val madimajhunna: TextView
-        val madimajanta: TextView
-        val madimajantuma: TextView
-        val madimajantum: TextView
-        val madimajanti: TextView
-        val madimajantumaf: TextView
-        val madimajantunna: TextView
-        val madimajana: TextView
-        val madimajnahnu: TextView
-        val muzmajhua: TextView
-        val muzmajhuma: TextView
-        val muzmajhum: TextView
-        val muzmajhia: TextView
-        val muzmajhumaf: TextView
-        val muzmajhunna: TextView
-        val muzmajanta: TextView
-        val muzmajantuma: TextView
-        val muzmajantum: TextView
-        val muzmajanti: TextView
-        val muzmajantumaf: TextView
-        val muzmajantunna: TextView
-        val muzmajana: TextView
-        val muzmajnahnu: TextView
-        val amranta: TextView
-        val amrantuma: TextView
-        val amrantum: TextView
-        val amranti: TextView
-        val amrantumaf: TextView
-        val amrantunna: TextView
-        val nahiamranta: TextView
-        val nahiamrantuma: TextView
-        val nahiamrantum: TextView
-        val nahiamranti: TextView
-        val nahiamrantumaf: TextView
-        val nahiamrantunna: TextView
 
         // imafmnine
-        val isone: TextView
+      /*  val isone: TextView
         val istwo: TextView
         val isthree: TextView
         val isfour: TextView
@@ -500,7 +432,7 @@ class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.Vie
         val imafoolfemsix: TextView
         val imafoolfemseven: TextView
         val imafoolfemeight: TextView
-        val imafoolfemnine: TextView
+        val imafoolfemnine: TextView*/
         val mifalone: TextView
         val mifaltwo: TextView
         val mifalthree: TextView
@@ -528,24 +460,8 @@ class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.Vie
         val mifaalseven: TextView
         val mifaaleight: TextView
         val mifaalnine: TextView
-        val mafalunone: TextView
-        val mafaluntwo: TextView
-        val mafalunthree: TextView
-        val mafalunfour: TextView
-        val mafalunfive: TextView
-        val mafalunsix: TextView
-        val mafalunseven: TextView
-        val mafaluneight: TextView
-        val mafalunnine: TextView
-        val mifalunone: TextView
-        val mifaluntwo: TextView
-        val mifalunthree: TextView
-        val mifalunfour: TextView
-        val mifalunfive: TextView
-        val mifalunsix: TextView
-        val mifalunseven: TextView
-        val mifaluneight: TextView
-        val mifalunnine: TextView
+
+
         val sin1: TextView
         val dual1: TextView
         val plu1: TextView
@@ -558,12 +474,12 @@ class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.Vie
         val nom: TextView
         val acc: TextView
         val gen: TextView
-        val nom1: TextView
-        val acc1: TextView
-        val gen1: TextView
-        val nom2: TextView
-        val acc2: TextView
-        val gen2: TextView
+        val nom1: TextView?
+        val acc1: TextView?
+        val gen1: TextView?
+        val nom2: TextView?
+        val acc2: TextView?
+        val gen2: TextView?
 
         init {
             nom = view.findViewById(R.id.nominative)
@@ -584,7 +500,7 @@ class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.Vie
             sin3 = view.findViewById(R.id.singular3)
             dual3 = view.findViewById(R.id.dual3)
             plu3 = view.findViewById(R.id.plural3)
-            madhihua = view.findViewById(R.id.madhihua)
+         /*   madhihua = view.findViewById(R.id.madhihua)
             madhihuma = view.findViewById(R.id.madhihuma)
             madhihum = view.findViewById(R.id.madihum)
             madhihia = view.findViewById(R.id.madhihia)
@@ -694,7 +610,7 @@ class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.Vie
             imafoolfemsix = view.findViewById(R.id.imafoolfemsix)
             imafoolfemseven = view.findViewById(R.id.imafoolfemseven)
             imafoolfemeight = view.findViewById(R.id.imafoolfemeight)
-            imafoolfemnine = view.findViewById(R.id.imafoolfemnine)
+            imafoolfemnine = view.findViewById(R.id.imafoolfemnine)*/
             mifalone = view.findViewById(R.id.mifalone)
             mifaltwo = view.findViewById(R.id.mifaltwo)
             mifalthree = view.findViewById(R.id.mifalthree)
@@ -722,24 +638,7 @@ class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.Vie
             mifaalseven = view.findViewById(R.id.mifaalseven)
             mifaaleight = view.findViewById(R.id.mifaaleight)
             mifaalnine = view.findViewById(R.id.mifaalnine)
-            mafalunone = view.findViewById(R.id.mafalunone)
-            mafaluntwo = view.findViewById(R.id.mafaluntwo)
-            mafalunthree = view.findViewById(R.id.mafalunthree)
-            mafalunfour = view.findViewById(R.id.mafalunfour)
-            mafalunfive = view.findViewById(R.id.mafalunfive)
-            mafalunsix = view.findViewById(R.id.mafalunsix)
-            mafalunseven = view.findViewById(R.id.mafalunseven)
-            mafaluneight = view.findViewById(R.id.mafaluneight)
-            mafalunnine = view.findViewById(R.id.mafalunnine)
-            mifalunone = view.findViewById(R.id.mifalunone)
-            mifaluntwo = view.findViewById(R.id.mifaluntwo)
-            mifalunthree = view.findViewById(R.id.mifalunthree)
-            mifalunfour = view.findViewById(R.id.mifalunfour)
-            mifalunfive = view.findViewById(R.id.mifalunfive)
-            mifalunsix = view.findViewById(R.id.mifalunsix)
-            mifalunseven = view.findViewById(R.id.mifalunseven)
-            mifaluneight = view.findViewById(R.id.mifaluneight)
-            mifalunnine = view.findViewById(R.id.mifalunnine)
+
             view.setOnClickListener(this) // current clickListerner
             view.setOnClickListener(this) // current clickListerner
         }

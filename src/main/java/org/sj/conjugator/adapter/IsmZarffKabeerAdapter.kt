@@ -116,12 +116,12 @@ class IsmZarffKabeerAdapter : RecyclerView.Adapter<IsmZarffKabeerAdapter.ViewHol
             holder.nom.text = array[0]
             holder.acc.text = array[1]
             holder.gen.text = array[2]
-            holder.nom1.text = array[0]
-            holder.acc1.text = array[1]
-            holder.gen1.text = array[2]
-            holder.nom2.text = array[0]
-            holder.acc2.text = array[1]
-            holder.gen2.text = array[2]
+            holder.nom1!!.text = array[0]
+            holder.acc1!!.text = array[1]
+            holder.gen1!!.text = array[2]
+            holder.nom2!!.text = array[0]
+            holder.acc2!!.text = array[1]
+            holder.gen2!!.text = array[2]
         } else {
             holder.nom.text = array[0]
             holder.acc.text = array[1]
@@ -234,13 +234,13 @@ class IsmZarffKabeerAdapter : RecyclerView.Adapter<IsmZarffKabeerAdapter.ViewHol
             if (isTraditional) {
                 holder.nom.textSize = arabicFontsize.toFloat() //(array[0]);
                 holder.acc.textSize = arabicFontsize.toFloat() //(array[1]);
-                holder.gen.textSize = arabicFontsize.toFloat() //(array[2]);
-                holder.nom1.textSize = arabicFontsize.toFloat() //(array[0]);
-                holder.acc1.textSize = arabicFontsize.toFloat() //(array[1]);
-                holder.gen1.textSize = arabicFontsize.toFloat() //(array[2]);
-                holder.nom2.textSize = arabicFontsize.toFloat() //(array[0]);
-                holder.acc2.textSize = arabicFontsize.toFloat() //(array[1]);
-                holder.gen2.textSize = arabicFontsize.toFloat() //(array[2]);
+                holder.gen!!.textSize = arabicFontsize.toFloat() //(array[2]);
+                holder.nom1!!.textSize = arabicFontsize.toFloat() //(array[0]);
+                holder.acc1!!.textSize = arabicFontsize.toFloat() //(array[1]);
+                holder.gen1!!.textSize = arabicFontsize.toFloat() //(array[2]);
+                holder.nom2!!.textSize = arabicFontsize.toFloat() //(array[0]);
+                holder.acc2!!.textSize = arabicFontsize.toFloat() //(array[1]);
+                holder.gen2!!.textSize = arabicFontsize.toFloat() //(array[2]);
                 holder.sin1.textSize = arabicFontsize.toFloat() //(array[0]);
                 holder.dual1.textSize = arabicFontsize.toFloat() //(array[1]);
                 holder.plu1.textSize = arabicFontsize.toFloat() //(array[2]);
@@ -410,12 +410,12 @@ class IsmZarffKabeerAdapter : RecyclerView.Adapter<IsmZarffKabeerAdapter.ViewHol
         val nom: TextView
         val acc: TextView
         val gen: TextView
-        val nom1: TextView
-        val acc1: TextView
-        val gen1: TextView
-        val nom2: TextView
-        val acc2: TextView
-        val gen2: TextView
+        val nom1: TextView?
+        val acc1: TextView?
+        val gen1: TextView?
+        val nom2: TextView?
+        val acc2: TextView?
+        val gen2: TextView?
 
         init {
             nom = view.findViewById(R.id.nominative)
