@@ -30,10 +30,10 @@ class PassiveParticipleModifier private constructor() : IUnaugmentedTrilateralNo
     override fun build(
         root: UnaugmentedTrilateralRoot,
         kov: Int,
-        conjugations: List<Any?>?,
+        conjugations: List<*>,
         formula: String
     ): ConjugationResult {
-        val conjResult = ConjugationResult(kov, root!!, conjugations as MutableList<*>?, formula)
+        val conjResult = ConjugationResult(kov, root!!, conjugations as List<*>, formula)
         vocalizer.apply(conjResult)
         mahmouz.apply(conjResult)
 

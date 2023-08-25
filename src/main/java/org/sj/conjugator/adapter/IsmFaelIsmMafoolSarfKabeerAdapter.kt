@@ -40,17 +40,10 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
     private var newsarf = false
    lateinit var fael: java.util.ArrayList<*>
     lateinit var mafool: java.util.ArrayList<*>
-    constructor(
-        lists: ArrayList<ArrayList<*>>,
-        fael: java.util.ArrayList<*>,
-        mafool: java.util.ArrayList<*>,
-        context: Context,
-        newsarf: Boolean
-    ) {
+
+    constructor(lists: ArrayList<ArrayList<*>>, context: Context, newsarf: Boolean) {
         this.context = context
         sarfSagheer = lists
-        this.fael =fael
-        this.mafool=mafool
         this.newsarf = newsarf
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     }
@@ -72,7 +65,6 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
         sarfSagheer = skabeer
         this.madhi = madhi
     }
-
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

@@ -22,7 +22,7 @@ interface IUnaugmentedTrilateralNounModifier {
     fun build(
         root: UnaugmentedTrilateralRoot,
         kov: Int,
-        conjugations: List<Any?>?,
+        conjugations: List<*>,
         formula: String
     ): ConjugationResult
 }

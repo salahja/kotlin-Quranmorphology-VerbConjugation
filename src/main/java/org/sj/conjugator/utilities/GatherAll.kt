@@ -159,7 +159,7 @@ class GatherAll {
             val mifalatun = conjugator.createNounList(unaugmentedTrilateralRoot, "مِفْعَلَة")
             val conjResult: ConjugationResult =
                 modifier.build(unaugmentedTrilateralRoot, rule!!.kov, mifalatun, "مِفْعَلَة")
-            val finalAlamifalatun = conjResult.finalResult
+            val finalAlamifalatun = conjResult.finalResult as ArrayList<Any>
             val mifaal = conjugator.createNounList(unaugmentedTrilateralRoot, "مِفْعَال")
             val conjResultmifaal: ConjugationResult =
                 modifier.build(unaugmentedTrilateralRoot, rule!!.kov, mifaal, "مِفْعَال")
@@ -362,7 +362,7 @@ class GatherAll {
             val mifalatun = conjugator.createNounList(unaugmentedTrilateralRoot, "مِفْعَلَة")
             val conjResult: ConjugationResult =
                 modifier.build(unaugmentedTrilateralRoot, rule!!.kov, mifalatun, "مِفْعَلَة")
-            val finalAlamifalatun = conjResult.finalResult
+            val finalAlamifalatun = conjResult.finalResult as ArrayList<Any>
             val mifaal = conjugator.createNounList(unaugmentedTrilateralRoot, "مِفْعَال")
             val conjResultmifaal: ConjugationResult =
                 modifier.build(unaugmentedTrilateralRoot, rule!!.kov, mifaal, "مِفْعَال")
@@ -684,13 +684,13 @@ class GatherAll {
                 "مَفْعَلَة"
             )
             val zarffinalmafalatun = mafalatun.finalResult
-  /*          madhi = madhiconjresult.finalResult
+          madhi = madhiconjresult.finalResult
             madhimajhool = madhimajhoolconj.finalResult
             mudharay = mudharayconj.finalResult
             mudharaymajhool = mudharaymajhoolconj.finalResult
             amr = amrconj.finalResult.toMutableList()
             nahiamr = nahiamrconj.finalResult
-            amr.removeAll(setOf<Any?>(null))*/
+            amr.removeAll(setOf<Any?>(null))
             val la = "لا"
             val list = nahiamr.subList(6, 11)
             val nm = ArrayList<String>()
@@ -829,11 +829,11 @@ class GatherAll {
         var ismfael: List<*>
         var ismmafool: List<*>
         var madhimajhool: List<*>
-        var mudharay: List<*>? = null
+      lateinit  var mudharay: List<*>
         var amr: MutableList<*>
         var nahiamr: MutableList<*>
         var madhi: List<*>
-        var mudharaymajhool: List<*>? = null
+        lateinit      var mudharaymajhool: List<*>
         val c1 = verbroot[0]
         val c2 = verbroot[1]
         val c3 = verbroot[2]
@@ -918,10 +918,14 @@ class GatherAll {
                 augmentedRoot, rule!!.kov, augmentedRoot.form!!.toInt(), mudharay,
                 SystemConstants.PRESENT_TENSE, true, true
             )
-            val mudharaymajhoolconj = AugmentedTrilateralModifier.instance.build(
-                augmentedRoot, rule!!.kov, augmentedRoot.form!!.toInt(), mudharaymajhool,
-                SystemConstants.PRESENT_TENSE, false, true
-            )
+
+            val mudharaymajhoolconj =
+                AugmentedTrilateralModifier.instance.build(
+                    augmentedRoot, rule!!.kov, augmentedRoot.form!!.toInt(),
+                    mudharaymajhool,
+                    SystemConstants.PRESENT_TENSE, false, true
+                )
+
             val amrconj = AugmentedTrilateralModifier.instance.build(
                 augmentedRoot, rule!!.kov, augmentedRoot.form!!.toInt(), amr,
                 SystemConstants.NOT_EMPHASIZED_IMPERATIVE_TENSE, true, true
@@ -941,14 +945,14 @@ class GatherAll {
             val ismmafoolresult =
                 org.sj.nounConjugation.trilateral.augmented.modifier.activeparticiple.ActiveParticipleModifier.instance
                     .build(augmentedRoot, rule!!.kov, augmentedRoot.form!!.toInt(), ismmafool, true)
- /*           ismfael = conjResult.finalResult
+           ismfael = conjResult.finalResult
             ismmafool = ismmafoolresult.finalResult
             madhi = madhiconjresult.finalResult
             madhimajhool = madhimajhoolconj.finalResult
             mudharay = mudharayconj.finalResult
             mudharaymajhool = mudharaymajhoolconj.finalResult
             amr = amrconj.finalResult.toMutableList()
-           nahiamr = nahiamrconj.finalResult*/
+           nahiamr = nahiamrconj.finalResult as MutableList<*>
             amr.removeAll(setOf<Any?>(null))
             val la = "لا"
         //    var arraylist = ArrayList(nahiamr)
@@ -1151,11 +1155,11 @@ class GatherAll {
                 SystemConstants.PAST_TENSE, true, true
             )
             val mudharayconj = AugmentedTrilateralModifier.instance.build(
-                augmentedRoot, rule!!.kov, augmentedRoot.form!!.toInt(), mudharay,
+                augmentedRoot, rule!!.kov, augmentedRoot.form!!.toInt(), listOf(mudharay),
                 SystemConstants.PRESENT_TENSE, true, true
             )
             val mudharaymajhoolconj = AugmentedTrilateralModifier.instance.build(
-                augmentedRoot, rule!!.kov, augmentedRoot.form!!.toInt(), mudharaymajhool,
+                augmentedRoot, rule!!.kov, augmentedRoot.form!!.toInt(), listOf(mudharaymajhool),
                 SystemConstants.PRESENT_TENSE, false, true
             )
             val amrconj = AugmentedTrilateralModifier.instance.build(

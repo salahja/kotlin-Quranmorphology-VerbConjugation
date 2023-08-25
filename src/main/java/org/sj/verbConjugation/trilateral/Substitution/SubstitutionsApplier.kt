@@ -2,9 +2,14 @@ package org.sj.verbConjugation.trilateral.Substitution
 
 import org.sj.verbConjugation.trilateral.TrilateralRoot
 
+
 //todo possible error
+
+
+
+
 abstract class SubstitutionsApplier {
-    open fun apply(words: MutableList<Any>, root: TrilateralRoot?) {
+    open fun applyd(words: MutableList<Any>, root: TrilateralRoot?) {
         val wordObj = words[0]
         val word = wordObj.toString().trim { it <= ' ' }
         val split = word.split(",")
@@ -34,7 +39,7 @@ abstract class SubstitutionsApplier {
     }
 
 
-/*    open fun apply(words: MutableList<*>, root: TrilateralRoot?) {
+   open fun apply(words: MutableList<Any>, root: TrilateralRoot?) {
         for (i in appliedPronounsIndecies.indices) {
             val index: Int = appliedPronounsIndecies.get(i).toString().toInt() - 1
             val wordObj = words[index] ?: continue
@@ -43,14 +48,14 @@ abstract class SubstitutionsApplier {
             val subIter: Iterator<*> = substitutions.iterator()
             while (subIter.hasNext()) {
                 val substitution = subIter.next() as Substitution
-                val result = substitution.apply(word, root!!)
+                val result = root?.let { substitution.apply(word, it) }
                 if (result != null) {
-                    val set: Any? = words.set(index, result as Nothing)
+                    val set: Any? = words.set(index, result )
                     break
                 }
             }
         }
-    }*/
+    }
     fun applySarfSagheer(words: MutableList<String?>, root: TrilateralRoot) {
         for (i in 0..0) {
             val index = appliedPronounsIndecies[i].toString().toInt() - 1
@@ -85,3 +90,6 @@ abstract class SubstitutionsApplier {
 
   //  abstract fun getSubstitutions(): List<*>?
 }
+
+
+

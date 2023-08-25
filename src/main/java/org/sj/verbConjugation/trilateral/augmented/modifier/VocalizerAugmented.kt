@@ -90,6 +90,7 @@ class VocalizerAugmented {
         activePresentList.add(org.sj.verbConjugation.trilateral.augmented.modifier.vocalizer.lafif.separated.active.Present3Vocalizer())
         activePresentList.add(YaeiVocalizer())
         activePresentList.add(WawiVocalizer())
+
         passivePresentList.add(org.sj.verbConjugation.trilateral.augmented.modifier.vocalizer.ajwaf.wawi.passive.Present1Vocalizer())
         passivePresentList.add(org.sj.verbConjugation.trilateral.augmented.modifier.vocalizer.ajwaf.wawi.passive.Present2Vocalizer())
         passivePresentList.add(org.sj.verbConjugation.trilateral.augmented.modifier.vocalizer.ajwaf.yaei.passive.Present1Vocalizer())

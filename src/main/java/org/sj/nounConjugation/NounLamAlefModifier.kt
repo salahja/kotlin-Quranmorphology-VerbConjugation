@@ -40,9 +40,9 @@ class NounLamAlefModifier private constructor() : SubstitutionsApplier() {
     }
 
     fun apply(conjResult: MazeedConjugationResult) {
-        apply(conjResult.finalResult, null)
+        apply(conjResult.finalResult as MutableList<Any>, null)
         //قد يوجد لام ألف أخرى تتطابق مع قانون أخر
-        apply(conjResult.finalResult, null)
+        apply(conjResult.finalResult as MutableList<Any>, null)
     }
 
 

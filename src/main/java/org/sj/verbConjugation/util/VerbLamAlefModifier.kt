@@ -21,7 +21,7 @@ class VerbLamAlefModifier private constructor() : SubstitutionsApplier() {
     }
 
     fun apply(conjResult: MazeedConjugationResult) {
-        apply(conjResult.finalResult , null)
+        apply(conjResult.finalResult as MutableList<Any>, null)
     }
     // public void apply(org.sj.verb.quadriliteral.ConjugationResult conjResult) {
     // apply(conjResult.getFinalResult(), null);

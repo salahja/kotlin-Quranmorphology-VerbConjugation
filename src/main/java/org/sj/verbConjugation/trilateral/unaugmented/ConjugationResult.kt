@@ -1,5 +1,24 @@
 package org.sj.verbConjugation.trilateral.unaugmented
 
+
+open class ConjugationResult(
+    var kov: Int, root: UnaugmentedTrilateralRoot, //13 conjugated verbs
+    var originalResult: List<*>,
+) {
+    var root: UnaugmentedTrilateralRoot
+        protected set
+
+    //القائمة بعد  الادغام والاعلال والهمزة
+    var finalResult: List<*>
+        protected set
+
+    init {
+        originalResult = originalResult
+        this.root = root
+        finalResult = ArrayList(originalResult)
+    }
+}
+
 /**
  *
  * Title: Sarf Program
@@ -18,7 +37,14 @@ package org.sj.verbConjugation.trilateral.unaugmented
  * @author Haytham Mohtasseb Billah
  * @version 1.0
  */
-open class ConjugationResult(kov: Int, root: UnaugmentedTrilateralRoot, originalResult: MutableList<*>?) {
+
+
+/*
+open class ConjugationResult(
+    kov: Int,
+    root: UnaugmentedTrilateralRoot,
+    originalResult:List<*>,
+) {
     var kov: Int
     lateinit var root: UnaugmentedTrilateralRoot
 
@@ -49,3 +75,5 @@ open class ConjugationResult(kov: Int, root: UnaugmentedTrilateralRoot, original
                 '}'
     }
 }
+
+ */

@@ -21,8 +21,8 @@ class WordMorphologyDetails : QuranMorphologyDetails {
 
     constructor(
         word: CorpusWbwWord,
-        corpusNounWord: List<Any?>?,
-        verbCorpusRootWord: List<Any?>?
+        corpusNounWord: List<*>,
+        verbCorpusRootWord: List<*>
     ) {
         this.word = word
         this.corpusNounWord = corpusNounWord as ArrayList<NounCorpus>?

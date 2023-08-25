@@ -16,7 +16,7 @@ class AugmentedTrilateralModifier private constructor() {
         root: AugmentedTrilateralRoot,
         kov: Int,
         formulaNo: Int,
-        conjugations: List<Any?>?,
+        conjugations: List<*>,
         tense: String,
         active: Boolean,
         applyGemination: Boolean,
@@ -49,7 +49,7 @@ class AugmentedTrilateralModifier private constructor() {
         root: AugmentedTrilateralRoot,
         kov: Int,
         formulaNo: Int,
-        conjugations: List<Any?>?,
+        conjugations: List<*>,
         tense: String,
         active: Boolean,
         listener: Boolean

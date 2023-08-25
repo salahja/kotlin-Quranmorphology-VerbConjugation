@@ -32,10 +32,10 @@ class ActiveParticipleModifier private constructor() : IUnaugmentedTrilateralNou
     override fun build(
         root: UnaugmentedTrilateralRoot,
         kov: Int,
-        conjugations: List<Any?>?,
+        conjugations: List<*>,
         formula: String
     ): ConjugationResult {
-        val conjResult = ConjugationResult(kov, root!!, conjugations as MutableList<*>?, formula)
+        val conjResult = ConjugationResult(kov, root!!, conjugations as List<*>, formula)
         if (geminator.isApplied(conjResult)) geminator.apply(conjResult.finalResult as MutableList<Any>, root!!)
         vocalizer.apply(conjResult)
         mahmouz.apply(conjResult)

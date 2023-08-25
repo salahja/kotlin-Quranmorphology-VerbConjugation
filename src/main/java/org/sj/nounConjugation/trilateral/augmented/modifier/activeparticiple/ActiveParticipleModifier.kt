@@ -37,7 +37,7 @@ class ActiveParticipleModifier private constructor() {
         root:AugmentedTrilateralRoot,
         kov: Int,
         formulaNo: Int,
-        conjugations: List<Any?>?,
+        conjugations: List<*>,
         listener: Boolean
     ): MazeedConjugationResult {
         val conjResult = MazeedConjugationResult(

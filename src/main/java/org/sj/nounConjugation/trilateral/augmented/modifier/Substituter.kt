@@ -53,7 +53,7 @@ class Substituter {
             val modifier = iter.next()
             if (modifier.isApplied(conjResult)) {
                 (modifier as TrilateralNounSubstitutionApplier).apply(
-                    (conjResult.finalResult).toMutableList(),
+                    conjResult.finalResult as MutableList<Any>,
                     conjResult.root!!
                 )
                 break

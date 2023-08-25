@@ -790,8 +790,14 @@ class FlowAyahWordAdapter(
                         utils.getQuranNouns(word.surahId, word.verseId, word.wordno)
                     val verbCorpusRootWord =
                         utils.getQuranRoot(word.surahId, word.verseId, word.wordno)
-                    val qm = WordMorphologyDetails(word, corpusNounWord, verbCorpusRootWord)
-                    val workBreakDown = qm.workBreakDown
+                    val qm =
+                        corpusNounWord?.let {
+                            if (verbCorpusRootWord != null) {
+                                WordMorphologyDetails(word, it, verbCorpusRootWord)
+                            }
+                        }
+
+                //    val workBreakDown = qm.workBreakDown
                     var color =
                         ContextCompat.getColor(context, R.color.background_color_light_brown)
                     when (isNightmode) {
@@ -815,7 +821,7 @@ class FlowAyahWordAdapter(
                         .setGravity(Gravity.TOP)
                         .setArrowEnabled(true)
                         .setBackgroundColor(color)
-                     .setText(workBreakDown)
+                  //   .setText(workBreakDown)
                     builder.show()
                     true
                 })
@@ -842,8 +848,13 @@ class FlowAyahWordAdapter(
                         utils.getQuranNouns(word.surahId, word.verseId, word.wordno)
                     val verbCorpusRootWord =
                         utils.getQuranRoot(word.surahId, word.verseId, word.wordno)
-                    val qm = WordMorphologyDetails(word, corpusNounWord, verbCorpusRootWord)
-                    val workBreakDown = qm.workBreakDown
+                    val qm =
+                        corpusNounWord?.let {
+                            if (verbCorpusRootWord != null) {
+                                WordMorphologyDetails(word, it, verbCorpusRootWord)
+                            }
+                        }
+                   // val workBreakDown = qm.workBreakDown
                     var color =
                         ContextCompat.getColor(context, R.color.background_color_light_brown)
                     when (isNightmode) {
@@ -868,7 +879,7 @@ class FlowAyahWordAdapter(
                         .setGravity(Gravity.TOP)
                         .setArrowEnabled(true)
                         .setBackgroundColor(color)
-                        .setText(workBreakDown)
+                    //    .setText(workBreakDown)
                     builder.show()
 
 

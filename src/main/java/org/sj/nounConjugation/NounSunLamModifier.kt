@@ -54,7 +54,7 @@ class NounSunLamModifier private constructor() : SubstitutionsApplier() {
     }
 
     fun apply(conjResult: MazeedConjugationResult) {
-        apply(conjResult.finalResult, null)
+        apply(conjResult.finalResult as MutableList<Any>, null)
     }
 
 

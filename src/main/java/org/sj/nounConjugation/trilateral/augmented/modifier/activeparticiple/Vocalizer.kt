@@ -44,14 +44,14 @@ class Vocalizer {
 
     fun apply(conjResult: MazeedConjugationResult) {
         if (preSeparatedLafifVocalizer.isApplied(conjResult)) preSeparatedLafifVocalizer.apply(
-            conjResult.finalResult  ,
+            conjResult.finalResult as MutableList<Any>,
             conjResult.root!!
         )
         val iter: Iterator<TrilateralNounSubstitutionApplier> = modifiers.iterator()
         while (iter.hasNext()) {
             val modifier = iter.next() as IAugmentedTrilateralModifier
             if (modifier.isApplied(conjResult)) {
-                (modifier as SubstitutionsApplier).apply(conjResult.finalResult  , conjResult.root!!)
+                (modifier as SubstitutionsApplier).apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
                 break
             }
         }
