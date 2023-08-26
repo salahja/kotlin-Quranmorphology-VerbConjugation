@@ -47,8 +47,8 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
     lateinit   var floatingActionButton: FloatingActionButton
     lateinit var layoutBottomSheet: RelativeLayout
      lateinit var sheetBehavior: BottomSheetBehavior<*>
-     lateinit var tlist: ListView
-     lateinit var mlist: ListView
+      var tlist: ListView?=null
+       var mlist: ListView?=null
      lateinit var nasara: Chip
      lateinit var zaraba: Chip
      lateinit var samia: Chip

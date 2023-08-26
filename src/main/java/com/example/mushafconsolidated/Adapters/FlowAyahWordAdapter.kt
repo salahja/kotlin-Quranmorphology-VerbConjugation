@@ -93,7 +93,7 @@ class FlowAyahWordAdapter(
     val surah_id: Long,
     private val SurahName: String,
     private val isMakkiMadani: Int,
-    listener: OnItemClickListenerOnLong?
+    listener: OnItemClickListenerOnLong?,
 ) : RecyclerView.Adapter<FlowAyahWordAdapter.ItemViewAdapter>() //implements OnItemClickListenerOnLong {
 {
     private var defaultfont: Boolean = false
@@ -310,7 +310,7 @@ class FlowAyahWordAdapter(
         showTranslation: Boolean,
         showWordByword: Boolean,
         whichtranslation: String?,
-        showKathir: Boolean
+        showKathir: Boolean,
     ) {
         //   holder.flowwbw.setBackgroundColor(R.style.Theme_DarkBlue);
         var entity: QuranEntity? = null
@@ -703,7 +703,7 @@ class FlowAyahWordAdapter(
         showWordColor: Boolean,
         wbw: String?,
         ayahWord: CorpusAyahWord?,
-        showWbwTranslation: Boolean
+        showWbwTranslation: Boolean,
     ) {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         holder.flow_word_by_word!!.removeAllViews()
@@ -790,14 +790,15 @@ class FlowAyahWordAdapter(
                         utils.getQuranNouns(word.surahId, word.verseId, word.wordno)
                     val verbCorpusRootWord =
                         utils.getQuranRoot(word.surahId, word.verseId, word.wordno)
-                    val qm =
-                        corpusNounWord?.let {
-                            if (verbCorpusRootWord != null) {
-                                WordMorphologyDetails(word, it, verbCorpusRootWord)
-                            }
-                        }
 
-                //    val workBreakDown = qm.workBreakDown
+
+                    val qm = WordMorphologyDetails(
+                        word,
+                        corpusNounWord!!, verbCorpusRootWord!!
+                    )
+                    val workBreakDown = qm.workBreakDown
+
+
                     var color =
                         ContextCompat.getColor(context, R.color.background_color_light_brown)
                     when (isNightmode) {
@@ -821,7 +822,7 @@ class FlowAyahWordAdapter(
                         .setGravity(Gravity.TOP)
                         .setArrowEnabled(true)
                         .setBackgroundColor(color)
-                  //   .setText(workBreakDown)
+                  .setText(workBreakDown)
                     builder.show()
                     true
                 })
@@ -848,13 +849,11 @@ class FlowAyahWordAdapter(
                         utils.getQuranNouns(word.surahId, word.verseId, word.wordno)
                     val verbCorpusRootWord =
                         utils.getQuranRoot(word.surahId, word.verseId, word.wordno)
-                    val qm =
-                        corpusNounWord?.let {
-                            if (verbCorpusRootWord != null) {
-                                WordMorphologyDetails(word, it, verbCorpusRootWord)
-                            }
-                        }
-                   // val workBreakDown = qm.workBreakDown
+                    val qm = WordMorphologyDetails(
+                        word,
+                        corpusNounWord!!, verbCorpusRootWord!!
+                    )
+                    val workBreakDown = qm.workBreakDown
                     var color =
                         ContextCompat.getColor(context, R.color.background_color_light_brown)
                     when (isNightmode) {
@@ -879,7 +878,7 @@ class FlowAyahWordAdapter(
                         .setGravity(Gravity.TOP)
                         .setArrowEnabled(true)
                         .setBackgroundColor(color)
-                    //    .setText(workBreakDown)
+                        .setText(workBreakDown)
                     builder.show()
 
 
@@ -1005,7 +1004,7 @@ class FlowAyahWordAdapter(
 
     inner class ItemViewAdapter @SuppressLint("CutPasteId") internal constructor(
         view: View,
-        viewType: Int
+        viewType: Int,
     ) : RecyclerView.ViewHolder(view), View.OnClickListener, View.OnLongClickListener {
         lateinit var  quran_jalalayn: TextView
       //  lateinit var  kathir_translation: TextView
