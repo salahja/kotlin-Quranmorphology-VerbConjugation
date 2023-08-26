@@ -86,7 +86,7 @@ class FlowAyahWordAdapter(
     private val liajlihient: List<LiajlihiEnt?>?,
     private val jumlahaliya: List<HalEnt?>?,
     private val mafoolBihis: List<MafoolBihi?>?,
-    private val header: ArrayList<String?>,
+    private val header: ArrayList<String>,
     private val allofQuran: List<QuranEntity?>?,
     private val ayahWordArrayList: ArrayList<CorpusAyahWord>?,
     var context: Context,

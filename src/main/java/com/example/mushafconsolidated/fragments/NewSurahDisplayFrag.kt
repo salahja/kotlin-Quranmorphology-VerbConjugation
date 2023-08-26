@@ -38,7 +38,6 @@ import com.example.mushafconsolidated.intrfaceimport.PassdataInterface
 import com.example.mushafconsolidated.model.Juz
 
 
- 
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -68,16 +67,16 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var juzSurahDisplayAdapter: JuzSurahDisplayAdapter
 
     //  SurahDisplayAdapter ParentAdapter;
-    private   lateinit var mItemClickListener: OnItemClickListener
+    private lateinit var mItemClickListener: OnItemClickListener
     lateinit var btnBottomSheet: FloatingActionButton
-    lateinit  var datapasser: PassdataInterface
+    lateinit var datapasser: PassdataInterface
     private var lastreadchapterno = 0
     private var lastreadverseno = 0
-    private lateinit  var allAnaChapters: ArrayList<ChaptersAnaEntity>
-    private  lateinit var parts: List<Juz>
-    private lateinit  var queryTextListener: SearchView.OnQueryTextListener
+    private lateinit var allAnaChapters: ArrayList<ChaptersAnaEntity>
+    private lateinit var parts: List<Juz>
+    private lateinit var queryTextListener: SearchView.OnQueryTextListener
     private lateinit var searchint: TextView
-    private lateinit  var bottomNavigationView: NavigationBarView
+    private lateinit var bottomNavigationView: NavigationBarView
 
     /*
 
@@ -133,7 +132,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
                     }
                     searchView.setOnQueryTextListener(queryTextListener)
                 }
-             //   super@MenuProvider.onPrepareMenu(menu)
+                //   super@MenuProvider.onPrepareMenu(menu)
             }
 
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -177,7 +176,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
             }
 
             override fun onMenuClosed(menu: Menu) {
-               // super@MenuProvider.onMenuClosed(menu)
+                // super@MenuProvider.onMenuClosed(menu)
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
         run {}
@@ -205,7 +204,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         container?.removeAllViews()
 
@@ -319,20 +318,20 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
                 transaction.commit()
             }
             if (item.itemId == R.id.conjugationnav) {
-            val conjugatorintent = Intent(activity, ConjugatorAct::class.java)
+                val conjugatorintent = Intent(activity, ConjugatorAct::class.java)
                 startActivity(conjugatorintent)
             }
             if (item.itemId == R.id.dua) {
-            /*    val searchintent = Intent(activity, HisnulBottomACT::class.java)
-                startActivity(searchintent)*/
+                /*    val searchintent = Intent(activity, HisnulBottomACT::class.java)
+                    startActivity(searchintent)*/
             }
             if (item.itemId == R.id.names) {
-             /*   val settingint = Intent(activity, GridImageAct::class.java)
+                /*   val settingint = Intent(activity, GridImageAct::class.java)
 
-                startActivity(settingint)*/
+                   startActivity(settingint)*/
             }
             if (item.itemId == R.id.mushafview) {
-              val settingints = Intent(activity, ShowMushafActivity::class.java)
+                val settingints = Intent(activity, ShowMushafActivity::class.java)
 
                 startActivity(settingints)
             }
@@ -368,7 +367,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
                 abjadname: String,
                 versescount: Int,
                 rukucount: Int,
-                ismakki: Int
+                ismakki: Int,
             ) {
                 datapasser.ondatarecevied(chapterid, abjadname, versescount, rukucount, ismakki)
             }

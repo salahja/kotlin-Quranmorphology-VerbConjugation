@@ -45,6 +45,7 @@
             android:label="@string/title_activity_root_breakup"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar" />
 
+
         <activity
             android:name="com.example.roots.arabicrootDetailHostActivity"
             android:exported="false"
@@ -90,6 +91,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
+        <activity
+            android:name=".Activity.WordbywordMushafAct"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="fullSensor">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+
+
 
         <activity
             android:name=".Activity.TafsirFullscreenActivity"

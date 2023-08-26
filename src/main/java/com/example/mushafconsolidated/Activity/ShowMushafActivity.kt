@@ -2245,9 +2245,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             } else {
                 editor.putInt("trackposition", currenttrack)
             }
-            if (ap != null) {
-                ap.add(audioPlayed)
-            }
+            ap?.add(audioPlayed)
             editor.apply()
             ConfigPreferences.setLastPlayedAudio(this, ap, surah.toString())
         }

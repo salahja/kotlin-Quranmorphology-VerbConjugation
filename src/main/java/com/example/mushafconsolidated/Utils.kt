@@ -952,6 +952,10 @@ class Utils {
         return database.QuranDao()?.getsurahayahVerses(id, aid)
     }
 
+    fun getQuranbySurahAyahrange(surahid: Int, from: Int, to: Int): List<QuranEntity?>? {
+        return  database.QuranDao()!!.getQuranbySurahAyahrange(surahid, from, to)
+    }
+
     /*
        public ArrayList<MafoolMutlaqEnt> getMafoolMutlaqword(int surah, int ayah, int wordno) {
         return (ArrayList<MafoolMutlaqEnt>) database.MafoolMutlaqEntDao().getMafoolbihiword(surah, ayah, wordno);

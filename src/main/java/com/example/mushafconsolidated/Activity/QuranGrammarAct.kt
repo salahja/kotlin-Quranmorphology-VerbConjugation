@@ -198,8 +198,8 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             startActivity(settingint)
             navigationView!!.setCheckedItem(R.id.Names)
         } else if (id == R.id.mushafview) {
-          //  val settingint = Intent(this, WordbywordMushafAct::class.java)
-        //    startActivity(settingint)
+          val settingint = Intent(this, WordbywordMushafAct::class.java)
+         startActivity(settingint)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -1053,7 +1053,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 surahorpart=chapterno
             }
             val listener: OnItemClickListenerOnLong = this
-            val header = ArrayList<String?>()
+            val header = ArrayList<String>()
             header.add(rukucount.toString())
             header.add(versescount.toString())
             header.add(chapterno.toString())
