@@ -7,8 +7,8 @@ import com.example.mushafconsolidated.Entities.HalEnt
 @Dao
 interface HaliyaDao {
     @Query("SELECT * FROM jumlahaliy where surah=:surah and ayah=:ayah and status=1")
-    fun getHaliya(surah: Int, ayah: Int): List<HalEnt?>?
+    fun getHaliya(surah: Int, ayah: Int): List<HalEnt>?
 
     @Query("SELECT * FROM jumlahaliy where surah=:surah and status=1")
-    fun getHaliyaSurah(surah: Int): List<HalEnt?>?
+    fun getHaliyaSurah(surah: Int): List<HalEnt>?
 }

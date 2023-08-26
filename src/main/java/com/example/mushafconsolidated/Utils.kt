@@ -881,7 +881,7 @@ class Utils {
     }
 
 
-    fun getMafoolLiajlihi(surah: Int, ayah: Int, wordno: Int): List<LiajlihiEnt?>? {
+    fun getMafoolLiajlihi(surah: Int, ayah: Int, wordno: Int): List<LiajlihiEnt>? {
         return Utils.Companion.database?.liajlihiDao()?.getMafoolLiajlihi(surah, ayah, wordno)
     }
 
@@ -893,7 +893,7 @@ class Utils {
         return Utils.Companion.database?.MafoolBihiDao()?.getMafoolbihi(surah, ayah, wordno)
     }
 
-    fun getMafoolbihiword(surah: Int, ayah: Int, wordno: Int): List<MafoolBihi?>? {
+    fun getMafoolbihiword(surah: Int, ayah: Int, wordno: Int): List<MafoolBihi>? {
         return Utils.Companion.database?.MafoolBihiDao()?.getMafoolbihi(surah, ayah, wordno)
     }
 
@@ -912,7 +912,7 @@ class Utils {
         return Utils.Companion.database?.MafoolBihiDao()?.getBySurah(surah)
     }
 
-    fun getHaliaErab(surah: Int, ayah: Int): List<HalEnt?>? {
+    fun getHaliaErab(surah: Int, ayah: Int): List<HalEnt>? {
         return Utils.Companion.database?.HaliyaDao()?.getHaliya(surah, ayah)
     }
 
@@ -935,7 +935,7 @@ class Utils {
         surah: Int,
         ayah: Int,
         wordno: Int,
-    ): List<MafoolMutlaqEnt?>? {
+    ): List<MafoolMutlaqEnt>? {
         return database?.MafoolMutlaqEntDao()
             ?.getMafoolbihiword(surah, ayah, wordno)
     }

@@ -21,6 +21,10 @@ import com.example.utility.QuranGrammarApplication
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
+import org.sj.conjugator.fragments.FragmentIsmIsmAla
+import org.sj.conjugator.fragments.FragmentIsmZarf
+import org.sj.conjugator.fragments.FragmentIsmfaelIsmMafools
+import org.sj.conjugator.fragments.FragmentVerb
 import ru.dimorinny.floatingtextbutton.FloatingTextButton
 
 
@@ -611,7 +615,7 @@ class LughatWordDetailsAct : BaseActivity() {
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[3].toString())
                 fragv.arguments = dataBundle
                 return fragv.newInstance()
-            }/* else if (position == 4) {
+            } else if (position == 4) {
                 val fragv = FragmentVerb()
                 fragv.arguments = dataBundle
                 return fragv.newInstance()
@@ -630,8 +634,8 @@ class LughatWordDetailsAct : BaseActivity() {
             }
             val fragv = FragmentVerb()
             fragv.arguments = dataBundle
-            return fragv.newInstance()*/
-            return TODO("Provide the return value")
+            return fragv.newInstance()
+
         }
 
         private fun getMujarradMajzoomOrMansub(position: Int): Fragment {

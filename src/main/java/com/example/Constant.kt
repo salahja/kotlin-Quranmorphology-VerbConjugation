@@ -148,7 +148,13 @@ object Constant {
     const val RECKT = "reckt"
     const val OVAL = "oval"
     const val ARC = "arc"
-
+    class Constant{
+        enum class Status {
+            PENDING,
+            RUNNING,
+            FINISHED
+        }
+    }
     //verb
     //AGFINST
     const val DATABASE_URL =

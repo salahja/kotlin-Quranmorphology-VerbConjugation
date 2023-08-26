@@ -18,7 +18,6 @@ import android.widget.ListView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant
@@ -35,10 +34,13 @@ import com.example.utility.CorpusUtilityorig
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
+import org.sj.conjugator.fragments.SarfSagheer
 
 
-class RootWordDisplayAdapter constructor(private var context: Context) :
-    RecyclerView.Adapter<RootWordDisplayAdapter.ItemViewAdapter>() {
+class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemViewAdapter> {
+
+
+    private lateinit var context: Context
     var mItemClickListener: OnItemClickListener? = null
     val alaheader: String = "اِسْم الآلَة"
     val zarfheader: String = "اِسْم الْظَرفْ"
@@ -48,6 +50,7 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
     var weaknesscolor: Int = 0
     var wazancolor: Int = 0
     var isSarfSagheerMazeed: Boolean = false
+     var isviewtype =2
 
     private var isSarfSagheerThulahi: Boolean = false
     private var isverbconjugation: Boolean = false
@@ -57,22 +60,65 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
     private lateinit var worddetails: HashMap<String, SpannableStringBuilder?>
     private lateinit var vbdetail: HashMap<String, String?>
     private lateinit var corpusexpand: ArrayList<NewCorpusExpandWbwPOJO>
-    private lateinit var ismfaelmafool: ArrayList<ArrayList<*>> 
-
+    private lateinit var ismfaelmafool: ArrayList<ArrayList<*>>
+    private var sarfsagheer: java.util.ArrayList<SarfSagheer>? = null
     private lateinit var spannable: SpannableStringBuilder
     private lateinit  var worddictorary: ArrayList<lughat>
     private lateinit var wazannumberslist: ArrayList<String> 
    
-  //new  private lateinit var sagheer: SarfSagheer
-    private  var mafoolbihi: ArrayList<MafoolBihi?>? =null
-    private  var tameez: ArrayList<TameezEnt?>? =null
+   private lateinit var sagheer: SarfSagheer
+    private  var mafoolbihi: ArrayList<MafoolBihi>? =null
+    private  var tameez: ArrayList<TameezEnt>? =null
     private lateinit var haliaSentence: ArrayList<HalEnt>
 
     // private ArrayList<GrammarWordEntity> grammarArayList = new ArrayList<>();
   //new  private lateinit var sarfsagheer: ArrayList<SarfSagheer>
-    private  var mutlaq: ArrayList<MafoolMutlaqEnt?>?   =null
-    private  var liajlihi: ArrayList<LiajlihiEnt?>? =null
+    private  var mutlaq: ArrayList<MafoolMutlaqEnt>?   =null
+    private  var liajlihi: ArrayList<LiajlihiEnt>? =null
     private lateinit var sharedPreferences: SharedPreferences
+    constructor(
+        context: Context,
+        haliaSentence: ArrayList<HalEnt>?,
+        tameez: ArrayList<TameezEnt>?,
+        mafoolbihi: ArrayList<MafoolBihi>?,
+        mutlaqword: ArrayList<MafoolMutlaqEnt>?,
+        liajlihiEntArrayList: ArrayList<LiajlihiEnt>?,
+        verb: Boolean,
+        wazannumberslist: ArrayList<String>?,
+        spannable: SpannableStringBuilder?,
+        noun: Boolean,
+        ismfaelmafool: ArrayList<ArrayList<*>>?,
+        participles: Boolean,
+        isverbconjugaton: Boolean,
+        corpusSurahWord: ArrayList<NewCorpusExpandWbwPOJO>?,
+        wordbdetail: HashMap<String, SpannableStringBuilder?>?,
+        vbdetail: HashMap<String, String?>?,
+        mazeedSarfSagheer: Boolean,
+        thulathiSarfSagheer: Boolean,
+        sarfSagheerList: ArrayList<SarfSagheer>?,
+    ) {
+        this.context = context
+        this.haliaSentence = haliaSentence!!
+        this.tameez = tameez!!
+        this.mafoolbihi = mafoolbihi!!
+        mutlaq = mutlaqword!!
+        liajlihi = liajlihiEntArrayList
+        isverb = verb
+        this.wazannumberslist = wazannumberslist!!
+        this.spannable = spannable!!
+        isnoun = noun
+        if (ismfaelmafool != null) {
+            this.ismfaelmafool = ismfaelmafool
+        }
+        particples = participles
+        isverbconjugation = isverbconjugaton
+        corpusexpand = corpusSurahWord!!
+        worddetails = wordbdetail!!
+        this.vbdetail = vbdetail!!
+        isSarfSagheerMazeed = mazeedSarfSagheer
+        isSarfSagheerThulahi = thulathiSarfSagheer
+        sarfsagheer = sarfSagheerList
+    }
 
 
     public override fun onCreateViewHolder(
@@ -81,26 +127,28 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
     ): RootWordDisplayAdapter.ItemViewAdapter {
         val view: View
         if (isverbconjugation) {
+          isviewtype=1
             view = LayoutInflater.from(parent.context!!)
                 .inflate(R.layout.qaris_view_word_details, parent, false)
         } else if (particples) {
+            isviewtype=2
             view = LayoutInflater.from(parent.context!!)
                 .inflate(R.layout.wordbottomsheetismfaelmafoolsktraditional, parent, false)
             //    view = LayoutInflater.from(parent.context!!).inflate(R.layout.qaris_view_word_details, parent, false);
         } else {
+            isviewtype=1
             view = LayoutInflater.from(parent.context!!)
                 .inflate(R.layout.qaris_view_word_details, parent, false)
         }
-        return ItemViewAdapter(view)
+        return ItemViewAdapter(view,viewType)
     }
-
     fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
         this.mItemClickListener = mItemClickListener
     }
 
     public override fun onBindViewHolder(
         holder: RootWordDisplayAdapter.ItemViewAdapter,
-        position: Int
+        position: Int,
     ) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
             context
@@ -205,7 +253,7 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
         }
         val ismfaelmafoolarray: ArrayList<*> = ArrayList<Any?>()
         if (isSarfSagheerMazeed || isSarfSagheerThulahi) {
-            //newsagheer = sarfsagheer!!.get(position)
+            sagheer = sarfsagheer!!.get(position)
             holder.mazeedmeaning.setText(vbdetail!!.get("mazeed"))
             holder.mazeedmeaning.setText(vbdetail!!.get("formnumber"))
             //    holder.mazeedmeaning.setText(Html.fromHtml(vbdetail.get("mazeed")));
@@ -256,8 +304,8 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
                 ajlihiwordspan.length,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
-            holder.liajlihitv.setText(ajlihiwordspan)
-            holder.liajlihitv.setVisibility(View.VISIBLE)
+            holder.liajlihitv!!.setText(ajlihiwordspan)
+            holder.liajlihitv!!.setVisibility(View.VISIBLE)
         }
         if (worddetails!!.get("mutlaqword") != null) {
             mutlaqwordspan.append("(").append("مفعول المطلق").append(")")
@@ -270,8 +318,8 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
                 mutlaqwordspan.length,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
-            holder.mutlaqtv.setText(mutlaqwordspan)
-            holder.mutlaqtv.setVisibility(View.VISIBLE)
+            holder.mutlaqtv!!.setText(mutlaqwordspan)
+            holder.mutlaqtv!!.setVisibility(View.VISIBLE)
         }
         var charSequence: CharSequence? = ""
         if (worddetails!!.get("mafoolbihi") != null) {
@@ -308,25 +356,25 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
             }
         }
         if (!haliaSentence!!.isEmpty()) {
-            holder.haliaSentence.setText(haliaSentence!!.get(0).text)
-            holder.haliaSentence.setVisibility(View.VISIBLE)
-            holder.haliaSentence.setTextSize(arabicFontsize!!.toFloat())
-            holder.haliaSentence.setTypeface(mequran)
-            holder.haliaSentence.setEllipsize(TextUtils.TruncateAt.MARQUEE)
+            holder.haliaSentence!!.setText(haliaSentence!!.get(0).text)
+            holder.haliaSentence!!.setVisibility(View.VISIBLE)
+            holder.haliaSentence!!.setTextSize(arabicFontsize!!.toFloat())
+            holder.haliaSentence!!.setTypeface(mequran)
+            holder.haliaSentence!!.setEllipsize(TextUtils.TruncateAt.MARQUEE)
         }
         if (mafoolbihiverb.length != 0) {
-            holder.mafoolat.setText(charSequence)
-            holder.mafoolat.setTextSize(arabicFontsize!!.toFloat())
-            holder.mafoolat.setVisibility(View.VISIBLE)
-            holder.mafoolat.setTypeface(mequran)
-            holder.mafoolat.setEllipsize(TextUtils.TruncateAt.MARQUEE)
+            holder.mafoolat!!.setText(charSequence)
+            holder.mafoolat!!.setTextSize(arabicFontsize!!.toFloat())
+            holder.mafoolat!!.setVisibility(View.VISIBLE)
+            holder.mafoolat!!.setTypeface(mequran)
+            holder.mafoolat!!.setEllipsize(TextUtils.TruncateAt.MARQUEE)
         }
         if (mafoolbihiverb.length != 0) {
-            holder.mafoolat.setText(charSequence)
-            holder.mafoolat.setTextSize(arabicFontsize!!.toFloat())
-            holder.mafoolat.setVisibility(View.VISIBLE)
-            holder.mafoolat.setTypeface(mequran)
-            holder.mafoolat.setEllipsize(TextUtils.TruncateAt.MARQUEE)
+            holder.mafoolat!!.setText(charSequence)
+            holder.mafoolat!!.setTextSize(arabicFontsize!!.toFloat())
+            holder.mafoolat!!.setVisibility(View.VISIBLE)
+            holder.mafoolat!!.setTypeface(mequran)
+            holder.mafoolat!!.setEllipsize(TextUtils.TruncateAt.MARQUEE)
         }
         val word: SpannableStringBuilder? = worddetails!!.get("word")
         holder.wordView.setText(word)
@@ -374,8 +422,8 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
             vb.append(vbdetail!!.get("mood"))
         }
         if (vbdetail!!.get("verbmood") != null) {
-            holder.moodrules.setVisibility(View.VISIBLE)
-            holder.moodrules.setText(vbdetail!!.get("verbmood"))
+            holder.moodrules?.setVisibility(View.VISIBLE)
+            holder.moodrules?.setText(vbdetail!!.get("verbmood"))
             //  holder.moodrules.setTextSize(arabicFontsize);
         }
         if (vb.length > 2) {
@@ -413,32 +461,32 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
             )
             //    holder.rootView.setTextSize(arabicFontsize);
         }
-    /*    if (isSarfSagheerMazeed || isSarfSagheerThulahi) {
+       if (isSarfSagheerMazeed || isSarfSagheerThulahi) {
             val zarf: StringBuilder  = StringBuilder ()
             val ismala: StringBuilder  = StringBuilder ()
-            holder.mamaroof.setText(sagheer!!.getMadhi())
-            holder.mumaroof.setText(sagheer!!.getMudharay())
-            holder.ismfail.setText(sagheer!!.getIsmfael())
-            holder.mamajhool.setText(sagheer!!.getMadhimajhool())
-            holder.mumajhool.setText(sagheer!!.getMudharaymajhool())
-            holder.ismmafool.setText(sagheer!!.getIsmmafool())
-            holder.amr.setText(sagheer!!.getAmrone())
-            holder.nahiamr.setText(sagheer!!.getNahiamrone())
-            holder.ismzarfheader.setText(zarfheader)
-            holder.ismalaheader.setText(alaheader)
-            ismala.append(sagheer!!.getIsmalaone() as CharSequence?).append(", ").append(
-                sagheer!!.getIsmalatwo()
-            ).append(", ").append(sagheer!!.getIsmalathree())
-            zarf.append(sagheer!!.getZarfone() as CharSequence?).append(", ")
-                .append(sagheer!!.getZarftwo()).append(", ").append(
-                sagheer!!.getZarfthree()
+           holder.mamaroof?.setText(sagheer.madhi)
+            holder.mumaroof?.setText(sagheer!!.mudharay)
+            holder.ismfail?.setText(sagheer!!.ismfael)
+            holder.mamajhool?.setText(sagheer!!.madhimajhool)
+            holder.mumajhool?.setText(sagheer!!.mudharaymajhool)
+            holder.ismmafool?.setText(sagheer!!.ismmafool)
+            holder.amr?.setText(sagheer!!.amrone)
+            holder.nahiamr?.setText(sagheer!!.nahiamrone)
+            holder.ismzarfheader?.setText(zarfheader)
+            holder.ismalaheader?.setText(alaheader)
+            ismala.append(sagheer!!.ismalaone as CharSequence?).append(", ").append(
+                sagheer!!.ismalatwo
+            ).append(", ").append(sagheer!!.ismalathree)
+            zarf.append(sagheer!!.zarfone as CharSequence?).append(", ")
+                .append(sagheer!!.zarftwo).append(", ").append(
+                sagheer!!.zarfthree
             )
-            holder.ismzarf.setText(zarf)
-            holder.ismala.setText(ismala)
-            holder.weaknessname.setText(sagheer!!.getWeakness())
-            holder.rootword.setText(sagheer!!.getVerbroot())
-            holder.babdetails.setText(sagheer!!.getWazanname())
-        }*/
+            holder.ismzarf?.setText(zarf)
+            holder.ismala?.setText(ismala)
+            holder.weaknessname?.setText(sagheer!!.weakness)
+            holder.rootword?.setText(sagheer!!.verbroot)
+            holder.babdetails?.setText(sagheer!!.wazanname)
+        }
         FontSizeSelection(holder)
         Fonttypeface(holder)
         //   VerbHeader(holder);
@@ -527,7 +575,7 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
 
     private fun IsmFael(
         holder: RootWordDisplayAdapter.ItemViewAdapter,
-        ismfaelmafoolarray: ArrayList<*>
+        ismfaelmafoolarray: ArrayList<*>,
     ) {
         val iisone: String = ismfaelmafool!!.get(0).get(0).toString() //isone);
         val iistwo: String = ismfaelmafool!!.get(0).get(2).toString() //istwo);
@@ -553,7 +601,7 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
 
     private fun IsmFaelFem(
         holder: RootWordDisplayAdapter.ItemViewAdapter,
-        ismfaelmafoolarray: ArrayList<*>
+        ismfaelmafoolarray: ArrayList<*>,
     ) {
         val iisone: String = ismfaelmafool!!.get(1).get(1).toString() //isone);
         val iistwo: String = ismfaelmafool!!.get(1).get(3).toString() //istwo);
@@ -602,7 +650,7 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
 
     private fun IsmMafool(
         holder: RootWordDisplayAdapter.ItemViewAdapter,
-        ismfaelmafoolarray: ArrayList<*>
+        ismfaelmafoolarray: ArrayList<*>,
     ) {
         val smafone: String = ismfaelmafool!!.get(0).get(0).toString()
         val smaftwo: String = ismfaelmafool!!.get(0).get(2).toString() //imaftwo);
@@ -796,11 +844,11 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
             holder.amr?.setTypeface(typeface)
             holder.nahiamr?.setTypeface(typeface)
             holder.babdetails?.setTypeface(typeface)
-            holder.babdetails.setTextColor(wazancolor)
+            holder.babdetails!!.setTextColor(wazancolor)
             holder.weaknesstype?.setTypeface(typeface)
-            holder.weaknesstype.setTextColor(weaknesscolor)
+            holder.weaknesstype!!.setTextColor(weaknesscolor)
             holder.weaknessname?.setTypeface(typeface)
-            holder.weaknessname.setTextColor(rootcolor)
+            holder.weaknessname!!.setTextColor(rootcolor)
         }
     }
 
@@ -820,60 +868,16 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
             holder.amr?.setTextSize(fontsize.toFloat())
             holder.nahiamr?.setTextSize(fontsize.toFloat())
             holder.babdetails?.setTextSize(fontsize.toFloat())
-            holder.babdetails.setTextColor(Color.YELLOW)
+            holder.babdetails!!.setTextColor(Color.YELLOW)
             holder.weaknesstype?.setTextSize(fontsize.toFloat())
-            holder.weaknesstype.setTextColor(Color.BLUE)
+            holder.weaknesstype!!.setTextColor(Color.BLUE)
             holder.weaknessname?.setTextSize(fontsize.toFloat())
-            holder.weaknessname.setTextColor(Color.GREEN)
+            holder.weaknessname!!.setTextColor(Color.GREEN)
         }
     }
 
-    fun setRootWordsAndMeanings(
-        haliaSentence: List<HalEnt?>?,
-        tameez: ArrayList<TameezEnt?>?,
-        mafoolbihi: ArrayList<MafoolBihi?>?,
-        mutlaq: ArrayList<MafoolMutlaqEnt?>?,
-        liajlihi: ArrayList<LiajlihiEnt?>?,
-        verb: Boolean,
-        wazannumberslist: ArrayList<String>,
-        spannableString: SpannableStringBuilder?,
-        noun: Boolean,
-        ismfaelmafool: ArrayList<ArrayList<*>>?,
-        participles: Boolean,
-        isverbconjugation: Boolean,
-        corpusSurahWord: ArrayList<NewCorpusExpandWbwPOJO>,
-        wordbdetail: HashMap<String, SpannableStringBuilder?>,
-        vbdetail: HashMap<String, String?>?,
-        isSarfSagheer: Boolean,
-        isSarfSagheerThulahi: Boolean,
-      //new  sarfsagheer: ArrayList<SarfSagheer>,
 
-        fragmentActivity: FragmentActivity
-    ) {
-        this.haliaSentence = haliaSentence as ArrayList<HalEnt>
-        this.tameez = tameez
-        this.mafoolbihi = mafoolbihi
-        isverb = verb
-        this.wazannumberslist = wazannumberslist
-        spannable = spannableString!!
-        isnoun = noun
-        if (ismfaelmafool != null) {
-            this.ismfaelmafool = ismfaelmafool
-        }
-        particples = participles
-        this.isverbconjugation = isverbconjugation
-       this.corpusexpand = corpusSurahWord
-        this.worddetails = wordbdetail
-        this.vbdetail = vbdetail!!
-       this. isSarfSagheerMazeed = isSarfSagheer
-      //new  this.sarfsagheer = sarfsagheer
-        this.isSarfSagheerThulahi = isSarfSagheerThulahi
-        this.mutlaq = mutlaq
-        this.liajlihi = liajlihi
-        this.context = fragmentActivity
-    }
-
-    inner class ItemViewAdapter(view: View) : RecyclerView.ViewHolder(view),
+    inner class ItemViewAdapter(view: View, viewType: Int) : RecyclerView.ViewHolder(view),
         View.OnClickListener // current clickListerner
     {
         val amr: TextView?
@@ -984,8 +988,8 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
         val nom3: TextView?
         val acc3: TextView?
         val gen3: TextView?
-        val wordDictionary: TextView
-        val moodrules: TextView
+        var wordDictionary: TextView?=null
+        var moodrules: TextView?=null
         //  val triroot: Chip
         // // val paradigm: Chip
         //  val rootdetails: Chip
@@ -1001,21 +1005,21 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
         val rootView: TextView
         val quranverseShart: TextView
         val spannableverse: TextView
-        val rootword: TextView
-        val wazan: TextView
-        val ismzarfheader: TextView
-        val ismalaheader: TextView
-        val masdaro: TextView
-        val masdart: TextView
-        val babdetails: TextView
-        val weaknessname: TextView
-        val weaknesstype: TextView
-        val mafoolat: TextView
-        val liajlihitv: TextView
-        val mutlaqtv: TextView
+        var rootword: TextView?=null
+        var wazan: TextView?=null
+        var ismzarfheader: TextView?=null
+        var ismalaheader: TextView?=null
+        var masdaro: TextView?=null
+        var masdart: TextView?=null
+        var babdetails: TextView?=null
+        var weaknessname: TextView?=null
+        var weaknesstype: TextView?=null
+        var mafoolat: TextView?=null
+        var liajlihitv: TextView?=null
+        var mutlaqtv: TextView?=null
         val sheet: View
         val wordView: Chip
-        val haliaSentence: TextView
+        var haliaSentence: TextView?=null
         val darkThemeBacground: MaterialCardView
 
         //  ListView list;
@@ -1033,9 +1037,10 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
         val nounoccurancebtn: TextView
         val tameeztv: TextView?
         //val expandable: ConstraintLayout
-        val ifverborpart: MaterialCardView
+        var ifverborpart: MaterialCardView?=null
 
         init {
+
             ifverborpart = view.findViewById(R.id.ifverborpart)
             moodrules = itemView.findViewById(R.id.moodrules)
             mazeedmeaning = itemView.findViewById(R.id.mazeedmeaning)
@@ -1045,19 +1050,14 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
             rdthree = view.findViewById(R.id.rdthree)
             rdfour = view.findViewById(R.id.rdfour)
             radioGroup = view.findViewById(R.id.rdgroup)
-            //   expandable = view.findViewById(R.id.wazanlist)
-            //   list=view.findViewById(R.id.verbrootlist);
-            //   verb = view.findViewById(R.id.verb)
-//            triroot = view.findViewById(R.id.triroot)
-//            paradigm = view.findViewById(R.id.paradigm)
-            //   rootdetails = view.findViewById(R.id.rootdetails)
+
             wordDictionary = view.findViewById(R.id.wordDictionary)
             spannableverse = view.findViewById(R.id.spannableverse)
             quranverseShart = view.findViewById(R.id.quranverseShart)
             verbconjugationbtn = view.findViewById(R.id.verbconjugationbtn)
             //   verbOccurancebtn = view.findViewById(R.id.verboccurance);
             nounoccurancebtn = view.findViewById(R.id.wordoccurance)
-            rootword = view.findViewById(R.id.weaknesstype)
+           rootword = view.findViewById(R.id.weaknesstype)
             ismzarfheader = view.findViewById(R.id.ismzarfheader)
             pronoundetails = view.findViewById(R.id.pronoundetails)
             noundetails = view.findViewById(R.id.noundetails)
@@ -1095,7 +1095,7 @@ class RootWordDisplayAdapter constructor(private var context: Context) :
             spannableverse.setOnClickListener(this)
             wordView.setOnClickListener(this)
             if (isverbconjugation || particples) {
-                ifverborpart.visibility = View.VISIBLE
+                ifverborpart!!.visibility = View.VISIBLE
                 verbconjugationbtn.setOnClickListener(this)
                 //     verbOccurancebtn.setOnClickListener(this);
                 nounoccurancebtn.setOnClickListener(this)
