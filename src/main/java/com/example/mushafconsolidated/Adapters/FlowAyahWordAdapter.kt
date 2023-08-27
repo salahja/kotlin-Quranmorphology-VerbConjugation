@@ -114,6 +114,7 @@ class FlowAyahWordAdapter(
     private lateinit var  ayahWord: CorpusAyahWord
     private val isaudio: Boolean
 
+
     init {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
             context

@@ -128,7 +128,7 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
                 //  new InitialAsyncTask(quranAppDatabaseInstance).execute();
             }
         }
-     //   var quranAppDatabaseInstance: QuranAppDatabase? = null
+        var quranAppDatabaseInstance: QuranAppDatabase? = null
         var quranAppDatabaseInstanceasset: QuranAppDatabase? = null
 
         @Synchronized
@@ -151,7 +151,7 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
 
 
 
-             /*
+
                 quranAppDatabaseInstance = Room.databaseBuilder(
                     context,
                     QuranAppDatabase::class.java, "qurangrammar.db"
@@ -159,10 +159,10 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
                     .createFromFile(mainDatabase) //          .fallbackToDestructiveMigration()
                     .addCallback(initialCallBack)
                     .allowMainThreadQueries()
-                    .build()*/
+                    .build()
 
             }
-         //   return quranAppDatabaseInstance
+          //  return quranAppDatabaseInstance
             return quranAppDatabaseInstanceasset;
         }
     }

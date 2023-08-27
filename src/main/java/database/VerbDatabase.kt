@@ -13,7 +13,7 @@ import database.Dao.mazeedDao
 import database.Dao.mujarradDao
 import database.Dao.verbcorpusDao
 import database.entity.BuckwaterEntitiy
-import database.entity.Mazeed
+import database.entity.MazeedEntity
 import database.entity.MujarradVerbs
 import database.entity.QuranVerbsEntity
 import database.entity.QuranicVerbsEntity
@@ -21,7 +21,7 @@ import database.entity.kov
 import database.entity.verbcorpus
 
 @Database(
-    entities = [Mazeed::class, MujarradVerbs::class, kov::class, verbcorpus::class, BuckwaterEntitiy::class, QuranVerbsEntity::class, QuranicVerbsEntity::class],
+    entities = [MazeedEntity::class, MujarradVerbs::class, kov::class, verbcorpus::class, BuckwaterEntitiy::class, QuranVerbsEntity::class, QuranicVerbsEntity::class],
     version = 2
 )
 abstract class VerbDatabase : RoomDatabase() {

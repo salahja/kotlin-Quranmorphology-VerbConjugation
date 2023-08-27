@@ -1,7 +1,7 @@
 package database
 
 import android.content.Context
-import database.entity.Mazeed
+import database.entity.MazeedEntity
 import database.entity.MujarradVerbs
 import database.entity.QuranVerbsEntity
 import database.entity.QuranicVerbsEntity
@@ -46,12 +46,12 @@ class VerbDatabaseUtils(context: Context?) {
         return database.mujarradDao()!!.getMujarradWeakness(kov) as ArrayList<MujarradVerbs?>?
     }
 
-    fun getMazeedWeakness(kov: String?): ArrayList<Mazeed?>? {
-        return database.mazeedDao()!!.getMazeedWeakness(kov) as ArrayList<Mazeed?>?
+    fun getMazeedWeakness(kov: String?): ArrayList<MazeedEntity?>? {
+        return database.mazeedDao()!!.getMazeedWeakness(kov) as ArrayList<MazeedEntity?>?
     }
 
-    fun getMazeedRoot(root: String?): ArrayList<Mazeed?>? {
-        return database.mazeedDao()!!.getMazeedRoot(root) as ArrayList<Mazeed?>?
+    fun getMazeedRoot(root: String?): ArrayList<MazeedEntity?>? {
+        return database.mazeedDao()!!.getMazeedRoot(root) as ArrayList<MazeedEntity?>?
     }
 
     fun verbcorpuses(): ArrayList<verbcorpus?>? {

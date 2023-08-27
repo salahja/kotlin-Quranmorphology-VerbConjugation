@@ -25,6 +25,16 @@ import leakcanary.LeakCanary.config
 import java.util.Locale
 
 class QuranGrammarApplication : Application() {
+
+   // private val applicationScope = CoroutineScope(SupervisorJob())
+
+    /** By using lazy the database and the repository are only created when they're needed
+     * rather than when the application starts
+     **/
+    //val database: AppDatabase by lazy { AppDatabase.getDatabase(this) }
+
+  //  val database:KtVerbDatabase by lazy { KtVerbDatabase.getDatabase(this) }
+   // val repository by lazy { MazeedInfoRepository(database.MazeedDao()) }
     override fun onCreate() {
         super.onCreate()
         val config: LeakCanary.Config = config

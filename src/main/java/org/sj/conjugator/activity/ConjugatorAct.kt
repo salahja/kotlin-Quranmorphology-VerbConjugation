@@ -34,7 +34,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import database.VerbDatabaseUtils
-import database.entity.Mazeed
+import database.entity.MazeedEntity
 import database.entity.MujarradVerbs
 import org.sj.conjugator.fragments.SettingsFragmentVerb
 import org.sj.conjugator.utilities.SharedPref
@@ -77,7 +77,7 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
     private  lateinit var keyboard: View
 
     private  lateinit var inputConnection: InputConnection
-    private   var mazeedVerb: ArrayList<Mazeed> = ArrayList<Mazeed>()
+    private   var mazeedEntityVerbs: ArrayList<MazeedEntity> = ArrayList<MazeedEntity>()
     private   var isautocomplete = false
     fun setIsautocomplete(isautocomplete: Boolean) {
         this.isautocomplete = isautocomplete
@@ -431,7 +431,7 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
             R.id.tafeel -> {
                 typedValues
                 //   rivate void InitDiaalog(String root, String wazan, String verbtype) {
-                InitDiaalog(mazeedVerb[0].root, "2", "mazeed")
+                InitDiaalog(mazeedEntityVerbs[0].root, "2", "mazeed")
             }
 
             R.id.mujarradbtn -> {
@@ -454,38 +454,38 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
 
             R.id.mufala -> {
                 typedValues
-                InitDiaalog(mazeedVerb[0].root, "3", "mazeed")
+                InitDiaalog(mazeedEntityVerbs[0].root, "3", "mazeed")
             }
 
             R.id.ifal -> {
                 typedValues
-                InitDiaalog(mazeedVerb[0].root, "1", "mazeed")
+                InitDiaalog(mazeedEntityVerbs[0].root, "1", "mazeed")
             }
 
             R.id.tafaul -> {
                 typedValues
-                InitDiaalog(mazeedVerb[0].root, "7", "mazeed")
+                InitDiaalog(mazeedEntityVerbs[0].root, "7", "mazeed")
             }
 
             R.id.tafaaaul -> {
                 typedValues
-                InitDiaalog(mazeedVerb[0].root, "8", "mazeed")
+                InitDiaalog(mazeedEntityVerbs[0].root, "8", "mazeed")
             }
 
             R.id.infala -> {
                 typedValues
-                InitDiaalog(mazeedVerb[0].root, "4", "mazeed")
+                InitDiaalog(mazeedEntityVerbs[0].root, "4", "mazeed")
             }
 
             R.id.iftiala -> {
                 typedValues
-                InitDiaalog(mazeedVerb[0].root, "5", "mazeed")
+                InitDiaalog(mazeedEntityVerbs[0].root, "5", "mazeed")
             }
 
             R.id.istifala -> {
                 typedValues
                 //   rivate void InitDiaalog(String root, String wazan, String verbtype) {
-                InitDiaalog(mazeedVerb[0].root, "9", "mazeed")
+                InitDiaalog(mazeedEntityVerbs[0].root, "9", "mazeed")
             }
 
             R.id.nasara -> {
@@ -610,8 +610,8 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
                 }
             }
         }
-        mazeedVerb = utils.getMazeedRoot(root) as ArrayList<Mazeed>
-        for (s in mazeedVerb) {
+        mazeedEntityVerbs = utils.getMazeedRoot(root) as ArrayList<MazeedEntity>
+        for (s in mazeedEntityVerbs) {
             when (s.form) {
                 "1" -> {
                     ifal.setText(s.babname)
@@ -667,7 +667,7 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
         for (entity in mujarradVerbs) {
             thulathia.add(entity.babname)
         }
-        for (dict in mazeedVerb) {
+        for (dict in mazeedEntityVerbs) {
             mazeed.add(dict.babname + "," + dict.form)
         }
         if ((thulathia.size == 0) and (mazeed.size == 0)) {

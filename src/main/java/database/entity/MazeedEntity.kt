@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "mazeed")
-class Mazeed(/*
+class MazeedEntity(/*
    root!!     TEXT    NOT NULL,
     form     TEXT    NOT NULL,
     verbtype TEXT    NOT NULL,
@@ -16,10 +16,10 @@ class Mazeed(/*
 );
  */
              var root: String,
-             var form: String,
-             var verbtype: String,
-             var babname: String,
-             var kov: String,
-             var kovname: String,
-             @field:PrimaryKey var id: Int
+                   var form: String,
+                   var verbtype: String,
+                   var babname: String,
+                   var kov: String,
+                   var kovname: String,
+                   @field:PrimaryKey var id: Int
 )

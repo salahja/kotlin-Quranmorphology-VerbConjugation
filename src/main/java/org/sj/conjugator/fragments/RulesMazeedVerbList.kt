@@ -22,7 +22,7 @@ import com.example.Constant.VERBTYPE
 import com.example.mushafconsolidated.R
 import com.example.utility.QuranGrammarApplication
 import database.VerbDatabaseUtils
-import database.entity.Mazeed
+import database.entity.MazeedEntity
 import org.sj.conjugator.activity.ConjugatorTabsActivity
 import org.sj.conjugator.adapter.SarfMujarradSarfSagheerListingAdapter
 import org.sj.conjugator.interfaces.OnItemClickListener
@@ -103,8 +103,8 @@ class RulesMazeedVerbList : Fragment {
         ex.execute {
             requireActivity().runOnUiThread { dialog.show() }
             val utils = VerbDatabaseUtils(QuranGrammarApplication.context)
-            val mazeedWeakness: java.util.ArrayList<Mazeed> = utils.getMazeedWeakness(kov) as java.util.ArrayList<Mazeed>
-            listingMazeedWeakness(ssagheer, mazeedWeakness)
+            val mazeedEntityWeaknesses: java.util.ArrayList<MazeedEntity> = utils.getMazeedWeakness(kov) as java.util.ArrayList<MazeedEntity>
+            listingMazeedWeakness(ssagheer, mazeedEntityWeaknesses)
             requireActivity().runOnUiThread {
                 ex.shutdown()
                 sarfsagheerAdapter = SarfMujarradSarfSagheerListingAdapter(
@@ -121,7 +121,7 @@ class RulesMazeedVerbList : Fragment {
 
     private fun listingMazeedWeakness(
         ssagheer: ArrayList<SarfSagheer>,
-        mujarradBYWeakness: ArrayList<Mazeed>
+        mujarradBYWeakness: ArrayList<MazeedEntity>
     ) {
         for (s in mujarradBYWeakness) {
             val listing: ArrayList<ArrayList<*>> = GatherAll.instance.getMazeedListing(

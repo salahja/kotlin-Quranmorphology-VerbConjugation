@@ -65,7 +65,7 @@ import com.example.utility.CorpusUtilityorig.Companion.getSpancolor
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.button.MaterialButton
 import database.VerbDatabaseUtils
-import database.entity.Mazeed
+import database.entity.MazeedEntity
 import database.entity.MujarradVerbs
 import org.sj.conjugator.activity.ConjugatorTabsActivity
 import org.sj.conjugator.fragments.SarfSagheer
@@ -368,9 +368,9 @@ class WordAnalysisBottomSheet : DialogFragment() {
             }
         } else if (isroot!! && ismazeed && !isparticple) {
             val databaseUtils = VerbDatabaseUtils(QuranGrammarApplication.context!!)
-            val mazeedRoot: java.util.ArrayList<Mazeed> =
-                databaseUtils.getMazeedRoot(root!!) as java.util.ArrayList<Mazeed>
-            if (!mazeedRoot.isEmpty()) {
+            val mazeedEntityRoots: java.util.ArrayList<MazeedEntity> =
+                databaseUtils.getMazeedRoot(root!!) as java.util.ArrayList<MazeedEntity>
+            if (!mazeedEntityRoots.isEmpty()) {
                 isMazeedSarfSagheer = true
 
                 isThulathiSarfSagheer = false
