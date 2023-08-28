@@ -34,7 +34,6 @@ import com.example.mushafconsolidated.DAO.qurandictionaryDao
 import com.example.mushafconsolidated.DAO.surahsummaryDao
 import com.example.mushafconsolidated.DAO.tameezDao
 import com.example.mushafconsolidated.DAO.wbwDao
-import com.example.mushafconsolidated.Entities.AllahNamesDetails
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
@@ -64,12 +63,21 @@ import com.example.mushafconsolidated.Entities.quranexplorer
 import com.example.mushafconsolidated.Entities.surahsummary
 import com.example.mushafconsolidated.Entities.wbwentity
 import com.example.mushafconsolidated.settingsimport.Constants.Companion.DATABASENAME
+import database.Dao.NamesDao
+import database.entity.AllahNames
+import sj.hisnul.Dao.hDuaCategoryDao
+import sj.hisnul.Dao.hDuaItemDao
+import sj.hisnul.Dao.hDuaNamesDao
+import sj.hisnul.entity.AllahNamesDetails
+import sj.hisnul.entity.hcategory
+import sj.hisnul.entity.hduadetails
+import sj.hisnul.entity.hduanames
 import java.io.File
 
 //@Database(entities= {VerseEntit.class,ErabEntity.class,ChaptersAnaEntity.class},version= 1)
 //orig     entities = [lanerootdictionary::class, Qari::class, Cities::class, Countries::class, hcategory::class, hduadetails::class, hduanames::class, surahsummary::class, quranexplorer::class, AllahNamesDetails::class, AllahNames::class, DuaGroup::class, DuaDetails::class, MafoolMutlaqEnt::class, BadalErabNotesEnt::class, HalEnt::class, MafoolBihi::class, LiajlihiEnt::class, TameezEnt::class, GrammarRules::class, hanslexicon::class, qurandictionary::class, lanelexicon::class, lughat::class, NewNasbEntity::class, NewShartEntity::class, NewKanaEntity::class, NewMudhafEntity::class, SifaEntity::class, wbwentity::class, NounCorpus::class, VerbCorpus::class, QuranEntity::class, CorpusEntity::class, BookMarks::class, ChaptersAnaEntity::class],
 @Database(
-    entities = [lanerootdictionary::class, Qari::class, surahsummary::class, quranexplorer::class, AllahNamesDetails::class, MafoolMutlaqEnt::class, BadalErabNotesEnt::class, HalEnt::class, MafoolBihi::class, LiajlihiEnt::class, TameezEnt::class, GrammarRules::class, hanslexicon::class, qurandictionary::class, lanelexicon::class, lughat::class, NewNasbEntity::class, NewShartEntity::class, NewKanaEntity::class, NewMudhafEntity::class, SifaEntity::class, wbwentity::class, NounCorpus::class, VerbCorpus::class, QuranEntity::class, CorpusEntity::class, BookMarks::class, ChaptersAnaEntity::class],
+    entities = [hduadetails::class, hduanames::class, hcategory::class,AllahNamesDetails::class,lanerootdictionary::class, Qari::class, surahsummary::class, quranexplorer::class, AllahNames::class, MafoolMutlaqEnt::class, BadalErabNotesEnt::class, HalEnt::class, MafoolBihi::class, LiajlihiEnt::class, TameezEnt::class, GrammarRules::class, hanslexicon::class, qurandictionary::class, lanelexicon::class, lughat::class, NewNasbEntity::class, NewShartEntity::class, NewKanaEntity::class, NewMudhafEntity::class, SifaEntity::class, wbwentity::class, NounCorpus::class, VerbCorpus::class, QuranEntity::class, CorpusEntity::class, BookMarks::class, ChaptersAnaEntity::class],
     version = 1
 )
 abstract class QuranAppDatabase constructor() : RoomDatabase() {
@@ -112,13 +120,16 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
     abstract fun QariDao(): QariDao
 
 
-/*    abstract fun NamesDao(): NamesDao?
+   abstract fun NamesDao(): NamesDao?
     abstract fun hDuaItemDao(): hDuaItemDao?
     abstract fun hDuaNamesDao(): hDuaNamesDao?
     abstract fun hDuaCategoryDao(): hDuaCategoryDao?
+
+/*
     abstract fun CountryDao(): CountryDao?
     abstract fun CitiesDAO(): CitiesDAO?
-   */
+*/
+
 
     companion object {
         //  public static  <QuranAppDatabase> quranAppDatabaseInstance;

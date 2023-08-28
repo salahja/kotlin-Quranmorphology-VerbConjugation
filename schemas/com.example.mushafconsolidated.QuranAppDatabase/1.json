@@ -2,8 +2,244 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "8727d0166e3983ca09517aedbd312e5d",
+    "identityHash": "517a71307686f677dc531815b0a14aa2",
     "entities": [
+      {
+        "tableName": "hduadetails",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`book_id` INTEGER NOT NULL, `dua_global_id` INTEGER NOT NULL, `ID` TEXT NOT NULL, `dua_segment_id` INTEGER NOT NULL, `top` TEXT, `arabic_diacless` TEXT, `arabic` TEXT, `transliteration` TEXT, `translations` TEXT, `bottom` TEXT, `reference` TEXT, `app_reference` TEXT, `pid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "book_id",
+            "columnName": "book_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dua_global_id",
+            "columnName": "dua_global_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ID",
+            "columnName": "ID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dua_segment_id",
+            "columnName": "dua_segment_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "top",
+            "columnName": "top",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "arabic_diacless",
+            "columnName": "arabic_diacless",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "arabic",
+            "columnName": "arabic",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transliteration",
+            "columnName": "transliteration",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "translations",
+            "columnName": "translations",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "bottom",
+            "columnName": "bottom",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "reference",
+            "columnName": "reference",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "app_reference",
+            "columnName": "app_reference",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pid",
+            "columnName": "pid",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "pid"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "hduanames",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`dua_global_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `book_id` INTEGER NOT NULL, `chap_id` INTEGER NOT NULL, `dua_id` TEXT, `chapname` TEXT, `duaname` TEXT NOT NULL, `tags` TEXT, `ID` TEXT NOT NULL, `category` TEXT NOT NULL, `fav` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "dua_global_id",
+            "columnName": "dua_global_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "book_id",
+            "columnName": "book_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chap_id",
+            "columnName": "chap_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dua_id",
+            "columnName": "dua_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "chapname",
+            "columnName": "chapname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "duaname",
+            "columnName": "duaname",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tags",
+            "columnName": "tags",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ID",
+            "columnName": "ID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fav",
+            "columnName": "fav",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "dua_global_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "hcategory",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`title` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "namedetails",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `summary` TEXT NOT NULL, `details` TEXT NOT NULL, `ref` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "summary",
+            "columnName": "summary",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "details",
+            "columnName": "details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ref",
+            "columnName": "ref",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
       {
         "tableName": "lanesrootdictionary",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rootarabic` TEXT NOT NULL, `rootbuckwater` TEXT NOT NULL, `definition` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
@@ -157,8 +393,8 @@
         "foreignKeys": []
       },
       {
-        "tableName": "namedetails",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `summary` TEXT NOT NULL, `details` TEXT NOT NULL, `ref` TEXT, PRIMARY KEY(`id`))",
+        "tableName": "Names",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `arabic` TEXT NOT NULL, `trans` TEXT NOT NULL, `meaning` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -167,28 +403,22 @@
             "notNull": true
           },
           {
-            "fieldPath": "title",
-            "columnName": "title",
+            "fieldPath": "arabic",
+            "columnName": "arabic",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "summary",
-            "columnName": "summary",
+            "fieldPath": "trans",
+            "columnName": "trans",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "details",
-            "columnName": "details",
+            "fieldPath": "meaning",
+            "columnName": "meaning",
             "affinity": "TEXT",
             "notNull": true
-          },
-          {
-            "fieldPath": "ref",
-            "columnName": "ref",
-            "affinity": "TEXT",
-            "notNull": false
           }
         ],
         "primaryKey": {
@@ -2115,7 +2345,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8727d0166e3983ca09517aedbd312e5d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '517a71307686f677dc531815b0a14aa2')"
     ]
   }
 }

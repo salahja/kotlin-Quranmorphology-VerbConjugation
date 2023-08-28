@@ -55,7 +55,7 @@ import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.model.CorpusAyahWord
 import com.example.mushafconsolidated.model.CorpusWbwWord
 import com.example.mushafconsolidatedimport.Config
-import com.example.mushafconsolidatedimport.NamesDetail
+import sj.hisnul.fragments.NamesDetail
 import com.example.mushafconsolidatedimport.ParticleColorScheme
 import com.example.utility.AnimationUtility
 import com.example.utility.CorpusUtilityorig

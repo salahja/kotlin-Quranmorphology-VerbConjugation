@@ -78,7 +78,7 @@ import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.intrfaceimport.PassdataInterface
 import com.example.mushafconsolidated.model.CorpusAyahWord
 import com.example.mushafconsolidated.model.CorpusWbwWord
-import com.example.mushafconsolidatedimport.NamesDetail
+import com.example.mushafconsolidated.settingsimport.Constants
 import com.example.mushafconsolidatedimport.ParticleColorScheme
 import com.example.roots.arabicrootDetailHostActivity
 import com.example.utility.CorpusUtilityorig
@@ -88,8 +88,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import database.NamesGridImageAct
 import org.ahocorasick.trie.Trie
 import org.sj.conjugator.activity.ConjugatorAct
+import sj.hisnul.activity.HisnulBottomACT
+import sj.hisnul.fragments.NamesDetail
 import wheel.OnWheelChangedListener
 import wheel.WheelView
 import java.io.File
@@ -352,15 +355,15 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 startActivity(conjugatorintent)
             }
             if (item.itemId == R.id.dua) {
-                /*     materialToolbar!!.title = "Hisnul Muslim-Dua;s"
+                    materialToolbar!!.title = "Hisnul Muslim-Dua;s"
                          val searchintent = Intent(this@QuranGrammarAct, HisnulBottomACT::class.java)
-                         startActivity(searchintent)*/
+                         startActivity(searchintent)
             }
             if (item.itemId == R.id.names) {
-                /*        materialToolbar!!.title = "Quran Audio"
-                         val settingint = Intent(this@QuranGrammarAct, GridImageAct::class.java)
+                     materialToolbar!!.title = "Quran Audio"
+                       val settingint = Intent(this@QuranGrammarAct, NamesGridImageAct::class.java)
                          settingint.putExtra(Constants.SURAH_INDEX, chapterno)
-                         startActivity(settingint)*/
+                         startActivity(settingint)
             }
             if (item.itemId == R.id.mushafview) {
                 materialToolbar!!.title = "Mushaf"

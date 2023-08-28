@@ -1,6 +1,7 @@
 package com.example.mushafconsolidated.Entities
 import androidx.room.Dao
 import androidx.room.Query
+import sj.hisnul.entity.AllahNamesDetails
 
 //.AllahNamesDetails
 

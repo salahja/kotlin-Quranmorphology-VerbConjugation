@@ -11,7 +11,6 @@ import android.util.Log
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.mushafconsolidated.DAO.BookMarkDao
 import com.example.mushafconsolidated.DAO.BookMarksPojo
-import com.example.mushafconsolidated.Entities.AllahNamesDetails
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
@@ -54,6 +53,11 @@ import com.example.mushafconsolidated.Entities.surahsummary
 import com.example.mushafconsolidated.Entities.wbwentity
 import com.example.mushafconsolidated.QuranAppDatabase
 import com.example.mushafconsolidated.model.Juz
+import database.entity.AllahNames
+import sj.hisnul.entity.AllahNamesDetails
+import sj.hisnul.entity.hcategory
+import sj.hisnul.entity.hduadetails
+import sj.hisnul.entity.hduanames
 
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
@@ -965,20 +969,23 @@ class Utils {
 
     }
 
-     *//*
+     */
+
+ /*
     fun getMafoolMutlaqword(surah: Int, ayah: Int, wordno: Int): List<MafoolMutlaqEnt?>? {
         return Utils.Companion.database?.MafoolMutlaqEntDao()?.getMafoolbihiword(surah, ayah, wordno)
     }
 
     fun getMutlaqsurah(surah: Int): List<MafoolMutlaqEnt?>? {
         return Utils.Companion.database?.MafoolMutlaqEntDao()?.getMutlaqsurah(surah)
-    }
-    val allList: ArrayList<hduanames>
-        get() {
-            return Utils.Companion.database?.hDuaNamesDao()?.getDuanames() as ArrayList<hduanames>
-        }
+    }*/
 
-    fun getdualistbychapter(cid: Int): MutableList<hduanames>? {
+    fun getAllList(): List<hduanames?>? {
+        return database.hDuaNamesDao()?.duanames
+    }
+
+
+    fun getdualistbychapter(cid: Int): List<hduanames?>? {
         return Utils.Companion.database?.hDuaNamesDao()?.getdualistbychapter(cid)
     }
 
@@ -986,29 +993,8 @@ class Utils {
         get() {
             return Utils.Companion.database?.hDuaCategoryDao()?.getcatetory() as ArrayList<hcategory>
         }
-    val allCities: List<Cities>
-        get() {
-            return Utils.Companion.database?.CitiesDAO()?.getCities() as List<Cities>
-        }
 
-    fun getLocinfo(latitude: Double, longitude: Double): LocationInfo? {
-        val sqlverb: String =
-            ("select cityd.latitude,cityd.longitude,cityd.time_zone,Countries.Number,Countries.mazhab,Countries.way,Countries.dls,Countries.En_Name,Countries.En_Full_Name,\n" +
-                    "Countries.iso3,Countries.Ar_Name,Countries.Continent_Code from cityd ,countries" +
-                    "    where   CorpusExpand.surah = \""
-                    + latitude + "\""
-                    + "and Corpusexpand.ayah=\""
-                    + longitude + "\"")
-        val sqls: String =
-            ("select  b.En_Name , b.Ar_Name , b.iso3 , a.city ,a.latitude,a.longitude," +
-                    " b.Continent_Code ,  b.number  , b.mazhab , b.way , b.dls , a.time_zone ," +
-                    " (latitude - " + latitude + ")*(latitude - " + latitude + ")+(longitude - " + longitude + ")" +
-                    "*(longitude - " + longitude + ") as ed , a.Ar_Name  from cityd a , countries b where" +
-                    " b.code = a.country order by ed asc limit 1;")
-        val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqls)
 
-        return Utils.Companion.database?.RawDao()?.getLocinfo(query)
-    }
 
     val names: ArrayList<AllahNames>
         get() {
@@ -1029,53 +1015,38 @@ class Utils {
         return updadateRoots
     }
 
-    fun getDunamesbyid(id: String?): MutableList<hduanames>? {
+    fun getDunamesbyid(id: String?): List<hduanames?>? {
         return Utils.Companion.database?.hDuaNamesDao()?.getDuanamesid(id)
     }
 
-    fun getDunamesbyCatId(id: String?): MutableList<hduanames>? {
+    fun getDunamesbyCatId(id: String?): List<hduanames?>? {
         return Utils.Companion.database?.hDuaNamesDao()?.getDunamesbyCatId(id)
     }
 
-    fun getDunamesbyCatIdnew(id: String?): MutableList<hduanames>? {
+    fun getDunamesbyCatIdnew(id: String?): List<hduanames?>? {
         return Utils.Companion.database?.hDuaNamesDao()?.getDunamesbyCatIdnew(id)
     }
 
-    fun getDuanamesDetails(id: String?): MutableList<hduanames>? {
+    fun getDuanamesDetails(id: String?): List<hduanames?>? {
         return Utils.Companion.database?.hDuaNamesDao()?.getDuanamesByID(id)
     }
 
-    fun getBookmarked(id: Int): MutableList<hduanames>? {
+    fun getBookmarked(id: Int): List<hduanames?>? {
         return Utils.Companion.database?.hDuaNamesDao()?.getBookmarked(id)
     }
 
-    fun getIsmarked(id: String?): MutableList<hduanames>? {
+    fun getIsmarked(id: String?): List<hduanames?>? {
         return Utils.Companion.database?.hDuaNamesDao()?.isBookmarked(id)
     }
 
-    fun gethDuadetailsitems(id: String?): MutableList<hduadetails>? {
+    fun gethDuadetailsitems(id: String?): List<hduadetails?>? {
         return Utils.Companion.database?.hDuaItemDao()?.getDitem(id)
     }
 
     //muslim mate
-    val allCountries: MutableList<Countries>?
-        get() {
-            return Utils.Companion.database?.CountryDao()?.getAllCountries()
-        }
 
-    fun GetCountryCitycode(code: String?): MutableList<Countries>? {
-        return Utils.Companion.database?.CountryDao()?.getCountryCodebycityname(code)
-    }
 
-    fun getCCwithCityname(code: String?): List<Countries> {
-        return Utils.Companion.database?.CountryDao()!!.getCountryCodebycityname(code)
-    }
 
-    fun GetCitycode(code: String?): List<Cities> {
-        return Utils.Companion.database?.CitiesDAO()?.getCityCode(code) as List<Cities>
-    }
-
-*/
     //  List<Book> result = booksDao.getBooks(query);
     val collectionC: List<BookMarksPojo?>?
         get() {

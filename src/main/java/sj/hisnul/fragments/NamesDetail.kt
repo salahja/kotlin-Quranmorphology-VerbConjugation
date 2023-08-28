@@ -1,4 +1,4 @@
-package com.example.mushafconsolidatedimport
+package sj.hisnul.fragments
 
 
 import android.os.Bundle
@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.TextView
-import com.example.mushafconsolidated.Entities.AllahNamesDetails
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import sj.hisnul.entity.AllahNamesDetails
 
 
 /**
@@ -98,7 +98,7 @@ class NamesDetail constructor() : BottomSheetDialogFragment() {
         fun newInstance(data: Int): NamesDetail {
             val fragment: NamesDetail = NamesDetail()
             val args: Bundle = Bundle()
-            args.putInt(NamesDetail.Companion.ARG_OPTIONS_DATA, data)
+            args.putInt(ARG_OPTIONS_DATA, data)
             fragment.setArguments(args)
             return fragment
         }

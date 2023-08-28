@@ -230,7 +230,29 @@
         </activity>
 
 
-
+        <activity
+            android:name="sj.hisnul.activity.NewExpandAct"
+            android:parentActivityName="sj.hisnul.activity.HisnulBottomACT">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+        <activity
+            android:name="database.NamesGridImageAct"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="fullSensor">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+        <activity
+            android:name="sj.hisnul.activity.HisnulBottomACT"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="fullSensor">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
 
 
 

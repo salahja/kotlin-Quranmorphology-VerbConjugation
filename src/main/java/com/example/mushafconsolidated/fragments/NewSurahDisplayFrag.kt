@@ -44,7 +44,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigation.NavigationBarView.OnItemReselectedListener
 import com.google.android.material.textview.MaterialTextView
+import database.NamesGridImageAct
 import org.sj.conjugator.activity.ConjugatorAct
+import sj.hisnul.activity.HisnulBottomACT
 
 import java.util.Objects
 
@@ -322,13 +324,13 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
                 startActivity(conjugatorintent)
             }
             if (item.itemId == R.id.dua) {
-                /*    val searchintent = Intent(activity, HisnulBottomACT::class.java)
-                    startActivity(searchintent)*/
+                  val hisnulBottomACT = Intent(activity, HisnulBottomACT::class.java)
+                    startActivity(hisnulBottomACT)
             }
             if (item.itemId == R.id.names) {
-                /*   val settingint = Intent(activity, GridImageAct::class.java)
+       val settingint = Intent(activity, NamesGridImageAct::class.java)
 
-                   startActivity(settingint)*/
+                   startActivity(settingint)
             }
             if (item.itemId == R.id.mushafview) {
                 val settingints = Intent(activity, ShowMushafActivity::class.java)
