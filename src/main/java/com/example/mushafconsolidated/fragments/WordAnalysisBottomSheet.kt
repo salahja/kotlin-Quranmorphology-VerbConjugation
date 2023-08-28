@@ -427,7 +427,10 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 isNoun = false
 
             } else {
-                var root = vb.root
+              //  var root = vb.root
+                if(root!!.isNotEmpty() && root!!.length !=3){
+                     root = wordbdetail["root"].toString()
+                }
                 val first = root!!.startsWith("أ")
                 val second = root!!.indexOf("أ")
                 if (first) {

@@ -33,7 +33,7 @@ class QuranGrammarApplication : Application() {
      **/
     //val database: AppDatabase by lazy { AppDatabase.getDatabase(this) }
 
-  //  val database:KtVerbDatabase by lazy { KtVerbDatabase.getDatabase(this) }
+//    val database: QuranAppDatabase by lazy { QuranAppDatabase.getDatabase(this) }
    // val repository by lazy { MazeedInfoRepository(database.MazeedDao()) }
     override fun onCreate() {
         super.onCreate()

@@ -3,6 +3,7 @@ package com.example.mushafconsolidated.DAO
 import androidx.room.Dao
 import androidx.room.Query
 import com.example.mushafconsolidated.Entities.QuranEntity
+import kotlinx.coroutines.flow.Flow
 
 
 //.QuranEntity
@@ -12,7 +13,8 @@ import com.example.mushafconsolidated.Entities.QuranEntity
 interface QuranDao {
     @Query("SELECT * FROM qurans where surah=:surahid")
     fun getQuranVersesBySurah(surahid: Int): List<QuranEntity?>?
-
+    @Query("SELECT * FROM qurans where surah=:surahid")
+    fun QuranSurahbyid(surahid: Int): Flow<List<QuranEntity>>
     @Query("SELECT * FROM qurans where surah=:surahid")
     fun getTranslation(surahid: Int): List<QuranEntity?>?
 

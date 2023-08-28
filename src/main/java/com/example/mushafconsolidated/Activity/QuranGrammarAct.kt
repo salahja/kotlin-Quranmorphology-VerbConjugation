@@ -34,7 +34,6 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -89,7 +88,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import database.kotlinpackage.MazeedViewModel
 import org.ahocorasick.trie.Trie
 import org.sj.conjugator.activity.ConjugatorAct
 import wheel.OnWheelChangedListener
@@ -223,32 +221,18 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         binding = NewFragmentReadingBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        //   val viewModels: MazeedViewModel = ViewModelProvider(this).get(MazeedViewModel::class.java)
-   /*     val viewModel: MazeedViewModel by viewModels {
-            MazeedViewModelFactoryies(
-                (this.application as QuranGrammarApplication).database.quranDao()
-            )
-        }*/
+
         // Get a reference to the ViewModel scoped to this Fragment
-        val viewModelss by viewModels<MazeedViewModel>()
+
 
         // Get a reference to the ViewModel scoped to its Activity
 
-        val viewModell: MazeedViewModel by viewModels()
+
 
 
         //    setContentView(R.layout.new_fragment_reading)
         materialToolbar = binding.toolbarmain
-     /*   var list: List<QuranEntity>
-        val mazeedByroot = viewModel.quranbysurah(1)
-        lifecycle.coroutineScope.launch {
-            viewModell.quranbysurah(1).collect() {
-                list = it
-                println(list.toString())
-                // busStopAdapter.submitList(it)
-            }
-        }
-*/
+
 
         setSupportActionBar(materialToolbar)
         val prefs =
@@ -1070,6 +1054,20 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
     @SuppressLint("NotifyDataSetChanged")
     private fun bysurah(dialog: AlertDialog, ex: ExecutorService) {
+ /*       val viewModel: QuranViewModel by viewModels {
+            MazeedViewModelFactoryies(
+                (this.application as QuranGrammarApplication).database.QuranDao()!!
+            )
+        }
+        lifecycle.coroutineScope.launch {
+            viewModel.quranbysurah(chapterno).collect() {
+                allofQuran = it
+                //   println(list.toString())
+                // busStopAdapter.submitList(it)
+            }
+        }
+*/
+
         runOnUiThread { dialog.show() }
         val wbwSurah = WbwSurah(this@QuranGrammarAct, chapterno, corpusayahWordArrayList, passage)
         wbwSurah.wordbyword

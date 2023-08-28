@@ -61,6 +61,9 @@ class Utils {
     var thiscontext: Context? = null
 
     constructor(context: Context?) {
+      /*  Utils.Companion.database = context?.let { QuranAppDatabase.Companion.getDatabase(context) }!!
+        database= QuranAppDatabase.getDatabase(context)
+        thiscontext = context*/
         Utils.Companion.database = context?.let { QuranAppDatabase.Companion.getInstance(it) }!!
         thiscontext = context
     }
