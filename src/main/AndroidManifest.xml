@@ -6,7 +6,6 @@
 
     <uses-feature android:name="android.hardware.type.watch" />
 
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -38,20 +37,20 @@
         android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-
+        <activity
+            android:name="sj.hisnul.activity.NewHisnulBottomaCT"
+            android:exported="false"
+            android:label="@string/title_activity_new_hisnul_bottoma_ct" />
         <activity
             android:name="com.example.roots.RootBreakupAct"
             android:exported="false"
             android:label="@string/title_activity_root_breakup"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar" />
-
-
         <activity
             android:name="com.example.roots.arabicrootDetailHostActivity"
             android:exported="false"
             android:label="@string/title_activity_arabicroot_detail_host"
-            android:resizeableActivity="true"
-            />
+            android:resizeableActivity="true" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -62,8 +61,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
-
 
         <activity
             android:name=".Activity.SplashActivity"
@@ -82,7 +79,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
-
         <activity
             android:name=".Activity.ShowMushafActivity"
             android:parentActivityName=".Activity.MainActivity"
@@ -99,9 +95,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
-
-
-
         <activity
             android:name=".Activity.TafsirFullscreenActivity"
             android:parentActivityName=".Activity.MainActivity"
@@ -110,10 +103,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
-
-
-
-
         <activity
             android:name=".Activity.WordOccuranceAct"
             android:exported="true"
@@ -123,8 +112,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
-
-
         <activity
             android:name=".Activity.KeyboardSearchResult"
             android:exported="true"
@@ -152,7 +139,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
-
         <activity
             android:name="org.sj.conjugator.activity.SarfSagheerActivity"
             android:parentActivityName=".Activity.QuranGrammarAct">
@@ -182,7 +168,6 @@
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
 
-
         <service
             android:name=".receiversimport.DownloadService"
             android:enabled="true"
@@ -198,26 +183,18 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-
-
-
-
         <activity
-            android:name="arabicrootListFragment"
+            android:name=".arabicrootListFragment"
             android:parentActivityName=".Activity.QuranGrammarAct">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
-
-
         <activity
             android:name=".Activityimport.GrammarRuleDetailHostActivity"
             android:exported="true"
             android:label="@string/title_activity_grammarrulelist_detail_host"
-            android:resizeableActivity="true"
-             />
-
+            android:resizeableActivity="true" />
         <activity
             android:name=".Activity.QuranGrammarAct"
             android:exported="true"
@@ -228,8 +205,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
-
-
         <activity
             android:name="sj.hisnul.activity.NewExpandAct"
             android:parentActivityName="sj.hisnul.activity.HisnulBottomACT">
@@ -254,19 +229,15 @@
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
 
-
-
-        <meta-data
+   <!--     <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/secret_google_maps_api_key" />
+            android:value="@string/secret_google_maps_api_key" />-->
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
-
-
     </application>
 
 </manifest>

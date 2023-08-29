@@ -484,21 +484,19 @@ class DownloadManager : AsyncTask<String?, Long?, Boolean> {
     private fun createNotificationChannel(context: Context?): String {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val importance = NotificationManager.IMPORTANCE_LOW
-            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance)
-            channel.description = CHANNEL_DESCRIPTION
-            channel.enableLights(true)
-            channel.lightColor = Color.RED
-            channel.setShowBadge(true)
-            channel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            val notificationManager = context!!.getSystemService(
-                NotificationManager::class.java
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
+        val importance = NotificationManager.IMPORTANCE_LOW
+        val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance)
+        channel.description = CHANNEL_DESCRIPTION
+        channel.enableLights(true)
+        channel.lightColor = Color.RED
+        channel.setShowBadge(true)
+        channel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+        // Register the channel with the system; you can't change the importance
+        // or other notification behaviors after this
+        val notificationManager = context!!.getSystemService(
+            NotificationManager::class.java
+        )
+        notificationManager.createNotificationChannel(channel)
         return CHANNEL_ID
     }
 

@@ -92,6 +92,7 @@ import database.NamesGridImageAct
 import org.ahocorasick.trie.Trie
 import org.sj.conjugator.activity.ConjugatorAct
 import sj.hisnul.activity.HisnulBottomACT
+
 import sj.hisnul.fragments.NamesDetail
 import wheel.OnWheelChangedListener
 import wheel.WheelView
@@ -171,12 +172,12 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
     private var stopName: String = "بصر"
 
- /*   private val viewModelS: MazeedViewModel by viewModels {
-        MazeedViewModelFactoryies(
-            (this.application as QuranGrammarApplication).database.quranDao()
-        )
-    }
-*/
+    /*   private val viewModelS: MazeedViewModel by viewModels {
+           MazeedViewModelFactoryies(
+               (this.application as QuranGrammarApplication).database.quranDao()
+           )
+       }
+   */
     override fun onBackPressed() {
         val fragment = supportFragmentManager.findFragmentById(R.id.frame_container)
         if (fragment !is IOnBackPressed || !(fragment as IOnBackPressed).onBackPressed()) {
@@ -221,7 +222,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         this.shared = PreferenceManager.getDefaultSharedPreferences(this@QuranGrammarAct)
         val preferences = shared?.getString("themepref", "dark")
         super.onCreate(savedInstanceState)
-        binding = NewFragmentReadingBinding.inflate(layoutInflater)
+       binding = NewFragmentReadingBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
@@ -229,8 +230,6 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
 
         // Get a reference to the ViewModel scoped to its Activity
-
-
 
 
         //    setContentView(R.layout.new_fragment_reading)
@@ -355,15 +354,15 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 startActivity(conjugatorintent)
             }
             if (item.itemId == R.id.dua) {
-                    materialToolbar!!.title = "Hisnul Muslim-Dua;s"
-                         val searchintent = Intent(this@QuranGrammarAct, HisnulBottomACT::class.java)
-                         startActivity(searchintent)
+                materialToolbar!!.title = "Hisnul Muslim-Dua;s"
+                val searchintent = Intent(this@QuranGrammarAct, HisnulBottomACT::class.java)
+                startActivity(searchintent)
             }
             if (item.itemId == R.id.names) {
-                     materialToolbar!!.title = "Quran Audio"
-                       val settingint = Intent(this@QuranGrammarAct, NamesGridImageAct::class.java)
-                         settingint.putExtra(Constants.SURAH_INDEX, chapterno)
-                         startActivity(settingint)
+                materialToolbar!!.title = "Quran Audio"
+                val settingint = Intent(this@QuranGrammarAct, NamesGridImageAct::class.java)
+                settingint.putExtra(Constants.SURAH_INDEX, chapterno)
+                startActivity(settingint)
             }
             if (item.itemId == R.id.mushafview) {
                 materialToolbar!!.title = "Mushaf"
@@ -1057,19 +1056,19 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
     @SuppressLint("NotifyDataSetChanged")
     private fun bysurah(dialog: AlertDialog, ex: ExecutorService) {
- /*       val viewModel: QuranViewModel by viewModels {
-            MazeedViewModelFactoryies(
-                (this.application as QuranGrammarApplication).database.QuranDao()!!
-            )
-        }
-        lifecycle.coroutineScope.launch {
-            viewModel.quranbysurah(chapterno).collect() {
-                allofQuran = it
-                //   println(list.toString())
-                // busStopAdapter.submitList(it)
-            }
-        }
-*/
+        /*       val viewModel: QuranViewModel by viewModels {
+                   MazeedViewModelFactoryies(
+                       (this.application as QuranGrammarApplication).database.QuranDao()!!
+                   )
+               }
+               lifecycle.coroutineScope.launch {
+                   viewModel.quranbysurah(chapterno).collect() {
+                       allofQuran = it
+                       //   println(list.toString())
+                       // busStopAdapter.submitList(it)
+                   }
+               }
+       */
 
         runOnUiThread { dialog.show() }
         val wbwSurah = WbwSurah(this@QuranGrammarAct, chapterno, corpusayahWordArrayList, passage)
