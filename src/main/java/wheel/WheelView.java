@@ -12,6 +12,8 @@ import android.view.View;
 
 import com.example.mushafconsolidated.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -366,7 +368,7 @@ public class WheelView extends View {
         invalidate();
     }
 
-    public void setEntries(Collection<? extends CharSequence> entries) {
+    public void setEntriesv(Collection<? extends CharSequence> entries) {
         mEntries.clear();
         if (entries != null && entries.size() > 0) {
             mEntries.addAll(entries);
@@ -381,5 +383,14 @@ public class WheelView extends View {
 
     public void setOnWheelChangedListener(OnWheelChangedListener onWheelChangedListener) {
         mScroller.onWheelChangedListener = onWheelChangedListener;
+    }
+
+
+    public void setEntries(@NotNull ArrayList<String> current) {
+        
+    }
+
+    public void setEntries(@NotNull ArrayList<Object>[] current) {
+        
     }
 }

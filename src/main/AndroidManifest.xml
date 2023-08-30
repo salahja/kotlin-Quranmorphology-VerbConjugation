@@ -34,13 +34,15 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
         <activity
-            android:name="sj.hisnul.activity.NewHisnulBottomaCT"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
+            android:name="sj.hisnul.NewHisnulBottomAct"
             android:exported="false"
-            android:label="@string/title_activity_new_hisnul_bottoma_ct" />
+            android:label="@string/title_activity_new_hisnul_bottom" />
+
         <activity
             android:name="com.example.roots.RootBreakupAct"
             android:exported="false"
@@ -228,13 +230,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
-
-   <!--     <meta-data
+        <!--
+     <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/secret_google_maps_api_key" />-->
+            android:value="@string/secret_google_maps_api_key" />
+        -->
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />

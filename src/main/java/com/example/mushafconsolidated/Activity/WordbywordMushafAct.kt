@@ -500,7 +500,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             for (i in 1..intarray) {
                 current[0].add(i.toString())
             }
-            verseWheel.setEntries(current[0])
+            verseWheel.setEntries(current)
             val texts = surahWheelDisplayData[0] + "/" + ayahWheelDisplayData[0]
             //   = mYear[0]+ mMonth[0];
             mTextView.text = texts
@@ -511,7 +511,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         for (i in 1..vcount) {
             current[0].add(i.toString())
         }
-        verseWheel.setEntries(current[0])
+        verseWheel.setEntries(current)
         verseWheel.currentIndex = ayah
         dialogPicker.setPositiveButton("Done") { dialogInterface: DialogInterface?, i: Int ->
             var sura = ""
@@ -664,7 +664,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 for (i in 1..intarray) {
                     current[0].add(i.toString())
                 }
-                verseWheel.setEntries(current[0])
+                verseWheel.setEntries(current)
                 updateTextView()
             }
 

@@ -92,7 +92,6 @@ import database.NamesGridImageAct
 import org.ahocorasick.trie.Trie
 import org.sj.conjugator.activity.ConjugatorAct
 import sj.hisnul.activity.HisnulBottomACT
-
 import sj.hisnul.fragments.NamesDetail
 import wheel.OnWheelChangedListener
 import wheel.WheelView
@@ -611,25 +610,26 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             }
         }
     }
-
     fun SurahAyahPicker() {
         val mTextView: TextView
-        val chapterWheel: WheelView
-        val verseWheel: WheelView
-        val utils = Utils(this@QuranGrammarAct)
+        var chapterWheel: WheelView
+        var verseWheel: WheelView
+        var utils = Utils(this@QuranGrammarAct)
         surahWheelDisplayData = arrayOf("")
         ayahWheelDisplayData = arrayOf("")
-        val current = arrayOf<ArrayList<*>>(ArrayList<Any>())
-        val chapterno = IntArray(1)
-        val verseno = IntArray(1)
-        val surahArrays = resources.getStringArray(R.array.surahdetails)
-        val versearrays = resources.getStringArray(R.array.versescounts)
-        val intarrays = resources.getIntArray(R.array.versescount)
+      //  var current = arrayOf<java.util.ArrayList<Any>>(java.util.ArrayList<Any>())
+      //  var curr= MutableList<String>()
+    var current=    ArrayList<String>()
+        var chapterno = IntArray(1)
+        var verseno = IntArray(1)
+        var surahArrays = resources.getStringArray(R.array.surahdetails)
+        var versearrays = resources.getStringArray(R.array.versescounts)
+        var intarrays = resources.getIntArray(R.array.versescount)
         //     final AlertDialog.Builder dialogPicker = new AlertDialog.Builder(this);
         val dialogPicker = AlertDialog.Builder(this@QuranGrammarAct)
         //  AlertDialog dialog = builder.create();
-        val soraList = utils.getAllAnaChapters()
-        val inflater = this@QuranGrammarAct.layoutInflater
+        var soraList: java.util.ArrayList<ChaptersAnaEntity?>? = utils.getAllAnaChapters() as java.util.ArrayList<ChaptersAnaEntity?>?
+        var inflater = this@QuranGrammarAct.layoutInflater
         val view = inflater.inflate(R.layout.activity_wheel_t, null)
         //  View view = inflater.inflate(R.layout.activity_wheel, null);
         dialogPicker.setView(view)
@@ -645,10 +645,11 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         if (initial) {
             val text = chapterWheel.getItem(this.chapterno - 1) as String
             surahWheelDisplayData[0] = text
-            val chapno = text.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val chapno = text.split(" ".toRegex()).dropLastWhile { it.isEmpty() }
+                .toTypedArray()
             chapterno[0] = chapno[0].toInt()
             verseno[0] = 1
-            current[0] = ArrayList<Any>()
+           // current[0] = java.util.ArrayList<Any>().toString()
             val intarray: Int
             intarray = if (this.chapterno != 0) {
                 intarrays[this.chapterno - 1]
@@ -656,9 +657,9 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 7
             }
             for (i in 1..intarray) {
-                current[0].add(i as Nothing)
+                current.add(i.toString())
             }
-            verseWheel.setEntries(current[0])
+            verseWheel.setEntriesv(current)
             val texts = surahWheelDisplayData[0] + "/" + ayahWheelDisplayData[0]
             //   = mYear[0]+ mMonth[0];
             mTextView.text = texts
@@ -666,23 +667,26 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
 //        wvDay = (WheelView) view.findViewById(R.id.wv_day);
         val vcount = versearrays[this.chapterno - 1].toInt()
-        for (i in 1..vcount) {
-            current[0].add(i.toString() as Nothing)
-        }
-        verseWheel.setEntries(current[0])
-        verseWheel.currentIndex = verse_no
+   /*     for (i in 1..vcount) {
+            current.add(i.toString())
+        }*/
+        verseWheel.setEntriesv(current)
+        verseWheel.currentIndex = this.verse_no
         dialogPicker.setPositiveButton("Done") { dialogInterface: DialogInterface?, i: Int ->
             val sura: String
             try {
+
                 surahArabicName =
                     suraNumber.toString() + "-" + soraList?.get(chapterno[0] - 1)!!.nameenglish + "-" + soraList!![chapterno[0] - 1]!!.abjadname
-                surahArabicName = soraList[chapterno[0]]!!.abjadname
+                surahArabicName = soraList[chapterno[0] - 1]!!.abjadname
                 verse_no = verseno[0]
                 versescount = soraList[chapterno[0] - 1]!!.versescount
                 isMakkiMadani = soraList[chapterno[0] - 1]!!.ismakki
                 rukucount = soraList[chapterno[0] - 1]!!.rukucount
                 currentSelectSurah = soraList[chapterno[0] - 1]!!.chapterid
-                this.chapterno = soraList[chapterno[0] - 1]!!.chapterid
+
+
+                //    setChapterno(soraList.get(chapterno[0] - 1).getChapterid());
             } catch (e: ArrayIndexOutOfBoundsException) {
                 surahArabicName =
                     suraNumber.toString() + "-" + soraList!![chapterno[0]]!!.nameenglish + "-" + soraList[chapterno[0]]!!.abjadname
@@ -791,6 +795,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             }
         }
 
+
         //  wmlp.gravity = Gravity.TOP | Gravity.CENTER;
         alertDialog.window!!.attributes = lp
         alertDialog.window!!.setGravity(Gravity.TOP)
@@ -798,7 +803,8 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             override fun onChanged(wheel: WheelView, oldIndex: Int, newIndex: Int) {
                 val text = chapterWheel.getItem(newIndex) as String
                 surahWheelDisplayData[0] = text
-                val chapno = text.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                val chapno = text.split(" ".toRegex()).dropLastWhile { it.isEmpty() }
+                    .toTypedArray()
                 chapterno[0] = chapno[0].toInt()
                 verseno[0] = 1
                 updateVerses(newIndex)
@@ -807,7 +813,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             }
 
             private fun updateVerses(newIndex: Int) {
-                current[0] = ArrayList<Any>()
+               // current[0] = java.util.ArrayList<Any>()
                 val intarray: Int
                 intarray = if (newIndex != 0) {
                     intarrays[newIndex]
@@ -815,9 +821,9 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                     7
                 }
                 for (i in 1..intarray) {
-                    current[0].add(i.toString() as Nothing)
+                    current.add(i.toString())
                 }
-                verseWheel.setEntries(current[0])
+                verseWheel.setEntriesv(current)
                 updateTextView()
             }
 
@@ -827,203 +833,17 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 mTextView.text = text
             }
         }
-        verseWheel.onWheelChangedListener = OnWheelChangedListener { wheel, oldIndex, newIndex ->
-            val text = verseWheel.getItem(newIndex) as String
-            ayahWheelDisplayData[0] = text
-            verseno[0] = text.toInt()
-        }
+        verseWheel.onWheelChangedListener =
+            OnWheelChangedListener { wheel, oldIndex, newIndex ->
+                val text = verseWheel.getItem(newIndex) as String
+                ayahWheelDisplayData[0] = text
+                verseno[0] = text.toInt()
+            }
     }
 
-    // --Commented out by Inspection START (13/08/23, 4:38 pm):
-    //    public void SurahAyahPickers() {
-    //        TextView mTextView;
-    //        WheelView chapterArray;
-    //        WheelView versesArray;
-    //
-    //        final String[] nyear = {""};
-    //        final String[] nmonth = {""};
-    //        final ArrayList<String>[] current = new ArrayList[]{new ArrayList<>()};
-    //        final int[] chapterno = new int[1];
-    //        final int[] verseno = new int[1];
-    //        final String[] surahArrays = getResources().getStringArray(array.surahdetails);
-    //        final int[] intarrays = getResources().getIntArray(array.versescount);
-    //        //     final AlertDialog.Builder dialogPicker = new AlertDialog.Builder(this);
-    //        AlertDialog.Builder dialogPicker = new AlertDialog.Builder(this);
-    //        //  AlertDialog dialog = builder.create();
-    //        soraList = utils.getAllAnaChapters();
-    //        LayoutInflater inflater = this.getLayoutInflater();
-    //        View view = inflater.inflate(layout.activity_wheel_t, null);
-    //        //  View view = inflater.inflate(R.layout.activity_wheel, null);
-    //        dialogPicker.setView(view);
-    //        mTextView = view.findViewById(id.textView2);
-    //        chapterArray = view.findViewById(id.wv_year);
-    //        versesArray = view.findViewById(id.wv_month);
-    ////        wvDay = (WheelView) view.findViewById(R.id.wv_day);
-    //        chapterArray.setEntries(surahArrays);
-    //        versesArray.setEntries("7");
-    //        for (int i = 1; i <= 7; i++) {
-    //            current[0].add(String.valueOf(i));
-    //        }
-    //
-    //        versesArray.setEntries(current[0]);
-    //
-    //        dialogPicker.setPositiveButton("Done", (dialogInterface, i) -> {
-    //
-    //
-    //
-    //
-    //            //
-    //            //   setSurahArabicName(suraNumber + "-" + soraList.get(suraNumber - 1).nameenglish + "-" + soraList.get(suraNumber - 1).getAbjadname());
-    //          try {
-    //              setSurahArabicName(suraNumber + "-" + soraList.get(chapterno[0] - 1).nameenglish + "-" + soraList.get(chapterno[0] - 1).getAbjadname());
-    //              setSurahArabicName(soraList.get(chapterno[0]).getAbjadname());
-    //              setVerse_no(verseno[0]);
-    //              setVersescount(soraList.get(chapterno[0] - 1).getVersescount());
-    //              isMakkiMadani=soraList.get(chapterno[0] - 1).getIsmakki());
-    //              setRukucount(soraList.get(chapterno[0] - 1).getRukucount());
-    //              setCurrentSelectSurah(soraList.get(chapterno[0] - 1).getChapterid());
-    //
-    //              setChapterno(soraList.get(chapterno[0] - 1).getChapterid());
-    //          } catch (ArrayIndexOutOfBoundsException e){
-    //              setSurahArabicName(suraNumber + "-" + soraList.get(chapterno[0]).nameenglish + "-" + soraList.get(chapterno[0]).getAbjadname());
-    //              setSurahArabicName(soraList.get(chapterno[0]).getAbjadname());
-    //              setVerse_no(1);
-    //              setVersescount(soraList.get(chapterno[0]).getVersescount());
-    //              isMakkiMadani=soraList.get(chapterno[0]).getIsmakki());
-    //              setRukucount(soraList.get(chapterno[0]).getRukucount());
-    //              setCurrentSelectSurah(soraList.get(chapterno[0]).getChapterid());
-    //
-    //              setChapterno(soraList.get(chapterno[0]).getChapterid());
-    //
-    //          }
-    //            parentRecyclerView = findViewById(id.overlayViewRecyclerView);
-    //            //
-    //            if (currentSelectSurah == surah_id) {
-    //                parentRecyclerView.post(() -> parentRecyclerView.scrollToPosition(verse_no));
-    //
-    //            } else {
-    //                jumptostatus = true;
-    //                surahorpart=currentSelectSurah;
-    //                setSurah_id(currentSelectSurah);
-    //                ExecuteSurahWordByWord();
-    //                //     asyncTaskcorpus = new refactoringcurrentSurahSyncWordByWord().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    //            }
-    //        });
-    //
-    //        dialogPicker.setNegativeButton("Cancel", (dialogInterface, i) -> {
-    //        });
-    //
-    //
-    //
-    //        AlertDialog alertDialog = dialogPicker.create();
-    //        String preferences = shared.getString("themepref", "dark");
-    //
-    //        switch (preferences) {
-    //            case "light":
-    //                alertDialog.getWindow().setBackgroundDrawableResource(color.md_theme_dark_onSecondary);
-    //                //   alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onTertiary);
-    //
-    //                //
-    //                break;
-    //            case "brown":
-    //                alertDialog.getWindow().setBackgroundDrawableResource(color.background_color_light_brown);
-    //                //  cardview.setCardBackgroundColor(ORANGE100);
-    //                break;
-    //            case "blue":
-    //                alertDialog.getWindow().setBackgroundDrawableResource(color.prussianblue);
-    //                //  cardview.setCardBackgroundColor(db);
-    //                break;
-    //            case "green":
-    //                alertDialog.getWindow().setBackgroundDrawableResource(color.mdgreen_theme_dark_onPrimary);
-    //                //  cardview.setCardBackgroundColor(MUSLIMMATE);
-    //                break;
-    //        }
-    //
-    //
-    //        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-    //        lp.copyFrom(alertDialog.getWindow().getAttributes());
-    //        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-    //        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-    //
-    //        //   alertDialog.show();
-    //        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-    //
-    //        alertDialog.show();
-    //        Button buttonPositive = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-    //        buttonPositive.setTextColor(ContextCompat.getColor(this, color.green));
-    //        Button buttonNegative = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
-    //        buttonNegative.setTextColor(ContextCompat.getColor(this, color.red));
-    //        switch (preferences) {
-    //            case "light":
-    //            case "brown":
-    //                buttonPositive.setTextColor(ContextCompat.getColor(this, color.colorMuslimMate));
-    //                buttonNegative.setTextColor(ContextCompat.getColor(this, color.red));
-    //                break;
-    //            //  cardview.setCardBackgroundColor(ORANGE100);
-    //            case "blue":
-    //                buttonPositive.setTextColor(ContextCompat.getColor(this, color.yellow));
-    //                buttonNegative.setTextColor(ContextCompat.getColor(this, color.Goldenrod));
-    //                //  cardview.setCardBackgroundColor(db);
-    //                break;
-    //            case "green":
-    //                buttonPositive.setTextColor(ContextCompat.getColor(this, color.yellow));
-    //                buttonNegative.setTextColor(ContextCompat.getColor(this, color.cyan_light));
-    //                //  cardview.setCardBackgroundColor(MUSLIMMATE);
-    //                break;
-    //        }
-    //
-    //        //  wmlp.gravity = Gravity.TOP | Gravity.CENTER;
-    //        alertDialog.getWindow().setAttributes(lp);
-    //        alertDialog.getWindow().setGravity(Gravity.TOP);
-    //
-    //
-    //
-    //        chapterArray.setOnWheelChangedListener(new OnWheelChangedListener() {
-    //            @Override
-    //            public void onChanged(WheelView wheel, int oldIndex, int newIndex) {
-    //                String text = (String) chapterArray.getItem(newIndex);
-    //                nyear[0] = (text);
-    //                String[] chapno = text.split(" ");
-    //               chapterno[0] = Integer.parseInt(chapno[0]);
-    //                 verseno[0] =1;
-    //
-    //
-    //                updateVerses(newIndex);
-    //                updateTextView();
-    //                //    updateTextView();
-    //            }
-    //
-    //            private void updateVerses(int newIndex) {
-    //                current[0] = new ArrayList<>();
-    //                int intarray;
-    //                if (newIndex != 0) {
-    //                    intarray = intarrays[newIndex ];
-    //                } else {
-    //                    intarray=7;
-    //                }
-    //                for (int i = 1; i <= intarray; i++) {
-    //                    current[0].add(String.valueOf(i));
-    //                }
-    //
-    //                versesArray.setEntries(current[0]);
-    //                updateTextView();
-    //
-    //
-    //            }
-    //
-    //            private void updateTextView() {
-    //                String text = nyear[0].concat("/").concat(nmonth[0]);
-    //                //   = mYear[0]+ mMonth[0];
-    //                mTextView.setText(text);
-    //            }
-    //        });
-    //        versesArray.setOnWheelChangedListener((wheel, oldIndex, newIndex) -> {
-    //            String text = (String) versesArray.getItem(newIndex);
-    //            nmonth[0] = (text);
-    //            verseno[0] = Integer.parseInt(text);
-    //        });
-    //    }
-    // --Commented out by Inspection STOP (13/08/23, 4:38 pm)
+
+
+
     private fun SetTranslation() {
         //     allofQuran = Utils.getQuranbySurah(chapterno);
         shared!!.getBoolean("prefs_show_erab", true)
@@ -1704,6 +1524,4 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
 }
 
-fun WheelView.setEntries(anies: ArrayList<*>) {
 
-}

@@ -496,7 +496,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         val mMonth = arrayOfNulls<String>(1)
         surahWheelDisplayData = arrayOf("")
         ayahWheelDisplayData = arrayOf("")
-        val current = arrayOf<ArrayList<Any>>(ArrayList<Any>())
+      //  val current = arrayOf<ArrayList<Any>>(ArrayList<Any>())
+        var current=    ArrayList<String>()
           var mDay: Int
         val chapterno = IntArray(1)
         val verseno = IntArray(1)
@@ -526,7 +527,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 .toTypedArray()
             chapterno[0] = chapno[0].toInt()
             verseno[0] = 1
-            current[0] = ArrayList<Any>()
+       //     current[0] = ArrayList<Any>()
             val intarray: Int
             intarray = if (surahselected != 0) {
                 intarrays[surahselected - 1]
@@ -534,9 +535,9 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 7
             }
             for (i in 1..intarray) {
-                current[0].add(i)
+                current.add(i.toString())
             }
-            verseWheel.setEntries(current[0])
+            verseWheel.setEntriesv(current)
             val texts = surahWheelDisplayData[0] + "/" + ayahWheelDisplayData[0]
             //   = mYear[0]+ mMonth[0];
             mTextView.text = texts
@@ -546,9 +547,9 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         val currentsurahVersescount: Array<String> 
         val vcount = versearrays[surahselected - 1].toInt()
         for (i in 1..vcount) {
-            current[0].add(i)
+            current.add(i.toString())
         }
-        verseWheel.setEntries(current[0])
+        verseWheel.setEntriesv(current)
         verseWheel.currentIndex = ayah
         dialogPicker.setPositiveButton("Done") { dialogInterface: DialogInterface?, i: Int ->
               var sura = ""
@@ -689,7 +690,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 //    updateTextView();
             }
             private fun updateVerses(newIndex: Int) {
-                current[0] = java.util.ArrayList<Any>()
+           //     current[0] = java.util.ArrayList<Any>()
                 val intarray: Int
                 intarray = if (newIndex != 0) {
                     intarrays[newIndex]
@@ -697,9 +698,9 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                     7
                 }
                 for (i in 1..intarray) {
-                    current[0].add(i )
+                    current.add(i.toString())
                 }
-                verseWheel.setEntries(current[0])
+                verseWheel.setEntriesv(current)
                 updateTextView()
             }
 

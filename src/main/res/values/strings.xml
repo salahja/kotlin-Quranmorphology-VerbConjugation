@@ -840,7 +840,8 @@ Stream audio when possible (non-gapless audio only)
     </string>
     <string name="lanes">Lanes</string>
     <string name="title_activity_new_hisnul_bottoma_ct">NewHisnulBottomaCT</string>
-    <string name="allah_swt_names">Allah(SWT)Names</string>>
+    <string name="allah_swt_names">Allah(SWT)Names</string>
+    <string name="title_activity_new_hisnul_bottom">NewHisnulBottomAct</string>>
 
 
 </resources>
