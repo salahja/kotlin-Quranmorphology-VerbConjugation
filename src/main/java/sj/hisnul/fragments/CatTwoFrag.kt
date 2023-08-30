@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
@@ -32,7 +33,13 @@ class CatTwoFrag : Fragment() {
         recyclerView = view.findViewById<RecyclerView>(R.id.recview)
         val utils = Utils(requireContext())
 
-        val duagrouptwo: ArrayList<hcategory> = utils.hcategory
+
+         val viewModel: CatwoModel by viewModels()
+            viewModel.loadLists(context = requireContext())
+        viewModel.duagrouptwo
+
+    val duagrouptwo: ArrayList<hcategory> = utils.hcategory
+
         val adapter = CatTwoAdapter(duagrouptwo, requireContext())
 
         val layoutManager: GridLayoutManager
