@@ -188,7 +188,10 @@ fun ExpandableContent(
         Column(modifier =  Modifier.padding(8.dp)) {
             card.forEach { verses ->
                 verses
-                Text(verses, modifier = Modifier.padding(15.dp))
+                Text(verses,  color = Color.Black, modifier = Modifier.padding(15.dp)
+
+                )
+
                 // on below line we are specifying
                 // divider for each list item
                 Divider()

@@ -35,17 +35,31 @@ class CardsViewModel(application: Application) : AndroidViewModel(application) {
                 val testList = arrayListOf<ExpandableCardModel>()
                 for (noun in nounCorpusArrayList!!) {
                     var sb = StringBuilder()
-                    sb.append(noun.araword).append("occurs").append(":").append(noun.count)
-                        .append("as").append(noun.tag)
-                    sb.append(noun.surah).append(":").append(noun.ayah)
+                    sb.append(noun.araword).append("occurs").append(":").append(noun.count).append(" ").append("Times as").append(" ")
+                            if(noun.tag.equals("N")){
+                                sb.append("Noun")
+                            } else if(noun.tag.equals("ADJ")){
+                                sb.append("Adjective")
+                            } else if (noun.tag.equals("null")){
+                                 if(noun.propone.equals("ACT")){
+                                     sb.append("Active Participles")
+                                 } else {
+                                     sb.append("Passive Participles")
+                                 }
+
+                            }
+
+                    sb.append("  ").append(noun.surah).append(":").append(noun.ayah)
                     val verses: ArrayList<CorpusNounWbwOccurance> =
                         util.getNounOccuranceBreakVerses(noun.lemma_a!!)
                                 as ArrayList<CorpusNounWbwOccurance>
                     val lists :ArrayList<String> =  ArrayList<String>()
 
                  for(ver in verses){
-
-                         lists.add(ver.qurantext.toString())
+                     var sb = StringBuilder()
+                     sb.append(ver.surah).append(":").append(ver.ayah)
+                     sb.append(ver.qurantext)
+                         lists.add(sb.toString())
 
 
 
