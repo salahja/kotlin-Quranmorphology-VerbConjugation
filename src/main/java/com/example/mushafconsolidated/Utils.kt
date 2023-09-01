@@ -839,7 +839,7 @@ class Utils {
 
     fun getNounBreakup(tid: String): List<NounCorpusBreakup?>? {
         val sqlverb: String =
-            ("SELECT count(root_a) as count,surah,ayah, lemma_a,form,araword,tag,propone,proptwo FROM nouncorpus where root_a =\""
+            ("SELECT count(root_a) as count,id,surah,ayah, lemma_a,form,araword,tag,propone,proptwo FROM nouncorpus where root_a =\""
                     + tid + "\""
                     + " group by lemma_a,root_a,tag,propone,proptwo order by surah,ayah")
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)

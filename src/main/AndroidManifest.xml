@@ -38,11 +38,10 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
         <activity
-            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
-            android:name="sj.hisnul.NewHisnulBottomAct"
+            android:name="com.example.compose.ComposeAct"
             android:exported="false"
-            android:label="@string/title_activity_new_hisnul_bottom" />
-
+            android:label="@string/title_activity_compose"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <activity
             android:name="com.example.roots.RootBreakupAct"
             android:exported="false"
@@ -76,7 +75,7 @@
         <activity
             android:name=".Activity.MainActivity"
             android:parentActivityName=".Activity.SplashActivity"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -84,7 +83,7 @@
         <activity
             android:name=".Activity.ShowMushafActivity"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -92,7 +91,7 @@
         <activity
             android:name=".Activity.WordbywordMushafAct"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -100,7 +99,7 @@
         <activity
             android:name=".Activity.TafsirFullscreenActivity"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -109,7 +108,7 @@
             android:name=".Activity.WordOccuranceAct"
             android:exported="true"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -118,7 +117,7 @@
             android:name=".Activity.KeyboardSearchResult"
             android:exported="true"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -127,7 +126,7 @@
             android:name=".Activity.SearchKeyBoardAct"
             android:exported="true"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -136,7 +135,7 @@
             android:name=".Activity.LughatWordDetailsAct"
             android:exported="true"
             android:label="@string/title_activity_verb_conjugation"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -186,13 +185,6 @@
         </provider>
 
         <activity
-            android:name=".arabicrootListFragment"
-            android:parentActivityName=".Activity.QuranGrammarAct">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
-        </activity>
-        <activity
             android:name=".Activityimport.GrammarRuleDetailHostActivity"
             android:exported="true"
             android:label="@string/title_activity_grammarrulelist_detail_host"
@@ -201,7 +193,7 @@
             android:name=".Activity.QuranGrammarAct"
             android:exported="true"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="fullSensor"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -214,10 +206,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
+
+
+
+
         <activity
             android:name="database.NamesGridImageAct"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -225,11 +221,15 @@
         <activity
             android:name="sj.hisnul.activity.HisnulBottomACT"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
+
+
+
+
         <!--
      <meta-data
             android:name="com.google.android.gms.version"

@@ -20,6 +20,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant
+import com.example.compose.ComposeAct
 import com.example.mushafconsolidated.Activity.QuranGrammarAct
 import com.example.mushafconsolidated.Activity.ShowMushafActivity
 
@@ -324,7 +325,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
                 startActivity(conjugatorintent)
             }
             if (item.itemId == R.id.dua) {
-                  val hisnulBottomACT = Intent(activity, HisnulBottomACT::class.java)
+                  val hisnulBottomACT = Intent(activity, ComposeAct::class.java)
                     startActivity(hisnulBottomACT)
             }
             if (item.itemId == R.id.names) {

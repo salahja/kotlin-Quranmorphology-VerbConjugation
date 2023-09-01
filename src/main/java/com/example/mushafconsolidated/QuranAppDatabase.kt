@@ -150,7 +150,7 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
                 )
             if (null == quranAppDatabaseInstanceasset) {
                 val mainDatabase = File("$FILEPATH/$DATABASENAME")
-        quranAppDatabaseInstanceasset = Room.databaseBuilder(
+   /*     quranAppDatabaseInstanceasset = Room.databaseBuilder(
                     context,
                     QuranAppDatabase::class.java, "qurangrammar.db"
                 )
@@ -159,7 +159,7 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
                     .addCallback(initialCallBack)
                     .allowMainThreadQueries()
                     .build()
-
+*/
 
 
 
@@ -173,8 +173,8 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
                     .build()
 
             }
-          //  return quranAppDatabaseInstance
-            return quranAppDatabaseInstanceasset;
+             return quranAppDatabaseInstance
+        //    return quranAppDatabaseInstanceasset;
         }
     }
 }

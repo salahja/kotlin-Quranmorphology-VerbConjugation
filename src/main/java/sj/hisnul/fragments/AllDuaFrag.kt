@@ -15,11 +15,10 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
-
-import com.example.mushafconsolidated.Utils.Utils
 import com.google.android.material.appbar.MaterialToolbar
 import org.sj.conjugator.interfaces.OnItemClickListener
 import sj.hisnul.adapter.CatAllAdapter
@@ -38,9 +37,14 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
         val view: View = inflater.inflate(R.layout.activity_dua_group, container, false)
         //   View view = inflater.inflate(R.layout.rwz, container, falser
         recyclerView = view.findViewById<RecyclerView>(R.id.duaListView)
-        var utils=Utils(context)
-        val duall: ArrayList<hduanames> = utils.getAllList() as ArrayList<hduanames>
-        ska = CatAllAdapter(duall, requireContext())
+
+        val viewmodel:AllDuaModel by viewModels()
+        ska = CatAllAdapter( requireContext())
+        viewmodel.loadLists(context).observe(viewLifecycleOwner){ userlist->
+
+            ska.setmutable(userlist)
+        }
+
 
         setHasOptionsMenu(true)
         val toolbar: MaterialToolbar = view.findViewById<MaterialToolbar>(R.id.my_action_bar)

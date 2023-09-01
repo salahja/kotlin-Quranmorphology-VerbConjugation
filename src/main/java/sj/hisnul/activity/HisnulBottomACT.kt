@@ -3,6 +3,7 @@ package sj.hisnul.activity
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
 import androidx.annotation.RequiresApi
@@ -13,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.fragments.IOnBackPressed
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -26,13 +26,13 @@ class HisnulBottomACT : BaseActivity(), OnItemClickListenerOnLong {
     lateinit var btnBottomSheet: FloatingActionButton
 
     private lateinit var bottomNavigationView: BottomNavigationView
-    override fun onBackPressed() {
+/*    override fun onBackPressed() {
         val fragment: Fragment? = getSupportFragmentManager().findFragmentById(R.id.frame_container)
         if (fragment !is IOnBackPressed || !(fragment as IOnBackPressed).onBackPressed()) {
             super.onBackPressed()
         }
-        //  finish();
-    }
+
+    }*/
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     protected override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,13 +100,18 @@ class HisnulBottomACT : BaseActivity(), OnItemClickListenerOnLong {
                         transactionss.commit()
                     }
 
-                    R.id.exitact -> finish()
-                    else -> {}
+                    R.id.exitact -> this.finish()
+
                 }
             })
     }
 
-
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish()
+        }
+        return super.onKeyDown(keyCode, event)
+    }
 
     private fun initView() {
         val linearLayoutManager = LinearLayoutManager(getApplicationContext())
@@ -131,6 +136,16 @@ class HisnulBottomACT : BaseActivity(), OnItemClickListenerOnLong {
             //    btnBottomSheet.setText("Expand sheet");
         }
     }
+
+    override fun onDestroy() {
+     //   context = null
+        finish()
+        super.onDestroy()
+    }
+
+
+
+
 
     override fun onItemClick(v: View, position: Int) {
         TODO("Not yet implemented")

@@ -17,13 +17,20 @@ import com.example.utility.QuranGrammarApplication
 import org.sj.conjugator.interfaces.OnItemClickListener
 import sj.hisnul.entity.hcategory
 
-class CatTwoAdapter(lists: ArrayList<hcategory>, private val context: Context) :
+class CatTwoAdapter(
+
+    private val context: Context
+) :
     RecyclerView.Adapter<CatTwoAdapter.ViewHolder?>() {
-    private val catTwoArrayList: ArrayList<hcategory>
+  //  private val catTwoArrayList: ArrayList<hcategory>
+
+   private var mylist:   List<hcategory> =ArrayList<hcategory>()
+
     var mItemClickListener: OnItemClickListener? = null
 
     init {
-        catTwoArrayList = lists
+        //catTwoArrayList = lists
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,8 +43,10 @@ class CatTwoAdapter(lists: ArrayList<hcategory>, private val context: Context) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val imgs: TypedArray = context.resources.obtainTypedArray(R.array.cat_img)
-        val catOne: hcategory = catTwoArrayList[position]
-        val icon: Drawable? = imgs.getDrawable(catOne.id - 1)
+        val catOne: hcategory = mylist[position]
+
+
+        val icon: Drawable? = imgs.getDrawable(catOne!!.id - 1)
         imgs.recycle()
         //  CatTwo catOne= catTwoArrayList.get(position);
         val sharedPreferences: SharedPreferences =
@@ -57,19 +66,25 @@ class CatTwoAdapter(lists: ArrayList<hcategory>, private val context: Context) :
 
     override fun getItemId(position: Int): Long {
         //  Surah surah = surahArrayList.get(position);
-        return catTwoArrayList.size.toLong()
+        return mylist.size.toLong()
     }
     override fun getItemCount(): Int {
-        return catTwoArrayList.size
+        return mylist.size
     }
     fun getItem(position: Int): Any {
-        return catTwoArrayList[position]
+        return mylist[position]
     }
 
 
 
     fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
         this.mItemClickListener = mItemClickListener
+    }
+
+    fun setmutable(userL: List<hcategory>?) {
+        if (userL != null) {
+            mylist=userL
+        }
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view),

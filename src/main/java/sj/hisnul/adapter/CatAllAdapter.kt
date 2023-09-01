@@ -14,23 +14,20 @@ import androidx.cardview.widget.CardView
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
-
 import com.example.utility.QuranGrammarApplication
 import org.sj.conjugator.interfaces.OnItemClickListener
 import sj.hisnul.entity.hduanames
 import java.util.Locale
 
-class CatAllAdapter(mList: ArrayList<hduanames>, private val context: Context) :
+class CatAllAdapter( private val context: Context) :
     RecyclerView.Adapter<CatAllAdapter.ViewHolder?>(), Filterable {
-    private val mList: List<hduanames>
+
     var mItemClickListener: OnItemClickListener? = null
-    private var duasfiltered: List<hduanames>
 
-    init {
-        this.mList = mList
-        duasfiltered = mList
-    }
 
+    private var mList:   List<hduanames> =ArrayList<hduanames>()
+
+    private var duasfiltered:   List<hduanames> =ArrayList<hduanames>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         //    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rwz,parent, false);
         val view =
@@ -112,6 +109,12 @@ class CatAllAdapter(mList: ArrayList<hduanames>, private val context: Context) :
             }
         }
     }
+
+    fun setmutable(userlist: List<hduanames>) {
+         mList=userlist
+        duasfiltered=userlist
+    }
+
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view),
         View.OnClickListener // current clickListerner

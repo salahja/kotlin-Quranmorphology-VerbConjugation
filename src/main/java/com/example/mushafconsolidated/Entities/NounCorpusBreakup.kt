@@ -4,6 +4,7 @@ import androidx.room.Ignore
 
 data class NounCorpusBreakup(
     var count: Int,
+    var id:Int,
     var root_a: String?,
     var lemma_a: String?,
     var araword: String?,
