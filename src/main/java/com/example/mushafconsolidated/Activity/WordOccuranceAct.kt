@@ -17,7 +17,6 @@ import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import com.example.Constant
 import com.example.Constant.AYAHNUMBER
-import com.example.Constant.QURAN_VERB_ROOT
 import com.example.Constant.SURAH_ARABIC_NAME
 import com.example.Constant.SURAH_ID
 import com.example.Constant.WORDNUMBER
@@ -63,8 +62,7 @@ open class WordOccuranceAct : BaseActivity() {
     protected override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.expand_list)
-        val bundle: Bundle? = getIntent().getExtras()
-        root = bundle?.getString(QURAN_VERB_ROOT)
+
         utils = Utils(this@WordOccuranceAct)
         // String preferences = SharedPref.themePreferences();
         val builder = AlertDialog.Builder(this)
@@ -102,6 +100,8 @@ open class WordOccuranceAct : BaseActivity() {
             //  Intent quranintnt = new Intent(VerbOccuranceAsynKAct.this, ReadingSurahPartActivity.class);
             finish()
         }
+        val bundle: Bundle? = getIntent().getExtras()
+        root = bundle?.getString(Constant.QURAN_VERB_ROOT)
         if (root == "ACC" || root == "LOC" || root == "T") {
             occurances = utils.getnounoccuranceHarfNasbZarf(root!!) as ArrayList<CorpusNounWbwOccurance>?
             harf = true

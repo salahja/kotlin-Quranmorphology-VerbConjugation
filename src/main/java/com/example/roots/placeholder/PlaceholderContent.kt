@@ -22,7 +22,7 @@ object PlaceholderContent {
      * A map of sample (placeholder) items, by ID.
      */
     val ITEM_MAP: MutableMap<String, PlaceholderItem> = HashMap()
-    val root = ArrayList<String>()
+    var root = ArrayList<String>()
     private const val COUNT = 25
 
     init {

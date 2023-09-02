@@ -36,6 +36,7 @@ import com.example.Constant.SHADDA
 import com.example.Constant.SURAH_ID
 import com.example.Constant.VERBMOOD
 import com.example.Constant.VERBTYPE
+import com.example.compose.ComposeAct
 import com.example.mushafconsolidated.Activity.LughatWordDetailsAct
 import com.example.mushafconsolidated.Activity.WordOccuranceAct
 
@@ -931,8 +932,9 @@ class WordAnalysisBottomSheet : DialogFragment() {
                         .show(Objects.requireNonNull(requireActivity()).supportFragmentManager, TAG)
                 } else if (nouns != null) {
                     val bundle = Bundle()
-                    //   Intent intent = new Intent(getActivity(), NounOccuranceAsynKAct.class);
-                    val intent = Intent(activity, WordOccuranceAct::class.java)
+
+                 //   val intent = Intent(activity, WordOccuranceAct::class.java)
+                    val intent = Intent(activity, ComposeAct::class.java)
                     try {
                         if (vb.root!! != null) {
                             bundle.putString(QURAN_VERB_ROOT, vb.root)

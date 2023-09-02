@@ -3,11 +3,24 @@
 import android.annotation.SuppressLint
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -16,8 +29,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -26,11 +42,13 @@ import com.codelab.basics.ui.theme.cardExpandedBackgroundColor
 import com.example.compose.CardsViewModel
 import com.example.compose.ExpandableCardModel
 import com.example.mushafconsolidated.R
+import com.skyyo.expandablelist.theme.AppTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
 val EXPANSTION_TRANSITION_DURATION = 300
 
+@OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalCoroutinesApi
 @Composable
 fun CardsScreen(viewModel: CardsViewModel) {
@@ -42,7 +60,7 @@ fun CardsScreen(viewModel: CardsViewModel) {
         Color(ContextCompat.getColor(context, R.color.colorDayNightWhite))
     }
 
-    Scaffold(backgroundColor = bgColour) { paddingValues ->
+    Scaffold(Modifier.background(bgColour) ) { paddingValues ->
         LazyColumn(Modifier.padding(paddingValues)) {
             items(cards, ExpandableCardModel::id) { card ->
                 ExpandableCard(
@@ -52,10 +70,44 @@ fun CardsScreen(viewModel: CardsViewModel) {
                 )
             }
         }
+
+        TopAppBar(
+            title = {
+                Text(text = "Pets Show")
+            },
+            navigationIcon = {
+                IconButton(onClick = { }) {
+                    Icon(imageVector = Icons.Filled.Menu, contentDescription = "Menu Btn")
+                }
+            },
+        // backgroundColor = Color.Transparent,
+           // contentColor = Color.Gray,
+          //  elevation = 2.dp
+        )
+
+
     }
 }
 
 @SuppressLint("UnusedTransitionTargetStateParameter")
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    AppTheme {
+        CustomCircularProgressBar();
+    }
+}
+
+@Composable
+private fun CustomCircularProgressBar(){
+    CircularProgressIndicator(
+        modifier = Modifier.size(100.dp),
+        color = Color.Green,
+        strokeWidth = 10.dp)
+
+}
+
 @Composable
 fun ExpandableCard(
     card: ExpandableCardModel,
@@ -79,7 +131,7 @@ fun ExpandableCard(
     }, label = "paddingTransition") {
         if (expanded) 48.dp else 24.dp
     }
-    val cardElevation by transition.animateDp({
+    val cardElevation: Dp by transition.animateDp({
         tween(durationMillis = EXPANSTION_TRANSITION_DURATION)
     }, label = "elevationTransition") {
         if (expanded) 24.dp else 4.dp
@@ -103,9 +155,9 @@ fun ExpandableCard(
     }
 
     Card(
-        backgroundColor = cardBgColor,
-        contentColor = contentColour,
-        elevation = cardElevation,
+      //  backgroundColor = cardBgColor,
+      //  contentColor = contentColour,
+   //     elevation = cardElevation,
         shape = RoundedCornerShape(cardRoundedCorners),
         modifier = Modifier
             .fillMaxWidth()
@@ -188,7 +240,7 @@ fun ExpandableContent(
         Column(modifier =  Modifier.padding(8.dp)) {
             card.forEach { verses ->
                 verses
-                Text(verses,  color = Color.Black, modifier = Modifier.padding(15.dp)
+                Text(verses,    modifier = Modifier.padding(15.dp)
 
                 )
 
