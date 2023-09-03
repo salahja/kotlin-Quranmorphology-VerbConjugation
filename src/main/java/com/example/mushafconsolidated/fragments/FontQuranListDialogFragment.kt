@@ -38,7 +38,7 @@ class FontQuranListDialogFragment constructor() : BottomSheetDialogFragment() {
     public override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.setLayoutManager(LinearLayoutManager(requireContext()))
-        radioGroup = view.findViewById(R.id.rdgroup)
+//        radioGroup = view.findViewById(R.id.rdgroup)
         val details: ArrayList<String> = ArrayList()
         val sample: String = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ"
         fontQuranAdapter = FontQuranAdapter(sample)

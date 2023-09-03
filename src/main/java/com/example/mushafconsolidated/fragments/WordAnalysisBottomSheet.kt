@@ -2,6 +2,7 @@ package com.example.mushafconsolidated.fragments
 
 
 import Utility.ArabicLiterals
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -39,7 +40,6 @@ import com.example.Constant.VERBTYPE
 import com.example.compose.ComposeAct
 import com.example.mushafconsolidated.Activity.LughatWordDetailsAct
 import com.example.mushafconsolidated.Activity.WordOccuranceAct
-
 import com.example.mushafconsolidated.Adaptersimport.RootWordDisplayAdapter
 import com.example.mushafconsolidated.Entities.HalEnt
 import com.example.mushafconsolidated.Entities.LiajlihiEnt
@@ -790,6 +790,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
 
 
         rwAdapter!!.SetOnItemClickListener(object : OnItemClickListener {
+            @SuppressLint("SuspiciousIndentation")
             override fun onItemClick(v: View?, position: Int) {
                 val text: CharSequence
                 val text2: CharSequence? = null
@@ -933,8 +934,8 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 } else if (nouns != null) {
                     val bundle = Bundle()
 
-                 //   val intent = Intent(activity, WordOccuranceAct::class.java)
-                    val intent = Intent(activity, ComposeAct::class.java)
+        //   val intent = Intent(activity, WordOccuranceAct::class.java)
+                val intent = Intent(activity, ComposeAct::class.java)
                     try {
                         if (vb.root!! != null) {
                             bundle.putString(QURAN_VERB_ROOT, vb.root)

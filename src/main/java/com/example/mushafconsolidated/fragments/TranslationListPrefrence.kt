@@ -69,7 +69,7 @@ class TranslationListPrefrence constructor() : BottomSheetDialogFragment() {
 
     public override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setLayoutManager(LinearLayoutManager(context!!))
+        recyclerView.setLayoutManager(LinearLayoutManager(requireContext()))
         val details: ArrayList<String> = ArrayList()
         fontQuranAdapter = FontQuranAdapter()
         recyclerView.setAdapter(fontQuranAdapter)
@@ -108,7 +108,7 @@ class TranslationListPrefrence constructor() : BottomSheetDialogFragment() {
             en_jalalayn = itemView.findViewById(R.id.en_jalalayn)
             ur_jalalayn = itemView.findViewById(R.id.ur_jalalayn)
             en_erberry = itemView.findViewById(R.id.en_arberry)
-            frameLayout = itemView.findViewById(R.id.bottomSheet)
+         //   frameLayout = itemView.findViewById(R.id.bottomSheet)
             itemView.setOnClickListener(this)
             en_sahih.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {

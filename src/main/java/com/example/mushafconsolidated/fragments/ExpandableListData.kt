@@ -1197,8 +1197,8 @@ class ExpandableListData {
        var sb = StringBuilder ()
         var firstwordindex: Int = 0
         var lastwordindex: Int = 0
-        val split: SplitQuranVerses = SplitQuranVerses()
-        val words: ArrayList<Word> = split.splitSingleVerse(quranverses)
+        val versesSplitIntoWords: SplitQuranVerses = SplitQuranVerses()
+        val words: ArrayList<Word> = versesSplitIntoWords.splitSingleVerse(quranverses)
         val trim: String = charSequence.toString().trim({ it <= ' ' })
         val strings: Array<String> =
             trim.split("\\s".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()

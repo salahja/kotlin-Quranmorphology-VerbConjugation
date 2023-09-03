@@ -20,25 +20,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant
-import com.example.compose.ComposeAct
 import com.example.mushafconsolidated.Activity.QuranGrammarAct
 import com.example.mushafconsolidated.Activity.ShowMushafActivity
-
-
 import com.example.mushafconsolidated.Adaptersimport.JuzSurahDisplayAdapter
 import com.example.mushafconsolidated.Adaptersimport.NewSurahDisplayAdapter
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
-
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.R.drawable.custom_search_box
 import com.example.mushafconsolidated.Utils.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
-
-
 import com.example.mushafconsolidated.intrfaceimport.PassdataInterface
 import com.example.mushafconsolidated.model.Juz
-
-
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -48,7 +40,6 @@ import com.google.android.material.textview.MaterialTextView
 import database.NamesGridImageAct
 import org.sj.conjugator.activity.ConjugatorAct
 import sj.hisnul.activity.HisnulBottomACT
-
 import java.util.Objects
 
 
@@ -325,13 +316,13 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
                 startActivity(conjugatorintent)
             }
             if (item.itemId == R.id.dua) {
-                  val hisnulBottomACT = Intent(activity, ComposeAct::class.java)
-                    startActivity(hisnulBottomACT)
+                val hisnulBottomACT = Intent(activity, HisnulBottomACT::class.java)
+                startActivity(hisnulBottomACT)
             }
             if (item.itemId == R.id.names) {
-       val settingint = Intent(activity, NamesGridImageAct::class.java)
+                val settingint = Intent(activity, NamesGridImageAct::class.java)
 
-                   startActivity(settingint)
+                startActivity(settingint)
             }
             if (item.itemId == R.id.mushafview) {
                 val settingints = Intent(activity, ShowMushafActivity::class.java)

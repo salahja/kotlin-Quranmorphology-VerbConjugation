@@ -285,7 +285,7 @@ class TopicFlowAyahWordAdapter(
         ayahWord: CorpusAyahWord?,
         showWbwTranslation: Boolean
     ) {
-        val FONTS_LOCATION_PATH = "fonts/DejaVuSans.ttf"
+        val FONTS_LOCATION_PATH = "font/dejavusans.ttf"
         val colorwordfont = Typeface.createFromAsset((QuranGrammarApplication.instance)?.getAssets(), FONTS_LOCATION_PATH)
         val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         holder.flow_word_by_word.removeAllViews()

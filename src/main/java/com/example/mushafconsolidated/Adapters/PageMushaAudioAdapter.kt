@@ -101,7 +101,7 @@ class PageMushaAudioAdapter(
             context.assets,
             islamicfont
         )
-        val FONTS_LOCATION_PATH = "fonts/DejaVuSans.ttf"
+        val FONTS_LOCATION_PATH = "font/dejavusans.ttf"
         val defaultfont = sharedPreferences.getBoolean("default_font", true)
         //bg_black
         if (position % 2 == 1) {

@@ -57,7 +57,6 @@ import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.model.CorpusAyahWord
 import com.example.mushafconsolidated.model.CorpusWbwWord
 import com.example.mushafconsolidatedimport.Config
-import sj.hisnul.fragments.NamesDetail
 import com.example.mushafconsolidatedimport.ParticleColorScheme
 import com.example.utility.AnimationUtility
 import com.example.utility.CorpusUtilityorig
@@ -69,6 +68,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textview.MaterialTextView
 import com.tooltip.Tooltip
+import sj.hisnul.fragments.NamesDetail
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -185,11 +185,12 @@ class FlowAyahWordAdapter(
             context.assets,
             arabic_font_selection
         )
-        val FONTS_LOCATION_PATH = "fonts/DejaVuSans.ttf"
+        val FONTS_LOCATION_PATH =   "fonts/DejaVuSans.ttf"
         colorwordfont = Typeface.createFromAsset(
             QuranGrammarApplication.context!!.assets,
             FONTS_LOCATION_PATH
         )
+
         val showrootkey = sharedPreferences.getBoolean("showrootkey", true)
         val showErab = sharedPreferences.getBoolean("showErabKey", true)
         val showWordColor = sharedPreferences.getBoolean("colortag", true)
