@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.SharedPreferences
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -43,7 +44,7 @@ class CardsViewModel(mApplication: Application, verbroot: String, nounroot: Stri
     private var nounCorpusArrayList: ArrayList<NounCorpusBreakup>? = null
     private var verbCorpusArray: ArrayList<VerbCorpusBreakup>? = null
 
-
+    val loading= mutableStateOf(true)
     init {
         shared = PreferenceManager.getDefaultSharedPreferences(mApplication)
         var job = Job()
@@ -53,7 +54,7 @@ class CardsViewModel(mApplication: Application, verbroot: String, nounroot: Stri
 
 
                 getNounData(nounroot,verbroot)
-                true
+
 
 
 
@@ -64,6 +65,7 @@ class CardsViewModel(mApplication: Application, verbroot: String, nounroot: Stri
 
     private fun getNounData(nounroot: String, verbroot: String) {
          viewModelScope.launch {
+             loading.value=true
             withContext(Dispatchers.Default) {
                val testList = arrayListOf<ExpandableCardModel>()
 
@@ -166,10 +168,12 @@ class CardsViewModel(mApplication: Application, verbroot: String, nounroot: Stri
 
                 _cards.emit(testList)
 
+
             }
             //    closeDialog()
-
+             loading.value=false
         }
+
     }
 
 
