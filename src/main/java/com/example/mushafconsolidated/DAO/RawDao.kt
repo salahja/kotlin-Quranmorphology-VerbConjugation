@@ -95,7 +95,7 @@ interface RawDao {
     fun getCorpusWbwfortameez(query: SupportSQLiteQuery): List<CorpusExpandWbwPOJO?>?
 
   @RawQuery
-    fun getDuaCATNAMES(query: SupportSQLiteQuery): List<hduanames?>?
+    fun getDuaCATNAMES(query: SupportSQLiteQuery): List<hduanames>
 
 /*    @RawQuery
     fun getLocinfo(query: SupportSQLiteQuery): LocationInfo?*/

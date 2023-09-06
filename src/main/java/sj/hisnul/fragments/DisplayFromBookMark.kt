@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
@@ -19,22 +20,18 @@ import com.google.android.material.appbar.MaterialToolbar
 import sj.hisnul.adapter.SelectedDuaViewAdapter
 import sj.hisnul.entity.hduadetails
 import sj.hisnul.entity.hduanames
-import java.util.LinkedList
 
 class DisplayFromBookMark : Fragment() {
     val subheaders = ArrayList<String>()
-    val duacoll: ArrayList<ArrayList<hduadetails>> = ArrayList<ArrayList<hduadetails>>()
+    val duacoll: ArrayList<ArrayList<hduadetails>> = ArrayList()
      lateinit var  sadapter: SelectedDuaViewAdapter
 
     //called by allduarag and  catwofrag retrival by the chaptername in hdunames
      lateinit var  recyclerView: RecyclerView
-    var link: LinkedList<*> = LinkedList<Any>()
     private  lateinit var  lists: String
     private  lateinit var  name: String
-    private  lateinit var  subheader: String
     private   var  fromcatwo = false
     private var chap_id = 0
-    private  lateinit var  refid: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -63,7 +60,7 @@ class DisplayFromBookMark : Fragment() {
     ): View? {
         setHasOptionsMenu(true)
         val view = inflater.inflate(R.layout.dunamefragview, container, false)
-
+        val viewmodel:AllDuaModel by viewModels()
         setHasOptionsMenu(true)
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbarmain)
         val actionBa = (activity as AppCompatActivity?)!!.actionBar
@@ -76,18 +73,17 @@ class DisplayFromBookMark : Fragment() {
         toolbar.setOnMenuItemClickListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.bookmark -> {
-                    //     Toast.makeText(getContext(), "First book item", Toast.LENGTH_SHORT).show();
-                    //     ArrayList<hduanames> duanamesDetails = utils.getIsmarked(chap_id);
-                    val dunamesbyid: List<hduanames?>? =
-                        utils.getdualistbychapter(chap_id)
-                    //sadapter.duadetailsitems
+
+                    val dunamesbyid: List<hduanames> =  utils.getdualistbychapter(chap_id)
+
                     val gookstat = dunamesbyid?.get(0)?.fav
                     if (gookstat == 0) {
-                        val up = utils.updateFav(1, chap_id)!!
-                        //  RefreshActivity();
+                        viewmodel.update(1,chap_id)
+                      //  val up = utils.updateFav(1, chap_id)!!
+
                     } else {
-                        val upd = utils.updateFav(0, chap_id)!!
-                        //     RefreshActivity();
+                     //   val upd = utils.updateFav(0, chap_id)!!
+                        viewmodel.update(0,chap_id)
                     }
                     return@setOnMenuItemClickListener true
                 }
@@ -136,18 +132,7 @@ class DisplayFromBookMark : Fragment() {
         requireActivity().overridePendingTransition(0, 0)
         startActivity(intent)
         requireActivity().finish()
-        //requireActivity().overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left)
-        if (fromcatwo) {
-            //  HisnulMainAct.viewPager.setCurrentItem(0);
-        } else {
-            //    HisnulMainAct.viewPager.setCurrentItem(1);
-        }
-        //  colorsentence.setOnCheckedChangeListener (null);
-        //  colorsentence.setChecked(true);
-    }
 
-    fun allowBackPressed(): Boolean {
-        return true
     }
 
     companion object {

@@ -1,6 +1,7 @@
 
 
 import android.annotation.SuppressLint
+import android.text.SpannableString
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
@@ -31,6 +32,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDirection
@@ -44,7 +46,7 @@ import com.codelab.basics.ui.theme.cardCollapsedBackgroundColor
 import com.codelab.basics.ui.theme.cardExpandedBackgroundColor
 import com.codelab.basics.ui.theme.qalam
 import com.example.compose.CardsViewModel
-import com.example.compose.ExpandableCardModel
+import com.example.compose.ExpandableCardModelSpannableLists
 import com.example.compose.VerseOccuranceModel
 import com.example.compose.WordOccuranceLoading
 import com.example.mushafconsolidated.R
@@ -82,12 +84,14 @@ fun CardsScreen(viewModel: CardsViewModel) {
         Color(ContextCompat.getColor(context, R.color.colorDayNightWhite))
     }
 
-    Scaffold(Modifier.background(bgColour)) { paddingValues ->
+    Scaffold(Modifier.background(bgColour)
+
+    ) { paddingValues ->
         val copyProgress: MutableState<Float> = remember { mutableStateOf(0.0f) }
         loading = viewModel.loading.value
         WordOccuranceLoading(isDisplayed = loading)
         LazyColumn(Modifier.padding(paddingValues)) {
-            items(cards, ExpandableCardModel::id) { card ->
+            items(cards, ExpandableCardModelSpannableLists::id) { card ->
                 ExpandableCard(
                     card = card,
                     onCardArrowClick = { viewModel.onCardArrowClicked(card.id) },
@@ -122,7 +126,21 @@ fun CardsScreen(viewModel: CardsViewModel) {
     }
 }
 
+@Composable
+fun DetailTopAppBar(onBackPressed: ()-> Unit ={} ) {
+  TopAppBar(title =  {
+      Text(text="Word Occurance") },
+    navigationIcon = {
+        IconButton(onClick = { onBackPressed() } ) {
+         //   Icon(ImageVector = Icons.Default.ArrowBack,contentDescription="" ,Modifier.padding(10.dp),color = Color.Red)
 
+        }
+
+  }
+    )
+
+
+}
 
 
 @SuppressLint("UnusedTransitionTargetStateParameter")
@@ -131,7 +149,7 @@ fun ExpandableCard(
 
 
 
-card: ExpandableCardModel,
+    card: ExpandableCardModelSpannableLists,
     onCardArrowClick: () -> Unit,
     expanded: Boolean,
 ) {
@@ -247,7 +265,8 @@ fun CenterAlignedText() {
     Text(
         text = "Center",
         textAlign = TextAlign.Center,
-        modifier = Modifier.size(100.dp)
+        modifier = Modifier
+            .size(100.dp)
             .background(Color.Cyan)
             .wrapContentHeight(),
     )
@@ -259,7 +278,7 @@ fun ExpandableContent(
 
 
     lemma:String,
-    card: ArrayList<String>,
+    card: ArrayList<SpannableString>,
     visible: Boolean = true,
 //    viewModel: LemmaViewModel = viewModel(),
 
@@ -269,6 +288,11 @@ fun ExpandableContent(
 //  viewModel: Any = viewModel<LemmaViewModel>()
 
 ) {
+   // val versemodel= viewModel(modelClass = DuaViewModel::class.java)
+   // val versstate=versemodel.state
+   // val duanames = versstate.duanames
+  //  versemodel.state.duanames.filterbyid()
+
     val enterTransition = remember {
         expandVertically(
             expandFrom = Alignment.Top,
@@ -299,10 +323,15 @@ fun ExpandableContent(
 
         {
             println(lemma)
+
             card.forEach { verses ->
+                val annotatedString = buildAnnotatedString {
+                    append(verses)
+
+                }
 
                 Text(
-                    text = verses, style = MaterialTheme.typography.headlineSmall.copy(
+                    text = annotatedString, style = MaterialTheme.typography.headlineSmall.copy(
                         fontWeight = FontWeight.Light,
                         textDirection = TextDirection.ContentOrRtl,
                         textAlign = TextAlign.Center,

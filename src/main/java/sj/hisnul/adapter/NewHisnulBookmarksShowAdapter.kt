@@ -113,6 +113,7 @@ class NewHisnulBookmarksShowAdapter :
             chapter.setOnClickListener(this)
             id.setOnClickListener(this)
             ivdelete.setOnClickListener(this)
+
             id.setTag("id")
             ivdelete.tag = "delete"
             duaname.setTag("id")

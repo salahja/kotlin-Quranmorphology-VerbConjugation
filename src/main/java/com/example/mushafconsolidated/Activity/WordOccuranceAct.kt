@@ -161,73 +161,7 @@ open class WordOccuranceAct : BaseActivity() {
                     expandNounVerses[sb.toString()] = alist
                 }
             }
-            for (noun in nounCorpusArrayList!!) {
-                val list: ArrayList<SpannableString> =
-                    ArrayList()
-                list.add(SpannableString.valueOf(""))
-                if (noun.form == "null") {
-                    val sb = StringBuilder()
-                    val nounexpand = QuranMorphologyDetails.expandTags(noun.tag!!)
-                    var times = ""
-                    times = if (noun.count == 1) {
-                        "Once"
-                    } else {
-                        val count = noun.count
-                        val timess = count.toString()
-                        "$timess-times"
-                    }
-                    sb.append(times).append(" ").append(noun.lemma_a).append(" ")
-                        .append("occurs as the").append(" ").append(nounexpand)
-                    expandNounVerses[sb.toString()] = list
-                } else {
-                    val sb = StringBuilder()
-                    val s = QuranMorphologyDetails.expandTags(noun.propone + noun.proptwo)
-                    //  String s1 = QuranMorphologyDetails.expandTags(noun.getProptwo());
-                    val s2 = QuranMorphologyDetails.expandTags(noun.tag!!)
-                    var times = ""
-                    times = if (noun.count == 1) {
-                        "Once"
-                    } else {
-                        val count = noun.count
-                        val timess = count.toString()
-                        "$timess-times"
-                    }
-                    sb.append(times).append(" ").append(noun.lemma_a).append(" ")
-                        .append("occurs as the").append(" ").append(noun.form)
-                        .append(" ")
-                    if (s != "null") {
-                        sb.append(s).append(" ").append(" ")
-                    }
-                    sb.append(s2)
-                    expandNounVerses[sb.toString()] = list
-                }
-            }
-            for (verbCorpusBreakup in verbCorpusArrayList!!) {
-                val list = ArrayList<SpannableString>()
-                list.add(SpannableString.valueOf(""))
-                if (verbCorpusBreakup.form == "I") {
-                    val sb = StringBuilder()
-                    val mujarrad = java.lang.String.valueOf(
-                        QuranMorphologyDetails.getThulathiName(verbCorpusBreakup.thulathibab)
-                    )
-                    sb.append(verbCorpusBreakup.count).append("-").append("times").append(" ")
-                        .append(verbCorpusBreakup.lemma_a).append(" ").append("occurs as the")
-                        .append(" ").append(mujarrad)
-                    expandVerbVerses[sb.toString()] = list
-                } else {
-                    val sb = StringBuilder()
-                    val s = verbCorpusBreakup.tense?.let { QuranMorphologyDetails.expandTags(it) }
-                    val s1 = verbCorpusBreakup.voice?.let { QuranMorphologyDetails.expandTags(it) }
-                    val mazeed = java.lang.String.valueOf(
-                        QuranMorphologyDetails.getFormName(verbCorpusBreakup.form)
-                    )
-                    sb.append(verbCorpusBreakup.count).append("-").append("times").append(" ")
-                        .append(verbCorpusBreakup.lemma_a).append(" ").append("occurs as the")
-                        .append(" ").append(mazeed)
-                        .append(" ").append(s).append(" ").append(" ").append(s1)
-                    expandVerbVerses[sb.toString()] = list
-                }
-            }
+            verbandnouns()
             expandNounTitles = ArrayList(expandNounVerses.keys)
             expandVerbTitles = ArrayList(expandVerbVerses.keys)
             expandNounVerses.putAll(expandVerbVerses)
@@ -415,7 +349,7 @@ open class WordOccuranceAct : BaseActivity() {
                                     ) as ArrayList<CorpusNounWbwOccurance>
                                 for (vers in verses) {
                                     val sb = StringBuilder()
-                                    val spanDark = SpannableString(vers.qurantext)
+                                    SpannableString(vers.qurantext)
                                     val spannableVerses =
                                         getSpannableVerses(
                                             vers.araone + vers.aratwo + vers.arathree + vers.arafour + vers.arafive,
@@ -450,9 +384,10 @@ open class WordOccuranceAct : BaseActivity() {
                                             SpannableString.valueOf(vers.en_arberry)
                                     }
                                     val charSequence =
-                                        TextUtils.concat(ref, "\n ", spannableVerses)
+                                        TextUtils.concat(ref, "\n ", spannableVerses,"\n ",trans)
                                     list.add(SpannableString.valueOf(charSequence))
-                                    list.add(trans!!)
+                                  //  list.add(SpannableString.valueOf(charSequence))
+                                   // list.add(trans!!)
                                 }
                                 runOnUiThread(Runnable {
                                     ex.shutdown()
@@ -509,9 +444,9 @@ open class WordOccuranceAct : BaseActivity() {
                                             SpannableString.valueOf(vers.en_arberry)
                                     }
                                     val charSequence =
-                                        TextUtils.concat(ref, "\n ", spannableVerses)
+                                        TextUtils.concat(ref, "\n ", spannableVerses, "\n ",trans)
                                     list.add(SpannableString.valueOf(charSequence))
-                                    trans?.let { list.add(it) }
+                                   // trans?.let { list.add(it) }
                                 }
                                 runOnUiThread(Runnable {
                                     ex.shutdown()
@@ -585,6 +520,76 @@ open class WordOccuranceAct : BaseActivity() {
                     }
                 })
             })
+        }
+    }
+
+    private fun verbandnouns() {
+        for (noun in nounCorpusArrayList!!) {
+            val list: ArrayList<SpannableString> =
+                ArrayList()
+            list.add(SpannableString.valueOf(""))
+            if (noun.form == "null") {
+                val sb = StringBuilder()
+                val nounexpand = QuranMorphologyDetails.expandTags(noun.tag!!)
+                var times = ""
+                times = if (noun.count == 1) {
+                    "Once"
+                } else {
+                    val count = noun.count
+                    val timess = count.toString()
+                    "$timess-times"
+                }
+                sb.append(times).append(" ").append(noun.lemma_a).append(" ")
+                    .append("occurs as the").append(" ").append(nounexpand)
+                expandNounVerses[sb.toString()] = list
+            } else {
+                val sb = StringBuilder()
+                val s = QuranMorphologyDetails.expandTags(noun.propone + noun.proptwo)
+                //  String s1 = QuranMorphologyDetails.expandTags(noun.getProptwo());
+                val s2 = QuranMorphologyDetails.expandTags(noun.tag!!)
+                var times = ""
+                times = if (noun.count == 1) {
+                    "Once"
+                } else {
+                    val count = noun.count
+                    val timess = count.toString()
+                    "$timess-times"
+                }
+                sb.append(times).append(" ").append(noun.lemma_a).append(" ")
+                    .append("occurs as the").append(" ").append(noun.form)
+                    .append(" ")
+                if (s != "null") {
+                    sb.append(s).append(" ").append(" ")
+                }
+                sb.append(s2)
+                expandNounVerses[sb.toString()] = list
+            }
+        }
+        for (verbCorpusBreakup in verbCorpusArrayList!!) {
+            val list = ArrayList<SpannableString>()
+            list.add(SpannableString.valueOf(""))
+            if (verbCorpusBreakup.form == "I") {
+                val sb = StringBuilder()
+                val mujarrad = java.lang.String.valueOf(
+                    QuranMorphologyDetails.getThulathiName(verbCorpusBreakup.thulathibab)
+                )
+                sb.append(verbCorpusBreakup.count).append("-").append("times").append(" ")
+                    .append(verbCorpusBreakup.lemma_a).append(" ").append("occurs as the")
+                    .append(" ").append(mujarrad)
+                expandVerbVerses[sb.toString()] = list
+            } else {
+                val sb = StringBuilder()
+                val s = verbCorpusBreakup.tense?.let { QuranMorphologyDetails.expandTags(it) }
+                val s1 = verbCorpusBreakup.voice?.let { QuranMorphologyDetails.expandTags(it) }
+                val mazeed = java.lang.String.valueOf(
+                    QuranMorphologyDetails.getFormName(verbCorpusBreakup.form)
+                )
+                sb.append(verbCorpusBreakup.count).append("-").append("times").append(" ")
+                    .append(verbCorpusBreakup.lemma_a).append(" ").append("occurs as the")
+                    .append(" ").append(mazeed)
+                    .append(" ").append(s).append(" ").append(" ").append(s1)
+                expandVerbVerses[sb.toString()] = list
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ExpandableListView
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -18,10 +19,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils.Utils
 import com.example.utility.QuranGrammarApplication
 import sj.hisnul.entity.hduanames
+import sj.hisnul.fragments.AllDuaModel
 import sj.hisnul.fragments.HDuaNamesfrag
+import java.util.Collections
 import java.util.Objects
 
 class NewExpandAct : BaseActivity(), SearchView.OnQueryTextListener, SearchView.OnCloseListener {
@@ -57,19 +59,37 @@ class NewExpandAct : BaseActivity(), SearchView.OnQueryTextListener, SearchView.
         //  expandableListDetail = ExpandableListDataPump.getData();
         expandableListView = findViewById(R.id.expandableListView)
         //  iv_groupIndicator = findViewById(R.id.iv_groupIndicator);
-        val utils = Utils(this)
+        val viewmodel: AllDuaModel by viewModels()
         //  hduanamesArrayList = utils.getDunamesbyCatId(String.valueOf(dua_id));
-        hduanamesArrayList = utils.getDuaCATNAMES(dua_id.toString()) as ArrayList<hduanames>
-        subjects = HashMap()
-        parentItemsList = ArrayList()
-        childItemsList = ArrayList()
-        loadDatas()
-        displayList()
-        dataheader = ArrayList()
-        for (duanamesDetail in hduanamesArrayList) {
-            dataheader!!.add(duanamesDetail.duaname)
+      //  hduanamesArrayList = viewmodel.getDuaCATNAMES(dua_id.toString()) as ArrayList<hduanames>
+
+
+
+        viewmodel.Duacatnames(dua_id.toString()).observe(this){ userlist->
+            Collections.reverse(userlist)
+            hduanamesArrayList= userlist as ArrayList<hduanames>
+            dataheader = ArrayList()
+            for (duanamesDetail in hduanamesArrayList) {
+                dataheader!!.add(duanamesDetail.duaname)
+            }
+            subjects = HashMap()
+            parentItemsList = ArrayList()
+            childItemsList = ArrayList()
+            loadDatas()
+            displayList()
+            // ska.setmutable(userlist)
         }
+
+
     }
+
+    override fun onDestroy() {
+        //   context = null
+        finish()
+        super.onDestroy()
+    }
+
+
 
     private fun loadDatas() {
         for (hduanames in hduanamesArrayList) {
@@ -164,7 +184,9 @@ class NewExpandAct : BaseActivity(), SearchView.OnQueryTextListener, SearchView.
         }
 
    */
-    override fun onBackPressed() {}
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         getMenuInflater().inflate(R.menu.menu_search, menu)
         val searchManager: SearchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager

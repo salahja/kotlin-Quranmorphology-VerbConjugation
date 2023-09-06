@@ -708,7 +708,7 @@ class LughatWordDetailsAct : BaseActivity() {
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[3].toString())
                 fragv.setArguments(dataBundle)
                 return fragv.newInstance()
-            } /*else if (position == 4) {
+            } else if (position == 4) {
                 val fragv = FragmentVerb()
                 fragv.arguments = dataBundle
                 return fragv.newInstance()
@@ -719,8 +719,8 @@ class LughatWordDetailsAct : BaseActivity() {
             }
             val fragv = FragmentVerb()
             fragv.arguments = dataBundle
-            return fragv.newInstance()*/
-            return TODO("Provide the return value")
+            return fragv.newInstance()
+
         }
 
         private fun getHarf(position: Int): Fragment {

@@ -1,28 +1,29 @@
 package sj.hisnul.fragments
 
-import android.content.Context
+
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.mushafconsolidated.Utils.Utils
+import kotlinx.coroutines.launch
 import sj.hisnul.entity.hcategory
 
-class CatwoModel()  :ViewModel() {
+class CatwoModel(application: Application) : AndroidViewModel(application) {
     val duagrouptwo: MutableLiveData<List<hcategory>> = MutableLiveData()
-    private val allUsers: LiveData<List<hcategory>> get() = duagrouptwo
+    // private val allUsers: LiveData<List<hcategory>> get() = duagrouptwo
 
+    val util = Utils(application)
 
+    fun loadLists(): LiveData<List<hcategory>> {
+        viewModelScope.launch {
 
-    fun loadLists(context: Context?): LiveData<List<hcategory>> {
-        val util = Utils(context)
-        //delay is simulating network request delay
-        //delay(1000)
-        //listOf is simulating usersRepository.getUsers()
-        duagrouptwo.value = util.hcategory
-        return    duagrouptwo
+            duagrouptwo.value = util.hcategory
+
+        }
+        return duagrouptwo
     }
-
-
 
 
     }

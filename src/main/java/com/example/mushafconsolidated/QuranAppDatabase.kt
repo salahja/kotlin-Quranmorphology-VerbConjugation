@@ -65,6 +65,9 @@ import com.example.mushafconsolidated.Entities.wbwentity
 import com.example.mushafconsolidated.settingsimport.Constants.Companion.DATABASENAME
 import database.Dao.NamesDao
 import database.entity.AllahNames
+import sj.hisnul.Dao.DuaItemdao
+import sj.hisnul.Dao.Duacategorydao
+import sj.hisnul.Dao.Duanamesdao
 import sj.hisnul.Dao.hDuaCategoryDao
 import sj.hisnul.Dao.hDuaItemDao
 import sj.hisnul.Dao.hDuaNamesDao
@@ -88,7 +91,7 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
     abstract fun RawDao(): RawDao
     abstract fun CorpusExpandedDao(): CorpusExpandedDao?
     abstract fun QuranDao(): QuranDao?
-    abstract fun VerbCorpusDao(): VerbCorpusDao?
+     abstract fun VerbCorpusDao(): VerbCorpusDao?
     abstract fun NounCorpusDao(): NounCorpusDao?
     abstract fun wbwDao(): wbwDao?
     abstract fun SifaDao(): SifaDao?
@@ -122,8 +125,12 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
 
    abstract fun NamesDao(): NamesDao?
     abstract fun hDuaItemDao(): hDuaItemDao?
-    abstract fun hDuaNamesDao(): hDuaNamesDao?
+    abstract fun hDuaNamesDao(): hDuaNamesDao
     abstract fun hDuaCategoryDao(): hDuaCategoryDao?
+
+    abstract fun duaItemdao(): DuaItemdao
+    abstract fun duaNamesdao(): Duanamesdao
+    abstract fun duaCategorydao(): Duacategorydao
 
 /*
     abstract fun CountryDao(): CountryDao?

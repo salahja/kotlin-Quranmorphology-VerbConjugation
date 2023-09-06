@@ -11,14 +11,16 @@ import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.text.HtmlCompat
 import com.example.mushafconsolidated.R
 import com.example.utility.QuranGrammarApplication
 
-class NounVerbOccuranceListAdapter(// private   HashMap<String, List<SpannableStringBuilder>> expandableListDetail;
-    private val context: Context, private val expandableListTitle: List<String>,
+class NounVerbOccuranceListAdapter(
+// private   HashMap<String, List<SpannableStringBuilder>> expandableListDetail;
+    private val context: Context,
+    private val expandableListTitle: List<String>,
     expandNounVerses: LinkedHashMap<String, ArrayList<SpannableString>>,
-    expandVerbVerses: LinkedHashMap<String, ArrayList<SpannableString>>, expandVerbTitles: List<String>
+    expandVerbVerses: LinkedHashMap<String, ArrayList<SpannableString>>,
+    expandVerbTitles: List<String>,
 ) : BaseExpandableListAdapter() {
     private val expandVerbTitles: List<String>
     private val expandVerbVerses: LinkedHashMap<String, ArrayList<SpannableString>>
@@ -43,7 +45,7 @@ class NounVerbOccuranceListAdapter(// private   HashMap<String, List<SpannableSt
         expandedListPosition: Int,
         isLastChild: Boolean,
         convertView: View?,
-        parent: ViewGroup
+        parent: ViewGroup,
     ): View {
         //  SpannableString expandedListText = (SpannableString) getChild(listPosition, expandedListPosition);
       //  var convertView: View?=convertView
@@ -62,18 +64,14 @@ class NounVerbOccuranceListAdapter(// private   HashMap<String, List<SpannableSt
         val expandedListTextViewlane = convertView
             .findViewById<View>(R.id.expandedListItemverb) as TextView
         val contains = false
-        if (contains) {
-            //setTextDirection(View.TEXT_DIRECTION_ANY_RTL)
-            expandedListTextView.textDirection = View.TEXT_DIRECTION_LTR
-            //  CharSequence start = " Arabic to English" + child;
-            //   expandedListTextView.setText((CharSequence) child);
-            expandedListTextView.text = HtmlCompat.fromHtml(child.toString(), 0)
-        } else {
-            expandedListTextView.text = HtmlCompat.fromHtml(child.toString(), 0)
-            //  expandedListTextView.setText((CharSequence) child);
-        }
-        expandedListTextView.text = HtmlCompat.fromHtml(child.toString(), 0)
-        expandedListTextView.setTypeface(mequran)
+        // expandedListTextView.setText(HtmlCompat.fromHtml(String.valueOf(child), 0));
+        //  expandedListTextView.setText((CharSequence) child);
+        // expandedListTextView.setText(HtmlCompat.fromHtml(String.valueOf(child), 0));
+        //  expandedListTextView.setText((CharSequence) child);
+        expandedListTextViewlane.text = child as CharSequence
+        //  expandedListTextView.setText(HtmlCompat.fromHtml(String.valueOf(child), 0));
+        //  expandedListTextView.setText(HtmlCompat.fromHtml(String.valueOf(child), 0));
+        expandedListTextViewlane.typeface = mequran
         return convertView
     }
 
@@ -95,7 +93,7 @@ class NounVerbOccuranceListAdapter(// private   HashMap<String, List<SpannableSt
 
     override fun getGroupView(
         listPosition: Int, isExpanded: Boolean,
-        convertView: View?, parent: ViewGroup
+        convertView: View?, parent: ViewGroup,
     ): View {
         var convertView: View? = null
         val listTitle = getGroup(listPosition) as String

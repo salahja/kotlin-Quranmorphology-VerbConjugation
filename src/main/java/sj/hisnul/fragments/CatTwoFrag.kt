@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils.Utils
 import org.sj.conjugator.interfaces.OnItemClickListener
 import sj.hisnul.activity.NewExpandAct
 import sj.hisnul.adapter.CatTwoAdapter
@@ -30,16 +29,16 @@ class CatTwoFrag : Fragment() {
 
         val view: View = inflater.inflate(R.layout.frag_catwo_drawble, container, false)
         recyclerView = view.findViewById<RecyclerView>(R.id.recview)
-        val utils = Utils(requireContext())
+
    // val duagrouptwo: List<hcategory> = ArrayList<hcategory>()
 
 
- lateinit    var duagrouptwo: ArrayList<hcategory>;
+      lateinit    var duagrouptwo: ArrayList<hcategory>;
 
         val adapter = CatTwoAdapter( requireContext())
-       // val userL: List<hcategory> = java.util.ArrayList<hcategory>()
+
          val viewModel: CatwoModel by viewModels()
-        viewModel.loadLists(context).observe(viewLifecycleOwner) { userlist ->
+        viewModel.loadLists().observe(viewLifecycleOwner) { userlist ->
         //   duagrouptwo= userlist as ArrayList<hcategory>
          adapter.setmutable(userlist)
         }

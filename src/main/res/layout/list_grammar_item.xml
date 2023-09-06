@@ -25,4 +25,10 @@
         android:paddingStart="?android:attr/expandableListPreferredChildPaddingLeft"
 
         android:textSize="23sp" />
+    <View
+        android:id="@+id/view_toolbar_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:backgroundTint="@color/background_color_light_green"
+        android:background="@drawable/toolbar_shadow" />
 </LinearLayout>

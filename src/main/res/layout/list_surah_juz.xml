@@ -249,7 +249,7 @@
 
         app:labelVisibilityMode="auto"
         app:menu="@menu/bottom_nav_menu" />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.example.utility.MovableFloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

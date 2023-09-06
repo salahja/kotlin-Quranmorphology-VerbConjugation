@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,7 +40,7 @@ class NewHisnulBookmarkFragment : Fragment(), AdapterView.OnItemClickListener {
         //  List<BookMarks> bookmarks = new DatabaseAccess().getBookmarks();
         bookmarksShowAdapter = NewHisnulBookmarksShowAdapter(activity)
         mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation)
-      //  coordinatorLayout = view.findViewById(R.id.coordinatorLayout)
+  coordinatorLayout = view.findViewById(R.id.coordinatorLayoutbookmark)
         layoutManager = LinearLayoutManager(activity)
         mRecview.layoutManager=layoutManager
 
@@ -53,6 +54,7 @@ class NewHisnulBookmarkFragment : Fragment(), AdapterView.OnItemClickListener {
     }
 
     private fun enableSwipeToDeleteAndUndo() {
+        val viewmodel:AllDuaModel by viewModels()
         val swipeToDeleteCallback: SwipeToDeleteCallback =
             object : SwipeToDeleteCallback(activity) {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
@@ -82,7 +84,8 @@ class NewHisnulBookmarkFragment : Fragment(), AdapterView.OnItemClickListener {
                     val butils = Utils(activity)
                     //       butils.deleteBookmarks(bookmarid);
                     if (item != null) {
-                        butils.updateFav(0, item.chap_id)
+                      //  butils.updateFav(0, item.chap_id)
+                        viewmodel.update(0,item.chap_id)
                     }
                     //    Utils.deleteBookMarks(item);
                 }
@@ -97,8 +100,9 @@ class NewHisnulBookmarkFragment : Fragment(), AdapterView.OnItemClickListener {
         bookmarksShowAdapter.SetOnItemClickListener(object : OnItemClickListener {
 
 
-            override fun onItemClick(v: View?, position: Int) {
-                val tag = view.tag
+            override fun onItemClick(view: View?, position: Int) {
+                val viewmodel:AllDuaModel by viewModels()
+                val tag = view!!.tag
                 val butils = Utils(activity)
                 val id = tag == "id"
                 val delete = tag == "delete"
@@ -117,7 +121,9 @@ class NewHisnulBookmarkFragment : Fragment(), AdapterView.OnItemClickListener {
                     transactions.commit()
                 } else if (delete) {
                     val catid = bookid.chap_id
-                    butils.updateFav(0, catid)
+                   // butils.updateFav(0, catid)
+                    viewmodel.update(0,catid)
+
                     val snackbar = Snackbar
                         .make(
                             coordinatorLayout,

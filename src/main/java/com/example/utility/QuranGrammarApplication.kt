@@ -19,15 +19,24 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
 import androidx.preference.PreferenceManager
+import com.example.mushafconsolidated.QuranAppDatabase
 import com.example.utility.ThemeHelper.applyTheme
+import database.kotlinpackage.DuaInfoRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import leakcanary.LeakCanary
 import leakcanary.LeakCanary.config
+import sj.hisnul.DuaGrpah
 import java.util.Locale
 
 class QuranGrammarApplication : Application() {
 
-   // private val applicationScope = CoroutineScope(SupervisorJob())
+    private val applicationScope = CoroutineScope(SupervisorJob())
+    val database by lazy { QuranAppDatabase.getInstance(this) }
+    val repository by lazy { DuaInfoRepository(database!!.hDuaNamesDao()) }
 
+
+  //  val repository by lazy { DuaInfoRepository(database.hDuaNamesDao()) }
     /** By using lazy the database and the repository are only created when they're needed
      * rather than when the application starts
      **/
@@ -41,6 +50,9 @@ class QuranGrammarApplication : Application() {
         if (context == null) {
             context = this
         }
+         val database by lazy { QuranAppDatabase.getInstance(this) }
+        val repository by lazy { DuaInfoRepository(database!!.hDuaNamesDao()) }
+        DuaGrpah.provide(this)
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         //  String theme = sharedPreferences.getString("theme", 1);
         val themePref = sharedPreferences.getString("themepref", "white")

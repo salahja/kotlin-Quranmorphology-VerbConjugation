@@ -44,6 +44,8 @@
             android:id="@+id/recview" />
 
         <!-- res/layout/example_activity.xml -->
+
+
         <ExpandableListView
             android:id="@+id/expandableListView"
             android:layout_marginTop="140dp"
@@ -62,6 +64,8 @@
 
 
         </ExpandableListView>
+<!--
+        </androidx.cardview.widget.CardView>-->
     </FrameLayout>
 
 

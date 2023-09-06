@@ -366,6 +366,8 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             if (item.itemId == R.id.dua) {
                 materialToolbar!!.title = "Hisnul Muslim-Dua;s"
                 val searchintent = Intent(this@QuranGrammarAct, HisnulBottomACT::class.java)
+              //  val searchintent = Intent(this@QuranGrammarAct, HisnulComposeAct::class.java)
+
                 startActivity(searchintent)
             }
             if (item.itemId == R.id.names) {

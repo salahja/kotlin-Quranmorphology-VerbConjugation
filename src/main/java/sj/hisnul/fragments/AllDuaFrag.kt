@@ -1,5 +1,6 @@
 package sj.hisnul.fragments
 
+
 import android.app.SearchManager
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -19,40 +20,71 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
+import com.example.mushafconsolidated.databinding.ActivityDuaGroupBinding
+import com.example.utility.QuranGrammarApplication
 import com.google.android.material.appbar.MaterialToolbar
 import org.sj.conjugator.interfaces.OnItemClickListener
+import sj.hisnul.DuaViewModel
+import sj.hisnul.DuaViewModelFactory
 import sj.hisnul.adapter.CatAllAdapter
 import sj.hisnul.entity.hduanames
+import java.util.Collections
+
 
 class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
-     lateinit var  ska: CatAllAdapter
+    // lateinit var  ska: CatAllAdapter
      lateinit var  recyclerView: RecyclerView
     private  lateinit var  searchView: SearchView
     private  lateinit var  queryTextListener: SearchView.OnQueryTextListener
+    private var _binding: ActivityDuaGroupBinding? = null
+    val viewmodel:AllDuaModel by viewModels()
+    val duaModel: DuaViewModel by viewModels()
+    private val binding get() = _binding!!
+
+    val ska = CatAllAdapter()
+    private val duaViewModel: DuaViewModel by viewModels {
+        DuaViewModelFactory((activity?.application as QuranGrammarApplication).repository)
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
-        val view: View = inflater.inflate(R.layout.activity_dua_group, container, false)
+        val view: View = inflater.inflate(com.example.mushafconsolidated.R.layout.activity_dua_group, container, false)
         //   View view = inflater.inflate(R.layout.rwz, container, falser
-        recyclerView = view.findViewById<RecyclerView>(R.id.duaListView)
+        _binding = ActivityDuaGroupBinding.inflate(inflater, container, false)
 
-        val viewmodel:AllDuaModel by viewModels()
-        ska = CatAllAdapter( requireContext())
-        viewmodel.loadLists(context).observe(viewLifecycleOwner){ userlist->
-
-            ska.setmutable(userlist)
-        }
+        return binding.root
 
 
+
+
+
+      //   ska.setmutable(duaModel.state.duanames)
+
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        val toolbar: MaterialToolbar = view.findViewById<MaterialToolbar>(R.id.my_action_bar)
-        (activity as AppCompatActivity?)?.setSupportActionBar(toolbar)
-        recyclerView.setAdapter(ska)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.setLayoutManager(LinearLayoutManager(context))
+     //   recyclerView=binding.duaListView
+        recyclerView=binding.duaListView
 
+
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        recyclerView.adapter=ska
+      //  binding.duaListView.adapter = ska
+        val toolbar: MaterialToolbar = view.findViewById<MaterialToolbar>(com.example.mushafconsolidated.R.id.my_action_bar)
+        (activity as AppCompatActivity?)?.setSupportActionBar(toolbar)
+
+       // recyclerView.setHasFixedSize(true)
+
+
+  //       binding.duaListView.setLayoutManager(LinearLayoutManager(context))
         ska.SetOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
                 //    ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
@@ -68,23 +100,49 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
                 fragvsi.arguments = bundle1
                 val transaction = requireActivity().supportFragmentManager.beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                transaction.replace(R.id.frame_container, fragvsi, "items")
+                transaction.replace(com.example.mushafconsolidated.R.id.frame_container, fragvsi, "items")
                 //     transaction.addToBackStack("setting");
                 transaction.addToBackStack("items")
                 transaction.commit()
             }
         })
-        return view
+
+
+
+   viewmodel.loadLists().observe(viewLifecycleOwner){ userlist->
+            Collections.reverse(userlist)
+
+            ska.setmutable(userlist)
+        }
+
+
+
+
+/*
+        ska.also { binding.duaListView.adapter = it }
+        duaViewModel.allWords.observe(viewLifecycleOwner, Observer { userlist ->
+            Collections.reverse(userlist)
+            ska.setmutable(userlist)
+         //   ska.submitList(userlist)
+        })
+    */
+
+
+
+
+
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_search, menu)
-        val searchItem = menu.findItem(R.id.search)
+        inflater.inflate(com.example.mushafconsolidated.R.menu.menu_search, menu)
+        val searchItem = menu.findItem(com.example.mushafconsolidated.R.id.search)
         val searchManager: SearchManager =
             requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
         if (searchItem != null) {
             searchView = (searchItem.actionView as SearchView?)!!
-            val sear: Drawable = ContextCompat.getDrawable(requireContext(), R.drawable.custom_search_box)!!
+            val sear: Drawable = ContextCompat.getDrawable(requireContext(), com.example.mushafconsolidated.R.drawable.custom_search_box)!!
             searchView!!.clipToOutline = true
             searchView!!.setBackgroundDrawable(sear)
             searchView!!.gravity = View.TEXT_ALIGNMENT_CENTER
@@ -125,12 +183,12 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onQueryTextSubmit(query: String): Boolean {
         ska.getFilter().filter(query)
-        //  Utils.LogDebug("Submitted: "+query);
+
         return true
     }
 
     override fun onQueryTextChange(newText: String): Boolean {
-        //    Utils.LogDebug("Changed: "+newText);
+
         return false
     }
 

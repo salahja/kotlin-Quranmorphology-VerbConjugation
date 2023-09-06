@@ -6,7 +6,6 @@ import database.entity.MujarradVerbs
 import database.entity.QuranVerbsEntity
 import database.entity.QuranicVerbsEntity
 import database.entity.kov
-import database.entity.verbcorpus
 
 class VerbDatabaseUtils(context: Context?) {
     init {
@@ -50,12 +49,8 @@ class VerbDatabaseUtils(context: Context?) {
         return database.mazeedDao()!!.getMazeedWeakness(kov) as ArrayList<MazeedEntity?>?
     }
 
-    fun getMazeedRoot(root: String?): ArrayList<MazeedEntity?>? {
-        return database.mazeedDao()!!.getMazeedRoot(root) as ArrayList<MazeedEntity?>?
-    }
-
-    fun verbcorpuses(): ArrayList<verbcorpus?>? {
-        return database.verbcorpusDao()!!.getmazeedform("I") as ArrayList<verbcorpus?>?
+    fun getMazeedRoot(root: String?): ArrayList<MazeedEntity> {
+        return database.mazeedDao()!!.getMazeedRoot(root) as ArrayList<MazeedEntity>
     }
 
     companion object {

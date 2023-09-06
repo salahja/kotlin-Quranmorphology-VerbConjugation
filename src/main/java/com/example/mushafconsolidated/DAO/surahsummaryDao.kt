@@ -10,5 +10,5 @@ import com.example.mushafconsolidated.Entities.surahsummary
 @Dao
 interface surahsummaryDao {
     @Query("SELECT * FROM surahsummary where surahid=:id   ORDER BY surahid")
-    fun getSurahSummary(id: Int): List<surahsummary?>?
+     fun getSurahSummary(id: Int): List<surahsummary?>?
 }

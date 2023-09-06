@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
@@ -79,7 +80,7 @@ class HDuaNamesfrag : Fragment() {
         }
         recyclerView = view[0].findViewById<RecyclerView>(R.id.dunamerec)
         val utils = Utils(context)
-
+        val viewmodel:AllDuaModel by viewModels()
         toolbar.setTitle(name)
         toolbar.inflateMenu(R.menu.menu_bookmark)
         toolbar.setOnMenuItemClickListener(Toolbar.OnMenuItemClickListener { item: MenuItem ->
@@ -93,10 +94,18 @@ class HDuaNamesfrag : Fragment() {
                     //sadapter.duadetailsitems
                     val gookstat = dunamesbyid[0].fav
                     if (gookstat == 0) {
-                        utils.updateFav(1, chap_id)
+                        viewmodel.update(1,chap_id)
                     } else {
-                        utils.updateFav(0, chap_id)
+                        viewmodel.update(0,chap_id)
                     }
+
+                    //  val up = utils.updateFav(1, chap_id)!!
+
+
+                //   val upd = utils.updateFav(0, chap_id)!!
+
+
+
 
 
                     val snackbar =

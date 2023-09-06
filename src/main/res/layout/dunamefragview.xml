@@ -17,7 +17,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbarmain"
             android:layout_width="match_parent"
-            android:theme="@style/Widget.Material3.Toolbar.Surface"
+
 
             app:elevation="4.0dip"
             android:layout_height="?attr/actionBarSize"

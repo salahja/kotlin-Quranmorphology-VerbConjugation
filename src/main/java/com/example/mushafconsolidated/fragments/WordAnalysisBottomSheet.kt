@@ -37,7 +37,6 @@ import com.example.Constant.SHADDA
 import com.example.Constant.SURAH_ID
 import com.example.Constant.VERBMOOD
 import com.example.Constant.VERBTYPE
-import com.example.compose.ComposeAct
 import com.example.mushafconsolidated.Activity.LughatWordDetailsAct
 import com.example.mushafconsolidated.Activity.WordOccuranceAct
 import com.example.mushafconsolidated.Adaptersimport.RootWordDisplayAdapter
@@ -144,6 +143,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
     // --Commented out by Inspection (11/01/22, 8:26 AM):private SentenceRootWordDisplayAdapter sentenceRootWordDisplayAdapter;
 
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -369,8 +369,14 @@ class WordAnalysisBottomSheet : DialogFragment() {
             }
         } else if (isroot!! && ismazeed && !isparticple) {
             val databaseUtils = VerbDatabaseUtils(QuranGrammarApplication.context!!)
-            val mazeedEntityRoots: java.util.ArrayList<MazeedEntity> =
-                databaseUtils.getMazeedRoot(root!!) as java.util.ArrayList<MazeedEntity>
+             val mazeedEntityRoots: java.util.ArrayList<MazeedEntity> =
+               databaseUtils.getMazeedRoot(root!!) as java.util.ArrayList<MazeedEntity>
+
+
+
+
+
+
             if (!mazeedEntityRoots.isEmpty()) {
                 isMazeedSarfSagheer = true
 
@@ -934,8 +940,8 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 } else if (nouns != null) {
                     val bundle = Bundle()
 
-        //   val intent = Intent(activity, WordOccuranceAct::class.java)
-                val intent = Intent(activity, ComposeAct::class.java)
+       val intent = Intent(activity, WordOccuranceAct::class.java)
+             //   val intent = Intent(activity, ComposeAct::class.java)
                     try {
                         if (vb.root!! != null) {
                             bundle.putString(QURAN_VERB_ROOT, vb.root)

@@ -31,7 +31,7 @@ abstract class VerbDatabase : RoomDatabase() {
     abstract fun verbcorpusDao(): verbcorpusDao?
     abstract fun kovDao(): kovDao?
     abstract fun mujarradDao(): mujarradDao?
-    abstract fun mazeedDao(): mazeedDao?
+    abstract fun mazeedDao(): mazeedDao
 
     companion object {
         var verbDatabaseInstance: VerbDatabase? = null

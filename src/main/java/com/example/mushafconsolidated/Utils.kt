@@ -84,7 +84,7 @@ class Utils {
         }
     }
 
-    fun getSurahSummary(id: Int): List<surahsummary?>? {
+     fun getSurahSummary(id: Int): List<surahsummary?>? {
         return Utils.Companion.database?.surahsummaryDao()?.getSurahSummary(id)
     }
 
@@ -980,13 +980,13 @@ class Utils {
         return Utils.Companion.database?.MafoolMutlaqEntDao()?.getMutlaqsurah(surah)
     }*/
 
-    fun getAllList(): List<hduanames?>? {
-        return database.hDuaNamesDao()?.duanames
+    fun getAllList(): List<hduanames> {
+        return database.hDuaNamesDao().duanames
     }
 
 
-    fun getdualistbychapter(cid: Int): List<hduanames?>? {
-        return Utils.Companion.database?.hDuaNamesDao()?.getdualistbychapter(cid)
+    fun getdualistbychapter(cid: Int): List<hduanames> {
+        return Utils.Companion.database?.hDuaNamesDao()!!.getdualistbychapter(cid)
     }
 
     val hcategory: ArrayList<hcategory>
@@ -1001,16 +1001,16 @@ class Utils {
             return Utils.Companion.database?.NamesDao()?.ALLAH_NAMES_LIST() as ArrayList<AllahNames>
         }
 
-    fun getDuaCATNAMES(tid: String?): List<hduanames?>? {
+    fun getDuaCATNAMES(tid: String?): List<hduanames> {
         val verb: String = String.format(
             "select * from hduanames where (category = '%s'   or category like '%%,%s'   or category like '%s, %% 'or category like '%%,%s,%%'" +
                     "", tid, tid, tid, tid
         )
         val fs: String = verb + ")"
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(fs)
-        return Utils.Companion.database?.RawDao()?.getDuaCATNAMES(query)
+        return Utils.Companion.database?.RawDao()!!.getDuaCATNAMES(query)
     }
-    fun updateFav(fav: Int, id: Int): Int? {
+    suspend fun updateFav(fav: Int, id: Int): Int? {
         val updadateRoots: Int? = Utils.Companion.database?.hDuaNamesDao()?.updateFav(fav, id)
         return updadateRoots
     }

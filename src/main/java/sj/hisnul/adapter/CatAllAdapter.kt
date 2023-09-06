@@ -1,6 +1,5 @@
 package sj.hisnul.adapter
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -19,7 +18,7 @@ import org.sj.conjugator.interfaces.OnItemClickListener
 import sj.hisnul.entity.hduanames
 import java.util.Locale
 
-class CatAllAdapter( private val context: Context) :
+class CatAllAdapter() :
     RecyclerView.Adapter<CatAllAdapter.ViewHolder?>(), Filterable {
 
     var mItemClickListener: OnItemClickListener? = null
@@ -49,11 +48,11 @@ class CatAllAdapter( private val context: Context) :
             holder.tvReference.setCompoundDrawableTintList(ColorStateList.valueOf(Color.WHITE))
         }
         if (isNightmode == "dark") {
-            holder.cardview.setCardBackgroundColor(context.resources.getColor(R.color.bg_dark_blue))
+            holder.cardview.setCardBackgroundColor(QuranGrammarApplication.context!!.resources.getColor(R.color.bg_dark_blue))
         } else if (isNightmode == "blue") {
-            holder.cardview.setCardBackgroundColor(context.resources.getColor(R.color.bg_dark_blue))
+            holder.cardview.setCardBackgroundColor(QuranGrammarApplication.context!!.resources.getColor(R.color.bg_dark_blue))
         } else if (isNightmode == "white") {
-            holder.cardview.setCardBackgroundColor(context.resources.getColor(R.color.md_theme_dark_inversePrimary))
+            holder.cardview.setCardBackgroundColor(QuranGrammarApplication.context!!.resources.getColor(R.color.md_theme_dark_inversePrimary))
         }
         val catOne: hduanames = duasfiltered[position]
         holder.tvReference.setText(catOne.chap_id.toString())
