@@ -20,6 +20,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import sj.hisnul.adapter.SelectedDuaViewAdapter
 import sj.hisnul.entity.hduadetails
 import sj.hisnul.entity.hduanames
+import java.util.Collections
 
 class DisplayFromBookMark : Fragment() {
     val subheaders = ArrayList<String>()
@@ -74,17 +75,25 @@ class DisplayFromBookMark : Fragment() {
             when (item.itemId) {
                 R.id.bookmark -> {
 
-                    val dunamesbyid: List<hduanames> =  utils.getdualistbychapter(chap_id)
+                  //  val dunamesbyid: List<hduanames> =utils.getdualistbychapter(chap_id)
 
-                    val gookstat = dunamesbyid?.get(0)?.fav
-                    if (gookstat == 0) {
-                        viewmodel.update(1,chap_id)
-                      //  val up = utils.updateFav(1, chap_id)!!
+                    viewmodel.Duadetailsbychapter(chap_id).observe(viewLifecycleOwner){ userlist->
+                        Collections.reverse(userlist)
 
-                    } else {
-                     //   val upd = utils.updateFav(0, chap_id)!!
-                        viewmodel.update(0,chap_id)
+
+                        val gookstat = userlist?.get(0)?.fav
+                        if (gookstat == 0) {
+                            viewmodel.update(1,chap_id)
+                            //  val up = utils.updateFav(1, chap_id)!!
+
+                        } else {
+                            //   val upd = utils.updateFav(0, chap_id)!!
+                            viewmodel.update(0,chap_id)
+                        }
                     }
+                  //
+
+
                     return@setOnMenuItemClickListener true
                 }
 

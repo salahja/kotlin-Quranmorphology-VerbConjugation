@@ -36,7 +36,7 @@ class AllDuaModel(application: Application)  :AndroidViewModel(application) {
         return    duacat
     }
 
-    fun Duadetailsbychaptr(chapter:Int): LiveData<List<hduanames>> {
+    fun Duadetailsbychapter(chapter:Int): LiveData<List<hduanames>> {
 
         viewModelScope.launch {
             duachapter.value = util.getdualistbychapter(chapter) as List<hduanames>?

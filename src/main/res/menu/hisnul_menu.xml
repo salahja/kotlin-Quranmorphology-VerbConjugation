@@ -27,14 +27,7 @@
 
         app:showAsAction="always|collapseActionView" />
 
-    <item
-        android:id="@+id/exitact"
-        android:contentDescription="@string/content_description_one"
-        android:icon="@drawable/baseline_exit_to_app_36"
-        android:title="@string/exit"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
 
-        app:showAsAction="always|always" />
 
 
 

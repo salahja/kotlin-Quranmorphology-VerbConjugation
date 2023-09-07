@@ -100,7 +100,7 @@ class HisnulBottomACT : BaseActivity(), OnItemClickListenerOnLong {
                         transactionss.commit()
                     }
 
-                    R.id.exitact -> this.finish()
+
 
                 }
             })
