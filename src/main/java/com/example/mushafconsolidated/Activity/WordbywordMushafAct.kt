@@ -60,7 +60,7 @@ import com.example.mushafconsolidated.Entities.Qari
 import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.Entities.TameezEnt
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.fragments.FlowAyahWordAdapter
 
 

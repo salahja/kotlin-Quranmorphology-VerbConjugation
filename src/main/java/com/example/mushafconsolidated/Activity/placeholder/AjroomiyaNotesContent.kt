@@ -2,7 +2,7 @@ package com.example.mushafconsolidated.Activity.placeholder
 
 
 import com.example.mushafconsolidated.Entities.GrammarRules
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 
 import com.example.utility.QuranGrammarApplication
 
@@ -14,7 +14,7 @@ import com.example.utility.QuranGrammarApplication
  *
  * TODO: Replace all uses of this class before publishing your app.
  */
-object GrammarRulesContent {
+object AjroomiyaNotesContent {
     /**
      * An array of sample (placeholder) items.
      */
@@ -66,9 +66,9 @@ object GrammarRulesContent {
 
     private fun makeDetails(position: Int): String {
         val sb  = StringBuilder ()
-         .append("Details about Item: ").append(position)
+            .append("Details about Item: ").append(position)
         for (i in 0 until position) {
-             sb.append("\nMore details information here.")
+            sb.append("\nMore details information here.")
         }
         return  sb.toString()
     }

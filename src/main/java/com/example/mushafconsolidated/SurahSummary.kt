@@ -2,7 +2,6 @@ package com.example.mushafconsolidated
 
 import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.Entities.surahsummary
-import com.example.mushafconsolidated.Utils.Utils
 
 import android.os.Bundle
 import android.text.SpannableStringBuilder
@@ -13,7 +12,6 @@ import android.webkit.WebView
 import android.widget.TextView
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
-import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

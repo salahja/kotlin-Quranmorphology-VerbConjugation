@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 
 class AllChaptersModel(application: Application)  :AndroidViewModel(application) {
     val allchapters: MutableLiveData<List<ChaptersAnaEntity>> = MutableLiveData()

@@ -15,7 +15,7 @@ import com.example.Constant.SURAH_ID
 import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 import com.google.android.material.appbar.MaterialToolbar
 
 /**

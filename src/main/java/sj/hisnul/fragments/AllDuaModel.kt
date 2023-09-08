@@ -5,7 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
+
 import kotlinx.coroutines.launch
 import sj.hisnul.entity.hduanames
 

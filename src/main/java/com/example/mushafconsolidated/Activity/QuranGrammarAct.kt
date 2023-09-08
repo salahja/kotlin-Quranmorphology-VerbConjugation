@@ -51,7 +51,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant
 import com.example.JustJava.WbwSurah
 import com.example.mushafconsolidated.Activityimport.BaseActivity
-import com.example.mushafconsolidated.Activityimport.GrammarRuleDetailHostActivity
 import com.example.mushafconsolidated.BottomOptionDialog
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.BookMarks
@@ -64,7 +63,8 @@ import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.Entities.TameezEnt
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.SurahSummary
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
+import com.example.mushafconsolidated.ajroomiya.AjroomiyaDetailHostActivity
 import com.example.mushafconsolidated.databinding.NewFragmentReadingBinding
 import com.example.mushafconsolidated.fragments.BookMarkCreateFrag
 import com.example.mushafconsolidated.fragments.FlowAyahWordAdapter
@@ -413,8 +413,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             }
             if (item.itemId == R.id.jumptoverse) {
                 drawerLayout.closeDrawers()
-                val grammar = Intent(this, GrammarRuleDetailHostActivity::class.java)
-                //  Intent grammar = new Intent(this, arabicroot!!DetailHostActivity.class);
+              val grammar = Intent(this, AjroomiyaDetailHostActivity::class.java)
                 startActivity(grammar)
             }
             if (item.itemId == R.id.search) {

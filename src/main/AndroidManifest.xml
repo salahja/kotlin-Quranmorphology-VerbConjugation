@@ -38,6 +38,13 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".ajroomiya.AjroomiyaDetailHostActivity"
+            android:exported="false"
+            android:label="@string/title_activity_ajroomiya_detail_host"
+            android:resizeableActivity="true"
+            tools:targetApi="24" />
+
+        <activity
             android:name="com.example.compose.ComposeAct"
             android:exported="false"
             android:label="@string/title_activity_compose"
@@ -206,10 +213,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
-
-
-
-
         <activity
             android:name="database.NamesGridImageAct"
             android:parentActivityName=".Activity.MainActivity"
@@ -226,10 +229,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
-
-
-
-
         <!--
      <meta-data
             android:name="com.google.android.gms.version"

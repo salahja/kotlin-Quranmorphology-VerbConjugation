@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
+import com.example.utility.QuranGrammarApplication
 import org.sj.conjugator.interfaces.OnItemClickListener
 import sj.hisnul.activity.NewExpandAct
 import sj.hisnul.adapter.CatTwoAdapter
@@ -17,6 +18,10 @@ import sj.hisnul.entity.hcategory
 
 class CatTwoFrag : Fragment() {
     lateinit var recyclerView: RecyclerView
+    private val duacatmodel: CatwoModel by viewModels {
+        CatwoModelFactory((activity?.application as QuranGrammarApplication).repository)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
@@ -30,25 +35,34 @@ class CatTwoFrag : Fragment() {
         val view: View = inflater.inflate(R.layout.frag_catwo_drawble, container, false)
         recyclerView = view.findViewById<RecyclerView>(R.id.recview)
 
-   // val duagrouptwo: List<hcategory> = ArrayList<hcategory>()
+
 
 
       lateinit    var duagrouptwo: ArrayList<hcategory>;
-
         val adapter = CatTwoAdapter( requireContext())
+        val layoutManager: GridLayoutManager
+        layoutManager = GridLayoutManager(activity, 3)
+        recyclerView.setHasFixedSize(true)
+        // recyclerView.setLayoutManager(new LinearLayoutManager(context!!));
+        recyclerView.setLayoutManager(layoutManager)
 
+        duacatmodel.allcategory.observe(viewLifecycleOwner){
+            adapter.setmutable(it)
+            recyclerView.setAdapter(adapter)
+        }
+
+ /*
          val viewModel: CatwoModel by viewModels()
         viewModel.loadLists().observe(viewLifecycleOwner) { userlist ->
         //   duagrouptwo= userlist as ArrayList<hcategory>
          adapter.setmutable(userlist)
         }
+*/
 
 
 
 
 
-        val layoutManager: GridLayoutManager
-        layoutManager = GridLayoutManager(activity, 3)
 
         /*
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup()
@@ -60,10 +74,7 @@ class CatTwoFrag : Fragment() {
             }
         });
 
-      */recyclerView.setHasFixedSize(true)
-        // recyclerView.setLayoutManager(new LinearLayoutManager(context!!));
-        recyclerView.setLayoutManager(layoutManager)
-        recyclerView.setAdapter(adapter)
+      */
         adapter.SetOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
                 val catTwo: hcategory = adapter.getItem(position) as hcategory

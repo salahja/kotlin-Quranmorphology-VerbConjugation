@@ -26,14 +26,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import leakcanary.LeakCanary
 import leakcanary.LeakCanary.config
-import sj.hisnul.DuaGrpah
+
 import java.util.Locale
 
 class QuranGrammarApplication : Application() {
 
     private val applicationScope = CoroutineScope(SupervisorJob())
     val database by lazy { QuranAppDatabase.getInstance(this) }
-    val repository by lazy { DuaInfoRepository(database!!.hDuaNamesDao()) }
+    val repository by lazy { DuaInfoRepository(database!!.gethDuaCategoryDao()) }
 
 
   //  val repository by lazy { DuaInfoRepository(database.hDuaNamesDao()) }
@@ -50,9 +50,8 @@ class QuranGrammarApplication : Application() {
         if (context == null) {
             context = this
         }
-         val database by lazy { QuranAppDatabase.getInstance(this) }
-        val repository by lazy { DuaInfoRepository(database!!.hDuaNamesDao()) }
-        DuaGrpah.provide(this)
+
+
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         //  String theme = sharedPreferences.getString("theme", 1);
         val themePref = sharedPreferences.getString("themepref", "white")

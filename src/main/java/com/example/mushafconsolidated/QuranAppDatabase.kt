@@ -125,8 +125,8 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
 
    abstract fun NamesDao(): NamesDao?
     abstract fun hDuaItemDao(): hDuaItemDao
-    abstract fun hDuaNamesDao(): hDuaNamesDao
-    abstract fun hDuaCategoryDao(): hDuaCategoryDao?
+    abstract fun gethDuaNamesDao(): hDuaNamesDao
+    abstract fun gethDuaCategoryDao(): hDuaCategoryDao
 
     abstract fun duaItemdao(): DuaItemdao
     abstract fun duaNamesdao(): Duanamesdao
@@ -146,6 +146,9 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
                 //  new InitialAsyncTask(quranAppDatabaseInstance).execute();
             }
         }
+
+
+
         var quranAppDatabaseInstance: QuranAppDatabase? = null
         var quranAppDatabaseInstanceasset: QuranAppDatabase? = null
 

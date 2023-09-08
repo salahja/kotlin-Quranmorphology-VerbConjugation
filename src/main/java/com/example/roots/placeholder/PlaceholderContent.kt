@@ -2,7 +2,7 @@ package com.example.roots.placeholder
 
 import com.example.mushafconsolidated.Entities.qurandictionary
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 import com.example.utility.QuranGrammarApplication
 
 /**

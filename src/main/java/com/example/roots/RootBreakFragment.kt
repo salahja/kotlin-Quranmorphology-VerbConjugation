@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant.QURAN_VERB_ROOT
 import com.example.mushafconsolidated.R
 
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 
 /**
  * A fragment representing a list of Items.

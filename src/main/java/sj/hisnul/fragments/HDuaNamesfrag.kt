@@ -21,7 +21,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
@@ -40,6 +40,7 @@ class HDuaNamesfrag : Fragment() {
     private var fromcatwo = false
     private var chap_id = 0
     private lateinit var coordinatorLayout: CoordinatorLayout
+    val viewmodel:AllDuaModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -50,12 +51,15 @@ class HDuaNamesfrag : Fragment() {
         }
         val utils = Utils(activity)
         if (chap_id != -1) {
-            val dd: ArrayList<hduanames> = utils.getdualistbychapter(chap_id) as ArrayList<hduanames>
-            for (hduanames in dd) {
-                val duaItems: ArrayList<hduadetails> = utils.gethDuadetailsitems(hduanames.ID) as ArrayList<hduadetails>
-                duacoll.add(duaItems)
-                subheaders.add(hduanames.duaname)
+            viewmodel.Duadetailsbychapter(chap_id).observe(this){
+               // val dd: ArrayList<hduanames> = utils.getdualistbychapter(chap_id) as ArrayList<hduanames>
+                for (hduanames in it) {
+                    val duaItems: ArrayList<hduadetails> = utils.gethDuadetailsitems(hduanames.ID) as ArrayList<hduadetails>
+                    duacoll.add(duaItems)
+                    subheaders.add(hduanames.duaname)
+                }
             }
+
         } else {
             Toast.makeText(activity, "Chapter Id not Found", Toast.LENGTH_SHORT).show()
         }
@@ -80,7 +84,7 @@ class HDuaNamesfrag : Fragment() {
         }
         recyclerView = view[0].findViewById<RecyclerView>(R.id.dunamerec)
         val utils = Utils(context)
-        val viewmodel:AllDuaModel by viewModels()
+
         toolbar.setTitle(name)
         toolbar.inflateMenu(R.menu.menu_bookmark)
         toolbar.setOnMenuItemClickListener(Toolbar.OnMenuItemClickListener { item: MenuItem ->

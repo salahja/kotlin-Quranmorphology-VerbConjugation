@@ -17,7 +17,7 @@ import com.example.mushafconsolidated.Activity.QuranGrammarAct
 import com.example.mushafconsolidated.Adapters.BookmarksShowAdapter
 import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
  
 import com.example.utility.QuranGrammarApplication

@@ -58,7 +58,7 @@ import com.example.mushafconsolidated.Entities.lughat
 import com.example.mushafconsolidated.Entities.wbwentity
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.R.layout
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.example.mushafconsolidatedimport.VerbFormsDialogFrag
 import com.example.utility.CorpusUtilityorig.Companion.getSpancolor

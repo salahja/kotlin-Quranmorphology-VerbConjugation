@@ -23,7 +23,7 @@ import android.widget.RelativeLayout
 import com.example.Constant.QURAN_VERB_ROOT
 import com.example.mushafconsolidated.Entities.qurandictionary
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.floatingactionbutton.FloatingActionButton

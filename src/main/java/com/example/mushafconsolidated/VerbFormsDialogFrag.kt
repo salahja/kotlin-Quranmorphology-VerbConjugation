@@ -9,7 +9,7 @@ import android.webkit.WebView
 import com.example.mushafconsolidated.Entities.GrammarRules
 
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

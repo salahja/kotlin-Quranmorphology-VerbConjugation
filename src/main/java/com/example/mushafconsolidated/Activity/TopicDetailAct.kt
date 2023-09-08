@@ -32,7 +32,7 @@ import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.Entities.CorpusExpandWbwPOJO
 import com.example.mushafconsolidated.R
 
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.fragments.GrammerFragmentsBottomSheet
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet
 

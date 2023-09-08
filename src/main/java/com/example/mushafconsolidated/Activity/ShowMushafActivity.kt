@@ -53,7 +53,7 @@ import com.example.mushafconsolidated.Entities.Page
 import com.example.mushafconsolidated.Entities.Qari
 import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.receiversimport.AudioAppConstants
 import com.example.mushafconsolidated.receiversimport.DownloadService
@@ -202,7 +202,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
        var isMusicplaying = false
     private   var surah = 0
      lateinit   var recyclerView: RecyclerView 
-     lateinit var repository: Utils 
+     lateinit var repository: Utils
      lateinit var lineMushaAudioAdapter: LineMushaAudioAdapter 
      lateinit var typeface: Typeface 
      lateinit var txtView: TextView 

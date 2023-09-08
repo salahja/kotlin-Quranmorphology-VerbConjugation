@@ -42,7 +42,7 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
     private val binding get() = _binding!!
 
     val ska = CatAllAdapter()
-    private val duaViewModel: DuaViewModel by viewModels {
+    private val duaViewModel: CatwoModel by viewModels {
         DuaViewModelFactory((activity?.application as QuranGrammarApplication).repository)
     }
 
@@ -109,11 +109,13 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
 
 
 
+
    viewmodel.loadLists().observe(viewLifecycleOwner){ userlist->
             Collections.reverse(userlist)
 
             ska.setmutable(userlist)
         }
+
 
 
 

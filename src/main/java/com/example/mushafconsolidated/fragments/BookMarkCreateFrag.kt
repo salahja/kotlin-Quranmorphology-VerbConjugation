@@ -20,7 +20,7 @@ import com.example.mushafconsolidated.Adapters.BookmarkCreateAdapter
 import com.example.mushafconsolidated.DAO.BookMarksPojo
 import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

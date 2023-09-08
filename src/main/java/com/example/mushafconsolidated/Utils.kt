@@ -1,4 +1,4 @@
-package com.example.mushafconsolidated.Utils
+package com.example.mushafconsolidated
 
 
 
@@ -51,9 +51,9 @@ import com.example.mushafconsolidated.Entities.qurandictionary
 import com.example.mushafconsolidated.Entities.quranexplorer
 import com.example.mushafconsolidated.Entities.surahsummary
 import com.example.mushafconsolidated.Entities.wbwentity
-import com.example.mushafconsolidated.QuranAppDatabase
 import com.example.mushafconsolidated.model.Juz
 import database.entity.AllahNames
+import kotlinx.coroutines.flow.Flow
 import sj.hisnul.entity.AllahNamesDetails
 import sj.hisnul.entity.hcategory
 import sj.hisnul.entity.hduadetails
@@ -62,93 +62,95 @@ import sj.hisnul.entity.hduanames
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 class Utils {
-    var thiscontext: Context? = null
+    private var thiscontext: Context? = null
 
     constructor(context: Context?) {
-      /*  Utils.Companion.database = context?.let { QuranAppDatabase.Companion.getDatabase(context) }!!
+      /*   database = context?.let { QuranAppDatabase.Companion.getDatabase(context) }!!
         database= QuranAppDatabase.getDatabase(context)
         thiscontext = context*/
-        Utils.Companion.database = context?.let { QuranAppDatabase.Companion.getInstance(it) }!!
+
+   database = context?.let { QuranAppDatabase.getInstance(it) }!!
         thiscontext = context
+
     }
 
-    constructor() {}
+    constructor()
 
     private class deleteWordAsyncTask internal constructor(private val mAsyncTaskDao: BookMarkDao) :
         AsyncTask<BookMarks?, Void?, Void?>() {
 
 
         override fun doInBackground(vararg params: BookMarks?): Void? {
-            mAsyncTaskDao.deletebookmark(params.get(0))
+            mAsyncTaskDao.deletebookmark(params[0])
             return null
         }
     }
 
      fun getSurahSummary(id: Int): List<surahsummary?>? {
-        return Utils.Companion.database?.surahsummaryDao()?.getSurahSummary(id)
+        return  database.surahsummaryDao()?.getSurahSummary(id)
     }
 
     fun getNamesDetails(id: Int): List<AllahNamesDetails?>? {
-        return Utils.Companion.database?.NamesDetailsDao()?.ALLAH_NAMES_DETAILS_DETAILS(id)
+        return  database.NamesDetailsDao()?.ALLAH_NAMES_DETAILS_DETAILS(id)
     }
 
 
     fun getMudhafSurahNew(id: Int): List<NewMudhafEntity?>? {
-        return Utils.Companion.database?.NewMudhafDao()?.getMudhafSurah(id)
+        return  database.NewMudhafDao()?.getMudhafSurah(id)
     }
 
     fun getMudhafSurahAyahNew(id: Int, aid: Int): List<NewMudhafEntity?>? {
-        return Utils.Companion.database?.NewMudhafDao()?.getMudhafSurahAyah(id, aid)
+        return  database.NewMudhafDao()?.getMudhafSurahAyah(id, aid)
     }
 
     fun getAllAnaChapters(): List<ChaptersAnaEntity?>? {
 
-        return database?.AnaQuranChapterDao()?.chapters
+        return database.AnaQuranChapterDao()?.chapters
     }
 
     fun getSingleChapter(id: Int): List<ChaptersAnaEntity?>? {
-        Log.d(Utils.Companion.TAG, "getSingleChapter: started")
-        return Utils.Companion.database?.AnaQuranChapterDao()?.getSingleChapters(id)
+        Log.d( TAG, "getSingleChapter: started")
+        return  database.AnaQuranChapterDao()?.getSingleChapters(id)
     }
 
     val bookMarks: List<BookMarks?>?
         get() {
-            Log.d(Utils.Companion.TAG, "getAllItems: started")
-            return Utils.Companion.database?.BookMarkDao()?.getBookMarks()
+            Log.d( TAG, "getAllItems: started")
+            return  database.BookMarkDao()?.getBookMarks()
         }
 
     fun getQuranRoot(id: Int, verseid: Int, wordid: Int): List<VerbCorpus?>? {
-        Log.d(Utils.Companion.TAG, "getQuranRoot: started")
-        return Utils.Companion.database?.VerbCorpusDao()?.getQuranRoot(id, verseid, wordid)
+        Log.d( TAG, "getQuranRoot: started")
+        return  database.VerbCorpusDao()?.getQuranRoot(id, verseid, wordid)
     }
 
     fun getQuranRootaAyah(id: Int, verseid: Int): List<VerbCorpus?>? {
-        Log.d(Utils.Companion.TAG, "getQuranRoot: getQuranRootaAyah")
-        return Utils.Companion.database?.VerbCorpusDao()?.getQuranRootaAyah(id, verseid)
+        Log.d( TAG, "getQuranRoot: getQuranRootaAyah")
+        return  database.VerbCorpusDao()?.getQuranRootaAyah(id, verseid)
     }
 
     fun getQuranNouns(id: Int, verseid: Int, wordid: Int): List<NounCorpus?>? {
-        Log.d(Utils.Companion.TAG, "getQuranNouns: started")
-        return Utils.Companion.database?.NounCorpusDao()?.getQuranNouns(id, verseid, wordid)
+        Log.d( TAG, "getQuranNouns: started")
+        return  database.NounCorpusDao()?.getQuranNouns(id, verseid, wordid)
     }
 
     fun getQuranNounAyah(id: Int, verseid: Int): List<NounCorpus?>? {
-        Log.d(Utils.Companion.TAG, "getQuranNouns: started")
-        return Utils.Companion.database?.NounCorpusDao()?.getQuranNounAyah(id, verseid)
+        Log.d( TAG, "getQuranNouns: started")
+        return  database.NounCorpusDao()?.getQuranNounAyah(id, verseid)
     }
 
     fun getwbwTranslatonbywordNew(id: Int, ayaid: Int, wordid: Int): List<wbwentity?>? {
-        Log.d(Utils.Companion.TAG, "getwbwTranslatonbyword: started")
-        return Utils.Companion.database?.wbwDao()?.getwbwTranslationbywordno(id, ayaid, wordid)
+        Log.d( TAG, "getwbwTranslatonbyword: started")
+        return  database.wbwDao()?.getwbwTranslationbywordno(id, ayaid, wordid)
     }
 
     fun insertBookMark(entity: BookMarks?) {
         //    database?.BookMarkDao().deleteAllBookMakrs();
-        AsyncTask.execute(Runnable({
+        AsyncTask.execute({
             AsyncTask.execute(object : Runnable {
                 public override fun run() {
                     // and deleting
-                    Utils.Companion.database?.BookMarkDao()?.insertBookmark(entity)
+               database.BookMarkDao()?.insertBookmark(entity)
                     //  runOnUiThread(new Runnable() {
                     //  public void run() {
                     //   itemTextView.setText("item deleted");
@@ -156,7 +158,7 @@ class Utils {
                     //  });
                 }
             })
-        }))
+        })
     }
 
     fun getCorpusWbwBySurahAyahWordid(
@@ -224,9 +226,9 @@ class Utils {
                     "       corpusexpand.ayah = qurans.ayah  \n" +
                     " ORDER BY corpusexpand.surah,\n" +
                     "          corpusexpand.ayah")
-        val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
+        val query = SimpleSQLiteQuery(sqlverb)
         //  List<Book> result = booksDao.getBooks(query);
-        return Utils.Companion.database?.RawDao()?.getNewCorpusWbw(query)
+        return database.RawDao().getNewCorpusWbw(query)
     }
 
     fun getCorpusWbwBySurahAyah(tid: Int, aid: Int): List<NewCorpusExpandWbwPOJO?>? {
@@ -287,9 +289,9 @@ class Utils {
                     "       corpusexpand.ayah = qurans.ayah  \n" +
                     " ORDER BY corpusexpand.surah,\n" +
                     "          corpusexpand.ayah")
-        val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
+        val query = SimpleSQLiteQuery(sqlverb)
         //  List<Book> result = booksDao.getBooks(query);
-        return Utils.Companion.database?.RawDao()?.getNewCorpusWbw(query)
+        return database.RawDao().getNewCorpusWbw(query)
     }
 
     fun getCorpusWbwBySurahForTameez(tid: Int): List<CorpusExpandWbwPOJO?>? {
@@ -338,7 +340,7 @@ class Utils {
                     "          corpusexpand.ayah")
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
         //  List<Book> result = booksDao.getBooks(query);
-        return Utils.Companion.database?.RawDao()?.getCorpusWbwfortameez(query)
+        return database.RawDao().getCorpusWbwfortameez(query)
     }
 
     fun getCorpusWbwBySurah(tid: Int): List<CorpusExpandWbwPOJO?>? {
@@ -392,7 +394,7 @@ class Utils {
                     "          corpusexpand.ayah")
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
         //  List<Book> result = booksDao.getBooks(query);
-        return Utils.Companion.database?.RawDao()?.getCorpusWbw(query)
+        return database.RawDao().getCorpusWbw(query)
     }
 
     fun getCorpusWbwBySurahAyahtopic(tid: Int, aid: Int): List<CorpusExpandWbwPOJO>{
@@ -448,7 +450,7 @@ class Utils {
                     "          corpusexpand.ayah")
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
         //  List<Book> result = booksDao.getBooks(query);
-        return Utils.Companion.database.RawDao().getCorpusWbwSurahAyah(query)
+        return  database.RawDao().getCorpusWbwSurahAyah(query)
     }
 
     fun getnounoccuranceHarfNasbZarf(tid: String): List<CorpusNounWbwOccurance?>? {
@@ -493,7 +495,7 @@ class Utils {
                     "and corpusexpand.surah = qurans.surah AND   corpusexpand.ayah = qurans.ayah  order by corpusexpand.surah,corpusexpand.ayah")
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
         //  List<Book> result = booksDao.getBooks(query);
-        return Utils.Companion.database?.RawDao()?.getnounoccurance(query)
+        return database.RawDao().getnounoccurance(query)
     }
 
     fun getVerbOccuranceBreakVerses(tid: String): List<CorpusVerbWbwOccurance?>? {
@@ -545,7 +547,7 @@ class Utils {
                     "       corpusexpand.wordno = wbw.wordno   AND  corpusexpand.wordno = verbcorpus.wordno and corpusexpand.surah = qurans.surah AND   corpusexpand.ayah = qurans.ayah order by corpusexpand.surah,corpusexpand.ayah")
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
         //  List<Book> result = booksDao.getBooks(query);
-        return Utils.Companion.database?.RawDao()?.getVerbOccuranceBreakVerses(query)
+        return database.RawDao().getVerbOccuranceBreakVerses(query)
     }
 
     fun getNounOccuranceBreakVerses(tid: String): List<CorpusNounWbwOccurance?>? {
@@ -593,7 +595,7 @@ class Utils {
                     " and corpusexpand.surah = qurans.surah AND   corpusexpand.ayah = qurans.ayah order by corpusexpand.surah,corpusexpand.ayah")
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
         //  List<Book> result = booksDao.getBooks(query);
-        return Utils.Companion.database?.RawDao()?.getnounoccurance(query)
+        return database.RawDao().getnounoccurance(query)
     }
 
     fun getRootDetails(tid: String): List<RootWordDetails?>? {
@@ -617,7 +619,7 @@ class Utils {
                     + tid + "\"")
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
         //  List<Book> result = booksDao.getBooks(query);
-        return Utils.Companion.database?.RawDao()?.getrootdetails(query)
+        return database.RawDao().getrootdetails(query)
     }
 
     fun getRootVerbDetails(tid: String): List<RootVerbDetails?>? {
@@ -643,7 +645,7 @@ class Utils {
                     + tid + "\"")
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
         //  List<Book> result = booksDao.getBooks(query);
-        return Utils.Companion.database?.RawDao()?.getverbdetails(query)
+        return database.RawDao().getverbdetails(query)
     }
 
     fun getnounoccurancebysurahayah(tid: Int, vid: Int): List<CorpusNounWbwOccurance?>? {
@@ -687,15 +689,15 @@ class Utils {
                     "and corpusexpand.surah = qurans.surah AND   corpusexpand.ayah = qurans.ayah order by corpusexpand.surah,corpusexpand.ayah")
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
         //  List<Book> result = booksDao.getBooks(query);
-        return Utils.Companion.database?.RawDao()?.getnounoccurancebysurahayah(query)
+        return database.RawDao().getnounoccurancebysurahayah(query)
     }
 
     fun getHarfNasbIndexesnew(id: Int): List<NewNasbEntity?>? {
-        return Utils.Companion.database?.NewNasbDao()?.getHarfNasbIndices(id)
+        return  database.NewNasbDao()?.getHarfNasbIndices(id)
     }
 
     fun getHarfNasbIndSurahAyahSnew(id: Int, aid: Int): List<NewNasbEntity?>? {
-        return Utils.Companion.database?.NewNasbDao()?.getHarfNasbIndicesSurahAyah(id, aid)
+        return  database.NewNasbDao()?.getHarfNasbIndicesSurahAyah(id, aid)
     }
 
     //  List<Book> result = booksDao.getBooks(query);
@@ -706,7 +708,7 @@ class Utils {
                         "newmudhaf.surah=qurans.surah and newmudhaf.ayah=qurans.ayah"
             val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
             //  List<Book> result = booksDao.getBooks(query);
-            return Utils.Companion.database?.RawDao()?.getMudhaf(query)
+            return database.RawDao().getMudhaf(query)
         }
 
     //  List<Book> result = booksDao.getBooks(query);
@@ -719,7 +721,7 @@ class Utils {
                         "sifa.ayah=qurans.ayah")
             val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
             //  List<Book> result = booksDao.getBooks(query);
-            return Utils.Companion.database?.RawDao()?.getMousufSifa(query)
+            return database.RawDao().getMousufSifa(query)
         }
 
     //     "shart.ayah=qurans.ayah and shart.sharttype=\"laula\" order by shart.surah";
@@ -733,7 +735,7 @@ class Utils {
             //     "shart.ayah=qurans.ayah and shart.sharttype=\"laula\" order by shart.surah";
             val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
             //  List<Book> result = booksDao.getBooks(query);
-            return Utils.Companion.database?.RawDao()?.getShart(query)
+            return database.RawDao().getShart(query)
         }
 
     //     "shart.ayah=qurans.ayah and shart.sharttype=\"laula\" order by shart.surah";
@@ -745,7 +747,7 @@ class Utils {
             //     "shart.ayah=qurans.ayah and shart.sharttype=\"laula\" order by shart.surah";
             val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
             //  List<Book> result = booksDao.getBooks(query);
-            return Utils.Companion.database?.RawDao()?.getTameez(query)
+            return database.RawDao().getTameez(query)
         }
 
     //     "shart.ayah=qurans.ayah and shart.sharttype=\"laula\" order by shart.surah";
@@ -759,73 +761,73 @@ class Utils {
             //     "shart.ayah=qurans.ayah and shart.sharttype=\"laula\" order by shart.surah";
             val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
             //  List<Book> result = booksDao.getBooks(query);
-            return Utils.Companion.database?.RawDao()?.getKana(query) as ArrayList<KanaPOJO>
+            return  database.RawDao().getKana(query) as ArrayList<KanaPOJO>
         }
 
     fun getSifabySurah(id: Int): List<SifaEntity?>? {
-        return Utils.Companion.database?.SifaDao()?.getSifaindexesBySurah(id)
+        return  database.SifaDao()?.getSifaindexesBySurah(id)
     }
 
     fun getSifabySurahAyah(id: Int, aid: Int): List<SifaEntity?>? {
-        return Utils.Companion.database?.SifaDao()?.getSifaindexesBySurahAyah(id, aid)
+        return  database.SifaDao()?.getSifaindexesBySurahAyah(id, aid)
     }
 
     fun getShartSurahNew(id: Int): List<NewShartEntity?>? {
-        return Utils.Companion.database?.NewShartDAO()?.getShartBySurah(id)
+        return  database.NewShartDAO()?.getShartBySurah(id)
     }
 
     fun getRootDictionary(id: String): List<lughat?>? {
-        return Utils.Companion.database?.LughatDao()?.getRootWordDictionary(id.trim({ it <= ' ' }))
+        return  database.LughatDao()?.getRootWordDictionary(id.trim { it <= ' ' })
     }
 
     fun getLanesDifinition(id: String): List<lanelexicon?>? {
-        return Utils.Companion.database?.LaneDao()?.getLanesDefinition(id.trim({ it <= ' ' }))
+        return  database.LaneDao()?.getLanesDefinition(id.trim { it <= ' ' })
     }
 
     fun getLanesRootDefinition(id: String): List<lanerootdictionary?>? {
-        return Utils.Companion.database?.LaneRootDao()?.getLanesRootDefinition(id.trim({ it <= ' ' }))
+        return  database.LaneRootDao()?.getLanesRootDefinition(id.trim { it <= ' ' })
     }
 
     fun getHansDifinition(id: String): List<hanslexicon?>? {
-        return Utils.Companion.database?.HansDao()?.getHansDefinition(id.trim({ it <= ' ' }))
+        return  database.HansDao()?.getHansDefinition(id.trim { it <= ' ' })
     }
 
     fun getArabicWord(id: String?): List<lughat?>? {
-        return Utils.Companion.database?.LughatDao()?.getArabicWord(id)
+        return  database.LughatDao()?.getArabicWord(id)
     }
 
     val quranDictionary: List<qurandictionary?>?
         get() {
-            return Utils.Companion.database?.qurandictionaryDao()?.dictionary
+            return database.qurandictionaryDao().dictionary
         }
 
     fun getQuranDictionarybyroot(root: String?): List<qurandictionary?>? {
-        return Utils.Companion.database?.qurandictionaryDao()?.getDictionaryroot(root)
+        return database.qurandictionaryDao().getDictionaryroot(root)
     }
 
     fun getTopicSearch(id: String?): List<quranexplorer?>? {
-        return Utils.Companion.database?.QuranExplorerDao()?.getFilter(id)
+        return  database.QuranExplorerDao()?.getFilter(id)
     }
 
     val topicSearchAll: List<quranexplorer?>?
         get() {
-            return Utils.Companion.database?.QuranExplorerDao()?.aLL
+            return  database.QuranExplorerDao()?.aLL
         }
 
     fun getKananew(id: Int): List<NewKanaEntity?>? {
-        return Utils.Companion.database?.NewKanaDao()?.getkanabysurah(id)
+        return  database.NewKanaDao()?.getkanabysurah(id)
     }
 
     fun getKanaSurahAyahnew(id: Int, aid: Int): List<NewKanaEntity?>? {
-        return Utils.Companion.database?.NewKanaDao()?.getkanabysurahAyah(id, aid)
+        return  database.NewKanaDao()?.getkanabysurahAyah(id, aid)
     }
 
     fun getShartSurahAyahNew(id: Int, ayah: Int): List<NewShartEntity?>? {
-        return Utils.Companion.database?.NewShartDAO()?.getShartBySurahAyah(id, ayah)
+        return  database.NewShartDAO()?.getShartBySurahAyah(id, ayah)
     }
 
     fun getwbwQuranBySurahAyah(id: Int, aid: Int): List<wbwentity?>? {
-        return Utils.Companion.database?.wbwDao()?.getwbwQuranBySurahAyah(id, aid)
+        return  database.wbwDao()?.getwbwQuranBySurahAyah(id, aid)
     }
 
     fun getwbwQuranbTranslation(
@@ -834,7 +836,7 @@ class Utils {
         firstwordindex: Int,
         lastwordindex: Int,
     ): List<wbwentity?>? {
-        return Utils.Companion.database?.wbwDao()?.getwbwQuranbTranslation(sid, aid, firstwordindex, lastwordindex)
+        return  database.wbwDao()?.getwbwQuranbTranslation(sid, aid, firstwordindex, lastwordindex)
     }
 
     fun getNounBreakup(tid: String): List<NounCorpusBreakup?>? {
@@ -844,7 +846,7 @@ class Utils {
                     + " group by lemma_a,root_a,tag,propone,proptwo order by surah,ayah")
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
         //  List<Book> result = booksDao.getBooks(query);
-        return Utils.Companion.database?.RawDao()?.getNounBreakup(query)
+        return database.RawDao().getNounBreakup(query)
     }
 
     fun getVerbBreakUp(tid: String): List<VerbCorpusBreakup?>? {
@@ -854,29 +856,29 @@ class Utils {
                     + " group by root_a,form order by chapterno,verseno")
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
         //  List<Book> result = booksDao.getBooks(query);
-        return Utils.Companion.database?.RawDao()?.getVerbBreakup(query)
+        return database.RawDao().getVerbBreakup(query)
     }
 
     val grammarRules: List<GrammarRules?>?
         get() {
-            return Utils.Companion.database?.grammarRulesDao()?.grammarRules
+            return  database.grammarRulesDao()?.grammarRules
         }
 
     fun getGrammarRulesByRules(harf: String?): List<GrammarRules?>? {
-        return Utils.Companion.database?.grammarRulesDao()?.getGrammarRulesByHarf(harf)
+        return  database.grammarRulesDao()?.getGrammarRulesByHarf(harf)
     }
 
     fun getTameezWord(surah: Int, ayah: Int, wordno: Int): List<TameezEnt?>? {
-        return Utils.Companion.database?.tameezDao()?.getTameezWord(surah, ayah, wordno)
+        return  database.tameezDao()?.getTameezWord(surah, ayah, wordno)
     }
 
     val tameezall: ArrayList<TameezEnt>
         get() {
-            return Utils.Companion.database?.tameezDao()?.getall() as ArrayList<TameezEnt>
+            return  database.tameezDao()?.getall() as ArrayList<TameezEnt>
         }
 
     fun getTameezsurah(surah: Int): List<TameezEnt?>? {
-        return Utils.Companion.database?.tameezDao()?.getTameezSurah(surah)
+        return  database.tameezDao()?.getTameezSurah(surah)
     }
 
     fun gettameezverses(): List<TameezPOJO?>? {
@@ -884,58 +886,56 @@ class Utils {
             "SELECT surah,COUNT(ayah) as versescount FROM tameez group by surah order BY surah,ayah"
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sql)
         //  List<Book> result = booksDao.getBooks(query);
-        return Utils.Companion.database?.RawDao()?.gettameezversescount(query)
+        return database.RawDao().gettameezversescount(query)
     }
 
 
     fun getMafoolLiajlihi(surah: Int, ayah: Int, wordno: Int): List<LiajlihiEnt>? {
-        return Utils.Companion.database?.liajlihiDao()?.getMafoolLiajlihi(surah, ayah, wordno)
+        return  database.liajlihiDao()?.getMafoolLiajlihi(surah, ayah, wordno)
     }
 
     fun getMafoolLiajlihisurah(surah: Int): List<LiajlihiEnt?>? {
-        return Utils.Companion.database?.liajlihiDao()?.getMafoolLiajlihisurah(surah)
+        return  database.liajlihiDao()?.getMafoolLiajlihisurah(surah)
     }
 
     fun getMafoolbihiId(surah: Int, ayah: Int, wordno: Int): List<MafoolBihi?>? {
-        return Utils.Companion.database?.MafoolBihiDao()?.getMafoolbihi(surah, ayah, wordno)
+        return  database.MafoolBihiDao()?.getMafoolbihi(surah, ayah, wordno)
     }
 
     fun getMafoolbihiword(surah: Int, ayah: Int, wordno: Int): List<MafoolBihi>? {
-        return Utils.Companion.database?.MafoolBihiDao()?.getMafoolbihi(surah, ayah, wordno)
+        return  database.MafoolBihiDao()?.getMafoolbihi(surah, ayah, wordno)
     }
 
     fun updateMafoolword(wordn: Int, id: Int): Int? {
-        val updatemafoolrslt: Int? =
-            Utils.Companion.database?.MafoolBihiDao()?.updateMafoolWord(wordn, id)
-        return updatemafoolrslt
+        return database.MafoolBihiDao()?.updateMafoolWord(wordn, id)
     }
 
     val mafoolbihiquran: ArrayList<MafoolBihi>
         get() {
-            return Utils.Companion.database?.MafoolBihiDao()?.mafoolbihiq as ArrayList<MafoolBihi>
+            return  database.MafoolBihiDao()?.mafoolbihiq as ArrayList<MafoolBihi>
         }
 
     fun getMafoolBySurah(surah: Int): List<MafoolBihi?>? {
-        return Utils.Companion.database?.MafoolBihiDao()?.getBySurah(surah)
+        return  database.MafoolBihiDao()?.getBySurah(surah)
     }
 
     fun getHaliaErab(surah: Int, ayah: Int): List<HalEnt>? {
-        return Utils.Companion.database?.HaliyaDao()?.getHaliya(surah, ayah)
+        return  database.HaliyaDao()?.getHaliya(surah, ayah)
     }
 
     fun getHaliaErabBysurah(surah: Int): List<HalEnt?>? {
-        return Utils.Companion.database?.HaliyaDao()?.getHaliyaSurah(surah)
+        return  database.HaliyaDao()?.getHaliyaSurah(surah)
     }
 
     fun getBadalErabSA(surah: Int, ayah: Int): List<BadalErabNotesEnt?>? {
-        return Utils.Companion.database?.BadalErabNotesDao()?.getBadalNotesSurahAyah(surah, ayah)
+        return  database.BadalErabNotesDao()?.getBadalNotesSurahAyah(surah, ayah)
     }
 
     fun getBadalrabSurah(surah: Int): List<BadalErabNotesEnt?>? {
-        return Utils.Companion.database?.BadalErabNotesDao()?.getBadalNotesSurah(surah)
+        return  database.BadalErabNotesDao()?.getBadalNotesSurah(surah)
     }
     fun getMutlaqsurah(surah: Int): List<MafoolMutlaqEnt?>? {
-        return database?.MafoolMutlaqEntDao()?.getMutlaqsurah(surah)
+        return database.MafoolMutlaqEntDao()?.getMutlaqsurah(surah)
     }
 
     fun getMafoolMutlaqword(
@@ -943,7 +943,7 @@ class Utils {
         ayah: Int,
         wordno: Int,
     ): List<MafoolMutlaqEnt>? {
-        return database?.MafoolMutlaqEntDao()
+        return database.MafoolMutlaqEntDao()
             ?.getMafoolbihiword(surah, ayah, wordno)
     }
 
@@ -973,32 +973,32 @@ class Utils {
 
  /*
     fun getMafoolMutlaqword(surah: Int, ayah: Int, wordno: Int): List<MafoolMutlaqEnt?>? {
-        return Utils.Companion.database?.MafoolMutlaqEntDao()?.getMafoolbihiword(surah, ayah, wordno)
+        return  database?.MafoolMutlaqEntDao()?.getMafoolbihiword(surah, ayah, wordno)
     }
 
     fun getMutlaqsurah(surah: Int): List<MafoolMutlaqEnt?>? {
-        return Utils.Companion.database?.MafoolMutlaqEntDao()?.getMutlaqsurah(surah)
+        return  database?.MafoolMutlaqEntDao()?.getMutlaqsurah(surah)
     }*/
 
     fun getAllList(): List<hduanames> {
-        return database.hDuaNamesDao().duanames
+        return database.gethDuaNamesDao().duanames
     }
 
 
     fun getdualistbychapter(cid: Int): List<hduanames> {
-        return Utils.Companion.database?.hDuaNamesDao()!!.getdualistbychapter(cid)
+        return  database.gethDuaNamesDao().getdualistbychapter(cid)
     }
 
     val hcategory: ArrayList<hcategory>
         get() {
-            return Utils.Companion.database?.hDuaCategoryDao()?.getcatetory() as ArrayList<hcategory>
+            return  database.gethDuaCategoryDao()?.getcatetory() as ArrayList<hcategory>
         }
 
 
 
     val names: ArrayList<AllahNames>
         get() {
-            return Utils.Companion.database?.NamesDao()?.ALLAH_NAMES_LIST() as ArrayList<AllahNames>
+            return  database.NamesDao()?.ALLAH_NAMES_LIST() as ArrayList<AllahNames>
         }
 
     fun getDuaCATNAMES(tid: String?): List<hduanames> {
@@ -1006,41 +1006,40 @@ class Utils {
             "select * from hduanames where (category = '%s'   or category like '%%,%s'   or category like '%s, %% 'or category like '%%,%s,%%'" +
                     "", tid, tid, tid, tid
         )
-        val fs: String = verb + ")"
+        val fs: String = "$verb)"
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(fs)
-        return Utils.Companion.database?.RawDao()!!.getDuaCATNAMES(query)
+        return  database.RawDao().getDuaCATNAMES(query)
     }
     suspend fun updateFav(fav: Int, id: Int): Int? {
-        val updadateRoots: Int? = Utils.Companion.database?.hDuaNamesDao()?.updateFav(fav, id)
-        return updadateRoots
+        return database.gethDuaNamesDao().updateFav(fav, id)
     }
 
     fun getDunamesbyid(id: String?): List<hduanames?>? {
-        return Utils.Companion.database?.hDuaNamesDao()?.getDuanamesid(id)
+        return database.gethDuaNamesDao().getDuanamesid(id)
     }
 
-    fun getDunamesbyCatId(id: String?): List<hduanames?>? {
-        return Utils.Companion.database?.hDuaNamesDao()?.getDunamesbyCatId(id)
+    fun getDunamesbyCatId(id: String?): List<hduanames> {
+        return database.gethDuaNamesDao().getDunamesbyCatId(id!!)
     }
 
     fun getDunamesbyCatIdnew(id: String?): List<hduanames?>? {
-        return Utils.Companion.database?.hDuaNamesDao()?.getDunamesbyCatIdnew(id)
+        return database.gethDuaNamesDao().getDunamesbyCatIdnew(id)
     }
 
     fun getDuanamesDetails(id: String?): List<hduanames?>? {
-        return Utils.Companion.database?.hDuaNamesDao()?.getDuanamesByID(id)
+        return database.gethDuaNamesDao().getDuanamesByID(id)
     }
 
     fun getBookmarked(id: Int): List<hduanames?>? {
-        return Utils.Companion.database?.hDuaNamesDao()?.getBookmarked(id)
+        return database.gethDuaNamesDao().getBookmarked(id)
     }
 
     fun getIsmarked(id: String?): List<hduanames?>? {
-        return Utils.Companion.database?.hDuaNamesDao()?.isBookmarked(id)
+        return database.gethDuaNamesDao().isBookmarked(id)
     }
 
     fun gethDuadetailsitems(id: String?): List<hduadetails?>? {
-        return Utils.Companion.database?.hDuaItemDao()?.getDitem(id)
+        return database.hDuaItemDao().getDitem(id)
     }
 
     //muslim mate
@@ -1054,7 +1053,7 @@ class Utils {
                 "select  count(*) as count, * from bookmark where header != \"pins\" group by header"
             val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sql)
             //  List<Book> result = booksDao.getBooks(query);
-            return Utils.Companion.database?.RawDao()?.getCollectionCount(query)
+            return database.RawDao().getCollectionCount(query)
         }
 
     //  List<Book> result = booksDao.getBooks(query);
@@ -1064,29 +1063,29 @@ class Utils {
                 "select  a.nameenglish,a.namearabic ,a.chapterid , b. juz, min(b.page) page,b.ayah,b.qurantext from chaptersana a, qurans b where a.chapterid=b.surah group by juz"
             val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sql)
             //  List<Book> result = booksDao.getBooks(query);
-            return Utils.Companion.database?.RawDao()!!.getJuz(query)
+            return  database.RawDao().getJuz(query)
         }
 
     val qaris: List<Qari>
         get() {
-            return Utils.Companion.database?.QariDao()!!.qaris
+            return  database.QariDao().qaris
         }
 
     companion object {
-        private val TAG: String = "Utils"
+        private const val TAG: String = "Utils"
         private lateinit var database: QuranAppDatabase
 
 
-        fun getRootwordsbyLetter(tid: String): List<qurandictionary?>? {
+        fun getRootwordsbyLetter(tid: String): List<qurandictionary?> {
             val sb = StringBuilder()
 
             val sqlverb: String =
                 "SELECT distinct rootarabic FROM qurandictionary where rootarabic like \"%\\+tid "
             //   sb.append(sqlverb).append(" ").append("\%\")
             val ss: String =
-                "SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like  \"%" + tid + "\""
+                "SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like  \"%$tid\""
             val sss: String =
-                "SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like" + tid + "  \"%" + tid + "\""
+                "SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like$tid  \"%$tid\""
             //   sb.append("SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like ").append("\"").append("%").append(tid).append("\"");
             sb.append("SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like ")
                 .append("\"").append(tid).append("%").append("\"")
@@ -1095,84 +1094,71 @@ class Utils {
                 tid
             )
             val verb: String =
-                "SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like %" + tid
-            val fs: String = let + ")"
+                "SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like %$tid"
+            val fs: String = "$let)"
 
             val qquery="SELECT distinct ROOTARABIC FROM QURANDICTIONARY "
             val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sb.toString())
-            return Utils.Companion.database.RawDao().getRootsbyLetter(query)
+            return  database.RawDao().getRootsbyLetter(query)
         }
 
         val bookMarksNew: List<BookMarks?>?
             get() {
-                return Utils.Companion.database?.BookMarkDao()?.getBookMarks()
+                return  database.BookMarkDao()?.getBookMarks()
             }
 
         fun getAllBookmarks(pins: String?): List<BookMarks?>? {
-            return Utils.Companion.database?.BookMarkDao()?.getAllBookmarks(pins)
+            return  database.BookMarkDao()?.getAllBookmarks(pins)
         }
 
         fun getsurahayahVerses(id: Int, aid: Int): List<QuranEntity?>? {
-            return Utils.Companion.database?.QuranDao()?.getsurahayahVerses(id, aid)
+            return  database.QuranDao()?.getsurahayahVerses(id, aid)
         }
 
             fun getByfirstletter(id: String): List<qurandictionary> {
-            return Utils.Companion.database?.qurandictionaryDao()!!.getByfirstletter(id)
+            return  database.qurandictionaryDao().getByfirstletter(id)
         }
 
 
 
 
         fun getQuranbySurahAyahrange(surahid: Int, from: Int, to: Int): List<QuranEntity?>? {
-            return Utils.Companion.database?.QuranDao()?.getQuranbySurahAyahrange(surahid, from, to)
+            return  database.QuranDao()?.getQuranbySurahAyahrange(surahid, from, to)
         }
 
         //select * from qurans where ayah>=50 and ayah<=78 and surah=9
         val quran: List<QuranEntity>
             get() {
-                return Utils.Companion.database?.QuranDao()?.allQuran as List<QuranEntity>
+                return  database.QuranDao()?.allQuran as List<QuranEntity>
             }
 
-        fun deleteBookMarks(bookMarks: BookMarks?) {
-            object : AsyncTask<Void?, Void?, Void?>() {
-                override fun doInBackground(vararg voids: Void?): Void? {
-                    Utils.Companion.database?.BookMarkDao()?.deletebookmark(bookMarks)
-                    return null
-                }
-            }.execute()
-        }
-
         fun deleteBookmark(bookmark: BookMarks?) {
-            val bookMarkDao: BookMarkDao? = Utils.Companion.database?.BookMarkDao()
+            val bookMarkDao: BookMarkDao? = database.BookMarkDao()
             if (bookMarkDao != null) {
                 deleteWordAsyncTask(bookMarkDao).execute(bookmark)
             }
         }
 
         fun deleteCollection(count: String?) {
-            Utils.Companion.database?.BookMarkDao()?.deleteCollection(count)
+       database.BookMarkDao()?.deleteCollection(count)
         }
 
         fun getQuranbyJuz(juz: Int): List<QuranEntity?>? {
-            return Utils.Companion.database?.QuranDao()?.getQuranbyJuz(juz)
+            return  database.QuranDao()?.getQuranbyJuz(juz)
         }
 
         val collectionCount: List<BookMarks?>?
             get() {
-                return Utils.Companion.database?.BookMarkDao()?.collectionCount
+                return  database.BookMarkDao()?.collectionCount
             }
 
         fun getCollectionbygroup(header: String?): List<BookMarks?>? {
-            return Utils.Companion.database?.BookMarkDao()?.getCollectionbygroup(header)
+            return  database.BookMarkDao()?.getCollectionbygroup(header)
         }
 
-
-        fun getAyahsByPageQuran(surah: Int, pageno: Int): List<QuranEntity?>? {
-            return Utils.Companion.database?.QuranDao()?.getAyahsByPage(surah, pageno)
-        }
 
         fun getAyahsByPagejuz(juz: Int, pageno: Int): List<QuranEntity?>? {
-            return Utils.Companion.database?.QuranDao()?.getAyahsByPagejuz(juz, pageno)
+            return  database.QuranDao()?.getAyahsByPagejuz(juz, pageno)
         }
     }
 }

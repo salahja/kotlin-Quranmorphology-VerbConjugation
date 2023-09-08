@@ -2,10 +2,10 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/grammarrule_detail_container"
+    android:id="@+id/ajroomiya_detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.GrammarRuleDetailHostActivity"
+    tools:context=".ajroomiya.AjroomiyaDetailHostActivity"
     tools:ignore="MergeRootFrame">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -34,13 +34,13 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/grammarrule_detail_scroll_view"
+        android:id="@+id/ajroomiya_detail_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.example.mushafconsolidated.Adapters.TweakedWebView
-            android:id="@+id/grammarrule_detail"
+        <WebView
+            android:id="@+id/ajroomiya_detail"
             style="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -49,7 +49,7 @@
             android:paddingEnd="@dimen/container_horizontal_margin"
             android:paddingBottom="16dp"
             android:textIsSelectable="true"
-            tools:context="com.example.mushafconsolidated.Activity.GrammarRuleDetailFragment" />
+            tools:context="com.example.mushafconsolidated.ajroomiya.AjroomiyaDetailFragment" />
 
     </androidx.core.widget.NestedScrollView>
 
@@ -60,7 +60,7 @@
         android:layout_gravity="center_vertical|start"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
-        app:layout_anchor="@+id/grammarrule_detail_scroll_view"
+        app:layout_anchor="@+id/ajroomiya_detail_scroll_view"
         app:layout_anchorGravity="top|end"
         app:srcCompat="@android:drawable/stat_notify_chat" />
 

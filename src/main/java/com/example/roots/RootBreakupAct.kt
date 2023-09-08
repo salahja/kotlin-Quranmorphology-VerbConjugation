@@ -50,7 +50,7 @@ import com.example.mushafconsolidated.Entities.lanelexicon
 import com.example.mushafconsolidated.Entities.lughat
 import com.example.mushafconsolidated.Entities.qurandictionary
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.databinding.ActivityRootBreakupBinding
 import com.example.mushafconsolidated.fragments.QuranMorphologyDetails
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet

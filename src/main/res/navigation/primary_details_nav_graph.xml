@@ -3,27 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/arabicroot_list_fragment">
+    app:startDestination="@id/ajroomiya_list_fragment">
 
     <fragment
-        android:id="@+id/arabicroot_list_fragment"
-        android:name="com.example.roots.arabicrootDetailFragment"
-        android:label="arabicrootListFragment">
-        <argument
-            android:name="worddetail"
-            android:defaultValue=""
-            app:argType="string" />
+        android:id="@+id/ajroomiya_list_fragment"
+        android:name="com.example.mushafconsolidated.ajroomiya.AjroomiyaListFragment"
+        android:label="AjroomiyaListFragment">
         <action
-            android:id="@+id/show_arabicroot_detail"
-            app:destination="@id/arabicroot_detail_fragment"
-
-            />
+            android:id="@+id/show_ajroomiya_detail"
+            app:destination="@id/ajroomiya_detail_fragment" />
     </fragment>
     <fragment
-        android:id="@+id/arabicroot_detail_fragment"
-        android:name="com.example.roots.arabicrootDetailFragment"
-        android:label="arabicroot_detail"
-        tools:layout="@layout/fragment_arabicroot_detail">
+        android:id="@+id/ajroomiya_detail_fragment"
+        android:name="com.example.mushafconsolidated.ajroomiya.AjroomiyaDetailFragment"
+        android:label="ajroomiya_detail"
+        tools:layout="@layout/fragment_ajroomiya_detail">
         <argument
             android:name="item_id"
             android:defaultValue=""

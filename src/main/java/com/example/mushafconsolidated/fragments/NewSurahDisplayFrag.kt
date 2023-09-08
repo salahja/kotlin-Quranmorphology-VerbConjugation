@@ -27,7 +27,7 @@ import com.example.mushafconsolidated.Adaptersimport.NewSurahDisplayAdapter
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.R.drawable.custom_search_box
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.example.mushafconsolidated.intrfaceimport.PassdataInterface
 import com.example.mushafconsolidated.model.Juz

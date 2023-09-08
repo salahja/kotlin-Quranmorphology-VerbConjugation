@@ -13,8 +13,6 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.example.mushafconsolidatedimport.MushafApplication.Companion.appContext
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

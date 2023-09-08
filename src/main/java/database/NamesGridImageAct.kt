@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant.SURAH_ID
 import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 import database.entity.AllahNames
 import org.sj.conjugator.interfaces.OnItemClickListener
 import sj.hisnul.fragments.NamesDetail

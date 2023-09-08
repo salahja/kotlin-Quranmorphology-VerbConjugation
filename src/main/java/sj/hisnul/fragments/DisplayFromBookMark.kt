@@ -15,7 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils.Utils
+import com.example.mushafconsolidated.Utils
 import com.google.android.material.appbar.MaterialToolbar
 import sj.hisnul.adapter.SelectedDuaViewAdapter
 import sj.hisnul.entity.hduadetails
