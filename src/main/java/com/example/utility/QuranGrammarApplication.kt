@@ -26,14 +26,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import leakcanary.LeakCanary
 import leakcanary.LeakCanary.config
-
 import java.util.Locale
 
 class QuranGrammarApplication : Application() {
 
     private val applicationScope = CoroutineScope(SupervisorJob())
     val database by lazy { QuranAppDatabase.getInstance(this) }
-    val repository by lazy { DuaInfoRepository(database!!.gethDuaCategoryDao()) }
+    val repository by lazy { DuaInfoRepository(database!!.gethDuaCategoryDao(),
+
+    ) }
 
 
   //  val repository by lazy { DuaInfoRepository(database.hDuaNamesDao()) }

@@ -21,13 +21,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.databinding.ActivityDuaGroupBinding
-import com.example.utility.QuranGrammarApplication
 import com.google.android.material.appbar.MaterialToolbar
 import org.sj.conjugator.interfaces.OnItemClickListener
 import sj.hisnul.DuaViewModel
-import sj.hisnul.DuaViewModelFactory
 import sj.hisnul.adapter.CatAllAdapter
-import sj.hisnul.entity.hduanames
+import sj.hisnul.entity.hduanamesEnt
 import java.util.Collections
 
 
@@ -42,9 +40,6 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
     private val binding get() = _binding!!
 
     val ska = CatAllAdapter()
-    private val duaViewModel: CatwoModel by viewModels {
-        DuaViewModelFactory((activity?.application as QuranGrammarApplication).repository)
-    }
 
 
     override fun onCreateView(
@@ -76,7 +71,7 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        recyclerView.adapter=ska
+
       //  binding.duaListView.adapter = ska
         val toolbar: MaterialToolbar = view.findViewById<MaterialToolbar>(com.example.mushafconsolidated.R.id.my_action_bar)
         (activity as AppCompatActivity?)?.setSupportActionBar(toolbar)
@@ -89,7 +84,7 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
             override fun onItemClick(v: View?, position: Int) {
                 //    ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
                 //   hduanames hduanames = duall.get(position);
-                val hduanames: hduanames = ska.getItem(position) as hduanames
+                val hduanames: hduanamesEnt = ska.getItem(position) as hduanamesEnt
                 val did: String = hduanames.ID
                 val chap_id: Int = hduanames.chap_id
                 val bundle1 = Bundle()
@@ -112,22 +107,13 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
 
    viewmodel.loadLists().observe(viewLifecycleOwner){ userlist->
             Collections.reverse(userlist)
-
+       recyclerView.adapter=ska
             ska.setmutable(userlist)
         }
 
 
 
 
-
-/*
-        ska.also { binding.duaListView.adapter = it }
-        duaViewModel.allWords.observe(viewLifecycleOwner, Observer { userlist ->
-            Collections.reverse(userlist)
-            ska.setmutable(userlist)
-         //   ska.submitList(userlist)
-        })
-    */
 
 
 

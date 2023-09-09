@@ -18,13 +18,12 @@ import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
 import com.google.android.material.appbar.MaterialToolbar
 import sj.hisnul.adapter.SelectedDuaViewAdapter
-import sj.hisnul.entity.hduadetails
-import sj.hisnul.entity.hduanames
+import sj.hisnul.entity.hduadetailsEnt
 import java.util.Collections
 
 class DisplayFromBookMark : Fragment() {
     val subheaders = ArrayList<String>()
-    val duacoll: ArrayList<ArrayList<hduadetails>> = ArrayList()
+    val duacoll: ArrayList<ArrayList<hduadetailsEnt>> = ArrayList()
      lateinit var  sadapter: SelectedDuaViewAdapter
 
     //called by allduarag and  catwofrag retrival by the chaptername in hdunames
@@ -43,12 +42,17 @@ class DisplayFromBookMark : Fragment() {
         }
         val utils = Utils(activity)
         if (chap_id != -1) {
-            val dd: ArrayList<hduanames> = utils.getdualistbychapter(chap_id) as ArrayList<hduanames>
-            for (hduanames in dd) {
-                val duaItems: ArrayList<hduadetails> = utils.gethDuadetailsitems(hduanames.ID) as ArrayList<hduadetails>
-                duacoll.add(duaItems)
-                subheaders.add(hduanames.duaname)
+            val viewmodel:AllDuaModel by viewModels()
+            viewmodel.Duadetailsbychapter(chap_id).observe(this){
+                // val dd: ArrayList<hduanames> = utils.getdualistbychapter(chap_id) as ArrayList<hduanames>
+                for (hduanames in it) {
+                    val duaItems: ArrayList<hduadetailsEnt> = utils.gethDuadetailsitems(hduanames.ID) as ArrayList<hduadetailsEnt>
+                    duacoll.add(duaItems)
+                    subheaders.add(hduanames.duaname)
+                }
             }
+
+
         } else {
             Toast.makeText(activity, "Chapter Id not Found", Toast.LENGTH_SHORT).show()
         }

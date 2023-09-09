@@ -26,12 +26,12 @@ import com.example.utility.QuranGrammarApplication
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
 import sj.hisnul.adapter.SelectedDuaViewAdapter
-import sj.hisnul.entity.hduadetails
-import sj.hisnul.entity.hduanames
+import sj.hisnul.entity.hduadetailsEnt
+import sj.hisnul.entity.hduanamesEnt
 
 class HDuaNamesfrag : Fragment() {
     val subheaders = ArrayList<String>()
-    val duacoll: ArrayList<ArrayList<hduadetails>> = ArrayList<ArrayList<hduadetails>>()
+    val duacoll: ArrayList<ArrayList<hduadetailsEnt>> = ArrayList<ArrayList<hduadetailsEnt>>()
     var sadapter: SelectedDuaViewAdapter? = null
 
     //called by allduarag and  catwofrag retrival by the chaptername in hdunames
@@ -54,10 +54,14 @@ class HDuaNamesfrag : Fragment() {
             viewmodel.Duadetailsbychapter(chap_id).observe(this){
                // val dd: ArrayList<hduanames> = utils.getdualistbychapter(chap_id) as ArrayList<hduanames>
                 for (hduanames in it) {
-                    val duaItems: ArrayList<hduadetails> = utils.gethDuadetailsitems(hduanames.ID) as ArrayList<hduadetails>
+                    val duaItems: ArrayList<hduadetailsEnt> = utils.gethDuadetailsitems(hduanames.ID) as ArrayList<hduadetailsEnt>
                     duacoll.add(duaItems)
                     subheaders.add(hduanames.duaname)
                 }
+
+                    sadapter = SelectedDuaViewAdapter(duacoll, context, name, subheaders)
+                    recyclerView.setAdapter(sadapter)
+
             }
 
         } else {
@@ -92,16 +96,20 @@ class HDuaNamesfrag : Fragment() {
                 R.id.bookmark -> {
                     Toast.makeText(context, "First book item", Toast.LENGTH_SHORT).show()
 
-                    val dunamesbyid: java.util.ArrayList<hduanames> =
-                        utils.getdualistbychapter(chap_id) as java.util.ArrayList<hduanames>
+                  var   dunamesbyid: java.util.ArrayList<hduanamesEnt> = ArrayList()
+
+                    viewmodel.Duadetailsbychapter(chap_id).observe(viewLifecycleOwner){
+                        dunamesbyid= it as java.util.ArrayList<hduanamesEnt>
+                        val gookstat = dunamesbyid[0].fav
+                        if (gookstat == 0) {
+                            viewmodel.update(1,chap_id)
+                        } else {
+                            viewmodel.update(0,chap_id)
+                        }
+
+                    }
 //sadapter.duadetailsitems
                     //sadapter.duadetailsitems
-                    val gookstat = dunamesbyid[0].fav
-                    if (gookstat == 0) {
-                        viewmodel.update(1,chap_id)
-                    } else {
-                        viewmodel.update(0,chap_id)
-                    }
 
                     //  val up = utils.updateFav(1, chap_id)!!
 
@@ -144,10 +152,7 @@ class HDuaNamesfrag : Fragment() {
             Toast.makeText(activity, "tool", Toast.LENGTH_SHORT).show()
             false
         })
-        if (chap_id != -1) {
-            sadapter = SelectedDuaViewAdapter(duacoll, context, name, subheaders)
-            recyclerView.setAdapter(sadapter)
-        }
+
         //AconSarfSagheerAdapter sk=new AconSarfSagheerAdapter(ar, MainActivity.this);
         recyclerView.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(activity)

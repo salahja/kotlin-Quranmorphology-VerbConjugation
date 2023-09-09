@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "hduadetails")
-class hduadetails(
+class hduadetailsEnt(
     var book_id: Int,
     var dua_global_id: Int,
     var ID: String,

@@ -13,7 +13,7 @@ import com.example.mushafconsolidated.R
 import com.example.utility.PreferenceUtil
 import com.example.utility.QuranGrammarApplication
 import org.sj.conjugator.interfaces.OnItemClickListener
-import sj.hisnul.entity.hduanames
+import sj.hisnul.entity.hduanamesEnt
 
 /**
  * RecyclerView.Adapter<BookmarksShowAdapter.ViewHolder>
@@ -24,7 +24,7 @@ class NewHisnulBookmarksShowAdapter :
     var mItemClickListener: OnItemClickListener? = null
     var BookmarksShowAdapterContext: Context? = null
     var bookmarkpostion = 0
-    var bookMarkArrayList: ArrayList<hduanames>? = null
+    var bookMarkArrayList: ArrayList<hduanamesEnt>? = null
     var pref: PreferenceUtil? = null
     var holderposition = 0
     var bookmarid = 0
@@ -54,7 +54,7 @@ class NewHisnulBookmarksShowAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val catOne: hduanames = bookMarkArrayList!![position]
+        val catOne: hduanamesEnt = bookMarkArrayList!![position]
         holderposition=position
 
         val shared: SharedPreferences =
@@ -78,7 +78,7 @@ class NewHisnulBookmarksShowAdapter :
     /*val itemCount: Int
         get() = bookMarkArrayList!!.size*/
 
-    fun getBookMarkArrayList(): List<hduanames>? {
+    fun getBookMarkArrayList(): List<hduanamesEnt>? {
         return bookMarkArrayList
     }
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import database.kotlinpackage.DuaInfoRepository
-import sj.hisnul.entity.hcategory
+import sj.hisnul.entity.hcategoryEnt
 
 
 class DuaViewModel  (private val repository: DuaInfoRepository)
@@ -17,7 +17,7 @@ class DuaViewModel  (private val repository: DuaInfoRepository)
 // - Repository is completely separated from the UI through the ViewModel.
 
     // Creates a LiveData that has values collected from the origin Flow.
-    val allWords: LiveData<List<hcategory>> = repository.allcategory.asLiveData()
+    val allWords: LiveData<List<hcategoryEnt>> = repository.allcategorydha.asLiveData()
 
 
 }

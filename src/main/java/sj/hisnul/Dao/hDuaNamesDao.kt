@@ -1,28 +1,35 @@
 package sj.hisnul.Dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
-import sj.hisnul.entity.hduanames
+import sj.hisnul.entity.hduanamesEnt
 
 @Dao
 interface hDuaNamesDao {
     @Query("select  * from hduanames where chap_id=:cid")
-    fun getdualistbychapter(cid: Int):  List<hduanames>
+    fun getdualistbychapter(cid: Int):  LiveData<List<hduanamesEnt>>
+
+/*
 
     @get:Query("select ROWID,* from hduanames group by chap_id")
-    val duanames: List<hduanames>
+    val duanames: LiveData<List<hduanamesEnt>>
+
+*/
+
+
+
 
     @Query("select ROWID,* from hduanames group by chap_id")
-    fun duanames(): Flow<List<hduanames>>
+    fun duanames():  LiveData<List<hduanamesEnt>>
 
 
 
     @Query("SELECT * FROM hduanames where category=:id ORDER BY category")
-    fun getDuanamesid(id: String?): List<hduanames>
+    fun getDuanamesid(id: String?): LiveData<List<hduanamesEnt>>
 
     @Query("SELECT * FROM hduanames where category LIKE '%' || :search || '%'")
-    fun getDunamesbyCatId(search: String): List<hduanames>
+    fun getDunamesbyCatId(search: String): LiveData<List<hduanamesEnt>>
 
     /*
     WHERE (category == 'search' OR
@@ -35,19 +42,19 @@ interface hDuaNamesDao {
                 " category LIKE '%,'||:search ||" +
                 " category like :search || ',%'"
     )
-    fun getDunamesbyCatIdnew(search: String?): List<hduanames>
+    fun getDunamesbyCatIdnew(search: String?): LiveData<List<hduanamesEnt>>
 
     @Query("SELECT * FROM hduanames where ID=:id ORDER BY category")
-    fun getDuanamesByID(id: String?): List<hduanames>
+    fun getDuanamesByID(id: String?): LiveData<List<hduanamesEnt>>
 
     @Query("SELECT * FROM hduanames where fav=:id ORDER BY fav")
-    fun getFavdua(id: Int): List<hduanames>
+    fun getFavdua(id: Int): LiveData<List<hduanamesEnt>>
 
     @Query("SELECT * FROM hduanames where fav=:id ORDER BY fav")
-    fun getBookmarked(id: Int): List<hduanames>
+    fun getBookmarked(id: Int): LiveData<List<hduanamesEnt>>
 
     @Query("SELECT * FROM hduanames where ID=:id ORDER BY fav")
-    fun isBookmarked(id: String?): List<hduanames>
+    fun isBookmarked(id: String?): LiveData<List<hduanamesEnt>>
 
     @Query(value = "UPDATE hduanames set fav=:fav where chap_id=:id")
   suspend  fun updateFav(fav: Int, id: Int): Int

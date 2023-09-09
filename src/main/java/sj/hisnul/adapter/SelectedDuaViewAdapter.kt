@@ -10,10 +10,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
-import sj.hisnul.entity.hduadetails
+import sj.hisnul.entity.hduadetailsEnt
 
 class SelectedDuaViewAdapter(
-    val duadetailsitems: ArrayList<ArrayList<hduadetails>>,
+    val duadetailsitems: ArrayList<ArrayList<hduadetailsEnt>>,
     context: Context?,
     name: String?,
     var subheaders: ArrayList<String>,

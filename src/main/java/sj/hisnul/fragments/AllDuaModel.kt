@@ -5,59 +5,75 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.mushafconsolidated.QuranAppDatabase
+import com.example.mushafconsolidated.Repository
 import com.example.mushafconsolidated.Utils
 
 import kotlinx.coroutines.launch
-import sj.hisnul.entity.hduanames
+
+import sj.hisnul.entity.hduanamesEnt
 
 class AllDuaModel(application: Application)  :AndroidViewModel(application) {
-    val alldua: MutableLiveData<List<hduanames>> = MutableLiveData()
-    val duacat: MutableLiveData<List<hduanames>> = MutableLiveData()
-    val duachapter: MutableLiveData<List<hduanames>> = MutableLiveData()
+    var alldua: LiveData<List<hduanamesEnt>> = MutableLiveData()
+    val duacat: MutableLiveData<List<hduanamesEnt>> = MutableLiveData()
+    var duachapter: LiveData<List<hduanamesEnt>> = MutableLiveData()
     val util = Utils(application)
+    private lateinit var repository: Repository
+
+    val db = QuranAppDatabase.getInstance(application)!!.gethDuaNamesDao()
+
+    fun loadLists(): LiveData<List<hduanamesEnt>> {
+
+        repository = Repository(db)
+        viewModelScope.launch {
+            alldua = repository.getDuanames()
+        }
 
 
-    fun loadLists(): LiveData<List<hduanames>> {
+        return alldua
+    }
+
+    fun Duacatnames(cat: String): LiveData<List<hduanamesEnt>> {
 
         viewModelScope.launch {
-            alldua.value = util.getAllList() as List<hduanames>?
+            duacat.value = util.getDuaCATNAMES(cat) as List<hduanamesEnt>?
         }
 
 
-        return    alldua
+        return duacat
     }
 
-    fun Duacatnames(cat:String): LiveData<List<hduanames>> {
+    fun Duadetailsbychapter(chapter: Int): LiveData<List<hduanamesEnt>> {
 
-          viewModelScope.launch {
-              duacat.value = util.getDuaCATNAMES(cat) as List<hduanames>?
-        }
-
-
-        return    duacat
-    }
-
-    fun Duadetailsbychapter(chapter:Int): LiveData<List<hduanames>> {
-
+        repository = Repository(db)
         viewModelScope.launch {
-            duachapter.value = util.getdualistbychapter(chapter) as List<hduanames>?
+            duachapter = repository.getdualistbychapter(chapter)
         }
 
+        return duachapter
+    }
 
-        return    duachapter
+    fun getBookmarked(chapter: Int): LiveData<List<hduanamesEnt>> {
+
+        repository = Repository(db)
+        viewModelScope.launch {
+            duachapter = repository.getBookmarked(chapter)
+        }
+
+        return duachapter
     }
 
 
 
 
-
-    fun update(fav:Int, id:Int ) = viewModelScope.launch {
-        util.updateFav(fav,id)
+    fun update(fav: Int, id: Int) = viewModelScope.launch {
+        repository = Repository(db)
+        repository.updateFav(fav, id)
     }
+}
 
 
 
-    }
 
 /*
 private val _allUsers = MutableLiveData<List<User>>()

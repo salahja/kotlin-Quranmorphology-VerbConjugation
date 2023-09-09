@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
 import com.example.utility.QuranGrammarApplication
 import org.sj.conjugator.interfaces.OnItemClickListener
-import sj.hisnul.entity.hcategory
+import sj.hisnul.entity.hcategoryEnt
 
 class CatTwoAdapter(
 
@@ -24,7 +24,7 @@ class CatTwoAdapter(
     RecyclerView.Adapter<CatTwoAdapter.ViewHolder?>() {
   //  private val catTwoArrayList: ArrayList<hcategory>
 
-   private var mylist:   List<hcategory> =ArrayList<hcategory>()
+   private var mylist:   List<hcategoryEnt> =ArrayList<hcategoryEnt>()
 
     var mItemClickListener: OnItemClickListener? = null
 
@@ -43,7 +43,7 @@ class CatTwoAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val imgs: TypedArray = context.resources.obtainTypedArray(R.array.cat_img)
-        val catOne: hcategory = mylist[position]
+        val catOne: hcategoryEnt = mylist[position]
 
 
         val icon: Drawable? = imgs.getDrawable(catOne!!.id - 1)
@@ -81,7 +81,7 @@ class CatTwoAdapter(
         this.mItemClickListener = mItemClickListener
     }
 
-    fun setmutable(userL: List<hcategory>?) {
+    fun setmutable(userL: List<hcategoryEnt>?) {
         if (userL != null) {
             mylist=userL
         }

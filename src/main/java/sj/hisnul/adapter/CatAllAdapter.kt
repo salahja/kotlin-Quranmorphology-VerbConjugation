@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
 import com.example.utility.QuranGrammarApplication
 import org.sj.conjugator.interfaces.OnItemClickListener
-import sj.hisnul.entity.hduanames
+import sj.hisnul.entity.hduanamesEnt
 import java.util.Locale
 
 class CatAllAdapter() :
@@ -24,9 +24,9 @@ class CatAllAdapter() :
     var mItemClickListener: OnItemClickListener? = null
 
 
-    private var mList:   List<hduanames> =ArrayList<hduanames>()
+    private var mList:   List<hduanamesEnt> =ArrayList<hduanamesEnt>()
 
-    private var duasfiltered:   List<hduanames> =ArrayList<hduanames>()
+    private var duasfiltered:   List<hduanamesEnt> =ArrayList<hduanamesEnt>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         //    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rwz,parent, false);
         val view =
@@ -54,7 +54,7 @@ class CatAllAdapter() :
         } else if (isNightmode == "white") {
             holder.cardview.setCardBackgroundColor(QuranGrammarApplication.context!!.resources.getColor(R.color.md_theme_dark_inversePrimary))
         }
-        val catOne: hduanames = duasfiltered[position]
+        val catOne: hduanamesEnt = duasfiltered[position]
         holder.tvReference.setText(catOne.chap_id.toString())
         holder.tvChapname.setText(catOne.chapname)
         holder.tvChapname.setTextSize(18f)
@@ -85,7 +85,7 @@ class CatAllAdapter() :
                 duasfiltered = if (charString.isEmpty()) {
                     mList
                 } else {
-                    val filteredList: MutableList<hduanames> = ArrayList<hduanames>()
+                    val filteredList: MutableList<hduanamesEnt> = ArrayList<hduanamesEnt>()
                     for (details in mList) {
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
@@ -103,13 +103,13 @@ class CatAllAdapter() :
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-                duasfiltered = filterResults.values as ArrayList<hduanames>
+                duasfiltered = filterResults.values as ArrayList<hduanamesEnt>
                 notifyDataSetChanged()
             }
         }
     }
 
-    fun setmutable(userlist: List<hduanames>) {
+    fun setmutable(userlist: List<hduanamesEnt>) {
          mList=userlist
         duasfiltered=userlist
     }

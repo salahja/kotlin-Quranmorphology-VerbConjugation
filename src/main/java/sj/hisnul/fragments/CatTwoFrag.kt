@@ -14,7 +14,7 @@ import com.example.utility.QuranGrammarApplication
 import org.sj.conjugator.interfaces.OnItemClickListener
 import sj.hisnul.activity.NewExpandAct
 import sj.hisnul.adapter.CatTwoAdapter
-import sj.hisnul.entity.hcategory
+import sj.hisnul.entity.hcategoryEnt
 
 class CatTwoFrag : Fragment() {
     lateinit var recyclerView: RecyclerView
@@ -38,7 +38,7 @@ class CatTwoFrag : Fragment() {
 
 
 
-      lateinit    var duagrouptwo: ArrayList<hcategory>;
+      lateinit    var duagrouptwo: ArrayList<hcategoryEnt>;
         val adapter = CatTwoAdapter( requireContext())
         val layoutManager: GridLayoutManager
         layoutManager = GridLayoutManager(activity, 3)
@@ -77,7 +77,7 @@ class CatTwoFrag : Fragment() {
       */
         adapter.SetOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
-                val catTwo: hcategory = adapter.getItem(position) as hcategory
+                val catTwo: hcategoryEnt = adapter.getItem(position) as hcategoryEnt
            //     val catTwo: hcategory = duagrouptwo[position]
                 if (!catTwo.title.isEmpty()) {
                     val intent = Intent(activity, NewExpandAct::class.java)

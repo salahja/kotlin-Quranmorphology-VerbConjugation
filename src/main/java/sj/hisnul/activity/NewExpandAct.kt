@@ -20,7 +20,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.R
 import com.example.utility.QuranGrammarApplication
-import sj.hisnul.entity.hduanames
+import sj.hisnul.entity.hduanamesEnt
 import sj.hisnul.fragments.AllDuaModel
 import sj.hisnul.fragments.HDuaNamesfrag
 import java.util.Collections
@@ -35,7 +35,7 @@ class NewExpandAct : BaseActivity(), SearchView.OnQueryTextListener, SearchView.
     private  lateinit var  parentItemsList: ArrayList<ParentItem>
     private  lateinit var  expandableListView: ExpandableListView
     private  lateinit var  childItemsList: ArrayList<ChildItem>
-    private   var  hduanamesArrayList: ArrayList<hduanames> = ArrayList<hduanames>()
+    private   var  hduanamesArrayList: ArrayList<hduanamesEnt> = ArrayList<hduanamesEnt>()
     private  lateinit var  customAdapter: CustomAdapter
     protected override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +67,7 @@ class NewExpandAct : BaseActivity(), SearchView.OnQueryTextListener, SearchView.
 
         viewmodel.Duacatnames(dua_id.toString()).observe(this){ userlist->
             Collections.reverse(userlist)
-            hduanamesArrayList= userlist as ArrayList<hduanames>
+            hduanamesArrayList= userlist as ArrayList<hduanamesEnt>
             dataheader = ArrayList()
             for (duanamesDetail in hduanamesArrayList) {
                 dataheader!!.add(duanamesDetail.duaname)

@@ -13,11 +13,11 @@ import com.example.mushafconsolidated.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import sj.hisnul.entity.hduanames
+import sj.hisnul.entity.hduanamesEnt
 
 
 class LemmaViewModel(application: Application,lemmarabic:String) : AndroidViewModel(application) {
-    val alldua: MutableLiveData<List<hduanames>> = MutableLiveData()
+    val alldua: MutableLiveData<List<hduanamesEnt>> = MutableLiveData()
 
 
 

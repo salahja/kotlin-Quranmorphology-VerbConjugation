@@ -18,7 +18,7 @@ import com.example.utility.SwipeToDeleteCallback
 import com.google.android.material.snackbar.Snackbar
 import org.sj.conjugator.interfaces.OnItemClickListener
 import sj.hisnul.adapter.NewHisnulBookmarksShowAdapter
-import sj.hisnul.entity.hduanames
+import sj.hisnul.entity.hduanamesEnt
 
 /**
  * Bookmark fragment class
@@ -36,7 +36,8 @@ class NewHisnulBookmarkFragment : Fragment(), AdapterView.OnItemClickListener {
         val view = inflater.inflate(R.layout.fragment_bookmark, container, false)
         val utils = Utils(activity)
         //    List<BookMarks> bookMarksNew = utils.getBookMarksNew();
-        val bookmarked: ArrayList<hduanames> = utils.getBookmarked(1) as ArrayList<hduanames>
+        val bookmarked: ArrayList<hduanamesEnt> = ArrayList()
+        val viewmodel:AllDuaModel by viewModels()
         //  List<BookMarks> bookmarks = new DatabaseAccess().getBookmarks();
         bookmarksShowAdapter = NewHisnulBookmarksShowAdapter(activity)
         mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation)
@@ -45,8 +46,15 @@ class NewHisnulBookmarkFragment : Fragment(), AdapterView.OnItemClickListener {
         mRecview.layoutManager=layoutManager
 
         //    bookmarksShowAdapter.setBookMarkArrayList((ArrayList<String>) bookmarstringarray);
-        bookmarksShowAdapter.bookMarkArrayList=bookmarked
-       mRecview.adapter=bookmarksShowAdapter
+
+        viewmodel.Duadetailsbychapter(1).observe(viewLifecycleOwner){
+            // val dd: ArrayList<hduanames> = utils.getdualistbychapter(chap_id) as ArrayList<hduanames>
+            bookmarksShowAdapter.bookMarkArrayList= it as ArrayList<hduanamesEnt>?
+            mRecview.adapter=bookmarksShowAdapter
+        }
+
+
+
 
         //    mRecview.setLayoutManager(new LinearLayoutManager(getActivity()));
         enableSwipeToDeleteAndUndo()
@@ -106,7 +114,7 @@ class NewHisnulBookmarkFragment : Fragment(), AdapterView.OnItemClickListener {
                 val butils = Utils(activity)
                 val id = tag == "id"
                 val delete = tag == "delete"
-                val bookid = bookmarksShowAdapter.getItem(position) as hduanames
+                val bookid = bookmarksShowAdapter.getItem(position) as hduanamesEnt
                 if (id) {
                     val bundle1 = Bundle()
                     val chap_id = bookid.chap_id

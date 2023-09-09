@@ -53,11 +53,10 @@ import com.example.mushafconsolidated.Entities.surahsummary
 import com.example.mushafconsolidated.Entities.wbwentity
 import com.example.mushafconsolidated.model.Juz
 import database.entity.AllahNames
-import kotlinx.coroutines.flow.Flow
 import sj.hisnul.entity.AllahNamesDetails
-import sj.hisnul.entity.hcategory
-import sj.hisnul.entity.hduadetails
-import sj.hisnul.entity.hduanames
+import sj.hisnul.entity.hcategoryEnt
+import sj.hisnul.entity.hduadetailsEnt
+import sj.hisnul.entity.hduanamesEnt
 
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
@@ -980,18 +979,11 @@ class Utils {
         return  database?.MafoolMutlaqEntDao()?.getMutlaqsurah(surah)
     }*/
 
-    fun getAllList(): List<hduanames> {
-        return database.gethDuaNamesDao().duanames
-    }
 
 
-    fun getdualistbychapter(cid: Int): List<hduanames> {
-        return  database.gethDuaNamesDao().getdualistbychapter(cid)
-    }
-
-    val hcategory: ArrayList<hcategory>
+    val hcategory: ArrayList<hcategoryEnt>
         get() {
-            return  database.gethDuaCategoryDao()?.getcatetory() as ArrayList<hcategory>
+            return  database.gethDuaCategoryDao()?.getcatetory() as ArrayList<hcategoryEnt>
         }
 
 
@@ -1001,7 +993,9 @@ class Utils {
             return  database.NamesDao()?.ALLAH_NAMES_LIST() as ArrayList<AllahNames>
         }
 
-    fun getDuaCATNAMES(tid: String?): List<hduanames> {
+
+
+    fun getDuaCATNAMES(tid: String?): List<hduanamesEnt> {
         val verb: String = String.format(
             "select * from hduanames where (category = '%s'   or category like '%%,%s'   or category like '%s, %% 'or category like '%%,%s,%%'" +
                     "", tid, tid, tid, tid
@@ -1010,35 +1004,14 @@ class Utils {
         val query: SimpleSQLiteQuery = SimpleSQLiteQuery(fs)
         return  database.RawDao().getDuaCATNAMES(query)
     }
-    suspend fun updateFav(fav: Int, id: Int): Int? {
-        return database.gethDuaNamesDao().updateFav(fav, id)
-    }
 
-    fun getDunamesbyid(id: String?): List<hduanames?>? {
-        return database.gethDuaNamesDao().getDuanamesid(id)
-    }
 
-    fun getDunamesbyCatId(id: String?): List<hduanames> {
-        return database.gethDuaNamesDao().getDunamesbyCatId(id!!)
-    }
 
-    fun getDunamesbyCatIdnew(id: String?): List<hduanames?>? {
-        return database.gethDuaNamesDao().getDunamesbyCatIdnew(id)
-    }
 
-    fun getDuanamesDetails(id: String?): List<hduanames?>? {
-        return database.gethDuaNamesDao().getDuanamesByID(id)
-    }
 
-    fun getBookmarked(id: Int): List<hduanames?>? {
-        return database.gethDuaNamesDao().getBookmarked(id)
-    }
 
-    fun getIsmarked(id: String?): List<hduanames?>? {
-        return database.gethDuaNamesDao().isBookmarked(id)
-    }
 
-    fun gethDuadetailsitems(id: String?): List<hduadetails?>? {
+    fun gethDuadetailsitems(id: String?): List<hduadetailsEnt?>? {
         return database.hDuaItemDao().getDitem(id)
     }
 

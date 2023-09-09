@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import database.kotlinpackage.DuaInfoRepository
-import sj.hisnul.entity.hcategory
+import sj.hisnul.entity.hcategoryEnt
 
 class CatwoModel(repository: DuaInfoRepository) : ViewModel() {
-    val allcategory: LiveData<List<hcategory>> = repository.allcategory.asLiveData()
+    val allcategory: LiveData<List<hcategoryEnt>> = repository.allcategorydha.asLiveData()
     // private val allUsers: LiveData<List<hcategory>> get() = duagrouptwo
 
 
