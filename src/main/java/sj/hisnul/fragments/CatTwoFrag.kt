@@ -10,18 +10,16 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
-import com.example.utility.QuranGrammarApplication
 import org.sj.conjugator.interfaces.OnItemClickListener
 import sj.hisnul.activity.NewExpandAct
 import sj.hisnul.adapter.CatTwoAdapter
 import sj.hisnul.entity.hcategoryEnt
+import sj.hisnul.newepository.NewDuaModel
 
 class CatTwoFrag : Fragment() {
     lateinit var recyclerView: RecyclerView
-    private val duacatmodel: CatwoModel by viewModels {
-        CatwoModelFactory((activity?.application as QuranGrammarApplication).repository)
-    }
 
+    val duacatmodel: NewDuaModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
@@ -46,7 +44,7 @@ class CatTwoFrag : Fragment() {
         // recyclerView.setLayoutManager(new LinearLayoutManager(context!!));
         recyclerView.setLayoutManager(layoutManager)
 
-        duacatmodel.allcategory.observe(viewLifecycleOwner){
+        duacatmodel.duaCategory().observe(viewLifecycleOwner){
             adapter.setmutable(it)
             recyclerView.setAdapter(adapter)
         }

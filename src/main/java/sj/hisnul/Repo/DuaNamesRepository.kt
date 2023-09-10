@@ -20,7 +20,7 @@ class DuaNamesRepository(
 
 
 ) {
-    fun getDuanames(): LiveData<List<hduanamesEnt>> = gethDuaNamesDao.duanames()
+    fun getDuanames(): LiveData<List<hduanamesEnt>> = gethDuaNamesDao.duanameslive()
 
 
     fun getdualistbychapter(cid: Int):   LiveData<List<hduanamesEnt>>

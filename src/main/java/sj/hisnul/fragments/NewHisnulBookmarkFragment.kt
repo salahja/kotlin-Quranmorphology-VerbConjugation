@@ -17,9 +17,9 @@ import com.example.mushafconsolidated.Utils
 import com.example.utility.SwipeToDeleteCallback
 import com.google.android.material.snackbar.Snackbar
 import org.sj.conjugator.interfaces.OnItemClickListener
-import sj.hisnul.VIewmodels.AllDuaModel
 import sj.hisnul.adapter.NewHisnulBookmarksShowAdapter
 import sj.hisnul.entity.hduanamesEnt
+import sj.hisnul.newepository.NewDuaModel
 
 /**
  * Bookmark fragment class
@@ -38,7 +38,7 @@ class NewHisnulBookmarkFragment : Fragment(), AdapterView.OnItemClickListener {
         val utils = Utils(activity)
         //    List<BookMarks> bookMarksNew = utils.getBookMarksNew();
         val bookmarked: ArrayList<hduanamesEnt> = ArrayList()
-        val viewmodel: AllDuaModel by viewModels()
+        val viewmodel: NewDuaModel by viewModels()
         //  List<BookMarks> bookmarks = new DatabaseAccess().getBookmarks();
         bookmarksShowAdapter = NewHisnulBookmarksShowAdapter(activity)
         mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation)
@@ -63,7 +63,7 @@ class NewHisnulBookmarkFragment : Fragment(), AdapterView.OnItemClickListener {
     }
 
     private fun enableSwipeToDeleteAndUndo() {
-        val viewmodel: AllDuaModel by viewModels()
+        val viewmodel: NewDuaModel by viewModels()
         val swipeToDeleteCallback: SwipeToDeleteCallback =
             object : SwipeToDeleteCallback(activity) {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
@@ -110,7 +110,7 @@ class NewHisnulBookmarkFragment : Fragment(), AdapterView.OnItemClickListener {
 
 
             override fun onItemClick(view: View?, position: Int) {
-                val viewmodel: AllDuaModel by viewModels()
+                val viewmodel: NewDuaModel by viewModels()
                 val tag = view!!.tag
                 val butils = Utils(activity)
                 val id = tag == "id"

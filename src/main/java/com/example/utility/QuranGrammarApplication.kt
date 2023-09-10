@@ -19,22 +19,19 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
 import androidx.preference.PreferenceManager
-import com.example.mushafconsolidated.QuranAppDatabase
 import com.example.utility.ThemeHelper.applyTheme
-import database.kotlinpackage.DuaInfoRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
 import leakcanary.LeakCanary
 import leakcanary.LeakCanary.config
+import sj.hisnul.newepository.Graph
 import java.util.Locale
 
 class QuranGrammarApplication : Application() {
-
+/*
     private val applicationScope = CoroutineScope(SupervisorJob())
     val database by lazy { QuranAppDatabase.getInstance(this) }
     val repository by lazy { DuaInfoRepository(database!!.gethDuaCategoryDao(),
 
-    ) }
+    ) }*/
 
 
   //  val repository by lazy { DuaInfoRepository(database.hDuaNamesDao()) }
@@ -47,11 +44,12 @@ class QuranGrammarApplication : Application() {
    // val repository by lazy { MazeedInfoRepository(database.MazeedDao()) }
     override fun onCreate() {
         super.onCreate()
+
         val config: LeakCanary.Config = config
         if (context == null) {
             context = this
         }
-
+        Graph.provide(this)
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         //  String theme = sharedPreferences.getString("theme", 1);

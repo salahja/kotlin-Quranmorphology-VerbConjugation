@@ -3,6 +3,7 @@ package sj.hisnul.Dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 import sj.hisnul.entity.hduanamesEnt
 
 @Dao
@@ -21,9 +22,11 @@ interface hDuaNamesDao {
 
 
     @Query("select ROWID,* from hduanames group by chap_id")
-    fun duanames():  LiveData<List<hduanamesEnt>>
+    fun duanames(): Flow<List<hduanamesEnt>>
 
 
+    @Query("select ROWID,* from hduanames group by chap_id")
+    fun duanameslive(): LiveData<List<hduanamesEnt>>
 
     @Query("SELECT * FROM hduanames where category=:id ORDER BY category")
     fun getDuanamesid(id: String?): LiveData<List<hduanamesEnt>>

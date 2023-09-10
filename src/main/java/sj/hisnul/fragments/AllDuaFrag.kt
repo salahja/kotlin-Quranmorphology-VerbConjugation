@@ -23,10 +23,9 @@ import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.databinding.ActivityDuaGroupBinding
 import com.google.android.material.appbar.MaterialToolbar
 import org.sj.conjugator.interfaces.OnItemClickListener
-import sj.hisnul.DuaViewModel
-import sj.hisnul.VIewmodels.AllDuaModel
 import sj.hisnul.adapter.CatAllAdapter
 import sj.hisnul.entity.hduanamesEnt
+import sj.hisnul.newepository.NewDuaModel
 import java.util.Collections
 
 
@@ -36,8 +35,9 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var searchView: SearchView
     private lateinit var queryTextListener: SearchView.OnQueryTextListener
     private var _binding: ActivityDuaGroupBinding? = null
-    val viewmodel: AllDuaModel by viewModels()
-    val duaModel: DuaViewModel by viewModels()
+   // val viewmodel: NewDuaModel by viewModels()
+    val viewmodels: NewDuaModel by viewModels()
+
     private val binding get() = _binding!!
 
     val ska = CatAllAdapter()
@@ -109,10 +109,10 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
             }
         })
 
+    //    val state = viewmodels.state
 
-
-
-        viewmodel.loadLists().observe(viewLifecycleOwner) { userlist ->
+     //   val duanames = state.duanames
+        viewmodels.loadLists().observe(viewLifecycleOwner) { userlist ->
             Collections.reverse(userlist)
             recyclerView.adapter = ska
             ska.setmutable(userlist)

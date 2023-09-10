@@ -21,8 +21,8 @@ import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.R
 import com.example.utility.QuranGrammarApplication
 import sj.hisnul.entity.hduanamesEnt
-import sj.hisnul.VIewmodels.AllDuaModel
 import sj.hisnul.fragments.HDuaNamesfrag
+import sj.hisnul.newepository.NewDuaModel
 import java.util.Collections
 import java.util.Objects
 
@@ -59,7 +59,7 @@ class NewExpandAct : BaseActivity(), SearchView.OnQueryTextListener, SearchView.
         //  expandableListDetail = ExpandableListDataPump.getData();
         expandableListView = findViewById(R.id.expandableListView)
         //  iv_groupIndicator = findViewById(R.id.iv_groupIndicator);
-        val viewmodel: AllDuaModel by viewModels()
+        val viewmodel: NewDuaModel by viewModels()
         //  hduanamesArrayList = utils.getDunamesbyCatId(String.valueOf(dua_id));
       //  hduanamesArrayList = viewmodel.getDuaCATNAMES(dua_id.toString()) as ArrayList<hduanames>
 

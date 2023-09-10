@@ -25,11 +25,10 @@ import com.example.mushafconsolidated.Utils
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
-import sj.hisnul.VIewmodels.AllDuaModel
-import sj.hisnul.VIewmodels.DuaItemVM
 import sj.hisnul.adapter.SelectedDuaViewAdapter
 import sj.hisnul.entity.hduadetailsEnt
 import sj.hisnul.entity.hduanamesEnt
+import sj.hisnul.newepository.NewDuaModel
 
 class HDuaNamesfrag : Fragment() {
     val subheaders = ArrayList<String>()
@@ -42,8 +41,8 @@ class HDuaNamesfrag : Fragment() {
     private var fromcatwo = false
     private var chap_id = 0
     private lateinit var coordinatorLayout: CoordinatorLayout
-    val viewmodel: AllDuaModel by viewModels()
-    val duaItemVM: DuaItemVM by viewModels()
+    val viewmodel: NewDuaModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -57,7 +56,7 @@ class HDuaNamesfrag : Fragment() {
             viewmodel.Duadetailsbychapter(chap_id).observe(this) {
                 // val dd: ArrayList<hduanames> = utils.getdualistbychapter(chap_id) as ArrayList<hduanames>
                 for (hduanames in it) {
-                    duaItemVM.DuaItembyId(hduanames.ID).observe(this) {
+                    viewmodel.DuaItembyId(hduanames.ID).observe(this) {
                         val duaItems: ArrayList<hduadetailsEnt> = it as ArrayList<hduadetailsEnt>
                         duacoll.add(duaItems)
                         subheaders.add(hduanames.duaname)

@@ -73,18 +73,4 @@ class AllDuaModel(application: Application)  :AndroidViewModel(application) {
 
 
 
-/*
-private val _allUsers = MutableLiveData<List<User>>()
-private val allUsers: LiveData<List<User>> get() = _allUsers
-
-fun fetchAllUsers(): LiveData<List<User>> {
-    viewModelScope.launch {
-        //delay is simulating network request delay
-        delay(1000)
-        //listOf is simulating usersRepository.getUsers()
-        _allUsers.value = listOf(User("name1"), User("name2"), User("name3"))
-    }
-    return allUsers
-}
- */
 

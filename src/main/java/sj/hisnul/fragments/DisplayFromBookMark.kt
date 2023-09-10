@@ -17,10 +17,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
 import com.google.android.material.appbar.MaterialToolbar
-import sj.hisnul.VIewmodels.AllDuaModel
-import sj.hisnul.VIewmodels.DuaItemVM
 import sj.hisnul.adapter.SelectedDuaViewAdapter
 import sj.hisnul.entity.hduadetailsEnt
+import sj.hisnul.newepository.NewDuaModel
 import java.util.Collections
 
 class DisplayFromBookMark : Fragment() {
@@ -53,7 +52,7 @@ class DisplayFromBookMark : Fragment() {
     ): View? {
         setHasOptionsMenu(true)
         val view = inflater.inflate(R.layout.dunamefragview, container, false)
-        val viewmodel: AllDuaModel by viewModels()
+        val viewmodel: NewDuaModel by viewModels()
         setHasOptionsMenu(true)
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbarmain)
         val actionBa = (activity as AppCompatActivity?)!!.actionBar
@@ -118,12 +117,12 @@ class DisplayFromBookMark : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.setLayoutManager(layoutManager)
         if (chap_id != -1) {
-            val viewmodel: AllDuaModel by viewModels()
-            val duaItemVM: DuaItemVM by viewModels()
+            val viewmodel: NewDuaModel by viewModels()
+
             viewmodel.Duadetailsbychapter(chap_id).observe(viewLifecycleOwner){
                 // val dd: ArrayList<hduanames> = utils.getdualistbychapter(chap_id) as ArrayList<hduanames>
                 for (hduanames in it) {
-                    duaItemVM.DuaItembyId(hduanames.ID).observe(viewLifecycleOwner){
+                    viewmodel.DuaItembyId(hduanames.ID).observe(viewLifecycleOwner){
                         val duaItems: ArrayList<hduadetailsEnt> = it as ArrayList<hduadetailsEnt>
                         duacoll.add(duaItems)
                         subheaders.add(hduanames.duaname)
