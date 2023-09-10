@@ -1,6 +1,6 @@
 package org.sj.conjugator.activity
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -44,56 +44,43 @@ import ru.dimorinny.floatingtextbutton.FloatingTextButton
 
 class ConjugatorAct : BaseActivity(), View.OnClickListener {
     private val keyValues: SparseArray<String> = SparseArray<String>()
-    lateinit var quranbtn: Button
-    lateinit var settingbtn: Button
-    lateinit var floatingActionButton: FloatingActionButton
-    lateinit var layoutBottomSheet: RelativeLayout
-    lateinit var sheetBehavior: BottomSheetBehavior<*>
-    var tlist: ListView? = null
-    var mlist: ListView? = null
+    private lateinit var quranbtn: Button
+    private lateinit var settingbtn: Button
+    private lateinit var floatingActionButton: FloatingActionButton
+    private lateinit var layoutBottomSheet: RelativeLayout
+    private lateinit var sheetBehavior: BottomSheetBehavior<*>
+    private var tlist: ListView? = null
+    private var mlist: ListView? = null
     lateinit var nasara: Chip
-    lateinit var zaraba: Chip
-    lateinit var samia: Chip
-    lateinit var fataha: Chip
-    lateinit var karuma: Chip
-    lateinit var haseeba: Chip
-    lateinit var tafeel: Chip
-    lateinit var mufala: Chip
-    lateinit var ifal: Chip
-    lateinit var tafaul: Chip
-    lateinit var tafaaul: Chip
-    lateinit var infala: Chip
-    lateinit var iftiala: Chip
-    lateinit var istifala: Chip
-    lateinit var mujarradbtn: MaterialButton
-    lateinit var mazeedbtn: MaterialButton
-    var isSarfKabeed = false
-    var mujarradVerbs: ArrayList<MujarradVerbs> = ArrayList<MujarradVerbs>()
+    private lateinit var zaraba: Chip
+    private lateinit var samia: Chip
+    private lateinit var fataha: Chip
+    private lateinit var karuma: Chip
+    private lateinit var haseeba: Chip
+    private lateinit var tafeel: Chip
+    private lateinit var mufala: Chip
+    private lateinit var ifal: Chip
+    private lateinit var tafaul: Chip
+    private lateinit var tafaaul: Chip
+    private lateinit var infala: Chip
+    private lateinit var iftiala: Chip
+    private lateinit var istifala: Chip
+    private lateinit var mujarradbtn: MaterialButton
+    private lateinit var mazeedbtn: MaterialButton
+    private var isSarfKabeed = false
+    private var mujarradVerbs: ArrayList<MujarradVerbs> = ArrayList()
     private lateinit var editTextAuto: EditText
-    lateinit var editText: EditText
     private lateinit var verbmood: RadioGroup
     private lateinit var indicative: RadioButton
     private lateinit var subjunctive: RadioButton
-    lateinit var radioText: String
-    lateinit var inputtext: String
+    private lateinit var inputtext: String
     private lateinit var keyboard: View
 
     private lateinit var inputConnection: InputConnection
-    private var mazeedEntityVerbs: ArrayList<MazeedEntity> = ArrayList<MazeedEntity>()
+    private var mazeedEntityVerbs: ArrayList<MazeedEntity> = ArrayList()
     private var isautocomplete = false
-    fun setIsautocomplete(isautocomplete: Boolean) {
-        this.isautocomplete = isautocomplete
-    }
 
-    /* fun setSarfKabeed(sarfKabeed: Boolean) {
-         isSarfKabeed = sarfKabeed
-     }
- */
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
-
-    protected override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.conjugator_key_activity_autocomplete)
         KeyboardUtil.hideKeyboard(this@ConjugatorAct)
@@ -104,16 +91,16 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
             super.onBackPressed()
         }
         //    hideKeyboardSoft();
-        contextOfApplication = getApplicationContext()
-        val ic: InputConnection
+     //   contextOfApplication = getApplicationContext()
         SetUpAutoComplete()
-        ic = editTextAuto.onCreateInputConnection(EditorInfo())
+        val ic: InputConnection = editTextAuto.onCreateInputConnection(EditorInfo())
         // InputConnection ic = editTextAuto.onCreateInputConnection(new EditorInfo());
         setInputConnection(ic)
         init()
         // kb. getCharSequence();
     }
 
+    @SuppressLint("CutPasteId")
     private fun SetUpAutoComplete() {
         KeyboardUtil.hideKeyboard(this@ConjugatorAct)
         val viewmodel: VerbModel by viewModels()
@@ -122,8 +109,8 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
         //   val verbAll: ArrayList<MujarradVerbs?>? = util.mujarradAall
         // val size = verbAll?.size
         //   root = arrayOfNulls(size!!)
-        var actv: AutoCompleteTextView =
-            findViewById(R.id.autoCompleteTextView) as AutoCompleteTextView
+        val actv: AutoCompleteTextView =
+            findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView)
         editTextAuto = findViewById(R.id.autoCompleteTextView)
         var i = 0
         viewmodel.getMujarradll().observe(this) {
@@ -138,12 +125,12 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
 
 
             val autoadapter: ArrayAdapter<String> =
-                ArrayAdapter<String>(this, R.layout.dropdown_item_list, arr);
+                ArrayAdapter<String>(this, R.layout.dropdown_item_list, arr)
             //Getting the instance of AutoCompleteTextView
 
             val sizes = 500
-            actv.setDropDownHeight(sizes)
-            actv.setThreshold(1) //will start working from first character
+            actv.dropDownHeight = sizes
+            actv.threshold = 1 //will start working from first character
             actv.setAdapter(autoadapter) //setting the adapter data into the AutoCompleteTextView
             //  actv.adapter=autoadapter
             actv.setTextColor(Color.RED)
@@ -152,10 +139,10 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
             actv.setRawInputType(InputType.TYPE_CLASS_TEXT)
             actv.setTextIsSelectable(true)
             //   KeyboardUtil.hideKeyboard(this);
-            actv.setShowSoftInputOnFocus(false)
-            actv.setOnFocusChangeListener(View.OnFocusChangeListener { view: View?, hasFocus: Boolean ->
+            actv.showSoftInputOnFocus = false
+            actv.setOnFocusChangeListener({ view: View?, hasFocus: Boolean ->
                 if (hasFocus) {
-                    keyboard!!.visibility = LinearLayout.VISIBLE
+                    keyboard.visibility = LinearLayout.VISIBLE
                     if (tlist != null) tlist!!.adapter = null
                     if (mlist != null) mlist!!.adapter = null
                 } //   keyboard.setVisibility(LinearLayout.GONE);
@@ -208,8 +195,8 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
         val ha: Button = findViewById(R.id.ha)
         val jeem: Button = findViewById(R.id.jeem)
         //     GRadioGroup gr = new GRadioGroup(nasara,zaraba,samia,fatha,karuma,hasiba,two,three,four,five,six,seven,eight,ten);
-        quranbtn!!.setOnClickListener(this)
-        settingbtn!!.setOnClickListener(this)
+        quranbtn.setOnClickListener(this)
+        settingbtn.setOnClickListener(this)
         floatingActionButton.setOnClickListener(this)
         mujarradbtn.setOnClickListener(this)
         mazeedbtn.setOnClickListener(this)
@@ -313,20 +300,20 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
     }
 
     private fun clearParameters() {
-        nasara.setVisibility(View.GONE)
-        zaraba.setVisibility(View.GONE)
-        fataha.setVisibility(View.GONE)
-        samia.setVisibility(View.GONE)
-        karuma.setVisibility(View.GONE)
-        haseeba.setVisibility(View.GONE)
-        ifal.setVisibility(View.GONE)
-        tafeel.setVisibility(View.GONE)
-        tafaul.setVisibility(View.GONE)
-        tafaaul.setVisibility(View.GONE)
-        infala.setVisibility(View.GONE)
-        iftiala.setVisibility(View.GONE)
-        istifala.setVisibility(View.GONE)
-        mufala.setVisibility(View.GONE)
+        nasara.visibility = View.GONE
+        zaraba.visibility = View.GONE
+        fataha.visibility = View.GONE
+        samia.visibility = View.GONE
+        karuma.visibility = View.GONE
+        haseeba.visibility = View.GONE
+        ifal.visibility = View.GONE
+        tafeel.visibility = View.GONE
+        tafaul.visibility = View.GONE
+        tafaaul.visibility = View.GONE
+        infala.visibility = View.GONE
+        iftiala.visibility = View.GONE
+        istifala.visibility = View.GONE
+        mufala.visibility = View.GONE
     }
 
     override fun onClick(view: View) {
@@ -357,7 +344,7 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
             R.id.conjugatorsetting -> {
                 val fragment = SettingsFragmentVerb()
                 val transaction: FragmentTransaction =
-                    getSupportFragmentManager().beginTransaction()
+                    supportFragmentManager.beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 transaction.replace(R.id.frame_container, fragment)
                 transaction.addToBackStack("setting")
@@ -501,8 +488,8 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
         }
     }
 
-    fun toggleBottomSheet() {
-        if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+    private fun toggleBottomSheet() {
+        if (sheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
             sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
             //    btnBottomSheet.setText("Close sheet");
         } else {
@@ -517,8 +504,8 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
             val charSequence: CharSequence
             val beforeCursorText: CharSequence
             val afterCursorText: CharSequence
-            val currentText: CharSequence
-            currentText = inputConnection.getExtractedText(ExtractedTextRequest(), 0).text
+            val currentText: CharSequence =
+                inputConnection.getExtractedText(ExtractedTextRequest(), 0).text
             beforeCursorText = inputConnection.getTextBeforeCursor(currentText.length, 0)!!
             afterCursorText = inputConnection.getTextAfterCursor(currentText.length, 0)!!
             // inputConnectionCommitText(view);
@@ -529,7 +516,7 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
             }
         }
 
-    fun setInputConnection(ic: InputConnection?) {
+    private fun setInputConnection(ic: InputConnection?) {
         if (ic != null) {
             inputConnection = ic
         }
@@ -541,7 +528,10 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
     }
 
     private fun InitSelecton(roots: String) {
-        keyboard!!.visibility = LinearLayout.GONE
+        val thulathia = ArrayList<String>()
+        val mazeed = ArrayList<String>()
+        keyboard.visibility = LinearLayout.GONE
+        val viewmodel: VerbModel by viewModels()
         editTextAuto.clearFocus()
         val split = roots.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val root = split[0]
@@ -549,106 +539,116 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
         tlist = ListView(this@ConjugatorAct)
         mlist = ListView(this@ConjugatorAct)
         val utils = VerbDatabaseUtils(this@ConjugatorAct)
-        mujarradVerbs = utils.getMujarradVerbs(root) as ArrayList<MujarradVerbs>
-        for (s in mujarradVerbs) {
-            when (s.bab) {
-                "1" -> {
-                    nasara.setText(s.babname)
-                    nasara.setEnabled(true)
-                    nasara.setVisibility(View.VISIBLE)
-                }
+     //   mujarradVerbs = utils.getMujarradVerbs(root) as ArrayList<MujarradVerbs>
+        viewmodel.getMujarradRoot(root).observe(this){
+            mujarradVerbs = it as ArrayList<MujarradVerbs>
+            for (entity in it) {
+                thulathia.add(entity.babname)
+            }
 
-                "2" -> {
-                    zaraba.setVisibility(View.VISIBLE)
-                    zaraba.setEnabled(true)
-                    zaraba.setText(s.babname)
-                }
+            for (s in it) {
+                when (s.bab) {
+                    "1" -> {
+                        nasara.text = s.babname
+                        nasara.isEnabled = true
+                        nasara.visibility = View.VISIBLE
+                    }
 
-                "3" -> {
-                    fataha.setVisibility(View.VISIBLE)
-                    fataha.setEnabled(true)
-                    fataha.setText(s.babname)
-                }
+                    "2" -> {
+                        zaraba.visibility = View.VISIBLE
+                        zaraba.isEnabled = true
+                        zaraba.text = s.babname
+                    }
 
-                "4" -> {
-                    samia.setVisibility(View.VISIBLE)
-                    samia.setEnabled(true)
-                    samia.setText(s.babname)
-                }
+                    "3" -> {
+                        fataha.visibility = View.VISIBLE
+                        fataha.isEnabled = true
+                        fataha.text = s.babname
+                    }
 
-                "5" -> {
-                    karuma.setVisibility(View.VISIBLE)
-                    karuma.setEnabled(true)
-                    karuma.setText(s.babname)
-                }
+                    "4" -> {
+                        samia.visibility = View.VISIBLE
+                        samia.isEnabled = true
+                        samia.text = s.babname
+                    }
 
-                "6" -> {
-                    haseeba.setVisibility(View.VISIBLE)
-                    haseeba.setEnabled(true)
-                    haseeba.setText(s.babname)
+                    "5" -> {
+                        karuma.visibility = View.VISIBLE
+                        karuma.isEnabled = true
+                        karuma.text = s.babname
+                    }
+
+                    "6" -> {
+                        haseeba.visibility = View.VISIBLE
+                        haseeba.isEnabled = true
+                        haseeba.text = s.babname
+                    }
                 }
             }
         }
-        mazeedEntityVerbs = utils.getMazeedRoot(root) as ArrayList<MazeedEntity>
-        for (s in mazeedEntityVerbs) {
-            when (s.form) {
-                "1" -> {
-                    ifal.setText(s.babname)
-                    ifal.setEnabled(true)
-                    ifal.setVisibility(View.VISIBLE)
-                }
 
-                "2" -> {
-                    tafeel.setEnabled(true)
-                    tafeel.setText(s.babname)
-                    tafeel.setVisibility(View.VISIBLE)
-                }
+     //   mazeedEntityVerbs = utils.getMazeedRoot(root)
+        viewmodel.getMazeedRoot(root).observe(this){
+            mazeedEntityVerbs= it as ArrayList<MazeedEntity>
+            for (dict in it) {
+                mazeed.add(dict.babname + "," + dict.form)
+            }
 
-                "3" -> {
-                    mufala.setEnabled(true)
-                    mufala.setText(s.babname)
-                    mufala.setVisibility(View.VISIBLE)
-                }
+            for (s in it) {
+                when (s.form) {
+                    "1" -> {
+                        ifal.text = s.babname
+                        ifal.isEnabled = true
+                        ifal.visibility = View.VISIBLE
+                    }
 
-                "4" -> {
-                    infala.setEnabled(true)
-                    infala.setText(s.babname)
-                    infala.setVisibility(View.VISIBLE)
-                }
+                    "2" -> {
+                        tafeel.isEnabled = true
+                        tafeel.text = s.babname
+                        tafeel.visibility = View.VISIBLE
+                    }
 
-                "5" -> {
-                    iftiala.setEnabled(true)
-                    iftiala.setText(s.babname)
-                    iftiala.setVisibility(View.VISIBLE)
-                }
+                    "3" -> {
+                        mufala.isEnabled = true
+                        mufala.text = s.babname
+                        mufala.visibility = View.VISIBLE
+                    }
 
-                "9" -> {
-                    istifala.setEnabled(true)
-                    istifala.setText(s.babname)
-                    istifala.setVisibility(View.VISIBLE)
-                }
+                    "4" -> {
+                        infala.isEnabled = true
+                        infala.text = s.babname
+                        infala.visibility = View.VISIBLE
+                    }
 
-                "7" -> {
-                    tafaul.setEnabled(true)
-                    tafaul.setText(s.babname)
-                    tafaul.setVisibility(View.VISIBLE)
-                }
+                    "5" -> {
+                        iftiala.isEnabled = true
+                        iftiala.text = s.babname
+                        iftiala.visibility = View.VISIBLE
+                    }
 
-                "8" -> {
-                    tafaaul.setEnabled(true)
-                    tafaaul.setText(s.babname)
-                    tafaaul.setVisibility(View.VISIBLE)
+                    "9" -> {
+                        istifala.isEnabled = true
+                        istifala.text = s.babname
+                        istifala.visibility = View.VISIBLE
+                    }
+
+                    "7" -> {
+                        tafaul.isEnabled = true
+                        tafaul.text = s.babname
+                        tafaul.visibility = View.VISIBLE
+                    }
+
+                    "8" -> {
+                        tafaaul.isEnabled = true
+                        tafaaul.text = s.babname
+                        tafaaul.visibility = View.VISIBLE
+                    }
                 }
             }
         }
-        val thulathia = ArrayList<String>()
-        val mazeed = ArrayList<String>()
-        for (entity in mujarradVerbs) {
-            thulathia.add(entity.babname)
-        }
-        for (dict in mazeedEntityVerbs) {
-            mazeed.add(dict.babname + "," + dict.form)
-        }
+
+
+
         if ((thulathia.size == 0) and (mazeed.size == 0)) {
             editTextAuto.setText(R.string.notfound)
         }
@@ -657,12 +657,12 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
     private fun InitDiaalog(root: String, wazan: String, verbtype: String) {
         val dataBundle = Bundle()
         val selectedRadioButton: RadioButton =
-            findViewById(verbmood.getCheckedRadioButtonId()) as RadioButton
+            findViewById<RadioButton>(verbmood.getCheckedRadioButtonId())
         //get RadioButton text
-        val selected: String = selectedRadioButton.getText().toString()
+        val selected: String = selectedRadioButton.text.toString()
         // display it as Toast to the user
-        val checked: Boolean = indicative.isChecked()
-        val accusativeChecked: Boolean = subjunctive.isChecked()
+        val checked: Boolean = indicative.isChecked
+        val accusativeChecked: Boolean = subjunctive.isChecked
         when (selected) {
             "Indicative" -> dataBundle.putString(VERBMOOD, "Indicative")
             "Subjunctive" -> dataBundle.putString(VERBMOOD, "Subjunctive")
@@ -674,13 +674,11 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
         dataBundle.putString(QURAN_VERB_ROOT, root)
         dataBundle.putString(VERBTYPE, verbtype)
         dataBundle.putBoolean(SARFKABEER, isSarfKabeed)
-        isSarfKabeed = false;
+        isSarfKabeed = false
         val intent = Intent(this@ConjugatorAct, ConjugatorTabsActivity::class.java)
         intent.putExtras(dataBundle)
         startActivity(intent)
     }
 
-    companion object {
-        var contextOfApplication: Context? = null
-    }
+    companion object
 }

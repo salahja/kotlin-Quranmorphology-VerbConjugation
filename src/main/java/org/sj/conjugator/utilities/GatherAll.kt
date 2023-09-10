@@ -1071,7 +1071,7 @@ class GatherAll {
         var ismfael: List<*>
         var ismmafool: List<*>
         var madhimajhool: List<*>
-        var mudharay: List<*>? = null
+        var mudharay: List<*> ?=null
         var amr: MutableList<*>
         var nahiamr: List<*>
         var madhi: List<*>
@@ -1158,11 +1158,11 @@ class GatherAll {
                 SystemConstants.PAST_TENSE, true, true
             )
             val mudharayconj = AugmentedTrilateralModifier.instance.build(
-                augmentedRoot, rule!!.kov, augmentedRoot.form!!.toInt(), listOf(mudharay),
+                augmentedRoot, rule!!.kov, augmentedRoot.form!!.toInt(), mudharay!!,
                 SystemConstants.PRESENT_TENSE, true, true
             )
             val mudharaymajhoolconj = AugmentedTrilateralModifier.instance.build(
-                augmentedRoot, rule!!.kov, augmentedRoot.form!!.toInt(), listOf(mudharaymajhool),
+                augmentedRoot, rule!!.kov, augmentedRoot.form!!.toInt(), mudharaymajhool!!,
                 SystemConstants.PRESENT_TENSE, false, true
             )
             val amrconj = AugmentedTrilateralModifier.instance.build(
