@@ -55,7 +55,6 @@ import com.example.mushafconsolidated.model.Juz
 import database.entity.AllahNames
 import sj.hisnul.entity.AllahNamesDetails
 import sj.hisnul.entity.hcategoryEnt
-import sj.hisnul.entity.hduadetailsEnt
 import sj.hisnul.entity.hduanamesEnt
 
 
@@ -1010,10 +1009,12 @@ class Utils {
 
 
 
+/*
 
     fun gethDuadetailsitems(id: String?): List<hduadetailsEnt?>? {
         return database.hDuaItemDao().getDitem(id)
     }
+*/
 
     //muslim mate
 

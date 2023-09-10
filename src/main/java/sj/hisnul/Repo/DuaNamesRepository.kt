@@ -1,4 +1,4 @@
-package com.example.mushafconsolidated
+package sj.hisnul.Repo
 
 
 
@@ -11,9 +11,10 @@ import sj.hisnul.entity.hduanamesEnt
 
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
-class Repository(
+class DuaNamesRepository(
 
     private val gethDuaNamesDao: hDuaNamesDao,
+
 
 
 

@@ -90,7 +90,7 @@ import database.NamesGridImageAct
 import org.ahocorasick.trie.Trie
 import org.sj.conjugator.activity.ConjugatorAct
 import sj.hisnul.activity.HisnulBottomACT
-import sj.hisnul.fragments.AllChaptersModel
+import sj.hisnul.VIewmodels.AllChaptersModel
 import sj.hisnul.fragments.NamesDetail
 import wheel.OnWheelChangedListener
 import wheel.WheelView

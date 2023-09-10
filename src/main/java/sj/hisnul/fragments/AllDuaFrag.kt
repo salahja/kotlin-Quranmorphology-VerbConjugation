@@ -24,6 +24,7 @@ import com.example.mushafconsolidated.databinding.ActivityDuaGroupBinding
 import com.google.android.material.appbar.MaterialToolbar
 import org.sj.conjugator.interfaces.OnItemClickListener
 import sj.hisnul.DuaViewModel
+import sj.hisnul.VIewmodels.AllDuaModel
 import sj.hisnul.adapter.CatAllAdapter
 import sj.hisnul.entity.hduanamesEnt
 import java.util.Collections
@@ -31,11 +32,11 @@ import java.util.Collections
 
 class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
     // lateinit var  ska: CatAllAdapter
-     lateinit var  recyclerView: RecyclerView
-    private  lateinit var  searchView: SearchView
-    private  lateinit var  queryTextListener: SearchView.OnQueryTextListener
+    lateinit var recyclerView: RecyclerView
+    private lateinit var searchView: SearchView
+    private lateinit var queryTextListener: SearchView.OnQueryTextListener
     private var _binding: ActivityDuaGroupBinding? = null
-    val viewmodel:AllDuaModel by viewModels()
+    val viewmodel: AllDuaModel by viewModels()
     val duaModel: DuaViewModel by viewModels()
     private val binding get() = _binding!!
 
@@ -47,17 +48,18 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        val view: View = inflater.inflate(com.example.mushafconsolidated.R.layout.activity_dua_group, container, false)
+        val view: View = inflater.inflate(
+            com.example.mushafconsolidated.R.layout.activity_dua_group,
+            container,
+            false
+        )
         //   View view = inflater.inflate(R.layout.rwz, container, falser
         _binding = ActivityDuaGroupBinding.inflate(inflater, container, false)
 
         return binding.root
 
 
-
-
-
-      //   ska.setmutable(duaModel.state.duanames)
+        //   ska.setmutable(duaModel.state.duanames)
 
 
     }
@@ -65,21 +67,22 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-     //   recyclerView=binding.duaListView
-        recyclerView=binding.duaListView
+        //   recyclerView=binding.duaListView
+        recyclerView = binding.duaListView
 
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
 
-      //  binding.duaListView.adapter = ska
-        val toolbar: MaterialToolbar = view.findViewById<MaterialToolbar>(com.example.mushafconsolidated.R.id.my_action_bar)
+        //  binding.duaListView.adapter = ska
+        val toolbar: MaterialToolbar =
+            view.findViewById<MaterialToolbar>(com.example.mushafconsolidated.R.id.my_action_bar)
         (activity as AppCompatActivity?)?.setSupportActionBar(toolbar)
 
-       // recyclerView.setHasFixedSize(true)
+        // recyclerView.setHasFixedSize(true)
 
 
-  //       binding.duaListView.setLayoutManager(LinearLayoutManager(context))
+        //       binding.duaListView.setLayoutManager(LinearLayoutManager(context))
         ska.SetOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
                 //    ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
@@ -95,7 +98,11 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
                 fragvsi.arguments = bundle1
                 val transaction = requireActivity().supportFragmentManager.beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                transaction.replace(com.example.mushafconsolidated.R.id.frame_container, fragvsi, "items")
+                transaction.replace(
+                    com.example.mushafconsolidated.R.id.frame_container,
+                    fragvsi,
+                    "items"
+                )
                 //     transaction.addToBackStack("setting");
                 transaction.addToBackStack("items")
                 transaction.commit()
@@ -105,20 +112,11 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
 
 
 
-   viewmodel.loadLists().observe(viewLifecycleOwner){ userlist->
+        viewmodel.loadLists().observe(viewLifecycleOwner) { userlist ->
             Collections.reverse(userlist)
-       recyclerView.adapter=ska
+            recyclerView.adapter = ska
             ska.setmutable(userlist)
         }
-
-
-
-
-
-
-
-
-
 
 
     }
@@ -130,7 +128,10 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
             requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
         if (searchItem != null) {
             searchView = (searchItem.actionView as SearchView?)!!
-            val sear: Drawable = ContextCompat.getDrawable(requireContext(), com.example.mushafconsolidated.R.drawable.custom_search_box)!!
+            val sear: Drawable = ContextCompat.getDrawable(
+                requireContext(),
+                com.example.mushafconsolidated.R.drawable.custom_search_box
+            )!!
             searchView!!.clipToOutline = true
             searchView!!.setBackgroundDrawable(sear)
             searchView!!.gravity = View.TEXT_ALIGNMENT_CENTER

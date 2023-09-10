@@ -1,4 +1,4 @@
-package sj.hisnul.fragments
+package sj.hisnul.VIewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

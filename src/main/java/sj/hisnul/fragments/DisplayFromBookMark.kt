@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
 import com.google.android.material.appbar.MaterialToolbar
+import sj.hisnul.VIewmodels.AllDuaModel
+import sj.hisnul.VIewmodels.DuaItemVM
 import sj.hisnul.adapter.SelectedDuaViewAdapter
 import sj.hisnul.entity.hduadetailsEnt
 import java.util.Collections
@@ -41,21 +43,7 @@ class DisplayFromBookMark : Fragment() {
             fromcatwo = requireArguments().getBoolean("cattwp")
         }
         val utils = Utils(activity)
-        if (chap_id != -1) {
-            val viewmodel:AllDuaModel by viewModels()
-            viewmodel.Duadetailsbychapter(chap_id).observe(this){
-                // val dd: ArrayList<hduanames> = utils.getdualistbychapter(chap_id) as ArrayList<hduanames>
-                for (hduanames in it) {
-                    val duaItems: ArrayList<hduadetailsEnt> = utils.gethDuadetailsitems(hduanames.ID) as ArrayList<hduadetailsEnt>
-                    duacoll.add(duaItems)
-                    subheaders.add(hduanames.duaname)
-                }
-            }
 
-
-        } else {
-            Toast.makeText(activity, "Chapter Id not Found", Toast.LENGTH_SHORT).show()
-        }
     }
 
     override fun onCreateView(
@@ -65,7 +53,7 @@ class DisplayFromBookMark : Fragment() {
     ): View? {
         setHasOptionsMenu(true)
         val view = inflater.inflate(R.layout.dunamefragview, container, false)
-        val viewmodel:AllDuaModel by viewModels()
+        val viewmodel: AllDuaModel by viewModels()
         setHasOptionsMenu(true)
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbarmain)
         val actionBa = (activity as AppCompatActivity?)!!.actionBar
@@ -123,15 +111,38 @@ class DisplayFromBookMark : Fragment() {
             Toast.makeText(activity, "tool", Toast.LENGTH_SHORT).show()
             false
         }
-        if (chap_id != -1) {
-            sadapter = SelectedDuaViewAdapter(duacoll, context, name, subheaders)
-            recyclerView.setAdapter(sadapter)
-        }
+
         //AconSarfSagheerAdapter sk=new AconSarfSagheerAdapter(ar, MainActivity.this);
         recyclerView.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
         recyclerView.setLayoutManager(layoutManager)
+        if (chap_id != -1) {
+            val viewmodel: AllDuaModel by viewModels()
+            val duaItemVM: DuaItemVM by viewModels()
+            viewmodel.Duadetailsbychapter(chap_id).observe(viewLifecycleOwner){
+                // val dd: ArrayList<hduanames> = utils.getdualistbychapter(chap_id) as ArrayList<hduanames>
+                for (hduanames in it) {
+                    duaItemVM.DuaItembyId(hduanames.ID).observe(viewLifecycleOwner){
+                        val duaItems: ArrayList<hduadetailsEnt> = it as ArrayList<hduadetailsEnt>
+                        duacoll.add(duaItems)
+                        subheaders.add(hduanames.duaname)
+                        sadapter = SelectedDuaViewAdapter(duacoll, context, name, subheaders)
+                        recyclerView.setAdapter(sadapter)
+                    }
+
+
+
+
+                }
+            }
+
+
+        } else {
+            Toast.makeText(activity, "Chapter Id not Found", Toast.LENGTH_SHORT).show()
+        }
+
+
         //  recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view
     }

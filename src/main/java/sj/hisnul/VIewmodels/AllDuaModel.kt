@@ -1,4 +1,4 @@
-package sj.hisnul.fragments
+package sj.hisnul.VIewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -6,11 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mushafconsolidated.QuranAppDatabase
-import com.example.mushafconsolidated.Repository
 import com.example.mushafconsolidated.Utils
-
 import kotlinx.coroutines.launch
-
+import sj.hisnul.Repo.DuaNamesRepository
 import sj.hisnul.entity.hduanamesEnt
 
 class AllDuaModel(application: Application)  :AndroidViewModel(application) {
@@ -18,15 +16,15 @@ class AllDuaModel(application: Application)  :AndroidViewModel(application) {
     val duacat: MutableLiveData<List<hduanamesEnt>> = MutableLiveData()
     var duachapter: LiveData<List<hduanamesEnt>> = MutableLiveData()
     val util = Utils(application)
-    private lateinit var repository: Repository
+    private lateinit var duaNamesRepository: DuaNamesRepository
 
     val db = QuranAppDatabase.getInstance(application)!!.gethDuaNamesDao()
 
     fun loadLists(): LiveData<List<hduanamesEnt>> {
 
-        repository = Repository(db)
+        duaNamesRepository = DuaNamesRepository(db)
         viewModelScope.launch {
-            alldua = repository.getDuanames()
+            alldua = duaNamesRepository.getDuanames()
         }
 
 
@@ -45,9 +43,9 @@ class AllDuaModel(application: Application)  :AndroidViewModel(application) {
 
     fun Duadetailsbychapter(chapter: Int): LiveData<List<hduanamesEnt>> {
 
-        repository = Repository(db)
+        duaNamesRepository = DuaNamesRepository(db)
         viewModelScope.launch {
-            duachapter = repository.getdualistbychapter(chapter)
+            duachapter = duaNamesRepository.getdualistbychapter(chapter)
         }
 
         return duachapter
@@ -55,9 +53,9 @@ class AllDuaModel(application: Application)  :AndroidViewModel(application) {
 
     fun getBookmarked(chapter: Int): LiveData<List<hduanamesEnt>> {
 
-        repository = Repository(db)
+        duaNamesRepository = DuaNamesRepository(db)
         viewModelScope.launch {
-            duachapter = repository.getBookmarked(chapter)
+            duachapter = duaNamesRepository.getBookmarked(chapter)
         }
 
         return duachapter
@@ -67,8 +65,8 @@ class AllDuaModel(application: Application)  :AndroidViewModel(application) {
 
 
     fun update(fav: Int, id: Int) = viewModelScope.launch {
-        repository = Repository(db)
-        repository.updateFav(fav, id)
+        duaNamesRepository = DuaNamesRepository(db)
+        duaNamesRepository.updateFav(fav, id)
     }
 }
 

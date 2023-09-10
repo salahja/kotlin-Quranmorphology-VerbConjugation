@@ -21,7 +21,7 @@ import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.R
 import com.example.utility.QuranGrammarApplication
 import sj.hisnul.entity.hduanamesEnt
-import sj.hisnul.fragments.AllDuaModel
+import sj.hisnul.VIewmodels.AllDuaModel
 import sj.hisnul.fragments.HDuaNamesfrag
 import java.util.Collections
 import java.util.Objects

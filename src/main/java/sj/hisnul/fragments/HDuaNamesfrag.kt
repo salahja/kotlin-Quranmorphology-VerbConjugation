@@ -25,6 +25,8 @@ import com.example.mushafconsolidated.Utils
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
+import sj.hisnul.VIewmodels.AllDuaModel
+import sj.hisnul.VIewmodels.DuaItemVM
 import sj.hisnul.adapter.SelectedDuaViewAdapter
 import sj.hisnul.entity.hduadetailsEnt
 import sj.hisnul.entity.hduanamesEnt
@@ -40,7 +42,8 @@ class HDuaNamesfrag : Fragment() {
     private var fromcatwo = false
     private var chap_id = 0
     private lateinit var coordinatorLayout: CoordinatorLayout
-    val viewmodel:AllDuaModel by viewModels()
+    val viewmodel: AllDuaModel by viewModels()
+    val duaItemVM: DuaItemVM by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -51,16 +54,21 @@ class HDuaNamesfrag : Fragment() {
         }
         val utils = Utils(activity)
         if (chap_id != -1) {
-            viewmodel.Duadetailsbychapter(chap_id).observe(this){
-               // val dd: ArrayList<hduanames> = utils.getdualistbychapter(chap_id) as ArrayList<hduanames>
+            viewmodel.Duadetailsbychapter(chap_id).observe(this) {
+                // val dd: ArrayList<hduanames> = utils.getdualistbychapter(chap_id) as ArrayList<hduanames>
                 for (hduanames in it) {
-                    val duaItems: ArrayList<hduadetailsEnt> = utils.gethDuadetailsitems(hduanames.ID) as ArrayList<hduadetailsEnt>
-                    duacoll.add(duaItems)
-                    subheaders.add(hduanames.duaname)
+                    duaItemVM.DuaItembyId(hduanames.ID).observe(this) {
+                        val duaItems: ArrayList<hduadetailsEnt> = it as ArrayList<hduadetailsEnt>
+                        duacoll.add(duaItems)
+                        subheaders.add(hduanames.duaname)
+                        sadapter = SelectedDuaViewAdapter(duacoll, context, name, subheaders)
+                        recyclerView.setAdapter(sadapter)
+
+                    }
+
+
                 }
 
-                    sadapter = SelectedDuaViewAdapter(duacoll, context, name, subheaders)
-                    recyclerView.setAdapter(sadapter)
 
             }
 
@@ -96,15 +104,15 @@ class HDuaNamesfrag : Fragment() {
                 R.id.bookmark -> {
                     Toast.makeText(context, "First book item", Toast.LENGTH_SHORT).show()
 
-                  var   dunamesbyid: java.util.ArrayList<hduanamesEnt> = ArrayList()
+                    var dunamesbyid: java.util.ArrayList<hduanamesEnt> = ArrayList()
 
-                    viewmodel.Duadetailsbychapter(chap_id).observe(viewLifecycleOwner){
-                        dunamesbyid= it as java.util.ArrayList<hduanamesEnt>
+                    viewmodel.Duadetailsbychapter(chap_id).observe(viewLifecycleOwner) {
+                        dunamesbyid = it as java.util.ArrayList<hduanamesEnt>
                         val gookstat = dunamesbyid[0].fav
                         if (gookstat == 0) {
-                            viewmodel.update(1,chap_id)
+                            viewmodel.update(1, chap_id)
                         } else {
-                            viewmodel.update(0,chap_id)
+                            viewmodel.update(0, chap_id)
                         }
 
                     }
@@ -114,10 +122,7 @@ class HDuaNamesfrag : Fragment() {
                     //  val up = utils.updateFav(1, chap_id)!!
 
 
-                //   val upd = utils.updateFav(0, chap_id)!!
-
-
-
+                    //   val upd = utils.updateFav(0, chap_id)!!
 
 
                     val snackbar =
@@ -127,7 +132,7 @@ class HDuaNamesfrag : Fragment() {
                     params.gravity = Gravity.TOP
                     view[0].layoutParams = params
                     snackbar.show()
-                  //  return true
+                    //  return true
                 }
 
                 R.id.backup -> {
@@ -139,14 +144,14 @@ class HDuaNamesfrag : Fragment() {
                     } else {
                         requireActivity().supportFragmentManager.popBackStack()
                     }
-                  //  return true
+                    //  return true
                 }
 
                 R.id.action_share -> {
                     Toast.makeText(context, "First share item", Toast.LENGTH_SHORT).show()
                     //       setuptoolbar();
                     //       setuptoolbar();
-                  //  return true
+                    //  return true
                 }
             }
             Toast.makeText(activity, "tool", Toast.LENGTH_SHORT).show()
