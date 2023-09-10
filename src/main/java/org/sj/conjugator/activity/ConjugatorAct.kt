@@ -21,6 +21,7 @@ import android.widget.ListView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.RelativeLayout
+import androidx.activity.viewModels
 import androidx.fragment.app.FragmentTransaction
 import com.example.Constant.QURAN_VERB_ROOT
 import com.example.Constant.QURAN_VERB_WAZAN
@@ -36,6 +37,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import database.VerbDatabaseUtils
 import database.entity.MazeedEntity
 import database.entity.MujarradVerbs
+import database.verbrepo.VerbModel
 import org.sj.conjugator.fragments.SettingsFragmentVerb
 import org.sj.conjugator.utilities.SharedPref
 import ru.dimorinny.floatingtextbutton.FloatingTextButton
@@ -43,50 +45,50 @@ import ru.dimorinny.floatingtextbutton.FloatingTextButton
 class ConjugatorAct : BaseActivity(), View.OnClickListener {
     private val keyValues: SparseArray<String> = SparseArray<String>()
     lateinit var quranbtn: Button
-     lateinit var settingbtn: Button
-    lateinit   var floatingActionButton: FloatingActionButton
+    lateinit var settingbtn: Button
+    lateinit var floatingActionButton: FloatingActionButton
     lateinit var layoutBottomSheet: RelativeLayout
-     lateinit var sheetBehavior: BottomSheetBehavior<*>
-      var tlist: ListView?=null
-       var mlist: ListView?=null
-     lateinit var nasara: Chip
-     lateinit var zaraba: Chip
-     lateinit var samia: Chip
-     lateinit var fataha: Chip
-     lateinit var karuma: Chip
-     lateinit var haseeba: Chip
-     lateinit var tafeel: Chip
-     lateinit var mufala: Chip
-     lateinit var ifal: Chip
-     lateinit var tafaul: Chip
-     lateinit var tafaaul: Chip
-     lateinit var infala: Chip
-     lateinit var iftiala: Chip
-     lateinit var istifala: Chip
-     lateinit var mujarradbtn: MaterialButton
-     lateinit var mazeedbtn: MaterialButton
-  var isSarfKabeed = false
+    lateinit var sheetBehavior: BottomSheetBehavior<*>
+    var tlist: ListView? = null
+    var mlist: ListView? = null
+    lateinit var nasara: Chip
+    lateinit var zaraba: Chip
+    lateinit var samia: Chip
+    lateinit var fataha: Chip
+    lateinit var karuma: Chip
+    lateinit var haseeba: Chip
+    lateinit var tafeel: Chip
+    lateinit var mufala: Chip
+    lateinit var ifal: Chip
+    lateinit var tafaul: Chip
+    lateinit var tafaaul: Chip
+    lateinit var infala: Chip
+    lateinit var iftiala: Chip
+    lateinit var istifala: Chip
+    lateinit var mujarradbtn: MaterialButton
+    lateinit var mazeedbtn: MaterialButton
+    var isSarfKabeed = false
     var mujarradVerbs: ArrayList<MujarradVerbs> = ArrayList<MujarradVerbs>()
-    private  lateinit var editTextAuto: EditText
-      lateinit var editText: EditText
-    private  lateinit var verbmood: RadioGroup
-    private  lateinit var indicative: RadioButton
-    private  lateinit var subjunctive: RadioButton
+    private lateinit var editTextAuto: EditText
+    lateinit var editText: EditText
+    private lateinit var verbmood: RadioGroup
+    private lateinit var indicative: RadioButton
+    private lateinit var subjunctive: RadioButton
     lateinit var radioText: String
-     lateinit var inputtext: String
-    private  lateinit var keyboard: View
+    lateinit var inputtext: String
+    private lateinit var keyboard: View
 
-    private  lateinit var inputConnection: InputConnection
-    private   var mazeedEntityVerbs: ArrayList<MazeedEntity> = ArrayList<MazeedEntity>()
-    private   var isautocomplete = false
+    private lateinit var inputConnection: InputConnection
+    private var mazeedEntityVerbs: ArrayList<MazeedEntity> = ArrayList<MazeedEntity>()
+    private var isautocomplete = false
     fun setIsautocomplete(isautocomplete: Boolean) {
         this.isautocomplete = isautocomplete
     }
 
-   /* fun setSarfKabeed(sarfKabeed: Boolean) {
-        isSarfKabeed = sarfKabeed
-    }
-*/
+    /* fun setSarfKabeed(sarfKabeed: Boolean) {
+         isSarfKabeed = sarfKabeed
+     }
+ */
     override fun onBackPressed() {
         super.onBackPressed()
     }
@@ -112,78 +114,55 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
         // kb. getCharSequence();
     }
 
-    // --Commented out by Inspection START (17/12/21, 7:55 AM):
-    //  private void hideKeyboardSoft() {
-    //    InputMethodManager imm = (InputMethodManager) getBaseContext()
-    //          .getSystemService(INPUT_METHOD_SERVICE);
-    //    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-    //    final ComponentName activity = getCallingActivity();
-    //    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-    //  }
-    // --Commented out by Inspection STOP (17/12/21, 7:55 AM)
-    private fun SetUpEditText() {
-        KeyboardUtil.hideKeyboard(this@ConjugatorAct)
-        val root: Array<String?>
-        val util = VerbDatabaseUtils(this@ConjugatorAct)
-        val verbAll: ArrayList<MujarradVerbs?>? = util.mujarradAall
-        val size = verbAll!!.size
-        root = arrayOfNulls(size)
-        var i = 0
-        for (entity in verbAll) {
-            val roots: String = entity!!.root
-            root[i++] = roots
-        }
-        keyboard = findViewById(R.id.arabic_keyboard)
-        editText!!.setTextIsSelectable(true)
-        editText.setOnFocusChangeListener(View.OnFocusChangeListener { view: View?, hasFocus: Boolean ->
-            if (hasFocus) {
-                clearParameters()
-                keyboard!!.visibility = LinearLayout.VISIBLE
-                if (tlist != null) tlist!!.adapter = null
-                if (mlist != null) mlist!!.adapter = null
-            } //   keyboard.setVisibility(LinearLayout.GONE);
-        })
-    }
-
     private fun SetUpAutoComplete() {
         KeyboardUtil.hideKeyboard(this@ConjugatorAct)
-        val root: Array<String?>
+        val viewmodel: VerbModel by viewModels()
+        var root: Array<String?> = emptyArray()
         val util = VerbDatabaseUtils(this@ConjugatorAct)
-        val verbAll: ArrayList<MujarradVerbs?>? = util.mujarradAall
-        val size = verbAll?.size
-        root = arrayOfNulls(size!!)
-        var i = 0
-        for (entity in verbAll) {
-                val roots: String = entity!!.root
-                root[i++] = roots
-            }
-  /*      val h = HashSet(Arrays.asList(*root))
-        val aList2: List<String> = java.util.ArrayList(h)
-  */
-
-    val adapter:    ArrayAdapter<String>  =  ArrayAdapter<String>  (this, R.layout.dropdown_item_list, root);
-
-        //Getting the instance of AutoCompleteTextView
-        val actv: AutoCompleteTextView =
+        //   val verbAll: ArrayList<MujarradVerbs?>? = util.mujarradAall
+        // val size = verbAll?.size
+        //   root = arrayOfNulls(size!!)
+        var actv: AutoCompleteTextView =
             findViewById(R.id.autoCompleteTextView) as AutoCompleteTextView
-        val sizes = 500
-        actv.setDropDownHeight(sizes)
-        actv.setThreshold(1) //will start working from first character
-        actv.setAdapter<ArrayAdapter<String>>(adapter) //setting the adapter data into the AutoCompleteTextView
-        actv.setTextColor(Color.RED)
-        //   actv.setTextSize((float) 50.00);
         editTextAuto = findViewById(R.id.autoCompleteTextView)
-        actv.setRawInputType(InputType.TYPE_CLASS_TEXT)
-        actv.setTextIsSelectable(true)
-        //   KeyboardUtil.hideKeyboard(this);
-        actv.setShowSoftInputOnFocus(false)
-        actv.setOnFocusChangeListener(View.OnFocusChangeListener { view: View?, hasFocus: Boolean ->
-            if (hasFocus) {
-                keyboard!!.visibility = LinearLayout.VISIBLE
-                if (tlist != null) tlist!!.adapter = null
-                if (mlist != null) mlist!!.adapter = null
-            } //   keyboard.setVisibility(LinearLayout.GONE);
-        })
+        var i = 0
+        viewmodel.getMujarradll().observe(this) {
+            val len = it.size
+            root = arrayOfNulls(len)
+            val arr = mutableListOf<String>()
+            for (entity in it) {
+                arr.add(entity.root)
+
+
+            }
+
+
+            val autoadapter: ArrayAdapter<String> =
+                ArrayAdapter<String>(this, R.layout.dropdown_item_list, arr);
+            //Getting the instance of AutoCompleteTextView
+
+            val sizes = 500
+            actv.setDropDownHeight(sizes)
+            actv.setThreshold(1) //will start working from first character
+            actv.setAdapter(autoadapter) //setting the adapter data into the AutoCompleteTextView
+            //  actv.adapter=autoadapter
+            actv.setTextColor(Color.RED)
+            //   actv.setTextSize((float) 50.00);
+
+            actv.setRawInputType(InputType.TYPE_CLASS_TEXT)
+            actv.setTextIsSelectable(true)
+            //   KeyboardUtil.hideKeyboard(this);
+            actv.setShowSoftInputOnFocus(false)
+            actv.setOnFocusChangeListener(View.OnFocusChangeListener { view: View?, hasFocus: Boolean ->
+                if (hasFocus) {
+                    keyboard!!.visibility = LinearLayout.VISIBLE
+                    if (tlist != null) tlist!!.adapter = null
+                    if (mlist != null) mlist!!.adapter = null
+                } //   keyboard.setVisibility(LinearLayout.GONE);
+            })
+        }
+
+
     }
 
     private fun init() {
@@ -695,7 +674,7 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
         dataBundle.putString(QURAN_VERB_ROOT, root)
         dataBundle.putString(VERBTYPE, verbtype)
         dataBundle.putBoolean(SARFKABEER, isSarfKabeed)
-        isSarfKabeed=false;
+        isSarfKabeed = false;
         val intent = Intent(this@ConjugatorAct, ConjugatorTabsActivity::class.java)
         intent.putExtras(dataBundle)
         startActivity(intent)

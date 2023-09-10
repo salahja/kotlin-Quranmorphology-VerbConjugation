@@ -20,6 +20,7 @@ import android.content.Context
 import android.content.res.Configuration
 import androidx.preference.PreferenceManager
 import com.example.utility.ThemeHelper.applyTheme
+import database.verbrepo.VerbGraph
 import leakcanary.LeakCanary
 import leakcanary.LeakCanary.config
 import sj.hisnul.newepository.Graph
@@ -50,6 +51,7 @@ class QuranGrammarApplication : Application() {
             context = this
         }
         Graph.provide(this)
+        VerbGraph.provide(this)
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         //  String theme = sharedPreferences.getString("theme", 1);
