@@ -1,4 +1,4 @@
-package com.example.JustJava
+package com.example.justJava
 
 
 import android.content.Context
@@ -144,7 +144,7 @@ class WbwSurah(
                 ayahWord.word=(wordArrayList)
                 val asize = wordArrayList.size
                 if (asize >= 1) {
-                    val ispassage: Int = wordArrayList[asize - 1]!!.passage_no
+                    val ispassage: Int = wordArrayList[asize - 1].passage_no
                     if (ispassage != 0) {
                         ruku[ispassage] = wordArrayListpassage
                         wordArrayListpassage = ArrayList<CorpusWbwWord>()

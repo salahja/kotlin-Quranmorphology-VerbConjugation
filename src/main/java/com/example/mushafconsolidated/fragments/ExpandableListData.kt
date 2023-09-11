@@ -13,7 +13,7 @@ import android.text.TextUtils
 import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
 import com.example.Constant
-import com.example.JustJava.TextBorderSpan
+import com.example.justJava.TextBorderSpan
 import com.example.mushafconsolidated.Entities.NewCorpusExpandWbwPOJO
 import com.example.mushafconsolidated.Entities.NewKanaEntity
 import com.example.mushafconsolidated.Entities.NewMudhafEntity

@@ -42,7 +42,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant.CHAPTER
 import com.example.Constant.SURAH_ARABIC_NAME
-import com.example.JustJava.WbwSurah
+import com.example.justJava.WbwSurah
 import com.example.mushafconsolidated.Activityimport.AyahCoordinate
 import com.example.mushafconsolidated.Activityimport.BaseActivity
 

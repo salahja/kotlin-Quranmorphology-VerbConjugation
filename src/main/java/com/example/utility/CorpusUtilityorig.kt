@@ -17,7 +17,7 @@ import android.text.style.UnderlineSpan
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import com.example.Constant
-import com.example.JustJava.FrameSpan
+import com.example.justJava.FrameSpan
 import com.example.mushafconsolidated.Entities.NewMudhafEntity
 import com.example.mushafconsolidated.Entities.NewShartEntity
 import com.example.mushafconsolidated.Entities.SifaEntity

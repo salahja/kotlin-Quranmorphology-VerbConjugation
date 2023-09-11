@@ -49,7 +49,7 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant
-import com.example.JustJava.WbwSurah
+import com.example.justJava.WbwSurah
 import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.BottomOptionDialog
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt

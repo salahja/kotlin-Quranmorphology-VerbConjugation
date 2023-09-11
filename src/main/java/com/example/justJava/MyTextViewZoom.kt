@@ -1,4 +1,4 @@
-package com.example.JustJava
+package com.example.justJava
 
 import android.app.Activity
 import android.graphics.Matrix
