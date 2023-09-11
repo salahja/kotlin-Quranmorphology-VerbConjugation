@@ -14,7 +14,10 @@ object Graph {
         NewRepository(
            hduaItemDao=db.hDuaItemDao(),
         hduaCategoryDao=db.gethDuaCategoryDao(),
-            hduaNamesDao=db.gethDuaNamesDao()
+            hduaNamesDao=db.gethDuaNamesDao(),
+            namesDetailsDao= db.NamesDetailsDao()!!,
+            TheNames= db.NamesDao()!!,
+
 
         )
     }

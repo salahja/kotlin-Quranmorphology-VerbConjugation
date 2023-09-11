@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import sj.hisnul.entity.AllahNamesDetails
+import sj.hisnul.newepository.NewDuaModel
 
 
 /**
@@ -75,12 +76,18 @@ class NamesDetail constructor() : BottomSheetDialogFragment() {
         val close: String = "</body>\n" +
                 "</html>"
         val item_count: Int = bundle!!.getInt("item_count")
-        val utils: Utils = Utils(getActivity())
-        namesDetails = utils.getNamesDetails(item_count) as ArrayList<AllahNamesDetails>?
-        val title: WebView = view.findViewById<View>(R.id.title) as WebView
-        val concat: String = html + namesDetails!!.get(0).title + namesDetails!!.get(0)
-            .summary+ (namesDetails?.get(0)?.details  ) + close
-        title.loadDataWithBaseURL(null, concat, "text/html", "utf-8", null)
+
+        val viewmodel: NewDuaModel by viewModels()
+        viewmodel.AllahNames(item_count).observe(this){
+
+
+            val title: WebView = view.findViewById<View>(R.id.title) as WebView
+            val concat: String = html + it!!.get(0).title + it!!.get(0)
+                .summary+ (it?.get(0)?.details  ) + close
+            title.loadDataWithBaseURL(null, concat, "text/html", "utf-8", null)
+        }
+
+
         //    title.loadDataWithBaseURL(null,     namesDetails.get(1).getSummary().toString(), "text/html", "utf-8", null);
         return view
         //   return inflater.inflate(R.layout.quranFontselection, container, false);

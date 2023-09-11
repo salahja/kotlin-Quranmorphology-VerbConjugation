@@ -13,19 +13,20 @@ import android.util.AttributeSet
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.Constant.SURAH_ID
+import com.example.Constant
 import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils
 import database.entity.AllahNames
 import org.sj.conjugator.interfaces.OnItemClickListener
 import sj.hisnul.fragments.NamesDetail
+import sj.hisnul.newepository.NewDuaModel
 import java.util.Objects
 
 class NamesGridImageAct : BaseActivity() {
@@ -62,26 +63,29 @@ class NamesGridImageAct : BaseActivity() {
         //  gridView = (GridView) findViewById(R.id.gridView);
         val mLayoutManager = GridLayoutManager(this, 2)
         //  gridAdapter = new GridViewAdapter(this, R.layout.grid_item_layout, getData());
-        val utils = Utils(this)
-        val names: ArrayList<AllahNames> = utils.names
-        gadapter = GridAdapter(this, names, data)
-        //  gridView.setAdapter(gridAdapter);
-        recyclerView.setHasFixedSize(true)
-        recyclerView.setLayoutManager(mLayoutManager)
-        recyclerView.setAdapter(gadapter)
 
-        gadapter.SetOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(v: View?, position: Int) {
-                val item1 = gadapter.getItem(position) as AllahNames
-                println(item1.arabic)
-                val item = NamesDetail()
-                val dataBundle = Bundle()
-                dataBundle.putInt(SURAH_ID, item1.id)
-                item.arguments = dataBundle
-                val data = item1.id
-                NamesDetail.newInstance(data).show(supportFragmentManager, NamesDetail.TAG)
-            }
-        })
+        val viewmodel: NewDuaModel by viewModels()
+        viewmodel.getNames().observe(this) {
+
+            gadapter = GridAdapter(this, it, data)
+            //  gridView.setAdapter(gridAdapter);
+            recyclerView.setHasFixedSize(true)
+            recyclerView.setLayoutManager(mLayoutManager)
+            recyclerView.setAdapter(gadapter)
+            gadapter.SetOnItemClickListener(object : OnItemClickListener {
+                override fun onItemClick(v: View?, position: Int) {
+                    val item1 = gadapter.getItem(position) as AllahNames
+                    println(item1.arabic)
+                    val item = NamesDetail()
+                    val dataBundle = Bundle()
+                    dataBundle.putInt(Constant.SURAH_ID, item1.id)
+                    item.arguments = dataBundle
+                    val data = item1.id
+                    NamesDetail.newInstance(data).show(supportFragmentManager, NamesDetail.TAG)
+                }
+            })
+
+        }
 
 
         /*

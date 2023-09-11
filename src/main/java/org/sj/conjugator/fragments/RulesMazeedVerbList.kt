@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,8 +22,8 @@ import com.example.Constant.VERBMOOD
 import com.example.Constant.VERBTYPE
 import com.example.mushafconsolidated.R
 import com.example.utility.QuranGrammarApplication
-import database.VerbDatabaseUtils
 import database.entity.MazeedEntity
+import database.verbrepo.VerbModel
 import org.sj.conjugator.activity.ConjugatorTabsActivity
 import org.sj.conjugator.adapter.SarfMujarradSarfSagheerListingAdapter
 import org.sj.conjugator.interfaces.OnItemClickListener
@@ -99,31 +100,38 @@ class RulesMazeedVerbList : Fragment {
         builder.setCancelable(false) // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_verblist)
         dialog = builder.create()
+        val viewmodel: VerbModel by viewModels()
         val ex = Executors.newSingleThreadExecutor()
+        if (kov != null) {
+            viewmodel.getMazeedWeakness(kov).observe(viewLifecycleOwner){
+                listingMazeedWeakness(ssagheer, it as ArrayList<MazeedEntity>)
         ex.execute {
             requireActivity().runOnUiThread { dialog.show() }
-            val utils = VerbDatabaseUtils(QuranGrammarApplication.context)
-            val mazeedEntityWeaknesses: java.util.ArrayList<MazeedEntity> = utils.getMazeedWeakness(kov) as java.util.ArrayList<MazeedEntity>
-            listingMazeedWeakness(ssagheer, mazeedEntityWeaknesses)
-            requireActivity().runOnUiThread {
-                ex.shutdown()
-                sarfsagheerAdapter = SarfMujarradSarfSagheerListingAdapter(
-                    ssagheer,
-                    requireActivity()
-                )
-                recyclerView.adapter = sarfsagheerAdapter
-                dialog.dismiss()
-                setupOnItemClickThulathiAdapter()
+          //  val utils = VerbDatabaseUtils(QuranGrammarApplication.context)
+         //   val mazeedEntityWeaknesses: java.util.ArrayList<MazeedEntity> = utils.getMazeedWeakness(kov) as java.util.ArrayList<MazeedEntity>
+
+                    requireActivity().runOnUiThread {
+                        ex.shutdown()
+                        sarfsagheerAdapter = SarfMujarradSarfSagheerListingAdapter(
+                            ssagheer,
+                            requireActivity()
+                        )
+                        recyclerView.adapter = sarfsagheerAdapter
+                        dialog.dismiss()
+                        setupOnItemClickThulathiAdapter()
+                    }
+                }
             }
+
         }
         // setupOnItemClickThulathiAdapter();
     }
 
     private fun listingMazeedWeakness(
         ssagheer: ArrayList<SarfSagheer>,
-        mujarradBYWeakness: ArrayList<MazeedEntity>
+        mazeedEntityWeaknesses: ArrayList<MazeedEntity>
     ) {
-        for (s in mujarradBYWeakness) {
+        for (s in mazeedEntityWeaknesses) {
             val listing: ArrayList<ArrayList<*>> = GatherAll.instance.getMazeedListing(
                 verbmood, s.root!!
             )

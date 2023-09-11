@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mushafconsolidated.Utils
 import com.example.utility.QuranGrammarApplication
+import database.entity.AllahNames
 import kotlinx.coroutines.launch
+import sj.hisnul.entity.AllahNamesDetails
 import sj.hisnul.entity.hcategoryEnt
 import sj.hisnul.entity.hduadetailsEnt
 import sj.hisnul.entity.hduanamesEnt
@@ -22,6 +24,28 @@ class NewDuaModel(
     val util = Utils(QuranGrammarApplication.context)
     var allduaitem: LiveData<List<hduadetailsEnt>> = MutableLiveData()
     var duacategory: LiveData<List<hcategoryEnt>> = MutableLiveData()
+    var AllahSWT: LiveData<List<AllahNames>> = MutableLiveData()
+    var Namesd: LiveData<List<AllahNamesDetails>> = MutableLiveData()
+    fun getNames(): LiveData<List<AllahNames>> {
+
+
+        viewModelScope.launch {
+            AllahSWT=        newrepository.allnames
+        }
+
+
+        return AllahSWT
+    }
+
+    fun AllahNames(cat: Int): LiveData<List<AllahNamesDetails>> {
+
+        viewModelScope.launch {
+            Namesd= newrepository.getNames(cat)
+        }
+
+
+        return Namesd
+    }
 
     fun loadLists(): LiveData<List<hduanamesEnt>> {
 

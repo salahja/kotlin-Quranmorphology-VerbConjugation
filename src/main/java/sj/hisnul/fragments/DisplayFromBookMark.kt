@@ -41,7 +41,7 @@ class DisplayFromBookMark : Fragment() {
             chap_id = requireArguments().getInt("chap_id")
             fromcatwo = requireArguments().getBoolean("cattwp")
         }
-        val utils = Utils(activity)
+     //   Utils(activity)
 
     }
 

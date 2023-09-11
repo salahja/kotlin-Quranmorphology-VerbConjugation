@@ -22,7 +22,7 @@ import java.util.Locale
 class GridAdapter(
 // --Commented out by Inspection START (28/08/23, 6:54 pm):
     //        //    private final Integer arabicTextColor;
-    var context: Context, names: ArrayList<AllahNames>, data: ArrayList<ImageItem>,
+    var context: Context, names: List<AllahNames>, data: ArrayList<ImageItem>,
 ) :
     RecyclerView.Adapter<GridAdapter.ViewHolder>(), Filterable {
     // --Commented out by Inspection (28/08/23, 6:54 pm):private final CharSequence mSearchText = "";

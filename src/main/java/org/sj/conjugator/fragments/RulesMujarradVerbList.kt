@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,8 +20,8 @@ import com.example.Constant.VERBMOOD
 import com.example.Constant.VERBTYPE
 import com.example.mushafconsolidated.R
 import com.example.utility.QuranGrammarApplication
-import database.VerbDatabaseUtils
 import database.entity.MujarradVerbs
+import database.verbrepo.VerbModel
 import org.sj.conjugator.activity.ConjugatorTabsActivity
 import org.sj.conjugator.adapter.SarfMujarradSarfSagheerListingAdapter
 import org.sj.conjugator.interfaces.OnItemClickListener
@@ -94,25 +95,29 @@ class RulesMujarradVerbList : Fragment {
         builder.setCancelable(false) // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_verblist)
         dialog = builder.create()
+        val viewmodel: VerbModel by viewModels()
         val ex = Executors.newSingleThreadExecutor()
-        ex.execute {
-            requireActivity().runOnUiThread { dialog.show() }
-                val utils = VerbDatabaseUtils(QuranGrammarApplication.context)
-            val mujarradBYWeakness: java.util.ArrayList<MujarradVerbs> =
-                utils.getMujarradBYWeakness(kov) as java.util.ArrayList<MujarradVerbs>
-            listingMujarradWeakness(ssagheer, mujarradBYWeakness)
-            verbtype="mujarrad"
-            requireActivity().runOnUiThread {
-                ex.shutdown()
-                sarfsagheerAdapter = SarfMujarradSarfSagheerListingAdapter(
-                    ssagheer,
-                    requireActivity()
-                )
-                recyclerView.adapter = sarfsagheerAdapter
-                setupOnItemClickThulathiAdapter()
-                dialog.dismiss()
+        if (kov != null) {
+            viewmodel.getMujarradWeakness(kov).observe(viewLifecycleOwner){
+                ex.execute {
+                    requireActivity().runOnUiThread { dialog.show() }
+
+                    listingMujarradWeakness(ssagheer, it as ArrayList<MujarradVerbs>)
+                    verbtype="mujarrad"
+                    requireActivity().runOnUiThread {
+                        ex.shutdown()
+                        sarfsagheerAdapter = SarfMujarradSarfSagheerListingAdapter(
+                            ssagheer,
+                            requireActivity()
+                        )
+                        recyclerView.adapter = sarfsagheerAdapter
+                        setupOnItemClickThulathiAdapter()
+                        dialog.dismiss()
+                    }
+                }
             }
         }
+
         //   setupOnItemClickThulathiAdapter();
     }
 

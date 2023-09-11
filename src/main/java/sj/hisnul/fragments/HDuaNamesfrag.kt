@@ -21,7 +21,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
@@ -51,7 +50,7 @@ class HDuaNamesfrag : Fragment() {
             chap_id = requireArguments().getInt("chap_id")
             fromcatwo = requireArguments().getBoolean("cattwp")
         }
-        val utils = Utils(activity)
+       // val utils = Utils(activity)
         if (chap_id != -1) {
             viewmodel.Duadetailsbychapter(chap_id).observe(this) {
                 // val dd: ArrayList<hduanames> = utils.getdualistbychapter(chap_id) as ArrayList<hduanames>
@@ -94,7 +93,7 @@ class HDuaNamesfrag : Fragment() {
             actionBa.setDisplayHomeAsUpEnabled(true)
         }
         recyclerView = view[0].findViewById<RecyclerView>(R.id.dunamerec)
-        val utils = Utils(context)
+      //  val utils = Utils(context)
 
         toolbar.setTitle(name)
         toolbar.inflateMenu(R.menu.menu_bookmark)

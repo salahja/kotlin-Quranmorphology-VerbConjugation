@@ -3,8 +3,6 @@ package database
 import android.content.Context
 import database.entity.MazeedEntity
 import database.entity.MujarradVerbs
-import database.entity.QuranVerbsEntity
-import database.entity.QuranicVerbsEntity
 import database.entity.kov
 
 class VerbDatabaseUtils(context: Context?) {
@@ -13,10 +11,10 @@ class VerbDatabaseUtils(context: Context?) {
         database = VerbDatabase.getInstance(context)!!
     }
 
-    val kov: ArrayList<kov?>?
+   val kov: ArrayList<kov?>?
         get() = database.kovDao()!!.rules as ArrayList<kov?>?
 
-    fun getQuranVerbsbyFrequency(sort: Int): ArrayList<QuranVerbsEntity?>? {
+/*    fun getQuranVerbsbyFrequency(sort: Int): ArrayList<QuranVerbsEntity?>? {
         return database.QuranVerbsDao()!!.getverbsbyFrequency(sort) as ArrayList<QuranVerbsEntity?>?
     }
 
@@ -32,25 +30,12 @@ class VerbDatabaseUtils(context: Context?) {
     fun updateThulathibab(nroot: String?, id: Int): Int {
         return database.QuranicVerbsDao()!!
             .updadateThulathibab(nroot, id)
-    }
-
-    fun getMujarradVerbs(root: String?): ArrayList<MujarradVerbs?>? {
-        return database.mujarradDao()!!.getverbTri(root) as ArrayList<MujarradVerbs?>?
-    }
-
-    val mujarradAall: ArrayList<MujarradVerbs?>?
-        get() = database.mujarradDao()!!.getverbTriAll() as ArrayList<MujarradVerbs?>?
-
-    fun getMujarradBYWeakness(kov: String?): ArrayList<MujarradVerbs?>? {
-        return database.mujarradDao()!!.getMujarradWeakness(kov) as ArrayList<MujarradVerbs?>?
-    }
-
-    fun getMazeedWeakness(kov: String?): ArrayList<MazeedEntity?>? {
-        return database.mazeedDao()!!.getMazeedWeakness(kov) as ArrayList<MazeedEntity?>?
-    }
-
+    }*/
     fun getMazeedRoot(root: String?): ArrayList<MazeedEntity> {
         return database.mazeedDao()!!.getMazeedRoot(root) as ArrayList<MazeedEntity>
+    }
+  fun getMujarradVerbs(root: String?): ArrayList<MujarradVerbs?>? {
+        return database.mujarradDao()!!.getverbTri(root) as ArrayList<MujarradVerbs?>?
     }
 
     companion object {
