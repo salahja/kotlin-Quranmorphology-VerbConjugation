@@ -6,6 +6,7 @@ package database.verbrepo
 
 
 import androidx.lifecycle.LiveData
+import database.Dao.kovDao
 import database.Dao.mazeedDao
 import database.Dao.mujarradDao
 import database.entity.MazeedEntity
@@ -14,33 +15,20 @@ import database.entity.MujarradVerbs
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 class VerbRepository(
-   /* val buckwaterDao: BuckwaterDao,
-    val quranVerbsDao: QuranVerbsDao,
-    val quranicVerbsDao: QuranicVerbsDao,
-    val verbcorpusDao: verbcorpusDao,
-    val kovDao: kovDao,
-   ,*/
+    /* val buckwaterDao: BuckwaterDao,
+     val quranVerbsDao: QuranVerbsDao,
+     val quranicVerbsDao: QuranicVerbsDao,
+     val verbcorpusDao: verbcorpusDao,
+     val kovDao: kovDao,
+    ,*/
     val mazeeddao: mazeedDao,
-   val mujarradao: mujarradDao
+    val mujarradao: mujarradDao,
+   val kovdao: kovDao,
 
 
+    ) {
 
-) {
-/*
-  @Query(value = "SELECT * FROM mujarrad where root=:root")
-    fun getverbTrilive(root: String?): LiveData<List<MujarradVerbs>>
-
-
-
-    @Query(value = "select DISTINCT root,bab,babname ,verbtype,kov,kovname,id,verb from mujarrad where kov=:kov order by root limit 30")
-    fun getMujarradWeaknesslive(kov: String?): LiveData<List<MujarradVerbs>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertlive(entity: MujarradVerbs?): Long
-
- */
-
-
+    val kov=  kovdao.getkovlive()
     val mujarradall=  mujarradao.getverbTriAlllive()
 
       val mazeedall=  mazeeddao.getMazeedAlllive()

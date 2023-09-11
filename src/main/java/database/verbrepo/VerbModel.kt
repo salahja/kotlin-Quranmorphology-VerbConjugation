@@ -8,6 +8,7 @@ import com.example.mushafconsolidated.Utils
 import com.example.utility.QuranGrammarApplication
 import database.entity.MazeedEntity
 import database.entity.MujarradVerbs
+import database.entity.kov
 import kotlinx.coroutines.launch
 import sj.hisnul.entity.hcategoryEnt
 import sj.hisnul.entity.hduadetailsEnt
@@ -25,7 +26,18 @@ class VerbModel(
     var allduaitem: LiveData<List<hduadetailsEnt>> = MutableLiveData()
     var duacategory: LiveData<List<hcategoryEnt>> = MutableLiveData()
 
+    var kovs: LiveData<List<kov>> = MutableLiveData()
 
+    fun getKov(): LiveData<List<kov>> {
+
+
+        viewModelScope.launch {
+            kovs=        newrepository.kov
+        }
+
+
+        return kovs
+    }
 
     fun getMujarradll(): LiveData<List<MujarradVerbs>> {
 

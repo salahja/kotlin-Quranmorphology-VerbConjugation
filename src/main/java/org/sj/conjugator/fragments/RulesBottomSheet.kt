@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,11 +18,12 @@ import com.example.utility.QuranGrammarApplication
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import database.VerbDatabaseUtils
 import database.entity.kov
+import database.verbrepo.VerbModel
 import org.sj.conjugator.adapter.rulesbottomsheetadapter
 import org.sj.conjugator.interfaces.OnItemClickListener
 
 class RulesBottomSheet : BottomSheetDialogFragment() {
-    var adapter: rulesbottomsheetadapter? = null
+    var rulesadapter: rulesbottomsheetadapter? = null
     //var context: Context? = null
     private var kovArrayList: ArrayList<kov>? = null
     private var verbtype: Array<String>? = null
@@ -36,23 +39,30 @@ class RulesBottomSheet : BottomSheetDialogFragment() {
         verbtype = bundle!!.getStringArray(ARG_OPTIONS_DATA)
         val mLayoutManager = GridLayoutManager(activity, 2)
         val db = VerbDatabaseUtils(QuranGrammarApplication.context!!)
-        kovArrayList = db.kov as ArrayList<kov>?
-        adapter = rulesbottomsheetadapter(kovArrayList!!, QuranGrammarApplication.context!!)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = mLayoutManager
-        recyclerView.adapter = adapter
+     //   kovArrayList = db.kov as ArrayList<kov>?
+        rulesadapter=rulesbottomsheetadapter(QuranGrammarApplication.context!!)
+        val viewmodel: VerbModel by viewModels()
+        viewmodel.getKov().observe(this, Observer {
+            rulesadapter!!.setmutable(it!! as ArrayList<kov>, )
+            recyclerView.setHasFixedSize(true)
+            recyclerView.layoutManager = mLayoutManager
+            recyclerView.adapter = rulesadapter
+
+        })
         return view
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter!!.SetOnItemClickListener(object : OnItemClickListener {
+        rulesadapter!!.SetOnItemClickListener(object : OnItemClickListener {
 
 
             override fun onItemClick(v: View?, position: Int) {
                 dismiss()
-                val entity = kovArrayList!![position]
+            //    val entity = kovArrayList!![position]
+                val entity = rulesadapter!!.getItem(position) as kov
                 val dataBundle = Bundle()
                 dataBundle.putString(QURAN_VERB_WAZAN, entity.kov)
                 dataBundle.putString(VERBMOOD, "Indicative")

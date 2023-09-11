@@ -17,6 +17,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -65,7 +66,8 @@ class NamesGridImageAct : BaseActivity() {
         //  gridAdapter = new GridViewAdapter(this, R.layout.grid_item_layout, getData());
 
         val viewmodel: NewDuaModel by viewModels()
-        viewmodel.getNames().observe(this) {
+        viewmodel.getNames().observe(this, Observer {
+    //    viewmodel.getNames().observe(this) {
 
             gadapter = GridAdapter(this, it, data)
             //  gridView.setAdapter(gridAdapter);
@@ -85,7 +87,7 @@ class NamesGridImageAct : BaseActivity() {
                 }
             })
 
-        }
+        })
 
 
         /*

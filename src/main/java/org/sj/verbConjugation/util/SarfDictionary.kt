@@ -1,7 +1,10 @@
 package org.sj.verbConjugation.util
 
+import android.app.Application
+import androidx.lifecycle.ViewModelProvider
 import com.example.utility.QuranGrammarApplication
 import database.VerbDatabaseUtils
+import database.verbrepo.VerbModel
 import org.sj.verbConjugation.trilateral.augmented.AugmentedTrilateralRoot
 import org.sj.verbConjugation.trilateral.unaugmented.UnaugmentedTrilateralRoot
 import java.util.LinkedList
@@ -38,6 +41,14 @@ class SarfDictionary private constructor() {
         //  AugmentedTrilateralRootTree augmentedRootsTree = DatabaseManager.getInstance().getAugmentedTrilateralRootTree(c1);
         val utils = VerbDatabaseUtils(QuranGrammarApplication.context)
         val triVerbMazeed = utils.getMazeedRoot(rootText)
+     val   viewmodel = ViewModelProvider.AndroidViewModelFactory(QuranGrammarApplication.context!! as Application).create(VerbModel::class.java)
+       // val myViewModel3 = ViewModelProvider(viewLifecycleOwner).get(VerbModel::class.java)
+      //  val viewmodel: VerbModel by viewModels()
+        //val myViewModel5 by viewModels<VerbModel>()
+      /*  viewmodel.getMazeedRoot(rootText).observe(Requireac,Observer){
+
+
+        }*/
         for (root in triVerbMazeed!!) {
             if (root!!.form == formula) {
                 roots.add(root.root)

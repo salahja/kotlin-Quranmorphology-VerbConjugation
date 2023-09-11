@@ -29,7 +29,7 @@ abstract class VerbDatabase : RoomDatabase() {
     abstract fun QuranVerbsDao(): QuranVerbsDao?
     abstract fun QuranicVerbsDao(): QuranicVerbsDao?
     abstract fun verbcorpusDao(): verbcorpusDao?
-    abstract fun kovDao(): kovDao?
+    abstract fun kovDao(): kovDao
     abstract fun mujarradDao(): mujarradDao
     abstract fun mazeedDao(): mazeedDao
 

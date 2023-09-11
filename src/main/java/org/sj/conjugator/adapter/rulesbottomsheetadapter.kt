@@ -13,8 +13,33 @@ import com.example.utility.QuranGrammarApplication
 import database.entity.kov
 import org.sj.conjugator.interfaces.OnItemClickListener
 
-class rulesbottomsheetadapter(lists: ArrayList<kov>, private val context: Context) :
+/*
+class Person(val name: String) {
+    val children: MutableList<Person> = mutableListOf()
+    constructor(name: String, parent: Person) : this(name) {
+        parent.children.add(this)
+    }
+}
+ */
+/*
+class CustomRecyclerAdapter constructor(
+    val context: Context,
+    val topics: Array<String> = emptyArray(),
+    private var alist: ArrayList<String>
+ ) : RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder>() {
+
+    constructor(context: Context, sss: ArrayList<String>) : this(context, alist = sss)
+
+    // ...
+}
+ */
+class rulesbottomsheetadapter constructor( private val context: Context?
+                                     ) :
     RecyclerView.Adapter<rulesbottomsheetadapter.ViewHolder>() {
+
+
+
+
     private val madhi = ArrayList<String>()
     var rootcolor = 0
     var weaknesscolor = 0
@@ -38,9 +63,7 @@ class rulesbottomsheetadapter(lists: ArrayList<kov>, private val context: Contex
     private val arabic_font_selection: String? = null
     private var kovArrayList = ArrayList<kov>()
 
-    init {
-        kovArrayList = lists
-    }
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -131,4 +154,11 @@ class rulesbottomsheetadapter(lists: ArrayList<kov>, private val context: Contex
             }
         }
     }
+    fun setmutable(kovs: ArrayList<kov>) {
+        if (kovs != null) {
+            kovArrayList=kovs
+        }
+    }
+
+
 }

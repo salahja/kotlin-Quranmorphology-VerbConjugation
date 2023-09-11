@@ -11,7 +11,7 @@ class VerbDatabaseUtils(context: Context?) {
         database = VerbDatabase.getInstance(context)!!
     }
 
-   val kov: ArrayList<kov?>?
+  val kov: ArrayList<kov?>?
         get() = database.kovDao()!!.rules as ArrayList<kov?>?
 
 /*    fun getQuranVerbsbyFrequency(sort: Int): ArrayList<QuranVerbsEntity?>? {

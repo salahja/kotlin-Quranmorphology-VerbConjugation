@@ -14,6 +14,8 @@ object VerbGraph {
         VerbRepository(
            mazeeddao = db.mazeedDao(),
             mujarradao=db.mujarradDao(),
+            kovdao=db.kovDao()
+
        /*     buckwaterDao = BuckwaterDao(),
             quranVerbsDao = QuranVerbsDao(),
             quranicVerbsDao = QuranicVerbsDao(),
@@ -25,6 +27,8 @@ object VerbGraph {
 
         )
     }
+
+
 
     fun provide(context: Context){
         db = VerbDatabase.getInstance(context)!!
