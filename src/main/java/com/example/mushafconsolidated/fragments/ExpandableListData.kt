@@ -1,12 +1,10 @@
 package com.example.mushafconsolidated.fragments
 
 import Utility.ArabicLiterals
-
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
 import android.preference.PreferenceManager
-import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextUtils
@@ -23,7 +21,6 @@ import com.example.mushafconsolidated.Entities.SifaEntity
 import com.example.mushafconsolidated.Entities.wbwentity
 import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.model.Word
- 
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.QuranGrammarApplication
 
@@ -45,14 +42,11 @@ internal class SplitQuranVerses  // --Commented out by Inspection (26/04/22, 12:
     }
 }
 class ExpandableListData {
-    var spanFlag: Int = Spannable.SPAN_INCLUSIVE_INCLUSIVE // this is what is changing
-    var spanFlagExclusive: Int = Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
     private val chapterid: Int
     private val ayanumber: Int
     private var corpusSurahWord: ArrayList<NewCorpusExpandWbwPOJO>? = null
     private var utils: Utils? = null
     private var whichwbw: String? = null
-    private val preferences: String? = null
     private var dark: Boolean = false
 
     constructor(
@@ -67,10 +61,12 @@ class ExpandableListData {
         this.utils = utils
     }
 
-    constructor(corpusSurahWord: ArrayList<NewCorpusExpandWbwPOJO>) {
-        chapterid = corpusSurahWord.get(0).surah
-        ayanumber = corpusSurahWord.get(0).ayah
-    }
+// --Commented out by Inspection START (11/09/23, 10:45 pm):
+//    constructor(corpusSurahWord: ArrayList<NewCorpusExpandWbwPOJO>) {
+//        chapterid = corpusSurahWord.get(0).surah
+//        ayanumber = corpusSurahWord.get(0).ayah
+//    }
+// --Commented out by Inspection STOP (11/09/23, 10:45 pm)
 
     val data: LinkedHashMap<String, List<SpannableString>>
         get() {
@@ -86,20 +82,20 @@ class ExpandableListData {
             val translation: MutableList<SpannableString > = ArrayList()
             verse.add(
                 SpannableString .valueOf(
-                    corpusSurahWord!!.get(0).surah.toString() + ":" + corpusSurahWord!!.get(0)
-                        .surah + ":-" + corpusSurahWord!!.get(0).qurantext
+                    corpusSurahWord!![0].surah.toString() + ":" + corpusSurahWord!![0]
+                        .surah + ":-" + corpusSurahWord!![0].qurantext
                 )
             )
             if ((whichtranslation == "en_sahih")) {
                 translation.add(
                     SpannableString .valueOf(
-                        corpusSurahWord!!.get(0).translation
+                        corpusSurahWord!![0].translation
                     )
                 )
             } else {
                 translation.add(
                     SpannableString .valueOf(
-                        corpusSurahWord!!.get(0).ur_junagarhi
+                        corpusSurahWord!![0].ur_junagarhi
                     )
                 )
             }
@@ -114,13 +110,13 @@ class ExpandableListData {
             val kanaarray: MutableList<SpannableString > = ArrayList()
             newsetKana(kanaarray)
             val kana: List<SpannableString > = ArrayList()
-            expandableListDetail.put("Verse", verse)
-            expandableListDetail.put("Translation", translation)
-            expandableListDetail.put("Conditional/جملة شرطية\"", shartarray)
-            expandableListDetail.put("Accusative/ ", harfnasbarray)
-            expandableListDetail.put("Verb kāna/كان واخواتها", kanaarray)
-            expandableListDetail.put("Adjectival Phrases/مرکب توصیفی", mausoofsifaarray)
-            expandableListDetail.put("Possessive/إضافَة", mudhafarray)
+            expandableListDetail["Verse"] = verse
+            expandableListDetail["Translation"] = translation
+            expandableListDetail["Conditional/جملة شرطية\""] = shartarray
+            expandableListDetail["Accusative/ "] = harfnasbarray
+            expandableListDetail["Verb kāna/كان واخواتها"] = kanaarray
+            expandableListDetail["Adjectival Phrases/مرکب توصیفی"] = mausoofsifaarray
+            expandableListDetail["Possessive/إضافَة"] = mudhafarray
             return expandableListDetail
         }
 
@@ -131,11 +127,11 @@ class ExpandableListData {
             PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context!!)
         if (kanaSurahAyahnew != null) {
             for (nasbEntity: NewNasbEntity? in kanaSurahAyahnew) {
-                if (nasbEntity != null) {
+         /*       if (nasbEntity != null) {
                     if (nasbEntity.surah == 3 && nasbEntity.ayah == 118) {
                         //System.out.println("CHECK");
                     }
-                }
+                }*/
                 if (dark) {
                     Constant.harfinnaspanDark = ForegroundColorSpan(Color.GREEN)
                     Constant.harfismspanDark = ForegroundColorSpan(Constant.BCYAN)
@@ -154,7 +150,7 @@ class ExpandableListData {
                 val ismendindex: Int = nasbEntity.ismend
                 val khabarstartindex: Int = nasbEntity.khabarstart
                 val khabarendindex: Int = nasbEntity.khabarend
-                val quranverses: String? = corpusSurahWord!!.get(0).qurantext
+                val quranverses: String? = corpusSurahWord!![0].qurantext
 
                 harfofverse = quranverses!!.substring(indexstart, indexend)
 
@@ -178,7 +174,7 @@ class ExpandableListData {
                 val jawabEword: Int = nasbEntity.khabarendwordno
                 val sb: StringBuilder  = StringBuilder ()
                 val khabarsb: StringBuilder  = StringBuilder ()
-                val tb: TextBorderSpan = TextBorderSpan()
+                val tb = TextBorderSpan()
                 val iscolored: Boolean = false
                 val spannable: SpannableString  = SpannableString (quranverses)
                 var harfspannble: SpannableString
@@ -229,31 +225,29 @@ class ExpandableListData {
                     }
                     if (isismkhabarconnected == 1) {
                         val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                            corpusSurahWord!!.get(0).surah,
-                            corpusSurahWord!!.get(0).ayah, harfword, jawabEword
+                            corpusSurahWord!![0].surah,
+                            corpusSurahWord!![0].ayah, harfword, jawabEword
                         )
                         if (list != null) {
                             for (w: wbwentity?  in list) {
                                 String ()
-                                var temp: StringBuilder
-                                temp = getSelectedTranslation(w!!)
+                                var temp: StringBuilder = getSelectedTranslation(w!!)
                                 sb.append(temp).append(" ")
                             }
                         }
                     } else {
                         val wbwayah:  List<wbwentity?>? = utils!!.getwbwQuranBySurahAyah(
-                            corpusSurahWord!!.get(0).surah, corpusSurahWord!!.get(0).ayah
+                            corpusSurahWord!![0].surah, corpusSurahWord!![0].ayah
                         )
                         if (wbwayah != null) {
                             for (w: wbwentity?  in wbwayah) {
                                 String ()
-                                var temp: StringBuilder
-                                temp = getSelectedTranslation(w!!)
+                                var temp: StringBuilder = getSelectedTranslation(w!!)
                                 if (w.wordno == harfword) {
                                     sb.append(temp).append(" ")
-                                } else if (w.wordno >= shartSword && w.wordno <= shartEword) {
+                                } else if (w.wordno in shartSword..shartEword) {
                                     sb.append(temp).append(" ")
-                                } else if (w.wordno >= jawbSword && w.wordno <= jawabEword) {
+                                } else if (w.wordno in jawbSword..jawabEword) {
                                     //     sb. append("... ");
                                     khabarsb.append(temp).append(" ")
                                 }
@@ -287,26 +281,25 @@ class ExpandableListData {
                     val wordfrom: Int = nasbEntity.harfwordno
                     var wordto: Int
                     val split: Array<String> =
-                        khabarofverse.split("\\s".toRegex()).dropLastWhile({ it.isEmpty() })
+                        khabarofverse.split("\\s".toRegex()).dropLastWhile { it.isEmpty() }
                             .toTypedArray()
-                    if (split.size == 1) {
-                        wordto = nasbEntity.khabarstartwordno
+                    wordto = if (split.size == 1) {
+                        nasbEntity.khabarstartwordno
                     } else {
-                        wordto = nasbEntity.khabarendwordno
+                        nasbEntity.khabarendwordno
                     }
                     val isconnected: Int = nasbEntity.khabarstart - nasbEntity.indexend
                     if (isconnected == 1) {
                         val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                            corpusSurahWord!!.get(0).surah,
-                            corpusSurahWord!!.get(0).ayah,
+                            corpusSurahWord!![0].surah,
+                            corpusSurahWord!![0].ayah,
                             wordfrom,
                             wordto
                         )
                         if (list != null) {
                             for (w: wbwentity? in list) {
                                 String ()
-                                var temp: StringBuilder
-                                temp = getSelectedTranslation(w!!)
+                                var temp: StringBuilder = getSelectedTranslation(w!!)
                                 sb.append(temp).append(" ")
                             }
                         }
@@ -314,8 +307,8 @@ class ExpandableListData {
                     } else {
                         val wordfroms: Int = nasbEntity.harfwordno
                         val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                            corpusSurahWord!!.get(0).surah,
-                            corpusSurahWord!!.get(0).ayah,
+                            corpusSurahWord!![0].surah,
+                            corpusSurahWord!![0].ayah,
                             wordfrom,
                             wordfroms
                         )
@@ -325,27 +318,26 @@ class ExpandableListData {
                             to = from
                         }
                         if (list != null) {
-                            sb.append(list.get(0)!!.en).append(".......")
+                            sb.append(list[0]!!.en).append(".......")
                         }
                         when (whichwbw) {
                             "en" -> if (list != null) {
-                                sb.append(list.get(0)!!.en).append(".......")
+                                sb.append(list[0]!!.en).append(".......")
                             }
                             "ur" -> sb.append(list?.get(0)!!.ur).append(".......")
                             "bn" -> sb.append(list?.get(0)!!.bn).append(".......")
                             "id" -> sb.append(list?.get(0)!!.id).append(".......")
                         }
                         val lists: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                            corpusSurahWord!!.get(0).surah,
-                            corpusSurahWord!!.get(0).ayah,
+                            corpusSurahWord!![0].surah,
+                            corpusSurahWord!![0].ayah,
                             from,
                             to
                         )
                         if (lists != null) {
                             for (w: wbwentity? in lists) {
                                 String ()
-                                var temp: StringBuilder
-                                temp = getSelectedTranslation(w!!)
+                                var temp: StringBuilder = getSelectedTranslation(w!!)
                                 sb.append(temp).append(" ")
                             }
                         }
@@ -370,7 +362,7 @@ class ExpandableListData {
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                     )
                     val charSequences: CharSequence =
-                        TextUtils.concat(harfspannble, " " + harfismspannable)
+                        TextUtils.concat(harfspannble, " $harfismspannable")
                     hasbarray.add(SpannableString .valueOf(charSequences))
                     //    kanaarray.add(SpannableString .valueOf(charSequence));
                     val ssb: StringBuilder=StringBuilder()
@@ -381,23 +373,22 @@ class ExpandableListData {
                     val wordto: Int = nasbEntity.ismendwordno
                     if (ismconnected == 1) {
                         val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                            corpusSurahWord!!.get(0).surah,
-                            corpusSurahWord!!.get(0).ayah,
+                            corpusSurahWord!![0].surah,
+                            corpusSurahWord!![0].ayah,
                             wordfrom,
                             wordto
                         )
                         for (w: wbwentity? in list!!) {
                             String ()
-                            var temp: StringBuilder
-                            temp = getSelectedTranslation(w!!)
+                            var temp: StringBuilder = getSelectedTranslation(w!!)
                             sb.append(temp).append(" ")
                         }
                         hasbarray.add(SpannableString .valueOf(sb.toString()))
                     } else {
                         val wordfroms: Int = nasbEntity.harfwordno
                         val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                            corpusSurahWord!!.get(0).surah,
-                            corpusSurahWord!!.get(0).ayah,
+                            corpusSurahWord!![0].surah,
+                            corpusSurahWord!![0].ayah,
                             wordfroms,
                             wordfroms
                         )
@@ -407,28 +398,26 @@ class ExpandableListData {
                         val ismto: Int = nasbEntity.ismendwordno
                         //     sb.append(list.get(0).en).append("----");
                         val harf: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                            corpusSurahWord!!.get(0).surah,
-                            corpusSurahWord!!.get(0).ayah,
+                            corpusSurahWord!![0].surah,
+                            corpusSurahWord!![0].ayah,
                             from,
                             from
                         )
                         val ism: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                            corpusSurahWord!!.get(0).surah,
-                            corpusSurahWord!!.get(0).ayah,
+                            corpusSurahWord!![0].surah,
+                            corpusSurahWord!![0].ayah,
                             ismfrom,
                             ismto
                         )
                         for (w: wbwentity? in harf!!) {
                             String ()
-                            var temp: StringBuilder
-                            temp = getSelectedTranslation(w!!)
+                            var temp: StringBuilder = getSelectedTranslation(w!!)
                             sb.append(temp).append(" ")
                         }
                         sb.append(".....")
                         for (w: wbwentity? in ism!!) {
                             String ()
-                            var temp: StringBuilder
-                            temp = getSelectedTranslation(w!!)
+                            var temp: StringBuilder = getSelectedTranslation(w!!)
                             sb.append(temp).append(" ")
                         }
                         hasbarray.add(SpannableString .valueOf(sb.toString()))
@@ -445,27 +434,27 @@ class ExpandableListData {
                     hasbarray.add(SpannableString .valueOf(charSequence))
                     val wordfroms: Int = nasbEntity.harfwordno
                     val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                        corpusSurahWord!!.get(0).surah,
-                        corpusSurahWord!!.get(0).ayah,
+                        corpusSurahWord!![0].surah,
+                        corpusSurahWord!![0].ayah,
                         wordfroms,
                         wordfroms
                     )
                     val sbss: StringBuffer = StringBuffer()
                     if ((whichwbw == "en")) {
                         if (list != null) {
-                            sbss.append(list.get(0)!!.en).append(".......")
+                            sbss.append(list[0]!!.en).append(".......")
                         }
                     } else if ((whichwbw == "ur")) {
                         if (list != null) {
-                            sbss.append(list.get(0)!!.ur).append(".......")
+                            sbss.append(list[0]!!.ur).append(".......")
                         }
                     } else if ((whichwbw == "bn")) {
                         if (list != null) {
-                            sbss.append(list.get(0)!!.bn).append(".......")
+                            sbss.append(list[0]!!.bn).append(".......")
                         }
                     } else if ((whichwbw == "id")) {
                         if (list != null) {
-                            sbss.append(list.get(0)!!.id).append(".......")
+                            sbss.append(list[0]!!.id).append(".......")
                         }
                     }
                     hasbarray.add(SpannableString .valueOf(sbss))
@@ -509,17 +498,17 @@ class ExpandableListData {
                 var ismofverse: String
                 var khabarofverse: String
                 val start: Int = kana!!.indexstart
-                val end: Int = kana!!.indexend
-                val isstart: Int = kana!!.ismkanastart
-                val issend: Int = kana!!.ismkanaend
-                val khabarstart: Int = kana!!.khabarstart
-                val khabarend: Int = kana!!.khabarend
-                val quranverses: String? = corpusSurahWord!!.get(0).qurantext
+                val end: Int = kana.indexend
+                val isstart: Int = kana.ismkanastart
+                val issend: Int = kana.ismkanaend
+                val khabarstart: Int = kana.khabarstart
+                val khabarend: Int = kana.khabarend
+                val quranverses: String? = corpusSurahWord!![0].qurantext
                 harfofverse = quranverses!!.substring(start, end)
-                if (issend > isstart) {
-                    ismofverse = quranverses.substring(isstart, issend)
+                ismofverse = if (issend > isstart) {
+                    quranverses.substring(isstart, issend)
                 } else {
-                    ismofverse = ""
+                    ""
                 }
                 khabarofverse = quranverses.substring(khabarstart, khabarend)
                 val isharfb: Boolean = start >= 0 && end > 0
@@ -589,15 +578,14 @@ class ExpandableListData {
                         val wordfrom: Int = kana.harfwordno
                         val wordto: Int = kana.khabarendwordno
                         val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                            corpusSurahWord!!.get(0).surah,
-                            corpusSurahWord!!.get(0).ayah,
+                            corpusSurahWord!![0].surah,
+                            corpusSurahWord!![0].ayah,
                             wordfrom,
                             wordto
                         )
                         for (w: wbwentity? in list!!) {
                             String ()
-                            var temp: StringBuilder
-                            temp = getSelectedTranslation(w!!)
+                            var temp: StringBuilder = getSelectedTranslation(w!!)
                             sb.append(temp).append(" ")
                         }
                     } else {
@@ -607,17 +595,16 @@ class ExpandableListData {
                         val khabarendword: Int = kana.khabarendwordno
                         val ismendword: Int = kana.ismendword
                         val wbwayah: List<wbwentity?>? = utils!!.getwbwQuranBySurahAyah(
-                            corpusSurahWord!!.get(0).surah, corpusSurahWord!!.get(0).ayah
+                            corpusSurahWord!![0].surah, corpusSurahWord!![0].ayah
                         )
                         for (w: wbwentity? in wbwayah!!) {
                             StringBuilder ()
-                            var temp: StringBuilder
-                            temp = getSelectedTranslation(w!!)
+                            var temp: StringBuilder = getSelectedTranslation(w!!)
                             if (w.wordno == harfword) {
                                 sb.append(temp.append(" "))
-                            } else if (w.wordno >= ismSword && w.wordno <= ismEword) {
+                            } else if (w.wordno in ismSword..ismEword) {
                                 sb.append(temp).append(" ")
-                            } else if (w.wordno >= khabarSword && w.wordno <= habarEword) {
+                            } else if (w.wordno in khabarSword..habarEword) {
                                 ismorkhabarsb.append(temp).append(" ")
                             }
                         }
@@ -657,33 +644,32 @@ class ExpandableListData {
                     val wordfrom: Int = kana.harfwordno
                     var wordto: Int
                     val split: Array<String> =
-                        khabarofverse.split("\\s".toRegex()).dropLastWhile({ it.isEmpty() })
+                        khabarofverse.split("\\s".toRegex()).dropLastWhile { it.isEmpty() }
                             .toTypedArray()
-                    if (split.size == 1) {
-                        wordto = kana.khabarstartwordno
+                    wordto = if (split.size == 1) {
+                        kana.khabarstartwordno
                     } else {
-                        wordto = kana.khabarendwordno
+                        kana.khabarendwordno
                     }
                     val isconnected: Int = kana.khabarstartwordno - kana.harfwordno
                     if (isconnected == 1) {
                         val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                            corpusSurahWord!!.get(0).surah,
-                            corpusSurahWord!!.get(0).ayah,
+                            corpusSurahWord!![0].surah,
+                            corpusSurahWord!![0].ayah,
                             wordfrom,
                             wordto
                         )
                         for (w: wbwentity? in list!!) {
                             String ()
-                            var temp: StringBuilder
-                            temp = getSelectedTranslation(w!!)
+                            var temp: StringBuilder = getSelectedTranslation(w!!)
                             sb.append(temp).append(" ")
                         }
                         kanaarray.add(SpannableString .valueOf(sb.toString()))
                     } else {
                         val wordfroms: Int = kana.harfwordno
                         val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                            corpusSurahWord!!.get(0).surah,
-                            corpusSurahWord!!.get(0).ayah,
+                            corpusSurahWord!![0].surah,
+                            corpusSurahWord!![0].ayah,
                             wordfrom,
                             wordfroms
                         )
@@ -693,25 +679,24 @@ class ExpandableListData {
                             to = from
                         }
                         if ((whichwbw == "en")) {
-                            sb.append(list!!.get(0)!!.en).append(".......")
+                            sb.append(list!![0]!!.en).append(".......")
                         } else if ((whichwbw == "ur")) {
-                            sb.append(list!!.get(0)!!.ur).append(".......")
+                            sb.append(list!![0]!!.ur).append(".......")
                         } else if ((whichwbw == "bn")) {
-                            sb.append(list!!.get(0)!!.bn).append(".......")
+                            sb.append(list!![0]!!.bn).append(".......")
                         } else if ((whichwbw == "id")) {
-                            sb.append(list!!.get(0)!!.id  ).append(".......")
+                            sb.append(list!![0]!!.id  ).append(".......")
                         }
                         //    sb.append(list).append("----");
                         val lists: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                            corpusSurahWord!!.get(0).surah,
-                            corpusSurahWord!!.get(0).ayah,
+                            corpusSurahWord!![0].surah,
+                            corpusSurahWord!![0].ayah,
                             from,
                             to
                         )
                         for (w: wbwentity?  in list!! ) {
                             String ()
-                            var temp: StringBuilder
-                            temp = getSelectedTranslation(w!!)
+                            var temp: StringBuilder = getSelectedTranslation(w!!)
                             sb.append(temp).append(" ")
                         }
                         kanaarray.add(SpannableString .valueOf(sb.toString()))
@@ -741,7 +726,7 @@ class ExpandableListData {
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                     )
                     val charSequences: CharSequence =
-                        TextUtils.concat(harfspannble, " " + harfismspannable)
+                        TextUtils.concat(harfspannble, " $harfismspannable")
                     kanaarray.add(SpannableString .valueOf(charSequences))
                     //    kanaarray.add(SpannableString .valueOf(charSequence));
                     val sb: StringBuilder=StringBuilder()
@@ -753,15 +738,14 @@ class ExpandableListData {
                     val wordto: Int = kana.ismwordo
                     if (ismconnected == 1) {
                         val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                            corpusSurahWord!!.get(0).surah,
-                            corpusSurahWord!!.get(0).ayah,
+                            corpusSurahWord!![0].surah,
+                            corpusSurahWord!![0].ayah,
                             wordfrom,
                             wordto
                         )
                         for (w: wbwentity?  in list!!) {
                             String ()
-                            var temp: StringBuilder
-                            temp = getSelectedTranslation(w!!)
+                            var temp: StringBuilder = getSelectedTranslation(w!!)
                             sb.append(temp).append(" ")
                         }
                         kanaarray.add(SpannableString .valueOf(sb.toString()))
@@ -769,15 +753,14 @@ class ExpandableListData {
                         val wordfroms: Int = kana.harfwordno
                         //  List<wbwentity?>? list = utils.getwbwQuranbTranslation(corpusSurahWord.get(0).surah, corpusSurahWord.get(0).ayah, wordfroms, wordfroms);
                         val wbwayah: List<wbwentity?>? = utils!!.getwbwQuranBySurahAyah(
-                            corpusSurahWord!!.get(0).surah, corpusSurahWord!!.get(0).ayah
+                            corpusSurahWord!![0].surah, corpusSurahWord!![0].ayah
                         )
                         for (w: wbwentity? in wbwayah!!) {
                             String ()
-                            var temp: StringBuilder
-                            temp = getSelectedTranslation(w!!)
+                            var temp: StringBuilder = getSelectedTranslation(w!!)
                             if (w.wordno == harfword) {
                                 sb.append(temp).append(" ")
-                            } else if (w.wordno >= ismSword && w.wordno <= ismEword) {
+                            } else if (w.wordno in ismSword..ismEword) {
                                 ismorkhabarsb.append(temp).append(" ")
                             }
                         }
@@ -799,8 +782,8 @@ class ExpandableListData {
                     kanaarray.add(SpannableString .valueOf(charSequence))
                     val wordfroms: Int = kana.harfwordno
                     val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                        corpusSurahWord!!.get(0).surah,
-                        corpusSurahWord!!.get(0).ayah,
+                        corpusSurahWord!![0].surah,
+                        corpusSurahWord!![0].ayah,
                         wordfroms,
                         wordfroms
                     )
@@ -835,7 +818,7 @@ class ExpandableListData {
                 }
 
                 //   sifaspansDark = new BackgroundColorSpan(WBURNTUMBER);
-                val quranverses: String? = corpusSurahWord!!.get(0).qurantext
+                val quranverses: String? = corpusSurahWord!![0].qurantext
                 val spannable: SpannableString  = SpannableString (quranverses)
                 try {
                     shartEntity?.let {
@@ -860,20 +843,19 @@ class ExpandableListData {
                 val wordfrom: Int = shartEntity.wordno - 1
                 val wordto: Int = shartEntity.wordno
                 val strings: Array<String> =
-                    sequence.toString().split("\\s".toRegex()).dropLastWhile({ it.isEmpty() })
+                    sequence.toString().split("\\s".toRegex()).dropLastWhile { it.isEmpty() }
                         .toTypedArray()
                 val ssb: StringBuilder=StringBuilder()
                 val sb: StringBuilder=StringBuilder()
                 val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                    corpusSurahWord!!.get(0).surah,
-                    corpusSurahWord!!.get(0).ayah,
+                    corpusSurahWord!![0].surah,
+                    corpusSurahWord!![0].ayah,
                     wordfrom,
                     wordto
                 )
                 for (w: wbwentity?  in list!!) {
                     String ()
-                    var temp: StringBuilder
-                    temp = getSelectedTranslation(w!!)
+                    var temp: StringBuilder = getSelectedTranslation(w!!)
                     ssb.append(temp).append(" ")
                 }
                 mausoofsifaarray.add(SpannableString .valueOf(ssb.toString()))
@@ -897,7 +879,7 @@ class ExpandableListData {
             } else {
                 Constant.mudhafspansDark = BackgroundColorSpan(Constant.GREENYELLOW)
             }
-            val quranverses: String? = corpusSurahWord!!.get(0).qurantext
+            val quranverses: String? = corpusSurahWord!![0].qurantext
             val spannable: SpannableString  = SpannableString (quranverses)
             if (mudhafEntity != null) {
                 spannable.setSpan(
@@ -914,27 +896,26 @@ class ExpandableListData {
             val wordfrom: Int = mudhafEntity.wordfrom
             val wordto: Int = mudhafEntity.wordto
             val strings: Array<String> =
-                sequence.toString().split("\\s".toRegex()).dropLastWhile({ it.isEmpty() })
+                sequence.toString().split("\\s".toRegex()).dropLastWhile { it.isEmpty() }
                     .toTypedArray()
             val ssb: StringBuilder=StringBuilder()
             if (strings.size == 2) {
                 val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                    corpusSurahWord!!.get(0).surah,
-                    corpusSurahWord!!.get(0).ayah,
+                    corpusSurahWord!![0].surah,
+                    corpusSurahWord!![0].ayah,
                     wordfrom,
                     wordto
                 )
                 for (w: wbwentity?  in list!!) {
                     String ()
-                    var temp: StringBuilder
-                    temp = getSelectedTranslation(w!!)
+                    var temp: StringBuilder = getSelectedTranslation(w!!)
                     ssb.append(temp).append(" ")
                 }
                 mudhafarray.add(SpannableString .valueOf(ssb.toString()))
             } else {
                 val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                    corpusSurahWord!!.get(0).surah,
-                    corpusSurahWord!!.get(0).ayah,
+                    corpusSurahWord!![0].surah,
+                    corpusSurahWord!![0].ayah,
                     wordto,
                     wordto
                 )
@@ -956,7 +937,7 @@ class ExpandableListData {
     }
 
     private fun newSetShart(shartarray: MutableList<SpannableString >) {
-        val quranverses: String? = corpusSurahWord!!.get(0).qurantext
+        val quranverses: String? = corpusSurahWord!![0].qurantext
         val shart: List<NewShartEntity?>? = utils!!.getShartSurahAyahNew(chapterid, ayanumber)
         val kanaSurahAyahnew: List<NewNasbEntity?>? =
             utils!!.getHarfNasbIndSurahAyahSnew(chapterid, ayanumber)
@@ -973,7 +954,7 @@ class ExpandableListData {
             )
         val quranFont: String? = sharedPreferences.getString("quranFont", "kitab.ttf")
         val mequran: Typeface =
-            Typeface.createFromAsset(QuranGrammarApplication.context!!.getAssets(), quranFont)
+            Typeface.createFromAsset(QuranGrammarApplication.context!!.assets, quranFont)
         if (shart != null) {
             for (shartEntity: NewShartEntity? in shart) {
                 var harfofverse: String
@@ -992,8 +973,8 @@ class ExpandableListData {
                 val jawbSword: Int = shartEntity.jawabstartwordno
                 val jawabEword: Int = shartEntity.jawabendwordno
                 harfofverse = quranverses!!.substring(indexstart, indexend)
-                shartofverse = quranverses!!.substring(shartindexstart, shartindexend)
-                jawabofverrse = quranverses!!.substring(jawabstart, jawabend)
+                shartofverse = quranverses.substring(shartindexstart, shartindexend)
+                jawabofverrse = quranverses.substring(jawabstart, jawabend)
                 val isharfb: Boolean = indexstart >= 0 && indexend > 0
                 val isshart: Boolean = shartindexstart >= 0 && shartindexend > 0
                 val isjawab: Boolean = jawabstart >= 0 && jawabend > 0
@@ -1051,36 +1032,34 @@ class ExpandableListData {
                         TextUtils.concat(harfspannble, " ", shartspoannable)
                     val charsequencejawabshart: CharSequence = TextUtils.concat(jawabshartspannable)
                     val trstr: SpannableString  =
-                        getFragmentTranslations(quranverses, sb, charSequence, false)
+                        getFragmentTranslations(quranverses, charSequence)
                     shartarray.add(SpannableString .valueOf(charSequence))
                     val connected: Int = jawabstart - shartindexend
                     val trstr1: SpannableString ? = null
                     val trstr2: SpannableString ? = null
                     if (connected == 1) {
                         val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                            corpusSurahWord!!.get(0).surah,
-                            corpusSurahWord!!.get(0).ayah, harfword, jawabEword
+                            corpusSurahWord!![0].surah,
+                            corpusSurahWord!![0].ayah, harfword, jawabEword
                         )
                         for (w: wbwentity?  in list!!) {
-                            var temp: StringBuilder
-                            temp = getSelectedTranslation(w!!)
+                            var temp: StringBuilder = getSelectedTranslation(w!!)
                             sb.append(temp).append(" ")
                         }
                         //    trstr1 = getFragmentTranslations(quranverses, sb, charSequence, false);
                         shartarray.add(SpannableString .valueOf(sb.toString()))
                     } else {
                         val wbwayah: List<wbwentity?>? = utils!!.getwbwQuranBySurahAyah(
-                            corpusSurahWord!!.get(0).surah, corpusSurahWord!!.get(0).ayah
+                            corpusSurahWord!![0].surah, corpusSurahWord!![0].ayah
                         )
                         if (wbwayah != null) {
                             for (w: wbwentity? in wbwayah) {
-                                var temp: StringBuilder
-                                temp = getSelectedTranslation(w!!)
+                                var temp: StringBuilder = getSelectedTranslation(w!!)
                                 if (w.wordno == harfword) {
                                     sb.append(temp).append(" ")
-                                } else if (w.wordno >= shartSword && w.wordno <= shartEword) {
+                                } else if (w.wordno in shartSword..shartEword) {
                                     sb.append(temp).append(" ")
-                                } else if (w.wordno >= jawbSword && w.wordno <= jawabEword) {
+                                } else if (w.wordno in jawbSword..jawabEword) {
                                     //     sb. append("... ");
                                     sbjawab.append(temp).append(" ")
                                 }
@@ -1108,33 +1087,31 @@ class ExpandableListData {
                     val charSequence: CharSequence =
                         TextUtils.concat(harfspannble, " ", shartspoannable)
                     val trstr: SpannableString  =
-                        getFragmentTranslations(quranverses, sb, charSequence, false)
+                        getFragmentTranslations(quranverses, charSequence)
                     shartarray.add(SpannableString .valueOf(charSequence))
                     //    shartarray.add(trstr);
                     if ((shartindexstart - indexend) == 1) {
                         val harfnshart: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-                            corpusSurahWord!!.get(0).surah,
-                            corpusSurahWord!!.get(0).ayah,
+                            corpusSurahWord!![0].surah,
+                            corpusSurahWord!![0].ayah,
                             harfword,
                             shartEword
                         )
                         for (w: wbwentity? in harfnshart!!) {
                             String ()
-                            var temp: StringBuilder
-                            temp = getSelectedTranslation(w!!)
-                            getSelectedTranslation(w!!)
+                            var temp: StringBuilder = getSelectedTranslation(w!!)
+                            getSelectedTranslation(w)
                             sb.append(temp).append(" ")
                         }
                     } else {
                         val wbwayah: List<wbwentity?>? = utils!!.getwbwQuranBySurahAyah(
-                            corpusSurahWord!!.get(0).surah, corpusSurahWord!!.get(0).ayah
+                            corpusSurahWord!![0].surah, corpusSurahWord!![0].ayah
                         )
                         for (w: wbwentity? in wbwayah!!) {
-                            var temp: StringBuilder
-                            temp = getSelectedTranslation(w!!)
+                            var temp: StringBuilder = getSelectedTranslation(w!!)
                             if (w.wordno == harfword) {
                                 sb.append(temp).append(" ")
-                            } else if (w.wordno >= shartSword && w.wordno <= shartEword) {
+                            } else if (w.wordno in shartSword..shartEword) {
                                 sb.append(temp).append(" ")
                             }
                         }
@@ -1176,7 +1153,7 @@ class ExpandableListData {
                     )
                     val charSequence: CharSequence = TextUtils.concat(harfspannble)
                     val trstr: SpannableString  =
-                        getFragmentTranslations(quranverses, sb, charSequence, false)
+                        getFragmentTranslations(quranverses, charSequence)
                     shartarray.add(SpannableString .valueOf(charSequence))
                     shartarray.add(trstr)
                 }
@@ -1185,26 +1162,23 @@ class ExpandableListData {
     }
 
 
-
     private fun getFragmentTranslations(
         quranverses: String,
-        sb: StringBuilder,
-        charSequence: CharSequence,
-        ismudhaf: Boolean
-    ): SpannableString  {
+        charSequence: CharSequence
+    ): SpannableString {
         //get the string firs wordno and last wordno
 
-       var sb = StringBuilder ()
+        val sb = StringBuilder()
         var firstwordindex: Int = 0
         var lastwordindex: Int = 0
         val versesSplitIntoWords: SplitQuranVerses = SplitQuranVerses()
         val words: ArrayList<Word> = versesSplitIntoWords.splitSingleVerse(quranverses)
-        val trim: String = charSequence.toString().trim({ it <= ' ' })
+        val trim: String = charSequence.toString().trim { it <= ' ' }
         val strings: Array<String> =
-            trim.split("\\s".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+            trim.split("\\s".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val length: Int = strings.size
-        val firstword: String = strings.get(0)
-        val lastword: String = strings.get(length - 1)
+        val firstword: String = strings[0]
+        val lastword: String = strings[length - 1]
         for (w: Word in words) {
             val wordsAr: String? = w.wordsAr
             if ((w.wordsAr == firstword)) {
@@ -1238,13 +1212,13 @@ class ExpandableListData {
             }
         }
         val list: List<wbwentity?>? = utils!!.getwbwQuranbTranslation(
-            corpusSurahWord!!.get(0).surah,
-            corpusSurahWord!!.get(0).ayah,
+            corpusSurahWord!![0].surah,
+            corpusSurahWord!![0].ayah,
             firstwordindex,
             lastwordindex
         )
         val translation: String = ""
-        for (tr: wbwentity?  in list!!) {
+        for (tr: wbwentity? in list!!) {
             if (tr != null) {
                 getSelectedTranslation(tr)
             }
@@ -1252,8 +1226,7 @@ class ExpandableListData {
                 sb.append(tr.en).append(" ")
             }
         }
-        val trstr: SpannableString  = SpannableString (sb)
-        return trstr
+        return SpannableString(sb)
     }
 
     val kana: List<SpannableString >

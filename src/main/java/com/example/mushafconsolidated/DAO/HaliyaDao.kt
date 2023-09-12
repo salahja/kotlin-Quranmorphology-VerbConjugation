@@ -10,5 +10,5 @@ interface HaliyaDao {
     fun getHaliya(surah: Int, ayah: Int): List<HalEnt>?
 
     @Query("SELECT * FROM jumlahaliy where surah=:surah and status=1")
-    fun getHaliyaSurah(surah: Int): List<HalEnt>?
+    fun getHaliyaSurah(surah: Int): List<HalEnt>
 }

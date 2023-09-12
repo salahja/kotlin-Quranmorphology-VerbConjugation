@@ -12,8 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.Entities.BookMarks
@@ -43,10 +41,6 @@ class BookmarksShowAdapter : RecyclerView.Adapter<BookmarksShowAdapter.ViewHolde
         BookmarksShowAdapterContext = context
     }
 
-    constructor(activity: FragmentActivity?, bookMarksNew: List<BookMarks?>?){
-        BookmarksShowAdapterContext = activity
-        this.bookMarksNew=bookMarksNew
-    }
 
     public override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -141,7 +135,7 @@ class BookmarksShowAdapter : RecyclerView.Adapter<BookmarksShowAdapter.ViewHolde
         val suraName: TextView
         val verseno: TextView
         val surahicon: ImageView
-        val cardView: CardView
+        //val cardView: CardView
         var chapterno: TextView
         val header: TextView
 
@@ -150,7 +144,7 @@ class BookmarksShowAdapter : RecyclerView.Adapter<BookmarksShowAdapter.ViewHolde
             itemView.setOnClickListener(this)
             header = view.findViewById(R.id.header)
             surahicon = view.findViewById(R.id.surahicon)
-            cardView = view.findViewById(R.id.cardview)
+          //  cardView = view.findViewById(R.id.cardview)
             datestamp = view.findViewById(R.id.date)
             chapterno = view.findViewById(R.id.chapterno)
             suraName = view.findViewById<View>(R.id.surahname) as TextView

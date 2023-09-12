@@ -26,7 +26,7 @@ import org.sj.verbConjugation.trilateral.unaugmented.modifier.UnaugmentedTrilate
 import org.sj.verbConjugation.trilateral.unaugmented.passive.PassivePastConjugator
 import org.sj.verbConjugation.trilateral.unaugmented.passive.PassivePresentConjugator
 import org.sj.verbConjugation.util.KovRulesManager
-import org.sj.verbConjugation.util.SarfDictionary
+import org.sj.verbConjugation.util.OSarfDictionary
 
 class GatherAll {
     fun getMujarradListing(
@@ -75,7 +75,7 @@ class GatherAll {
         val c3 = verbroot[2]
         val rule = KovRulesManager.instance.getTrilateralKovRule(c1, c2, c3)
         val unaugmentedTrilateralRoot =
-            SarfDictionary.instance.getUnaugmentedTrilateralRoots(verbroot, unaugmentedFormula)
+            OSarfDictionary.instance.getUnaugmentedTrilateralRoots(verbroot, unaugmentedFormula)
         /*
     "A" -> "مَفْعَل"
 "B" -> "مَفْعِل"
@@ -148,7 +148,7 @@ class GatherAll {
         val c3 = verbroot[2]
         val rule = KovRulesManager.instance.getTrilateralKovRule(c1, c2, c3)
         val unaugmentedTrilateralRoot =
-            SarfDictionary.instance.getUnaugmentedTrilateralRoots(verbroot, unaugmentedFormula)
+            OSarfDictionary.instance.getUnaugmentedTrilateralRoots(verbroot, unaugmentedFormula)
         if (unaugmentedTrilateralRoot != null) {
             val conjugator = StandardInstrumentalConjugator.instance
             val modifier = InstrumentalModifier.instance
@@ -203,7 +203,7 @@ class GatherAll {
         val c3 = verbroot[2]
         val rule = KovRulesManager.instance.getTrilateralKovRule(c1, c2, c3)
         val unaugmentedTrilateralRoot =
-            SarfDictionary.instance.getUnaugmentedTrilateralRoots(verbroot, unaugmentedFormula)
+            OSarfDictionary.instance.getUnaugmentedTrilateralRoots(verbroot, unaugmentedFormula)
         //ismfale and ismmafool
         val conjugatedIsmFael =
             UnaugmentedTrilateralActiveParticipleConjugator.instance.createNounList(
@@ -264,7 +264,7 @@ class GatherAll {
         var mudharaymajhool: List<*>? = null
         val rule = KovRulesManager.instance.getTrilateralKovRule(c1, c2, c3)
         val unaugmentedTrilateralRoot =
-            SarfDictionary.instance.getUnaugmentedTrilateralRoots(verbroot)
+            OSarfDictionary.instance.getUnaugmentedTrilateralRoots(verbroot)
         if (unaugmentedTrilateralRoot != null) {
             //   madhi = org.sj.verb.trilateral.unaugmented.active.ActivePastConjugator.instance.createVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
             madhi = ActivePastConjugator.instance.createVerbList(unaugmentedTrilateralRoot)
@@ -542,7 +542,7 @@ class GatherAll {
         var mudharaymajhool: List<*>? = null
         val rule = KovRulesManager.instance.getTrilateralKovRule(c1!!, c2!!, c3!!)
         val unaugmentedTrilateralRoot =
-            SarfDictionary.instance.getUnaugmentedTrilateralRoots(verbroot, unaugmentedFormula)
+            OSarfDictionary.instance.getUnaugmentedTrilateralRoots(verbroot, unaugmentedFormula)
         if (unaugmentedTrilateralRoot != null) {
             //   madhi = org.sj.verb.trilateral.unaugmented.active.ActivePastConjugator.instance.createVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
             madhi = ActivePastConjugator.instance.createVerbList(unaugmentedTrilateralRoot)
@@ -825,7 +825,7 @@ class GatherAll {
         augmentedFormula: String
     ): ArrayList<ArrayList<*>> {
         val augmentedRoot =
-            SarfDictionary.instance.getAugmentedTrilateralRoot(verbroot, augmentedFormula)
+            OSarfDictionary.instance.getAugmentedTrilateralRoot(verbroot, augmentedFormula)
         var ismfael: List<*>
         var ismmafool: List<*>
         var madhimajhool: List<*>
@@ -1067,7 +1067,7 @@ class GatherAll {
     }
 
     private fun buildAugmentedLists(verbmood: String, verbroot: String): ArrayList<ArrayList<*>> {
-        val augmentedRoot = SarfDictionary.instance.getAugmentedTrilateralRoot(verbroot)
+        val augmentedRoot = OSarfDictionary.instance.getAugmentedTrilateralRoot(verbroot)
         var ismfael: List<*>
         var ismmafool: List<*>
         var madhimajhool: List<*>
@@ -1292,7 +1292,7 @@ class GatherAll {
             }
         }
         val augmentedRoot =
-            SarfDictionary.instance.getAugmentedTrilateralRoot(verbroot, augmentedFormula)
+            OSarfDictionary.instance.getAugmentedTrilateralRoot(verbroot, augmentedFormula)
         var ismfael: List<*>?
         var ismmafool: List<*>?
         val skabeer = ArrayList<ArrayList<*>>()

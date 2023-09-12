@@ -11,10 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mushafconsolidated.DAO.BookMarksPojo
+import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.example.utility.PreferenceUtil
@@ -35,7 +34,7 @@ class CollectionShowAdapter : RecyclerView.Adapter<CollectionShowAdapter.ViewHol
     val surahName: String? = null
     val bookChapterno: Int = 0
     val bookVerseno: Int = 0
-    var bookMarkArrayList: List<BookMarksPojo?>? = null
+    var bookMarkArrayList: List<BookMarks>? = null
 
     constructor() {}
     constructor(context: Context?) {
@@ -59,7 +58,7 @@ class CollectionShowAdapter : RecyclerView.Adapter<CollectionShowAdapter.ViewHol
 
     public override fun onBindViewHolder(holder: CollectionShowAdapter.ViewHolder, position: Int) {
 
-        val bookMark: BookMarksPojo? = bookMarkArrayList!!.get(position)
+        val bookMark: BookMarks? = bookMarkArrayList!!.get(position)
         holderposition = position
         if (bookMark != null) {
             bookmarid = bookMark.id
@@ -69,7 +68,7 @@ class CollectionShowAdapter : RecyclerView.Adapter<CollectionShowAdapter.ViewHol
         val shared: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context!!)
         val isNightmode: String? = shared.getString("theme", "dark")
-        val chapterno: String = bookMark!!.getChapterno()
+        val chapterno: String = bookMark!!.chapterno.toString()
         if (!chapterno.isEmpty()) {
             val drawable: Drawable? = imgs.getDrawable((chapterno.toInt() - 1))
             holder.pinicon.setImageDrawable(drawable)
@@ -85,10 +84,10 @@ class CollectionShowAdapter : RecyclerView.Adapter<CollectionShowAdapter.ViewHol
             holder.header.setText(bookMark.header + "(" + bookMark.count + " aya;s" + ")")
             //   holder.header.setText(bookMark.getHeader());
         }
-        holder.datestamp.setText(bookMark.getDatetime())
-        holder.suraName.setText(bookMark.getSurahname())
-        holder.chapterno.setText(bookMark.getChapterno())
-        holder.verseno.setText(bookMark.getVerseno() + "")
+       // holder.datestamp.setText(bookMark.getDatetime())
+        holder.suraName.setText(bookMark.surahname)
+        holder.chapterno.setText(bookMark.chapterno.toString())
+        holder.verseno.setText(bookMark.verseno + "")
         val arabicFontSize: Int = shared.getInt("pref_font_arabic_key", 18)
         holder.datestamp.setTextSize(arabicFontSize.toFloat())
         holder.suraName.setTextSize(arabicFontSize.toFloat())
@@ -115,7 +114,7 @@ class CollectionShowAdapter : RecyclerView.Adapter<CollectionShowAdapter.ViewHol
         notifyItemRemoved(position)
     }
 
-    fun getItem(position: Int): BookMarksPojo? {
+    fun getItem(position: Int): BookMarks? {
         return bookMarkArrayList!!.get(position)
     }
 
@@ -131,7 +130,7 @@ class CollectionShowAdapter : RecyclerView.Adapter<CollectionShowAdapter.ViewHol
         val verseno: TextView
         val pinicon: ImageView
         val collectionicon: ImageView
-        val cardView: CardView
+        //val cardView: CardView
         var chapterno: TextView
         var header: TextView
 
@@ -139,7 +138,7 @@ class CollectionShowAdapter : RecyclerView.Adapter<CollectionShowAdapter.ViewHol
             collectionicon = view.findViewById(R.id.bookmark)
             header = view.findViewById(R.id.header)
             pinicon = view.findViewById(R.id.imgview)
-            cardView = view.findViewById(R.id.cardview)
+//            cardView = view.findViewById(R.id.cardview)
             datestamp = view.findViewById(R.id.date)
             chapterno = view.findViewById(R.id.chapterno)
             suraName = view.findViewById<View>(R.id.surahname) as TextView

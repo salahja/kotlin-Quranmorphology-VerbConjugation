@@ -17,5 +17,5 @@ interface liajlihiDao {
     fun getMafoolLiajlihi(surah: Int, ayah: Int, wordno: Int): List<LiajlihiEnt>?
 
     @Query("SELECT * FROM liajlihi where surah=:surah ORDER by surah,ayah")
-    fun getMafoolLiajlihisurah(surah: Int): List<LiajlihiEnt>?
+    fun getMafoolLiajlihisurah(surah: Int): List<LiajlihiEnt>
 }

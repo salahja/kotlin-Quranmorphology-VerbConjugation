@@ -10,11 +10,11 @@ import com.example.mushafconsolidated.Entities.TameezEnt
 @Dao
 interface tameezDao {
     @Query("SELECT * FROM tameez ORDER BY surah,ayah")
-    fun getall(): List<TameezEnt?>?
+    fun getall(): List<TameezEnt>
 
     @Query("SELECT * FROM tameez where surah=:surah Order by surah,ayah")
-    fun getTameezSurah(surah: Int): List<TameezEnt?>?
+    fun getTameezSurah(surah: Int): List<TameezEnt>
 
     @Query("SELECT * FROM tameez where surah=:surah and ayah=:ayah and wordno=:wordno")
-    fun getTameezWord(surah: Int, ayah: Int, wordno: Int): List<TameezEnt?>?
+    fun getTameezWord(surah: Int, ayah: Int, wordno: Int): List<TameezEnt>
 }

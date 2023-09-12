@@ -35,6 +35,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -67,6 +68,7 @@ import com.example.mushafconsolidated.fragments.FlowAyahWordAdapter
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.model.CorpusAyahWord
 import com.example.mushafconsolidated.model.CorpusWbwWord
+import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.example.mushafconsolidated.receiversimport.AudioAppConstants
 import com.example.mushafconsolidated.receiversimport.DownloadService
 import com.example.mushafconsolidated.receiversimport.FileManager
@@ -122,7 +124,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     //  private OnClickListener onClickListener;
     private   var corpusayahWordArrayList: ArrayList<CorpusAyahWord>?=null
-    private   var mafoolbihiwords: ArrayList<MafoolBihi ?>?=null
+    private   var mafoolbihiwords: ArrayList<MafoolBihi>?=null
     private   var Jumlahaliya: ArrayList<HalEnt ?>?=null
     private   var Tammezent: ArrayList<TameezEnt ?>?=null
     private   var Mutlaqent: ArrayList<MafoolMutlaqEnt ?>?=null
@@ -1403,16 +1405,18 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         val builder = AlertDialog.Builder(this, R.style.ThemeOverlay_Material3_Dialog)
         builder.setCancelable(false) // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_dialog)
+        val      mainViewModel = ViewModelProvider(this).get(QuranVIewModel::class.java)
+        mafoolbihiwords = mainViewModel.getMaoolbysurah(surah).value as ArrayList<MafoolBihi>?
         val dialog = builder.create()
         corpusayahWordArrayList = ArrayList()
-        mafoolbihiwords = ArrayList()
+     //   mafoolbihiwords = ArrayList()
         Jumlahaliya = ArrayList()
         Tammezent = ArrayList()
         Liajlihient = ArrayList()
         Jumlahaliya = utils.getHaliaErabBysurah(surah) as ArrayList<HalEnt?>?
         Liajlihient = utils.getMafoolLiajlihisurah(surah) as ArrayList<LiajlihiEnt?>?
         //  mafoolbihiwords =utils.getMafoolBihiErabSurah(surah);
-        mafoolbihiwords = utils.getMafoolBySurah(surah) as ArrayList<MafoolBihi?>?
+      //  mafoolbihiwords = utils.getMafoolBySurah(surah) as ArrayList<MafoolBihi?>?
         Tammezent = utils.getTameezsurah(surah) as ArrayList<TameezEnt?>?
         Mutlaqent = utils.getMutlaqsurah(surah) as ArrayList<MafoolMutlaqEnt?>?
         BadalErabNotesEnt = utils.getBadalrabSurah(surah) as ArrayList<BadalErabNotesEnt?>?

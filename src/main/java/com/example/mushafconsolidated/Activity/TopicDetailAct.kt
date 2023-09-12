@@ -14,6 +14,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.Window
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
@@ -39,6 +40,7 @@ import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.model.CorpusAyahWord
 import com.example.mushafconsolidated.model.CorpusWbwWord
+import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.google.android.material.snackbar.Snackbar
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
@@ -332,8 +334,10 @@ class TopicDetailAct() : BaseActivity(), OnItemClickListenerOnLong {
         en.verseno = verse.toString()
         en.surahname = surahname
         //     Utils utils = new Utils(ReadingSurahPartActivity.this);
-        val utils = Utils(this)
-        utils.insertBookMark(en)
+      //  val utils = Utils(this)
+        val vm: QuranVIewModel by viewModels()
+        vm.Insertbookmark(en)
+       // utils.insertBookMark(en)
         val snackbar = Snackbar
             .make((bookmarkview)!!, "BookMark Created", Snackbar.LENGTH_LONG)
         snackbar.setActionTextColor(Color.BLUE)

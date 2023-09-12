@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +21,7 @@ import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
- 
+import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.example.utility.QuranGrammarApplication
 import com.example.utility.SwipeToDeleteCallback
 import com.google.android.material.snackbar.Snackbar
@@ -33,25 +35,31 @@ class PinsFragment constructor() : Fragment() {
     var layoutManager: RecyclerView.LayoutManager? = null
     private var bookmarksShowAdapter: BookmarksShowAdapter? = null
     private lateinit var mRecview: RecyclerView
+    val vmodel: QuranVIewModel by viewModels()
     public override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         //    View rootView = inflater.inflate(R.layout.activity_collection, container, false);
         val view: View = inflater.inflate(R.layout.fragment_bookmark, container, false)
         val utils: Utils = Utils(getActivity())
-        val bookMarksNew: List<BookMarks?>? = Utils.Companion.getAllBookmarks("pins")
-        val bookMarksNews: List<BookMarks?>? = Utils.Companion.bookMarksNew
-        bookmarksShowAdapter = BookmarksShowAdapter(getActivity(),bookMarksNew)
-        mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation)
-        coordinatorLayout = view.findViewById(R.id.coordinatorLayoutbookmark)
-        layoutManager = LinearLayoutManager(QuranGrammarApplication.context)
-        mRecview.setLayoutManager(layoutManager)
-      //  bookmarksShowAdapter!!.setBookMarkArrayList(bookMarksNew)
 
-        mRecview.setAdapter(bookmarksShowAdapter)
-        enableSwipeToDeleteAndUndo()
+       val vmodel: QuranVIewModel by viewModels()
+        bookmarksShowAdapter = BookmarksShowAdapter(getActivity())
+        vmodel.getBookmarks().observe(viewLifecycleOwner, Observer {
+
+            mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation)
+            coordinatorLayout = view.findViewById(R.id.coordinatorLayoutbookmark)
+            layoutManager = LinearLayoutManager(QuranGrammarApplication.context)
+            mRecview.setLayoutManager(layoutManager)
+            //  bookmarksShowAdapter!!.setBookMarkArrayList(bookMarksNew)
+            bookmarksShowAdapter!!.bookMarkArrayList = it
+            mRecview.setAdapter(bookmarksShowAdapter)
+            enableSwipeToDeleteAndUndo()
+
+        })
+
         return view
     }
 
@@ -80,7 +88,10 @@ class PinsFragment constructor() : Fragment() {
                     snackbar.show()
                     bookmarksShowAdapter!!.bookChapterno
                     //    Utils.deleteBookMarks(item);
-                    Utils.Companion.deleteBookmark(item)
+                    if (item != null) {
+                        vmodel.deletebookmark(item)
+                    }
+                    //Utils.Companion.deleteBookmark(item)
                 }
             }
         val itemTouchhelper: ItemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)

@@ -1,5 +1,6 @@
 package com.example.mushafconsolidated.Adaptersimport
 
+import SharedPref
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.example.mushafconsolidated.model.Juz
-
 import com.example.utility.QuranGrammarApplication
 
 
@@ -20,6 +20,9 @@ import com.example.utility.QuranGrammarApplication
 //public class SurahPartAdap extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 class JuzSurahDisplayAdapter(private val context: Context?, private val JuzArray: List<Juz>) :
     RecyclerView.Adapter<JuzSurahDisplayAdapter.ItemViewAdapter>() {
+
+
+
     var mItemClickListener: OnItemClickListener? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewAdapter {
         val view: View

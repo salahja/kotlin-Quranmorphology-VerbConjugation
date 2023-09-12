@@ -18,28 +18,19 @@ class WbwSurah(
     ruku: LinkedHashMap<Int, ArrayList<CorpusWbwWord>>
 ) {
     private var ruku: LinkedHashMap<Int, ArrayList<CorpusWbwWord>> =
-        LinkedHashMap<Int, ArrayList<CorpusWbwWord>>()
-    var corpusayahWordArrayList: ArrayList<CorpusAyahWord> = ArrayList<CorpusAyahWord>()
+        LinkedHashMap()
+    private var corpusayahWordArrayList: ArrayList<CorpusAyahWord> = ArrayList()
 
     init {
         if (corpusayahWordArrayList != null) {
             this.corpusayahWordArrayList = corpusayahWordArrayList
         }
         this.ruku = ruku
-    }//    final Object o6 = wbwa.get(verseglobal).get(0);
+    }
 
-    //   Object o4 = wbw.get(verseglobal).getWord();
-    //  word.setWordindex(getIndex(wbw.get(verseglobal).getQuranverses()));
-    //    word.setQuranversestr(wbw.get(verseglobal).getQuranverses());
-    //  ayahWord.setSpannableverse(SpannableStringBuilder.valueOf(wbw.get(verseglobal).getQuranverses()));
-    //   word.setWordsAr(ayanno);
-    //    versesnumbers = getVersescount();
     val wordbyword: Unit
 
-    //  ArrayList<CorpusExpandWbwPOJO> wbw = utils.getCorpusWbwBySurahAyahtopic(2,1);
 
-
-        //  ArrayList<MafoolBihi> mafoolbihiquran = utils.getMafoolbihiquran();
         get() {
             val utils = Utils(
                 context
@@ -50,10 +41,7 @@ class WbwSurah(
                 surah
             )
 
-            //  ArrayList<CorpusExpandWbwPOJO> wbw = utils.getCorpusWbwBySurahAyahtopic(2,1);
-
-
-            //  ArrayList<MafoolBihi> mafoolbihiquran = utils.getMafoolbihiquran();
+     //  val     viewModel =  ViewModelProvider(context).get(QuranVIewModel::class.java)
             var verseglobal = 0
             var tempVerseWord: Int
             val verseexit = wbw!!.size
@@ -61,11 +49,11 @@ class WbwSurah(
             var surahid = 0
             val intArray = context.resources.getIntArray(R.array.versescount)
             versesnumbers = intArray[surah - 1]
-            var wordArrayListpassage: ArrayList<CorpusWbwWord> = ArrayList<CorpusWbwWord>()
+            var wordArrayListpassage: ArrayList<CorpusWbwWord> = ArrayList()
             for (indexv in 1..versesnumbers) {
                 tempVerseWord = indexv
                 val ayahWord = CorpusAyahWord()
-                val wordArrayList: ArrayList<CorpusWbwWord> = ArrayList<CorpusWbwWord>()
+                val wordArrayList: ArrayList<CorpusWbwWord> = ArrayList()
                 while (tempVerseWord == indexv) {
                     if (verseexit == verseglobal) {
                         break
@@ -147,7 +135,7 @@ class WbwSurah(
                     val ispassage: Int = wordArrayList[asize - 1].passage_no
                     if (ispassage != 0) {
                         ruku[ispassage] = wordArrayListpassage
-                        wordArrayListpassage = ArrayList<CorpusWbwWord>()
+                        wordArrayListpassage = ArrayList()
                     }
                 }
                 corpusayahWordArrayList.add(ayahWord)

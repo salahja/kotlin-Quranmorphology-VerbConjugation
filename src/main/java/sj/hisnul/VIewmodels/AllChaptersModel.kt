@@ -9,7 +9,7 @@ import com.example.mushafconsolidated.Utils
 
 class AllChaptersModel(application: Application)  :AndroidViewModel(application) {
     val allchapters: MutableLiveData<List<ChaptersAnaEntity>> = MutableLiveData()
-     private val allUsers: LiveData<List<ChaptersAnaEntity>> get() = allchapters
+   //  private val allUsers: LiveData<List<ChaptersAnaEntity>> get() = allchapters
 
 
     fun loadLists(): LiveData<List<ChaptersAnaEntity>> {

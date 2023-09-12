@@ -1,6 +1,7 @@
 package com.example.mushafconsolidated.Adaptersimport
 
 
+import SharedPref
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
@@ -11,8 +12,6 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.preference.PreferenceManager
@@ -21,7 +20,6 @@ import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.example.utility.QuranGrammarApplication
-
 import java.util.Locale
 
 
@@ -29,23 +27,24 @@ import java.util.Locale
 //public class SurahPartAdap extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 class NewSurahDisplayAdapter(
     private val context: Context?,
-    allAnaChapters: ArrayList<ChaptersAnaEntity>
+
 ) :
     RecyclerView.Adapter<NewSurahDisplayAdapter.ItemViewAdapter>(), Filterable {
-    var mItemClickListener: OnItemClickListener? = null
-    private var listonearray: List<ChaptersAnaEntity>
-    private val surahname: String? = null
-    private var chapterfilered: List<ChaptersAnaEntity>
-
-    init {
+    constructor(context: Context?, allAnaChapters: java.util.ArrayList<ChaptersAnaEntity>) : this(context){
         listonearray = allAnaChapters
         chapterfilered = allAnaChapters
     }
 
+
+    var mItemClickListener: OnItemClickListener? = null
+    private lateinit var listonearray: List<ChaptersAnaEntity>
+    private lateinit var chapterfilered: List<ChaptersAnaEntity>
+
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewAdapter {
-        val view: View
         //    view = LayoutInflater.from(parent.context!!).inflate(R.layout.surarowlinear, parent, false);
-        view = LayoutInflater.from(parent.context)
+        val view: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.orignalsurarowlinear, parent, false)
         return ItemViewAdapter(view, viewType)
     }
@@ -67,7 +66,7 @@ class NewSurahDisplayAdapter(
         val surahIsmakki: Int = surah.ismakki
         val cno: Int = surah.chapterid
         //  holder.tvsurahleft.setText(sb);
-        holder.tvsurahleft.setText(surah.nameenglish)
+        holder.tvsurahleft.text = surah.nameenglish
         if (!defaultfont) {
             holder.tvsurahleft.textSize = SharedPref.SeekarabicFontsize().toFloat()
         }
@@ -112,7 +111,9 @@ class NewSurahDisplayAdapter(
 
     fun setUp(allAnaChapters: ArrayList<ChaptersAnaEntity>) {
         listonearray = allAnaChapters
+
     }
+
 
     override fun getFilter(): Filter {
         return object : Filter() {
@@ -120,7 +121,7 @@ class NewSurahDisplayAdapter(
                 val charString = charSequence.toString()
                 var bool = false
                 val charArray = charString.toCharArray()
-                if (!charString.isEmpty()) {
+                if (charString.isNotEmpty()) {
                     bool = Character.isDigit(charArray[0])
                 }
                 if (charString.isEmpty()) {
@@ -131,7 +132,7 @@ class NewSurahDisplayAdapter(
                         for (details in listonearray) {
                             // name match condition. this might differ depending on your requirement
                             // here we are looking for name or phone number match
-                            if (details.nameenglish.toLowerCase().contains(
+                            if (details.nameenglish.toLowerCase(Locale.ROOT).contains(
                                     charString.lowercase(
                                         Locale.getDefault()
                                     )
@@ -167,34 +168,25 @@ class NewSurahDisplayAdapter(
         }
     }
 
+    fun setmutable(allAnaChapters: java.util.ArrayList<ChaptersAnaEntity>) {
+        listonearray = allAnaChapters
+        chapterfilered = allAnaChapters
+    }
+
     inner class ItemViewAdapter internal constructor(layout: View, viewType: Int) :
         RecyclerView.ViewHolder(layout), View.OnClickListener // current clickListerner
     {
-        var tvnumber: TextView? = null
-        var tvsurahright: TextView? = null
         val tvsurahleft: TextView
-        var part: TextView? = null
-        var tvSurahlefttarabic: TextView? = null
-        var tvSurahrightarabic: TextView? = null
-        //val overlayTypeChapterView: TextView
-        var overlayTypePartView: TextView? = null
-        var surah_name_arabic: TextView? = null
-        var referenceview: TextView? = null
-        var row_surah: RelativeLayout? = null
 
-        //   public ConstraintLayout surah_row_table;///for rnew_surah_row
-        var surah_row_table: LinearLayout? = null
         val makkimadaniIcon: ImageView
         val ivsurahicon: ImageView
-        var tvarabicright: ImageView? = null
-        val surahcardview: CardView
+        val surahcardview: CardView = itemView.findViewById(R.id.surahcardview)
 
         init {
-            surahcardview = itemView.findViewById(R.id.surahcardview)
-            //  tvsurahright = itemView.findViewById(R.id.tvSuraright);
+
             tvsurahleft = itemView.findViewById(R.id.tvArabic)
             makkimadaniIcon = itemView.findViewById(R.id.makkimadaniicon)
-     //     overlayTypeChapterView = itemView.findViewById(R.id.overlayTypeChapterView)
+
             ivsurahicon = itemView.findViewById(R.id.surahicon)
             layout.setOnClickListener(this) // current clickListerner
         }

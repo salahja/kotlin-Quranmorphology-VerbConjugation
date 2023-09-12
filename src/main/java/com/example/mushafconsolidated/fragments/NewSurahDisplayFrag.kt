@@ -16,6 +16,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,11 +32,11 @@ import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.example.mushafconsolidated.intrfaceimport.PassdataInterface
 import com.example.mushafconsolidated.model.Juz
+import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
-import com.google.android.material.navigation.NavigationBarView.OnItemReselectedListener
 import com.google.android.material.textview.MaterialTextView
 import database.NamesGridImageAct
 import org.sj.conjugator.activity.ConjugatorAct
@@ -62,7 +63,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
 
     //  SurahDisplayAdapter ParentAdapter;
     private lateinit var mItemClickListener: OnItemClickListener
-    lateinit var btnBottomSheet: FloatingActionButton
+    private lateinit var btnBottomSheet: FloatingActionButton
     lateinit var datapasser: PassdataInterface
     private var lastreadchapterno = 0
     private var lastreadverseno = 0
@@ -114,13 +115,13 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
                     queryTextListener = object : SearchView.OnQueryTextListener {
                         override fun onQueryTextChange(newText: String): Boolean {
                             //   Log.i("onQueryTextChange", newText);
-                            ParentAdapter.getFilter().filter(newText)
+                            ParentAdapter.filter.filter(newText)
                             return true
                         }
 
                         override fun onQueryTextSubmit(query: String): Boolean {
                             //    Log.i("onQueryTextSubmit", query);
-                            ParentAdapter.getFilter().filter(query)
+                            ParentAdapter.filter.filter(query)
                             return false
                         }
                     }
@@ -148,13 +149,13 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
                     queryTextListener = object : SearchView.OnQueryTextListener {
                         override fun onQueryTextChange(newText: String): Boolean {
                             //   Log.i("onQueryTextChange", newText);
-                            ParentAdapter.getFilter().filter(newText)
+                            ParentAdapter.filter.filter(newText)
                             return true
                         }
 
                         override fun onQueryTextSubmit(query: String): Boolean {
                             //    Log.i("onQueryTextSubmit", query);
-                            ParentAdapter.getFilter().filter(query)
+                            ParentAdapter.filter.filter(query)
                             return false
                         }
                     }
@@ -164,7 +165,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 if (menuItem.itemId == R.id.search) {
-                    searchint!!.visibility = View.VISIBLE
+                    searchint.visibility = View.VISIBLE
                 }
                 return false
             }
@@ -212,8 +213,8 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
         //   setToolbarFragment();
         setToolbarMenu()
         val utils = Utils(context)
-        allAnaChapters = utils.getAllAnaChapters() as ArrayList<ChaptersAnaEntity>
-        parts = utils.juz
+      //  allAnaChapters = utils.getAllAnaChapters() as ArrayList<ChaptersAnaEntity>
+      parts = utils.juz
 
         //  TypedArray imgs = context!!.getResources().obtainTypedArray(R.array.sura_imgs);
         val mLayoutManager = GridLayoutManager(activity, 2)
@@ -232,18 +233,18 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
         lastread.text = sbss.toString()
         //lastread.setText("Last read" + ":" + "Surah:" + lastreadchapterno + " " + "Ayah:" + lastreadverseno);
         juz.setOnClickListener { v: View? ->
-            parentRecyclerView.setLayoutManager(mLayoutManager)
+            parentRecyclerView.layoutManager = mLayoutManager
             parentRecyclerView.setHasFixedSize(true)
-            parentRecyclerView.setLayoutManager(mLayoutManager)
+            parentRecyclerView.layoutManager = mLayoutManager
             juzSurahDisplayAdapter = JuzSurahDisplayAdapter(context, parts)
-            parentRecyclerView.setAdapter(juzSurahDisplayAdapter)
+            parentRecyclerView.adapter = juzSurahDisplayAdapter
         }
         surahtv.setOnClickListener { v: View? ->
-            parentRecyclerView.setLayoutManager(mLayoutManager)
+            parentRecyclerView.layoutManager = mLayoutManager
             parentRecyclerView.setHasFixedSize(true)
             ParentAdapter = NewSurahDisplayAdapter(context, allAnaChapters)
             ParentAdapter.setUp(allAnaChapters)
-            parentRecyclerView.setAdapter(ParentAdapter)
+            parentRecyclerView.adapter = ParentAdapter
         }
         kahaf.setText(R.string.linkkahaf)
         lastread.setOnClickListener { v: View? ->
@@ -253,7 +254,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
             //  Intent intent = new Intent(DarkThemeApplication.context!!, ReadingSurahPartActivity.class);
             intent.putExtra("chapter", lastreadchapterno)
             intent.putExtra("chapterorpart", true)
-            intent.putExtra("partname", allAnaChapters!![lastreadchapterno - 1].abjadname)
+            intent.putExtra("partname", allAnaChapters[lastreadchapterno - 1].abjadname)
             intent.putExtra(Constant.AYAH_ID, lastreadverseno)
             intent.putExtra(Constant.AYAHNUMBER, lastreadverseno)
             startActivity(intent)
@@ -266,7 +267,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
             //  Intent intent = new Intent(DarkThemeApplication.context!!, ReadingSurahPartActivity.class);
             intent.putExtra("chapter", 18)
             intent.putExtra("chapterorpart", true)
-            intent.putExtra("partname", allAnaChapters!![18].abjadname)
+            intent.putExtra("partname", allAnaChapters[18].abjadname)
             intent.putExtra("verseno", 1)
             intent.putExtra(Constant.AYAH_ID, 1)
             startActivity(intent)
@@ -279,25 +280,34 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
             //  Intent intent = new Intent(DarkThemeApplication.context!!, ReadingSurahPartActivity.class);
             intent.putExtra("chapter", 2)
             intent.putExtra("chapterorpart", true)
-            intent.putExtra("partname", allAnaChapters!![2].abjadname)
+            intent.putExtra("partname", allAnaChapters[2].abjadname)
             intent.putExtra("verseno", 255)
             intent.putExtra(Constant.AYAH_ID, 255)
             startActivity(intent)
         }
-        parentRecyclerView.setLayoutManager(mLayoutManager)
-        parentRecyclerView.setHasFixedSize(true)
-        parentRecyclerView.setLayoutManager(mLayoutManager)
-        ParentAdapter = NewSurahDisplayAdapter(context, allAnaChapters)
-        ParentAdapter.setUp(allAnaChapters)
-        parentRecyclerView.setAdapter(ParentAdapter)
+        val viewmodel :    QuranVIewModel by viewModels()
+        ParentAdapter = NewSurahDisplayAdapter(context)
+        viewmodel.getAllChapters().observe(viewLifecycleOwner, {
+            parentRecyclerView.layoutManager = mLayoutManager
+            parentRecyclerView.setHasFixedSize(true)
+            parentRecyclerView.layoutManager = mLayoutManager
+            allAnaChapters= it as ArrayList<ChaptersAnaEntity>
+            ParentAdapter.setUp(it as ArrayList<ChaptersAnaEntity>)
+            ParentAdapter.setmutable(it)
+            parentRecyclerView.adapter = ParentAdapter
+        })
+
+
+
+
         return view
     }
 
     private fun initnavagation(view: View) {
         bottomNavigationView = view.findViewById(R.id.bottomNavView)
         btnBottomSheet = view.findViewById(R.id.fab)
-        btnBottomSheet.setOnClickListener(View.OnClickListener { v: View? -> toggleBottomSheets() })
-        bottomNavigationView.setOnItemReselectedListener(OnItemReselectedListener { item: MenuItem ->
+        btnBottomSheet.setOnClickListener({ v: View? -> toggleBottomSheets() })
+        bottomNavigationView.setOnItemReselectedListener({ item: MenuItem ->
             if (item.itemId == R.id.surahnav) {
                 val fragmentManager =
                     Objects.requireNonNull(requireActivity())
@@ -332,12 +342,12 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
         })
     }
 
-    fun toggleBottomSheets() {
-        if (bottomNavigationView!!.visibility == View.VISIBLE) {
-            bottomNavigationView!!.visibility = View.GONE
+    private fun toggleBottomSheets() {
+        if (bottomNavigationView.visibility == View.VISIBLE) {
+            bottomNavigationView.visibility = View.GONE
             //    btnBottomSheet.setText("Close sheet");
         } else {
-            bottomNavigationView!!.visibility = View.VISIBLE
+            bottomNavigationView.visibility = View.VISIBLE
             //    btnBottomSheet.setText("Expand sheet");
         }
     }
@@ -376,19 +386,8 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
  */
     }
 
-    fun getmItemClickListener(): OnItemClickListener? {
-        return mItemClickListener
-    }
-
-    fun setmItemClickListener(mItemClickListener: OnItemClickListener?) {
-        if (mItemClickListener != null) {
-            this.mItemClickListener = mItemClickListener
-        }
-    }
-
-    fun setPassdataInterface(passdataInterface: PassdataInterface?) {}
     override fun onQueryTextSubmit(query: String): Boolean {
-        ParentAdapter.getFilter().filter(query)
+        ParentAdapter.filter.filter(query)
         //  Utils.LogDebug("Submitted: "+query);
         return true
     }

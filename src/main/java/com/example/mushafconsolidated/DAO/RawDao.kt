@@ -51,6 +51,8 @@ interface RawDao {
     @RawQuery
     fun getCorpusWbw(query: SupportSQLiteQuery): List<CorpusExpandWbwPOJO?>?
 
+
+
     @RawQuery
     fun getCorpusWbwSurahAyah(query: SupportSQLiteQuery): List<CorpusExpandWbwPOJO>
 

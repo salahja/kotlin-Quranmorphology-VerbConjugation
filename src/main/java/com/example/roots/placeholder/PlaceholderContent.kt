@@ -67,7 +67,8 @@ object PlaceholderContent {
         val builder = StringBuilder()
         val searchs=s+'%';
         //%
-        val letter: ArrayList<qurandictionary> = Utils.getByfirstletter(searchs) as ArrayList<qurandictionary>
+        val util=Utils(QuranGrammarApplication.context!!)
+        val letter: ArrayList<qurandictionary> = util.getByfirstletter(searchs) as ArrayList<qurandictionary>
         for (qurandictionary in letter) {
             strings.add(qurandictionary.rootarabic)
             //    builder.append(qurandictionary.getRootarabic()).append("\n");

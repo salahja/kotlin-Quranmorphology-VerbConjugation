@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,28 +18,17 @@ import com.example.Constant
 import com.example.mushafconsolidated.Activity.QuranGrammarAct
 import com.example.mushafconsolidated.Adapters.CollectionShowAdapter
 import com.example.mushafconsolidated.DAO.BookMarksPojo
+import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
-
+import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.example.utility.SwipeToDeleteCallback
 import com.google.android.material.snackbar.Snackbar
 
 
 
 
-
-
-
-
-
-
-
-
-
-/**
- * Created by Dev. M. Hussein on 5/9/2017.
- */
 class CollectionFrag constructor() : Fragment() {
     var coordinatorLayout: CoordinatorLayout? = null
     var layoutManager: RecyclerView.LayoutManager? = null
@@ -51,21 +42,28 @@ class CollectionFrag constructor() : Fragment() {
         //    View root!!View = inflater.inflate(R.layout.activity_collection, container, false);
         val view: View = inflater.inflate(R.layout.fragment_bookmark_collection, container, false)
         val utils: Utils = Utils(getActivity())
-        val bookMarksNew: List<BookMarksPojo?>? = utils.collectionC
+      //  val bookMarksNew: List<BookMarksPojo?>? = utils.collectionC
+        val bookMarksNew = utils.getCollectionbygroups()
+        val vmodel: QuranVIewModel by viewModels()
+        collectionShowAdapter = CollectionShowAdapter(getActivity())
+        vmodel.getBookmarksCollection().observe(viewLifecycleOwner, Observer {
+
+            mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation)
+            coordinatorLayout = view.findViewById(R.id.coordinatorLayoutbookmark)
+            layoutManager = LinearLayoutManager(getActivity())
+            mRecview.setLayoutManager(layoutManager)
+            //    bookmarksShowAdapter.setBookMarkArrayList((ArrayList<String>) bookmarstringarray);
+
+            collectionShowAdapter.bookMarkArrayList= it
+
+            mRecview.setAdapter(collectionShowAdapter)
+            //    mRecview.setLayoutManager(new LinearLayoutManager(getActivity()));
+            enableSwipeToDeleteAndUndo()
+        })
+
 
         //  List<BookMarks> bookmarks = new DatabaseAccess().getBookmarks();
-        collectionShowAdapter = CollectionShowAdapter(getActivity())
-        mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation)
-        coordinatorLayout = view.findViewById(R.id.coordinatorLayoutbookmark)
-        layoutManager = LinearLayoutManager(getActivity())
-        mRecview.setLayoutManager(layoutManager)
-        //    bookmarksShowAdapter.setBookMarkArrayList((ArrayList<String>) bookmarstringarray);
 
-        collectionShowAdapter.bookMarkArrayList=bookMarksNew
-
-        mRecview.setAdapter(collectionShowAdapter)
-        //    mRecview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        enableSwipeToDeleteAndUndo()
         return view
         //  return root!!View;
     }
@@ -78,7 +76,7 @@ class CollectionFrag constructor() : Fragment() {
                     //  final String item = mAdapter.getData().get(position);
                     //   mAdapter.removeItem(position);
                     val position: Int = viewHolder.getAdapterPosition()
-                    val item: BookMarksPojo? =
+                    val item: BookMarks =
                         collectionShowAdapter!!.bookMarkArrayList!!.get(position)
                     //   final int code = item.hashCode();
                     collectionShowAdapter!!.getItemId(position)
@@ -103,9 +101,11 @@ class CollectionFrag constructor() : Fragment() {
                     //      bookmarksShowAdapter.getBookMarkArrayList(bookmarkid)
                     //  Utils butils = new Utils(getActivity());
                     //  butils.deleteBookmarks(bookmarid);
-                    if (item != null) {
+                    val vm: QuranVIewModel by viewModels()
+                    item.header?.let { vm.deleteCollection(it) }
+                  /*  if (item != null) {
                         Utils.Companion.deleteCollection(item.header)
-                    }
+                    }*/
                 }
             }
         val itemTouchhelper: ItemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)

@@ -14,6 +14,7 @@ import android.widget.RadioGroup
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.Adapters.BookmarkCreateAdapter
@@ -22,7 +23,7 @@ import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
-
+import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
@@ -46,7 +47,7 @@ class BookMarkCreateFrag constructor() : BottomSheetDialogFragment(), OnItemClic
     private var selectedposition: Int = 0
     lateinit var addtocollection: MaterialButton
     lateinit var newcollection: MaterialButton
-    public override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
@@ -60,9 +61,9 @@ class BookMarkCreateFrag constructor() : BottomSheetDialogFragment(), OnItemClic
         this.mItemClickListener = mItemClickListener!!
     }
 
-    public override fun onCreateView(
+    override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         val bundle: Bundle? = getArguments()
@@ -81,12 +82,13 @@ class BookMarkCreateFrag constructor() : BottomSheetDialogFragment(), OnItemClic
         val details: ArrayList<String> = ArrayList()
         val utils: Utils = Utils(getActivity())
         collectionC = utils.collectionC
+   //     val bookmarkCreateAdapter = BookmarkCreateAdapter(collectionC as List<BookMarksPojo>?)
         val bookmarkCreateAdapter = BookmarkCreateAdapter(collectionC as List<BookMarksPojo>?)
- 
         newcollection = view.findViewById(R.id.newcollection)
         addtocollection = view.findViewById(R.id.addtocollection)
         newcollection.setOnClickListener(this)
         addtocollection.setOnClickListener(this)
+        recyclerView.setAdapter(bookmarCrateAdapter)
         newcollection.setOnClickListener(object : View.OnClickListener {
             public override fun onClick(v: View) {
                 val dialogPicker = androidx.appcompat.app.AlertDialog.Builder(
@@ -126,7 +128,7 @@ class BookMarkCreateFrag constructor() : BottomSheetDialogFragment(), OnItemClic
         })
 
 
-        bookmarCrateAdapter!!.SetOnItemClickListener(object : OnItemClickListener {
+        bookmarkCreateAdapter!!.SetOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
                 val holder = recyclerView.findViewHolderForAdapterPosition(position)
                 if (holder != null) {
@@ -176,7 +178,7 @@ class BookMarkCreateFrag constructor() : BottomSheetDialogFragment(), OnItemClic
 
         })
 
-        recyclerView.setAdapter(bookmarCrateAdapter)
+
     }
 
     private fun bookMarkSelected(view: View, position: Int, text: String) {
@@ -193,8 +195,10 @@ class BookMarkCreateFrag constructor() : BottomSheetDialogFragment(), OnItemClic
         en.surahname=(suraname)
         //     Utils utils = new Utils(ReadingSurahPartActivity.this);
         //     Utils utils = new Utils(ReadingSurahPartActivity.this);
-        val utils = Utils(context)
-        utils.insertBookMark(en)
+        val vm: QuranVIewModel by viewModels()
+       // val utils = Utils(context)
+       // utils.insertBookMark(en)
+        vm.Insertbookmark(en)
         //     View view = findViewById(R.id.bookmark);
         //     View view = findViewById(R.id.bookmark);
         val snackbar = Snackbar

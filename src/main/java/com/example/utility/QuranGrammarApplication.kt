@@ -19,6 +19,7 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
 import androidx.preference.PreferenceManager
+import com.example.mushafconsolidated.quranrepo.QuranGraph
 import com.example.utility.ThemeHelper.applyTheme
 import database.verbrepo.VerbGraph
 import leakcanary.LeakCanary
@@ -52,6 +53,7 @@ class QuranGrammarApplication : Application() {
         }
         Graph.provide(this)
         VerbGraph.provide(this)
+        QuranGraph.provide(this)
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         //  String theme = sharedPreferences.getString("theme", 1);

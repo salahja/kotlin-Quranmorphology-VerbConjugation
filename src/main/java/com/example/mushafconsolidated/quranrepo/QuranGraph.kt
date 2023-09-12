@@ -1,23 +1,33 @@
 package com.example.mushafconsolidated.quranrepo
 
 import android.content.Context
-import database.VerbDatabase
-import database.verbrepo.VerbRepository
+import com.example.mushafconsolidated.QuranAppDatabase
 
 object QuranGraph {
 
-    lateinit var db:VerbDatabase
+    lateinit var db:QuranAppDatabase
         private set
 
     val repository by lazy {
 
 
-        VerbRepository(
-           mazeeddao = db.mazeedDao(),
-            mujarradao= db.mujarradDao(),
-            kovdao= db.kovDao()
+        QuranRepository(
 
-       /*     buckwaterDao = BuckwaterDao(),
+            qurandao = db.QuranDao(),
+            ssummary = db.surahsummaryDao(),
+            chaptersdao =db.AnaQuranChapterDao(),
+            mafoolb =db.MafoolBihiDao(),
+
+              jumlahaliya =db.HaliyaDao(),
+          tammezent =db. tameezDao(),
+          mutlaqent =db. MafoolMutlaqEntDao(),
+          liajlihient =db. liajlihiDao(),
+          badalErabNotesEnt =db.BadalErabNotesDao(),
+            bookm=db.BookMarkDao(),
+
+
+
+            /*     buckwaterDao = BuckwaterDao(),
             quranVerbsDao = QuranVerbsDao(),
             quranicVerbsDao = QuranicVerbsDao(),
             verbcorpusDao = verbcorpusDao(),
@@ -32,7 +42,7 @@ object QuranGraph {
 
 
     fun provide(context: Context){
-        db = VerbDatabase.getInstance(context)!!
+        db = QuranAppDatabase.getInstance(context)!!
     }
 
 }

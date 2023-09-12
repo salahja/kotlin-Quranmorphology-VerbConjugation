@@ -8,14 +8,16 @@ import android.view.View
 import android.view.WindowInsets
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
+import androidx.lifecycle.Observer
 import com.example.Constant.AYAH_ID
 import com.example.Constant.SURAH_ARABIC_NAME
 import com.example.Constant.SURAH_ID
 import com.example.mushafconsolidated.Activityimport.BaseActivity
-import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
+import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.google.android.material.appbar.MaterialToolbar
 
 /**
@@ -66,21 +68,26 @@ class TafsirFullscreenActivity : BaseActivity() {
             setSupportActionBar(materialToolbar)
             getSupportActionBar()?.setDisplayShowHomeEnabled(true)
         }
-        val list: List<QuranEntity?>? = Utils.getsurahayahVerses(sura!!, ayah!!)
-        val actionBar: ActionBar? = getSupportActionBar()
-        val sourcelable: TextView = findViewById(R.id.tvSourceLabel)
-        val tafsir: TextView = findViewById(R.id.tvTafsir)
-        val translation: TextView = findViewById(R.id.tvTranslation)
-        val tvaryah: TextView = findViewById(R.id.tvData)
-        val button: Button = findViewById(R.id.detailsbutton)
-        button.text = "$sura:$ayah $surahname"
-        sourcelable.text = "Arabic Ayah"
-        val tafsir_kathir = list?.get(0)?.tafsir_kathir
-        val tafsir_kathirs = tafsir_kathir?.replace("<b>", "")
-        val tafsir_kathissr = tafsir_kathirs?.replace("</b>", "")
-        tafsir.text = tafsir_kathissr
-        translation.text = list!![0]!!.translation
-        tvaryah.text = list[0]!!.qurantext
+        val viewmodel : QuranVIewModel by viewModels()
+
+        viewmodel.getsurahayahVerses(sura!!, ayah!!).observe(this, Observer {
+         //   val list: List<QuranEntity?>? = Utils.getsurahayahVerses(sura!!, ayah!!)
+            val actionBar: ActionBar? = getSupportActionBar()
+            val sourcelable: TextView = findViewById(R.id.tvSourceLabel)
+            val tafsir: TextView = findViewById(R.id.tvTafsir)
+            val translation: TextView = findViewById(R.id.tvTranslation)
+            val tvaryah: TextView = findViewById(R.id.tvData)
+            val button: Button = findViewById(R.id.detailsbutton)
+            button.text = "$sura:$ayah $surahname"
+            sourcelable.text = "Arabic Ayah"
+            val tafsir_kathir = it?.get(0)?.tafsir_kathir
+            val tafsir_kathirs = tafsir_kathir?.replace("<b>", "")
+            val tafsir_kathissr = tafsir_kathirs?.replace("</b>", "")
+            tafsir.text = tafsir_kathissr
+            translation.text = it!![0]!!.translation
+            tvaryah.text = it[0]!!.qurantext
+        })
+
     }
 
     override fun onBackPressed() {

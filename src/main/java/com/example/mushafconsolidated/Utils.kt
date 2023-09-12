@@ -11,6 +11,7 @@ import android.util.Log
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.mushafconsolidated.DAO.BookMarkDao
 import com.example.mushafconsolidated.DAO.BookMarksPojo
+
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
@@ -49,7 +50,6 @@ import com.example.mushafconsolidated.Entities.lanerootdictionary
 import com.example.mushafconsolidated.Entities.lughat
 import com.example.mushafconsolidated.Entities.qurandictionary
 import com.example.mushafconsolidated.Entities.quranexplorer
-import com.example.mushafconsolidated.Entities.surahsummary
 import com.example.mushafconsolidated.Entities.wbwentity
 import com.example.mushafconsolidated.model.Juz
 import database.entity.AllahNames
@@ -83,10 +83,12 @@ class Utils {
             return null
         }
     }
+/*
 
      fun getSurahSummary(id: Int): List<surahsummary?>? {
         return  database.surahsummaryDao()?.getSurahSummary(id)
     }
+*/
 
     fun getNamesDetails(id: Int): List<AllahNamesDetails?>? {
         return  database.NamesDetailsDao()?.ALLAH_NAMES_DETAILS_DETAILS(id)
@@ -103,7 +105,7 @@ class Utils {
 
     fun getAllAnaChapters(): List<ChaptersAnaEntity?>? {
 
-        return database.AnaQuranChapterDao()?.chapters
+        return database.AnaQuranChapterDao()?.chapterslist()
     }
 
     fun getSingleChapter(id: Int): List<ChaptersAnaEntity?>? {
@@ -913,9 +915,11 @@ class Utils {
             return  database.MafoolBihiDao()?.mafoolbihiq as ArrayList<MafoolBihi>
         }
 
+/*
     fun getMafoolBySurah(surah: Int): List<MafoolBihi?>? {
         return  database.MafoolBihiDao()?.getBySurah(surah)
     }
+*/
 
     fun getHaliaErab(surah: Int, ayah: Int): List<HalEnt>? {
         return  database.HaliyaDao()?.getHaliya(surah, ayah)
@@ -945,9 +949,11 @@ class Utils {
             ?.getMafoolbihiword(surah, ayah, wordno)
     }
 
+
     fun getQuranbySurah(id: Int): List<QuranEntity?>? {
         return database.QuranDao()?.getQuranVersesBySurah(id)
     }
+
 
     fun getAyahsByPageQuran(surah: Int, pageno: Int): List<QuranEntity?>? {
         return database.QuranDao()?.getAyahsByPage(surah, pageno)
@@ -960,6 +966,13 @@ class Utils {
     fun getQuranbySurahAyahrange(surahid: Int, from: Int, to: Int): List<QuranEntity?>? {
         return  database.QuranDao()!!.getQuranbySurahAyahrange(surahid, from, to)
     }
+
+    fun getCollectionbygroups(): List<BookMarks?>? {
+        return  database.BookMarkDao()!!.getCollectionbygroups()
+    }
+
+
+
 
     /*
        public ArrayList<MafoolMutlaqEnt> getMafoolMutlaqword(int surah, int ayah, int wordno) {
@@ -1044,6 +1057,9 @@ class Utils {
         get() {
             return  database.QariDao().qaris
         }
+    fun getByfirstletter(id: String): List<qurandictionary> {
+        return  database.qurandictionaryDao().getByfirstletter(id)
+    }
 
     companion object {
         private const val TAG: String = "Utils"
@@ -1076,22 +1092,11 @@ class Utils {
             return  database.RawDao().getRootsbyLetter(query)
         }
 
-        val bookMarksNew: List<BookMarks?>?
-            get() {
-                return  database.BookMarkDao()?.getBookMarks()
-            }
-
-        fun getAllBookmarks(pins: String?): List<BookMarks?>? {
-            return  database.BookMarkDao()?.getAllBookmarks(pins)
-        }
 
         fun getsurahayahVerses(id: Int, aid: Int): List<QuranEntity?>? {
             return  database.QuranDao()?.getsurahayahVerses(id, aid)
         }
 
-            fun getByfirstletter(id: String): List<qurandictionary> {
-            return  database.qurandictionaryDao().getByfirstletter(id)
-        }
 
 
 
@@ -1101,10 +1106,16 @@ class Utils {
         }
 
         //select * from qurans where ayah>=50 and ayah<=78 and surah=9
-        val quran: List<QuranEntity>
-            get() {
-                return  database.QuranDao()?.allQuran as List<QuranEntity>
-            }
+
+
+/*
+        fun quran() :List<QuranEntity> {
+            return  database.QuranDao().allQuran()
+
+        }
+
+*/
+
 
         fun deleteBookmark(bookmark: BookMarks?) {
             val bookMarkDao: BookMarkDao? = database.BookMarkDao()

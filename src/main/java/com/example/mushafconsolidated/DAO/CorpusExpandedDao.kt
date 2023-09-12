@@ -1,5 +1,6 @@
 package com.example.mushafconsolidated.DAO
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import com.example.mushafconsolidated.Entities.CorpusEntity
@@ -27,4 +28,9 @@ interface CorpusExpandedDao {
         wordid: Int
     ): List<CorpusEntity?>? //   SELECT VerseNew.chapter_no, VerseNew.verse_no, Translation.author_name, TranslationData.translation FROM TranslationData INNER JOIN Translation
     //  ON Translation.translation_id = TranslationData.translation_id INNER JOIN VerseNew ON VerseNew.verseID = TranslationData.verse_id    WHERE TranslationData.translation_id ="en_sahih"   and VerseNew.chapter_no= 2
+
+
+    @Query("SELECT * FROM CorpusExpand WHERE surah=:id")
+    fun getVersesBySurahLive(id: Int): LiveData< List<CorpusEntity>>
+
 }

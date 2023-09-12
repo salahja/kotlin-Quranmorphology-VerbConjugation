@@ -167,9 +167,9 @@ class FlowAyahWordAdapter(
         return ItemViewAdapter(view, viewType)
     }
 
-    fun getItem(position: Int): Any {
-        return ayahWordArrayList!![0].word!![position]
-        //    return allofQuran.get(position);
+    fun getItem(position: Int): QuranEntity? {
+    //    return ayahWordArrayList!![0].word!![position]
+        return allofQuran!!.get(position);
     }
 
     @SuppressLint("ResourceType")
@@ -1369,6 +1369,7 @@ class FlowAyahWordAdapter(
                         en.verseno = verse.toString()
                         en.surahname = SurahName
                         val utils = Utils(QuranGrammarApplication.context!!)
+                    //    val vm: QuranVIewModel by viewModels()
                         //     Utils utils = new Utils(ReadingSurahPartActivity.this);
                         utils.insertBookMark(en)
                         val snackbar = Snackbar

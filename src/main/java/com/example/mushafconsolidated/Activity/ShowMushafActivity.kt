@@ -96,79 +96,80 @@ import java.util.Objects
 class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnClickListener,
     FullscreenButtonClickListener {
     val isjuz = false
-      lateinit   var exo_settings: ImageButton 
-      lateinit   var exo_close: ImageButton 
-      lateinit   var exo_bottom_bar: ImageButton 
-      lateinit   var ayaprogress: MaterialTextView 
-    private  lateinit     var surahWheelDisplayData: Array<String>
-    private  lateinit     var ayahWheelDisplayData: Array<String>
-      var versestartrange = 0
-      var verseendrange = 0
-    private   var currenttrack = 0
-    private   var resumelastplayed = 0
-    private   var onClickOrRange = false
-     lateinit var llStartRange: LinearLayout 
-     lateinit var llEndRange: LinearLayout 
+    lateinit var exo_settings: ImageButton
+    lateinit var exo_close: ImageButton
+    lateinit var exo_bottom_bar: ImageButton
+    lateinit var ayaprogress: MaterialTextView
+    private lateinit var surahWheelDisplayData: Array<String>
+    private lateinit var ayahWheelDisplayData: Array<String>
+    var versestartrange = 0
+    var verseendrange = 0
+    private var currenttrack = 0
+    private var resumelastplayed = 0
+    private var onClickOrRange = false
+    lateinit var llStartRange: LinearLayout
+    lateinit var llEndRange: LinearLayout
 
     //  private LinkedHashMap<Integer, Integer> hlights;
     private val hlights: LinkedHashMap<Int, ArrayList<AyahCoordinate>> =
         LinkedHashMap<Int, ArrayList<AyahCoordinate>>()
-      var flow = false
-      var singleline = false
-      var rangeRecitation = false
-    private  lateinit var fullQuranPages: ArrayList<Page> 
-    private  lateinit var juzquranpages: ArrayList<Page> 
-    private   var resume = false
-    private   var ayahcounter = 0
-      var ayah = 0
-     lateinit var passageadapter: PageMushaAudioAdapter 
+    var flow = false
+    var singleline = false
+    var rangeRecitation = false
+    private lateinit var fullQuranPages: ArrayList<Page>
+    private lateinit var juzquranpages: ArrayList<Page>
+    private var resume = false
+    private var ayahcounter = 0
+    var ayah = 0
+    lateinit var passageadapter: PageMushaAudioAdapter
     private val passage = LinkedHashMap<Int, String>()
     private val pages = LinkedHashMap<Int, String>()
-      var audioType = 0
-      var prevqari = ""
+    var audioType = 0
+    var prevqari = ""
     private val handler = Handler()
-    private  lateinit var marray: MutableList<MediaItem> 
-    private   var marrayrange: List<MediaItem>?=null
-    //private val singleverse: String 
-    private   var isSingle = false
-    private   var isStartFrom = false
-    private   var quranbySurahadapter: List<QuranEntity?>? = null
+    private lateinit var marray: MutableList<MediaItem>
+    private var marrayrange: List<MediaItem>? = null
+
+    //private val singleverse: String
+    private var isSingle = false
+    private var isStartFrom = false
+    private var quranbySurahadapter: List<QuranEntity?>? = null
 
     //  private val resetplayer: MaterialButton
-    private  lateinit   var sharedPreferences: SharedPreferences 
-    private  lateinit var selectedqari: String 
-     lateinit var qariname: TextView
-     lateinit var buffering: ImageView
-     lateinit var canceldownload: MaterialButton
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var selectedqari: String
+    lateinit var qariname: TextView
+    lateinit var buffering: ImageView
+    lateinit var canceldownload: MaterialButton
 
     //  FrameLayout eqContainer;
 
 
-    protected  lateinit var playerView: PlayerControlView 
-    protected   var player: ExoPlayer?=null
-    private  lateinit var trackSelectionParameters: TrackSelectionParameters 
-    private  lateinit var lastSeenTracks: Tracks 
-    private   var startAutoPlay = false
-    private   var startItemIndex = 0
-    private   var startPosition: Long = 0
-     lateinit var playiv: ImageView 
-    private   var pausePlayFlag = false
-      var surahselected = 0
-      var verselected = 0
-      var versescount = 0
-     lateinit var surahNameEnglish: String 
-     lateinit var surahNameArabic: String 
-    private  lateinit var isNightmode: String 
+    protected lateinit var playerView: PlayerControlView
+    protected var player: ExoPlayer? = null
+    private lateinit var trackSelectionParameters: TrackSelectionParameters
+    private lateinit var lastSeenTracks: Tracks
+    private var startAutoPlay = false
+    private var startItemIndex = 0
+    private var startPosition: Long = 0
+    lateinit var playiv: ImageView
+    private var pausePlayFlag = false
+    var surahselected = 0
+    var verselected = 0
+    var versescount = 0
+    lateinit var surahNameEnglish: String
+    lateinit var surahNameArabic: String
+    private lateinit var isNightmode: String
 
     // LinearLayout fabLayout1, fabLayout2,fabLayout3;
     //  FloatingActionButton fab, fab1, fab2, fab3;
-     lateinit var playfb: MovableFloatingActionButton 
+    lateinit var playfb: MovableFloatingActionButton
 
     // Use the ExtendedFloatingActionButton to handle the
     // These TextViews are taken to make visible and
     // invisible along with FABs except parent FAB's action
     // name
-     lateinit var resetfbtxt: TextView 
+    lateinit var resetfbtxt: TextView
     override fun onBackPressed() {
 
         //unregister broadcast for download ayat
@@ -199,33 +200,34 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         super.onBackPressed()
     }
 
-       var isMusicplaying = false
-    private   var surah = 0
-     lateinit   var recyclerView: RecyclerView 
-     lateinit var repository: Utils
-     lateinit var lineMushaAudioAdapter: LineMushaAudioAdapter 
-     lateinit var typeface: Typeface 
-     lateinit var txtView: TextView 
+    var isMusicplaying = false
+    private var surah = 0
+    lateinit var recyclerView: RecyclerView
+    lateinit var repository: Utils
+    lateinit var lineMushaAudioAdapter: LineMushaAudioAdapter
+    lateinit var typeface: Typeface
+    lateinit var txtView: TextView
+
     //   val translationBooks: Spinner = TODO()
-    private  lateinit var readers: Spinner 
-    private  lateinit var downloadFooter: RelativeLayout 
-    private  lateinit var normalFooter: LinearLayout 
-    private  lateinit var playerFooter: RelativeLayout 
-    private  lateinit var audio_settings_bottom: RelativeLayout 
+    private lateinit var readers: Spinner
+    private lateinit var downloadFooter: RelativeLayout
+    private lateinit var normalFooter: LinearLayout
+    private lateinit var playerFooter: RelativeLayout
+    private lateinit var audio_settings_bottom: RelativeLayout
 
     //  TextView startrange, startimage, endrange, endimage;
-     lateinit var startrange: MaterialTextView 
-     lateinit var endrange: MaterialTextView 
+    lateinit var startrange: MaterialTextView
+    lateinit var endrange: MaterialTextView
     fun setStartPosition(startPosition: Long) {
         this.startPosition = startPosition
     }
 
     //  private List<TranslationBook> booksInfo;
-    private  lateinit var readersList: List<Qari> 
-    private  lateinit var mediaPlayerDownloadProgress: ProgressBar 
-    private  lateinit var exoplayerBottomBehaviour: BottomSheetBehavior<RelativeLayout> 
-    private  lateinit var audioSettingBottomBehaviour: BottomSheetBehavior<RelativeLayout> 
-     lateinit var resetfab: FloatingActionButton 
+    private lateinit var readersList: List<Qari>
+    private lateinit var mediaPlayerDownloadProgress: ProgressBar
+    private lateinit var exoplayerBottomBehaviour: BottomSheetBehavior<RelativeLayout>
+    private lateinit var audioSettingBottomBehaviour: BottomSheetBehavior<RelativeLayout>
+    lateinit var resetfab: FloatingActionButton
     protected override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.vfour_expandable_newactivity_show_ayahs)
@@ -235,7 +237,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         val intent = Intent(BROADCAST_SEEKBAR)
         getpreferences()
-     //   lastPlayed
+        //   lastPlayed
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         isNightmode = sharedPreferences.getString("themepref", "dark")!!
         //  repository = Utils.getInstance(getApplication());
@@ -301,7 +303,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
     private val lastPlayed: Unit
         private get() {
-            val aplayed: AudioPositionSaved =ConfigPreferences.getLastPlayedAudio(this, surah.toString())
+            val aplayed: AudioPositionSaved =
+                ConfigPreferences.getLastPlayedAudio(this, surah.toString())
             resumelastplayed = aplayed.audiopsaved!!.get(0)!!.ayah
         }
 
@@ -310,8 +313,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         //  List<QuranEntity?>? quranEntities = Utils.getQuranbySurah(surah);
         val quranEntities: List<QuranEntity?>? = Utils.getQuranbyJuz(3)
         val firstpage = quranEntities?.get(0)!!.page
-         lateinit var page: Page
-          var ayahItems: List<QuranEntity?>?
+        lateinit var page: Page
+        var ayahItems: List<QuranEntity?>?
         for (i in firstpage..quranEntities?.get(quranEntities.size - 1)!!.page) {
             // ayahItems = repository.getAyahsByPageQuran(surah, i);
             ayahItems = Utils.getAyahsByPagejuz(2, i) as List<QuranEntity?>?
@@ -331,7 +334,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         val pages: MutableList<Page> = ArrayList()
         val quranEntities: List<QuranEntity?>? = repository.getQuranbySurah(surah)
         val firstpage = quranEntities?.get(0)!!.page
-         lateinit var page: Page
+        lateinit var page: Page
         var ayahItems: List<QuranEntity?>?
         for (i in firstpage..quranEntities?.get(quranEntities.size - 1)!!.page) {
             ayahItems = repository.getAyahsByPageQuran(surah, i)
@@ -350,12 +353,12 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     }
 
     private fun preparesJuzHlights() {
-          var counter = 1
+        var counter = 1
         for (i in juzquranpages!!.indices) {
             val page = juzquranpages!![i]
-              var aya = ""
-              var builder = java.lang.StringBuilder()
-              var ayahmat = java.util.ArrayList<Int>()
+            var aya = ""
+            var builder = java.lang.StringBuilder()
+            var ayahmat = java.util.ArrayList<Int>()
             for (ayahItem in page.ayahItemsquran!!) {
                 aya = ayahItem!!.qurantext
                 builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ ", aya, ayahItem.ayah))
@@ -374,7 +377,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         ayahmat: ArrayList<Int>,
         ayahcounter: Int,
     ) {
-          var ayahcounter = ayahcounter
+        var ayahcounter = ayahcounter
         val holder = recyclerView!!.findViewHolderForAdapterPosition(1)
         val ayahindex = ayahmat[0]
         val ayahmaz = ayahmat.size
@@ -404,12 +407,12 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     }
 
     private fun preparesSurahHlights() {
-          var counter = 1
+        var counter = 1
         for (i in fullQuranPages!!.indices) {
             val page = fullQuranPages!![i]
-              var aya = ""
-              var builder = java.lang.StringBuilder()
-              var ayahmat = java.util.ArrayList<Int>()
+            var aya = ""
+            var builder = java.lang.StringBuilder()
+            var ayahmat = java.util.ArrayList<Int>()
             for (ayahItem in page.ayahItemsquran!!) {
                 if (ayahItem != null) {
                     aya = ayahItem.qurantext
@@ -425,6 +428,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             counter++
         }
     }
+
     private fun initSpinner() {
         readers = (findViewById(R.id.selectReaders) as Spinner?)!!
         readers!!.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -483,22 +487,21 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         })
     }
 
- 
 
     fun SurahAyahPicker(isrefresh: Boolean, starttrue: Boolean) {
         val rangevalues = ArrayList<Int>()
         val mTextView: TextView
         val chapterWheel: WheelView
         val verseWheel: WheelView
-         lateinit var wvDay: WheelView
+        lateinit var wvDay: WheelView
         val utils = Utils(this@ShowMushafActivity)
         val mYear = arrayOf(arrayOfNulls<String>(1))
         val mMonth = arrayOfNulls<String>(1)
         surahWheelDisplayData = arrayOf("")
         ayahWheelDisplayData = arrayOf("")
-      //  val current = arrayOf<ArrayList<Any>>(ArrayList<Any>())
-        var current=    ArrayList<String>()
-          var mDay: Int
+        //  val current = arrayOf<ArrayList<Any>>(ArrayList<Any>())
+        var current = ArrayList<String>()
+        var mDay: Int
         val chapterno = IntArray(1)
         val verseno = IntArray(1)
         val surahArrays: Array<String> = getResources().getStringArray(R.array.surahdetails)
@@ -527,7 +530,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 .toTypedArray()
             chapterno[0] = chapno[0].toInt()
             verseno[0] = 1
-       //     current[0] = ArrayList<Any>()
+            //     current[0] = ArrayList<Any>()
             val intarray: Int
             intarray = if (surahselected != 0) {
                 intarrays[surahselected - 1]
@@ -544,7 +547,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         }
 
 //        wvDay = (WheelView) view.findViewById(R.id.wv_day);
-        val currentsurahVersescount: Array<String> 
+        val currentsurahVersescount: Array<String>
         val vcount = versearrays[surahselected - 1].toInt()
         for (i in 1..vcount) {
             current.add(i.toString())
@@ -552,7 +555,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         verseWheel.setEntriesv(current)
         verseWheel.currentIndex = ayah
         dialogPicker.setPositiveButton("Done") { dialogInterface: DialogInterface?, i: Int ->
-              var sura = ""
+            var sura = ""
 
             //   setSurahArabicName(suraNumber + "-" + soraList.get(suraNumber - 1).getNameenglish() + "-" + soraList.get(suraNumber - 1).getAbjadname());
             if (chapterno[0] == 0) {
@@ -689,8 +692,9 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 updateTextView()
                 //    updateTextView();
             }
+
             private fun updateVerses(newIndex: Int) {
-           //     current[0] = java.util.ArrayList<Any>()
+                //     current[0] = java.util.ArrayList<Any>()
                 val intarray: Int
                 intarray = if (newIndex != 0) {
                     intarrays[newIndex]
@@ -925,7 +929,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
         // int currentAdapterP=hlights.get(currenttrack-1).get(0).passage;
         override fun run() {
-          lateinit    var holder: RecyclerView.ViewHolder 
+            lateinit var holder: RecyclerView.ViewHolder
             if (onClickOrRange) {
                 if (hlights[currenttrack] != null) {
                     holder = recyclerView!!.findViewHolderForAdapterPosition(
@@ -1121,7 +1125,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                     ).show()
                 }
             }
-             lateinit var holderp: RecyclerView.ViewHolder 
+            lateinit var holderp: RecyclerView.ViewHolder
             if (currenttrack > 1) {
                 val pos: Int = Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                     hlights[currenttrack - 1]
@@ -1155,6 +1159,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
             handler.postDelayed(this, 5000)
         }
+
         private fun setVerseHighLight(textView: TextView, foreGroundcoloer: Int) {
             val str = textView.text.toString()
             val span = SpannableStringBuilder(str)
@@ -1295,7 +1300,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                     ).show()
                 }
             }
-              var holderp: RecyclerView.ViewHolder?=null
+            var holderp: RecyclerView.ViewHolder? = null
             if (currenttrack > 1) {
                 val pos: Int = Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                     hlights[currenttrack - 1]
@@ -1419,8 +1424,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                         pausePlayFlag = true
                         // player paused in any state
                     }
-                 //   super@Player.Listener.onPlaybackStateChanged(playbackState)
-                  //  super@Listener.onPlaybackStateChanged(playbackState)
+                    //   super@Player.Listener.onPlaybackStateChanged(playbackState)
+                    //  super@Listener.onPlaybackStateChanged(playbackState)
                 }
             })
             val haveStartPosition = startItemIndex != C.INDEX_UNSET
@@ -1433,7 +1438,10 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 }
                 if (versestartrange != 0) {
                     marrayrange = marray!!.subList(versestartrange, verseendrange)
-                    player!!.setMediaItems(marrayrange as MutableList<MediaItem>,  /* resetPosition= */!haveStartPosition)
+                    player!!.setMediaItems(
+                        marrayrange as MutableList<MediaItem>,  /* resetPosition= */
+                        !haveStartPosition
+                    )
                 }
             } else {
                 player!!.setMediaItems(marray!!,  /* resetPosition= */!haveStartPosition)
@@ -1465,7 +1473,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         val ayaLocations: MutableList<String> = ArrayList()
         marray = ArrayList()
         if (isSingle) {
-            val sngleverseplay: List<QuranEntity?>? = Utils.getsurahayahVerses(surahselected,
+            val sngleverseplay: List<QuranEntity?>? = Utils.getsurahayahVerses(
+                surahselected,
                 verselected
             )
             //Create files locations for the all page ayas
@@ -1535,13 +1544,15 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
     private fun createMediaItems(): MutableList<MediaItem> {
         val repository = Utils(this)
-        val chap: List<ChaptersAnaEntity?>? = repository.getSingleChapter(      surahselected
+        val chap: List<ChaptersAnaEntity?>? = repository.getSingleChapter(
+            surahselected
         )
         println(versestartrange.toString() + " " + verseendrange)
         val ayaLocations: MutableList<String> = ArrayList()
         marray = ArrayList()
         if (isSingle) {
-            val sngleverseplay: List<QuranEntity?>? = repository.getsurahayahVerses( surahselected, verselected
+            val sngleverseplay: List<QuranEntity?>? = repository.getsurahayahVerses(
+                surahselected, verselected
             )
             //Create files locations for the all page ayas
             //Create files locations for the all page ayas
@@ -1748,7 +1759,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         canceldownload = findViewById(R.id.canceldownload) as MaterialButton
         canceldownload!!.setOnClickListener(this)
         qariname = findViewById(R.id.lqari) as TextView
-      //  buffering = findViewById(R.id.exo_buffering) as ImageView
+        //  buffering = findViewById(R.id.exo_buffering) as ImageView
         val chooseDisplaytype: SwitchCompat = findViewById(R.id.chooseDisplaytype)
         chooseDisplaytype.setOnClickListener(this)
         playfb = findViewById(R.id.playfb) as MovableFloatingActionButton
@@ -1845,7 +1856,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         val manager = LinearLayoutManager(this)
         manager.orientation = LinearLayoutManager.VERTICAL
         quranbySurahadapter = repository.getQuranbySurah(surah)
-          var sb = StringBuilder()
+        var sb = StringBuilder()
         for (entity in quranbySurahadapter!!) {
             if (entity!!.passage_no != 0) {
                 sb.append(entity!!.qurantext).append("﴿").append(entity.ayah).append("﴾")
@@ -2060,11 +2071,12 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
             //create aya link
             val suraLength = chap?.get(0)?.chapterid.toString().trim { it <= ' ' }.length
-             var suraID = chap?.get(0)!!.chapterid.toString() + ""
+            var suraID = chap?.get(0)!!.chapterid.toString() + ""
 
             //   int ayaLength = String.valueOf(ayaItem.ayaID).trim().length();
             if (suraLength == 1) suraID =
-                "00" + (chap!!.get(0)!!.chapterid  ) else if (suraLength == 2) suraID = "0" + chap?.get(0)!!.chapterid
+                "00" + (chap!!.get(0)!!.chapterid) else if (suraLength == 2) suraID =
+                "0" + chap?.get(0)!!.chapterid
             val s = downloadLink + chap!!.get(0)!!.chapterid + AudioAppConstants.Extensions.MP3
             downloadLin.add(s)
             Log.d("DownloadLinks", downloadLink + suraID + AudioAppConstants.Extensions.MP3)
@@ -2074,8 +2086,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
     fun createDownloadLinks(): List<String>? {
         val chap = repository.getSingleChapter(surah)
-        val quranbySurah:  List<QuranEntity?>?= repository.getQuranbySurah(surah)
-        surahselected=surah
+        val quranbySurah: List<QuranEntity?>? = repository.getQuranbySurah(surah)
+        surahselected = surah
         //   int ayaID=0;
         var counter = 0
         //   quranbySurah.add(0, new QuranEntity(1, 1, 1));
@@ -2107,7 +2119,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
 
                     //create aya link
-                    val suraLength: Int = chap!!.get(0)!!.chapterid.toString().trim { it <= ' ' }.length
+                    val suraLength: Int =
+                        chap!!.get(0)!!.chapterid.toString().trim { it <= ' ' }.length
                     var suraID: String = chap.get(0)!!.chapterid.toString() + ""
 
 
@@ -2230,19 +2243,19 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             editor.putInt("lastaya", currenttrack)
             val ap: ArrayList<AudioPlayed?>? = null
             val audioPlayed = AudioPlayed()
-            audioPlayed.surah=surah
-            audioPlayed.ayah=currenttrack
+            audioPlayed.surah = surah
+            audioPlayed.ayah = currenttrack
             if (!hlights.isEmpty()) {
                 editor.putInt(
                     "trackposition", Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                         hlights[currenttrack]
                     )[0].passage!!
                 )
-                audioPlayed.trackposition=(
-                    Objects.requireNonNull<ArrayList<AyahCoordinate>>(
-                        hlights[currenttrack]
-                    )[0].passage!!
-                )
+                audioPlayed.trackposition = (
+                        Objects.requireNonNull<ArrayList<AyahCoordinate>>(
+                            hlights[currenttrack]
+                        )[0].passage!!
+                        )
             } else {
                 editor.putInt("trackposition", currenttrack)
             }
@@ -2291,10 +2304,10 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
         // For ad playback only.
         const val BROADCAST_SEEKBAR = "com.example.mushafconsolidated.Activity.sendseekbar"
-          var readerID = 0
-         lateinit var downloadLink: String 
-         lateinit var readerName: String 
-          var startBeforeDownload = false
+        var readerID = 0
+        lateinit var downloadLink: String
+        lateinit var readerName: String
+        var startBeforeDownload = false
         private const val TAG = "ShowMushafActivity"
 
         //   int pos;

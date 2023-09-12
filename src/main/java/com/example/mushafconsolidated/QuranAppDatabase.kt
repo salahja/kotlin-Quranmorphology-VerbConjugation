@@ -81,13 +81,13 @@ import java.io.File
     version = 1
 )
 abstract class QuranAppDatabase constructor() : RoomDatabase() {
-    abstract fun AnaQuranChapterDao(): AnaQuranChapterDao?
+    abstract fun AnaQuranChapterDao(): AnaQuranChapterDao
 
     // public abstract WordbywordPojoDao WordbywordPojoDao();
-    abstract fun BookMarkDao(): BookMarkDao?
+    abstract fun BookMarkDao(): BookMarkDao
     abstract fun RawDao(): RawDao
-    abstract fun CorpusExpandedDao(): CorpusExpandedDao?
-    abstract fun QuranDao(): QuranDao?
+    abstract fun getCorpusExpandDao(): CorpusExpandedDao
+    abstract fun QuranDao(): QuranDao
      abstract fun VerbCorpusDao(): VerbCorpusDao?
     abstract fun NounCorpusDao(): NounCorpusDao?
     abstract fun wbwDao(): wbwDao?
@@ -107,16 +107,16 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
     abstract fun HansDao(): HansDao?
     abstract fun qurandictionaryDao(): qurandictionaryDao
     abstract fun grammarRulesDao(): grammarRulesDao?
-    abstract fun tameezDao(): tameezDao?
-    abstract fun liajlihiDao(): liajlihiDao?
-    abstract fun MafoolBihiDao(): MafoolBihiDao?
-    abstract fun HaliyaDao(): HaliyaDao?
-    abstract fun BadalErabNotesDao(): BadalErabNotesDao?
-    abstract fun MafoolMutlaqEntDao(): MafoolMutlaqEntDao?
+    abstract fun tameezDao(): tameezDao
+    abstract fun liajlihiDao(): liajlihiDao
+    abstract fun MafoolBihiDao(): MafoolBihiDao
+    abstract fun HaliyaDao(): HaliyaDao
+    abstract fun BadalErabNotesDao(): BadalErabNotesDao
+    abstract fun MafoolMutlaqEntDao(): MafoolMutlaqEntDao
 
     abstract fun NamesDetailsDao(): NamesDetailsDao?
     abstract fun QuranExplorerDao(): QuranExplorerDao?
-    abstract fun surahsummaryDao(): surahsummaryDao?
+    abstract fun surahsummaryDao(): surahsummaryDao
     abstract fun QariDao(): QariDao
 
 

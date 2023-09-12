@@ -1,8 +1,5 @@
 package com.example.mushafconsolidated
 
-import com.example.mushafconsolidated.Entities.QuranEntity
-import com.example.mushafconsolidated.Entities.surahsummary
-
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
@@ -10,11 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.TextView
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
+import com.example.mushafconsolidated.Entities.QuranEntity
+import com.example.mushafconsolidated.Entities.surahsummary
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
+import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -96,17 +97,21 @@ class SurahSummary constructor() : BottomSheetDialogFragment() {
         assert(bundle != null)
         val item_count: Int = bundle!!.getInt("item_count")
         val utils: Utils = Utils(getActivity())
-        val surahSummary: ArrayList<surahsummary> = utils.getSurahSummary(item_count) as ArrayList<surahsummary>
-        //   String  ayah = getVersesDetails(item_count, surahSummary);
-        var sum: String = surahSummary.get(0).summary
-        sum = sum.replace("God".toRegex(), "Allah(SWT)")
-        var odiv: String = "<div>"
-        val cdiv: String = "</div>"
-        sum = sum.replace("\\.".toRegex(), "<br>")
-        odiv = odiv + sum + cdiv
-        //   String concat = html.concat(odiv).concat(ayah.toString()).concat(close);
-        val concat: String = html + odiv + close
-        webView.loadDataWithBaseURL(null, concat, "text/html", "utf-8", null)
+        val viewmodel: QuranVIewModel by viewModels()
+        viewmodel.getSurahSummary(item_count).observe(this, Observer {
+          //  val surahSummary: ArrayList<surahsummary> = utils.getSurahSummary(item_count) as ArrayList<surahsummary>
+            //   String  ayah = getVersesDetails(item_count, surahSummary);
+            var sum: String =       it.get(0).summary
+            sum = sum.replace("God".toRegex(), "Allah(SWT)")
+            var odiv: String = "<div>"
+            val cdiv: String = "</div>"
+            sum = sum.replace("\\.".toRegex(), "<br>")
+            odiv = odiv + sum + cdiv
+            //   String concat = html.concat(odiv).concat(ayah.toString()).concat(close);
+            val concat: String = html + odiv + close
+            webView.loadDataWithBaseURL(null, concat, "text/html", "utf-8", null)
+        })
+
         return view
     }
 
