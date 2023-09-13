@@ -5,6 +5,7 @@ import Utility.ArabicLiterals
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableString
@@ -79,40 +80,40 @@ import java.util.concurrent.Executors
 
 
 /**
- *
  * A fragment that shows a list of items as a modal bottom sheet.
  *
  * You can show this modal bottom sheet from your activity like this:
- * <pre>
+ * ```
  * ItemListDialogFragment.newInstance(30).show(getSupportFragmentManager(), "dialog");
-</pre> *
+ * ```
+ * *
  */
 class WordAnalysisBottomSheet : DialogFragment() {
-    val sarfSagheerList = ArrayList<SarfSagheer>()
+    private val sarfSagheerList = ArrayList<SarfSagheer>()
 
 
-    val wazannumberslist = ArrayList<String>()
+    private val wazannumberslist = ArrayList<String>()
     private var rwAdapter: newRootWordDisplayAdapter? = null
     var chapterid = 0
     var ayanumber = 0
-    var isMazeedSarfSagheer = false
-    var isThulathiSarfSagheer = false
-    var isVerb = false
+    private var isMazeedSarfSagheer = false
+    private var isThulathiSarfSagheer = false
+    private var isVerb = false
     var isNoun = false
-    lateinit var verbDictList: MutableList<MujarradVerbs>
-    lateinit var expandableListTitle: List<String>
-    lateinit var expandableListDetail: HashMap<String, List<SpannableString>>
+    private lateinit var verbDictList: MutableList<MujarradVerbs>
+    private lateinit var expandableListTitle: List<String>
+    private lateinit var expandableListDetail: HashMap<String, List<SpannableString>>
 
     // --Commented out by Inspection (11/01/22, 8:24 AM):HashMap<Integer, HashMap<String, SpannableStringBuilder>> wordetailsall = new HashMap<>();
     // --Commented out by Inspection (11/01/22, 8:35 AM):HashMap<Integer, HashMap<String, String>> verbdetailsall = new HashMap<>();
     var vbdetail = HashMap<String, String?>()
     lateinit var wordbdetail: HashMap<String, SpannableStringBuilder?>
-    var showGrammarFragments = false
+    private var showGrammarFragments = false
     var isroot = false
     var isarabicword = false
     var quadrilateral = false
-    var isnoun = false
-    var ismujarradparticple = false
+    private var isnoun = false
+    private var ismujarradparticple = false
     var isimperative = false
     private var spannable: SpannableStringBuilder? = null
     private var themepreference: String? = null
@@ -179,29 +180,24 @@ class WordAnalysisBottomSheet : DialogFragment() {
         Objects.requireNonNull(requireActivity())
             .runOnUiThread { dialog.show() }
 
-
-
         val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
 
 
+        val mafoolbihi = mainViewModel.getMafoolbihiword(chapterid, ayanumber, wordno).value
+        val haliaSentence = mainViewModel.gethalsurahayah(chapterid, ayanumber).value
+        val tameezWord = mainViewModel.getTameezword(chapterid, ayanumber, wordno).value
+        val liajlihiEntArrayList = mainViewModel.getAjlihiword(chapterid, ayanumber, wordno).value
+        val mutlaqword = mainViewModel.getMutlaqWOrd(chapterid, ayanumber, wordno).value
+        //  val    BadalErabNotesEnt  = mainViewModel.getbadalSurah(chapterid, ayanumber,wordno).value
 
-    val    mafoolbihi = mainViewModel.getMafoolbihiword(chapterid, ayanumber,wordno).value
-        val    HaliaSentence =mainViewModel.gethalsurahayah(chapterid, ayanumber).value
-        val     tameezWord = mainViewModel.getTameezword(chapterid, ayanumber,wordno).value
-        val    liajlihiEntArrayList = mainViewModel.getAjlihiword(chapterid, ayanumber,wordno).value
-        val   mutlaqword  = mainViewModel.getMutlaqWOrd(chapterid, ayanumber,wordno).value
-      //  val    BadalErabNotesEnt  = mainViewModel.getbadalSurah(chapterid, ayanumber,wordno).value
-
-        val   corpusSurahWord  = mainViewModel.getQuranCorpusWbw(chapterid, ayanumber,wordno).value
-
+        val corpusSurahWord = mainViewModel.getQuranCorpusWbw(chapterid, ayanumber, wordno).value
 
 
-        val quran=      mainViewModel.getsurahayahVerseslist(chapterid,ayanumber).value
-        val corpusNounWord =mainViewModel.getNouncorpus(chapterid, ayanumber, wordno).value
+        val quran = mainViewModel.getsurahayahVerseslist(chapterid, ayanumber).value
+        val corpusNounWord = mainViewModel.getNouncorpus(chapterid, ayanumber, wordno).value
 
-        val verbCorpusRootWord=            mainViewModel.getVerbRootBySurahAyahWord(chapterid, ayanumber, wordno).value
-
-
+        val verbCorpusRootWord =
+            mainViewModel.getVerbRootBySurahAyahWord(chapterid, ayanumber, wordno).value
 
 
         val am = NewQuranMorphologyDetails(
@@ -216,7 +212,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
         vb = VerbWazan()
         wordbdetail = am.wordDetails
         if (verbCorpusRootWord != null) {
-            if (verbCorpusRootWord.isNotEmpty() && verbCorpusRootWord.get(0)?.tag.equals("V")) {
+            if (verbCorpusRootWord.isNotEmpty() && verbCorpusRootWord[0].tag.equals("V")) {
                 vbdetail = am.verbDetails
                 isVerb = true
             }
@@ -356,12 +352,12 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 root = root!!.replace("أ", "ء")
             }
             val dutils = VerbDatabaseUtils(activity)
-            val model:VerbModel by viewModels()
-          //  val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
+            val model: VerbModel by viewModels()
+            //  val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
 
-        val triVerb=    model.getMujjarlist(root!!).value
+            val triVerb = model.getMujjarlist(root!!).value
 
-         //   val triVerb: java.util.ArrayList<MujarradVerbs> =
+            //   val triVerb: java.util.ArrayList<MujarradVerbs> =
             //    dutils.getMujarradVerbs(root!!) as java.util.ArrayList<MujarradVerbs>
             verbDictList = java.util.ArrayList<MujarradVerbs>()
             if (triVerb != null) {
@@ -381,12 +377,12 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 }
             }
         } else if (isroot && ismazeed && !isparticple) {
-        /*    val databaseUtils = VerbDatabaseUtils(QuranGrammarApplication.context!!)
-             val mazeedEntityRoots: java.util.ArrayList<MazeedEntity> =
-               databaseUtils.getMazeedRoot(root!!) as java.util.ArrayList<MazeedEntity>*/
+            /*    val databaseUtils = VerbDatabaseUtils(QuranGrammarApplication.context!!)
+                 val mazeedEntityRoots: java.util.ArrayList<MazeedEntity> =
+                   databaseUtils.getMazeedRoot(root!!) as java.util.ArrayList<MazeedEntity>*/
 
-            val model:VerbModel by viewModels()
-            val mazeedEntityRoots=       model.getMazeelist(root!!).value
+            val model: VerbModel by viewModels()
+            val mazeedEntityRoots = model.getMazeelist(root!!).value
 
 
 
@@ -450,9 +446,9 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 isNoun = false
 
             } else {
-              //  var root = vb.root
-                if(root!!.isNotEmpty() && root!!.length !=3){
-                     root = wordbdetail["root"].toString()
+                //  var root = vb.root
+                if (root!!.isNotEmpty() && root!!.length != 3) {
+                    root = wordbdetail["root"].toString()
                 }
                 val first = root!!.startsWith("أ")
                 val second = root!!.indexOf("أ")
@@ -461,14 +457,14 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 } else if (second != -1) {
                     root = root!!.replace("أ", "ء")
                 }
-           /*     val databaseUtils = VerbDatabaseUtils(context)
-                val triVerb: java.util.ArrayList<MujarradVerbs> =
-                    databaseUtils.getMujarradVerbs(root!!) as java.util.ArrayList<MujarradVerbs>*/
+                /*     val databaseUtils = VerbDatabaseUtils(context)
+                     val triVerb: java.util.ArrayList<MujarradVerbs> =
+                         databaseUtils.getMujarradVerbs(root!!) as java.util.ArrayList<MujarradVerbs>*/
 
-                val model:VerbModel by viewModels()
+                val model: VerbModel by viewModels()
                 //  val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
 
-                val triVerb=    model.getMujjarlist(root!!).value
+                val triVerb = model.getMujjarlist(root!!).value
                 verbDictList = java.util.ArrayList<MujarradVerbs>()
                 if (triVerb != null) {
                     for (tri in triVerb) {
@@ -527,30 +523,27 @@ class WordAnalysisBottomSheet : DialogFragment() {
             //   if (corpusNounWord.get(0).getTag().equals("ACC") || corpusNounWord.get(0).equals("T") || corpusNounWord.get(0).equals("LOC")) {
             //    vb = new VerbWazan();
             if (corpusNounWord != null) {
-                if (corpusNounWord.isNotEmpty() && (corpusNounWord[0].tag
-                        .equals("COND") || corpusNounWord[0].tag
-                        .equals("T") || corpusNounWord[0].tag.equals("LOC"))
+                if (corpusNounWord.isNotEmpty() && (corpusNounWord[0].tag == "COND" || corpusNounWord[0].tag == "T" || corpusNounWord[0].tag == "LOC")
                 ) {
-                    if (corpusNounWord[0].tag.equals("COND")) {
+                    if (corpusNounWord[0].tag == "COND") {
                         harfNasbAndZarf = "ACC"
-                    } else if (corpusNounWord[0].tag.equals("T")) {
+                    } else if (corpusNounWord[0].tag == "T") {
                         harfNasbAndZarf = "T"
                     }
-                    if (corpusNounWord[0].tag.equals("LOC")) {
+                    if (corpusNounWord[0].tag == "LOC") {
                         harfNasbAndZarf = "LOC"
                     }
                     isNoun = true
                     isparticple = false
-                } else if (corpusNounWord.isNotEmpty() && (corpusNounWord[0].tag
-                        .equals("ACC") || corpusNounWord[0].tag
-                        .equals("T") || corpusNounWord[0].tag.equals("LOC"))
+                } else if (corpusNounWord.isNotEmpty() && (corpusNounWord[0].tag == "ACC" || corpusNounWord[0].tag == "T" || corpusNounWord[0].tag == "LOC")
                 ) {
-                    if (corpusNounWord[0].tag.equals("ACC")) {
+                    if (corpusNounWord[0].tag == "ACC") {
                         harfNasbAndZarf = "ACC"
-                    } else if (corpusNounWord[0].tag.equals("T")) {
+                    } else if (corpusNounWord[0].tag == "T") {
                         harfNasbAndZarf = "T"
                     }
-                    if (corpusNounWord[0].tag.equals("LOC")) {
+
+                    if (corpusNounWord[0].tag == "LOC") {
                         harfNasbAndZarf = "LOC"
                     }
                     isNoun = true
@@ -590,16 +583,15 @@ class WordAnalysisBottomSheet : DialogFragment() {
             spannable = SpannableStringBuilder(quranverses)
             SetShart(utils)
             setHarfNasb(utils)
-            SetMausoofSifa(utils, quran as ArrayList<QuranEntity>)
-            SetMudhaf(utils)
+            setMausoofSifa(utils, quran as ArrayList<QuranEntity>)
+            setMudhaf(utils)
             SetKana(utils)
         }
         requireActivity().runOnUiThread {
             ex.shutdown()
             dialog.dismiss()
             if (showGrammarFragments) {
-                val grammarFragmentsListAdapter: GrammarFragmentsListAdapter =
-                    GrammarFragmentsListAdapter(
+                GrammarFragmentsListAdapter(
                     requireContext(),
                     expandableListTitle, expandableListDetail
                 )
@@ -608,7 +600,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
 
                 rwAdapter = newRootWordDisplayAdapter(
                     requireContext(),
-                    HaliaSentence as ArrayList<HalEnt>?,
+                    haliaSentence as ArrayList<HalEnt>?,
                     tameezWord as ArrayList<TameezEnt>?,
                     mafoolbihi as ArrayList<MafoolBihi>?,
                     mutlaqword as ArrayList<MafoolMutlaqEnt>?,
@@ -643,8 +635,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
 
 
     private fun storepreferences(chapterid: Int, ayanumber: Int, s: String) {
-        var pref =
-            PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context!!)
+        var pref: SharedPreferences?
         pref = requireContext().getSharedPreferences("lastread", Context.MODE_PRIVATE)
         val editor = pref.edit()
         editor.putInt(SURAH_ID, chapterid)
@@ -696,7 +687,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
         }
     }
 
-    private fun SetMudhaf(utils: Utils) {
+    private fun setMudhaf(utils: Utils) {
         val mudhafSurahAyah: List<NewMudhafEntity?>? =
             utils.getMudhafSurahAyahNew(chapterid, ayanumber)
         if (mudhafSurahAyah != null) {
@@ -712,7 +703,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
         }
     }
 
-    private fun SetMausoofSifa(
+    private fun setMausoofSifa(
         utils: Utils,
         corpusSurahWord: ArrayList<QuranEntity>,
     ) {
@@ -828,9 +819,9 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 val wordview = v?.findViewById<View>(R.id.wordView)
                 val formview = v?.findViewById<View>(R.id.mazeedmeaning)
                 if (formview != null) {
-                    val item = VerbFormsDialogFrag()
+                   // val item = VerbFormsDialogFrag()
                     //    item.setdata(root!!WordMeanings,wbwRootwords,grammarRootsCombined);
-                    val fragmentManager = requireActivity().supportFragmentManager
+                 //   val fragmentManager = requireActivity().supportFragmentManager
                     var vbform: String?
                     if (vbdetail.isNotEmpty()) {
                         vbform = vbdetail["formnumber"]
@@ -950,7 +941,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 } else if (verse != null) {
                     val item = GrammerFragmentsBottomSheet()
                     //    item.setdata(root!!WordMeanings,wbwRootwords,grammarRootsCombined);
-                    val fragmentManager = requireActivity().supportFragmentManager
+                 //   val fragmentManager = requireActivity().supportFragmentManager
                     val dataBundle = Bundle()
                     dataBundle.putInt(SURAH_ID, chapterid)
                     dataBundle.putInt(AYAHNUMBER, ayanumber)
@@ -961,8 +952,8 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 } else if (nouns != null) {
                     val bundle = Bundle()
 
-       val intent = Intent(activity, WordOccuranceAct::class.java)
-             //   val intent = Intent(activity, ComposeAct::class.java)
+                    val intent = Intent(activity, WordOccuranceAct::class.java)
+                    //   val intent = Intent(activity, ComposeAct::class.java)
                     try {
                         if (vb.root!! != null) {
                             bundle.putString(QURAN_VERB_ROOT, vb.root)

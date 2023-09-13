@@ -17,7 +17,8 @@ interface QuranDao {
 
     @Transaction
     @Query("SELECT * FROM CorpusExpand JOIN wbw ON wbw.id = CorpusExpand.id where corpusexpand.surah=:surahid and corpusexpand.ayah=:ayahid and corpusexpand.wordno=:wordno")
-    fun getQuranCorpusWbw(surahid: Int,ayahid: Int,wordno: Int): List<QuranCorpusWbw>
+
+    fun getQuranCorpusWbw(surahid: Int, ayahid: Int, wordno: Int): List<QuranCorpusWbw>
 
 
 
