@@ -25,11 +25,11 @@ import com.example.mushafconsolidated.Entities.HalEnt
 import com.example.mushafconsolidated.Entities.LiajlihiEnt
 import com.example.mushafconsolidated.Entities.MafoolBihi
 import com.example.mushafconsolidated.Entities.MafoolMutlaqEnt
-import com.example.mushafconsolidated.Entities.NewCorpusExpandWbwPOJO
 import com.example.mushafconsolidated.Entities.TameezEnt
 import com.example.mushafconsolidated.Entities.lughat
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
+import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.card.MaterialCardView
@@ -37,7 +37,7 @@ import com.google.android.material.chip.Chip
 import org.sj.conjugator.fragments.SarfSagheer
 
 
-class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemViewAdapter> {
+class newRootWordDisplayAdapter :RecyclerView.Adapter<newRootWordDisplayAdapter.ItemViewAdapter> {
 
 
     private lateinit var context: Context
@@ -59,7 +59,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
     private var isnoun: Boolean = false
     private lateinit var worddetails: HashMap<String, SpannableStringBuilder?>
     private lateinit var vbdetail: HashMap<String, String?>
-    private lateinit var corpusexpand: ArrayList<NewCorpusExpandWbwPOJO>
+    private lateinit var corpusexpand: ArrayList<QuranCorpusWbw>
     private lateinit var ismfaelmafool: ArrayList<ArrayList<*>>
     private var sarfsagheer: java.util.ArrayList<SarfSagheer>? = null
     private lateinit var spannable: SpannableStringBuilder
@@ -90,7 +90,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
         ismfaelmafool: ArrayList<ArrayList<*>>?,
         participles: Boolean,
         isverbconjugaton: Boolean,
-        corpusSurahWord: ArrayList<NewCorpusExpandWbwPOJO>,
+        corpusSurahWord: ArrayList<QuranCorpusWbw>,
         wordbdetail: HashMap<String, SpannableStringBuilder?>?,
         vbdetail: HashMap<String, String?>?,
         mazeedSarfSagheer: Boolean,
@@ -124,7 +124,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
     public override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): RootWordDisplayAdapter.ItemViewAdapter {
+    ): newRootWordDisplayAdapter.ItemViewAdapter {
         val view: View
         if (isverbconjugation) {
           isviewtype=1
@@ -147,7 +147,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
     }
 
     public override fun onBindViewHolder(
-        holder: RootWordDisplayAdapter.ItemViewAdapter,
+        holder: newRootWordDisplayAdapter.ItemViewAdapter,
         position: Int,
     ) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
@@ -226,7 +226,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
             }
         }
         val mequran: Typeface = Typeface.createFromAsset(context.getAssets(), quranFont)
-        Log.d(RootWordDisplayAdapter.Companion.TAG, "onBindViewHolder: called")
+        Log.d(newRootWordDisplayAdapter.Companion.TAG, "onBindViewHolder: called")
         if ((theme == "dark") || (theme == "blue") || (theme == "green")) {
             rootcolor = Constant.BYELLOW
             weaknesscolor = Constant.BCYAN
@@ -432,12 +432,8 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
             //  holder.verbdetails.setTextSize(arabicFontsize);
         }
         holder.referenceView.setText(
-   /*         corpusexpand!!.get(0).corpus.surah.toString() + ":" + corpusexpand!!.get(0).corpus
+            corpusexpand!!.get(0).corpus.surah.toString() + ":" + corpusexpand!!.get(0).corpus
                 .ayah + ":" + corpusexpand!!.get(0).corpus.wordno
-*/
-                    corpusexpand!!.get(0).surah.toString() + ":" + corpusexpand!!.get(0)
-                .ayah + ":" + corpusexpand!!.get(0).wordno
-
         )
         val worddetail: SpannableStringBuilder? = worddetails!!.get("worddetails")
         //  holder.wdetailstv.setText(worddetail, TextView.BufferType.SPANNABLE);
@@ -446,12 +442,12 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
         holder.wdetailstv.setTextSize(16f)
         if (worddetails!!.get("lemma") != null || worddetails!!.get("lemma")!!.length != 0) {
             holder.lemma.setVisibility(View.VISIBLE)
-            holder.lemma.setText(RootWordDisplayAdapter.Companion.LEMMA + worddetails!!.get("lemma"))
+            holder.lemma.setText(newRootWordDisplayAdapter.Companion.LEMMA + worddetails!!.get("lemma"))
             //        holder.lemma.setTextSize(arabicFontsize);
         }
         if (worddetails!!.get("root") != null) {
             holder.rootView.setText(
-                RootWordDisplayAdapter.Companion.ROOTWORDSTRING + worddetails!!.get(
+                newRootWordDisplayAdapter.Companion.ROOTWORDSTRING + worddetails!!.get(
                     "root"
                 )
             )
@@ -459,7 +455,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
         }
         if (vbdetail!!.get("root") != null) {
             holder.rootView.setText(
-                RootWordDisplayAdapter.Companion.ROOTWORDSTRING + vbdetail!!.get(
+                newRootWordDisplayAdapter.Companion.ROOTWORDSTRING + vbdetail!!.get(
                     "root"
                 )
             )
@@ -528,7 +524,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
         return corpusexpand!!.size
     }
 
-    private fun gcase(holder: RootWordDisplayAdapter.ItemViewAdapter) {
+    private fun gcase(holder: newRootWordDisplayAdapter.ItemViewAdapter) {
         val sharedPreferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context!!)
         //  String theme = sharedPreferences.getString("theme", 1);
@@ -555,7 +551,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
         holder.gen3?.setText(array.get(2))
     }
 
-    private fun ismfaelmafoolnumbers(holder: RootWordDisplayAdapter.ItemViewAdapter) {
+    private fun ismfaelmafoolnumbers(holder: newRootWordDisplayAdapter.ItemViewAdapter) {
         val language: String? = sharedPreferences!!.getString("lan", "en")
         val isTraditional: Boolean = true
         val array: Array<String>
@@ -578,7 +574,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
     }
 
     private fun IsmFael(
-        holder: RootWordDisplayAdapter.ItemViewAdapter,
+        holder: newRootWordDisplayAdapter.ItemViewAdapter,
         ismfaelmafoolarray: ArrayList<*>,
     ) {
         val iisone: String = ismfaelmafool!!.get(0).get(0).toString() //isone);
@@ -604,7 +600,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
     }
 
     private fun IsmFaelFem(
-        holder: RootWordDisplayAdapter.ItemViewAdapter,
+        holder: newRootWordDisplayAdapter.ItemViewAdapter,
         ismfaelmafoolarray: ArrayList<*>,
     ) {
         val iisone: String = ismfaelmafool!!.get(1).get(1).toString() //isone);
@@ -629,7 +625,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
         holder.ismfemnine?.setText(iisnine)
     }
 
-    private fun IsmMafoolFem(holder: RootWordDisplayAdapter.ItemViewAdapter) {
+    private fun IsmMafoolFem(holder: newRootWordDisplayAdapter.ItemViewAdapter) {
         val smafone: String = ismfaelmafool!!.get(1).get(1).toString()
         val smaftwo: String = ismfaelmafool!!.get(1).get(3).toString() //imaftwo);
         val smafthree: String = ismfaelmafool!!.get(1).get(5).toString() //imafthree);
@@ -653,7 +649,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
     }
 
     private fun IsmMafool(
-        holder: RootWordDisplayAdapter.ItemViewAdapter,
+        holder: newRootWordDisplayAdapter.ItemViewAdapter,
         ismfaelmafoolarray: ArrayList<*>,
     ) {
         val smafone: String = ismfaelmafool!!.get(0).get(0).toString()
@@ -678,7 +674,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
         holder.imafnine?.setText(smafnine)
     }
 
-    private fun SetTypeFace(holder: RootWordDisplayAdapter.ItemViewAdapter) {
+    private fun SetTypeFace(holder: newRootWordDisplayAdapter.ItemViewAdapter) {
         //  final Typeface arabicTypeface = Typeface.createFromAsset(context.getAssets(), "Pdms.ttf");
         //  Typeface arabicTypeface = Typeface.createFromAsset(context.getAssets(), SharedPref.arabicFontSelection());
         //  Typeface arabicTypeface = Typeface.createFromAsset(QuranGrammarApplication.context!!.getAssets(), "Taha.ttf");
@@ -759,7 +755,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
         holder.isnine?.setTypeface(arabicTypeface) //;//iisnine);
     }
 
-    private fun FontSIzeSelection(holder: RootWordDisplayAdapter.ItemViewAdapter) {
+    private fun FontSIzeSelection(holder: newRootWordDisplayAdapter.ItemViewAdapter) {
         val sharedPreferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context!!)
         val arabicFontsize: Int = sharedPreferences.getInt("pref_font_arabic_key", 20)
@@ -828,7 +824,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
         holder.isnine?.setTextSize(arabicFontsize.toFloat()) //iisnine);
     }
 
-    private fun Fonttypeface(holder: RootWordDisplayAdapter.ItemViewAdapter) {
+    private fun Fonttypeface(holder: newRootWordDisplayAdapter.ItemViewAdapter) {
         val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(
             context
         )
@@ -856,7 +852,7 @@ class RootWordDisplayAdapter :RecyclerView.Adapter<RootWordDisplayAdapter.ItemVi
         }
     }
 
-    private fun FontSizeSelection(holder: RootWordDisplayAdapter.ItemViewAdapter) {
+    private fun FontSizeSelection(holder: newRootWordDisplayAdapter.ItemViewAdapter) {
         val sharedPreferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context!!)
         val fontsize: Int = sharedPreferences.getInt("pref_font_arabic_key", 20)

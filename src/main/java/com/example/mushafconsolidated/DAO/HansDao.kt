@@ -9,4 +9,10 @@ import com.example.mushafconsolidated.Entities.hanslexicon
 interface HansDao {
     @Query("SELECT * FROM hansdictionary where rootword=:root")
     fun getHansDefinition(root: String?): List<hanslexicon?>?
+
+    @Query("SELECT * FROM hansdictionary where rootword=:root")
+    fun getHansDefinitionl(root: String): List<hanslexicon>
+
+
+
 }

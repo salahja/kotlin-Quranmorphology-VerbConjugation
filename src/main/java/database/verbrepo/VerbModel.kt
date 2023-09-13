@@ -17,8 +17,8 @@ import sj.hisnul.entity.hduanamesEnt
 class VerbModel(
     private val newrepository: VerbRepository = VerbGraph.repository
 ) :ViewModel(){
-
-
+    var mazeelist: MutableLiveData<List<MazeedEntity>> = MutableLiveData()
+    var mujarradlist: MutableLiveData<List<MujarradVerbs>> = MutableLiveData()
     var mazeedall: LiveData<List<MazeedEntity>> = MutableLiveData()
     var mujaradall: LiveData<List<MujarradVerbs>> = MutableLiveData()
     var duachapter: LiveData<List<hduanamesEnt>> = MutableLiveData()
@@ -27,6 +27,17 @@ class VerbModel(
     var duacategory: LiveData<List<hcategoryEnt>> = MutableLiveData()
 
     var kovs: LiveData<List<kov>> = MutableLiveData()
+
+
+    fun getMazeelist(root : String): MutableLiveData<List<MazeedEntity>> {
+        mazeelist.value= newrepository.getMazeedroolist(root)
+        return    mazeelist
+    }
+
+    fun getMujjarlist(root : String): MutableLiveData<List<MujarradVerbs>> {
+        mujarradlist.value= newrepository.getMujarradrootlist(root)
+        return    mujarradlist
+    }
 
     fun getKov(): LiveData<List<kov>> {
 
@@ -94,6 +105,17 @@ class VerbModel(
 
         return mazeedall
     }
+    fun getMazeedRootLIST(root : String): LiveData<List<MazeedEntity>> {
+
+
+        viewModelScope.launch {
+            mazeedall = newrepository.getMazeedroot(root)
+        }
+
+
+        return mazeedall
+    }
+
 
     fun getMazeedWeakness(root : String): LiveData<List<MazeedEntity>> {
 

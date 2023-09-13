@@ -3,7 +3,9 @@ package com.example.mushafconsolidated.DAO
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Transaction
 import com.example.mushafconsolidated.Entities.QuranEntity
+import com.example.mushafconsolidated.model.QuranCorpusWbw
 
 
 //.QuranEntity
@@ -11,6 +13,34 @@ import com.example.mushafconsolidated.Entities.QuranEntity
 
 @Dao
 interface QuranDao {
+
+
+    @Transaction
+    @Query("SELECT * FROM CorpusExpand JOIN wbw ON wbw.id = CorpusExpand.id where corpusexpand.surah=:surahid and corpusexpand.ayah=:ayahid and corpusexpand.wordno=:wordno")
+    fun getQuranCorpusWbw(surahid: Int,ayahid: Int,wordno: Int): List<QuranCorpusWbw>
+
+
+
+/*
+    @Transaction
+    @Query("SELECT * FROM qurans,CorpusExpand,wbw where CorpusExpand.surah=:surahid and CorpusExpand.ayah=:ayahid and CorpusExpand.wordno=:wordno")
+    fun getQuranCorpusWbw(surahid: Int,ayahid: Int,wordno: Int): List<QuranCorpusWbw>
+*/
+
+
+
+   /* @Transaction
+    @Query("  SELECT * FROM qurans,CorpusExpand,wbw,nouncorpus JOIN corpusexpand ON CorpusExpand.id = qurans.docid JOIN wbw ON wbw.id = corpusexpand.id  join nouncorpus on wbw.id=nouncorpus.id where corpusexpand.surah=:surahid and corpusexpand.ayah=:ayahid and corpusexpand.wordno=:wordno")
+    fun getQuranCorpusWbwNounCorpus(surahid: Int,ayahid: Int,wordno: Int): List<QuranCorpusWbwNounBreakup>
+*/
+
+
+
+
+    /*
+    SELECT * FROM qurans JOIN corpusexpand ON corpusexpand.id = qurans.docid JOIN wbw ON wbw.id = corpusexpand.id  join nouncorpus on wbw.id=nouncorpus.id
+where CorpusExpand.surah=1 and CorpusExpand.ayah=1 and CorpusExpand.wordno=2
+     */
     @Query("SELECT * FROM qurans where surah=:surahid")
     fun getQuranVersesBySurah(surahid: Int): List<QuranEntity?>?
 
@@ -48,7 +78,8 @@ interface QuranDao {
 
     @Query("SELECT * FROM qurans where surah=:surahid and ayah=:ayahid")
     fun getsurahayahVersesl(surahid: Int, ayahid: Int): LiveData<List<QuranEntity>>
-
+    @Query("SELECT * FROM qurans where surah=:surahid and ayah=:ayahid")
+    fun getsurahayahVerseslist(surahid: Int, ayahid: Int): List<QuranEntity>
     @Query("select * from qurans where  surah =:sura and page = :pageno order by ayah")
     fun getAyahsByPagel(sura: Int, pageno: Int): LiveData<List<QuranEntity>>
 

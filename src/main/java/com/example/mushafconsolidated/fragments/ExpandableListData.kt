@@ -20,6 +20,7 @@ import com.example.mushafconsolidated.Entities.NewShartEntity
 import com.example.mushafconsolidated.Entities.SifaEntity
 import com.example.mushafconsolidated.Entities.wbwentity
 import com.example.mushafconsolidated.Utils
+import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.mushafconsolidated.model.Word
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.QuranGrammarApplication
@@ -45,6 +46,7 @@ class ExpandableListData {
     private val chapterid: Int
     private val ayanumber: Int
     private var corpusSurahWord: ArrayList<NewCorpusExpandWbwPOJO>? = null
+    private var corpusSurahWordtwo: ArrayList<QuranCorpusWbw>? = null
     private var utils: Utils? = null
     private var whichwbw: String? = null
     private var dark: Boolean = false

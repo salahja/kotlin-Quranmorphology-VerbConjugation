@@ -24,16 +24,26 @@ object QuranGraph {
           liajlihient =db. liajlihiDao(),
           badalErabNotesEnt =db.BadalErabNotesDao(),
             bookm=db.BookMarkDao(),
+            hansdao = db.HansDao(),
+            lanesdao = db.LaneRootDao(),
+              ajlihiworddao=db.liajlihiDao(),
+          mutlaqworddao=db.MafoolMutlaqEntDao(),
+          tameezword=db.tameezDao(),
+
+          nouncorpusdao=db.NounCorpusDao(),
+            mafoolbihi=db.MafoolBihiDao(),
+            verbcorpusdao=db.VerbCorpusDao(),
 
 
 
-            /*     buckwaterDao = BuckwaterDao(),
-            quranVerbsDao = QuranVerbsDao(),
-            quranicVerbsDao = QuranicVerbsDao(),
-            verbcorpusDao = verbcorpusDao(),
-            kovDao = kovDao(),
-            mujarradDao = mujarradDao(),
-            mazeeddao = mazeedDao(),*/
+
+        /*     buckwaterDao = BuckwaterDao(),
+        quranVerbsDao = QuranVerbsDao(),
+        quranicVerbsDao = QuranicVerbsDao(),
+        verbcorpusDao = verbcorpusDao(),
+        kovDao = kovDao(),
+        mujarradDao = mujarradDao(),
+        mazeeddao = mazeedDao(),*/
 
 
         )

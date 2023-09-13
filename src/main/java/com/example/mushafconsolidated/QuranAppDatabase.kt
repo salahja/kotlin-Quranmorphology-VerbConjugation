@@ -88,8 +88,8 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
     abstract fun RawDao(): RawDao
     abstract fun getCorpusExpandDao(): CorpusExpandedDao
     abstract fun QuranDao(): QuranDao
-     abstract fun VerbCorpusDao(): VerbCorpusDao?
-    abstract fun NounCorpusDao(): NounCorpusDao?
+     abstract fun VerbCorpusDao(): VerbCorpusDao
+    abstract fun NounCorpusDao(): NounCorpusDao
     abstract fun wbwDao(): wbwDao?
     abstract fun SifaDao(): SifaDao?
 
@@ -103,8 +103,8 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
     abstract fun NewKanaDao(): NewKanaDao?
     abstract fun LughatDao(): LughatDao?
     abstract fun LaneDao(): LaneDao?
-    abstract fun LaneRootDao(): LaneRootDao?
-    abstract fun HansDao(): HansDao?
+    abstract fun LaneRootDao(): LaneRootDao
+    abstract fun HansDao(): HansDao
     abstract fun qurandictionaryDao(): qurandictionaryDao
     abstract fun grammarRulesDao(): grammarRulesDao?
     abstract fun tameezDao(): tameezDao

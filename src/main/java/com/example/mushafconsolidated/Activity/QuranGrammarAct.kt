@@ -840,12 +840,12 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
         corpusayahWordArrayList = ArrayList()
         //   mafoolbihiwords = ArrayList()
-        mafoolbihiwords = mainViewModel.getMaoolbysurah(chapterno).value
-        Jumlahaliya =mainViewModel.getHal(chapterno).value
-        Tammezent = mainViewModel.gettameez(chapterno).value
-        Liajlihient = mainViewModel.getLiajlihi(chapterno).value
-        Mutlaqent  = mainViewModel.getMutlaq(chapterno).value
-        BadalErabNotesEnt  = mainViewModel.getbadal(chapterno).value
+        mafoolbihiwords = mainViewModel.getMafoolSurah(chapterno).value
+        Jumlahaliya =mainViewModel.getHalsurah(chapterno).value
+        Tammezent = mainViewModel.getTameezsurah(chapterno).value
+        Liajlihient = mainViewModel.getLiajlihiSurah(chapterno).value
+        Mutlaqent  = mainViewModel.getMutlaqSurah(chapterno).value
+        BadalErabNotesEnt  = mainViewModel.getbadalSurah(chapterno).value
      //   Jumlahaliya = utils!!.getHaliaErabBysurah(chapterno)
       //  Liajlihient = utils!!.getMafoolLiajlihisurah(chapterno)
 
@@ -919,6 +919,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             val viewmodel: QuranVIewModel by viewModels()
             if (!mushafview) {
                 viewmodel.getVersesBySurahLive(chapterno).observe(this, {
+                    allofQuran=it
                     flowAyahWordAdapter = FlowAyahWordAdapter(
                         false,
                         passage,
@@ -1148,13 +1149,13 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
     @SuppressLint("RestrictedApi", "InflateParams")
     fun qurangrammarmenu(view: View, position: Int) {
         val tag = view.tag
-        val quranEntity: QuranEntity = flowAyahWordAdapter.getItem(position) as QuranEntity
+      //  val quranEntity: QuranEntity = flowAyahWordAdapter.getItem(position) as QuranEntity
 
-   /*     val quranEntity: QuranEntity = try {
+         val quranEntity: QuranEntity = try {
             allofQuran!![position]!!
         } catch (e: IndexOutOfBoundsException) {
             allofQuran!![position - 1]!!
-        }*/
+        }
         val colorsentence = view.findViewById<SwitchCompat>(R.id.colorized)
         val colortag = shared.getBoolean("colortag", true)
         if (tag == "bookmarfb") {

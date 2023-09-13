@@ -27,6 +27,9 @@ interface mujarradDao {
     @Query(value = "SELECT * FROM mujarrad where root=:root")
     fun getverbTrilive(root: String?): LiveData<List<MujarradVerbs>>
 
+    @Query(value = "SELECT * FROM mujarrad where root=:root")
+    fun getMujarradList(root: String?): List<MujarradVerbs>
+
     @Query(value = "SELECT * FROM mujarrad order by root")
     fun getverbTriAlllive(): LiveData<List<MujarradVerbs>>
 

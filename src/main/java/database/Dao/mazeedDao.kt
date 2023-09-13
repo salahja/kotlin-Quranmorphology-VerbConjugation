@@ -29,7 +29,8 @@ interface mazeedDao {
 
     @Query(value = "SELECT * FROM mazeed where root=:root")
     fun getMazeedRootlive(root: String?): LiveData<List<MazeedEntity>>
-
+    @Query(value = "SELECT * FROM mazeed where root=:root")
+    fun getMazeedRootlist(root: String?): List<MazeedEntity>
     @Query(value = "SELECT * FROM mazeed order by root")
     fun getMazeedAlllive(): LiveData<List<MazeedEntity>>
 

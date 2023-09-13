@@ -6,7 +6,6 @@ import com.example.mushafconsolidated.Entities.TameezEnt
 
 //.TameezEnt
 
-
 @Dao
 interface tameezDao {
     @Query("SELECT * FROM tameez ORDER BY surah,ayah")

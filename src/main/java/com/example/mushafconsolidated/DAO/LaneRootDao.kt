@@ -8,5 +8,5 @@ import com.example.mushafconsolidated.Entities.lanerootdictionary
 @Dao
 interface LaneRootDao {
     @Query("SELECT * FROM lanesrootdictionary where rootarabic=:root")
-    fun getLanesRootDefinition(root: String?): List<lanerootdictionary?>?
+    fun getLanesRootDefinition(root: String): List<lanerootdictionary>
 }

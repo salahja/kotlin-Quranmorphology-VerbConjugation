@@ -1406,7 +1406,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         builder.setCancelable(false) // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_dialog)
         val      mainViewModel = ViewModelProvider(this).get(QuranVIewModel::class.java)
-        mafoolbihiwords = mainViewModel.getMaoolbysurah(surah).value as ArrayList<MafoolBihi>?
+        mafoolbihiwords = mainViewModel.getMafoolSurah(surah).value as ArrayList<MafoolBihi>?
         val dialog = builder.create()
         corpusayahWordArrayList = ArrayList()
      //   mafoolbihiwords = ArrayList()

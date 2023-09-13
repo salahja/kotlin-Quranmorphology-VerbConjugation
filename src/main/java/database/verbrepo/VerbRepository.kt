@@ -45,11 +45,12 @@ class VerbRepository(
 
 
 
-    fun getMazeedroot(root : String): LiveData<List<MazeedEntity>>
-    =mazeeddao.getMazeedRootlive(root)
+    fun getMazeedroot(root : String): LiveData<List<MazeedEntity>>    =mazeeddao.getMazeedRootlive(root)
+    fun getMazeedroolist(root : String): List<MazeedEntity>     =mazeeddao.getMazeedRootlist(root)
 
-    fun getMazeedWeakness(kov : String): LiveData<List<MazeedEntity>>
-            =mazeeddao.getMazeedWeaknesslive(kov)
+
+   fun getMujarradrootlist(root : String): List<MujarradVerbs>     =mujarradao.getMujarradList(root)
+    fun getMazeedWeakness(kov : String): LiveData<List<MazeedEntity>>       =mazeeddao.getMazeedWeaknesslive(kov)
     suspend fun insertlive(entity : MazeedEntity) {
         mazeeddao.insertlive(entity)
     }

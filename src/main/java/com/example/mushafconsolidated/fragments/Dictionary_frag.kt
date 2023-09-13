@@ -9,34 +9,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant
 import com.example.mushafconsolidated.Activity.LughatWordDetailsAct
-
-
 import com.example.mushafconsolidated.Adaptersimport.LexiconAdapter
 import com.example.mushafconsolidated.Adaptersimport.WordLughatAdapter
 import com.example.mushafconsolidated.Entities.GrammarRules
-import com.example.mushafconsolidated.Entities.hanslexicon
-import com.example.mushafconsolidated.Entities.lanelexicon
-import com.example.mushafconsolidated.Entities.lanerootdictionary
 import com.example.mushafconsolidated.Entities.lughat
-
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
-
- 
+import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.example.utility.QuranGrammarApplication
-
 import ru.dimorinny.floatingtextbutton.FloatingTextButton
 
 
 class Dictionary_frag(lughatWordDetailsAct: LughatWordDetailsAct, language: String) :
     Fragment() {
-    val worddifinition = ArrayList<String>()
+    private val worddifinition = ArrayList<String>()
     val language: String
-    var ishans = false
+    private var ishans = false
     lateinit var recyclerView: RecyclerView
     private val context: Context
     private var dictionary: ArrayList<lughat>? = null
@@ -57,7 +50,7 @@ class Dictionary_frag(lughatWordDetailsAct: LughatWordDetailsAct, language: Stri
 
     override fun onDetach() {
         super.onDetach()
-        recyclerView!!.removeAllViews()
+        recyclerView.removeAllViews()
         Log.d("TAG", "verb fragment Detached")
     }
 
@@ -113,70 +106,74 @@ class Dictionary_frag(lughatWordDetailsAct: LughatWordDetailsAct, language: Stri
             if (indexofya != -1) {
                 lanesroot = lanesroot.replace("ى".toRegex(), "ي")
             }
-            val C2 = verbroot[1]
-            val C3 = verbroot[2]
+            val c2 = verbroot[1]
+            val c3 = verbroot[2]
             if (verbroot == "يدي") {
                 verbroot = verbroot.substring(0, 2)
             } else if (verbroot == "حيي") {
                 verbroot = "حي"
             } else if (verbroot == "ايي") {
                 verbroot = "اى"
-            } else if (Character.toString(C3) == ArabicLiterals.Ya) {
+            } else if (c3.toString() == ArabicLiterals.Ya) {
                 verbroot = verbroot.replace(
                     ArabicLiterals.Ya,
                     ArabicLiterals.AlifMaksuraString
                 )
-            } else if (Character.toString(C3) == ArabicLiterals.LALIF) {
+            } else if (c3.toString() == ArabicLiterals.LALIF) {
                 verbroot = verbroot.replace(
                     ArabicLiterals.LALIF,
                     ArabicLiterals.AlifHamzaAbove
                 )
-            } else if (Character.toString(C2) == Character.toString(C3)) {
+            } else if (c2.toString() == c3.toString()) {
                 verbroot = verbroot.substring(0, 2)
             }
-            val lanerootdictionaries: List<lanerootdictionary?>? =
-                utils.getLanesRootDefinition(lanesroot)
+       //     val lanerootdictionaries: List<lanerootdictionary?>? =
+           //     utils.getLanesRootDefinition(lanesroot)
+            val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
+            var lanerootdictionaries = mainViewModel.getLanes(lanesroot).value
+
+
             val difinitionbuilder = StringBuilder()
-            val lanesdictionary: List<lanelexicon?>? = utils.getLanesDifinition(verbroot)
+          //  val lanesdictionary: List<lanelexicon?>? = utils.getLanesDifinition(verbroot)
+            val lanesdictionary = mainViewModel.getLanes(lanesroot).value
+
             if (lanerootdictionaries != null) {
                 if (lanerootdictionaries.isNotEmpty()) {
-                    lanerootdictionaries!![0]!!.definition?.let { worddifinition.add(it) }
+                    lanerootdictionaries[0]!!.definition?.let { worddifinition.add(it) }
                 } else if (!lanesdictionary?.isEmpty()!!) {
                     //  <p style="margin-left:200px; margin-right:50px;">
                     difinitionbuilder.append(Constant.html)
                     var replaced: String
-                    if (lanesdictionary != null) {
-                        for (lanes in lanesdictionary) {
-                            //  replaced = getString(lanes);
-                            replaced = lanes!!.definition
-                            val indexOf = replaced.indexOf("<orth extent=\"full\" lang=\"ar\">ذ</orth>")
-                            val indexofForm = replaced.indexOf("<form>")
-                            val indexofFormclose = replaced.indexOf("</form>")
-                            val indexofforminfl = replaced.indexOf("<form n=\"infl\">")
-                            difinitionbuilder.append("<p dir='ltr' style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">")
-                            if (indexOf != -1) {
-                                replaced = replaced.replace(
-                                    "<orth extent=\"full\" lang=\"ar\">ذ</orth>".toRegex(),
-                                    ""
-                                )
-                                //     difinitionbuilder.append(replaced);
-                            }
-                            if (indexofForm != -1) {
-                                replaced = replaced.replace("<form>".toRegex(), "")
-                                //     difinitionbuilder.append(replaced);
-                            }
-                            if (indexofFormclose != -1) {
-                                replaced = replaced.replace("</form>".toRegex(), "")
-                                //    difinitionbuilder.append(replaced);
-                            }
-                            if (indexofforminfl != -1) {
-                                replaced = replaced.replace("<form n=\"infl\">".toRegex(), "")
-                                //    difinitionbuilder.append(replaced);
-                            }
-                            difinitionbuilder.append(replaced)
-                            difinitionbuilder.append("</p>")
-                            difinitionbuilder.append("<hr size=\"1\" width=\"100%\" color=\"red\">  ")
+                    for (lanes in lanesdictionary) {
+                        //  replaced = getString(lanes);
+                        replaced = lanes!!.definition!!
+                        val indexOf = replaced.indexOf("<orth extent=\"full\" lang=\"ar\">ذ</orth>")
+                        val indexofForm = replaced.indexOf("<form>")
+                        val indexofFormclose = replaced.indexOf("</form>")
+                        val indexofforminfl = replaced.indexOf("<form n=\"infl\">")
+                        difinitionbuilder.append("<p dir='ltr' style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">")
+                        if (indexOf != -1) {
+                            replaced = replaced.replace(
+                                "<orth extent=\"full\" lang=\"ar\">ذ</orth>".toRegex(),
+                                ""
+                            )
+                            //     difinitionbuilder.append(replaced);
                         }
+                        if (indexofForm != -1) {
+                            replaced = replaced.replace("<form>".toRegex(), "")
+                            //     difinitionbuilder.append(replaced);
+                        }
+                        if (indexofFormclose != -1) {
+                            replaced = replaced.replace("</form>".toRegex(), "")
+                            //    difinitionbuilder.append(replaced);
+                        }
+                        if (indexofforminfl != -1) {
+                            replaced = replaced.replace("<form n=\"infl\">".toRegex(), "")
+                            //    difinitionbuilder.append(replaced);
+                        }
+                        difinitionbuilder.append(replaced)
+                        difinitionbuilder.append("</p>")
+                        difinitionbuilder.append("<hr size=\"1\" width=\"100%\" color=\"red\">  ")
                     }
                     worddifinition.add(difinitionbuilder.toString())
                 }
@@ -190,51 +187,56 @@ class Dictionary_frag(lughatWordDetailsAct: LughatWordDetailsAct, language: Stri
                     ArabicLiterals.LALIF
                 )
             }
-            val C1 = verbroot[0]
-            val C2 = verbroot[1]
-            val C3 = verbroot[2]
+            val c1 = verbroot[0]
+            val c2 = verbroot[1]
+            val c3 = verbroot[2]
             if (verbroot == "يدي") {
                 verbroot = verbroot.substring(0, 2)
             } else if (verbroot == "ايي") {
                 verbroot = "آي"
-            } else if (Character.toString(C3) == ArabicLiterals.Ya) {
+            } else if (c3.toString() == ArabicLiterals.Ya) {
                 verbroot = verbroot.replace(
                     ArabicLiterals.Ya,
                     ArabicLiterals.AlifMaksuraString
                 )
-            } else if (Character.toString(C3) == ArabicLiterals.LALIF) {
+            } else if (c3.toString() == ArabicLiterals.LALIF) {
                 verbroot = verbroot.replace(
                     ArabicLiterals.LALIF,
                     ArabicLiterals.Hamza
                 ) //change alif to hamza
-            } else if (Character.toString(C2) == Character.toString(C3)) {
+            } else if (c2.toString() == c3.toString()) {
                 verbroot = verbroot.substring(0, 2) //contract the double at end
             }
-            if (Character.toString(C1) == ArabicLiterals.Hamza) {
+            if (c1.toString() == ArabicLiterals.Hamza) {
                 verbroot = verbroot.replace(
                     ArabicLiterals.Hamza,
                     ArabicLiterals.LALIF
                 )
             }
             val hanssb = StringBuilder()
-            var hansdictionary: List<hanslexicon?>? = utils.getHansDifinition(verbroot)
+
+            val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
+            var hansdictionary = mainViewModel.getHans(verbroot).value
+
+         //   var hansdictionary: List<hanslexicon?>? = utils.getHansDifinition(verbroot)
             if (hansdictionary != null) {
                 if (hansdictionary.isEmpty()) {
-                    hansdictionary = utils.getHansDifinition(probableRoot.toString())
+                  //  hansdictionary = utils.getHansDifinition(probableRoot.toString())
+                          hansdictionary = mainViewModel.getHans(probableRoot.toString()).value
                 }
             }
             if (hansdictionary != null) {
-                if (!hansdictionary.isEmpty()) ishans = true
+                if (hansdictionary.isNotEmpty()) ishans = true
             }
             hanssb.append(Constant.html)
             if (!ishans) {
                 hanssb.append("root word ").append(verbroot).append("not found")
             }
             if (hansdictionary != null) {
-                for (lanes in hansdictionary) {
+                for (hans in hansdictionary) {
                     //  <p style="margin-left:200px; margin-right:50px;">
                     hanssb.append("<p style=\"margin-left:10px; margin-right:10px;\">")
-                    hanssb.append(lanes!!.definition).append("</p>")
+                    hanssb.append(hans!!.definition).append("</p>")
                     hanssb.append("<hr size=\"1\" width=\"100%\" color=\"red\">  ")
                 }
             }
@@ -242,7 +244,7 @@ class Dictionary_frag(lughatWordDetailsAct: LughatWordDetailsAct, language: Stri
             worddifinition.add(hanssb.toString())
         } else {
             dictionary = utils.getRootDictionary(vocabroot!!.trim { it <= ' ' }) as ArrayList<lughat>?
-            utils.grammarRules
+          //  utils.grammarRules
         }
         recyclerView = view.findViewById(R.id.sarfrecview)
         val ska: WordLughatAdapter
@@ -253,7 +255,7 @@ class Dictionary_frag(lughatWordDetailsAct: LughatWordDetailsAct, language: Stri
                     utils.getGrammarRulesByRules("Imperative")
                 worddifinition.add(isimperative!![0]!!.detailsrules)
                 lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
-                recyclerView.setAdapter(lanesLexiconAdapter)
+                recyclerView.adapter = lanesLexiconAdapter
             }
 
             "genetivenoun" -> {
@@ -261,7 +263,7 @@ class Dictionary_frag(lughatWordDetailsAct: LughatWordDetailsAct, language: Stri
                     utils.getGrammarRulesByRules("genetivenoun")
                 worddifinition.add(ismmajroor?.get(0)!!.detailsrules)
                 lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
-                recyclerView.setAdapter(lanesLexiconAdapter)
+                recyclerView.adapter = lanesLexiconAdapter
             }
 
             "accusativenoun" -> {
@@ -269,63 +271,63 @@ class Dictionary_frag(lughatWordDetailsAct: LughatWordDetailsAct, language: Stri
                     utils.getGrammarRulesByRules("accusativenoun")
                 worddifinition.add(ismmansub!![0]!!.detailsrules)
                 lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
-                recyclerView.setAdapter(lanesLexiconAdapter)
+                recyclerView.adapter = lanesLexiconAdapter
             }
 
             "nominativenoun" -> {
                 val ismmarfu: List<GrammarRules?>? = utils.getGrammarRulesByRules("nomnouns")
                 worddifinition.add(ismmarfu!![0]!!.detailsrules)
                 lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
-                recyclerView.setAdapter(lanesLexiconAdapter)
+                recyclerView.adapter = lanesLexiconAdapter
             }
 
             "relative" -> {
                 val rel: List<GrammarRules?>? = utils.getGrammarRulesByRules("relative")
                 worddifinition.add(rel!![0]!!.detailsrules)
                 lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
-                recyclerView.setAdapter(lanesLexiconAdapter)
+                recyclerView.adapter = lanesLexiconAdapter
             }
 
             "demonstrative" -> {
                 val dem: List<GrammarRules?>? = utils.getGrammarRulesByRules("dem")
                 worddifinition.add(dem!![0]!!.detailsrules)
                 lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
-                recyclerView.setAdapter(lanesLexiconAdapter)
+                recyclerView.adapter = lanesLexiconAdapter
             }
 
             "Subjunctive" -> {
                 val nasab: List<GrammarRules?>? = utils.getGrammarRulesByRules("nasab")
                 worddifinition.add(nasab!![0]!!.detailsrules)
                 lanesLexiconAdapter = LexiconAdapter(worddifinition, requireContext(), language)
-                recyclerView.setAdapter(lanesLexiconAdapter)
+                recyclerView.adapter = lanesLexiconAdapter
             }
 
             "Jussive" -> {
                 val jazam: List<GrammarRules?>? = utils.getGrammarRulesByRules("jazam")
                 worddifinition.add(jazam!![0]!!.detailsrules)
                 lanesLexiconAdapter = LexiconAdapter(worddifinition, requireContext(), language)
-                recyclerView.setAdapter(lanesLexiconAdapter)
+                recyclerView.adapter = lanesLexiconAdapter
             }
 
             "preposition" -> {
                 val jarr: List<GrammarRules?>? = utils.getGrammarRulesByRules("jarr")
                 worddifinition.add(jarr!![0]!!.detailsrules)
                 lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
-                recyclerView.setAdapter(lanesLexiconAdapter)
+                recyclerView.adapter = lanesLexiconAdapter
             }
 
             "conditonal" -> {
                 val shart: List<GrammarRules?>? = utils.getGrammarRulesByRules("shart")
                 worddifinition.add(shart!![0]!!.detailsrules)
                 lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
-                recyclerView.setAdapter(lanesLexiconAdapter)
+                recyclerView.adapter = lanesLexiconAdapter
             }
 
             "accusative" -> {
                 val nasab: List<GrammarRules?>? = utils.getGrammarRulesByRules("kanainna")
                 worddifinition.add(nasab!![0]!!.detailsrules)
                 lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
-                recyclerView.setAdapter(lanesLexiconAdapter)
+                recyclerView.adapter = lanesLexiconAdapter
             }
 
             "lanes", "hans" -> {
@@ -333,23 +335,22 @@ class Dictionary_frag(lughatWordDetailsAct: LughatWordDetailsAct, language: Stri
                     worddifinition.add("Word not Updated")
                 }
                 lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
-                recyclerView.setAdapter(lanesLexiconAdapter)
+                recyclerView.adapter = lanesLexiconAdapter
             }
 
             else -> {
                 ska = WordLughatAdapter(dictionary,  requireContext(), language)
-                recyclerView.setAdapter(ska)
+                recyclerView.adapter = ska
             }
         }
         recyclerView.setHasFixedSize(true)
-        recyclerView.setLayoutManager(LinearLayoutManager( requireContext()))
+        recyclerView.layoutManager = LinearLayoutManager( requireContext())
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView: RecyclerView
-        recyclerView = view.findViewById(R.id.sarfrecview)
+        val recyclerView: RecyclerView = view.findViewById(R.id.sarfrecview)
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
     }
