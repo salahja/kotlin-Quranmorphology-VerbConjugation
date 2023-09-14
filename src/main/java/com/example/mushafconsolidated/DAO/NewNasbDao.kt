@@ -11,11 +11,11 @@ import com.example.mushafconsolidated.Entities.NewNasbEntity
 @Dao
 interface NewNasbDao {
     @Query("SELECT * FROM newnasb where surah=:id order by surah,ayah ")
-    fun getHarfNasbIndices(id: Int): List<NewNasbEntity?>?
+    fun getHarfNasbIndices(id: Int): List<NewNasbEntity>
 
     @Query("SELECT * FROM newnasb where surah=:id and ayah=:aid order by surah,ayah ")
-    fun getHarfNasbIndicesSurahAyah(id: Int, aid: Int): List<NewNasbEntity?>?
+    fun getHarfNasbIndicesSurahAyah(id: Int, aid: Int): List<NewNasbEntity>
 
     @get:Query("SELECT * FROM newnasb   order by surah,ayah ")
-    val harfNasbIndAll: List<NewNasbEntity?>?
+    val harfNasbIndAll: List<NewNasbEntity>
 }

@@ -12,14 +12,21 @@ import com.example.mushafconsolidated.DAO.BookMarkDao
 import com.example.mushafconsolidated.DAO.HaliyaDao
 import com.example.mushafconsolidated.DAO.HansDao
 import com.example.mushafconsolidated.DAO.LaneRootDao
+import com.example.mushafconsolidated.DAO.LughatDao
 import com.example.mushafconsolidated.DAO.MafoolBihiDao
 import com.example.mushafconsolidated.DAO.MafoolMutlaqEntDao
+import com.example.mushafconsolidated.DAO.NewKanaDao
+import com.example.mushafconsolidated.DAO.NewMudhafDao
+import com.example.mushafconsolidated.DAO.NewNasbDao
+import com.example.mushafconsolidated.DAO.NewShartDAO
 import com.example.mushafconsolidated.DAO.NounCorpusDao
 import com.example.mushafconsolidated.DAO.QuranDao
+import com.example.mushafconsolidated.DAO.SifaDao
 import com.example.mushafconsolidated.DAO.VerbCorpusDao
 import com.example.mushafconsolidated.DAO.liajlihiDao
 import com.example.mushafconsolidated.DAO.surahsummaryDao
 import com.example.mushafconsolidated.DAO.tameezDao
+import com.example.mushafconsolidated.DAO.wbwDao
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
@@ -27,13 +34,20 @@ import com.example.mushafconsolidated.Entities.HalEnt
 import com.example.mushafconsolidated.Entities.LiajlihiEnt
 import com.example.mushafconsolidated.Entities.MafoolBihi
 import com.example.mushafconsolidated.Entities.MafoolMutlaqEnt
+import com.example.mushafconsolidated.Entities.NewKanaEntity
+import com.example.mushafconsolidated.Entities.NewMudhafEntity
+import com.example.mushafconsolidated.Entities.NewNasbEntity
+import com.example.mushafconsolidated.Entities.NewShartEntity
 import com.example.mushafconsolidated.Entities.NounCorpus
 import com.example.mushafconsolidated.Entities.QuranEntity
+import com.example.mushafconsolidated.Entities.SifaEntity
 import com.example.mushafconsolidated.Entities.TameezEnt
 import com.example.mushafconsolidated.Entities.VerbCorpus
 import com.example.mushafconsolidated.Entities.hanslexicon
 import com.example.mushafconsolidated.Entities.lanerootdictionary
+import com.example.mushafconsolidated.Entities.lughat
 import com.example.mushafconsolidated.Entities.surahsummary
+import com.example.mushafconsolidated.Entities.wbwentity
 import com.example.mushafconsolidated.model.QuranCorpusWbw
 
 
@@ -52,8 +66,6 @@ class QuranRepository(
     val ssummary: surahsummaryDao,
     val chaptersdao: AnaQuranChapterDao,
     val mafoolb: MafoolBihiDao,
-
-
     var jumlahaliya: HaliyaDao,
     val tammezent: tameezDao,
     val mutlaqent: MafoolMutlaqEntDao,
@@ -62,7 +74,6 @@ class QuranRepository(
     val bookm:BookMarkDao,
     val hansdao: HansDao,
     val lanesdao:LaneRootDao,
-
     val ajlihiworddao:  liajlihiDao,
     val mutlaqworddao: MafoolMutlaqEntDao,
     val tameezword: tameezDao,
@@ -70,7 +81,40 @@ class QuranRepository(
     val nouncorpusdao: NounCorpusDao,
     val mafoolbihi:MafoolBihiDao,
     val verbcorpusdao:VerbCorpusDao,
-    ) {
+    val kanaDao: NewKanaDao,
+    val shartDAO: NewShartDAO,
+    val nasbDao: NewNasbDao,
+    val mousufSifa: SifaDao,
+    val mudhafDao: NewMudhafDao,
+    val wbwdao: wbwDao,
+    val lughatdao: LughatDao,
+
+) {
+
+
+
+    fun getRootWordDictionary(root: String?): List<lughat> = lughatdao.getRootWordDictionary(root)
+
+
+    fun getArabicWord(root: String?): List<lughat> =lughatdao.getArabicWord(root)
+
+
+    fun getwbwTranslationbywordno(surahid: Int, ayahid: Int, wordno: Int): List<wbwentity> = wbwdao.getwbwTranslationbywordno(surahid,ayahid,wordno)
+
+    fun getkana(surah :Int,ayah : Int): List<NewKanaEntity> = kanaDao.getkanabysurahAyah(surah,ayah)
+
+    fun getshart(surah :Int,ayah : Int): List<NewShartEntity> = shartDAO.getShartBySurahAyah(surah,ayah)
+
+    fun getnasab(surah :Int,ayah : Int): List<NewNasbEntity> = nasbDao.getHarfNasbIndicesSurahAyah(surah,ayah)
+    fun getmudhaf(surah :Int,ayah : Int): List<NewMudhafEntity> = mudhafDao.getMudhafSurahAyah(surah,ayah)
+    fun getsifa(surah :Int,ayah : Int): List<SifaEntity> = mousufSifa.getSifaindexesBySurahAyah(surah,ayah)
+    fun getkanasurah(surah :Int): List<NewKanaEntity> = kanaDao.getkanabysurah(surah)
+
+    fun getshartsurah(surah :Int): List<NewShartEntity> = shartDAO.getShartBySurah(surah)
+
+    fun getnasabsurah(surah :Int): List<NewNasbEntity> = nasbDao.getHarfNasbIndices(surah)
+    fun getmudhafsurah(surah :Int): List<NewMudhafEntity> = mudhafDao.getMudhafSurah(surah)
+    fun getsifasurah(surah :Int): List<SifaEntity> = mousufSifa.getSifaindexesBySurah(surah)
 
 
    fun getVerbRootBySurahAyahWord(surah :Int,ayah : Int,wordno :Int): List<VerbCorpus> = verbcorpusdao.getVerbRootsurahayahwordid(surah,ayah,wordno)

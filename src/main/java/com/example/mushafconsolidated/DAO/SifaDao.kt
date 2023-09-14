@@ -11,11 +11,11 @@ import com.example.mushafconsolidated.Entities.SifaEntity
 @Dao
 interface SifaDao {
     @get:Query("SELECT * FROM sifa order by surah,ayah,wordno ")
-    val sifaindexesAll: List<SifaEntity?>?
+    val sifaindexesAll: List<SifaEntity>
 
     @Query("SELECT * FROM sifa where surah=:id order by surah,ayah,wordno ")
-    fun getSifaindexesBySurah(id: Int): List<SifaEntity?>?
+    fun getSifaindexesBySurah(id: Int): List<SifaEntity>
 
     @Query("SELECT * FROM sifa where surah=:id and ayah=:ayd order by surah,ayah,wordno ")
-    fun getSifaindexesBySurahAyah(id: Int, ayd: Int): List<SifaEntity?>?
+    fun getSifaindexesBySurahAyah(id: Int, ayd: Int): List<SifaEntity>
 }

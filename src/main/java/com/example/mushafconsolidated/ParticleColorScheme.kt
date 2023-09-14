@@ -20,18 +20,20 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 /**
+ * Particle color scheme
  *
- * A fragment that shows a list of items as a modal bottom sheet.
- *
- * You can show this modal bottom sheet from your activity like this:
- * <pre>
- * FontQuranListDialogFragment.newInstance(30).show(getSupportFragmentManager(), "dialog");
-</pre> *
+ * @constructor Create empty Particle color scheme
  */
 class ParticleColorScheme constructor() : BottomSheetDialogFragment() {
     var mItemClickListener: OnItemClickListener? = null
     var textView: TextView? = null
     private var colorSchemeAdapter: ColorSchemeAdapter? = null
+
+    /**
+     * Set on item click listener
+     *
+     * @param mItemClickListener
+     */
     fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
         this.mItemClickListener = mItemClickListener
     }
@@ -182,6 +184,11 @@ class ParticleColorScheme constructor() : BottomSheetDialogFragment() {
             return particle!!.size
         }
 
+        /**
+         * Set on item click listener
+         *
+         * @param mItemClickListener
+         */
         fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
             this.mItemClickListener = mItemClickListener
         }

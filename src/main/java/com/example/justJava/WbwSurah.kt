@@ -11,6 +11,16 @@ import com.example.mushafconsolidated.model.CorpusWbwWord
 import java.text.NumberFormat
 import java.util.Locale
 
+/**
+ * Wbw surah
+ *
+ * @property context
+ * @property surah
+ * @constructor
+ *
+ * @param corpusayahWordArrayList
+ * @param ruku
+ */
 class WbwSurah(
     private val context: Context,
     private val surah: Int,

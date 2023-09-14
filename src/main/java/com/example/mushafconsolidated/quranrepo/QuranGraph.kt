@@ -1,6 +1,10 @@
 package com.example.mushafconsolidated.quranrepo
 
 import android.content.Context
+import com.example.mushafconsolidated.DAO.NewMudhafDao
+import com.example.mushafconsolidated.DAO.NewNasbDao
+import com.example.mushafconsolidated.DAO.NewShartDAO
+import com.example.mushafconsolidated.Entities.MousufSifa
 import com.example.mushafconsolidated.QuranAppDatabase
 
 object QuranGraph {
@@ -33,6 +37,14 @@ object QuranGraph {
           nouncorpusdao=db.NounCorpusDao(),
             mafoolbihi=db.MafoolBihiDao(),
             verbcorpusdao=db.VerbCorpusDao(),
+             kanaDao=db. NewKanaDao(),
+         shartDAO=db. NewShartDAO(),
+         nasbDao=db. NewNasbDao(),
+         mousufSifa=db.SifaDao(),
+         mudhafDao=db. NewMudhafDao(),
+            wbwdao = db.wbwDao(),
+            lughatdao = db.LughatDao(),
+
 
 
 

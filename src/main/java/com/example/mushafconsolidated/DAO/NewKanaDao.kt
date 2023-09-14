@@ -11,11 +11,11 @@ import com.example.mushafconsolidated.Entities.NewKanaEntity
 @Dao
 interface NewKanaDao {
     @get:Query("SELECT * FROM newkana ORDER BY surah,ayah")
-    val kanaall: List<NewKanaEntity?>?
+    val kanaall: List<NewKanaEntity>
 
     @Query("SELECT * FROM newkana where surah=:id ORDER BY surah,ayah")
-    fun getkanabysurah(id: Int): List<NewKanaEntity?>?
+    fun getkanabysurah(id: Int): List<NewKanaEntity>
 
     @Query("SELECT * FROM newkana where surah=:id and ayah=:aid ORDER BY surah,ayah")
-    fun getkanabysurahAyah(id: Int, aid: Int): List<NewKanaEntity?>?
+    fun getkanabysurahAyah(id: Int, aid: Int): List<NewKanaEntity>
 }

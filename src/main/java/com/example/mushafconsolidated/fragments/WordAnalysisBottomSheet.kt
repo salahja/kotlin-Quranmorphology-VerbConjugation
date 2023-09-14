@@ -1,3 +1,4 @@
+
 package com.example.mushafconsolidated.fragments
 
 
@@ -61,7 +62,6 @@ import com.example.mushafconsolidated.Entities.lughat
 import com.example.mushafconsolidated.Entities.wbwentity
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.R.layout
-import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
@@ -80,13 +80,9 @@ import java.util.concurrent.Executors
 
 
 /**
- * A fragment that shows a list of items as a modal bottom sheet.
+ * Word analysis bottom sheet
  *
- * You can show this modal bottom sheet from your activity like this:
- * ```
- * ItemListDialogFragment.newInstance(30).show(getSupportFragmentManager(), "dialog");
- * ```
- * *
+ * @constructor Create empty Word analysis bottom sheet
  */
 class WordAnalysisBottomSheet : DialogFragment() {
     private val sarfSagheerList = ArrayList<SarfSagheer>()
@@ -169,7 +165,8 @@ class WordAnalysisBottomSheet : DialogFragment() {
         }
         val dark =
             themepreference == "dark" || themepreference == "blue" || themepreference == "green"
-        val utils = Utils(activity)
+    //   val utils = Utils(activity)
+        val models: QuranVIewModel by viewModels()
         val ex = Executors.newSingleThreadExecutor()
         val builder = AlertDialog.Builder(requireActivity())
         builder.setCancelable(false) // if you want user to wait for some process to finish,
@@ -219,7 +216,8 @@ class WordAnalysisBottomSheet : DialogFragment() {
         }
 
         //if any true..good for verb conjugation
-        if (vbdetail.isNotEmpty() && Objects.requireNonNull(vbdetail["tense"])!!.contains("Imperative")
+        if (vbdetail.isNotEmpty() && Objects.requireNonNull(vbdetail["tense"])!!
+                .contains("Imperative")
         ) {
             isimperative = true
         }
@@ -500,14 +498,13 @@ class WordAnalysisBottomSheet : DialogFragment() {
         } else if (isroot && !isconjugation) {
             val concat = corpusSurahWord[0].corpus.araone + "|" + corpusSurahWord[0].corpus.aratwo
             arabicword = VerbWazan()
-            val arabicWord: java.util.ArrayList<lughat?>? =
-                utils.getArabicWord(wordbdetail["arabicword"].toString()) as java.util.ArrayList<lughat?>?
-            val rootDictionary: List<lughat?>? = utils.getRootDictionary(concat)
+            val arabicWord =   models.getArabicWord(wordbdetail["arabicword"].toString()).value as java.util.ArrayList<lughat?>?
+            val rootDictionary=models.getRootWordDictionary(concat).value as ArrayList<lughat>
             if (arabicWord!!.size > 0) {
                 arabicword.arabicword = arabicWord[0]!!.arabicword
                 isroot = false
                 isarabicword = true
-            } else if (rootDictionary!!.isNotEmpty()) {
+            } else if (rootDictionary.isNotEmpty()) {
                 isroot = false
                 isarabicword = true
             } else {
@@ -568,12 +565,12 @@ class WordAnalysisBottomSheet : DialogFragment() {
             println(e.message)
         }
         if (wbwtranslation == null) {
-            val allwords: ArrayList<wbwentity> =
-                utils.getwbwTranslatonbywordNew(
+            val allwords =
+                models.getwbwTranslationbywordno(
                     chapterid,
                     ayanumber,
                     wordno
-                ) as ArrayList<wbwentity>
+                ).value as ArrayList<wbwentity>
             wordbdetail["translation"] = SpannableStringBuilder.valueOf(allwords[0].en)
         } else {
             wordbdetail["translation"] = SpannableStringBuilder.valueOf(wbwtranslation)
@@ -581,11 +578,11 @@ class WordAnalysisBottomSheet : DialogFragment() {
         if (corpusSurahWord.isNotEmpty()) {
             val quranverses: String = quran!![0].qurantext
             spannable = SpannableStringBuilder(quranverses)
-            SetShart(utils)
-            setHarfNasb(utils)
-            setMausoofSifa(utils, quran as ArrayList<QuranEntity>)
-            setMudhaf(utils)
-            SetKana(utils)
+            SetShart(models)
+            setHarfNasb(models)
+            setMausoofSifa(models, quran as ArrayList<QuranEntity>)
+            setMudhaf(models)
+            SetKana(models)
         }
         requireActivity().runOnUiThread {
             ex.shutdown()
@@ -634,6 +631,13 @@ class WordAnalysisBottomSheet : DialogFragment() {
     }
 
 
+    /**
+     * Storepreferences.
+     *
+     * @param chapterid Chapterid
+     * @param ayanumber Ayanumber
+     * @param s S
+     */
     private fun storepreferences(chapterid: Int, ayanumber: Int, s: String) {
         var pref: SharedPreferences?
         pref = requireContext().getSharedPreferences("lastread", Context.MODE_PRIVATE)
@@ -645,9 +649,14 @@ class WordAnalysisBottomSheet : DialogFragment() {
         editor.apply()
     }
 
-    private fun setHarfNasb(utils: Utils) {
-        val harfnasb: List<NewNasbEntity?>? =
-            utils.getHarfNasbIndSurahAyahSnew(chapterid, ayanumber)
+    /**
+     * Set harf nasb.
+     *
+     * @param utils Utils
+     */
+    private fun setHarfNasb(utils: QuranVIewModel) {
+        val harfnasb =
+            utils.getnasab(chapterid, ayanumber).value as ArrayList<NewNasbEntity>
         if (harfnasb != null) {
             for (nasb in harfnasb) {
                 if (dark) {
@@ -687,9 +696,9 @@ class WordAnalysisBottomSheet : DialogFragment() {
         }
     }
 
-    private fun setMudhaf(utils: Utils) {
-        val mudhafSurahAyah: List<NewMudhafEntity?>? =
-            utils.getMudhafSurahAyahNew(chapterid, ayanumber)
+    private fun setMudhaf(utils: QuranVIewModel) {
+        val mudhafSurahAyah=
+            utils.getmudhaf(chapterid, ayanumber).value as ArrayList<NewMudhafEntity>
         if (mudhafSurahAyah != null) {
             for (mudhafEntity in mudhafSurahAyah) {
                 Constant.mudhafspansDark = getSpancolor(true)
@@ -704,11 +713,11 @@ class WordAnalysisBottomSheet : DialogFragment() {
     }
 
     private fun setMausoofSifa(
-        utils: Utils,
+        utils: QuranVIewModel,
         corpusSurahWord: ArrayList<QuranEntity>,
     ) {
-        val sifabySurahAyah: ArrayList<SifaEntity> =
-            utils.getSifabySurahAyah(chapterid, ayanumber) as ArrayList<SifaEntity>
+        val sifabySurahAyah=
+            utils.getsifa(chapterid, ayanumber).value as ArrayList<SifaEntity>
         val quranverses: String = corpusSurahWord[0].qurantext
         for (shartEntity in sifabySurahAyah) {
             Constant.sifaspansDark = getSpancolor(false)
@@ -725,8 +734,8 @@ class WordAnalysisBottomSheet : DialogFragment() {
         }
     }
 
-    private fun SetShart(utils: Utils) {
-        val shart: List<NewShartEntity?>? = utils.getShartSurahAyahNew(chapterid, ayanumber)
+    private fun SetShart(utils: QuranVIewModel) {
+        val shart = utils.getshart(chapterid, ayanumber).value as ArrayList<NewShartEntity>
         //  this.spannable = new SpannableStringBuilder(quranverses);
         if (shart != null) {
             for (shartEntity in shart) {
@@ -761,9 +770,9 @@ class WordAnalysisBottomSheet : DialogFragment() {
         }
     }
 
-    private fun SetKana(utils: Utils) {
-        val kana: ArrayList<NewKanaEntity> =
-            utils.getKanaSurahAyahnew(chapterid, ayanumber) as ArrayList<NewKanaEntity>
+    private fun SetKana(utils: QuranVIewModel) {
+        val kana =
+            utils.getkana(chapterid, ayanumber).value as ArrayList<NewKanaEntity>
         //  this.spannable = new SpannableStringBuilder(quranverses);
         val harfkana: ForegroundColorSpan
         val kanaism: ForegroundColorSpan
@@ -819,9 +828,9 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 val wordview = v?.findViewById<View>(R.id.wordView)
                 val formview = v?.findViewById<View>(R.id.mazeedmeaning)
                 if (formview != null) {
-                   // val item = VerbFormsDialogFrag()
+                    // val item = VerbFormsDialogFrag()
                     //    item.setdata(root!!WordMeanings,wbwRootwords,grammarRootsCombined);
-                 //   val fragmentManager = requireActivity().supportFragmentManager
+                    //   val fragmentManager = requireActivity().supportFragmentManager
                     var vbform: String?
                     if (vbdetail.isNotEmpty()) {
                         vbform = vbdetail["formnumber"]
@@ -941,7 +950,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 } else if (verse != null) {
                     val item = GrammerFragmentsBottomSheet()
                     //    item.setdata(root!!WordMeanings,wbwRootwords,grammarRootsCombined);
-                 //   val fragmentManager = requireActivity().supportFragmentManager
+                    //   val fragmentManager = requireActivity().supportFragmentManager
                     val dataBundle = Bundle()
                     dataBundle.putInt(SURAH_ID, chapterid)
                     dataBundle.putInt(AYAHNUMBER, ayanumber)

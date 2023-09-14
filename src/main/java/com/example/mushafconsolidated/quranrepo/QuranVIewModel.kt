@@ -11,13 +11,20 @@ import com.example.mushafconsolidated.Entities.HalEnt
 import com.example.mushafconsolidated.Entities.LiajlihiEnt
 import com.example.mushafconsolidated.Entities.MafoolBihi
 import com.example.mushafconsolidated.Entities.MafoolMutlaqEnt
+import com.example.mushafconsolidated.Entities.NewKanaEntity
+import com.example.mushafconsolidated.Entities.NewMudhafEntity
+import com.example.mushafconsolidated.Entities.NewNasbEntity
+import com.example.mushafconsolidated.Entities.NewShartEntity
 import com.example.mushafconsolidated.Entities.NounCorpus
 import com.example.mushafconsolidated.Entities.QuranEntity
+import com.example.mushafconsolidated.Entities.SifaEntity
 import com.example.mushafconsolidated.Entities.TameezEnt
 import com.example.mushafconsolidated.Entities.VerbCorpus
 import com.example.mushafconsolidated.Entities.hanslexicon
 import com.example.mushafconsolidated.Entities.lanerootdictionary
+import com.example.mushafconsolidated.Entities.lughat
 import com.example.mushafconsolidated.Entities.surahsummary
+import com.example.mushafconsolidated.Entities.wbwentity
 import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.model.Juz
 import com.example.mushafconsolidated.model.QuranCorpusWbw
@@ -28,7 +35,7 @@ import sj.hisnul.entity.hcategoryEnt
 
 class QuranVIewModel(
     private val newrepository: QuranRepository = QuranGraph.repository
-) :ViewModel(){
+) :ViewModel() {
 
 
     var allquran: LiveData<List<QuranEntity>> = MutableLiveData()
@@ -61,7 +68,91 @@ class QuranVIewModel(
 
     val allchapters: MutableLiveData<List<ChaptersAnaEntity>> = MutableLiveData()
     var corpuswbwlist: MutableLiveData<List<QuranCorpusWbw>> = MutableLiveData()
-   var quranlist: MutableLiveData<List<QuranEntity>> = MutableLiveData()
+    var quranlist: MutableLiveData<List<QuranEntity>> = MutableLiveData()
+
+    var kana: MutableLiveData<List<NewKanaEntity>> = MutableLiveData()
+    var shart: MutableLiveData<List<NewShartEntity>> = MutableLiveData()
+    var nasab: MutableLiveData<List<NewNasbEntity>> = MutableLiveData()
+    var mudhaf: MutableLiveData<List<NewMudhafEntity>> = MutableLiveData()
+    var sifa: MutableLiveData<List<SifaEntity>> = MutableLiveData()
+    var wbw: MutableLiveData<List<wbwentity>> = MutableLiveData()
+
+    var lughat: MutableLiveData<List<lughat>> = MutableLiveData()
+
+
+    fun getRootWordDictionary(root: String): LiveData<List<lughat>> {
+   lughat.value= newrepository.lughatdao.getRootWordDictionary(root)
+        return lughat
+}
+
+    fun getArabicWord(root: String): LiveData<List<lughat>> {
+        lughat.value= newrepository.lughatdao.getArabicWord(root)
+        return lughat
+    }
+
+
+
+
+
+    fun getwbwTranslationbywordno(surahid: Int, ayahid: Int, wordno: Int): LiveData<List<wbwentity>> {
+        wbw.value= this.newrepository.wbwdao.getwbwTranslationbywordno(surahid,ayahid,wordno)
+        return    wbw
+
+    }
+
+
+    fun getkana(surah :Int,ayah : Int): LiveData<List<NewKanaEntity>> {
+
+        kana.value= this.newrepository.getkana(surah,ayah)
+        return    kana
+    }
+
+    fun getshart(surah :Int,ayah : Int): LiveData<List<NewShartEntity>> {
+
+        shart.value= this.newrepository.getshart(surah,ayah)
+        return    shart
+    }
+
+    fun getnasab(surah :Int,ayah : Int): LiveData<List<NewNasbEntity>> {
+        nasab.value= this.newrepository.getnasab(surah,ayah)
+        return    nasab
+    }
+    fun getmudhaf(surah :Int,ayah : Int): LiveData<List<NewMudhafEntity>> {
+        mudhaf.value= this.newrepository.getmudhaf(surah,ayah)
+        return    mudhaf
+    }
+    fun getsifa(surah :Int,ayah : Int): LiveData<List<SifaEntity>> {
+        sifa.value= this.newrepository.getsifa(surah,ayah)
+        return    sifa
+    }
+    fun getkanasurah(surah :Int): LiveData<List<NewKanaEntity>> {
+        kana.value= this.newrepository.getkanasurah(surah)
+        return    kana
+    }
+
+    fun getshartsurah(surah :Int): LiveData<List<NewShartEntity>> {
+        shart.value= this.newrepository.getshartsurah(surah)
+        return    shart
+    }
+
+    fun getnasabsurah(surah :Int): LiveData<List<NewNasbEntity>> {
+        nasab.value= this.newrepository.getnasabsurah(surah)
+        return    nasab
+    }
+    fun getmudhafsurah(surah :Int): LiveData<List<NewMudhafEntity>> {
+        mudhaf.value= this.newrepository.getmudhafsurah(surah)
+        return    mudhaf
+    }
+    fun getsifasurah(surah :Int): LiveData<List<SifaEntity>> {
+        sifa.value= this.newrepository.getsifasurah(surah)
+        return    sifa
+    }
+
+
+
+
+
+
 
     fun getVerbRootBySurahAyahWord(cid :Int,aid : Int,wid : Int): MutableLiveData<List<VerbCorpus>> {
         verbcorpuslist.value= this.newrepository.getVerbRootBySurahAyahWord(cid,aid,wid)

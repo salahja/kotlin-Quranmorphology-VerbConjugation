@@ -74,55 +74,248 @@ import sj.hisnul.entity.hduadetailsEnt
 import sj.hisnul.entity.hduanamesEnt
 import java.io.File
 
-//@Database(entities= {VerseEntit.class,ErabEntity.class,ChaptersAnaEntity.class},version= 1)
+/**
+ * Quran app database
+ *
+ * @constructor Create empty Quran app database
+ *///@Database(entities= {VerseEntit.class,ErabEntity.class,ChaptersAnaEntity.class},version= 1)
 //orig     entities = [lanerootdictionary::class, Qari::class, Cities::class, Countries::class, hcategory::class, hduadetails::class, hduanames::class, surahsummary::class, quranexplorer::class, AllahNamesDetails::class, AllahNames::class, DuaGroup::class, DuaDetails::class, MafoolMutlaqEnt::class, BadalErabNotesEnt::class, HalEnt::class, MafoolBihi::class, LiajlihiEnt::class, TameezEnt::class, GrammarRules::class, hanslexicon::class, qurandictionary::class, lanelexicon::class, lughat::class, NewNasbEntity::class, NewShartEntity::class, NewKanaEntity::class, NewMudhafEntity::class, SifaEntity::class, wbwentity::class, NounCorpus::class, VerbCorpus::class, QuranEntity::class, CorpusEntity::class, BookMarks::class, ChaptersAnaEntity::class],
 @Database(
     entities = [hduadetailsEnt::class, hduanamesEnt::class, hcategoryEnt::class,AllahNamesDetails::class,lanerootdictionary::class, Qari::class, surahsummary::class, quranexplorer::class, AllahNames::class, MafoolMutlaqEnt::class, BadalErabNotesEnt::class, HalEnt::class, MafoolBihi::class, LiajlihiEnt::class, TameezEnt::class, GrammarRules::class, hanslexicon::class, qurandictionary::class, lanelexicon::class, lughat::class, NewNasbEntity::class, NewShartEntity::class, NewKanaEntity::class, NewMudhafEntity::class, SifaEntity::class, wbwentity::class, NounCorpus::class, VerbCorpus::class, QuranEntity::class, CorpusEntity::class, BookMarks::class, ChaptersAnaEntity::class],
     version = 1
 )
 abstract class QuranAppDatabase constructor() : RoomDatabase() {
+    /**
+     * Ana quran chapter dao
+     *
+     * @return
+     */
     abstract fun AnaQuranChapterDao(): AnaQuranChapterDao
 
-    // public abstract WordbywordPojoDao WordbywordPojoDao();
+    /**
+     * Book mark dao
+     *
+     * @return
+     */// public abstract WordbywordPojoDao WordbywordPojoDao();
     abstract fun BookMarkDao(): BookMarkDao
+
+    /**
+     * Raw dao
+     *
+     * @return
+     */
     abstract fun RawDao(): RawDao
+
+    /**
+     * Get corpus expand dao
+     *
+     * @return
+     */
     abstract fun getCorpusExpandDao(): CorpusExpandedDao
+
+    /**
+     * Quran dao
+     *
+     * @return
+     */
     abstract fun QuranDao(): QuranDao
-     abstract fun VerbCorpusDao(): VerbCorpusDao
+
+    /**
+     * Verb corpus dao
+     *
+     * @return
+     */
+    abstract fun VerbCorpusDao(): VerbCorpusDao
+
+    /**
+     * Noun corpus dao
+     *
+     * @return
+     */
     abstract fun NounCorpusDao(): NounCorpusDao
-    abstract fun wbwDao(): wbwDao?
-    abstract fun SifaDao(): SifaDao?
 
-    //  public abstract ShartDAO ShartDAO();
-    abstract fun NewShartDAO(): NewShartDAO?
+    /**
+     * Wbw dao
+     *
+     * @return
+     */
+    abstract fun wbwDao(): wbwDao
 
-    //  public abstract KanaDao KanaDao();
+    /**
+     * Sifa dao
+     *
+     * @return
+     */
+    abstract fun SifaDao(): SifaDao
+
+    /**
+     * New shart d a o
+     *
+     * @return
+     *///  public abstract ShartDAO ShartDAO();
+    abstract fun NewShartDAO(): NewShartDAO
+
+    /**
+     * New nasb dao
+     *
+     * @return
+     *///  public abstract KanaDao KanaDao();
     //public abstract NasbDao NasbDao();
-    abstract fun NewNasbDao(): NewNasbDao?
-    abstract fun NewMudhafDao(): NewMudhafDao?
-    abstract fun NewKanaDao(): NewKanaDao?
-    abstract fun LughatDao(): LughatDao?
+    abstract fun NewNasbDao(): NewNasbDao
+
+    /**
+     * New mudhaf dao
+     *
+     * @return
+     */
+    abstract fun NewMudhafDao(): NewMudhafDao
+
+    /**
+     * New kana dao
+     *
+     * @return
+     */
+    abstract fun NewKanaDao(): NewKanaDao
+
+    /**
+     * Lughat dao
+     *
+     * @return
+     */
+    abstract fun LughatDao(): LughatDao
+
+    /**
+     * Lane dao
+     *
+     * @return
+     */
     abstract fun LaneDao(): LaneDao?
+
+    /**
+     * Lane root dao
+     *
+     * @return
+     */
     abstract fun LaneRootDao(): LaneRootDao
+
+    /**
+     * Hans dao
+     *
+     * @return
+     */
     abstract fun HansDao(): HansDao
+
+    /**
+     * Qurandictionary dao
+     *
+     * @return
+     */
     abstract fun qurandictionaryDao(): qurandictionaryDao
+
+    /**
+     * Grammar rules dao
+     *
+     * @return
+     */
     abstract fun grammarRulesDao(): grammarRulesDao?
+
+    /**
+     * Tameez dao
+     *
+     * @return
+     */
     abstract fun tameezDao(): tameezDao
+
+    /**
+     * Liajlihi dao
+     *
+     * @return
+     */
     abstract fun liajlihiDao(): liajlihiDao
+
+    /**
+     * Mafool bihi dao
+     *
+     * @return
+     */
     abstract fun MafoolBihiDao(): MafoolBihiDao
+
+    /**
+     * Haliya dao
+     *
+     * @return
+     */
     abstract fun HaliyaDao(): HaliyaDao
+
+    /**
+     * Badal erab notes dao
+     *
+     * @return
+     */
     abstract fun BadalErabNotesDao(): BadalErabNotesDao
+
+    /**
+     * Mafool mutlaq ent dao
+     *
+     * @return
+     */
     abstract fun MafoolMutlaqEntDao(): MafoolMutlaqEntDao
 
+    /**
+     * Names details dao
+     *
+     * @return
+     */
     abstract fun NamesDetailsDao(): NamesDetailsDao?
+
+    /**
+     * Quran explorer dao
+     *
+     * @return
+     */
     abstract fun QuranExplorerDao(): QuranExplorerDao?
+
+    /**
+     * Surahsummary dao
+     *
+     * @return
+     */
     abstract fun surahsummaryDao(): surahsummaryDao
+
+    /**
+     * Qari dao
+     *
+     * @return
+     */
     abstract fun QariDao(): QariDao
 
 
-   abstract fun NamesDao(): NamesDao?
+    /**
+     * Names dao
+     *
+     * @return
+     */
+    abstract fun NamesDao(): NamesDao?
+
+    /**
+     * H dua item dao
+     *
+     * @return
+     */
     abstract fun hDuaItemDao(): hDuaItemDao
+
+    /**
+     * Geth dua names dao
+     *
+     * @return
+     */
     abstract fun gethDuaNamesDao(): hDuaNamesDao
+
+    /**
+     * Geth dua category dao
+     *
+     * @return
+     */
     abstract fun gethDuaCategoryDao(): hDuaCategoryDao
 
 
