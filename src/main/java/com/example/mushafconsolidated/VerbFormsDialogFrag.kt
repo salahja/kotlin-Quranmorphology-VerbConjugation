@@ -6,11 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
-import com.example.mushafconsolidated.Entities.GrammarRules
-
+import androidx.lifecycle.ViewModelProvider
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils
-import com.example.utility.QuranGrammarApplication
+import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
@@ -35,17 +33,20 @@ class VerbFormsDialogFrag : BottomSheetDialogFragment() {
         val stringArray = bundle!!.getStringArray(ARG_OPTIONS_DATA)
         form = stringArray!![0]
         val wv = view.findViewById<View>(R.id.webview) as WebView
-        val utils = Utils(QuranGrammarApplication.context!!)
+
         var formstr: String? = "Form"
         formstr = if (!form!!.contains("Form")) {
             "$formstr $form"
         } else {
             form
         }
-        val list: ArrayList<GrammarRules> = utils.getGrammarRulesByRules(formstr) as ArrayList<GrammarRules>
+        val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
+        val list = mainViewModel.getGramarRulesbyHarf(formstr!!).value
 
-        if (!list.isEmpty()) {
-            wv.loadDataWithBaseURL(null, list[0].detailsrules, "text/html", "utf-8", null)
+        if (list != null) {
+            if (list.isNotEmpty()) {
+                wv.loadDataWithBaseURL(null, list[0].detailsrules, "text/html", "utf-8", null)
+            }
         }
         return view
     }

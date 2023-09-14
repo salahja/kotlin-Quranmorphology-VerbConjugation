@@ -10,8 +10,8 @@ import com.example.mushafconsolidated.Entities.quranexplorer
 @Dao
 interface QuranExplorerDao {
     @Query("SELECT * FROM quranexplorer where title LIKE '%' || :search || '%'")
-    fun getFilter(search: String?): List<quranexplorer?>?
+    fun getFilter(search: String?): List<quranexplorer>?
 
     @get:Query("SELECT * FROM quranexplorer order by title")
-    val aLL: List<quranexplorer?>?
+    val aLL: List<quranexplorer>?
 }

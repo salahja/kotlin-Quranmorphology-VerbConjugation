@@ -100,7 +100,7 @@ class Utils {
         return  database.NewMudhafDao()?.getMudhafSurah(id)
     }
 
-    fun getMudhafSurahAyahNew(id: Int, aid: Int): List<NewMudhafEntity?>? {
+    fun getMudhafSurahAyahNew(id: Int, aid: Int): List<NewMudhafEntity>? {
         return  database.NewMudhafDao()?.getMudhafSurahAyah(id, aid)
     }
 
@@ -588,8 +588,8 @@ class Utils {
         return  database.NewNasbDao()?.getHarfNasbIndices(id)
     }
 
-    fun getHarfNasbIndSurahAyahSnew(id: Int, aid: Int): List<NewNasbEntity?>? {
-        return  database.NewNasbDao()?.getHarfNasbIndicesSurahAyah(id, aid)
+    fun getHarfNasbIndSurahAyahSnew(id: Int, aid: Int): List<NewNasbEntity> {
+        return database.NewNasbDao()?.getHarfNasbIndicesSurahAyah(id, aid)!!
     }
 
     //  List<Book> result = booksDao.getBooks(query);
@@ -660,7 +660,7 @@ class Utils {
         return  database.SifaDao()?.getSifaindexesBySurah(id)
     }
 
-    fun getSifabySurahAyah(id: Int, aid: Int): List<SifaEntity?>? {
+    fun getSifabySurahAyah(id: Int, aid: Int): List<SifaEntity>? {
         return  database.SifaDao()?.getSifaindexesBySurahAyah(id, aid)
     }
 
@@ -697,28 +697,28 @@ class Utils {
         return database.qurandictionaryDao().getDictionaryroot(root)
     }
 
-    fun getTopicSearch(id: String?): List<quranexplorer?>? {
+    fun getTopicSearch(id: String?): List<quranexplorer>? {
         return  database.QuranExplorerDao()?.getFilter(id)
     }
 
-    val topicSearchAll: List<quranexplorer?>?
+    val topicSearchAll: List<quranexplorer>?
         get() {
             return  database.QuranExplorerDao()?.aLL
         }
 
-    fun getKananew(id: Int): List<NewKanaEntity?>? {
+    fun getKananew(id: Int): List<NewKanaEntity>? {
         return  database.NewKanaDao()?.getkanabysurah(id)
     }
 
-    fun getKanaSurahAyahnew(id: Int, aid: Int): List<NewKanaEntity?>? {
+    fun getKanaSurahAyahnew(id: Int, aid: Int): List<NewKanaEntity>? {
         return  database.NewKanaDao()?.getkanabysurahAyah(id, aid)
     }
 
-    fun getShartSurahAyahNew(id: Int, ayah: Int): List<NewShartEntity?>? {
+    fun getShartSurahAyahNew(id: Int, ayah: Int): List<NewShartEntity>? {
         return  database.NewShartDAO()?.getShartBySurahAyah(id, ayah)
     }
 
-    fun getwbwQuranBySurahAyah(id: Int, aid: Int): List<wbwentity?>? {
+    fun getwbwQuranBySurahAyah(id: Int, aid: Int): List<wbwentity>? {
         return  database.wbwDao()?.getwbwQuranBySurahAyah(id, aid)
     }
 
@@ -727,7 +727,7 @@ class Utils {
         aid: Int,
         firstwordindex: Int,
         lastwordindex: Int,
-    ): List<wbwentity?>? {
+    ): List<wbwentity>? {
         return  database.wbwDao()?.getwbwQuranbTranslation(sid, aid, firstwordindex, lastwordindex)
     }
 

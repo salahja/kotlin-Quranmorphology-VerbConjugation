@@ -9,24 +9,6 @@ class BookMarksPojo {
     private var datetime: String? = null
     var count: String? = null
 
-    constructor(
-        id: Int,
-        header: String?,
-        verseno: String?,
-        chapterno: String?,
-        surahname: String?,
-        datetime: String?,
-        count: String?
-    ) {
-        this.id = id
-        this.header = header
-        this.verseno = verseno
-        this.chapterno = chapterno
-        this.surahname = surahname
-        this.datetime = datetime
-        this.count = count
-    }
-
     constructor()
 
     fun getVerseno(): String {

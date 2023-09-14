@@ -23,6 +23,7 @@ import com.example.mushafconsolidated.DAO.NounCorpusDao
 import com.example.mushafconsolidated.DAO.QuranDao
 import com.example.mushafconsolidated.DAO.SifaDao
 import com.example.mushafconsolidated.DAO.VerbCorpusDao
+import com.example.mushafconsolidated.DAO.grammarRulesDao
 import com.example.mushafconsolidated.DAO.liajlihiDao
 import com.example.mushafconsolidated.DAO.surahsummaryDao
 import com.example.mushafconsolidated.DAO.tameezDao
@@ -30,6 +31,7 @@ import com.example.mushafconsolidated.DAO.wbwDao
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
+import com.example.mushafconsolidated.Entities.GrammarRules
 import com.example.mushafconsolidated.Entities.HalEnt
 import com.example.mushafconsolidated.Entities.LiajlihiEnt
 import com.example.mushafconsolidated.Entities.MafoolBihi
@@ -88,10 +90,14 @@ class QuranRepository(
     val mudhafDao: NewMudhafDao,
     val wbwdao: wbwDao,
     val lughatdao: LughatDao,
+    val grammarrulesDao:grammarRulesDao,
+
 
 ) {
+    fun getGrammarRulesByHarf(harf: String) : List<GrammarRules>? = grammarrulesDao.getGrammarRulesByHarf(harf)
+    fun getGrammarRulesByHarf() : List<GrammarRules>? = grammarrulesDao.grammarRules
 
-
+    fun getwbwQuranTranslationRange(surahid: Int, ayahid: Int, startindex: Int,endindex:Int) : List<wbwentity> = wbwdao.getwbwQuranbTranslation(surahid,ayahid,startindex,endindex)
 
     fun getRootWordDictionary(root: String?): List<lughat> = lughatdao.getRootWordDictionary(root)
 
@@ -105,7 +111,8 @@ class QuranRepository(
 
     fun getshart(surah :Int,ayah : Int): List<NewShartEntity> = shartDAO.getShartBySurahAyah(surah,ayah)
 
-    fun getnasab(surah :Int,ayah : Int): List<NewNasbEntity> = nasbDao.getHarfNasbIndicesSurahAyah(surah,ayah)
+    fun getnasab(surah :Int,ayah : Int): List<NewNasbEntity> =
+        nasbDao.getHarfNasbIndicesSurahAyah(surah,ayah)!!
     fun getmudhaf(surah :Int,ayah : Int): List<NewMudhafEntity> = mudhafDao.getMudhafSurahAyah(surah,ayah)
     fun getsifa(surah :Int,ayah : Int): List<SifaEntity> = mousufSifa.getSifaindexesBySurahAyah(surah,ayah)
     fun getkanasurah(surah :Int): List<NewKanaEntity> = kanaDao.getkanabysurah(surah)

@@ -217,7 +217,7 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
      *
      * @return
      */
-    abstract fun grammarRulesDao(): grammarRulesDao?
+    abstract fun grammarRulesDao(): grammarRulesDao
 
     /**
      * Tameez dao

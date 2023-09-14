@@ -20,7 +20,6 @@ import com.example.mushafconsolidated.Adapters.CollectionShowAdapter
 import com.example.mushafconsolidated.DAO.BookMarksPojo
 import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.example.utility.SwipeToDeleteCallback
@@ -41,10 +40,12 @@ class CollectionFrag constructor() : Fragment() {
     ): View? {
         //    View root!!View = inflater.inflate(R.layout.activity_collection, container, false);
         val view: View = inflater.inflate(R.layout.fragment_bookmark_collection, container, false)
-        val utils: Utils = Utils(getActivity())
+       // val utils: Utils = Utils(getActivity())
       //  val bookMarksNew: List<BookMarksPojo?>? = utils.collectionC
-        val bookMarksNew = utils.getCollectionbygroups()
+ //       val bookMarksNew = utils.getCollectionbygroups()
+
         val vmodel: QuranVIewModel by viewModels()
+        //vmodel.getBookmarksCollection().value
         collectionShowAdapter = CollectionShowAdapter(getActivity())
         vmodel.getBookmarksCollection().observe(viewLifecycleOwner, Observer {
 

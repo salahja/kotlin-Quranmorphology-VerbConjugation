@@ -44,6 +44,7 @@ object QuranGraph {
          mudhafDao=db. NewMudhafDao(),
             wbwdao = db.wbwDao(),
             lughatdao = db.LughatDao(),
+            grammarrulesDao=db.grammarRulesDao(),
 
 
 

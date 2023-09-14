@@ -69,7 +69,6 @@ import com.example.mushafconsolidatedimport.VerbFormsDialogFrag
 import com.example.utility.CorpusUtilityorig.Companion.getSpancolor
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.button.MaterialButton
-import database.VerbDatabaseUtils
 import database.entity.MujarradVerbs
 import database.verbrepo.VerbModel
 import org.sj.conjugator.activity.ConjugatorTabsActivity
@@ -165,7 +164,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
         }
         val dark =
             themepreference == "dark" || themepreference == "blue" || themepreference == "green"
-    //   val utils = Utils(activity)
+
         val models: QuranVIewModel by viewModels()
         val ex = Executors.newSingleThreadExecutor()
         val builder = AlertDialog.Builder(requireActivity())
@@ -216,8 +215,8 @@ class WordAnalysisBottomSheet : DialogFragment() {
         }
 
         //if any true..good for verb conjugation
-        if (vbdetail.isNotEmpty() && Objects.requireNonNull(vbdetail["tense"])!!
-                .contains("Imperative")
+        if (!(vbdetail.isEmpty() || !Objects.requireNonNull(vbdetail["tense"])
+                ?.contains("Imperative")!!)
         ) {
             isimperative = true
         }
@@ -349,14 +348,13 @@ class WordAnalysisBottomSheet : DialogFragment() {
             } else if (second != -1) {
                 root = root!!.replace("أ", "ء")
             }
-            val dutils = VerbDatabaseUtils(activity)
+
             val model: VerbModel by viewModels()
             //  val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
 
             val triVerb = model.getMujjarlist(root!!).value
 
-            //   val triVerb: java.util.ArrayList<MujarradVerbs> =
-            //    dutils.getMujarradVerbs(root!!) as java.util.ArrayList<MujarradVerbs>
+
             verbDictList = java.util.ArrayList<MujarradVerbs>()
             if (triVerb != null) {
                 for (tri in triVerb) {
@@ -375,9 +373,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 }
             }
         } else if (isroot && ismazeed && !isparticple) {
-            /*    val databaseUtils = VerbDatabaseUtils(QuranGrammarApplication.context!!)
-                 val mazeedEntityRoots: java.util.ArrayList<MazeedEntity> =
-                   databaseUtils.getMazeedRoot(root!!) as java.util.ArrayList<MazeedEntity>*/
+
 
             val model: VerbModel by viewModels()
             val mazeedEntityRoots = model.getMazeelist(root!!).value
@@ -455,12 +451,10 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 } else if (second != -1) {
                     root = root!!.replace("أ", "ء")
                 }
-                /*     val databaseUtils = VerbDatabaseUtils(context)
-                     val triVerb: java.util.ArrayList<MujarradVerbs> =
-                         databaseUtils.getMujarradVerbs(root!!) as java.util.ArrayList<MujarradVerbs>*/
+
 
                 val model: VerbModel by viewModels()
-                //  val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
+
 
                 val triVerb = model.getMujjarlist(root!!).value
                 verbDictList = java.util.ArrayList<MujarradVerbs>()
@@ -578,11 +572,11 @@ class WordAnalysisBottomSheet : DialogFragment() {
         if (corpusSurahWord.isNotEmpty()) {
             val quranverses: String = quran!![0].qurantext
             spannable = SpannableStringBuilder(quranverses)
-            SetShart(models)
+            setShart(models)
             setHarfNasb(models)
             setMausoofSifa(models, quran as ArrayList<QuranEntity>)
             setMudhaf(models)
-            SetKana(models)
+            setKana(models)
         }
         requireActivity().runOnUiThread {
             ex.shutdown()
@@ -649,14 +643,9 @@ class WordAnalysisBottomSheet : DialogFragment() {
         editor.apply()
     }
 
-    /**
-     * Set harf nasb.
-     *
-     * @param utils Utils
-     */
-    private fun setHarfNasb(utils: QuranVIewModel) {
+    private fun setHarfNasb(model: QuranVIewModel) {
         val harfnasb =
-            utils.getnasab(chapterid, ayanumber).value as ArrayList<NewNasbEntity>
+            model.getnasab(chapterid, ayanumber).value as ArrayList<NewNasbEntity>
         if (harfnasb != null) {
             for (nasb in harfnasb) {
                 if (dark) {
@@ -668,7 +657,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
                     Constant.harfismspanDark = ForegroundColorSpan(Constant.prussianblue)
                     Constant.harfkhabarspanDark = ForegroundColorSpan(Constant.DeepPink)
                 }
-                val start: Int = nasb!!.indexstart
+                val start: Int = nasb.indexstart
                 val end: Int = nasb.indexend
                 val ismstart: Int = nasb.ismstart
                 val ismend: Int = nasb.ismend
@@ -696,15 +685,15 @@ class WordAnalysisBottomSheet : DialogFragment() {
         }
     }
 
-    private fun setMudhaf(utils: QuranVIewModel) {
+    private fun setMudhaf(model: QuranVIewModel) {
         val mudhafSurahAyah=
-            utils.getmudhaf(chapterid, ayanumber).value as ArrayList<NewMudhafEntity>
+            model.getmudhaf(chapterid, ayanumber).value as ArrayList<NewMudhafEntity>
         if (mudhafSurahAyah != null) {
             for (mudhafEntity in mudhafSurahAyah) {
                 Constant.mudhafspansDark = getSpancolor(true)
                 spannable!!.setSpan(
                     Constant.mudhafspansDark,
-                    mudhafEntity!!.startindex,
+                    mudhafEntity.startindex,
                     mudhafEntity.endindex,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
@@ -713,11 +702,11 @@ class WordAnalysisBottomSheet : DialogFragment() {
     }
 
     private fun setMausoofSifa(
-        utils: QuranVIewModel,
+        model: QuranVIewModel,
         corpusSurahWord: ArrayList<QuranEntity>,
     ) {
         val sifabySurahAyah=
-            utils.getsifa(chapterid, ayanumber).value as ArrayList<SifaEntity>
+            model.getsifa(chapterid, ayanumber).value as ArrayList<SifaEntity>
         val quranverses: String = corpusSurahWord[0].qurantext
         for (shartEntity in sifabySurahAyah) {
             Constant.sifaspansDark = getSpancolor(false)
@@ -734,8 +723,8 @@ class WordAnalysisBottomSheet : DialogFragment() {
         }
     }
 
-    private fun SetShart(utils: QuranVIewModel) {
-        val shart = utils.getshart(chapterid, ayanumber).value as ArrayList<NewShartEntity>
+    private fun setShart(model: QuranVIewModel) {
+        val shart = model.getshart(chapterid, ayanumber).value as ArrayList<NewShartEntity>
         //  this.spannable = new SpannableStringBuilder(quranverses);
         if (shart != null) {
             for (shartEntity in shart) {
@@ -750,7 +739,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 }
                 spannable!!.setSpan(
                     Constant.harfshartspanDark,
-                    shartEntity!!.indexstart,
+                    shartEntity.indexstart,
                     shartEntity.indexend,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
@@ -770,9 +759,9 @@ class WordAnalysisBottomSheet : DialogFragment() {
         }
     }
 
-    private fun SetKana(utils: QuranVIewModel) {
+    private fun setKana(model: QuranVIewModel) {
         val kana =
-            utils.getkana(chapterid, ayanumber).value as ArrayList<NewKanaEntity>
+            model.getkana(chapterid, ayanumber).value as ArrayList<NewKanaEntity>
         //  this.spannable = new SpannableStringBuilder(quranverses);
         val harfkana: ForegroundColorSpan
         val kanaism: ForegroundColorSpan

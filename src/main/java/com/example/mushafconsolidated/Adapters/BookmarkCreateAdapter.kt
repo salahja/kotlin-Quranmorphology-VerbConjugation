@@ -43,8 +43,7 @@ class BookmarkCreateAdapter(collectionC: List<BookMarksPojo>?) :
         holder: RecyclerView.ViewHolder,
         @SuppressLint("RecyclerView") position: Int
     ) {
-        val collections: BookMarksPojo?
-        collections = try {
+        val collections: BookMarksPojo? = try {
             collection!![position]
         } catch (e: IndexOutOfBoundsException) {
             null
@@ -53,9 +52,7 @@ class BookmarkCreateAdapter(collectionC: List<BookMarksPojo>?) :
         val shared =
             PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context)
         if (null != collections) {
-            itemholder.collectiondetails.setText(
-                collections.header+(collections.count+("-")+("aya's)"))
-            )
+            itemholder.collectiondetails.text = collections.header+(collections.count+("-")+("aya's)"))
             itemholder.collectiondetails.visibility = View.VISIBLE
             itemholder.collectionimage.visibility = View.VISIBLE
         } else {
@@ -68,7 +65,7 @@ class BookmarkCreateAdapter(collectionC: List<BookMarksPojo>?) :
         if (collection == null) {
             return 0
         }
-        return if (collection.size == 0) {
+        return if (collection.isEmpty()) {
             //Return 1 here to show nothing
             1
         } else collection.size + 1

@@ -27,11 +27,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
  * ThemeListPrefrence.newInstance(30).show(getSupportFragmentManager(), "dialog");
 </pre> *
  */
-class WbwTranslationListPrefrence constructor() : BottomSheetDialogFragment() {
-    private val chap_id: Int = 0
-    private val verse_id: Int = 0
-    private val name: String? = null
-    public override fun onCreate(savedInstanceState: Bundle?) {
+class WbwTranslationListPrefrence : BottomSheetDialogFragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
@@ -39,32 +37,32 @@ class WbwTranslationListPrefrence constructor() : BottomSheetDialogFragment() {
     var radioGroup: RadioGroup? = null
     private var fontQuranAdapter: WbwTranslationListPrefrence.FontQuranAdapter? = null
     lateinit var frameLayout: RelativeLayout
-    fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
+    fun setOnItemClickListener(mItemClickListener: OnItemClickListener?) {
         this.mItemClickListener = mItemClickListener
     }
 
-    public override fun onCreateView(
+    override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.quran_list_dialog, container, false)
+        return inflater.inflate(layout.quran_list_dialog, container, false)
     }
 
-    public override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setLayoutManager(LinearLayoutManager(context!!))
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val details: ArrayList<String> = ArrayList()
         fontQuranAdapter = FontQuranAdapter()
-        recyclerView.setAdapter(fontQuranAdapter)
-        fontQuranAdapter!!.SetOnItemClickListener(object : OnItemClickListener {
-            public override fun onItemClick(v: View?, position: Int) {
-                val checkedRadioButtonId: Int = radioGroup!!.getCheckedRadioButtonId()
+        recyclerView.adapter = fontQuranAdapter
+        fontQuranAdapter!!.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(v: View?, position: Int) {
+                val checkedRadioButtonId: Int = radioGroup!!.checkedRadioButtonId
             }
         })
     }
 
-    private inner class ViewHolder internal constructor(
+    private inner class ViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup?
     ) : RecyclerView.ViewHolder(
@@ -72,68 +70,59 @@ class WbwTranslationListPrefrence constructor() : BottomSheetDialogFragment() {
             layout.wbw_prference_dialog, parent, false
         )
     ), View.OnClickListener {
-        var wbwen: RadioButton
+        var wbwen: RadioButton = itemView.findViewById(R.id.wbwen)
         var wbwbangla: RadioButton
         var wbwindonesia: RadioButton
         var wbwurdu: RadioButton
 
         init {
-            wbwen = itemView.findViewById(R.id.wbwen)
             wbwbangla = itemView.findViewById(R.id.wbwbangla)
             wbwurdu = itemView.findViewById(R.id.wbwurdu)
             wbwindonesia = itemView.findViewById(R.id.wbwindonesia)
             frameLayout = itemView.findViewById(R.id.bottomSheet)
             itemView.setOnClickListener(this)
-            wbwen.setOnClickListener(object : View.OnClickListener {
-                public override fun onClick(v: View?) {
-                    val editor: SharedPreferences.Editor =
-                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
-                    editor.putString("wbw", "en")
-                    editor.apply()
-                    dismiss()
-                }
-            })
-            wbwbangla.setOnClickListener(object : View.OnClickListener {
-                public override fun onClick(v: View?) {
-                    val editor: SharedPreferences.Editor =
-                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
-                    editor.putString("wbw", "bn")
-                    editor.apply()
-                    dismiss()
-                }
-            })
-            wbwindonesia.setOnClickListener(object : View.OnClickListener {
-                public override fun onClick(v: View?) {
-                    val editor: SharedPreferences.Editor =
-                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
-                    editor.putString("wbw", "in")
-                    editor.apply()
-                    dismiss()
-                }
-            })
-            wbwurdu.setOnClickListener(object : View.OnClickListener {
-                public override fun onClick(v: View?) {
-                    val editor: SharedPreferences.Editor =
-                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
-                    //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
-                    editor.putString("wbw", "ur")
-                    editor.apply()
-                    dismiss()
-                }
-            })
+            wbwen.setOnClickListener {
+                val editor: SharedPreferences.Editor =
+                    PreferenceManager.getDefaultSharedPreferences(activity).edit()
+                editor.putString("wbw", "en")
+                editor.apply()
+                dismiss()
+            }
+            wbwbangla.setOnClickListener {
+                val editor: SharedPreferences.Editor =
+                    PreferenceManager.getDefaultSharedPreferences(activity).edit()
+                editor.putString("wbw", "bn")
+                editor.apply()
+                dismiss()
+            }
+            wbwindonesia.setOnClickListener {
+                val editor: SharedPreferences.Editor =
+                    PreferenceManager.getDefaultSharedPreferences(activity).edit()
+                editor.putString("wbw", "in")
+                editor.apply()
+                dismiss()
+            }
+            wbwurdu.setOnClickListener {
+                val editor: SharedPreferences.Editor =
+                    PreferenceManager.getDefaultSharedPreferences(activity).edit()
+                //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
+                editor.putString("wbw", "ur")
+                editor.apply()
+                dismiss()
+            }
         }
 
-        public override fun onClick(v: View) {
+        override fun onClick(v: View) {
             if (mItemClickListener != null) {
-                mItemClickListener!!.onItemClick(v, getLayoutPosition())
+                mItemClickListener!!.onItemClick(v, layoutPosition)
             }
         }
     }
 
-    private inner class FontQuranAdapter constructor() :
+    private inner class FontQuranAdapter :
         RecyclerView.Adapter<WbwTranslationListPrefrence.ViewHolder>() {
         private var mItemClickListener: OnItemClickListener? = null
-        public override fun onCreateViewHolder(
+        override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
         ): WbwTranslationListPrefrence.ViewHolder {
@@ -143,7 +132,7 @@ class WbwTranslationListPrefrence constructor() : BottomSheetDialogFragment() {
             )
         }
 
-        public override fun onBindViewHolder(
+        override fun onBindViewHolder(
             holder: WbwTranslationListPrefrence.ViewHolder,
             position: Int
         ) {
@@ -155,35 +144,31 @@ class WbwTranslationListPrefrence constructor() : BottomSheetDialogFragment() {
                 requireActivity()
             ).getString("wbw", "en")
             if ((theme == "en")) {
-                holder.wbwen.setChecked(true)
+                holder.wbwen.isChecked = true
             } else if ((theme == "bn")) {
-                holder.wbwbangla.setChecked(true)
+                holder.wbwbangla.isChecked = true
             } else if ((theme == "ur")) {
-                holder.wbwurdu.setChecked(true)
+                holder.wbwurdu.isChecked = true
             } else if ((theme == "in")) {
-                holder.wbwindonesia.setChecked(true)
+                holder.wbwindonesia.isChecked = true
             }
         }
 
-        public override fun getItemCount(): Int {
+        override fun getItemCount(): Int {
             return 1
         }
 
-        fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
+        fun setOnItemClickListener(mItemClickListener: OnItemClickListener?) {
             this.mItemClickListener = mItemClickListener
         }
     }
 
     companion object {
-        val TAG: String = "opton"
-
-        // TODO: Customize parameter argument names
-        private val ARG_OPTIONS_DATA: String = "item_count"
+        const val TAG: String = "opton"
 
         // TODO: Customize parameters
         fun newInstance(): WbwTranslationListPrefrence {
-            val fragment: WbwTranslationListPrefrence = WbwTranslationListPrefrence()
-            return fragment
+            return WbwTranslationListPrefrence()
         }
     }
 }

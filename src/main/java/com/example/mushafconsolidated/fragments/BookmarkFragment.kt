@@ -26,7 +26,6 @@ import com.example.Constant.WBW
 import com.example.mushafconsolidated.Activity.QuranGrammarAct
 import com.example.mushafconsolidated.Adapters.BookmarksShowAdapter
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -47,9 +46,7 @@ internal class BookmarkFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         val view: View = inflater.inflate(R.layout.bookmark_frag_tablayout, container, false)
-        val utils = Utils(
-            activity
-        )
+
         val tabLayout = view.findViewById<TabLayout>(R.id.tabs)
         val lifecycle = viewLifecycleOwner.lifecycle
         val fm = requireActivity().supportFragmentManager
