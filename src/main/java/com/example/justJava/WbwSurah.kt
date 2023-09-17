@@ -8,6 +8,7 @@ import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.model.CorpusAyahWord
 import com.example.mushafconsolidated.model.CorpusWbwWord
+import com.example.mushafconsolidated.model.NewCorpusAyahWord
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -64,6 +65,8 @@ class WbwSurah(
                 tempVerseWord = indexv
                 val ayahWord = CorpusAyahWord()
                 val wordArrayList: ArrayList<CorpusWbwWord> = ArrayList()
+                val ayahWord1 = NewCorpusAyahWord()
+                val wordArrayList1: ArrayList<NewCorpusAyahWord> = ArrayList()
                 while (tempVerseWord == indexv) {
                     if (verseexit == verseglobal) {
                         break

@@ -90,6 +90,9 @@ class Utils {
         return  database.surahsummaryDao()?.getSurahSummary(id)
     }
 */
+fun getQuranCorpusWbwbysurah(surahid: Int): List<QuranCorpusWbw>? {
+    return  database.QuranDao()?.getQuranCorpusWbwbysurah(surahid)
+}
 
     fun getNamesDetails(id: Int): List<AllahNamesDetails?>? {
         return  database.NamesDetailsDao()?.ALLAH_NAMES_DETAILS_DETAILS(id)
@@ -721,6 +724,9 @@ class Utils {
     fun getwbwQuranBySurahAyah(id: Int, aid: Int): List<wbwentity>? {
         return  database.wbwDao()?.getwbwQuranBySurahAyah(id, aid)
     }
+    fun getwbwQuran(id: Int): List<wbwentity>? {
+        return  database.wbwDao()?.getwbwQuran(id)
+    }
 
     fun getwbwQuranbTranslation(
         sid: Int,
@@ -1024,6 +1030,9 @@ class Utils {
             return  database.QuranDao()?.getQuranbyJuz(juz)
         }
 
+
+
+
         val collectionCount: List<BookMarks?>?
             get() {
                 return  database.BookMarkDao()?.collectionCount
@@ -1109,6 +1118,7 @@ class Utils {
         //  List<Book> result = booksDao.getBooks(query);
         return database.RawDao().getNewCorpusWbw(query)
     }
+
 
 
 }

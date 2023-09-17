@@ -94,6 +94,10 @@ class QuranRepository(
 
 
 ) {
+
+    fun getQuranCorpusWbwBysurah(cid: Int):  List<QuranCorpusWbw> =qurandao.getQuranCorpusWbwbysurah(cid)
+
+
     fun getGrammarRulesByHarf(harf: String) : List<GrammarRules>? = grammarrulesDao.getGrammarRulesByHarf(harf)
     fun getGrammarRulesByHarf() : List<GrammarRules>? = grammarrulesDao.grammarRules
 
@@ -174,30 +178,28 @@ class QuranRepository(
 
 
 
+    /*
+        fun getMujarradroot(root : String): LiveData<List<MujarradVerbs>>
+                =mujarradao.getverbTrilive(root)
 
-
-/*
-    fun getMujarradroot(root : String): LiveData<List<MujarradVerbs>>
-            =mujarradao.getverbTrilive(root)
-
-    fun getMujarradWeakness(kov : String): LiveData<List<MujarradVerbs>>
-            =mujarradao.getMujarradWeaknesslive(kov)
-    suspend fun insertlive(entity : MujarradVerbs) {
-        mujarradao.insertlive(entity)
-    }
+        fun getMujarradWeakness(kov : String): LiveData<List<MujarradVerbs>>
+                =mujarradao.getMujarradWeaknesslive(kov)
+        suspend fun insertlive(entity : MujarradVerbs) {
+            mujarradao.insertlive(entity)
+        }
 
 
 
-    fun getMazeedroot(root : String): LiveData<List<MazeedEntity>>
-    =mazeeddao.getMazeedRootlive(root)
+        fun getMazeedroot(root : String): LiveData<List<MazeedEntity>>
+        =mazeeddao.getMazeedRootlive(root)
 
-    fun getMazeedWeakness(kov : String): LiveData<List<MazeedEntity>>
-            =mazeeddao.getMazeedWeaknesslive(kov)
-    suspend fun insertlive(entity : MazeedEntity) {
-        mazeeddao.insertlive(entity)
-    }
+        fun getMazeedWeakness(kov : String): LiveData<List<MazeedEntity>>
+                =mazeeddao.getMazeedWeaknesslive(kov)
+        suspend fun insertlive(entity : MazeedEntity) {
+            mazeeddao.insertlive(entity)
+        }
 
-*/
+    */
 
 
 

@@ -80,7 +80,7 @@ class QuranVIewModel(
 
     var lughat: MutableLiveData<List<lughat>> = MutableLiveData()
     var grammarules: MutableLiveData<List<GrammarRules>> = MutableLiveData()
-
+  //  getQuranCorpusWbwBysurah
 
     fun getGramarRulesbyHarf(root: String): LiveData<List<GrammarRules>> {
         grammarules.value = newrepository.grammarrulesDao.getGrammarRulesByHarf(root)
@@ -190,6 +190,13 @@ class QuranVIewModel(
         corpuswbwlist.value = this.newrepository.getQuranCorpusWbw(cid, aid, wid)
         return corpuswbwlist
     }
+    fun getQuranCorpusWbwBysurah(cid: Int): MutableLiveData<List<QuranCorpusWbw>> {
+        corpuswbwlist.value = this.newrepository.getQuranCorpusWbwBysurah(cid)
+        return corpuswbwlist
+    }
+
+
+
 
     fun getQuranRootBySurahAyahWord(
         cid: Int,
