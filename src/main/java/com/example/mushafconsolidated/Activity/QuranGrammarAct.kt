@@ -110,8 +110,11 @@ import java.util.concurrent.Executors
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOnLong {
     private var corpusSurahWord: List<QuranCorpusWbw>? = null
-    lateinit var binding: NewFragmentReadingBinding
     var newcorpusayahWordArrayList: ArrayList<ArrayList<NewCorpusAyahWord>> = ArrayList()
+    private lateinit var newflowAyahWordAdapter: newFlowAyahWordAdapter
+    lateinit var binding: NewFragmentReadingBinding
+    private val newadapterlist = LinkedHashMap<Int, ArrayList<QuranCorpusWbw>>()
+    private val newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
     private lateinit var surahWheelDisplayData: Array<String>
     private lateinit var ayahWheelDisplayData: Array<String>
     private lateinit var btnBottomSheet: FloatingActionButton
@@ -147,7 +150,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
     private lateinit var flowAyahWordAdapter: FlowAyahWordAdapter
     //goes with extracttwothree
  //   private lateinit var refflowAyahWordAdapter: refFlowAyahWordAdapter
-    private lateinit var newflowAyahWordAdapter: newFlowAyahWordAdapter
+
     // private lateinit var flowAyahWordAdapterpassage: FlowAyahWordAdapterPassage
     // private UpdateMafoolFlowAyahWordAdapter flowAyahWordAdapter;
     private var mausoof = false
@@ -163,8 +166,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
     private var corpusayahWordArrayList: ArrayList<CorpusAyahWord>? = null
     private val passage = LinkedHashMap<Int, ArrayList<CorpusWbwWord>>()
     //  private val newadapterlist = LinkedHashMap<Int, ArrayList<NewCorpusAyahWord>>()
-    private val newadapterlist = LinkedHashMap<Int, ArrayList<QuranCorpusWbw>>()
-    private val newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
+
     private var mafoolbihiwords: List<MafoolBihi?>? = null
     private var Jumlahaliya: List<HalEnt?>? = null
     private var Tammezent: List<TameezEnt?>? = null
@@ -240,6 +242,8 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         // Get a reference to the ViewModel scoped to its Activity
         //    setContentView(R.layout.new_fragment_reading)
         materialToolbar = binding.toolbarmain
+        val model :QuranVIewModel by viewModels()
+
 
 
         setSupportActionBar(materialToolbar)
@@ -812,31 +816,24 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         builder.setView(R.layout.layout_loading_dialog)
         val dialog = builder.create()
         val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
+        //this.allofQuran =    mainViewModel.getquranbySUrah(chapterno).value
 
         corpusayahWordArrayList = ArrayList()
-        //  var wbwarraylist: ArrayList<NewCorpusAyahWord>? = ArrayList()
+
         val wbwarraylist = ArrayList<ArrayList<NewCorpusAyahWord>>()
-        //   mafoolbihiwords = ArrayList()
+
         mafoolbihiwords = mainViewModel.getMafoolSurah(chapterno).value
         Jumlahaliya = mainViewModel.getHalsurah(chapterno).value
         Tammezent = mainViewModel.getTameezsurah(chapterno).value
         Liajlihient = mainViewModel.getLiajlihiSurah(chapterno).value
         Mutlaqent = mainViewModel.getMutlaqSurah(chapterno).value
         BadalErabNotesEnt = mainViewModel.getbadalSurah(chapterno).value
-        //   Jumlahaliya = utils!!.getHaliaErabBysurah(chapterno)
-        //  Liajlihient = utils!!.getMafoolLiajlihisurah(chapterno)
-        val model: QuranVIewModel by viewModels()
-        var ayahWord = NewCorpusAyahWord()
-        val pres = java.util.ArrayList<NewCorpusAyahWord>()
-        val wordArrayList: ArrayList<CorpusWbwWord> = ArrayList()
-        // extracted(model, ayahWord, wbwarraylist)
-        // extractedtwo(model, ayahWord, wbwarraylist)
-        newextractedtwothree(model, ayahWord, wbwarraylist)
-        //extractedtwothree(model, ayahWord, wbwarraylist)
+
+
         val utils = Utils(this)
+     allofQuran=   utils.getQuranbySurah(chapterno)
         corpusSurahWord = utils.getQuranCorpusWbwbysurah(chapterno)
-        //    utils.getQuranCorpusWbwbysurah(chapterno)
-        // corpusSurahWord = model.getQuranCorpusWbwBysurah(chapterno).value as ArrayList<QuranCorpusWbw>
+
         val ex = Executors.newSingleThreadExecutor()
         ex.execute {
             //do inbackground
@@ -844,86 +841,33 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         }
     }
 
-    private fun extracted(
-        model: QuranVIewModel,
-        ayahWord: NewCorpusAyahWord,
-        wbwarraylist: ArrayList<ArrayList<NewCorpusAyahWord>>,
-                         ) {
-        var ayahWord1 = ayahWord
-        val util = Utils(this)
-        val wbwentities = util.getwbwQuran(chapterno)
-        val wordArrayList: ArrayList<wbwentity> = ArrayList()
-        var arrayofayahword: ArrayList<ArrayList<NewCorpusAyahWord>> = ArrayList()
-        var pre = java.util.ArrayList<NewCorpusAyahWord>()
-        corpusSurahWord =
-            model.getQuranCorpusWbwBysurah(chapterno).value as ArrayList<QuranCorpusWbw>
-        val quran = util.getQuranbySurah(chapterno)
-        var aindex = 0
-        var secondindex = 0
 
-        while (aindex < quran!!.size) {
-            val wordArrayList: ArrayList<wbwentity> = ArrayList()
-            val ayahWord = NewCorpusAyahWord()
-            ayahWord.spannableverse = SpannableString.valueOf(quran!![aindex]!!.qurantext)
-            //  aindex=allofQuran.get(aindex).getAyah();
-            while (secondindex < wbwentities!!.size) {
-                if (quran!![aindex]!!.ayah != wbwentities[secondindex].ayah) {
-                    break
-                }
-                // val wbwentity = wbwentities[0]
-                //   ayahWord1.word = wbwentities[secondindex]
-                wordArrayList.add(wbwentities[secondindex])
-                pre.add(ayahWord1)
-                secondindex++
-            }
-            if (wbwarraylist != null) {
-                ayahWord.wordWbwentity = wordArrayList
-                val arraylist = ArrayList<NewCorpusAyahWord>()
-                arraylist.add(ayahWord)
-                //    ayahWord.word= wordArrayList
-                arrayofayahword.add(pre)
-                newcorpusayahWordArrayList.add(arraylist)
-                //  pre.add(ayahWord1)
-                wbwarraylist.add(pre)
-                pre = java.util.ArrayList()
-                ayahWord1 = NewCorpusAyahWord()
-            }
-            aindex++
-        }
-    }
 
-    private fun newextractedtwothree(
-        model: QuranVIewModel,
-        ayahWord: NewCorpusAyahWord,
-        wbwarraylist: ArrayList<ArrayList<NewCorpusAyahWord>>,
-                                    ) {
-        var ayahWord1 = ayahWord
-        val util = Utils(this)
-        val wbwentities = util.getwbwQuran(chapterno)
-        val wordArrayList: ArrayList<wbwentity> = ArrayList()
-        var arrayofayahword: ArrayList<ArrayList<NewCorpusAyahWord>> = ArrayList()
-        var pre = java.util.ArrayList<NewCorpusAyahWord>()
+    private fun newextractedtwothree(   ) {
+
+
+
         var qurancorpusarray = java.util.ArrayList<NewQuranCorpusWbw>()
         val qurancorpusarrayt: MutableList<NewQuranCorpusWbw> = ArrayList()
-        var arrayofcorpusarray: ArrayList<ArrayList<NewCorpusAyahWord>> = ArrayList()
-        corpusSurahWord = util.getQuranCorpusWbwbysurah(chapterno)
-        //   model.getQuranCorpusWbwBysurah(chapterno).value as ArrayList<QuranCorpusWbw>
-        val quran = util.getQuranbySurah(chapterno)
+
+
+
+  //      val quran = util.getQuranbySurah(chapterno)
         var aindex = 0
         var secondindex = 0
 
-        while (aindex <= quran!!.size) {
+        while (aindex <= allofQuran!!.size) {
             val wbwarraylist: ArrayList<wbwentity> = ArrayList()
             val corpusarraylist: ArrayList<CorpusEntity> = ArrayList()
             val spannableString = SpannableString("")
             var ayahWord = NewQuranCorpusWbw()
 
             try {
-                while (corpusSurahWord!!.get(secondindex).corpus!!.ayah <= quran.get(aindex)!!.ayah) {
-                    if (corpusSurahWord!!.get(secondindex).corpus!!.ayah != quran.get(aindex)!!.ayah) {
+                while (corpusSurahWord!!.get(secondindex).corpus!!.ayah <= allofQuran!!.get(aindex)!!.ayah) {
+                    if (corpusSurahWord!!.get(secondindex).corpus!!.ayah != allofQuran!!.get(aindex)!!.ayah) {
                         break
                     }
-                    ayahWord.spannableverse = SpannableString.valueOf(quran!![aindex]!!.qurantext)
+                    ayahWord.spannableverse = SpannableString.valueOf(allofQuran!![aindex]!!.qurantext)
                     ayahWord.wbw = corpusSurahWord!![secondindex].wbw
                     ayahWord.corpus = corpusSurahWord!![secondindex++].corpus
                     qurancorpusarray.add(ayahWord)
@@ -934,7 +878,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             catch (e: IndexOutOfBoundsException) {
                 println(e.message)
             }
-            //  qurancorpusarray.add(ayahWord)
+
             if (qurancorpusarray.isNotEmpty()) {
                 newnewadapterlist.put(aindex, qurancorpusarray)
                 val ayahWord = NewQuranCorpusWbw()
@@ -944,152 +888,47 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         }
     }
 
-    private fun extractedtwothree(
-        model: QuranVIewModel,
-        ayahWord: NewCorpusAyahWord,
-        wbwarraylist: ArrayList<ArrayList<NewCorpusAyahWord>>,
-                                 ) {
-        var ayahWord1 = ayahWord
-        val util = Utils(this)
-        val wbwentities = util.getwbwQuran(chapterno)
-        val wordArrayList: ArrayList<wbwentity> = ArrayList()
-        var arrayofayahword: ArrayList<ArrayList<NewCorpusAyahWord>> = ArrayList()
-        var pre = java.util.ArrayList<NewCorpusAyahWord>()
-        var qurancorpusarray = java.util.ArrayList<QuranCorpusWbw>()
-        var arrayofcorpusarray: ArrayList<ArrayList<QuranCorpusWbw>> = ArrayList()
-        corpusSurahWord = util.getQuranCorpusWbwbysurah(chapterno)
-        //   model.getQuranCorpusWbwBysurah(chapterno).value as ArrayList<QuranCorpusWbw>
-        val quran = util.getQuranbySurah(chapterno)
-        var aindex = 0
-        var secondindex = 0
-
-        while (aindex <= quran!!.size) {
-            val wbwarraylist: ArrayList<wbwentity> = ArrayList()
-            val corpusarraylist: ArrayList<CorpusEntity> = ArrayList()
-            val ayahWord = NewCorpusAyahWord()
-            ayahWord.spannableverse = SpannableString.valueOf(quran!![aindex]!!.qurantext)
-            //  val ayah = corpusSurahWord!!.get(secondindex).corpus.ayah
-            //  aindex=allofQuran.get(aindex).getAyah();
-            try {
-                while (corpusSurahWord!!.get(secondindex).corpus.ayah <= quran.get(aindex)!!.ayah) {
-                    if (corpusSurahWord!!.get(secondindex).corpus.ayah != quran.get(aindex)!!.ayah) {
-                        break
-                    }
-                    // val wbwentity = wbwentities[0]
-                    //   ayahWord1.word = wbwentities[secondindex]
-                    //   val quranCorpusWbw = (corpusSurahWord as ArrayList<QuranCorpusWbw>)[secondindex]
-                    qurancorpusarray.add(
-                        (corpusSurahWord as ArrayList<QuranCorpusWbw>)[secondindex++]
-                                        )
-                }
-            }
-            catch (e: IndexOutOfBoundsException) {
-                println(e.message)
-            }
-
-            if (wbwarraylist != null) {
-                //       qurancorpusarray.add(                    (corpusSurahWord as ArrayList<QuranCorpusWbw>)[secondindex])
-                if (qurancorpusarray.isNotEmpty()) {
-                    arrayofcorpusarray.add(qurancorpusarray)
-
-                    newadapterlist.put(aindex, qurancorpusarray)
-                }
 
 
-                qurancorpusarray = ArrayList()
-                ayahWord.wordWbwentity = wbwarraylist
-                ayahWord.wordCorpusentity = corpusarraylist
-                val arraylist = ArrayList<NewCorpusAyahWord>()
-                arraylist.add(ayahWord)
-                //    ayahWord.word= wordArrayList
-                arrayofayahword.add(pre)
-                newcorpusayahWordArrayList.add(arraylist)
-                //  pre.add(ayahWord1)
-                //   ..  wbwarraylist.add(pre)
-                // ..  pre = java.util.ArrayList()
-                ayahWord1 = NewCorpusAyahWord()
-            }
-            aindex++
-        }
-    }
-
-    private fun extractedtwo(
-        model: QuranVIewModel,
-        ayahWord: NewCorpusAyahWord,
-        wbwarraylist: ArrayList<ArrayList<NewCorpusAyahWord>>,
-                            ) {
-        var ayahWord1 = ayahWord
-        val util = Utils(this)
-        val wbwentities = util.getwbwQuran(chapterno)
-        val wordArrayList: ArrayList<wbwentity> = ArrayList()
-        var arrayofayahword: ArrayList<ArrayList<NewCorpusAyahWord>> = ArrayList()
-        var pre = java.util.ArrayList<NewCorpusAyahWord>()
-        corpusSurahWord =
-            model.getQuranCorpusWbwBysurah(chapterno).value as ArrayList<QuranCorpusWbw>
-        val quran = util.getQuranbySurah(chapterno)
-        var aindex = 0
-        var secondindex = 0
-
-        while (aindex < quran!!.size) {
-            val wbwarraylist: ArrayList<wbwentity> = ArrayList()
-            val corpusarraylist: ArrayList<CorpusEntity> = ArrayList()
-            val ayahWord = NewCorpusAyahWord()
-            ayahWord.spannableverse = SpannableString.valueOf(quran!![aindex]!!.qurantext)
-            //  aindex=allofQuran.get(aindex).getAyah();
-            while (secondindex < wbwentities!!.size) {
-                if (quran!![aindex]!!.ayah != wbwentities[secondindex].ayah) {
-                    break
-                }
-                // val wbwentity = wbwentities[0]
-                //   ayahWord1.word = wbwentities[secondindex]
-                wbwarraylist.add(wbwentities[secondindex])
-                corpusarraylist.add((corpusSurahWord as ArrayList<QuranCorpusWbw>)[secondindex].corpus)
-                //   val quranCorpusWbw = (corpusSurahWord as ArrayList<QuranCorpusWbw>)[secondindex]
-                pre.add(ayahWord1)
-                secondindex++
-            }
-            if (wbwarraylist != null) {
-                ayahWord.wordWbwentity = wbwarraylist
-                ayahWord.wordCorpusentity = corpusarraylist
-                val arraylist = ArrayList<NewCorpusAyahWord>()
-                arraylist.add(ayahWord)
-                //    ayahWord.word= wordArrayList
-                arrayofayahword.add(pre)
-                newcorpusayahWordArrayList.add(arraylist)
-                //  pre.add(ayahWord1)
-                //   ..  wbwarraylist.add(pre)
-                // ..  pre = java.util.ArrayList()
-                ayahWord1 = NewCorpusAyahWord()
-            }
-            aindex++
-        }
-    }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun bysurah(dialog: AlertDialog, ex: ExecutorService) {
-        /*       val viewModel: QuranViewModel by viewModels {
-                   MazeedViewModelFactoryies(
-                       (this.application as QuranGrammarApplication).database.QuranDao()!!
-                   )
-               }
-               lifecycle.coroutineScope.launch {
-                   viewModel.quranbysurah(chapterno).collect() {
-                       allofQuran = it
-                       //   println(list.toString())
-                       // busStopAdapter.submitList(it)
-                   }
-               }
-       */
 
 
         runOnUiThread { dialog.show() }
+        val model: QuranVIewModel by viewModels()
+        var ayahWord = NewCorpusAyahWord()
+
+        newextractedtwothree()
         val corpus = CorpusUtilityorig(this)
-        val utils = Utils(this)
-        allofQuran = utils.getQuranbySurah(chapterno)
+
+
+
+
+        if (kana) {
+            newnewadapterlist?.let { corpus.setKana(it, chapterno) }
+        }
+        if (shart) {
+            newnewadapterlist?.let { corpus.setShart(it, chapterno) }
+        }
         if (mudhaf) {
-            val mudhafarray = corpus.setMudhafFromDB(allofQuran, chapterno)
+            newnewadapterlist?.let { corpus.setMudhafFromDB(it, chapterno) }
             //   corpusayahWordArrayList?.get(0)?.let { corpus.setMudhafFromDB(it, chapterno) }
         }
+        if (mausoof) {
+            newnewadapterlist?.let { corpus.SetMousufSifaDB(it, chapterno) }
+            //  corpus.NewMAOUSOOFSIFA(corpusayahWordArrayList);
+        }
+        if (harfnasb) {
+            newnewadapterlist?.let { corpus.newnewHarfNasbDb(it, chapterno) }
+        }
+
+
+
+
+
+
+
         println("check")
         /*   val wbwSurah = WbwSurah(this@QuranGrammarAct, chapterno, corpusayahWordArrayList, passage)
            wbwSurah.wordbyword

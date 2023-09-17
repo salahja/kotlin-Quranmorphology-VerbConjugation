@@ -362,6 +362,16 @@ class QuranVIewModel(
 
         return allquran
     }
+    fun getquranbySUrah(cid: Int): LiveData<List<QuranEntity>> {
+
+
+        viewModelScope.launch {
+            allquran = newrepository.getsurahbychap(cid)
+        }
+
+
+        return allquran
+    }
 
     fun getsurahayahVerseslist(cid: Int, ayid: Int): LiveData<List<QuranEntity>> {
 

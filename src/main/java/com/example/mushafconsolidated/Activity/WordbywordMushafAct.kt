@@ -1,5 +1,6 @@
 package com.example.mushafconsolidated.Activity
 
+
 import AudioPlayed
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -14,6 +15,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
+import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
@@ -43,15 +45,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant.CHAPTER
 import com.example.Constant.SURAH_ARABIC_NAME
-import com.example.justJava.WbwSurah
 import com.example.mushafconsolidated.Activityimport.AyahCoordinate
 import com.example.mushafconsolidated.Activityimport.BaseActivity
-
 import com.example.mushafconsolidated.Adapters.LineMushaAudioAdapter
-
-
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
+import com.example.mushafconsolidated.Entities.CorpusEntity
 import com.example.mushafconsolidated.Entities.HalEnt
 import com.example.mushafconsolidated.Entities.LiajlihiEnt
 import com.example.mushafconsolidated.Entities.MafoolBihi
@@ -60,14 +59,17 @@ import com.example.mushafconsolidated.Entities.Page
 import com.example.mushafconsolidated.Entities.Qari
 import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.Entities.TameezEnt
+import com.example.mushafconsolidated.Entities.wbwentity
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
-import com.example.mushafconsolidated.fragments.FlowAyahWordAdapter
-
-
+import com.example.mushafconsolidated.databinding.NewFragmentReadingBinding
+import com.example.mushafconsolidated.fragments.newFlowAyahWordAdapter
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.model.CorpusAyahWord
 import com.example.mushafconsolidated.model.CorpusWbwWord
+import com.example.mushafconsolidated.model.NewCorpusAyahWord
+import com.example.mushafconsolidated.model.NewQuranCorpusWbw
+import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.example.mushafconsolidated.receiversimport.AudioAppConstants
 import com.example.mushafconsolidated.receiversimport.DownloadService
@@ -77,7 +79,6 @@ import com.example.mushafconsolidated.receiversimport.Settingsss
 import com.example.mushafconsolidated.settingsimport.Constants
 import com.example.utility.AudioPositionSaved
 import com.example.utility.ConfigPreferences
-
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.MovableFloatingActionButton
 import com.google.android.exoplayer2.C
@@ -101,7 +102,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textview.MaterialTextView
- 
 import wheel.OnWheelChangedListener
 import wheel.WheelView
 import java.io.File
@@ -113,6 +113,13 @@ import java.util.concurrent.Executors
 class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnClickListener,
     FullscreenButtonClickListener {
     // private UpdateMafoolFlowAyahWordAdapter flowAyahWordAdapter;
+
+    private var corpusSurahWord: List<QuranCorpusWbw>? = null
+    var newcorpusayahWordArrayList: ArrayList<ArrayList<NewCorpusAyahWord>> = ArrayList()
+    private lateinit var newflowAyahWordAdapter: newFlowAyahWordAdapter
+    lateinit var binding: NewFragmentReadingBinding
+    private val newadapterlist = LinkedHashMap<Int, ArrayList<QuranCorpusWbw>>()
+    private val newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
     private val mausoof = false
     private val mudhaf = false
     private val harfnasb = false
@@ -1430,25 +1437,35 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     @SuppressLint("NotifyDataSetChanged")
     private fun bysurah(dialog: AlertDialog, ex: ExecutorService) {
         runOnUiThread { dialog.show() }
-        val wbwSurah = WbwSurah(this@WordbywordMushafAct, surah, corpusayahWordArrayList, ruku)
-        wbwSurah.wordbyword
+    //    val wbwSurah = WbwSurah(this@WordbywordMushafAct, surah, corpusayahWordArrayList, ruku)
+    //    wbwSurah.wordbyword
+
+      //  val model: QuranVIewModel by viewModels()
+     //   var ayahWord = NewCorpusAyahWord()
+
+        newextractedtwothree()
         val corpus = CorpusUtilityorig(this)
+
+        val utils = Utils(this)
+        corpusSurahWord = utils.getQuranCorpusWbwbysurah(surah)
+
+
         //      corpus.highLightVerbs(corpusayahWordArrayList,surah_id);
         if (kana) {
-            corpus.setKana(corpusayahWordArrayList!!, surah)
+            corpus.setKana(newnewadapterlist!!, surah)
         }
         if (shart) {
-            corpus.setShart(corpusayahWordArrayList!!, surah)
+            corpus.setShart(newnewadapterlist!!, surah)
         }
-   /*     if (mudhaf) {
-            corpus.setMudhafFromDB(corpusayahWordArrayList!!, surah)
-        }*/
+        if (mudhaf) {
+            corpus.setMudhafFromDB(newnewadapterlist!!, surah)
+        }
         if (mausoof) {
-            corpus.SetMousufSifaDB(corpusayahWordArrayList!!, surah)
+            corpus.SetMousufSifaDB(newnewadapterlist!!, surah)
             //  corpus.NewMAOUSOOFSIFA(corpusayahWordArrayList);
         }
         if (harfnasb) {
-            corpus.newnewHarfNasbDb(corpusayahWordArrayList!!, surah)
+            corpus.newnewHarfNasbDb(newnewadapterlist!!, surah)
         }
         //     corpus.highLightVerbs(corpusayahWordArrayList,surah_id);
         //post
@@ -1477,7 +1494,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
             // recyclerView.setItemAnimator(new DefaultItemAnimator());
             recyclerView!!.layoutManager = manager
-            val flowAyahWordAdapter = FlowAyahWordAdapter(
+            newflowAyahWordAdapter = newFlowAyahWordAdapter(
                 true,
                 ruku,
                 Mutlaqent,
@@ -1488,21 +1505,64 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 mafoolbihiwords,
                 header,
                 allofQuran,
-                corpusayahWordArrayList,
+                newnewadapterlist,
                 this@WordbywordMushafAct,
                 surah.toLong(),
                 surahNameArabic,
                 isMakkiMadani,
                 listener
             )
-            flowAyahWordAdapter.addContext(this@WordbywordMushafAct)
+            newflowAyahWordAdapter.addContext(this@WordbywordMushafAct)
             recyclerView!!.setHasFixedSize(true)
-            recyclerView!!.adapter = flowAyahWordAdapter
-            flowAyahWordAdapter.notifyDataSetChanged()
+            recyclerView!!.adapter = newflowAyahWordAdapter
+            newflowAyahWordAdapter.notifyDataSetChanged()
             recyclerView!!.itemAnimator = DefaultItemAnimator()
         }
     }
+    private fun newextractedtwothree(   ) {
 
+        val util = Utils(this)
+
+        var qurancorpusarray = java.util.ArrayList<NewQuranCorpusWbw>()
+        val qurancorpusarrayt: MutableList<NewQuranCorpusWbw> = ArrayList()
+
+        //   corpusSurahWord = util.getQuranCorpusWbwbysurah(chapterno)
+
+        val quran = util.getQuranbySurah(surah)
+        var aindex = 0
+        var secondindex = 0
+
+        while (aindex <= quran!!.size) {
+            val wbwarraylist: ArrayList<wbwentity> = ArrayList()
+            val corpusarraylist: ArrayList<CorpusEntity> = ArrayList()
+            val spannableString = SpannableString("")
+            var ayahWord = NewQuranCorpusWbw()
+
+            try {
+                while (corpusSurahWord!!.get(secondindex).corpus!!.ayah <= quran.get(aindex)!!.ayah) {
+                    if (corpusSurahWord!!.get(secondindex).corpus!!.ayah != quran.get(aindex)!!.ayah) {
+                        break
+                    }
+                    ayahWord.spannableverse = SpannableString.valueOf(quran!![aindex]!!.qurantext)
+                    ayahWord.wbw = corpusSurahWord!![secondindex].wbw
+                    ayahWord.corpus = corpusSurahWord!![secondindex++].corpus
+                    qurancorpusarray.add(ayahWord)
+                    qurancorpusarrayt.add(ayahWord)
+                    ayahWord = NewQuranCorpusWbw()
+                }
+            }
+            catch (e: IndexOutOfBoundsException) {
+                println(e.message)
+            }
+
+            if (qurancorpusarray.isNotEmpty()) {
+                newnewadapterlist.put(aindex, qurancorpusarray)
+                val ayahWord = NewQuranCorpusWbw()
+            }
+            qurancorpusarray = ArrayList()
+            aindex++
+        }
+    }
     fun getReaderAudioLink(readerName: String?) {
         for (reader in readersList!!) {
             if (reader.name_english == readerName && (Locale.getDefault().displayLanguage == "العربية")) {

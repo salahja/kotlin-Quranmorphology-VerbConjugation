@@ -20,12 +20,10 @@ import com.example.Constant
 import com.example.justJava.FrameSpan
 import com.example.mushafconsolidated.Entities.NewMudhafEntity
 import com.example.mushafconsolidated.Entities.NewShartEntity
-import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.Entities.SifaEntity
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
-import com.example.mushafconsolidated.model.CorpusAyahWord
- 
+import com.example.mushafconsolidated.model.NewQuranCorpusWbw
 import java.util.regex.Pattern
 
 class CorpusUtilityorig {
@@ -43,7 +41,7 @@ class CorpusUtilityorig {
         dark = preferences == "dark" || preferences == "blue" || preferences == "green"
     }
 
-    fun SetMousufSifaDB(corpusayahWordArrayList: ArrayList<CorpusAyahWord>, surah_id: Int) {
+    fun SetMousufSifaDB(corpusayahWordArrayList: LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>, surah_id: Int) {
         val utils = Utils(QuranGrammarApplication.context!!)
         val surah = utils.getSifabySurah(surah_id)
         //  SpannableStringBuilder spannableverse = null;
@@ -61,14 +59,15 @@ class CorpusUtilityorig {
     }
 
     private fun SifaSpansSetup(
-        corpusayahWordArrayList: ArrayList<CorpusAyahWord>,
+        corpusayahWordArrayList: LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>,
         sifaEntity: SifaEntity,
         indexstart: Int,
         indexend: Int
     ) {
         val spannableverse: SpannableString
         try {
-            spannableverse = corpusayahWordArrayList[sifaEntity.ayah - 1].spannableverse!!
+          //  spannableverse = corpusayahWordArrayList[sifaEntity.ayah - 1].spannableverse!!
+            spannableverse = corpusayahWordArrayList.get(sifaEntity.ayah - 1)!!.get(0)!!.spannableverse!!
             //spannableString = SpannableString.valueOf(corpusayahWordArrayList.get(sifaEntity.getAyah() - 1).getSpannableverse());
             try {
                 if (indexstart == 0 || indexstart > 0) {
@@ -94,7 +93,7 @@ class CorpusUtilityorig {
         }
     }
 
-    fun newnewHarfNasbDb(corpusayahWordArrayList: ArrayList<CorpusAyahWord>, surah_id: Int) {
+    fun newnewHarfNasbDb(corpusayahWordArrayList: LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>, surah_id: Int) {
         val utils = Utils(QuranGrammarApplication.context!!)
         val harfnasb = utils.getHarfNasbIndexesnew(surah_id)
         //TODO SURA10 7 INNA ISM INNALIZINA(0,5,6,9 AND KHABR IN 10;8 oolika(0,12,len33)
@@ -108,7 +107,8 @@ class CorpusUtilityorig {
                 val ismendindex = nasb.ismend
                 val khabarstart = nasb.khabarstart
                 val khabarend = nasb.khabarend
-                spannableverse = corpusayahWordArrayList[nasb.ayah - 1].spannableverse!!
+              //  spannableverse = corpusayahWordArrayList[nasb.ayah - 1].spannableverse!!
+                spannableverse = corpusayahWordArrayList.get(nasb.ayah - 1)!!.get(0)!!.spannableverse!!
                 try {
                     if (dark) {
                         Constant.harfinnaspanDark = ForegroundColorSpan(Color.GREEN)
@@ -163,7 +163,7 @@ class CorpusUtilityorig {
         }
     }
 
-    fun setMudhafFromDB(corpusayahWordArrayList: List<QuranEntity?>?, surah_id: Int) {
+    fun setMudhafFromDB(corpusayahWordArrayList: LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>, surah_id: Int) {
         val utils = Utils(QuranGrammarApplication.context!!)
         val surah = utils.getMudhafSurahNew(surah_id)
 
@@ -188,17 +188,17 @@ class CorpusUtilityorig {
 
     private fun MudhafSpansSetup(
         frameshartharf: FrameSpan,
-        corpusayahWordArrayList: List<QuranEntity?>?,
+        corpusayahWordArrayList: LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>,
         mudhafen: NewMudhafEntity,
         indexstart: Int,
         indexend: Int
     ) {
         val spannableverse: SpannableString?
-        //  SpannableString spannableString;
+
         try {
-            val qtext = corpusayahWordArrayList!!.get(mudhafen.ayah)!!.qurantext
-           val     spannableverse=SpannableString(qtext)
-          //  spannableverse = corpusayahWordArrayList!!!!?.get(mudhafen.ayah - 1)?.qurantext
+         //   spannableverse = corpusayahWordArrayList!!.get(0)!!.get(0).spannableverse
+          //  spannableverse = corpusayahWordArrayList[sifaEntity.ayah - 1].spannableverse!!
+            spannableverse = corpusayahWordArrayList!!!!?.get(mudhafen.ayah - 1)?.get(0)!!.spannableverse
             // spannableString = SpannableString.valueOf(corpusayahWordArrayList.get(mudhafen.getAyah() - 1).getSpannableverse());
             try {
                 if (indexstart == 0 || indexstart > 0) {
@@ -223,7 +223,7 @@ class CorpusUtilityorig {
         }
     }
 
-    fun setShart(corpusayahWordArrayList: ArrayList<CorpusAyahWord>, surah_id: Int) {
+    fun setShart(corpusayahWordArrayList: LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>, surah_id: Int) {
         val utils = Utils(QuranGrammarApplication.context!!)
         val surah = utils.getShartSurahNew(surah_id)
         //  final ArrayList<ShartEntity> surah = utils.getShartSurah(surah_id);
@@ -258,7 +258,7 @@ class CorpusUtilityorig {
     }
 
     private fun ColoredShart(
-        corpusayahWordArrayList: ArrayList<CorpusAyahWord>,
+        corpusayahWordArrayList: LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>,
         shart: NewShartEntity,
         indexstart: Int,
         indexend: Int,
@@ -278,7 +278,9 @@ class CorpusUtilityorig {
             Constant.jawabshartspanDark = ForegroundColorSpan(Constant.WHOTPINK)
         }
         try {
-            spannableverse = corpusayahWordArrayList[shart.ayah - 1].spannableverse!!
+
+         //   spannableverse = corpusayahWordArrayList[shart.ayah - 1].spannableverse!!
+            spannableverse = corpusayahWordArrayList.get(shart.ayah - 1)!!.get(0)!!.spannableverse!!
             //   spannableString = SpannableString.valueOf(corpusayahWordArrayList.get(shart.getAyah() - 1).getSpannableverse());
             try {
                 if (indexstart == 0 || indexstart > 0) {
@@ -339,7 +341,7 @@ class CorpusUtilityorig {
         }
     }
 
-    fun setKana(corpusayahWordArrayList: ArrayList<CorpusAyahWord>, surah_id: Int) {
+    fun setKana(corpusayahWordArrayList: LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>, surah_id: Int) {
         val utils = Utils(
             context!!.applicationContext
         )
@@ -358,7 +360,8 @@ class CorpusUtilityorig {
         }
         if (surah_id > 1 && surah_id <= 10 || surah_id > 58 && surah_id <= 114) {
             for (kana in kanalist!!) {
-                val spannableverse = corpusayahWordArrayList[kana!!.ayah - 1].spannableverse
+           //     val spannableverse = corpusayahWordArrayList[kana!!.ayah - 1].spannableverse
+            val    spannableverse = corpusayahWordArrayList.get(kana.ayah - 1)!!.get(0)!!.spannableverse!!
                 try {
                     if (spannableverse != null) {
                         spannableverse.setSpan(

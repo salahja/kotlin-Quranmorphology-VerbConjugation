@@ -337,8 +337,8 @@ class newFlowAyahWordAdapter(
         }
         ayahWord = ayahWordArrayList!![position]
         entity?.let { storepreferences(it) }
-        //  val quranverses = ayahWordArrayList[position].spannableverse
-        val quranverses = allofQuran!![position]!!.qurantext
+        val quranverses = ayahWord!![0].spannableverse
+      //  val quranverses = allofQuran!![position]!!.qurantext
         //   if (!isaudio){
         holder.quran_textView!!.text = quranverses
         //   holder.quran_textView.setTextSize(arabicfontSize);
