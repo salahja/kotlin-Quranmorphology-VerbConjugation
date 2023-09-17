@@ -44,7 +44,6 @@ import com.example.Constant
 import com.example.mushafconsolidated.Activity.TafsirFullscreenActivity
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.BookMarks
-import com.example.mushafconsolidated.Entities.CorpusEntity
 import com.example.mushafconsolidated.Entities.HalEnt
 import com.example.mushafconsolidated.Entities.LiajlihiEnt
 import com.example.mushafconsolidated.Entities.MafoolBihi
@@ -658,7 +657,13 @@ class newFlowAyahWordAdapter(
         if (showErab) {
             holder.erabexpand!!.visibility = View.VISIBLE
             if (entity != null) {
-                holder.erab_textView!!.text = entity.erabspnabble
+                if(entity.erabspnabble.isNullOrBlank()){
+                    holder.erab_textView!!.text = entity.ar_irab_two
+
+
+                }else {
+                    holder.erab_textView!!.text = entity.erabspnabble
+                }
             }
             //
             holder.erab_textView!!.typeface = custom_font
@@ -737,7 +742,7 @@ class newFlowAyahWordAdapter(
 
             sb.append(word.corpus!!.wordno)
             val rootwords =
-                word.corpus!!.araone + word.corpus!!.aratwo + word.corpus!!.arathree + word.corpus!!.arafour + word.corpus!!.arafive
+                word.corpus!!.rootaraone + word.corpus!!.rootaratwo + word.corpus!!.rootarathree + word.corpus!!.rootarafour + word.corpus!!.rootarafive
             if (showrootkey) {
                 /*        spannedroot = if (!word.rootword!!.isEmpty()) {
                             getSpannedRoots(rootwords)
@@ -748,12 +753,34 @@ class newFlowAyahWordAdapter(
                 //
                 rootword.setVisibility(View.VISIBLE)
             }
+
+            if (showrootkey) {
+                spannedroot = if (rootwords.isNotEmpty()) {
+                    getSpannedRoots(word,rootwords)
+                } else {
+                    SpannableString.valueOf(rootwords)
+                }
+                rootword.setText(spannedroot)
+                //
+                rootword.setVisibility(View.VISIBLE)
+            }
+
+
+
+
+
+
+
+
+
+
+
             if (showWordColor) {
                 var spannedword: SpannableString
                 //        word.getRootword();
                 val araword =
                     word.corpus!!.araone + word.corpus!!.aratwo + word.corpus!!.arathree + word.corpus!!.arafour + word.corpus!!.arafive
-                spannedword = getSpannedWords(word.corpus!!)
+                spannedword = getSpannedWords(word)
                 //   arabic.setText(fixArabic(String.valueOf(spannedword)));
                 if (showWbwTranslation) {
                     arabicTv.setText(spannedword)
@@ -939,6 +966,7 @@ class newFlowAyahWordAdapter(
         holder.flow_word_by_word!!.visibility = View.VISIBLE
     }
 
+
     private fun LoadItemList(dataBundle: Bundle, word: wbwentity) {
         if (issentence) {
             /* val item = SentenceAnalysisBottomSheet()
@@ -972,25 +1000,25 @@ class newFlowAyahWordAdapter(
         }
     }
 
-    private fun getSpannedRoots(corpus: CorpusWbwWord): SpannableString {
-        val b = corpus.verseId == 20 && (corpus.wordno == 2 || corpus.wordno == 9)
+    private fun getSpannedRoots(tag: NewQuranCorpusWbw, rootword: String): SpannableString {
+     /*   val b = corpus.corpus.ayah == 20 && (corpus.corpus.wordno == 2 || corpus.corpus.wordno == 9)
         if (b) {
             println("check")
-        }
+        }*/
         return CorpusUtilityorig.ColorizeRootword(
-            corpus.tagone!!, corpus.tagtwo!!, corpus.tagthree!!, corpus.tagfour!!, corpus.tagfive!!,
-            corpus.rootword!!
+            tag.corpus!!.tagone!!,tag.corpus!!.tagtwo!!,tag.corpus!!.tagthree!!,tag.corpus!!.tagfour!!,tag.corpus!!.tagfive!!,
+        rootword!!
                                                  )!!
     }
 
-    private fun getSpannedWords(corpus: CorpusEntity): SpannableString {
-        val b = corpus.surah == 20 && (corpus.wordno == 2 || corpus.wordno == 9)
+    private fun getSpannedWords(tag: NewQuranCorpusWbw): SpannableString {
+    /*    val b =tag.corpus!!.surah == 20 && (corpus.wordno == 2 ||tag.corpus!!.wordno == 9)
         if (b) {
             println("check")
-        }
+        }*/
         return CorpusUtilityorig.NewSetWordSpan(
-            corpus.tagone, corpus.tagtwo, corpus.tagthree, corpus.tagfour, corpus.tagfive,
-            corpus.araone!!, corpus.aratwo!!, corpus.arathree!!, corpus.arafour!!, corpus.arafive!!
+           tag.corpus!!.tagone,tag.corpus!!.tagtwo,tag.corpus!!.tagthree,tag.corpus!!.tagfour,tag.corpus!!.tagfive,
+           tag.corpus!!.araone!!,tag.corpus!!.aratwo!!,tag.corpus!!.arathree!!,tag.corpus!!.arafour!!,tag.corpus!!.arafive!!
                                                )
     }
 

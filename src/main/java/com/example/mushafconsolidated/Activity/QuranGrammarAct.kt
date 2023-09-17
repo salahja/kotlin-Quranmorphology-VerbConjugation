@@ -831,7 +831,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
 
         val utils = Utils(this)
-     allofQuran=   utils.getQuranbySurah(chapterno)
+        allofQuran=   utils.getQuranbySurah(chapterno)
         corpusSurahWord = utils.getQuranCorpusWbwbysurah(chapterno)
 
         val ex = Executors.newSingleThreadExecutor()
@@ -966,7 +966,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             header.add(versescount.toString())
             header.add(chapterno.toString())
             header.add(surahArabicName)
-            //   HightLightKeyWord()
+            HightLightKeyWord()
             val viewmodel: QuranVIewModel by viewModels()
             if (!mushafview) {
                 // viewmodel.getVersesBySurahLive(chapterno).observe(this, {
