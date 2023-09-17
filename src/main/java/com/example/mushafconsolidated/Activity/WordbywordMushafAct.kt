@@ -118,14 +118,14 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     var newcorpusayahWordArrayList: ArrayList<ArrayList<NewCorpusAyahWord>> = ArrayList()
     private lateinit var newflowAyahWordAdapter: newFlowAyahWordAdapter
     lateinit var binding: NewFragmentReadingBinding
-    private val newadapterlist = LinkedHashMap<Int, ArrayList<QuranCorpusWbw>>()
+
     private val newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
-    private val mausoof = false
-    private val mudhaf = false
-    private val harfnasb = false
-    private val shart = false
+    private var mausoof = false
+    private var mudhaf = false
+    private var harfnasb = false
+    private var shart = false
   //  private val soraList: ArrayList<ChaptersAnaEntity>
-    private val kana = false
+    private var kana = false
     private  var allofQuran: List<QuranEntity?>?=null
     private lateinit var shared: SharedPreferences
 
@@ -262,6 +262,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         //  intentmyservice = new Intent(this, AudioService.class);
         val intent = Intent(BROADCAST_SEEKBAR)
         getpreferences()
+
       //  lastPlayed
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         isNightmode = sharedPreferences.getString("themepref", "dark")!!
@@ -305,6 +306,11 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         audioSettingBottomBehaviour = BottomSheetBehavior.from(playerbottomsheet)
         audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED)
         recyclerView = findViewById(R.id.rvAyahsPages) as RecyclerView
+        mausoof = sharedPreferences.getBoolean("mausoof", true)
+        mudhaf = sharedPreferences.getBoolean("mudhaf", true)
+        harfnasb = sharedPreferences.getBoolean("harfnasb", true)
+        shart = sharedPreferences.getBoolean("shart", true)
+        kana = sharedPreferences.getBoolean("kana", true)
         initSpinner()
         if (!singleline) {
             loadFullQuran()
@@ -1442,12 +1448,12 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
       //  val model: QuranVIewModel by viewModels()
      //   var ayahWord = NewCorpusAyahWord()
-
+        val utils = Utils(this)
+        corpusSurahWord = utils.getQuranCorpusWbwbysurah(surah)
         newextractedtwothree()
         val corpus = CorpusUtilityorig(this)
 
-        val utils = Utils(this)
-        corpusSurahWord = utils.getQuranCorpusWbwbysurah(surah)
+
 
 
         //      corpus.highLightVerbs(corpusayahWordArrayList,surah_id);
