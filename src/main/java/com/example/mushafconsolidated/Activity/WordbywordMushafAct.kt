@@ -1440,9 +1440,9 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         if (shart) {
             corpus.setShart(corpusayahWordArrayList!!, surah)
         }
-        if (mudhaf) {
+   /*     if (mudhaf) {
             corpus.setMudhafFromDB(corpusayahWordArrayList!!, surah)
-        }
+        }*/
         if (mausoof) {
             corpus.SetMousufSifaDB(corpusayahWordArrayList!!, surah)
             //  corpus.NewMAOUSOOFSIFA(corpusayahWordArrayList);

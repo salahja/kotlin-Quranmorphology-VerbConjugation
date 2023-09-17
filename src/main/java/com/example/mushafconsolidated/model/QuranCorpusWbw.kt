@@ -5,7 +5,7 @@ import androidx.room.Relation
 import com.example.mushafconsolidated.Entities.CorpusEntity
 import com.example.mushafconsolidated.Entities.wbwentity
 
-data class QuranCorpusWbw(
+data class QuranCorpusWbw  constructor(
 
 
     @Embedded val corpus: CorpusEntity,
@@ -16,4 +16,6 @@ data class QuranCorpusWbw(
     val wbw: wbwentity,
 
 
-)
+) {
+
+}

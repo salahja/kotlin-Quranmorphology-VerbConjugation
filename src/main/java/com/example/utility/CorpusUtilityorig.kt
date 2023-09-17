@@ -20,6 +20,7 @@ import com.example.Constant
 import com.example.justJava.FrameSpan
 import com.example.mushafconsolidated.Entities.NewMudhafEntity
 import com.example.mushafconsolidated.Entities.NewShartEntity
+import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.Entities.SifaEntity
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
@@ -162,7 +163,7 @@ class CorpusUtilityorig {
         }
     }
 
-    fun setMudhafFromDB(corpusayahWordArrayList: ArrayList<CorpusAyahWord>, surah_id: Int) {
+    fun setMudhafFromDB(corpusayahWordArrayList: List<QuranEntity?>?, surah_id: Int) {
         val utils = Utils(QuranGrammarApplication.context!!)
         val surah = utils.getMudhafSurahNew(surah_id)
 
@@ -187,7 +188,7 @@ class CorpusUtilityorig {
 
     private fun MudhafSpansSetup(
         frameshartharf: FrameSpan,
-        corpusayahWordArrayList: ArrayList<CorpusAyahWord>,
+        corpusayahWordArrayList: List<QuranEntity?>?,
         mudhafen: NewMudhafEntity,
         indexstart: Int,
         indexend: Int
@@ -195,7 +196,9 @@ class CorpusUtilityorig {
         val spannableverse: SpannableString?
         //  SpannableString spannableString;
         try {
-            spannableverse = corpusayahWordArrayList[mudhafen.ayah - 1].spannableverse
+            val qtext = corpusayahWordArrayList!!.get(mudhafen.ayah)!!.qurantext
+           val     spannableverse=SpannableString(qtext)
+          //  spannableverse = corpusayahWordArrayList!!!!?.get(mudhafen.ayah - 1)?.qurantext
             // spannableString = SpannableString.valueOf(corpusayahWordArrayList.get(mudhafen.getAyah() - 1).getSpannableverse());
             try {
                 if (indexstart == 0 || indexstart > 0) {
