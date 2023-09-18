@@ -142,14 +142,19 @@ class QuranRepository(
     fun getNouncorpus(surah :Int,ayah : Int,wordno :Int): List<NounCorpus> = nouncorpusdao.getQuranNounsBysurahayahword(surah,ayah,wordno)
     fun allquran(): LiveData<List<QuranEntity>> = qurandao.allQuranl()
     val chapters:LiveData<List<ChaptersAnaEntity>> = chaptersdao.chaptersl()
+
     val bookmarlist:LiveData<List<BookMarks>> = bookm.getBookMarksLive()
     val bookmarckcollection:LiveData<List<BookMarks>> = bookm.getCollectionbygroupsLive()
      val chaptersmutable: List<ChaptersAnaEntity?>? = chaptersdao.chapterslist()
-    fun getsurahbychap(cid: Int):LiveData<List<QuranEntity>> = qurandao.getQuranVersesBySurahl(cid)
+
+
+    fun getQuranCorpusWbwbysurah(cid: Int): List<QuranCorpusWbw> = qurandao.getQuranCorpusWbwbysurah(cid)
+    fun getsurahbychap(cid: Int): List<QuranEntity> = qurandao.getQuranVersesBySurahl(cid)
+    fun getsurahbyayahlist(cid: Int,ayid : Int):List<QuranEntity> = qurandao.getsurahayahVerseslist(cid,ayid)
     fun getHansRoot(cid: String): List<hanslexicon> = hansdao.getHansDefinitionl(cid)
     fun getLanesRoot(cid: String): List<lanerootdictionary> = lanesdao.getLanesRootDefinition(cid)
-    fun getsurahbyayah(cid: Int,ayid : Int):LiveData<List<QuranEntity>> = qurandao.getsurahayahVersesl(cid,ayid)
-    fun getsurahbyayahlist(cid: Int,ayid : Int):List<QuranEntity> = qurandao.getsurahayahVerseslist(cid,ayid)
+    fun getsurahbyayah(cid: Int,ayid : Int):List<QuranEntity> = qurandao.getsurahayahVersesl(cid,ayid)
+
     fun getSurahSummary(cid :Int):LiveData<List<surahsummary>> = ssummary.getSurahSummary(cid)
     fun getMafoolbihiSurah(cid :Int): List<MafoolBihi> = mafoolb.getBySurah(cid)
     fun gettameezsurah(cid :Int): List<TameezEnt> = tammezent.getTameezSurah(cid)

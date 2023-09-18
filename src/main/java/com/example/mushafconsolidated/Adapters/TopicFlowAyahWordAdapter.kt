@@ -48,14 +48,12 @@ import com.example.mushafconsolidated.Entities.VerbCorpus
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.SurahSummary
 import com.example.mushafconsolidated.Utils
-
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet
 import com.example.mushafconsolidated.fragments.WordMorphologyDetails
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.model.CorpusAyahWord
 import com.example.mushafconsolidated.model.CorpusWbwWord
 import com.example.mushafconsolidatedimport.Config
-import sj.hisnul.fragments.NamesDetail
 import com.example.mushafconsolidatedimport.ParticleColorScheme
 import com.example.utility.AnimationUtility
 import com.example.utility.CorpusUtilityorig
@@ -65,6 +63,7 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.tooltip.Tooltip
+import sj.hisnul.fragments.NamesDetail
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -285,7 +284,7 @@ class TopicFlowAyahWordAdapter(
         ayahWord: CorpusAyahWord?,
         showWbwTranslation: Boolean
     ) {
-        val FONTS_LOCATION_PATH = "font/dejavusans.ttf"
+        val FONTS_LOCATION_PATH = "fonts/DejaVuSans.ttf"
         val colorwordfont = Typeface.createFromAsset((QuranGrammarApplication.instance)?.getAssets(), FONTS_LOCATION_PATH)
         val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         holder.flow_word_by_word.removeAllViews()
@@ -524,8 +523,8 @@ class TopicFlowAyahWordAdapter(
         val erab_textViewnote: TextView
         val header: TextView
         val translate_textViewnote: TextView
-        val makkimadaniicon: ImageView
-        val expandImageButton: ImageView
+        //val makkimadaniicon: ImageView
+        //val expandImageButton: ImageView
         val erabexpand: ImageView
         val erab_notes_expand: ImageView
         val colorize: SwitchCompat
@@ -557,7 +556,7 @@ class TopicFlowAyahWordAdapter(
             ivoverflow.setOnClickListener(this)
             ivoverflow.tag = "overflow_img"
             //  ivhelp.setOnClickListener(this);
-            makkimadaniicon = view.findViewById(R.id.makkimadaniicon)
+        //    makkimadaniicon = view.findViewById(R.id.makkimadaniicon)
 
             // quran_transliterationnote = view.findViewById(R.id.quran_transliterationnote);
             //    quran_jalalaynnote = view.findViewById(R.id.quran_jalalaynnote);
@@ -575,7 +574,7 @@ class TopicFlowAyahWordAdapter(
             //     erab_notes = view.findViewById(R.id.erab_notes);
             erabexpand = view.findViewById(R.id.erabexpand)
             erab_notes_expand = view.findViewById(R.id.erab_img)
-            expandImageButton = view.findViewById(R.id.expandImageButton)
+         //   expandImageButton = view.findViewById(R.id.expandImageButton)
             quran_textView.setOnClickListener(this)
             quran_textView.tag = "qurantext"
             erab_notes_expand.setOnClickListener(this)

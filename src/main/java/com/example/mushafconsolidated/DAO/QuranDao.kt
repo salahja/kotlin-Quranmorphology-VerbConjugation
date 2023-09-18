@@ -50,7 +50,7 @@ interface QuranDao {
 where CorpusExpand.surah=1 and CorpusExpand.ayah=1 and CorpusExpand.wordno=2
      */
     @Query("SELECT * FROM qurans where surah=:surahid")
-    fun getQuranVersesBySurah(surahid: Int): List<QuranEntity?>?
+    fun getQuranVersesBySurah(surahid: Int): List<QuranEntity>?
 
     @Query("SELECT * FROM qurans order by surah,ayah")
     fun allQuran(): List<QuranEntity>
@@ -75,8 +75,7 @@ where CorpusExpand.surah=1 and CorpusExpand.ayah=1 and CorpusExpand.wordno=2
 
 
 
-    @Query("SELECT * FROM qurans where surah=:surahid")
-    fun getQuranVersesBySurahl(surahid: Int): LiveData<List<QuranEntity>>
+
 
     @Query("SELECT * FROM qurans order by surah,ayah")
     fun allQuranl(): LiveData<List<QuranEntity>>
@@ -85,9 +84,11 @@ where CorpusExpand.surah=1 and CorpusExpand.ayah=1 and CorpusExpand.wordno=2
     fun getQuranbyJuzl(part: Int): LiveData<List<QuranEntity>>
 
     @Query("SELECT * FROM qurans where surah=:surahid and ayah=:ayahid")
-    fun getsurahayahVersesl(surahid: Int, ayahid: Int): LiveData<List<QuranEntity>>
+    fun getsurahayahVersesl(surahid: Int, ayahid: Int): List<QuranEntity>
     @Query("SELECT * FROM qurans where surah=:surahid and ayah=:ayahid")
     fun getsurahayahVerseslist(surahid: Int, ayahid: Int): List<QuranEntity>
+    @Query("SELECT * FROM qurans where surah=:surahid")
+    fun getQuranVersesBySurahl(surahid: Int):  List<QuranEntity>
     @Query("select * from qurans where  surah =:sura and page = :pageno order by ayah")
     fun getAyahsByPagel(sura: Int, pageno: Int): LiveData<List<QuranEntity>>
 

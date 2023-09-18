@@ -20,6 +20,10 @@ interface NounCorpusDao {
     @get:Query("SELECT * FROM nouncorpus  ")
     val allnouns: List<NounCorpus>
 
+    @Query("SELECT count(root_a), * FROM nouncorpus where root_a=:verbroot group by lemma_a,root_a,tag,propone,proptwo")
+
+    fun allnounscount(verbroot :String): List<NounCorpus>
+
 /*    @RawQuery(observedEntities = arrayOf(CorpusExpandWbwPOJO::class))
     fun getALL(query: SupportSQLiteQuery?): LiveData<List<CorpusExpandWbwPOJO>>*/
 

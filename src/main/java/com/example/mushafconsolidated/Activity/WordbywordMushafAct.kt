@@ -67,7 +67,6 @@ import com.example.mushafconsolidated.fragments.newFlowAyahWordAdapter
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.model.CorpusAyahWord
 import com.example.mushafconsolidated.model.CorpusWbwWord
-import com.example.mushafconsolidated.model.NewCorpusAyahWord
 import com.example.mushafconsolidated.model.NewQuranCorpusWbw
 import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
@@ -100,7 +99,6 @@ import com.google.android.exoplayer2.util.RepeatModeUtil
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textview.MaterialTextView
 import wheel.OnWheelChangedListener
 import wheel.WheelView
@@ -113,9 +111,9 @@ import java.util.concurrent.Executors
 class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnClickListener,
     FullscreenButtonClickListener {
     // private UpdateMafoolFlowAyahWordAdapter flowAyahWordAdapter;
-
+    private lateinit var mainViewModel: QuranVIewModel
     private var corpusSurahWord: List<QuranCorpusWbw>? = null
-    var newcorpusayahWordArrayList: ArrayList<ArrayList<NewCorpusAyahWord>> = ArrayList()
+
     private lateinit var newflowAyahWordAdapter: newFlowAyahWordAdapter
     lateinit var binding: NewFragmentReadingBinding
 
@@ -124,19 +122,31 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     private var mudhaf = false
     private var harfnasb = false
     private var shart = false
-  //  private val soraList: ArrayList<ChaptersAnaEntity>
+
     private var kana = false
     private  var allofQuran: List<QuranEntity?>?=null
     private lateinit var shared: SharedPreferences
 
-    //  private OnClickListener onClickListener;
+
     private   var corpusayahWordArrayList: ArrayList<CorpusAyahWord>?=null
-    private   var mafoolbihiwords: ArrayList<MafoolBihi>?=null
-    private   var Jumlahaliya: ArrayList<HalEnt ?>?=null
-    private   var Tammezent: ArrayList<TameezEnt ?>?=null
-    private   var Mutlaqent: ArrayList<MafoolMutlaqEnt ?>?=null
-    private   var Liajlihient: ArrayList<LiajlihiEnt ?>?=null
-    private   var BadalErabNotesEnt: ArrayList<BadalErabNotesEnt ?>?=null
+
+
+    private var mafoolbihiwords: List<MafoolBihi?>? = null
+    private var jumlahaliya: List<HalEnt?>? = null
+    private var tammezent: List<TameezEnt?>? = null
+    private var Mutlaqent: List<MafoolMutlaqEnt?>? = null
+    private var Liajlihient: List<LiajlihiEnt?>? = null
+    private var BadalErabNotesEnt: List<BadalErabNotesEnt?>? = null
+
+
+
+
+
+
+
+
+
+
     private val isMakkiMadani = 0
     lateinit var exo_settings: ImageButton
     lateinit var exo_close: ImageButton
@@ -152,9 +162,9 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     lateinit var llEndRange: LinearLayout
 
     //  private LinkedHashMap<Integer, Integer> hlights;
-    private val Coordinates: ArrayList<AyahCoordinate> = ArrayList<AyahCoordinate>()
+    private val Coordinates: ArrayList<AyahCoordinate> = ArrayList()
     private val hlights: LinkedHashMap<Int, ArrayList<AyahCoordinate>> =
-        LinkedHashMap<Int, ArrayList<AyahCoordinate>>()
+        LinkedHashMap()
     var flow = false
     var singleline = false
     var rangeRecitation = false
@@ -182,8 +192,8 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     // protected StyledPlayerView playerView;
     //    protected StyledPlayerControlView playerView;
-    protected var playerView: PlayerControlView? = null
-    protected var player: ExoPlayer? = null
+    private var playerView: PlayerControlView? = null
+    private var player: ExoPlayer? = null
     private var trackSelectionParameters: TrackSelectionParameters? = null
     private var lastSeenTracks: Tracks? = null
     private var startAutoPlay = false
@@ -252,23 +262,21 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     private lateinit var mediaPlayerDownloadProgress: ProgressBar
     private lateinit var exoplayerBottomBehaviour: BottomSheetBehavior<*>
     private lateinit var audioSettingBottomBehaviour: BottomSheetBehavior<*>
-    lateinit var resetfab: FloatingActionButton
-    protected override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.vfour_expandable_newactivity_show_ayahs)
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        //    ButterKnife.bind(this);
-        //    QuranGrammarApplication.appContext = ShowMushafActivity.this;
-        //  intentmyservice = new Intent(this, AudioService.class);
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+          mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
+
         val intent = Intent(BROADCAST_SEEKBAR)
         getpreferences()
 
       //  lastPlayed
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         isNightmode = sharedPreferences.getString("themepref", "dark")!!
-        //  repository = Utils.getInstance(getApplication());
+
         repository = Utils(this)
-        typeface = Typeface.createFromAsset(getAssets(), "me_quran.ttf")
+        typeface = Typeface.createFromAsset(assets, "me_quran.ttf")
         selectedqari = sharedPreferences.getString("qari", "35")!!
 
         //region Description
@@ -301,10 +309,10 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         }
         val bottomsheetexoplayer: RelativeLayout = findViewById(R.id.footerplayer)
         exoplayerBottomBehaviour = BottomSheetBehavior.from(bottomsheetexoplayer)
-        exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED)
+        exoplayerBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
         val playerbottomsheet: RelativeLayout = findViewById(R.id.audio_settings_bottom)
         audioSettingBottomBehaviour = BottomSheetBehavior.from(playerbottomsheet)
-        audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED)
+        audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
         recyclerView = findViewById(R.id.rvAyahsPages) as RecyclerView
         mausoof = sharedPreferences.getBoolean("mausoof", true)
         mudhaf = sharedPreferences.getBoolean("mudhaf", true)
@@ -322,7 +330,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     private fun getpreferences() {
         val pref: SharedPreferences =
-            getApplicationContext().getSharedPreferences("lastreadmushaf", MODE_PRIVATE)
+            applicationContext.getSharedPreferences("lastreadmushaf", MODE_PRIVATE)
         surah = pref.getInt(CHAPTER, 20)
         val pagenum = pref.getInt("page", 1)
         surahselected = surah
@@ -333,21 +341,21 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             val aplayed: AudioPositionSaved =
                 ConfigPreferences.getLastPlayedAudio(this, surah.toString())
             if (aplayed != null) {
-                resumelastplayed = aplayed.audiopsaved!!.get(0)!!.ayah
-                aplayed.audiopsaved!!.get(0)!!.trackposition
+                resumelastplayed = aplayed.audiopsaved!![0]!!.ayah
+                aplayed.audiopsaved!![0]!!.trackposition
             }
         }
 
     private fun loadFullQuran() {
         val pages: MutableList<Page> = ArrayList()
-        val quranEntities: List<QuranEntity?>? =repository.getQuranbySurah(surah)
+        val quranEntities: List<QuranEntity?>? =mainViewModel.getquranbySUrah(surah).value
         val firstpage = quranEntities!![0]!!.page
         var page: Page
         var ayahItems: List<QuranEntity?>?
         for (i in firstpage..quranEntities[quranEntities.size - 1]!!.page) {
             ayahItems = repository.getAyahsByPageQuran(surah, i)
             if (ayahItems != null) {
-                if (ayahItems.size > 0) {
+                if (ayahItems.isNotEmpty()) {
                     page = Page()
                     page.ayahItemsquran = ayahItems
                     //    page.se(ayahItems);
@@ -362,8 +370,8 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     private fun prepares() {
         var counter = 1
-        for (i in fullQuranPages!!.indices) {
-            val page = fullQuranPages!![i]
+        for (i in fullQuranPages.indices) {
+            val page = fullQuranPages[i]
             var aya = ""
             var builder = StringBuilder()
             var ayahmat = ArrayList<Int>()
@@ -381,36 +389,36 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     private fun initSpinner() {
         readers = findViewById(R.id.selectReaders) as Spinner
-        readers!!.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        readers.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View,
                 position: Int,
                 id: Long,
             ) {
-                readerName = readers!!.selectedItem.toString()
+                readerName = readers.selectedItem.toString()
                 getReaderAudioLink(readerName)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-        readers!!.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        readers.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View,
                 position: Int,
                 id: Long,
             ) {
-                readerName = readers!!.selectedItem.toString()
+                readerName = readers.selectedItem.toString()
                 getReaderAudioLink(readerName)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-        runOnUiThread(Runnable { //check language to load readers arabic or english
+        runOnUiThread({ //check language to load readers arabic or english
             val readersNames: MutableList<String> = ArrayList()
             readersList = repository.qaris
-            for (reader in readersList!!) {
+            for (reader in readersList) {
                 if (reader.audiotype == 0 || reader.audiotype == 2) {
                     readersNames.add(reader.name_english)
                 } /*else {
@@ -427,41 +435,14 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 R.id.spinnerText,
                 readersNames
             )
-            readers!!.adapter = spinnerReaderAdapter
+            readers.adapter = spinnerReaderAdapter
             for (counter in readersNames.indices) {
-                if (readersNames[counter].trim { it <= ' ' } == selectedqari!!.trim { it <= ' ' }) {
-                    readers!!.setSelection(counter)
+                if (readersNames[counter].trim { it <= ' ' } == selectedqari.trim { it <= ' ' }) {
+                    readers.setSelection(counter)
                     break
                 }
             }
         })
-    }
-
-    private fun initpassage() {
-        val quranEntities: List<QuranEntity?>? =repository.getQuranbySurah(surah)
-        var builder = StringBuilder()
-        var ayahmat = ArrayList<Int>()
-        var counter = 1
-        if (quranEntities != null) {
-            for (quranEntity in quranEntities) {
-                if (quranEntity!!.passage_no == 0) {
-                    val aya = quranEntity.qurantext
-                    builder.append(aya).append("﴿ { ").append(quranEntity!!.ayah).append("} ﴾")
-                    ayahmat.add(quranEntity!!.ayah)
-                } else if (quranEntity!!.passage_no != 0) {
-                    val aya = quranEntity.qurantext
-                    builder.append(aya).append("﴿ { ").append(quranEntity.ayah).append("} ﴾")
-                    passage[counter] = builder.toString()
-                    val ayah = quranEntity.ayah
-                    ayahmat.add(ayah + 1)
-                    preparehighlightsNew(quranEntity.passage_no, builder, ayahmat)
-                    ayahmat = ArrayList()
-                    builder = StringBuilder()
-                    counter++
-                }
-            }
-        }
-        println("CHECK")
     }
 
     fun SurahAyahPicker(isrefresh: Boolean, starttrue: Boolean) {
@@ -474,20 +455,20 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         val mMonth = arrayOfNulls<String>(1)
         surahWheelDisplayData = arrayOf("")
         ayahWheelDisplayData = arrayOf("")
-        val current = arrayOf<ArrayList<Any>>(ArrayList<Any>())
+        val current = arrayOf<ArrayList<Any>>(ArrayList())
        
         var mDay: Int
         val chapterno = IntArray(1)
         val verseno = IntArray(1)
-        val surahArrays: Array<String> = getResources().getStringArray(R.array.surahdetails)
-        val versearrays: Array<String> = getResources().getStringArray(R.array.versescounts)
-        val intarrays: IntArray = getResources().getIntArray(R.array.versescount)
+        val surahArrays: Array<String> = resources.getStringArray(R.array.surahdetails)
+        val versearrays: Array<String> = resources.getStringArray(R.array.versescounts)
+        val intarrays: IntArray = resources.getIntArray(R.array.versescount)
         //     final AlertDialog.Builder dialogPicker = new AlertDialog.Builder(this);
         val dialogPicker = AlertDialog.Builder(this@WordbywordMushafAct)
         val dlg = Dialog(this@WordbywordMushafAct)
         //  AlertDialog dialog = builder.create();
         val soraList: List<ChaptersAnaEntity?>? = utils.getAllAnaChapters()
-        val inflater: LayoutInflater = this@WordbywordMushafAct.getLayoutInflater()
+        val inflater: LayoutInflater = this@WordbywordMushafAct.layoutInflater
         val view = inflater.inflate(R.layout.activity_wheel_t, null)
         //  View view = inflater.inflate(R.layout.activity_wheel, null);
         dialogPicker.setView(view)
@@ -506,8 +487,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             chapterno[0] = chapno[0].toInt()
             verseno[0] = 1
             current[0] = ArrayList()
-            val intarray: Int
-            intarray = if (surahselected != 0) {
+            val intarray: Int = if (surahselected != 0) {
                 intarrays[surahselected - 1]
             } else {
                 7
@@ -536,7 +516,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 surahselected = surah
             } else {
                 sura = soraList!![chapterno[0] - 1]!!.chapterid.toString()
-                surahselected = soraList!![chapterno[0] - 1]!!.chapterid
+                surahselected = soraList[chapterno[0] - 1]!!.chapterid
                 surahNameEnglish = soraList[chapterno[0] - 1]!!.nameenglish
                 surahNameArabic = soraList[chapterno[0] - 1]!!.namearabic
                 val pref: SharedPreferences = getSharedPreferences("lastreadmushaf", MODE_PRIVATE)
@@ -564,7 +544,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             "Cancel"
         ) { dialogInterface: DialogInterface?, i: Int -> }
         val alertDialog = dialogPicker.create()
-        val preferences = sharedPreferences!!.getString("themepref", "dark")
+        val preferences = sharedPreferences.getString("themepref", "dark")
         val db = ContextCompat.getColor(this, R.color.odd_item_bg_dark_blue_light)
         if (preferences == "light") {
             //    alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onSecondary);
@@ -670,8 +650,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
             private fun updateVerses(newIndex: Int) {
                 current[0] = ArrayList()
-                val intarray: Int
-                intarray = if (newIndex != 0) {
+                val intarray: Int = if (newIndex != 0) {
                     intarrays[newIndex]
                 } else {
                     7
@@ -703,7 +682,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             ayah
         )
         verseendrange = verse
-        endrange!!.text = st.toString()
+        endrange.text = st.toString()
         rangeRecitation = true
     }
 
@@ -714,13 +693,13 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             ayah
         )
         versestartrange = verse
-        startrange!!.text = st.toString()
+        startrange.text = st.toString()
         rangeRecitation = true
     }
 
     private fun RefreshActivity(s: String, aya: String, b: Boolean) {
         Log.e(TAG, "onClick called")
-        val intent: Intent = this.getIntent()
+        val intent: Intent = this.intent
         //  surah = getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
         val parentActivityRef = intent.getStringExtra("PARENT_ACTIVITY_REF")
         if (b) {
@@ -745,13 +724,13 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         val trackchange = false
         override fun run() {
             var holder: RecyclerView.ViewHolder? = null
-            holder = recyclerView!!.findViewHolderForAdapterPosition(currenttrack)
-            recyclerView!!.post { recyclerView!!.scrollToPosition(currenttrack) }
+            holder = recyclerView.findViewHolderForAdapterPosition(currenttrack)
+            recyclerView.post { recyclerView.scrollToPosition(currenttrack) }
             val ab = StringBuilder()
             ab.append("Aya").append(":").append(currenttrack).append(" ").append("of").append(
                 versescount
             )
-            ayaprogress!!.text = ab.toString()
+            ayaprogress.text = ab.toString()
             if (null != holder) {
                 try {
                     if (holder.itemView.findViewById<View?>(R.id.flow_word_by_word) != null) {
@@ -803,7 +782,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             }
             val temp = 2
             if (currenttrack > 1) {
-                val holderp = recyclerView!!.findViewHolderForAdapterPosition(currenttrack - 1)
+                val holderp = recyclerView.findViewHolderForAdapterPosition(currenttrack - 1)
                 if (null != holderp) {
                     try {
                         val drawingCacheBackgroundColor =
@@ -885,7 +864,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         handler.postDelayed(SinglesendUpdatesToUI, 1000)
     }
 
-    protected fun releasePlayer() {
+    private fun releasePlayer() {
         if (player != null) {
             updateTrackSelectorParameters()
             updateStartPosition()
@@ -903,20 +882,20 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         }
     }
 
-    protected fun initializePlayer(): Boolean {
-        if (audioSettingBottomBehaviour!!.state == BottomSheetBehavior.STATE_EXPANDED) {
-            audioSettingBottomBehaviour!!.state = BottomSheetBehavior.STATE_COLLAPSED
-            exoplayerBottomBehaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
-            playerFooter!!.visibility = View.VISIBLE
-            audio_settings_bottom!!.visibility = View.GONE
+    private fun initializePlayer(): Boolean {
+        if (audioSettingBottomBehaviour.state == BottomSheetBehavior.STATE_EXPANDED) {
+            audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
+            exoplayerBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
+            playerFooter.visibility = View.VISIBLE
+            audio_settings_bottom.visibility = View.GONE
         }
         if (isMusicplaying) {
             releasePlayer()
         }
         if (player == null) {
-            playerFooter!!.visibility = View.VISIBLE
+            playerFooter.visibility = View.VISIBLE
             //  normalFooter.setVisibility(View.GONE);
-            downloadFooter!!.visibility = View.GONE
+            downloadFooter.visibility = View.GONE
             val stream = false
             val playbackPosition = 0L
             if (stream) {
@@ -950,13 +929,13 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 }
                 playerView!!.player = player
                 player!!.prepare()
-                val str = surahNameEnglish + ":" + readerName
-                qariname!!.text = str
+                val str = "$surahNameEnglish:$readerName"
+                qariname.text = str
                 player!!.play()
             } else {
                 //      myPlayer mp=new myPlayer(ShowMushafActivity.this,surah);
                 marray = createMediaItems()
-                if (marray!!.isEmpty()) {
+                if (marray.isEmpty()) {
                     return false
                 }
                 player = ExoPlayer.Builder(this).build()
@@ -995,24 +974,24 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                     //    player.seekTo(startItemIndex, startPosition);
                 }
                 if (rangeRecitation) {
-                    marrayrange = marray!!.subList(versestartrange, verseendrange)
+                    marrayrange = marray.subList(versestartrange, verseendrange)
                     player!!.setMediaItems(marrayrange as MutableList<MediaItem>,  /* resetPosition= */!haveStartPosition)
                 } else {
-                    player!!.setMediaItems(marray!!,  /* resetPosition= */!haveStartPosition)
+                    player!!.setMediaItems(marray,  /* resetPosition= */!haveStartPosition)
                 }
                 val str =
-                    "(" + surahNameArabic + ")" + "(" + surahNameEnglish + ")" + ":" + readerName
-                qariname!!.text = str
+                    "($surahNameArabic)($surahNameEnglish):$readerName"
+                qariname.text = str
                 //   qariname.setText(readerName);
                 player!!.prepare()
                 if (resume) {
                     player!!.seekToDefaultPosition(resumelastplayed)
                 }
-                if (audioSettingBottomBehaviour!!.state == BottomSheetBehavior.STATE_EXPANDED) {
-                    audioSettingBottomBehaviour!!.state = BottomSheetBehavior.STATE_COLLAPSED
+                if (audioSettingBottomBehaviour.state == BottomSheetBehavior.STATE_EXPANDED) {
+                    audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
                 }
-                if (exoplayerBottomBehaviour!!.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                    audioSettingBottomBehaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
+                if (exoplayerBottomBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                    audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
                     player!!.play()
                 }
 
@@ -1033,11 +1012,11 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     }
 
     private fun createMediaItems(): MutableList<MediaItem> {
-        val repository = Utils(this)
+       // val repository = Utils(this)
         val chap: List<ChaptersAnaEntity?>? = repository.getSingleChapter(
             surahselected
         )
-        println(versestartrange.toString() + " " + verseendrange)
+        println("$versestartrange $verseendrange")
         val ayaLocations: MutableList<String> = ArrayList()
         marray = ArrayList()
         /*     if (getVersestartrange() != 0 && getVerseendrange() != 0) {
@@ -1062,14 +1041,14 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                             this,
                             readerID,
                             ayaItem!!.ayah,
-                            ayaItem!!.surah
+                            ayaItem.surah
                         )
                     )
                     val location: String = FileManager.createAyaAudioLinkLocation(
                         this,
                         readerID,
-                        ayaItem!!.ayah,
-                        ayaItem!!.surah
+                        ayaItem.ayah,
+                        ayaItem.surah
                     )
                     marray.add(MediaItem.fromUri(location))
                 }
@@ -1087,22 +1066,20 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                             this,
                             readerID,
                             ayaItem!!.ayah,
-                            ayaItem!!.surah
+                            ayaItem.surah
                         )
                     )
                     val location: String = FileManager.createAyaAudioLinkLocation(
                         this,
                         readerID,
-                        ayaItem!!.ayah,
-                        ayaItem!!.surah
+                        ayaItem.ayah,
+                        ayaItem.surah
                     )
                     marray.add(MediaItem.fromUri(location))
                 }
             }
         } else {
-            val quranbySurah: List<QuranEntity?>? =repository.getQuranbySurah(
-                surahselected
-            )
+            val quranbySurah: List<QuranEntity?>? =mainViewModel.getquranbySUrah(surahselected).value
             if (quranbySurah != null) {
                 for (ayaItem in quranbySurah) {
                     ayaLocations.add(
@@ -1110,14 +1087,14 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                             this,
                             readerID,
                             ayaItem!!.ayah,
-                            ayaItem!!.surah
+                            ayaItem.surah
                         )
                     )
                     val location: String = FileManager.createAyaAudioLinkLocation(
                         this,
                         readerID,
-                        ayaItem!!.ayah,
-                        ayaItem!!.surah
+                        ayaItem.ayah,
+                        ayaItem.surah
                     )
                     marray.add(MediaItem.fromUri(location))
                 }
@@ -1214,7 +1191,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     }
 
     private fun preparehighlightsNew(passageno: Int, str: StringBuilder, ayahmat: ArrayList<Int>) {
-        val holder = recyclerView!!.findViewHolderForAdapterPosition(1)
+        val holder = recyclerView.findViewHolderForAdapterPosition(1)
         var ayahindex = ayahmat[0]
         val ayahmaz = ayahmat.size
         val split1 = str.toString().split("﴿".toRegex()).dropLastWhile { it.isEmpty() }
@@ -1223,7 +1200,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         //  = str.indexOf("1");
         val end = str.indexOf(ayahindex.toString())
         val acf = AyahCoordinate(0, end, passageno)
-        val Coordinatesf: ArrayList<AyahCoordinate> = ArrayList<AyahCoordinate>()
+        val Coordinatesf: ArrayList<AyahCoordinate> = ArrayList()
         Coordinatesf.add(acf)
         hlights[ayahindex] = Coordinatesf
         //  ayahindex++;
@@ -1232,7 +1209,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             val e = str.indexOf((ayahindex + 1).toString())
             if (s != -1 && e != -1) {
                 val ac = AyahCoordinate(s, e, passageno)
-                val Coordinates: ArrayList<AyahCoordinate> = ArrayList<AyahCoordinate>()
+                val Coordinates: ArrayList<AyahCoordinate> = ArrayList()
                 Coordinates.add(ac)
                 hlights[++ayahindex] = Coordinates
             } else {
@@ -1242,7 +1219,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         println("check")
     }
 
-    protected fun clearStartPosition() {
+    private fun clearStartPosition() {
         startAutoPlay = true
         startItemIndex = C.INDEX_UNSET
         startPosition = C.TIME_UNSET
@@ -1252,16 +1229,16 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     private fun initRV() {
         ExecuteSurahWordByWord()
         canceldownload = findViewById(R.id.canceldownload) as MaterialButton
-        canceldownload!!.setOnClickListener(this)
+        canceldownload.setOnClickListener(this)
         ayaprogress = findViewById(R.id.ayaprogress) as MaterialTextView
         qariname = findViewById(R.id.lqari) as MaterialTextView
         //buffering = (ImageView) findViewById(R.id.exo_buffering);
         val chooseDisplaytype: SwitchCompat = findViewById(R.id.chooseDisplaytype)
         chooseDisplaytype.setOnClickListener(this)
         playfb = findViewById(R.id.playfb) as MovableFloatingActionButton
-        playfb!!.setOnClickListener(this)
+        playfb.setOnClickListener(this)
         exo_settings = findViewById(R.id.exo_settings)
-        exo_settings!!.setOnClickListener(this)
+        exo_settings.setOnClickListener(this)
         exo_close = findViewById(R.id.exo_close) as ImageButton
         exo_bottom_bar = findViewById(R.id.exo_bottom_bar) as ImageButton
         //  private ImageView playbutton;
@@ -1270,22 +1247,22 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         playresume.setOnClickListener(this)
         val surahselection = findViewById(R.id.surahselection) as MaterialButton
         surahselection.setOnClickListener(this)
-        exo_close!!.setOnClickListener(this)
+        exo_close.setOnClickListener(this)
         playbutton.setOnClickListener(this)
-        exo_bottom_bar!!.setOnClickListener(this)
+        exo_bottom_bar.setOnClickListener(this)
         chooseDisplaytype.isChecked = singleline
         startrange = findViewById(R.id.start_range)
         endrange = findViewById(R.id.endrange)
-        startrange!!.setOnClickListener(this)
+        startrange.setOnClickListener(this)
         llStartRange = findViewById(R.id.llStartRange) as LinearLayout
-        llStartRange!!.setOnClickListener(this)
-        endrange!!.setOnClickListener(this)
+        llStartRange.setOnClickListener(this)
+        endrange.setOnClickListener(this)
         llEndRange = findViewById(R.id.llEndRange) as LinearLayout
-        llEndRange!!.setOnClickListener {
+        llEndRange.setOnClickListener {
             val starttrue = false
             SurahAyahPicker(false, starttrue)
         }
-        llStartRange!!.setOnClickListener(object : View.OnClickListener {
+        llStartRange.setOnClickListener(object : View.OnClickListener {
             val starttrue = true
             override fun onClick(v: View) {
                 marrayrange = null
@@ -1305,44 +1282,42 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 RefreshActivity("", "", false)
             }
         }
-        startrange!!.setOnClickListener(object : View.OnClickListener {
+        startrange.setOnClickListener(object : View.OnClickListener {
             val starttrue = true
             override fun onClick(v: View) {
                 SurahAyahPicker(false, starttrue)
             }
         })
-        endrange!!.setOnClickListener {
+        endrange.setOnClickListener {
             val starttrue = false
             SurahAyahPicker(false, starttrue)
         }
         surahselection.setOnClickListener { SurahAyahPicker(true, true) }
-        playfb!!.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                if (audioSettingBottomBehaviour!!.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                    audioSettingBottomBehaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
-                    audio_settings_bottom!!.visibility = View.VISIBLE
-                } else {
-                    audioSettingBottomBehaviour!!.setState(BottomSheetBehavior.STATE_COLLAPSED)
-                    //    audio_settings_bottom.setVisibility(View.GONE);
-                }
-                if (exoplayerBottomBehaviour!!.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                    exoplayerBottomBehaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
-                    if (player != null) player!!.play()
-                } else {
-                    if (player != null) player!!.pause()
-                    exoplayerBottomBehaviour!!.setState(BottomSheetBehavior.STATE_COLLAPSED)
-                }
-                val st = StringBuilder()
-                val stt = StringBuilder()
-                st.append(surahNameEnglish).append("-").append(surahselected).append(":")
-                    .append("1")
-                stt.append(surahNameEnglish).append("-").append(surahselected).append(":").append(
-                    versescount
-                )
-                startrange!!.text = st.toString()
-                startrange!!.text = stt.toString()
+        playfb.setOnClickListener {
+            if (audioSettingBottomBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
+                audio_settings_bottom.visibility = View.VISIBLE
+            } else {
+                audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED)
+                //    audio_settings_bottom.setVisibility(View.GONE);
             }
-        })
+            if (exoplayerBottomBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                exoplayerBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
+                if (player != null) player!!.play()
+            } else {
+                if (player != null) player!!.pause()
+                exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED)
+            }
+            val st = StringBuilder()
+            val stt = StringBuilder()
+            st.append(surahNameEnglish).append("-").append(surahselected).append(":")
+                .append("1")
+            stt.append(surahNameEnglish).append("-").append(surahselected).append(":").append(
+                versescount
+                                                                                             )
+            startrange.text = st.toString()
+            startrange.text = stt.toString()
+        }
         val manager = LinearLayoutManager(this)
         manager.orientation = LinearLayoutManager.VERTICAL
         quranbySurahadapter =repository.getQuranbySurah(surah)
@@ -1357,41 +1332,38 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 }
             }
         }
-        exo_bottom_bar!!.setOnClickListener { SurahAyahPicker(true, true) }
-        exo_close!!.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                //reset player
-                verselected = 1
-                versestartrange = 0
-                verseendrange = 0
-                ayah = 0
-                marrayrange = null
-                resume = false
-                rangeRecitation = false
-                handler.removeCallbacks(SinglesendUpdatesToUI)
-                recyclerView!!.post { recyclerView!!.scrollToPosition(0) }
-                releasePlayer()
-                initializePlayer()
-
-                //    RefreshActivity("", " ", false);
-            }
-        })
-        exo_settings!!.setOnClickListener {
-            if (audioSettingBottomBehaviour!!.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                audioSettingBottomBehaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
-                audio_settings_bottom!!.visibility = View.VISIBLE
+        exo_bottom_bar.setOnClickListener { SurahAyahPicker(true, true) }
+        exo_close.setOnClickListener {
+            //reset player
+            verselected = 1
+            versestartrange = 0
+            verseendrange = 0
+            ayah = 0
+            marrayrange = null
+            resume = false
+            rangeRecitation = false
+            handler.removeCallbacks(SinglesendUpdatesToUI)
+            recyclerView.post { recyclerView.scrollToPosition(0) }
+            releasePlayer()
+            initializePlayer()
+            //    RefreshActivity("", " ", false);
+        }
+        exo_settings.setOnClickListener {
+            if (audioSettingBottomBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
+                audio_settings_bottom.visibility = View.VISIBLE
             } else {
-                audioSettingBottomBehaviour!!.setState(BottomSheetBehavior.STATE_COLLAPSED)
+                audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED)
                 //    audio_settings_bottom.setVisibility(View.GONE);
             }
-            if (exoplayerBottomBehaviour!!.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                exoplayerBottomBehaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
+            if (exoplayerBottomBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                exoplayerBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
                 assert(player != null)
                 player!!.play()
             } else {
                 if (null != player) {
                     player!!.pause()
-                    exoplayerBottomBehaviour!!.state = BottomSheetBehavior.STATE_COLLAPSED
+                    exoplayerBottomBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
                 }
             }
         }
@@ -1400,8 +1372,8 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             resume = true
             DownloadIfnotPlay()
         }
-        canceldownload!!.setOnClickListener {
-            downloadFooter!!.visibility = View.GONE
+        canceldownload.setOnClickListener {
+            downloadFooter.visibility = View.GONE
             //  normalFooter.setVisibility(View.VISIBLE);
             //stop flag of auto start audio after download
             startBeforeDownload = false
@@ -1410,7 +1382,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         }
 
         // to preserver quran direction from right to left
-        recyclerView!!.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        recyclerView.layoutDirection = View.LAYOUT_DIRECTION_RTL
     }
 
     fun ExecuteSurahWordByWord() {
@@ -1418,21 +1390,32 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         val builder = AlertDialog.Builder(this, R.style.ThemeOverlay_Material3_Dialog)
         builder.setCancelable(false) // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_dialog)
-        val      mainViewModel = ViewModelProvider(this).get(QuranVIewModel::class.java)
-        mafoolbihiwords = mainViewModel.getMafoolSurah(surah).value as ArrayList<MafoolBihi>?
+        val      mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
+
         val dialog = builder.create()
         corpusayahWordArrayList = ArrayList()
-     //   mafoolbihiwords = ArrayList()
-        Jumlahaliya = ArrayList()
-        Tammezent = ArrayList()
+         jumlahaliya = ArrayList()
+        tammezent = ArrayList()
         Liajlihient = ArrayList()
-        Jumlahaliya = utils.getHaliaErabBysurah(surah) as ArrayList<HalEnt?>?
-        Liajlihient = utils.getMafoolLiajlihisurah(surah) as ArrayList<LiajlihiEnt?>?
-        //  mafoolbihiwords =utils.getMafoolBihiErabSurah(surah);
-      //  mafoolbihiwords = utils.getMafoolBySurah(surah) as ArrayList<MafoolBihi?>?
-        Tammezent = utils.getTameezsurah(surah) as ArrayList<TameezEnt?>?
-        Mutlaqent = utils.getMutlaqsurah(surah) as ArrayList<MafoolMutlaqEnt?>?
-        BadalErabNotesEnt = utils.getBadalrabSurah(surah) as ArrayList<BadalErabNotesEnt?>?
+
+
+        corpusayahWordArrayList = ArrayList()
+        mafoolbihiwords = mainViewModel.getMafoolSurah(surah).value
+        jumlahaliya = mainViewModel.getHalsurah(surah).value
+        tammezent = mainViewModel.getTameezsurah(surah).value
+        Liajlihient = mainViewModel.getLiajlihiSurah(surah).value
+        Mutlaqent = mainViewModel.getMutlaqSurah(surah).value
+        BadalErabNotesEnt = mainViewModel.getbadalSurah(surah).value
+
+
+        allofQuran = mainViewModel.getquranbySUrah(surah).value
+        corpusSurahWord = mainViewModel.getQuranCorpusWbwbysurah(surah).value
+
+
+
+
+
+
         val ex = Executors.newSingleThreadExecutor()
         ex.execute {
             //do inbackground
@@ -1443,13 +1426,9 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     @SuppressLint("NotifyDataSetChanged")
     private fun bysurah(dialog: AlertDialog, ex: ExecutorService) {
         runOnUiThread { dialog.show() }
-    //    val wbwSurah = WbwSurah(this@WordbywordMushafAct, surah, corpusayahWordArrayList, ruku)
-    //    wbwSurah.wordbyword
 
-      //  val model: QuranVIewModel by viewModels()
-     //   var ayahWord = NewCorpusAyahWord()
         val utils = Utils(this)
-        corpusSurahWord = utils.getQuranCorpusWbwbysurah(surah)
+
         newextractedtwothree()
         val corpus = CorpusUtilityorig(this)
 
@@ -1458,20 +1437,20 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
         //      corpus.highLightVerbs(corpusayahWordArrayList,surah_id);
         if (kana) {
-            corpus.setKana(newnewadapterlist!!, surah)
+            corpus.setKana(newnewadapterlist, surah)
         }
         if (shart) {
-            corpus.setShart(newnewadapterlist!!, surah)
+            corpus.setShart(newnewadapterlist, surah)
         }
         if (mudhaf) {
-            corpus.setMudhafFromDB(newnewadapterlist!!, surah)
+            corpus.setMudhafFromDB(newnewadapterlist, surah)
         }
         if (mausoof) {
-            corpus.SetMousufSifaDB(newnewadapterlist!!, surah)
+            corpus.SetMousufSifaDB(newnewadapterlist, surah)
             //  corpus.NewMAOUSOOFSIFA(corpusayahWordArrayList);
         }
         if (harfnasb) {
-            corpus.newnewHarfNasbDb(newnewadapterlist!!, surah)
+            corpus.newnewHarfNasbDb(newnewadapterlist, surah)
         }
         //     corpus.highLightVerbs(corpusayahWordArrayList,surah_id);
         //post
@@ -1479,7 +1458,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             dialog.dismiss()
             ex.shutdown()
             recyclerView = findViewById(R.id.rvAyahsPages)
-            allofQuran =repository.getQuranbySurah(surah)
+          //  allofQuran =repository.getQuranbySurah(surah)
             val chapter: ArrayList<ChaptersAnaEntity?>? = repository.getSingleChapter(surah) as ArrayList<ChaptersAnaEntity?>?
             //  initlistview(quranbySurah, chapter);
             val listener: OnItemClickListenerOnLong = this
@@ -1494,35 +1473,33 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             surahNameArabic = chapter[0]!!.namearabic
             val manager = LinearLayoutManager(this)
             manager.orientation = LinearLayoutManager.VERTICAL
-            recyclerView!!.setHasFixedSize(true)
+            recyclerView.setHasFixedSize(true)
             manager.orientation = LinearLayoutManager.VERTICAL
 
 
             // recyclerView.setItemAnimator(new DefaultItemAnimator());
-            recyclerView!!.layoutManager = manager
+            recyclerView.layoutManager = manager
             newflowAyahWordAdapter = newFlowAyahWordAdapter(
                 true,
-                ruku,
                 Mutlaqent,
-                Tammezent,
+                tammezent,
                 BadalErabNotesEnt,
                 Liajlihient,
-                Jumlahaliya,
+                jumlahaliya,
                 mafoolbihiwords,
                 header,
                 allofQuran,
                 newnewadapterlist,
                 this@WordbywordMushafAct,
-                surah.toLong(),
                 surahNameArabic,
                 isMakkiMadani,
                 listener
             )
             newflowAyahWordAdapter.addContext(this@WordbywordMushafAct)
-            recyclerView!!.setHasFixedSize(true)
-            recyclerView!!.adapter = newflowAyahWordAdapter
+            recyclerView.setHasFixedSize(true)
+            recyclerView.adapter = newflowAyahWordAdapter
             newflowAyahWordAdapter.notifyDataSetChanged()
-            recyclerView!!.itemAnimator = DefaultItemAnimator()
+            recyclerView.itemAnimator = DefaultItemAnimator()
         }
     }
     private fun newextractedtwothree(   ) {
@@ -1545,11 +1522,11 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             var ayahWord = NewQuranCorpusWbw()
 
             try {
-                while (corpusSurahWord!!.get(secondindex).corpus!!.ayah <= quran.get(aindex)!!.ayah) {
-                    if (corpusSurahWord!!.get(secondindex).corpus!!.ayah != quran.get(aindex)!!.ayah) {
+                while (corpusSurahWord!![secondindex].corpus.ayah <= quran[aindex].ayah) {
+                    if (corpusSurahWord!![secondindex].corpus.ayah != quran[aindex].ayah) {
                         break
                     }
-                    ayahWord.spannableverse = SpannableString.valueOf(quran!![aindex]!!.qurantext)
+                    ayahWord.spannableverse = SpannableString.valueOf(quran[aindex].qurantext)
                     ayahWord.wbw = corpusSurahWord!![secondindex].wbw
                     ayahWord.corpus = corpusSurahWord!![secondindex++].corpus
                     qurancorpusarray.add(ayahWord)
@@ -1570,7 +1547,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         }
     }
     fun getReaderAudioLink(readerName: String?) {
-        for (reader in readersList!!) {
+        for (reader in readersList) {
             if (reader.name_english == readerName && (Locale.getDefault().displayLanguage == "العربية")) {
                 downloadLink = reader.url
                 readerID = reader.id
@@ -1584,11 +1561,11 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         }
     }
 
-    protected override fun onPause() {
+    override fun onPause() {
 //        mSensorManager.unregisterListener(this);
         super.onPause()
-        audioSettingBottomBehaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
-        playerFooter!!.visibility = View.VISIBLE
+        audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
+        playerFooter.visibility = View.VISIBLE
         if (player != null) {
             player!!.pause()
         }
@@ -1599,7 +1576,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         startBeforeDownload = false
     }
 
-    protected override fun onResume() {
+    override fun onResume() {
         super.onResume()
 
         //register broadcast for download ayat
@@ -1608,13 +1585,13 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
         //make footer change to normal if audio end in pause
         if (!Settingsss.isMyServiceRunning(this, DownloadService::class.java)) {
-            playerFooter!!.visibility = View.GONE
+            playerFooter.visibility = View.GONE
             //    normalFooter.setVisibility(View.GONE);
         } else {
-            if (downloadFooter!!.visibility != View.VISIBLE) {
-                playerFooter!!.visibility = View.VISIBLE
+            if (downloadFooter.visibility != View.VISIBLE) {
+                playerFooter.visibility = View.VISIBLE
             } else {
-                playerFooter!!.visibility = View.GONE
+                playerFooter.visibility = View.GONE
             }
             //   normalFooter.setVisibility(View.GONE);
         }
@@ -1622,13 +1599,13 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         //  if (audioSettingBottomBehaviour.getState() == BottomSheetBehavior.STATE_EXPANDED) {
         //   audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
         // }
-        if (exoplayerBottomBehaviour!!.state == BottomSheetBehavior.STATE_COLLAPSED) {
-            audioSettingBottomBehaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
-            playerFooter!!.visibility = View.VISIBLE
+        if (exoplayerBottomBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
+            audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
+            playerFooter.visibility = View.VISIBLE
             player!!.play()
         }
-        if (playerFooter!!.visibility == View.GONE) {
-            playerFooter!!.visibility = View.VISIBLE
+        if (playerFooter.visibility == View.GONE) {
+            playerFooter.visibility = View.VISIBLE
             if (player != null) {
                 player!!.play()
             }
@@ -1643,28 +1620,28 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             val status = intent.getStringExtra(AudioAppConstants.Download.DOWNLOAD)
             if (status != null) {
                 if (status == AudioAppConstants.Download.IN_DOWNLOAD) {
-                    downloadFooter!!.visibility = View.VISIBLE
+                    downloadFooter.visibility = View.VISIBLE
                     //  normalFooter.setVisibility(View.GONE);
-                    playerFooter!!.visibility = View.GONE
-                    mediaPlayerDownloadProgress!!.max = max
-                    mediaPlayerDownloadProgress!!.progress = value
+                    playerFooter.visibility = View.GONE
+                    mediaPlayerDownloadProgress.max = max
+                    mediaPlayerDownloadProgress.progress = value
                 } else if (status == AudioAppConstants.Download.FAILED) {
-                    mediaPlayerDownloadProgress!!.max = 1
-                    mediaPlayerDownloadProgress!!.progress = 1
+                    mediaPlayerDownloadProgress.max = 1
+                    mediaPlayerDownloadProgress.progress = 1
                 } else if (status == AudioAppConstants.Download.SUCCESS) {
-                    mediaPlayerDownloadProgress!!.max = 1
-                    mediaPlayerDownloadProgress!!.progress = 1
+                    mediaPlayerDownloadProgress.max = 1
+                    mediaPlayerDownloadProgress.progress = 1
                     //check if you auto play after download
                     if (startBeforeDownload) {
                         //change views
-                        downloadFooter!!.visibility = View.GONE
+                        downloadFooter.visibility = View.GONE
                         //    normalFooter.setVisibility(View.GONE);
-                        playerFooter!!.visibility = View.VISIBLE
+                        playerFooter.visibility = View.VISIBLE
                         initializePlayer()
                     } else {
-                        downloadFooter!!.visibility = View.GONE
+                        downloadFooter.visibility = View.GONE
                         //   normalFooter.setVisibility(View.GONE);
-                        playerFooter!!.visibility = View.GONE
+                        playerFooter.visibility = View.GONE
                     }
                 }
             }
@@ -1712,7 +1689,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         //loop for all page ayat
 //check if readerID is 0
         if (readerID == 0) {
-            for (qari in readersList!!) {
+            for (qari in readersList) {
                 if (qari.name_english == selectedqari) {
                     readerID = qari.id
                     downloadLink = qari.url
@@ -1727,7 +1704,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                         this,
                         readerID,
                         ayaItem!!.ayah,
-                        ayaItem!!.surah
+                        ayaItem.surah
                     )
                 ) {
 
@@ -1789,7 +1766,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             } else {
                 createDownloadLink()
             }
-            if (Links.size != 0) {
+            if (Links.isNotEmpty()) {
                 //check if the internet is opened
                 DownLoadIfNot(internetStatus, Links as ArrayList<String>)
             } else {
@@ -1805,18 +1782,19 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         if (internetStatus <= 0) {
             val builder = AlertDialog.Builder(this, R.style.MyAlertDialogStyle)
             builder.setCancelable(false)
-            builder.setTitle(getResources().getString(R.string.Alert))
-            builder.setMessage(getResources().getString(R.string.no_internet_alert))
-            builder.setPositiveButton(getResources().getString(R.string.ok),
-                DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+            builder.setTitle(resources.getString(R.string.Alert))
+            builder.setMessage(resources.getString(R.string.no_internet_alert))
+            builder.setPositiveButton(
+                resources.getString(R.string.ok),
+                { dialog, id -> dialog.cancel() })
             builder.show()
         } else {
             //change view of footer to media
             //      footerContainer.setVisibility(View.VISIBLE);
-            playerFooter!!.visibility = View.GONE
-            audioSettingBottomBehaviour!!.state = BottomSheetBehavior.STATE_COLLAPSED
+            playerFooter.visibility = View.GONE
+            audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
             //  mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-            downloadFooter!!.visibility = View.VISIBLE
+            downloadFooter.visibility = View.VISIBLE
 
             //check audio folders
 
@@ -1849,7 +1827,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         }
     }
 
-    protected override fun onDestroy() {
+    override fun onDestroy() {
         super.onDestroy()
         releasePlayer()
         handler.removeCallbacks(SinglesendUpdatesToUI)
@@ -1903,7 +1881,6 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     companion object {
         private const val KEY_TRACK_SELECTION_PARAMETERS = "track_selection_parameters"
-        private const val KEY_SERVER_SIDE_ADS_LOADER_STATE = "server_side_ads_loader_state"
         private const val KEY_ITEM_INDEX = "item_index"
         private const val KEY_POSITION = "position"
         private const val KEY_AUTO_PLAY = "auto_play"
@@ -1915,8 +1892,5 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         var readerName: String? = null
         var startBeforeDownload = false
         private const val TAG = "ShowMushafActivity"
-
-        //   int pos;
-        private const val songEnded = 0
     }
 }

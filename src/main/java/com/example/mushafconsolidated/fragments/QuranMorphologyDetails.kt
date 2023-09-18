@@ -2,12 +2,10 @@ package com.example.mushafconsolidated.fragments
 
 
 
-import android.content.Context
 import android.text.SpannableStringBuilder
 import com.example.mushafconsolidated.Entities.NewCorpusExpandWbwPOJO
 import com.example.mushafconsolidated.Entities.NounCorpus
 import com.example.mushafconsolidated.Entities.VerbCorpus
-
 import com.example.utility.CorpusConstants
 import com.example.utility.CorpusConstants.verbfeaturesenglisharabic
 import com.example.utility.CorpusUtilityorig.Companion.NewSetWordSpan
@@ -15,7 +13,7 @@ import com.example.utility.CorpusUtilityorig.Companion.NewSetWordSpanTag
 import java.util.Objects
 
 
-open class QuranMorphologyDetails {
+open class QuranMorphologyDetails() {
     open var form = 0
     open var Thulathi: String? = null
 
@@ -24,25 +22,11 @@ open class QuranMorphologyDetails {
     private var corpusSurahWord: ArrayList<NewCorpusExpandWbwPOJO>? = null
     private var verbcorpusform: ArrayList<VerbCorpus>? = null
 
-    constructor() {}
-    constructor(
-        corpusSurahWord: ArrayList<NewCorpusExpandWbwPOJO>?,
-        corpusNounWord: ArrayList<NounCorpus>?,
-        verbCorpuses: ArrayList<VerbCorpus>?,
-        context: Context?
-    ) {
-        this.corpusSurahWord = corpusSurahWord
-        verbcorpusform = verbCorpuses
-        corpusNoun = corpusNounWord
-    }
-
-
     //     pngsb.append("," + "(form").append(verbcorpusform.get(0).getForm()).append(")");
     open val verbDetails: HashMap<String, String?>
         get() {
             val vbdetail = HashMap<String, String?>()
-            val roots: String
-            roots = verbcorpusform!![0].root_a!!
+            val roots: String = verbcorpusform!![0].root_a!!
             vbdetail["root"] = roots
             if (verbcorpusform!!.size > 0) {
                 if (!verbcorpusform!![0].form.equals("I")) {
@@ -53,18 +37,22 @@ open class QuranMorphologyDetails {
                 } else {
                     val thulathibab: String? = verbcorpusform!![0].thulathibab
                     if (thulathibab != null) {
-                        if (thulathibab.length == 0) vbdetail["thulathi"] =
-                            null else if (thulathibab.length == 1) {
-                            val s: String? = verbcorpusform!![0].thulathibab
-                            val sb = getThulathiName(s)
-                            vbdetail["thulathi"] = sb.toString()
-                            vbdetail["wazan"] = thulathibab
-                        } else {
-                            thulathibab.length
-                            val s = thulathibab.substring(0, 1)
-                            val sb = getThulathiName(s)
-                            vbdetail["thulathi"] = sb.toString()
-                            vbdetail["wazan"] = s
+                        when (thulathibab.length) {
+                            0 -> vbdetail["thulathi"] =
+                                null
+                            1 -> {
+                                val s: String? = verbcorpusform!![0].thulathibab
+                                val sb = getThulathiName(s)
+                                vbdetail["thulathi"] = sb.toString()
+                                vbdetail["wazan"] = thulathibab
+                            }
+                            else -> {
+                                thulathibab.length
+                                val s = thulathibab.substring(0, 1)
+                                val sb = getThulathiName(s)
+                                vbdetail["thulathi"] = sb.toString()
+                                vbdetail["wazan"] = s
+                            }
                         }
                     }
                 }
@@ -83,20 +71,17 @@ open class QuranMorphologyDetails {
                 //    pngsb.append(",").append(verbcorpusform.get(0).getThulathibab());
             }
             vbdetail["png"] = pngsb.toString()
-            val tense: String? = verbcorpusform!![0].tense
-            when (tense) {
+            when (verbcorpusform!![0].tense) {
                 "IMPF" -> vbdetail["tense"] = verbfeaturesenglisharabic.IMPF
                 "IMPV" -> vbdetail["tense"] = verbfeaturesenglisharabic.IMPV
                 "PERF" -> vbdetail["tense"] = verbfeaturesenglisharabic.PERF
             }
-            val voice: String? = verbcorpusform!![0].voice
-            when (voice) {
+            when (verbcorpusform!![0].voice) {
                 "ACT" -> vbdetail["voice"] = verbfeaturesenglisharabic.ACT
                 "PASS" -> vbdetail["voice"] = verbfeaturesenglisharabic.PASS
             }
             if ((roots == "كون")) {
-                val kana_mood: String? = verbcorpusform!![0].kana_mood
-                when (kana_mood) {
+                when (verbcorpusform!![0].kana_mood) {
                     "MOOD:SUBJ" -> {
                         vbdetail["mood"] = verbfeaturesenglisharabic.IND
                         vbdetail["verbmood"] = "subjunctive"
@@ -118,8 +103,7 @@ open class QuranMorphologyDetails {
                     }
                 }
             } else {
-                val mood: String? = verbcorpusform!![0].mood_kananumbers
-                when (mood) {
+                when (verbcorpusform!![0].mood_kananumbers) {
                     "IND" -> {
                         vbdetail["mood"] = verbfeaturesenglisharabic.IND
                         vbdetail["verbmood"] = "Indicative"
@@ -136,7 +120,7 @@ open class QuranMorphologyDetails {
                     }
                 }
             }
-            vbdetail["lemma"] = verbcorpusform!!.get(0).lemma_a
+            vbdetail["lemma"] = verbcorpusform!![0].lemma_a
             return vbdetail
         }
 
@@ -157,8 +141,13 @@ open class QuranMorphologyDetails {
                 } catch (e: IndexOutOfBoundsException) {
                     println("Exception occurred . . . . . . . . ")
                 }
-                if (s.length > 0) Thulathi=s else {
+                /*
+                 if (s.length > 0) Thulathi=s else {
                     Thulathi=null
+                }
+                 */
+                Thulathi = if (s.length > 0) s else {
+                    null
                 }
             }
         }
@@ -168,43 +157,43 @@ open class QuranMorphologyDetails {
         private get() {
             var roots: String? = null
             if (corpusSurahWord!![0].wordcount=== 1) {
-                if (corpusSurahWord!![0].tagone.equals("V")) {
+                if (corpusSurahWord!![0].tagone == "V") {
                     roots = corpusSurahWord!![0].root_a
                 }
             } else if (corpusSurahWord!![0].wordcount=== 2) {
-                if (corpusSurahWord!![0].tagone.equals("V")) {
+                if (corpusSurahWord!![0].tagone == "V") {
                     roots = corpusSurahWord!![0].rootaraone!!
-                } else if (corpusSurahWord!![0].tagtwo.equals("V")) {
+                } else if (corpusSurahWord!![0].tagtwo == "V") {
                     roots = corpusSurahWord!![0].rootaratwo
                 }
             } else if (corpusSurahWord!![0].wordcount=== 3) {
-                if (corpusSurahWord!![0].tagone.equals("V")) {
+                if (corpusSurahWord!![0].tagone == "V") {
                     roots = corpusSurahWord!![0].rootaraone!!
-                } else if (corpusSurahWord!![0].tagtwo.equals("V")) {
+                } else if (corpusSurahWord!![0].tagtwo == "V") {
                     roots = corpusSurahWord!![0].rootaratwo
-                } else if (corpusSurahWord!![0].tagthree.equals("V")) {
+                } else if (corpusSurahWord!![0].tagthree == "V") {
                     roots = corpusSurahWord!![0].rootarathree
                 }
             } else if (corpusSurahWord!![0].wordcount=== 4) {
-                if (corpusSurahWord!![0].tagone.equals("V")) {
+                if (corpusSurahWord!![0].tagone == "V") {
                     roots = corpusSurahWord!![0].rootaraone!!
-                } else if (corpusSurahWord!![0].tagtwo.equals("V")) {
+                } else if (corpusSurahWord!![0].tagtwo == "V") {
                     roots = corpusSurahWord!![0].rootaratwo
-                } else if (corpusSurahWord!![0].tagthree.equals("V")) {
+                } else if (corpusSurahWord!![0].tagthree == "V") {
                     roots = corpusSurahWord!![0].rootarathree
-                } else if (corpusSurahWord!![0].tagfour.equals("V")) {
+                } else if (corpusSurahWord!![0].tagfour == "V") {
                     roots = corpusSurahWord!![0].rootarafour
                 }
             } else if (corpusSurahWord!![0].wordcount=== 5) {
-                if (corpusSurahWord!![0].tagone.equals("V")) {
+                if (corpusSurahWord!![0].tagone == "V") {
                     roots = corpusSurahWord!![0].rootaraone!!
-                } else if (corpusSurahWord!![0].tagtwo.equals("V")) {
+                } else if (corpusSurahWord!![0].tagtwo == "V") {
                     roots = corpusSurahWord!![0].rootaratwo
-                } else if (corpusSurahWord!![0].tagthree.equals("V")) {
+                } else if (corpusSurahWord!![0].tagthree == "V") {
                     roots = corpusSurahWord!![0].rootarathree
-                } else if (corpusSurahWord!![0].tagfour.equals("V")) {
+                } else if (corpusSurahWord!![0].tagfour == "V") {
                     roots = corpusSurahWord!![0].rootarafour
-                } else if (corpusSurahWord!![0].tagfive.equals("V")) {
+                } else if (corpusSurahWord!![0].tagfive == "V") {
                     roots = corpusSurahWord!![0].rootarafive
                 }
             }
@@ -219,21 +208,21 @@ open class QuranMorphologyDetails {
             val wordbdetail = HashMap<String, SpannableStringBuilder?>()
             wordbdetail["surahid"] = SpannableStringBuilder.valueOf(
                 java.lang.String.valueOf(
-                    corpusSurahWord!!.get(0).surah
+                    corpusSurahWord!![0].surah
                 )
             )
             wordbdetail["ayahid"] = SpannableStringBuilder.valueOf(
                 java.lang.String.valueOf(
-                    corpusSurahWord!!.get(0).ayah
+                    corpusSurahWord!![0].ayah
                 )
             )
             wordbdetail["wordno"] = SpannableStringBuilder.valueOf(
                 java.lang.String.valueOf(
-                    corpusSurahWord!!.get(0).wordno
+                    corpusSurahWord!![0].wordno
                 )
             )
             wordbdetail["wordtranslation"] =
-                SpannableStringBuilder.valueOf(corpusSurahWord!!.get(0).en)
+                SpannableStringBuilder.valueOf(corpusSurahWord!![0].en)
             val arabicword: String = corpusSurahWord!![0].araone+(corpusSurahWord!![0].aratwo+(
                     corpusSurahWord!![0].arathree
                         +(
@@ -254,13 +243,13 @@ open class QuranMorphologyDetails {
                         //chedk if particple
                     } else {
                         wordbdetail["form"] =
-                            SpannableStringBuilder.valueOf(corpusNoun!!.get(0).form)
+                            SpannableStringBuilder.valueOf(corpusNoun!![0].form)
                     }
                     if (corpusNoun!![0].proptwo.equals("PCPL")) {
                         wordbdetail["PCPL"] =
                             SpannableStringBuilder.valueOf(
-                                corpusNoun!!.get(0).propone+(
-                                    corpusNoun!!.get(0).proptwo
+                                corpusNoun!![0].propone+(
+                                    corpusNoun!![0].proptwo
                                 )
                             )
                         wordbdetail["particple"] = SpannableStringBuilder.valueOf("PART")
@@ -318,7 +307,7 @@ open class QuranMorphologyDetails {
     ) {
         val sb = StringBuilder()
         if (corpusNoun!!.size > 0) {
-            if (corpusNoun[0].tag.equals("PN") || corpusNoun[0].tag.equals("ADJ")) {
+            if (corpusNoun[0].tag == "PN" || corpusNoun[0].tag == "ADJ") {
                 val propone: String? = corpusNoun[0].propone
                 val proptwo: String? = corpusNoun[0].proptwo
                 var pcpl = ""
@@ -327,7 +316,7 @@ open class QuranMorphologyDetails {
                 }
                 if (corpusNoun[0].propone.equals("VN")) {
                     sb.append("Proper/Verbal Noun")
-                } else if (corpusNoun[0].tag.equals("ADJ")) {
+                } else if (corpusNoun[0].tag == "ADJ") {
                     sb.append("Adjective:")
                 } else {
                     sb.append("Proper Noun:")
@@ -400,9 +389,9 @@ open class QuranMorphologyDetails {
         sb: StringBuilder
     ) {
         if (corpusNoun!!.size > 0) {
-            if ((corpusNoun[0].tag.equals("N") || corpusNoun[0].tag.equals("PN") ||
-                        corpusNoun[0].tag.equals("VN") ||
-                        corpusNoun[0].tag.equals("ADJ"))
+            if ((corpusNoun[0].tag == "N" || corpusNoun[0].tag == "PN" ||
+                            corpusNoun[0].tag == "VN" ||
+                            corpusNoun[0].tag == "ADJ")
             ) {
                 //   if (corpusNoun.get(0).tag.equals("N")) {
                 val propone: String? = corpusNoun[0].propone
@@ -480,9 +469,9 @@ open class QuranMorphologyDetails {
                 if (sb.length > 5) {
                     wordbdetail["noun"] = SpannableStringBuilder.valueOf(sb.toString())
                 }
-            } else if ((corpusNoun[0].tag.equals("PN") ||
-                        corpusNoun[0].tag.equals("VN") ||
-                        corpusNoun[0].tag.equals("ADJ"))
+            } else if ((corpusNoun[0].tag == "PN" ||
+                            corpusNoun[0].tag == "VN" ||
+                            corpusNoun[0].tag == "ADJ")
             ) {
                 val cases: String? = corpusNoun[0].cases
                 //  sb.append("Noun:");
@@ -503,59 +492,59 @@ open class QuranMorphologyDetails {
     ) {
         if (corpusSurahWord!!.size > 0) {
             if (corpusSurahWord[0].wordcount=== 1) {
-                if (corpusSurahWord[0].rootaraone!!.length > 0) {
+                if (corpusSurahWord[0].rootaraone!!.isNotEmpty()) {
                     wordbdetail["root"] =
-                        SpannableStringBuilder.valueOf(corpusSurahWord.get(0).rootaraone!!)
+                        SpannableStringBuilder.valueOf(corpusSurahWord[0].rootaraone!!)
                 }
             } else if (corpusSurahWord[0].wordcount=== 2) {
-                if (corpusSurahWord[0].rootaraone!!.length > 0) {
+                if (corpusSurahWord[0].rootaraone!!.isNotEmpty()) {
                     wordbdetail["root"] =
-                        SpannableStringBuilder.valueOf(corpusSurahWord.get(0).rootaraone!!)
-                } else if (corpusSurahWord[0].rootaratwo!!.length > 0) {
+                        SpannableStringBuilder.valueOf(corpusSurahWord[0].rootaraone!!)
+                } else if (corpusSurahWord[0].rootaratwo!!.isNotEmpty()) {
                     wordbdetail["root"] =
-                        SpannableStringBuilder.valueOf(corpusSurahWord.get(0).rootaratwo)
+                        SpannableStringBuilder.valueOf(corpusSurahWord[0].rootaratwo)
                 }
             } else if (corpusSurahWord[0].wordcount=== 3) {
-                if (corpusSurahWord[0].rootaraone!!.length > 0) {
+                if (corpusSurahWord[0].rootaraone!!.isNotEmpty()) {
                     wordbdetail["root"] =
-                        SpannableStringBuilder.valueOf(corpusSurahWord.get(0).rootaraone!!)
-                } else if (corpusSurahWord[0].rootaratwo!!.length > 0) {
+                        SpannableStringBuilder.valueOf(corpusSurahWord[0].rootaraone!!)
+                } else if (corpusSurahWord[0].rootaratwo!!.isNotEmpty()) {
                     wordbdetail["root"] =
-                        SpannableStringBuilder.valueOf(corpusSurahWord.get(0).rootaratwo)
-                } else if (corpusSurahWord[0].rootarathree!!.length > 0) {
+                        SpannableStringBuilder.valueOf(corpusSurahWord[0].rootaratwo)
+                } else if (corpusSurahWord[0].rootarathree!!.isNotEmpty()) {
                     wordbdetail["root"] =
-                        SpannableStringBuilder.valueOf(corpusSurahWord.get(0).rootarathree)
+                        SpannableStringBuilder.valueOf(corpusSurahWord[0].rootarathree)
                 }
             } else if (corpusSurahWord[0].wordcount=== 4) {
-                if (corpusSurahWord[0].rootaraone!!.length > 0) {
+                if (corpusSurahWord[0].rootaraone!!.isNotEmpty()) {
                     wordbdetail["root"] =
-                        SpannableStringBuilder.valueOf(corpusSurahWord.get(0).rootaraone!!)
-                } else if (corpusSurahWord[0].rootaratwo!!.length > 0) {
+                        SpannableStringBuilder.valueOf(corpusSurahWord[0].rootaraone!!)
+                } else if (corpusSurahWord[0].rootaratwo!!.isNotEmpty()) {
                     wordbdetail["root"] =
-                        SpannableStringBuilder.valueOf(corpusSurahWord.get(0).rootaratwo)
-                } else if (corpusSurahWord[0].rootarathree!!.length > 0) {
+                        SpannableStringBuilder.valueOf(corpusSurahWord[0].rootaratwo)
+                } else if (corpusSurahWord[0].rootarathree!!.isNotEmpty()) {
                     wordbdetail["root"] =
-                        SpannableStringBuilder.valueOf(corpusSurahWord.get(0).rootarathree)
-                } else if (corpusSurahWord[0].rootarafour!!.length > 0) {
+                        SpannableStringBuilder.valueOf(corpusSurahWord[0].rootarathree)
+                } else if (corpusSurahWord[0].rootarafour!!.isNotEmpty()) {
                     wordbdetail["root"] =
-                        SpannableStringBuilder.valueOf(corpusSurahWord.get(0).rootarafour)
+                        SpannableStringBuilder.valueOf(corpusSurahWord[0].rootarafour)
                 }
             } else if (corpusSurahWord[0].wordcount=== 5) {
-                if (corpusSurahWord[0].rootaraone!!.length > 0) {
+                if (corpusSurahWord[0].rootaraone!!.isNotEmpty()) {
                     wordbdetail["root"] =
-                        SpannableStringBuilder.valueOf(corpusSurahWord.get(0).rootaraone!!)
-                } else if (corpusSurahWord[0].rootaratwo!!.length > 0) {
+                        SpannableStringBuilder.valueOf(corpusSurahWord[0].rootaraone!!)
+                } else if (corpusSurahWord[0].rootaratwo!!.isNotEmpty()) {
                     wordbdetail["root"] =
-                        SpannableStringBuilder.valueOf(corpusSurahWord.get(0).rootaratwo)
-                } else if (corpusSurahWord[0].rootarathree!!.length > 0) {
+                        SpannableStringBuilder.valueOf(corpusSurahWord[0].rootaratwo)
+                } else if (corpusSurahWord[0].rootarathree!!.isNotEmpty()) {
                     wordbdetail["root"] =
-                        SpannableStringBuilder.valueOf(corpusSurahWord.get(0).rootarathree)
-                } else if (corpusSurahWord[0].rootarafour!!.length > 0) {
+                        SpannableStringBuilder.valueOf(corpusSurahWord[0].rootarathree)
+                } else if (corpusSurahWord[0].rootarafour!!.isNotEmpty()) {
                     wordbdetail["root"] =
-                        SpannableStringBuilder.valueOf(corpusSurahWord.get(0).rootarafour)
-                } else if (corpusSurahWord[0].rootarafive!!.length > 0) {
+                        SpannableStringBuilder.valueOf(corpusSurahWord[0].rootarafour)
+                } else if (corpusSurahWord[0].rootarafive!!.isNotEmpty()) {
                     wordbdetail["root"] =
-                        SpannableStringBuilder.valueOf(corpusSurahWord.get(0).rootarafive)
+                        SpannableStringBuilder.valueOf(corpusSurahWord[0].rootarafive)
                 }
             }
         }
@@ -572,40 +561,40 @@ open class QuranMorphologyDetails {
         val tagfive: String = corpusSurahWord[0].tagfive
         val araone: String = corpusSurahWord[0].araone
         val aratwo: String = corpusSurahWord[0].aratwo
-        val arathree: String = corpusSurahWord.get(0).arathree
-        val arafour: String = corpusSurahWord.get(0).arafour
-        val arafive: String = corpusSurahWord.get(0).arafive
-        if (corpusSurahWord.get(0).wordcount=== 1) {
+        val arathree: String = corpusSurahWord[0].arathree
+        val arafour: String = corpusSurahWord[0].arafour
+        val arafive: String = corpusSurahWord[0].arafive
+        if (corpusSurahWord[0].wordcount=== 1) {
             //noun yelllo
             //verb cyan
             //
             val expandTagsone = expandTags(tagone)
             wordbdetail["lemma"] =
-                SpannableStringBuilder.valueOf(corpusSurahWord.get(0).lemaraone)
+                SpannableStringBuilder.valueOf(corpusSurahWord[0].lemaraone)
             val spannableString = NewSetWordSpan(tagone, "", "", "", "", araone, "", "", "", "")
             val tagspannables =
                 NewSetWordSpanTag(tagone, "", "", "", "", araone, "", "", "", expandTagsone)
             wordbdetail["word"] = SpannableStringBuilder.valueOf(spannableString)
             wordbdetail["worddetails"] = SpannableStringBuilder.valueOf(tagspannables)
-            if (corpusSurahWord.get(0).detailsone.contains("SP:kaAn")) {
+            if (corpusSurahWord[0].detailsone.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
             }
-        } else if (corpusSurahWord.get(0).wordcount=== 2) {
+        } else if (corpusSurahWord[0].wordcount=== 2) {
             wordbdetail["lemma"] = SpannableStringBuilder.valueOf(
-                corpusSurahWord.get(0).lemaraone + corpusSurahWord.get(0).lemaratwo
+                corpusSurahWord[0].lemaraone + corpusSurahWord[0].lemaratwo
             )
             val arabicspannable = SpannableStringBuilder(
                 araone + aratwo
             )
             val expandTagsone = expandTags(tagone)
             val expandTagstwo = expandTags(tagtwo)
-            if (corpusSurahWord.get(0).detailsone.contains("SP:kaAn")) {
+            if (corpusSurahWord[0].detailsone.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
-            } else if (corpusSurahWord.get(0).detailstwo.contains("SP:kaAn")) {
+            } else if (corpusSurahWord[0].detailstwo.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
             }
-            val one: Int = corpusSurahWord.get(0).araone.length //2
-            val two: Int = corpusSurahWord.get(0).aratwo.length //3
+            val one: Int = corpusSurahWord[0].araone.length //2
+            val two: Int = corpusSurahWord[0].aratwo.length //3
             val spannableString =
                 NewSetWordSpan(tagone, tagtwo, "", "", "", araone, aratwo, "", "", "")
             val tagspannables = NewSetWordSpanTag(
@@ -622,28 +611,28 @@ open class QuranMorphologyDetails {
             )
             wordbdetail["word"] = SpannableStringBuilder.valueOf(spannableString)
             wordbdetail["worddetails"] = SpannableStringBuilder.valueOf(tagspannables)
-        } else if (corpusSurahWord.get(0).wordcount=== 3) {
+        } else if (corpusSurahWord[0].wordcount=== 3) {
             val sb = StringBuilder()
             wordbdetail["lemma"] = SpannableStringBuilder.valueOf(
-                (corpusSurahWord.get(0).lemaraone + corpusSurahWord.get(0).lemaratwo +
-                        corpusSurahWord.get(0).lemrathree)
+                (corpusSurahWord[0].lemaraone + corpusSurahWord[0].lemaratwo +
+                        corpusSurahWord[0].lemrathree)
             )
-            val one: Int = corpusSurahWord.get(0).araone.length //2
-            val two: Int = corpusSurahWord.get(0).aratwo.length //3
+            val one: Int = corpusSurahWord[0].araone.length //2
+            val two: Int = corpusSurahWord[0].aratwo.length //3
             val expandTagsone = expandTags(
-                corpusSurahWord.get(0).tagone
+                corpusSurahWord[0].tagone
             )
             val expandTagstwo = expandTags(
-                corpusSurahWord.get(0).tagtwo
+                corpusSurahWord[0].tagtwo
             )
             val expandTagsthree = expandTags(
-                corpusSurahWord.get(0).tagthree
+                corpusSurahWord[0].tagthree
             )
-            sb.append(corpusSurahWord.get(0).tagthree)
+            sb.append(corpusSurahWord[0].tagthree)
             sb.append("|")
-            sb.append(corpusSurahWord.get(0).tagtwo)
+            sb.append(corpusSurahWord[0].tagtwo)
             sb.append("|")
-            sb.append(corpusSurahWord.get(0).tagone)
+            sb.append(corpusSurahWord[0].tagone)
             // 0,tagthree
             // tagthree,tagtwo
             // tagtwo,tagone
@@ -663,33 +652,33 @@ open class QuranMorphologyDetails {
             )
             wordbdetail["word"] = SpannableStringBuilder.valueOf(spannableString)
             wordbdetail["worddetails"] = SpannableStringBuilder.valueOf(tagspannables)
-            if (corpusSurahWord.get(0).detailsone.contains("SP:kaAn")) {
+            if (corpusSurahWord[0].detailsone.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
-            } else if (corpusSurahWord.get(0).detailstwo.contains("SP:kaAn")) {
+            } else if (corpusSurahWord[0].detailstwo.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
-            } else if (corpusSurahWord.get(0).detailsthree.contains("SP:kaAn")) {
+            } else if (corpusSurahWord[0].detailsthree.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
             }
-        } else if (corpusSurahWord.get(0).wordcount=== 4) {
+        } else if (corpusSurahWord[0].wordcount=== 4) {
             wordbdetail["lemma"] = SpannableStringBuilder.valueOf(
-                (corpusSurahWord.get(0).lemaraone + corpusSurahWord.get(0).lemaratwo +
-                        corpusSurahWord.get(0).lemrathree)
+                (corpusSurahWord[0].lemaraone + corpusSurahWord[0].lemaratwo +
+                        corpusSurahWord[0].lemrathree)
             )
-            val one: Int = corpusSurahWord.get(0).araone.length //2
-            val two: Int = corpusSurahWord.get(0).aratwo.length //3
-            val onetag: Int = corpusSurahWord.get(0).tagone.length //1
-            val twotag: Int = corpusSurahWord.get(0).tagtwo.length //3
+            val one: Int = corpusSurahWord[0].araone.length //2
+            val two: Int = corpusSurahWord[0].aratwo.length //3
+            val onetag: Int = corpusSurahWord[0].tagone.length //1
+            val twotag: Int = corpusSurahWord[0].tagtwo.length //3
             val expandTagsone = expandTags(
-                corpusSurahWord.get(0).tagone
+                corpusSurahWord[0].tagone
             )
             val expandTagstwo = expandTags(
-                corpusSurahWord.get(0).tagtwo
+                corpusSurahWord[0].tagtwo
             )
             val expandTagsthree = expandTags(
-                corpusSurahWord.get(0).tagthree
+                corpusSurahWord[0].tagthree
             )
             val expandTagsfour = expandTags(
-                corpusSurahWord.get(0).tagfour
+                corpusSurahWord[0].tagfour
             )
             val spannableString = NewSetWordSpan(
                 tagone,
@@ -710,36 +699,36 @@ open class QuranMorphologyDetails {
             )
             wordbdetail["word"] = SpannableStringBuilder.valueOf(spannableString)
             wordbdetail["worddetails"] = SpannableStringBuilder.valueOf(tagspannables)
-            if (corpusSurahWord.get(0).detailsone.contains("SP:kaAn")) {
+            if (corpusSurahWord[0].detailsone.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
-            } else if (corpusSurahWord.get(0).detailstwo.contains("SP:kaAn")) {
+            } else if (corpusSurahWord[0].detailstwo.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
-            } else if (corpusSurahWord.get(0).detailsthree.contains("SP:kaAn")) {
+            } else if (corpusSurahWord[0].detailsthree.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
-            } else if (corpusSurahWord.get(0).detailsfour.contains("SP:kaAn")) {
+            } else if (corpusSurahWord[0].detailsfour.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
             }
-        } else if (corpusSurahWord.get(0).wordcount=== 5) {
+        } else if (corpusSurahWord[0].wordcount=== 5) {
             val expandTagsone = expandTags(
-                corpusSurahWord.get(0).tagone
+                corpusSurahWord[0].tagone
             )
             val expandTagstwo = expandTags(
-                corpusSurahWord.get(0).tagtwo
+                corpusSurahWord[0].tagtwo
             )
             val expandTagsthree = expandTags(
-                corpusSurahWord.get(0).tagthree
+                corpusSurahWord[0].tagthree
             )
             val expandTagsfour = expandTags(
-                corpusSurahWord.get(0).tagfour
+                corpusSurahWord[0].tagfour
             )
             val expandTagsfive = expandTags(
-                corpusSurahWord.get(0).tagfive
+                corpusSurahWord[0].tagfive
             )
             val sb = StringBuilder()
             wordbdetail["lemma"] = SpannableStringBuilder.valueOf(
-                (corpusSurahWord.get(0).lemaraone + corpusSurahWord.get(0).lemaratwo +
-                        corpusSurahWord.get(0).lemrathree + corpusSurahWord.get(0)
-                    .lemarafour + corpusSurahWord.get(0).lemarafive)
+                (corpusSurahWord[0].lemaraone + corpusSurahWord[0].lemaratwo +
+                        corpusSurahWord[0].lemrathree + corpusSurahWord[0]
+                    .lemarafour + corpusSurahWord[0].lemarafive)
             )
             val tagspannables = NewSetWordSpanTag(
                 tagone,
@@ -753,31 +742,31 @@ open class QuranMorphologyDetails {
                 expandTagstwo,
                 expandTagsone
             )
-            sb.append(corpusSurahWord.get(0).tagfive)
+            sb.append(corpusSurahWord[0].tagfive)
             sb.append("|")
-            sb.append(corpusSurahWord.get(0).tagfour)
+            sb.append(corpusSurahWord[0].tagfour)
             sb.append("|")
-            sb.append(corpusSurahWord.get(0).tagthree)
+            sb.append(corpusSurahWord[0].tagthree)
             sb.append("|")
-            sb.append(corpusSurahWord.get(0).tagtwo)
+            sb.append(corpusSurahWord[0].tagtwo)
             sb.append("|")
-            sb.append(corpusSurahWord.get(0).tagone)
+            sb.append(corpusSurahWord[0].tagone)
             wordbdetail["word"] = SpannableStringBuilder.valueOf(
-                (corpusSurahWord.get(0).araone + corpusSurahWord.get(0).aratwo +
-                        corpusSurahWord.get(0).arathree + corpusSurahWord.get(0)
-                    .arafour + corpusSurahWord.get(0).tagfive)
+                (corpusSurahWord[0].araone + corpusSurahWord[0].aratwo +
+                        corpusSurahWord[0].arathree + corpusSurahWord[0]
+                    .arafour + corpusSurahWord[0].tagfive)
             )
             //   wordbdetail.put("worddetails", SpannableStringBuilder.valueOf(sb));
             wordbdetail["worddetails"] = SpannableStringBuilder.valueOf(tagspannables)
-            if (corpusSurahWord.get(0).detailsone.contains("SP:kaAn")) {
+            if (corpusSurahWord[0].detailsone.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
-            } else if (corpusSurahWord.get(0).detailstwo.contains("SP:kaAn")) {
+            } else if (corpusSurahWord[0].detailstwo.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
-            } else if (corpusSurahWord.get(0).detailsthree.contains("SP:kaAn")) {
+            } else if (corpusSurahWord[0].detailsthree.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
-            } else if (corpusSurahWord.get(0).detailsfour.contains("SP:kaAn")) {
+            } else if (corpusSurahWord[0].detailsfour.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
-            } else if (corpusSurahWord.get(0).detailsfive.contains("SP:kaAn")) {
+            } else if (corpusSurahWord[0].detailsfive.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
             }
         }
@@ -787,44 +776,44 @@ open class QuranMorphologyDetails {
         corpusSurahWord: ArrayList<NewCorpusExpandWbwPOJO>?,
         wordbdetail: HashMap<String, SpannableStringBuilder?>
     ) {
-        if (corpusSurahWord!!.get(0).wordcount=== 1) {
-            if (corpusSurahWord!!.get(0).tagone.equals("PRON")) {
+        if (corpusSurahWord!![0].wordcount=== 1) {
+            if (corpusSurahWord!![0].tagone == "PRON") {
                 //   String[] parts = corpusSurahWord.get(0).getDetailsone().toString().split("\"|");
                 val gendernumber: String =
-                    corpusSurahWord.get(0).detailsone.replace("^.*?(\\w+)\\W*$", "$1")
+                    corpusSurahWord[0].detailsone.replace("^.*?(\\w+)\\W*$", "$1")
                 println(gendernumber)
                 // String gendernumber = parts[parts.length - 1];
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
-        } else if (corpusSurahWord!!.get(0).wordcount=== 2) {
-            if (corpusSurahWord!!.get(0).tagtwo.equals("PRON")) {
+        } else if (corpusSurahWord!![0].wordcount=== 2) {
+            if (corpusSurahWord!![0].tagtwo == "PRON") {
                 val gendernumber: String =
-                    corpusSurahWord.get(0).detailstwo.replace("^.*?(\\w+)\\W*$", "$1")
+                    corpusSurahWord[0].detailstwo.replace("^.*?(\\w+)\\W*$", "$1")
                 //   String gendernumber = parts[parts.length - 1];
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
-        } else if (corpusSurahWord!!.get(0).wordcount=== 3) {
-            if (corpusSurahWord!!.get(0).tagthree.equals("PRON")) {
+        } else if (corpusSurahWord!![0].wordcount=== 3) {
+            if (corpusSurahWord!![0].tagthree == "PRON") {
                 //   String[] parts = corpusSurahWord.get(0).getDetailsthree().toString().split("|");
                 val gendernumber: String =
-                    corpusSurahWord.get(0).detailsthree.replace("^.*?(\\w+)\\W*$", "$1")
+                    corpusSurahWord[0].detailsthree.replace("^.*?(\\w+)\\W*$", "$1")
                 //    String gendernumber = parts[parts.length - 1];
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
-        } else if (corpusSurahWord!!.get(0).wordcount=== 4) {
-            if (corpusSurahWord!!.get(0).tagfour.equals("PRON")) {
-                val parts: List<String> = corpusSurahWord.get(0).detailsfour.split("\\|")
-                val gendernumber = parts.get(parts.size - 1)
+        } else if (corpusSurahWord!![0].wordcount=== 4) {
+            if (corpusSurahWord!![0].tagfour == "PRON") {
+                val parts: List<String> = corpusSurahWord[0].detailsfour.split("\\|")
+                val gendernumber = parts[parts.size - 1]
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
-        } else if (corpusSurahWord!!.get(0).wordcount=== 5) {
-            if (corpusSurahWord!!.get(0).tagfive.equals("PRON")) {
-                val parts: List<String> = corpusSurahWord.get(0).detailsfive.split("\\|")
-                val gendernumber = parts.get(parts.size - 1)
+        } else if (corpusSurahWord!![0].wordcount=== 5) {
+            if (corpusSurahWord!![0].tagfive == "PRON") {
+                val parts: List<String> = corpusSurahWord[0].detailsfive.split("\\|")
+                val gendernumber = parts[parts.size - 1]
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
@@ -835,44 +824,44 @@ open class QuranMorphologyDetails {
         corpusSurahWord: ArrayList<NewCorpusExpandWbwPOJO>,
         wordbdetail: HashMap<String, SpannableStringBuilder>
     ) {
-        if (corpusSurahWord.get(0).wordcount=== 1) {
-            if (corpusSurahWord.get(0).tagone.equals("PRON")) {
+        if (corpusSurahWord[0].wordcount=== 1) {
+            if (corpusSurahWord[0].tagone == "PRON") {
                 //   String[] parts = corpusSurahWord.get(0).getDetailsone().toString().split("\"|");
                 val gendernumber: String =
-                    corpusSurahWord.get(0).detailsone.replace("^.*?(\\w+)\\W*$", "$1")
+                    corpusSurahWord[0].detailsone.replace("^.*?(\\w+)\\W*$", "$1")
                 println(gendernumber)
                 // String gendernumber = parts[parts.length - 1];
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
-        } else if (corpusSurahWord.get(0).wordcount === 2) {
-            if (corpusSurahWord.get(0).tagtwo.equals("PRON")) {
+        } else if (corpusSurahWord[0].wordcount === 2) {
+            if (corpusSurahWord[0].tagtwo == "PRON") {
                 val gendernumber: String =
-                    corpusSurahWord.get(0).detailstwo.replace("^.*?(\\w+)\\W*$", "$1")
+                    corpusSurahWord[0].detailstwo.replace("^.*?(\\w+)\\W*$", "$1")
                 //   String gendernumber = parts[parts.length - 1];
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
-        } else if (corpusSurahWord.get(0).wordcount=== 3) {
-            if (corpusSurahWord.get(0).tagthree.equals("PRON")) {
+        } else if (corpusSurahWord[0].wordcount=== 3) {
+            if (corpusSurahWord[0].tagthree == "PRON") {
                 //   String[] parts = corpusSurahWord.get(0).getDetailsthree().toString().split("|");
                 val gendernumber: String =
-                    corpusSurahWord.get(0).detailsthree.replace("^.*?(\\w+)\\W*$", "$1")
+                    corpusSurahWord[0].detailsthree.replace("^.*?(\\w+)\\W*$", "$1")
                 //    String gendernumber = parts[parts.length - 1];
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
-        } else if (corpusSurahWord.get(0).wordcount=== 4) {
-            if (corpusSurahWord.get(0).tagfour.equals("PRON")) {
-                val parts: List<String> = corpusSurahWord.get(0).detailsfour.split("\\|")
-                val gendernumber = parts.get(parts.size - 1)
+        } else if (corpusSurahWord[0].wordcount=== 4) {
+            if (corpusSurahWord[0].tagfour == "PRON") {
+                val parts: List<String> = corpusSurahWord[0].detailsfour.split("\\|")
+                val gendernumber = parts[parts.size - 1]
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
-        } else if (corpusSurahWord.get(0).wordcount=== 5) {
-            if (corpusSurahWord.get(0).tagfive.equals("PRON")) {
-                val parts: List<String> = corpusSurahWord.get(0).detailsfive.split("\\|")
-                val gendernumber = parts.get(parts.size - 1)
+        } else if (corpusSurahWord[0].wordcount=== 5) {
+            if (corpusSurahWord[0].tagfive == "PRON") {
+                val parts: List<String> = corpusSurahWord[0].detailsfive.split("\\|")
+                val gendernumber = parts[parts.size - 1]
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
@@ -944,9 +933,10 @@ open class QuranMorphologyDetails {
                     person = gendernumber.substring(0, 1)
                     number = gendernumber.substring(1, 2)
                     val chars = gendernumber.toCharArray()
-                    if ((chars.get(0) >= 'a' && chars.get(0) <= 'z') || (chars.get(0) >= 'A' && chars.get(
-                            0
-                        ) <= 'Z')
+                    /*
+                     if ((chars[0] >= 'a' && chars[0] <= 'z') || (chars[0] >= 'A' && chars[0] <= 'Z')
+                     */
+                    if ((chars[0] in 'a'..'z') || (chars[0] in 'A'..'Z')
                     ) {
                         when (person) {
                             "M" -> {

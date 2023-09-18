@@ -224,6 +224,22 @@
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
         <activity
+            android:name=".Activity.QuranTopicSearchActivity"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="fullSensor">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.TopicDetailAct"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="fullSensor">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+        <activity
             android:name="sj.hisnul.activity.HisnulBottomACT"
             android:parentActivityName=".Activity.MainActivity"
             android:screenOrientation="portrait">

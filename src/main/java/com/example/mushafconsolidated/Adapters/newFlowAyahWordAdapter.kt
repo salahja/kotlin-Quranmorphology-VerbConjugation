@@ -43,7 +43,6 @@ import androidx.transition.TransitionManager
 import com.example.Constant
 import com.example.mushafconsolidated.Activity.TafsirFullscreenActivity
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
-import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.Entities.HalEnt
 import com.example.mushafconsolidated.Entities.LiajlihiEnt
 import com.example.mushafconsolidated.Entities.MafoolBihi
@@ -55,7 +54,6 @@ import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.SurahSummary
 import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
-import com.example.mushafconsolidated.model.CorpusWbwWord
 import com.example.mushafconsolidated.model.NewQuranCorpusWbw
 import com.example.mushafconsolidatedimport.Config
 import com.example.mushafconsolidatedimport.ParticleColorScheme
@@ -66,7 +64,6 @@ import com.example.utility.QuranGrammarApplication
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textview.MaterialTextView
 import com.tooltip.Tooltip
 import sj.hisnul.fragments.NamesDetail
@@ -79,8 +76,6 @@ import java.util.Date
 //public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnItemClickListenerOnLong {
 class newFlowAyahWordAdapter(
     isaudio: Boolean,
-
-    passage: LinkedHashMap<Int, ArrayList<CorpusWbwWord>>,
     private val mutlaqent: List<MafoolMutlaqEnt?>?,
     private val tameezEnts: List<TameezEnt?>?,
     private val badalErabNotesEnt: List<BadalErabNotesEnt?>?,
@@ -91,7 +86,6 @@ class newFlowAyahWordAdapter(
     private val allofQuran: List<QuranEntity?>?,
     private val ayahWordArrayList: LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>,
     var context: Context,
-    val surah_id: Long,
     private val SurahName: String,
     private val isMakkiMadani: Int,
     listener: OnItemClickListenerOnLong?,
@@ -101,13 +95,13 @@ class newFlowAyahWordAdapter(
     private var defaultfont: Boolean = false
     private var isFABOpen = false
     private var issentence: Boolean = false
-    lateinit var rootword: TextView;
+    lateinit var rootword: TextView
 
     //MaterialTextView arabic;
-    lateinit var arabicChipview: Chip
-    lateinit var arabicTv: MaterialTextView
-    var arabicfontSize: Int = 0
-    var translationfontsize: Int = 0
+    private lateinit var arabicChipview: Chip
+    private lateinit var arabicTv: MaterialTextView
+    private var arabicfontSize: Int = 0
+    private var translationfontsize: Int = 0
     lateinit var mItemClickListener: OnItemClickListenerOnLong
     private lateinit var isNightmode: String
     private var headercolor = 0
@@ -147,22 +141,21 @@ class newFlowAyahWordAdapter(
     }
 
     override fun getItemCount(): Int {
-        return ayahWordArrayList!!.size + 1
+        return ayahWordArrayList.size + 1
         //     return  quran.size();
     }
 
     override fun getItemId(position: Int): Long {
-        val ayahWord = ayahWordArrayList!![position]
+        val ayahWord = ayahWordArrayList[position]
         var itemId: Long = 0
 
-        itemId = ayahWord!!.get(position).corpus!!.ayah.toLong()
+        itemId = ayahWord!![position].corpus!!.ayah.toLong()
 
         return itemId
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewAdapter {
-        val view: View
-        view = if (viewType == 0) {
+        val view: View = if (viewType == 0) {
             LayoutInflater.from(parent.context).inflate(R.layout.surah_header, parent, false)
         } else {
             LayoutInflater.from(parent.context).inflate(R.layout.row_ayah_word, parent, false)
@@ -173,7 +166,7 @@ class newFlowAyahWordAdapter(
 
     fun getItem(position: Int): QuranEntity? {
         //    return ayahWordArrayList!![0].word!![position]
-        return allofQuran!!.get(position);
+        return allofQuran!![position]
     }
 
     @SuppressLint("ResourceType")
@@ -255,34 +248,34 @@ class newFlowAyahWordAdapter(
             val imgs = context.resources.obtainTypedArray(R.array.sura_imgs)
 
             // You have to set your header items values with the help of model class and you can modify as per your needs
-            holder.tvRukus!!.text = String.format("Ruku's :%s", header[0])
-            holder.tvVerses!!.text = String.format("Aya's :%s", header[1])
-            holder.tvSura!!.text = header[3]
+            holder.tvRukus.text = String.format("Ruku's :%s", header[0])
+            holder.tvVerses.text = String.format("Aya's :%s", header[1])
+            holder.tvSura.text = header[3]
             val chapterno = header[2]
-            val tauba = chapterno!!.toInt()
+            val tauba = chapterno.toInt()
             if (tauba == 9) {
-                holder.ivBismillah!!.visibility = View.GONE
+                holder.ivBismillah.visibility = View.GONE
             }
             if (isMakkiMadani == 1) {
-                holder.ivLocationmakki!!.visibility = View.VISIBLE
-                holder.ivLocationmadani!!.visibility = View.GONE
+                holder.ivLocationmakki.visibility = View.VISIBLE
+                holder.ivLocationmadani.visibility = View.GONE
             } else {
-                holder.ivLocationmadani!!.visibility = View.VISIBLE
-                holder.ivLocationmakki!!.visibility = View.GONE
+                holder.ivLocationmadani.visibility = View.VISIBLE
+                holder.ivLocationmakki.visibility = View.GONE
             }
             val drawable = imgs.getDrawable(chapterno.toInt() - 1)
             imgs.recycle()
-            holder.ivSurahIcon!!.setImageDrawable(drawable)
+            holder.ivSurahIcon.setImageDrawable(drawable)
             if (isNightmode == "dark" || isNightmode == "blue" || isNightmode == "green") {
                 headercolor = Color.YELLOW
-                holder.ivLocationmakki!!.setColorFilter(Color.CYAN)
-                holder.ivSurahIcon!!.setColorFilter(Color.CYAN)
-                holder.ivLocationmadani!!.setColorFilter(Color.CYAN)
+                holder.ivLocationmakki.setColorFilter(Color.CYAN)
+                holder.ivSurahIcon.setColorFilter(Color.CYAN)
+                holder.ivLocationmadani.setColorFilter(Color.CYAN)
             } else {
                 headercolor = Color.BLUE
-                holder.ivLocationmakki!!.setColorFilter(Color.BLACK)
-                holder.ivSurahIcon!!.setColorFilter(Color.BLACK)
-                holder.ivLocationmadani!!.setColorFilter(Color.BLACK)
+                holder.ivLocationmakki.setColorFilter(Color.BLACK)
+                holder.ivSurahIcon.setColorFilter(Color.BLACK)
+                holder.ivLocationmadani.setColorFilter(Color.BLACK)
             }
         } else {
             displayAyats(
@@ -297,8 +290,7 @@ class newFlowAyahWordAdapter(
                 showJalalayn,
                 showTranslation,
                 showWordByword,
-                whichtranslation,
-                showKathir
+                whichtranslation
                         )
         }
     }
@@ -316,7 +308,6 @@ class newFlowAyahWordAdapter(
         showTranslation: Boolean,
         showWordByword: Boolean,
         whichtranslation: String?,
-        showKathir: Boolean,
                             ) {
         //   holder.flowwbw.setBackgroundColor(R.style.Theme_DarkBlue);
         var entity: QuranEntity? = null
@@ -334,15 +325,15 @@ class newFlowAyahWordAdapter(
         } catch (e: IndexOutOfBoundsException) {
             println(e.message)
         }
-        ayahWord = ayahWordArrayList!![position]
+        ayahWord = ayahWordArrayList[position]
         entity?.let { storepreferences(it) }
         val quranverses = ayahWord!![0].spannableverse
       //  val quranverses = allofQuran!![position]!!.qurantext
         //   if (!isaudio){
-        holder.quran_textView!!.text = quranverses
+        holder.quran_textView.text = quranverses
         //   holder.quran_textView.setTextSize(arabicfontSize);
-        holder.quran_textView!!.typeface = custom_font
-        holder.base_cardview!!.visibility = View.GONE
+        holder.quran_textView.typeface = custom_font
+        holder.base_cardview.visibility = View.GONE
         //  }
         val mf = SpannableStringBuilder()
         val halsb = StringBuilder()
@@ -350,8 +341,8 @@ class newFlowAyahWordAdapter(
         val badalsb = StringBuilder()
         val ajlihisb = StringBuilder()
         val mutlaqsb = StringBuilder()
-        holder.mafoolbihi!!.visibility = View.GONE
-        holder.base_cardview!!.visibility = View.GONE
+        holder.mafoolbihi.visibility = View.GONE
+        holder.base_cardview.visibility = View.GONE
         val spanhash = CorpusUtilityorig.stringForegroundColorSpanMap
         var mfcharSequence: CharSequence?
         if (mafoolBihi != null) {
@@ -411,13 +402,13 @@ class newFlowAyahWordAdapter(
         if (jumlahaliya != null) {
             for (ent in jumlahaliya) {
                 if (entity != null && ent!!.ayah == entity.ayah) {
-                    halsb.append(ent!!.text.trim { it <= ' ' }).append("\n")
+                    halsb.append(ent.text.trim { it <= ' ' }).append("\n")
                 }
             }
         }
         if (tameezEnts != null) {
             for (ent in tameezEnts) {
-                if (entity != null && ent!!.ayah == entity!!.ayah) {
+                if (entity != null && ent!!.ayah == entity.ayah) {
                     tameezsb.append(ent.word.trim { it <= ' ' }).append("\n")
                 }
             }
@@ -425,7 +416,7 @@ class newFlowAyahWordAdapter(
         if (liajlihient != null) {
             for (ent in liajlihient) {
                 if (entity != null && ent!!.ayah == entity.ayah) {
-                    ajlihisb.append(ent!!.word.trim { it <= ' ' }).append("\n")
+                    ajlihisb.append(ent.word.trim { it <= ' ' }).append("\n")
                 }
             }
         }
@@ -449,7 +440,7 @@ class newFlowAyahWordAdapter(
         var badalspan = SpannableStringBuilder()
         var mutlaqspan = SpannableStringBuilder()
         var ajlihispan = SpannableStringBuilder()
-        if (!halsb.toString().isEmpty()) {
+        if (halsb.toString().isNotEmpty()) {
             halsb.insert(0, Constant.HALHEADER)
             halspan = SpannableStringBuilder.valueOf(SpannableString.valueOf(halsb.toString()))
             val indexOfbihi1 = halspan.toString().indexOf(Constant.HAL)
@@ -472,7 +463,7 @@ class newFlowAyahWordAdapter(
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                            )
         }
-        if (!tameezsb.toString().isEmpty()) {
+        if (tameezsb.toString().isNotEmpty()) {
             tameezsb.insert(0, Constant.TAMEEZHEADER)
             tameezspan =
                 SpannableStringBuilder.valueOf(SpannableString.valueOf(tameezsb.toString()))
@@ -496,7 +487,7 @@ class newFlowAyahWordAdapter(
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                               )
         }
-        if (!ajlihisb.toString().isEmpty()) {
+        if (ajlihisb.toString().isNotEmpty()) {
             ajlihisb.insert(0, Constant.AJLIHIHEADER)
             ajlihispan =
                 SpannableStringBuilder.valueOf(SpannableString.valueOf(ajlihisb.toString()))
@@ -520,7 +511,7 @@ class newFlowAyahWordAdapter(
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                               )
         }
-        if (!badalsb.toString().isEmpty()) {
+        if (badalsb.toString().isNotEmpty()) {
             badalsb.insert(0, Constant.BADALHEADER)
             badalspan = SpannableStringBuilder.valueOf(SpannableString.valueOf(badalsb.toString()))
             val indexOfbihi4 = badalspan.toString().indexOf(Constant.BADAL)
@@ -543,7 +534,7 @@ class newFlowAyahWordAdapter(
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                              )
         }
-        if (!mutlaqsb.toString().isEmpty()) {
+        if (mutlaqsb.toString().isNotEmpty()) {
             mutlaqsb.insert(0, Constant.MUTLAQHEADER)
             mutlaqspan =
                 SpannableStringBuilder.valueOf(SpannableString.valueOf(mutlaqsb.toString()))
@@ -571,21 +562,20 @@ class newFlowAyahWordAdapter(
             mf, " ", halspan, " ", tameezspan, " ", ajlihispan, " ", badalspan, " ", mutlaqspan
                                            )
         if (charSequence.toString().length > 15) {
-            holder.mafoolbihi!!.text = charSequence
-            holder.mafoolbihi!!.gravity = Gravity.CENTER
-            holder.base_cardview!!.visibility = View.VISIBLE
-            holder.mafoolbihi!!.textSize = (arabicfontSize - 5).toFloat()
-            holder.mafoolbihi!!.typeface = custom_font
+            holder.mafoolbihi.text = charSequence
+            holder.mafoolbihi.gravity = Gravity.CENTER
+            holder.base_cardview.visibility = View.VISIBLE
+            holder.mafoolbihi.textSize = (arabicfontSize - 5).toFloat()
+            holder.mafoolbihi.typeface = custom_font
         } else {
-            holder.erabnotescardView!!.visibility = View.GONE
-            holder.mafoolbihi!!.visibility = View.GONE
+            holder.erabnotescardView.visibility = View.GONE
+            holder.mafoolbihi.visibility = View.GONE
         }
         setChapterInfo(holder, ayahWord)
         //  setAdapterposition(position);
         wordBywordWithTranslation(
             showrootkey,
             holder,
-            custom_font,
             showWordColor,
             wbw,
             ayahWord,
@@ -595,100 +585,100 @@ class newFlowAyahWordAdapter(
                                  )
         if (showTransliteration) {
             if (entity != null) {
-                holder.quran_transliteration!!.text =
+                holder.quran_transliteration.text =
                     Html.fromHtml(entity.en_transliteration, Html.FROM_HTML_MODE_LEGACY)
             }
-            holder.quran_transliteration!!.visibility = View.VISIBLE
+            holder.quran_transliteration.visibility = View.VISIBLE
         }
         if (showJalalayn) {
             //   holder.quran_jalalaynnote.setText(enjalalayn.getAuthor_name());
             if (entity != null) {
-                holder.quran_jalalayn!!.text = entity.en_jalalayn
+                holder.quran_jalalayn.text = entity.en_jalalayn
             }
             //
-            holder.quran_jalalayn!!.visibility = View.VISIBLE
-            holder.quran_jalalaynnote!!.visibility = View.VISIBLE
+            holder.quran_jalalayn.visibility = View.VISIBLE
+            holder.quran_jalalaynnote.visibility = View.VISIBLE
         }
         if (showTranslation) {
             if (whichtranslation == "en_arberry") {
                 if (entity != null) {
-                    holder.translate_textView!!.text = entity.en_arberry
+                    holder.translate_textView.text = entity.en_arberry
                 }
-                holder.translate_textViewnote!!.setText(R.string.arberry)
-                holder.translate_textView!!.visibility = View.VISIBLE
-                holder.translate_textViewnote!!.visibility = View.VISIBLE
+                holder.translate_textViewnote.setText(R.string.arberry)
+                holder.translate_textView.visibility = View.VISIBLE
+                holder.translate_textViewnote.visibility = View.VISIBLE
             }
             if (whichtranslation == "en_sahih") {
                 if (entity != null) {
-                    holder.translate_textView!!.text = entity.translation
+                    holder.translate_textView.text = entity.translation
                 }
-                holder.translate_textViewnote!!.setText(R.string.ensahih)
-                holder.translate_textView!!.visibility = View.VISIBLE
-                holder.translate_textViewnote!!.visibility = View.VISIBLE
+                holder.translate_textViewnote.setText(R.string.ensahih)
+                holder.translate_textView.visibility = View.VISIBLE
+                holder.translate_textViewnote.visibility = View.VISIBLE
             }
             if (whichtranslation == "en_jalalayn") {
                 if (entity != null) {
-                    holder.translate_textView!!.text = entity.en_jalalayn
+                    holder.translate_textView.text = entity.en_jalalayn
                 }
-                holder.translate_textViewnote!!.setText(R.string.enjalalayn)
-                holder.translate_textView!!.visibility = View.VISIBLE
-                holder.translate_textViewnote!!.visibility = View.VISIBLE
+                holder.translate_textViewnote.setText(R.string.enjalalayn)
+                holder.translate_textView.visibility = View.VISIBLE
+                holder.translate_textViewnote.visibility = View.VISIBLE
             }
             if (whichtranslation == "ur_jalalayn") {
                 if (entity != null) {
-                    holder.translate_textView!!.text = entity.ur_jalalayn
+                    holder.translate_textView.text = entity.ur_jalalayn
                 }
-                holder.translate_textViewnote!!.setText(R.string.enjalalayn)
-                holder.translate_textView!!.visibility = View.VISIBLE
-                holder.translate_textViewnote!!.visibility = View.VISIBLE
+                holder.translate_textViewnote.setText(R.string.enjalalayn)
+                holder.translate_textView.visibility = View.VISIBLE
+                holder.translate_textViewnote.visibility = View.VISIBLE
             }
             if (whichtranslation == "ur_junagarhi") {
                 if (entity != null) {
-                    holder.translate_textView!!.text = entity.ur_junagarhi
+                    holder.translate_textView.text = entity.ur_junagarhi
                 }
-                holder.translate_textViewnote!!.setText(R.string.urjunagadi)
-                holder.translate_textView!!.visibility = View.VISIBLE
-                holder.translate_textViewnote!!.visibility = View.VISIBLE
+                holder.translate_textViewnote.setText(R.string.urjunagadi)
+                holder.translate_textView.visibility = View.VISIBLE
+                holder.translate_textViewnote.visibility = View.VISIBLE
             }
             //
-            holder.translate_textView!!.visibility = View.VISIBLE
-            holder.translate_textViewnote!!.visibility = View.VISIBLE
+            holder.translate_textView.visibility = View.VISIBLE
+            holder.translate_textViewnote.visibility = View.VISIBLE
         }
         if (showErab) {
-            holder.erabexpand!!.visibility = View.VISIBLE
+            holder.erabexpand.visibility = View.VISIBLE
             if (entity != null) {
                 if(entity.erabspnabble.isNullOrBlank()){
-                    holder.erab_textView!!.text = entity.ar_irab_two
+                    holder.erab_textView.text = entity.ar_irab_two
 
 
                 }else {
-                    holder.erab_textView!!.text = entity.erabspnabble
+                    holder.erab_textView.text = entity.erabspnabble
                 }
             }
             //
-            holder.erab_textView!!.typeface = custom_font
+            holder.erab_textView.typeface = custom_font
             //     holder.erab_textView.setVisibility(View.VISIBLE);
-            holder.erab_textViewnote!!.visibility = View.VISIBLE
+            holder.erab_textViewnote.visibility = View.VISIBLE
         } else {
-            holder.erabexpand!!.visibility = View.GONE
+            holder.erabexpand.visibility = View.GONE
         }
         setTextSizes(holder)
     }
 
     private fun setTextSizes(holder: ItemViewAdapter) {
         if (!defaultfont) {
-            holder.quran_transliteration!!.textSize = translationfontsize.toFloat()
-            holder.erab_textView!!.textSize = translationfontsize.toFloat()
-            holder.translate_textView!!.textSize = translationfontsize.toFloat()
-            holder.translate_textViewnote!!.textSize = translationfontsize.toFloat()
-            holder.quran_jalalayn!!.textSize = translationfontsize.toFloat()
+            holder.quran_transliteration.textSize = translationfontsize.toFloat()
+            holder.erab_textView.textSize = translationfontsize.toFloat()
+            holder.translate_textView.textSize = translationfontsize.toFloat()
+            holder.translate_textViewnote.textSize = translationfontsize.toFloat()
+            holder.quran_jalalayn.textSize = translationfontsize.toFloat()
         }
     }
 
     private fun setUpMafoolbihistring(mf: SpannableStringBuilder) {
-        val mfspan: SpannableStringBuilder
         mf.append(Constant.BIHIHEADER)
-        mfspan = SpannableStringBuilder.valueOf(SpannableString.valueOf(mf.toString()))
+        val mfspan: SpannableStringBuilder =
+            SpannableStringBuilder.valueOf(SpannableString.valueOf(mf.toString()))
         val indexOfbihi = mfspan.toString().indexOf(Constant.BIHI)
         mfspan.setSpan(
             ForegroundColorSpan(headercolor),
@@ -714,7 +704,6 @@ class newFlowAyahWordAdapter(
     private fun wordBywordWithTranslation(
         showrootkey: Boolean,
         holder: ItemViewAdapter,
-        custom_font: Typeface,
         showWordColor: Boolean,
         wbw: String?,
         ayahWord: ArrayList<NewQuranCorpusWbw>?,
@@ -723,14 +712,11 @@ class newFlowAyahWordAdapter(
         position: Int,
                                          ) {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        holder.flow_word_by_word!!.removeAllViews()
+        holder.flow_word_by_word.removeAllViews()
         val ayahWord1 = ayahWord
-        val wordarray = ayahWordArrayList.get(position)
+        val wordarray = ayahWordArrayList[position]
         for (word in wordarray!!) {
-            var aindex = 0;
-
-
-
+            var aindex = 0
             @SuppressLint("InflateParams") val view = inflater.inflate(R.layout.word_by_word, null)
             arabicChipview = view.findViewById(R.id.word_arabic_chipview)
             arabicTv = view.findViewById(R.id.word_arabic_textView)
@@ -743,16 +729,7 @@ class newFlowAyahWordAdapter(
             sb.append(word.corpus!!.wordno)
             val rootwords =
                 word.corpus!!.rootaraone + word.corpus!!.rootaratwo + word.corpus!!.rootarathree + word.corpus!!.rootarafour + word.corpus!!.rootarafive
-            if (showrootkey) {
-                /*        spannedroot = if (!word.rootword!!.isEmpty()) {
-                            getSpannedRoots(rootwords)
-                        } else {
-                            SpannableString.valueOf(word.rootwords)
-                        }*/
-                rootword.setText(spannedroot)
-                //
-                rootword.setVisibility(View.VISIBLE)
-            }
+
 
             if (showrootkey) {
                 spannedroot = if (rootwords.isNotEmpty()) {
@@ -760,9 +737,9 @@ class newFlowAyahWordAdapter(
                 } else {
                     SpannableString.valueOf(rootwords)
                 }
-                rootword.setText(spannedroot)
+                rootword.text = spannedroot
                 //
-                rootword.setVisibility(View.VISIBLE)
+                rootword.visibility = View.VISIBLE
             }
 
 
@@ -776,26 +753,25 @@ class newFlowAyahWordAdapter(
 
 
             if (showWordColor) {
-                var spannedword: SpannableString
                 //        word.getRootword();
                 val araword =
                     word.corpus!!.araone + word.corpus!!.aratwo + word.corpus!!.arathree + word.corpus!!.arafour + word.corpus!!.arafive
-                spannedword = getSpannedWords(word)
+                val spannedword: SpannableString = getSpannedWords(word)
                 //   arabic.setText(fixArabic(String.valueOf(spannedword)));
                 if (showWbwTranslation) {
-                    arabicTv.setText(spannedword)
-                    arabicTv.setVisibility(View.VISIBLE)
+                    arabicTv.text = spannedword
+                    arabicTv.visibility = View.VISIBLE
                 } else {
-                    arabicChipview.setText(spannedword)
-                    arabicChipview.setVisibility(View.VISIBLE)
+                    arabicChipview.text = spannedword
+                    arabicChipview.visibility = View.VISIBLE
                 }
             } else {
-                arabicChipview.setText(rootwords)
+                arabicChipview.text = rootwords
             }
-            rootword.setText(spannedroot)
-            rootword.setTextSize(arabicfontSize.toFloat())
-            arabicTv.setTypeface(colorwordfont)
-            arabicChipview.setTypeface(colorwordfont)
+            rootword.text = spannedroot
+            rootword.textSize = arabicfontSize.toFloat()
+            arabicTv.typeface = colorwordfont
+            arabicChipview.typeface = colorwordfont
             if (showWbwTranslation) {
                 when (wbw) {
                     "en" -> {
@@ -821,34 +797,42 @@ class newFlowAyahWordAdapter(
                 //  translation.setTextColor(ContextCompat.getColor(context,R.color.neutral2));
             }
             if (!defaultfont) {
-                rootword.setTextSize(arabicfontSize.toFloat())
-                arabicChipview.setTextSize(arabicfontSize.toFloat())
+                rootword.textSize = arabicfontSize.toFloat()
+                arabicChipview.textSize = arabicfontSize.toFloat()
                 translation.textSize = arabicfontSize.toFloat()
             }
-            holder.flow_word_by_word!!.addView(view)
+            holder.flow_word_by_word.addView(view)
             view.isLongClickable = true
             if (!showWbwTranslation) {
-                arabicChipview.setOnLongClickListener(View.OnLongClickListener { v ->
+                arabicChipview.setOnLongClickListener { v ->
                     val utils = Utils(QuranGrammarApplication.context!!)
                     val verbCorpusRootWords =
-                        utils.getQuranRoot(word.corpus!!.surah, word.corpus!!.ayah, word.corpus!!.wordno)
-                    if (verbCorpusRootWords!!.size > 0 && verbCorpusRootWords[0]!!.tag == "V") {
+                        utils.getQuranRoot(
+                            word.corpus!!.surah,
+                            word.corpus!!.ayah,
+                            word.corpus!!.wordno
+                                          )
+                    if (verbCorpusRootWords!!.isNotEmpty() && verbCorpusRootWords[0]!!.tag == "V") {
                         //    vbdetail = ams.getVerbDetails();
                         print("check")
                     }
                     val corpusNounWord =
-                        utils.getQuranNouns(word.corpus!!.surah, word.corpus!!.ayah, word.corpus!!.wordno)
+                        utils.getQuranNouns(
+                            word.corpus!!.surah,
+                            word.corpus!!.ayah,
+                            word.corpus!!.wordno
+                                           )
                     val verbCorpusRootWord =
-                        utils.getQuranRoot(word.corpus!!.surah, word.corpus!!.ayah, word.corpus!!.wordno)
-
-
+                        utils.getQuranRoot(
+                            word.corpus!!.surah,
+                            word.corpus!!.ayah,
+                            word.corpus!!.wordno
+                                          )
                     val qm = refWordMorphologyDetails(
                         word.corpus!!,
                         corpusNounWord!!, verbCorpusRootWord!!
                                                      )
                     val workBreakDown = qm.workBreakDown
-
-
                     var color =
                         ContextCompat.getColor(context, R.color.background_color_light_brown)
                     when (isNightmode) {
@@ -875,8 +859,8 @@ class newFlowAyahWordAdapter(
                         .setText(workBreakDown)
                     builder.show()
                     true
-                })
-                arabicChipview.setOnClickListener(View.OnClickListener {
+                }
+                arabicChipview.setOnClickListener /* l = */ {
                     val dialog = Dialog(context)
                     dialog.setTitle(word.corpus!!.araone + word.corpus!!.aratwo + word.corpus!!.arathree + word.corpus!!.arafour + word.corpus!!.arafive)
                     val dataBundle = Bundle()
@@ -891,13 +875,13 @@ class newFlowAyahWordAdapter(
                                      )
                     dataBundle.putString(Constant.SURAH_ARABIC_NAME, SurahName)
                     LoadItemList(dataBundle, word.wbw!!)
-                })
+                }
             } else {
                 view.setOnLongClickListener { v: View? ->
                     val utils = Utils(QuranGrammarApplication.context!!)
                     val verbCorpusRootWords =
                         utils.getQuranRoot(word.corpus!!.surah, word.corpus!!.ayah, word.corpus!!.wordno)
-                    if (verbCorpusRootWords!!.size > 0 && verbCorpusRootWords[0]!!.tag == "V") {
+                    if (verbCorpusRootWords!!.isNotEmpty() && verbCorpusRootWords[0]!!.tag == "V") {
                         //    vbdetail = ams.getVerbDetails();
                         print("check")
                     }
@@ -963,7 +947,7 @@ class newFlowAyahWordAdapter(
 
 
         }
-        holder.flow_word_by_word!!.visibility = View.VISIBLE
+        holder.flow_word_by_word.visibility = View.VISIBLE
     }
 
 
@@ -989,7 +973,7 @@ class newFlowAyahWordAdapter(
             val data = arrayOf<String?>(
                 word.surah.toString(),
                 word.ayah.toString(),
-                word.en.toString(),
+                word.en,
                 word.wordno.toString(),
                 SurahName
                                        )
@@ -1007,7 +991,7 @@ class newFlowAyahWordAdapter(
         }*/
         return CorpusUtilityorig.ColorizeRootword(
             tag.corpus!!.tagone!!,tag.corpus!!.tagtwo!!,tag.corpus!!.tagthree!!,tag.corpus!!.tagfour!!,tag.corpus!!.tagfive!!,
-        rootword!!
+            rootword
                                                  )!!
     }
 
@@ -1035,36 +1019,36 @@ class newFlowAyahWordAdapter(
     private fun setChapterInfo(holder: ItemViewAdapter, verse: ArrayList<NewQuranCorpusWbw>?) {
         val surahInfo = java.lang.StringBuilder()
         //        surahInfo.append(surahName+".");
-        surahInfo.append(verse!!.get(0).corpus!!.surah).append(".")
-        surahInfo.append(verse!!.get(0).corpus!!.ayah).append("-")
+        surahInfo.append(verse!![0].corpus!!.surah).append(".")
+        surahInfo.append(verse[0].corpus!!.ayah).append("-")
         surahInfo.append(SurahName)
         val sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(
             context
                                                                                                  )
         val isNightmode = sharedPreferences.getString("theme", "dark")
         if (isMakkiMadani == 1) {
-            holder.surah_info!!.setCompoundDrawablesWithIntrinsicBounds(
+            holder.surah_info.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_makkah_48,
                 0,
                 0,
                 0
-                                                                       )
+                                                                     )
         } else {
-            holder.surah_info!!.setCompoundDrawablesWithIntrinsicBounds(
+            holder.surah_info.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_madinah_48,
                 0,
                 0,
                 0
-                                                                       )
+                                                                     )
         }
         if (isNightmode == "dark" || isNightmode == "blue" || isNightmode == "green") {
 //TextViewCompat.setCompoundDrawableTintList()
-            holder.surah_info!!.compoundDrawableTintList = ColorStateList.valueOf(Color.CYAN)
+            holder.surah_info.compoundDrawableTintList = ColorStateList.valueOf(Color.CYAN)
         } else {
-            holder.surah_info!!.compoundDrawableTintList = ColorStateList.valueOf(Color.BLUE)
+            holder.surah_info.compoundDrawableTintList = ColorStateList.valueOf(Color.BLUE)
         }
-        holder.surah_info!!.text = surahInfo
-        holder.surah_info!!.textSize = 16f
+        holder.surah_info.text = surahInfo
+        holder.surah_info.textSize = 16f
         //  holder.surah_info.setTextColor(ContextCompat.getColor(context,R.color.colorOnPrimary));
     }
 
@@ -1082,41 +1066,35 @@ class newFlowAyahWordAdapter(
         lateinit var erab_textView: TextView
         lateinit var surah_info: TextView
         lateinit var mafoolbihi: TextView
-        lateinit var bismilla: TextView
-        lateinit var erab_notes: TextView
+        private lateinit var erab_notes: TextView
         lateinit var quran_textView: MaterialTextView
-        lateinit var quran_transliterationnote: TextView
+        private lateinit var quran_transliterationnote: TextView
         lateinit var quran_jalalaynnote: TextView
         lateinit var erab_textViewnote: TextView
         lateinit var translate_textViewnote: TextView
         lateinit var bookmark: ImageView
         lateinit var jumpto: ImageView
-        lateinit var makkimadaniicon: ImageView
-        lateinit var ivSummary: ImageView
-        lateinit var expandImageButton: ImageView
+        private lateinit var ivSummary: ImageView
         lateinit var ivBismillah: ImageView
         lateinit var erabexpand: ImageView
-        lateinit var erab_notes_expand: ImageView
+        private lateinit var erab_notes_expand: ImageView
         lateinit var tvSura: TextView
         lateinit var tvRukus: TextView
         lateinit var tvVerses: TextView
         lateinit var ivSurahIcon: ImageView
         lateinit var ivLocationmakki: ImageView
         lateinit var ivLocationmadani: ImageView
-        lateinit var ivhelp: ImageView
-        lateinit var ivoverflow: ImageView
-        lateinit var ivoverflow2: ImageView
-        lateinit var arrowforward: ImageView
-        lateinit var arrowback: ImageView
+        private lateinit var ivhelp: ImageView
+        private lateinit var ivoverflow: ImageView
+        private lateinit var ivoverflow2: ImageView
 
         //  public   com.nex3z.flowlayout.FlowLayout  flow_word_by_word;
         lateinit var flow_word_by_word: FlowLayout
 
         //   RelativeLayout colllayout;
         lateinit var erabnotescardView: CardView
-        lateinit var mafoolatarow: ImageView
-        lateinit var hiddenGroup: Group
-        lateinit var card_group: Group
+        private lateinit var mafoolatarow: ImageView
+        private lateinit var hiddenGroup: Group
         lateinit var base_cardview: MaterialCardView
         lateinit var tafsir: FloatingActionButton
         lateinit var jumptofb: FloatingActionButton
@@ -1142,17 +1120,17 @@ class newFlowAyahWordAdapter(
                 //     kathir_note = view.findViewById(R.id.kathir_note);
                 //   kathir_translation = view.findViewById(R.id.katheer_textview)
                 ivSummary = view.findViewById(R.id.ivSumarry)
-                ivSummary.setTag("summary")
+                ivSummary.tag = "summary"
                 ivSummary.setOnClickListener(this)
                 jumpto = view.findViewById(R.id.jumpto)
                 ivhelp = view.findViewById(R.id.ivHelp)
                 ivoverflow = view.findViewById(R.id.ivActionOverflow)
                 ivhelp.setOnClickListener(this)
                 ivoverflow.setOnClickListener(this)
-                ivoverflow.setTag("overflow_img")
+                ivoverflow.tag = "overflow_img"
                 ivoverflow2 = view.findViewById(R.id.ivActionOverflowtwo)
                 ivoverflow2.setOnClickListener(this)
-                ivoverflow2.setTag("overflowbottom")
+                ivoverflow2.tag = "overflowbottom"
                 //   makkimadaniicon = view.findViewById(R.id.makkimadaniicon)
                 //    jumpto = view.findViewById(R.id.jumpto);
                 //   bismilla = view.findViewById(R.id.bismillah)
@@ -1175,9 +1153,9 @@ class newFlowAyahWordAdapter(
                 erab_notes_expand = view.findViewById(R.id.erab_img)
 //                expandImageButton = view.findViewById(R.id.expandImageButton)
                 quran_textView.setOnClickListener(this)
-                quran_textView.setTag("qurantext")
+                quran_textView.tag = "qurantext"
                 erab_notes_expand.setOnClickListener(this)
-                erab_notes_expand.setTag("erab_notes")
+                erab_notes_expand.tag = "erab_notes"
                 erabnotescardView = view.findViewById(R.id.base_cardview)
                 mafoolatarow = view.findViewById(R.id.show)
                 hiddenGroup = view.findViewById(R.id.card_group)
@@ -1186,7 +1164,7 @@ class newFlowAyahWordAdapter(
                 base_cardview = view.findViewById(R.id.base_cardview)
                 collectionfb = view.findViewById(R.id.collectionfb)
                 collectionfb.setOnClickListener(this)
-                collectionfb.setTag("collection")
+                collectionfb.tag = "collection"
                 fabmenu = view.findViewById(R.id.expandfabs)
                 tafsir = view.findViewById(R.id.tafsirfb)
                 jumptofb = view.findViewById(R.id.jumptofb)
@@ -1202,13 +1180,13 @@ class newFlowAyahWordAdapter(
                 bookmarfb.setOnClickListener(this)
                 summbaryfb.setOnClickListener(this)
                 helpfb.setOnClickListener(this)
-                fabmenu.setTag("fabmenu")
-                tafsir.setTag("tafsir")
-                jumptofb.setTag("jumptofb")
-                bookmarfb.setTag("bookmarfb")
-                helpfb.setTag("help")
-                summbaryfb.setTag("summaryfb")
-                sharescreenfb.setTag("sharefb")
+                fabmenu.tag = "fabmenu"
+                tafsir.tag = "tafsir"
+                jumptofb.tag = "jumptofb"
+                bookmarfb.tag = "bookmarfb"
+                helpfb.tag = "help"
+                summbaryfb.tag = "summaryfb"
+                sharescreenfb.tag = "sharefb"
                 view.setOnClickListener(this)
                 view.setOnLongClickListener(this)
                 val shared = androidx.preference.PreferenceManager.getDefaultSharedPreferences(
@@ -1229,101 +1207,98 @@ class newFlowAyahWordAdapter(
                         isFABOpen = true
                         fabmenu.animate().rotationBy(180f)
                         if (!isaudio) {
-                            tafsir.setVisibility(View.VISIBLE)
+                            tafsir.visibility = View.VISIBLE
                             tafsir.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_55)
                                                          )
                             tafsir.animate().rotationBy(360f)
                             tafsir.animate().duration = 1500
-                            jumptofb.setVisibility(View.VISIBLE)
+                            jumptofb.visibility = View.VISIBLE
                             jumptofb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_105)
                                                            )
                             jumptofb.animate().rotationBy(360f)
-                            bookmarfb.setVisibility(View.VISIBLE)
+                            bookmarfb.visibility = View.VISIBLE
                             bookmarfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_155)
                                                             )
                             bookmarfb.animate().rotationBy(360f)
                             bookmarfb.animate().duration = 600
-                            summbaryfb.setVisibility(View.VISIBLE)
+                            summbaryfb.visibility = View.VISIBLE
                             summbaryfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_205)
                                                              )
                             summbaryfb.animate().rotationBy(360f)
-                            helpfb.setVisibility(View.VISIBLE)
+                            helpfb.visibility = View.VISIBLE
                             helpfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_255)
                                                          )
                             helpfb.animate().rotationBy(360f)
-                            sharescreenfb.setVisibility(View.VISIBLE)
+                            sharescreenfb.visibility = View.VISIBLE
                             sharescreenfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_305)
                                                                 )
                             sharescreenfb.animate().rotationBy(360f)
                             sharescreenfb.animate().duration = 500
-                            collectionfb.setVisibility(View.VISIBLE)
+                            collectionfb.visibility = View.VISIBLE
                             collectionfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_405)
                                                                )
                             collectionfb.animate().rotationBy(360f)
                             collectionfb.animate().duration = 500
                         } else {
-                            tafsir.setVisibility(View.VISIBLE)
+                            tafsir.visibility = View.VISIBLE
                             tafsir.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_55)
                                                          )
                             tafsir.animate().rotationBy(360f)
                             tafsir.animate().duration = 1500
-                            jumptofb.setVisibility(View.VISIBLE)
+                            jumptofb.visibility = View.VISIBLE
                             jumptofb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.audio_105)
                                                            )
                             jumptofb.animate().rotationBy(360f)
-                            bookmarfb.setVisibility(View.VISIBLE)
+                            bookmarfb.visibility = View.VISIBLE
                             bookmarfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.audio_155)
                                                             )
                             bookmarfb.animate().rotationBy(360f)
                             bookmarfb.animate().duration = 600
-                            summbaryfb.setVisibility(View.VISIBLE)
+                            summbaryfb.visibility = View.VISIBLE
                             summbaryfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.audio_205)
                                                              )
                             summbaryfb.animate().rotationBy(360f)
-                            helpfb.setVisibility(View.VISIBLE)
+                            helpfb.visibility = View.VISIBLE
                             helpfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.audio_255)
                                                          )
                             helpfb.animate().rotationBy(360f)
-                            sharescreenfb.setVisibility(View.VISIBLE)
+                            sharescreenfb.visibility = View.VISIBLE
                             sharescreenfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.audio_305)
                                                                 )
                             sharescreenfb.animate().rotationBy(360f)
                             sharescreenfb.animate().duration = 500
                         }
-                        tafsir.setOnClickListener(View.OnClickListener { view12: View? ->
+                        tafsir.setOnClickListener { view12: View? ->
                             closeFABMenu()
-
                             val readingintent =
                                 Intent(context, TafsirFullscreenActivity::class.java)
-
-                            val chapter_no = ayahWord!!.get(0).corpus!!.surah
-
-                            val verse = ayahWordArrayList!![position - 1]!!.get(0).corpus!!.ayah
+                            val chapter_no = ayahWord!![0].corpus!!.surah
+                            val verse = ayahWordArrayList[position - 1]!![0].corpus!!.ayah
 
                             readingintent.putExtra(Constant.SURAH_ID, chapter_no)
                             readingintent.putExtra(Constant.AYAH_ID, verse)
                             readingintent.putExtra(Constant.SURAH_ARABIC_NAME, SurahName)
                             context.startActivity(readingintent)
-                        })
-                        summbaryfb.setOnClickListener(View.OnClickListener { v: View? ->
+                        }
+                        summbaryfb.setOnClickListener { v: View? ->
                             closeFABMenu()
                             //  HideFabMenu();
-                            val chapter_no = ayahWord!!.get(0).corpus!!.surah
+                            val chapter_no = ayahWord!![0].corpus!!.surah
                             //   int verse = ayahWord.getWord().get(0).getVerseId();
-                            val verse = ayahWordArrayList!![position - 1]!!.get(0).corpus!!.ayah
+                            val verse = ayahWordArrayList[position - 1]!![0].corpus!!.ayah
                             val dataBundle = Bundle()
                             dataBundle.putInt(Constant.SURAH_ID, chapter_no)
                             val item = SurahSummary()
@@ -1332,14 +1307,14 @@ class newFlowAyahWordAdapter(
                                 (context as AppCompatActivity).supportFragmentManager,
                                 NamesDetail.TAG
                                                                      )
-                        })
-                        helpfb.setOnClickListener(View.OnClickListener { v: View? ->
+                        }
+                        helpfb.setOnClickListener { v: View? ->
                             closeFABMenu()
                             ParticleColorScheme.newInstance().show(
                                 (context as AppCompatActivity).supportFragmentManager,
                                 WordAnalysisBottomSheet.TAG
                                                                   )
-                        })
+                        }
                         sharescreenfb.setOnClickListener(object : View.OnClickListener {
                             override fun onClick(v: View) {
                                 closeFABMenu()
@@ -1426,26 +1401,6 @@ class newFlowAyahWordAdapter(
                         })
                     }
 
-                    private fun bookMarkSelected(position: Int) {
-                        val chapter_no = ayahWord!!.get(0).corpus!!.surah
-                        //   int verse = ayahWord.getWord().get(0).getVerseId();
-                        val verse = ayahWordArrayList!![getPosition() - 1]!!.get(0).corpus!!.ayah
-                        val en = BookMarks()
-                        en.chapterno = chapter_no.toString()
-                        en.verseno = verse.toString()
-                        en.surahname = SurahName
-                        val utils = Utils(QuranGrammarApplication.context!!)
-                        //    val vm: QuranVIewModel by viewModels()
-                        //     Utils utils = new Utils(ReadingSurahPartActivity.this);
-                        utils.insertBookMark(en)
-                        val snackbar = Snackbar
-                            .make(view, "BookMark Created", Snackbar.LENGTH_LONG)
-                        snackbar.setActionTextColor(Color.BLUE)
-                        snackbar.setTextColor(Color.CYAN)
-                        snackbar.setBackgroundTint(Color.BLACK)
-                        snackbar.show()
-                    }
-
                     private fun closeFABMenu() {
                         isFABOpen = false
                         fabmenu.animate().rotationBy(-180f)
@@ -1462,53 +1417,50 @@ class newFlowAyahWordAdapter(
                         collectionfb.animate().rotationBy(360f)
                     }
                 })
-                mafoolatarow.setOnClickListener(View.OnClickListener { view1: View? ->
+                mafoolatarow.setOnClickListener { view1: View? ->
                     TransitionManager.beginDelayedTransition(erabnotescardView, AutoTransition())
-                    if (hiddenGroup.getVisibility() == View.VISIBLE) {
-                        hiddenGroup.setVisibility(View.GONE)
+                    if (hiddenGroup.visibility == View.VISIBLE) {
+                        hiddenGroup.visibility = View.GONE
                         mafoolatarow.setImageResource(android.R.drawable.arrow_down_float)
                     } else {
                         //     colllayout.setLayoutParams(params);
-                        hiddenGroup.setVisibility(View.VISIBLE)
+                        hiddenGroup.visibility = View.VISIBLE
                         mafoolatarow.setImageResource(android.R.drawable.arrow_up_float)
                     }
-                })
-                erabexpand.setOnClickListener(View.OnClickListener { view1: View? ->
-                    if (erab_textView.getVisibility() == View.GONE) {
-                        erab_textView.setVisibility(View.VISIBLE)
+                }
+                erabexpand.setOnClickListener { view1: View? ->
+                    if (erab_textView.visibility == View.GONE) {
+                        erab_textView.visibility = View.VISIBLE
                         //  AnimationUtility.slide_down(context, erabexpand);
                         AnimationUtility.AnimateArrow(90.0f, erabexpand)
                     } else {
-                        erab_textView.setVisibility(View.GONE)
+                        erab_textView.visibility = View.GONE
                         AnimationUtility.AnimateArrow(0.0f, erabexpand)
                         //   Fader.slide_down(context,expandImageButton);
                     }
-                })
-                flow_word_by_word.setOnClickListener(View.OnClickListener { view1: View? ->
-                    if (translate_textView.getVisibility() == View.GONE) translate_textView.setVisibility(
-                        View.VISIBLE
-                                                                                                         ) else translate_textView.setVisibility(View.VISIBLE)
-                })
-                translate_textView.setOnClickListener(View.OnClickListener { view1: View? ->
-                    if (translate_textView.getVisibility() == View.VISIBLE) translate_textView.setVisibility(
-                        View.GONE
-                                                                                                            ) else translate_textView.setVisibility(View.VISIBLE)
-                })
-                erab_textView.setOnClickListener(View.OnClickListener { view1: View? ->
-                    if (erab_textView.getVisibility() == View.VISIBLE) erab_textView.setVisibility(
-                        View.GONE
-                                                                                                  ) else erab_textView.setVisibility(View.VISIBLE)
-                })
+                }
+                flow_word_by_word.setOnClickListener { view1: View? ->
+                    if (translate_textView.visibility == View.GONE) translate_textView.visibility =
+                        View.VISIBLE else translate_textView.visibility = View.VISIBLE
+                }
+                translate_textView.setOnClickListener { view1: View? ->
+                    if (translate_textView.visibility == View.VISIBLE) translate_textView.visibility =
+                        View.GONE else translate_textView.visibility = View.VISIBLE
+                }
+                erab_textView.setOnClickListener { view1: View? ->
+                    if (erab_textView.visibility == View.VISIBLE) erab_textView.visibility =
+                        View.GONE else erab_textView.visibility = View.VISIBLE
+                }
             }
         }
 
         override fun onClick(v: View) {
-            mItemClickListener?.onItemClick(v, layoutPosition)
+            mItemClickListener.onItemClick(v, layoutPosition)
         }
 
         override fun onLongClick(v: View): Boolean {
             //   mItemClickListener.onItemLongClick(getAdapterPosition(), v);
-            mItemClickListener!!.onItemLongClick(bindingAdapterPosition, v)
+            mItemClickListener.onItemLongClick(bindingAdapterPosition, v)
             return true
         }
     } //View.OnClickListener, View.OnLongClickListener

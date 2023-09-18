@@ -39,7 +39,8 @@ class QuranVIewModel(
 ) : ViewModel() {
 
 
-    var allquran: LiveData<List<QuranEntity>> = MutableLiveData()
+    var allquran: MutableLiveData<List<QuranEntity>> = MutableLiveData()
+    val qurancorpus:MutableLiveData<List<QuranCorpusWbw>> = MutableLiveData()
     var sursumm: LiveData<List<surahsummary>> = MutableLiveData()
     var chapters: LiveData<List<ChaptersAnaEntity>> = MutableLiveData()
     var chapterslist: MutableLiveData<List<ChaptersAnaEntity>> = MutableLiveData()
@@ -301,12 +302,6 @@ class QuranVIewModel(
         return liajlihi
     }
 
-    fun getbadalSurah(cid: Int): MutableLiveData<List<BadalErabNotesEnt>> {
-        viewModelScope.launch {
-            badal.value = newrepository.getbadalnotes(cid)
-        }
-        return badal
-    }
 
 
     fun getMafoolSurah(cid: Int): MutableLiveData<List<MafoolBihi>> {
@@ -340,23 +335,29 @@ class QuranVIewModel(
 
         return chapters
     }
+    fun getbadalSurah(cid: Int): MutableLiveData<List<BadalErabNotesEnt>> {
+        viewModelScope.launch {
+            badal.value = newrepository.getbadalnotes(cid)
+        }
+        return badal
+    }
 
-    fun getVersesBySurahLive(cid: Int): LiveData<List<QuranEntity>> {
+    fun getVersesBySurahLive(cid: Int): MutableLiveData<List<QuranEntity>> {
 
 
         viewModelScope.launch {
-            allquran = newrepository.getsurahbychap(cid)
+            allquran.value = newrepository.getsurahbychap(cid)
         }
 
 
         return allquran
     }
 
-    fun getsurahayahVerses(cid: Int, ayid: Int): LiveData<List<QuranEntity>> {
+    fun getsurahayahVerses(cid: Int, ayid: Int): MutableLiveData<List<QuranEntity>> {
 
 
         viewModelScope.launch {
-            allquran = newrepository.getsurahbyayah(cid, ayid)
+            allquran.value= newrepository.getsurahbyayah(cid, ayid)
         }
 
 
@@ -366,11 +367,22 @@ class QuranVIewModel(
 
 
         viewModelScope.launch {
-            allquran = newrepository.getsurahbychap(cid)
+            allquran.value = newrepository.getsurahbychap(cid)
         }
 
 
         return allquran
+    }
+
+    fun getQuranCorpusWbwbysurah(cid: Int): LiveData<List<QuranCorpusWbw>> {
+
+
+        viewModelScope.launch {
+            qurancorpus.value = newrepository.getQuranCorpusWbwbysurah(cid)
+        }
+
+
+        return qurancorpus
     }
 
     fun getsurahayahVerseslist(cid: Int, ayid: Int): LiveData<List<QuranEntity>> {

@@ -99,7 +99,7 @@ class TopicDetailAct() : BaseActivity(), OnItemClickListenerOnLong {
         if (bundle.extras != null) {
             val bundles: Bundle = getIntent().getExtras()!!
             val map = bundle.getSerializableExtra("map") as HashMap<String, String>?
-            lateinit var surahname: String
+             var surahname=""
             if (map!!.size != 0) {
                 bundles.getSerializable("map")
                 //  LinkedHashMap map = (LinkedHashMap) bundles.get("map");

@@ -15,10 +15,6 @@ class refWordMorphologyDetails : QuranMorphologyDetails {
     private var corpusNounWord: ArrayList<NounCorpus>? = null
     private var word: CorpusEntity
 
-    constructor(word: CorpusEntity) {
-        this.word = word
-    }
-
     constructor(
         word: CorpusEntity,
         corpusNounWord: List<*>,
@@ -29,11 +25,6 @@ class refWordMorphologyDetails : QuranMorphologyDetails {
         this.verbCorpusRootWord = verbCorpusRootWord as ArrayList<VerbCorpus>?
     }
 
-    constructor(word: CorpusEntity, corpusNounWord: ArrayList<NounCorpus>?) {
-        this.word = word
-        this.corpusNounWord = corpusNounWord
-    }//   tagspannable.setSpan(new ForegroundColorSpan(CYAN), 0, expandTagsone.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);//   SpannableString  tagspannable = null;
-
     // --Commented out by Inspection START (13/11/22, 3:02 PM):
     //    public WordMorphologyDetails() {
     //    }
@@ -42,8 +33,7 @@ class refWordMorphologyDetails : QuranMorphologyDetails {
         get() {
             //   SpannableString  tagspannable = null;
             var tagspannable: SpannableString? = null
-            val wordcount: Int = word.wordcount
-            when (wordcount) {
+            when (word.wordcount) {
                 1 -> {
                     val tagone: String = word.tagone!!
                     var expandTagsone: String = expandTags(tagone)
@@ -112,9 +102,9 @@ class refWordMorphologyDetails : QuranMorphologyDetails {
                     if ((word.tagthree == "V")) {
                         expandTagsthree = getVerbDetails(expandTagsthree, word.detailsthree!!)
                     }
-                    expandTagsone + " "
-                    expandTagstwo + " "
-                    expandTagsthree + " "
+                    "$expandTagsone "
+                    "$expandTagstwo "
+                    "$expandTagsthree "
                     sb.append(word.tagthree)
                     sb.append("|")
                     sb.append(word.tagtwo)
@@ -155,13 +145,13 @@ class refWordMorphologyDetails : QuranMorphologyDetails {
                         (tagfour == "N") || (tagfour == "ADJ") || (tagfour == "PN")
                     if (tagnounone) {
                         expandTagsone = getNounDetails(word.detailsone)
-                        expandTagsone + " "
+                        "$expandTagsone "
                     } else if (tagnountwo) {
                         expandTagstwo = getNounDetails(word.detailstwo)
-                        expandTagstwo + " "
+                        "$expandTagstwo "
                     } else if (tagnounthree) {
                         expandTagsthree = getNounDetails(word.detailsthree)
-                        expandTagsthree + " "
+                        "$expandTagsthree "
                     } else if (tagnounfour) {
                         expandTagsfour = getNounDetails(word.detailsfour)
                     }
@@ -299,8 +289,7 @@ class refWordMorphologyDetails : QuranMorphologyDetails {
     }
 
     private fun expandVerbTense(verbdetails: String): String {
-        var tense: String
-        tense = if (verbdetails.contains("IMPF")) {
+        var tense: String = if (verbdetails.contains("IMPF")) {
             verbfeaturesenglisharabic.IMPF
         } else if (verbdetails.contains("IMPV")) {
             verbfeaturesenglisharabic.IMPV

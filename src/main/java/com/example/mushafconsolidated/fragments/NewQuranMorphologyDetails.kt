@@ -25,7 +25,6 @@ open class NewQuranMorphologyDetails {
     private var corpusSurahWord: ArrayList<QuranCorpusWbw>? = null
     private var verbcorpusform: ArrayList<VerbCorpus>? = null
 
-    constructor()
     constructor(
         corpusSurahWord: List<QuranCorpusWbw>,
         corpusNounWord: ArrayList<NounCorpus>?,
@@ -157,7 +156,7 @@ open class NewQuranMorphologyDetails {
                 } catch (e: IndexOutOfBoundsException) {
                     println("Exception occurred . . . . . . . . ")
                 }
-                Thulathi = if (s.isNotEmpty()) s else {
+                Thulathi = s.ifEmpty {
                     null
                 }
             }
