@@ -13,7 +13,6 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.format.DateFormat
@@ -105,7 +104,7 @@ import java.util.concurrent.Executors
 class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOnLong {
     private lateinit var mainViewModel: QuranVIewModel
     private var corpusSurahWord: List<QuranCorpusWbw>? = null
-    private val newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
+    private var newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
     private lateinit var newflowAyahWordAdapter: newFlowAyahWordAdapter
     lateinit var binding: NewFragmentReadingBinding
 
@@ -834,48 +833,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
 
 
-    private fun composeWbwCollection() {
 
-
-
-        var qurancorpusarray = ArrayList<NewQuranCorpusWbw>()
-
-
-
-
-        var aindex = 0
-        var secondindex = 0
-
-        while (aindex <= allofQuran!!.size) {
-
-            var ayahWord = NewQuranCorpusWbw()
-
-            try {
-                while (corpusSurahWord!![secondindex].corpus.ayah <= allofQuran!![aindex]!!.ayah) {
-                    if (corpusSurahWord!![secondindex].corpus.ayah != allofQuran!![aindex]!!.ayah) {
-                        break
-                    }
-
-                    ayahWord.spannableverse = SpannableString.valueOf(allofQuran!![aindex]!!.qurantext)
-                    ayahWord.wbw = corpusSurahWord!![secondindex].wbw
-                    ayahWord.corpus = corpusSurahWord!![secondindex++].corpus
-                    qurancorpusarray.add(ayahWord)
-
-                 ayahWord = NewQuranCorpusWbw()
-                }
-            }
-            catch (e: IndexOutOfBoundsException) {
-                println(e.message)
-            }
-
-            if (qurancorpusarray.isNotEmpty()) {
-                newnewadapterlist[aindex] = qurancorpusarray
-                val ayahWord = NewQuranCorpusWbw()
-            }
-            qurancorpusarray = ArrayList()
-            aindex++
-        }
-    }
 
 
 
@@ -886,9 +844,9 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
         runOnUiThread { dialog.show() }
 
-        composeWbwCollection()
-        val corpus = CorpusUtilityorig(this)
 
+        val corpus = CorpusUtilityorig(this)
+        newnewadapterlist = corpus.composeWBWCollection(allofQuran, corpusSurahWord)
 
 
 

@@ -15,7 +15,6 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
@@ -50,7 +49,6 @@ import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.Adapters.LineMushaAudioAdapter
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
-import com.example.mushafconsolidated.Entities.CorpusEntity
 import com.example.mushafconsolidated.Entities.HalEnt
 import com.example.mushafconsolidated.Entities.LiajlihiEnt
 import com.example.mushafconsolidated.Entities.MafoolBihi
@@ -59,7 +57,6 @@ import com.example.mushafconsolidated.Entities.Page
 import com.example.mushafconsolidated.Entities.Qari
 import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.Entities.TameezEnt
-import com.example.mushafconsolidated.Entities.wbwentity
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.databinding.NewFragmentReadingBinding
@@ -117,14 +114,14 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     private lateinit var newflowAyahWordAdapter: newFlowAyahWordAdapter
     lateinit var binding: NewFragmentReadingBinding
 
-    private val newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
+    private var newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
     private var mausoof = false
     private var mudhaf = false
     private var harfnasb = false
     private var shart = false
 
     private var kana = false
-    private  var allofQuran: List<QuranEntity?>?=null
+    private  var allofQuran: List<QuranEntity>?=null
     private lateinit var shared: SharedPreferences
 
 
@@ -1429,9 +1426,9 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
         val utils = Utils(this)
 
-        newextractedtwothree()
-        val corpus = CorpusUtilityorig(this)
 
+        val corpus = CorpusUtilityorig(this)
+        newnewadapterlist = corpus.composeWBWCollection(allofQuran, corpusSurahWord)
 
 
 
@@ -1502,50 +1499,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             recyclerView.itemAnimator = DefaultItemAnimator()
         }
     }
-    private fun newextractedtwothree(   ) {
 
-        val util = Utils(this)
-
-        var qurancorpusarray = java.util.ArrayList<NewQuranCorpusWbw>()
-        val qurancorpusarrayt: MutableList<NewQuranCorpusWbw> = ArrayList()
-
-        //   corpusSurahWord = util.getQuranCorpusWbwbysurah(chapterno)
-
-        val quran = util.getQuranbySurah(surah)
-        var aindex = 0
-        var secondindex = 0
-
-        while (aindex <= quran!!.size) {
-            val wbwarraylist: ArrayList<wbwentity> = ArrayList()
-            val corpusarraylist: ArrayList<CorpusEntity> = ArrayList()
-            val spannableString = SpannableString("")
-            var ayahWord = NewQuranCorpusWbw()
-
-            try {
-                while (corpusSurahWord!![secondindex].corpus.ayah <= quran[aindex].ayah) {
-                    if (corpusSurahWord!![secondindex].corpus.ayah != quran[aindex].ayah) {
-                        break
-                    }
-                    ayahWord.spannableverse = SpannableString.valueOf(quran[aindex].qurantext)
-                    ayahWord.wbw = corpusSurahWord!![secondindex].wbw
-                    ayahWord.corpus = corpusSurahWord!![secondindex++].corpus
-                    qurancorpusarray.add(ayahWord)
-                    qurancorpusarrayt.add(ayahWord)
-                    ayahWord = NewQuranCorpusWbw()
-                }
-            }
-            catch (e: IndexOutOfBoundsException) {
-                println(e.message)
-            }
-
-            if (qurancorpusarray.isNotEmpty()) {
-                newnewadapterlist.put(aindex, qurancorpusarray)
-                val ayahWord = NewQuranCorpusWbw()
-            }
-            qurancorpusarray = ArrayList()
-            aindex++
-        }
-    }
     fun getReaderAudioLink(readerName: String?) {
         for (reader in readersList) {
             if (reader.name_english == readerName && (Locale.getDefault().displayLanguage == "العربية")) {
