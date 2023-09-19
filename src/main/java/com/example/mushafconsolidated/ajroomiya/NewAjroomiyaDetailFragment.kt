@@ -12,16 +12,16 @@ import androidx.fragment.app.Fragment
 import com.example.mushafconsolidated.Entities.GrammarRules
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.ajroomiya.placeholder.AjroomiyaRulecontents
-import com.example.mushafconsolidated.databinding.FragmentAjroomiyaListBinding
+import com.example.mushafconsolidated.databinding.NewFragmentAjroomiyaListBinding
 import com.google.android.material.appbar.CollapsingToolbarLayout
 
 /**
  * A fragment representing a single GrammarRule detail screen.
- * This fragment is either contained in a [AjroomiyaListFragment]
+
  * in two-pane mode (on larger screen devices) or self-contained
  * on handsets.
  */
-class AjroomiyaDetailFragment
+class   NewAjroomiyaDetailFragment
 /**
  * Mandatory empty constructor for the fragment manager to instantiate the
  * fragment (e.g. upon screen orientation changes).
@@ -41,7 +41,7 @@ class AjroomiyaDetailFragment
         }
         true
     }
-    private var binding: FragmentAjroomiyaListBinding? = null
+    private var binding: NewFragmentAjroomiyaListBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (requireArguments().containsKey(ARG_ITEM_ID)) {
@@ -58,11 +58,11 @@ class AjroomiyaDetailFragment
         savedInstanceState: Bundle?,
     ): View? {
         val rootView: View =
-            inflater.inflate(R.layout.fragment_ajroomiya_detail, container, false)
+            inflater.inflate(R.layout.new_fragment_ajroomiya_detail, container, false)
         //   binding = FragmentGrammarruleDetailBinding.inflate(inflater, container, false);
         //  View rootView = binding.getRoot();
-        mToolbarLayout = rootView.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)
-        mTextView = rootView.findViewById<WebView>(R.id.ajroomiya_detail)
+       mToolbarLayout = rootView.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)
+         mTextView = rootView.findViewById<WebView>(R.id.ajroomiya_detail)
         val webSettings = mTextView.getSettings()
         webSettings.javaScriptEnabled = true
         //  mTextView.setInitialScale(1);
@@ -83,7 +83,7 @@ class AjroomiyaDetailFragment
 
     private fun updateContent() {
         if (mItem != null) {
-            mTextView!!.loadDataWithBaseURL(null, mItem!!.detailsrules, "text/html", "utf-8", null)
+            mTextView.loadDataWithBaseURL(null, mItem!!.detailsrules, "text/html", "utf-8", null)
             //   mTextView.setText(mItem.getDetailsrules());
             if (mToolbarLayout != null) {
                 mToolbarLayout!!.title = mItem!!.worddetails

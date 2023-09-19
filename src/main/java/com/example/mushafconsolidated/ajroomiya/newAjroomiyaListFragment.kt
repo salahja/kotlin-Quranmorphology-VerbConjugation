@@ -22,7 +22,7 @@ import com.example.mushafconsolidated.databinding.NewFragmentAjroomiyaListBindin
  * A fragment representing a list of GrammarRules. This fragment
  * has different presentations for handset and larger screen devices. On
  * handsets, the fragment presents a list of items, which when touched,
- * lead to a [AjroomiyaDetailFragment] representing
+
  * item details. On larger screens, the Navigation controller presents the list of items and
  * item details side-by-side using two vertical panes.
  */
@@ -57,7 +57,7 @@ class newAjroomiyaListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View{
         binding = NewFragmentAjroomiyaListBinding.inflate(inflater, container, false)
         return binding!!.getRoot()
     }
@@ -69,8 +69,7 @@ class newAjroomiyaListFragment : Fragment() {
         // Leaving this not using view binding as it relies on if the view is visible the current
         // layout configuration (layout, layout-sw600dp)
         //  View itemDetailFragmentContainer = view.findViewById(R.id.grammarrule_detail_nav_container);
-        val itemDetailFragmentContainer =
-            view.findViewById<View>(R.id.ajroomiya_detail_nav_container)
+
 
         /* Click Listener to trigger navigation based on if you have
          * a single pane layout or two pane layout
@@ -78,7 +77,7 @@ class newAjroomiyaListFragment : Fragment() {
         val onClickListener = View.OnClickListener { itemView: View ->
             val item = itemView.tag as GrammarRules
             val bundle1 = Bundle()
-            bundle1.putString(AjroomiyaDetailFragment.ARG_ITEM_ID, item.id.toString())
+            bundle1.putString(NewAjroomiyaDetailFragment.ARG_ITEM_ID, item.id.toString())
             //     if (itemDetailFragmentContainer != null) {
             //      Navigation.findNavController(itemDetailFragmentContainer)
             //            .navigate(R.id.fragment_grammarrule_detail, arguments);
@@ -86,7 +85,7 @@ class newAjroomiyaListFragment : Fragment() {
           //  findNavController(itemView).navigate(R.id.ajroomiya_detail_fragment, arguments)
 
 
-            val fragvsi: AjroomiyaDetailFragment = AjroomiyaDetailFragment()
+            val fragvsi = NewAjroomiyaDetailFragment()
              fragvsi.arguments=bundle1
             val transaction: FragmentTransaction = getParentFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -135,11 +134,11 @@ class newAjroomiyaListFragment : Fragment() {
         binding = null
     }
 
-    private class SimpleItemRecyclerViewAdapter internal constructor(
+    private class SimpleItemRecyclerViewAdapter(
         private val mValues: List<GrammarRules?>,
         private val mOnClickListener: View.OnClickListener,
         private val mOnContextClickListener: View.OnContextClickListener,
-    ) : RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
+                                               ) : RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val binding: GrammarruleListContentBinding = GrammarruleListContentBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -165,7 +164,7 @@ class newAjroomiyaListFragment : Fragment() {
             return mValues.size
         }
 
-        internal inner class ViewHolder(binding: GrammarruleListContentBinding) :
+        inner class ViewHolder(binding: GrammarruleListContentBinding) :
             RecyclerView.ViewHolder(binding.getRoot()) {
             val mIdView: TextView
             val mContentView: TextView

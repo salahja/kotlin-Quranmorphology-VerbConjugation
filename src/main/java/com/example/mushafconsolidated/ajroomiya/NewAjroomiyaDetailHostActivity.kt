@@ -4,16 +4,13 @@ import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
 import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.databinding.NewActivityAjroomiyaDetailBinding
 
 class NewAjroomiyaDetailHostActivity : BaseActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,9 +44,5 @@ class NewAjroomiyaDetailHostActivity : BaseActivity() {
 
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_ajroomiya_detail)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
+
 }
