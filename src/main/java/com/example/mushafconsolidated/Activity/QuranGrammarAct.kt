@@ -62,7 +62,7 @@ import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.Entities.TameezEnt
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.SurahSummary
-import com.example.mushafconsolidated.ajroomiya.AjroomiyaDetailHostActivity
+import com.example.mushafconsolidated.ajroomiya.NewAjroomiyaDetailHostActivity
 import com.example.mushafconsolidated.databinding.NewFragmentReadingBinding
 import com.example.mushafconsolidated.fragments.BookMarkCreateFrag
 import com.example.mushafconsolidated.fragments.BookmarkFragment
@@ -396,7 +396,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             }
             if (item.itemId == R.id.jumptoverse) {
                 drawerLayout.closeDrawers()
-                val grammar = Intent(this, AjroomiyaDetailHostActivity::class.java)
+                val grammar = Intent(this, NewAjroomiyaDetailHostActivity::class.java)
                 startActivity(grammar)
             }
             if (item.itemId == R.id.search) {

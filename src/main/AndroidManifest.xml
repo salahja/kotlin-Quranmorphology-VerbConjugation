@@ -40,7 +40,7 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
         <activity
-            android:name=".ajroomiya.AjroomiyaDetailHostActivity"
+            android:name=".ajroomiya.NewAjroomiyaDetailHostActivity"
             android:exported="false"
             android:label="@string/title_activity_ajroomiya_detail_host"
             android:resizeableActivity="true"

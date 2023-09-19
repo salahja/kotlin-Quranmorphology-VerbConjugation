@@ -1,17 +1,17 @@
 package com.example.mushafconsolidated.ajroomiya
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
+import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.databinding.ActivityAjroomiyaDetailBinding
 
-class AjroomiyaDetailHostActivity : AppCompatActivity() {
+class AjroomiyaDetailHostActivity : BaseActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 

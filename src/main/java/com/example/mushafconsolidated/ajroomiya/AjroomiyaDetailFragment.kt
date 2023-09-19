@@ -98,4 +98,8 @@ class AjroomiyaDetailFragment
          */
         const val ARG_ITEM_ID = "item_id"
     }
+
+
+
+
 }

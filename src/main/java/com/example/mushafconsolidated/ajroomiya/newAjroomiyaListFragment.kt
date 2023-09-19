@@ -10,13 +10,13 @@ import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewCompat.OnUnhandledKeyEventListenerCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation.findNavController
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.Entities.GrammarRules
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.ajroomiya.placeholder.AjroomiyaRulecontents
-import com.example.mushafconsolidated.databinding.FragmentAjroomiyaListBinding
 import com.example.mushafconsolidated.databinding.GrammarruleListContentBinding
+import com.example.mushafconsolidated.databinding.NewFragmentAjroomiyaListBinding
 
 /**
  * A fragment representing a list of GrammarRules. This fragment
@@ -26,7 +26,7 @@ import com.example.mushafconsolidated.databinding.GrammarruleListContentBinding
  * item details. On larger screens, the Navigation controller presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-class AjroomiyaListFragment : Fragment() {
+class newAjroomiyaListFragment : Fragment() {
     /**
      * Method to intercept global key events in the
      * item list fragment to trigger keyboard shortcuts
@@ -52,13 +52,13 @@ class AjroomiyaListFragment : Fragment() {
             }
             false
         }
-    private var binding: FragmentAjroomiyaListBinding? = null
+    private var binding: NewFragmentAjroomiyaListBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        binding = FragmentAjroomiyaListBinding.inflate(inflater, container, false)
+        binding = NewFragmentAjroomiyaListBinding.inflate(inflater, container, false)
         return binding!!.getRoot()
     }
 
@@ -77,13 +77,27 @@ class AjroomiyaListFragment : Fragment() {
          */
         val onClickListener = View.OnClickListener { itemView: View ->
             val item = itemView.tag as GrammarRules
-            val arguments = Bundle()
-            arguments.putString(AjroomiyaDetailFragment.ARG_ITEM_ID, item.id.toString())
+            val bundle1 = Bundle()
+            bundle1.putString(AjroomiyaDetailFragment.ARG_ITEM_ID, item.id.toString())
             //     if (itemDetailFragmentContainer != null) {
             //      Navigation.findNavController(itemDetailFragmentContainer)
             //            .navigate(R.id.fragment_grammarrule_detail, arguments);
             //   } else {
-            findNavController(itemView).navigate(R.id.ajroomiya_detail_fragment, arguments)
+          //  findNavController(itemView).navigate(R.id.ajroomiya_detail_fragment, arguments)
+
+
+            val fragvsi: AjroomiyaDetailFragment = AjroomiyaDetailFragment()
+             fragvsi.arguments=bundle1
+            val transaction: FragmentTransaction = getParentFragmentManager().beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            transaction.replace(R.id.frame_container, fragvsi, "items")
+            //     transaction.addToBackStack("setting");
+            transaction.addToBackStack("items")
+            transaction.commit()
+
+
+
+
         }
 
         /*
@@ -161,5 +175,13 @@ class AjroomiyaListFragment : Fragment() {
                 mContentView = binding.content
             }
         }
+    }
+
+    companion object {
+        fun newInstance(): newAjroomiyaListFragment {
+            return newAjroomiyaListFragment()
+
+        }
+
     }
 }
