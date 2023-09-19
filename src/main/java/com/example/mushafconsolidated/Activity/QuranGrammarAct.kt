@@ -235,7 +235,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         // Get a reference to the ViewModel scoped to its Activity
         //    setContentView(R.layout.new_fragment_reading)
         materialToolbar = binding.toolbarmain
-        val model :QuranVIewModel by viewModels()
+
 
 
 
@@ -450,7 +450,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
     }
 
     fun initDialogComponents(readposition: Int) {
-        val quranEntity = allofQuran!![readposition - 1]!!
+        val quranEntity = allofQuran!![readposition - 1]
         val suraNames: Spinner
         val verses: Spinner
         val ok: Button
@@ -643,25 +643,28 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             val sura: String
             try {
                 surahArabicName =
-                    suraNumber.toString() + "-" + soraList?.get(chapterno[0] - 1)!!.nameenglish + "-" + soraList[chapterno[0] - 1]!!.abjadname
-                surahArabicName = soraList[chapterno[0] - 1]!!.abjadname
+                    suraNumber.toString() + "-" + soraList.get(chapterno[0] - 1).nameenglish + "-" + soraList[chapterno[0] - 1].abjadname
+                surahArabicName = soraList[chapterno[0] - 1].abjadname
                 verseNo = verseno[0]
-                versescount = soraList[chapterno[0] - 1]!!.versescount
-                isMakkiMadani = soraList[chapterno[0] - 1]!!.ismakki
-                rukucount = soraList[chapterno[0] - 1]!!.rukucount
-                currentSelectSurah = soraList[chapterno[0] - 1]!!.chapterid
+                versescount = soraList[chapterno[0] - 1].versescount
+                isMakkiMadani = soraList[chapterno[0] - 1].ismakki
+                rukucount = soraList[chapterno[0] - 1].rukucount
+                currentSelectSurah = soraList[chapterno[0] - 1].chapterid
 
             }
             catch (e: ArrayIndexOutOfBoundsException) {
                 surahArabicName =
-                    suraNumber.toString() + "-" + soraList!![chapterno[0]]!!.nameenglish + "-" + soraList[chapterno[0]]!!.abjadname
-                surahArabicName = soraList[chapterno[0]]!!.abjadname
+                    suraNumber.toString() + "-" + soraList[chapterno[0]].nameenglish + "-" + soraList[chapterno[0]].abjadname
+                surahArabicName = soraList[chapterno[0]].abjadname
                 verseNo = 1
-                versescount = soraList[chapterno[0]]!!.versescount
-                isMakkiMadani = soraList[chapterno[0]]!!.ismakki
-                rukucount = soraList[chapterno[0]]!!.rukucount
-                currentSelectSurah = soraList[chapterno[0]]!!.chapterid
-                this.chapterno = soraList[chapterno[0]]!!.chapterid
+                versescount = soraList[chapterno[0]].versescount
+                isMakkiMadani = soraList[chapterno[0]].ismakki
+                rukucount = soraList[chapterno[0]].rukucount
+                currentSelectSurah = soraList[chapterno[0]].chapterid
+                this.chapterno = soraList[chapterno[0]].chapterid
+                println(soraList[chapterno[0]].chapterid)
+                println(this.chapterno  )
+                println(this.chapterno)
             }
             parentRecyclerView = binding.overlayViewRecyclerView
             //
@@ -671,21 +674,25 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 jumptostatus = true
                 surahorpart = currentSelectSurah
                 surah_id = currentSelectSurah
+                this.chapterno=currentSelectSurah
+                println(soraList[chapterno[0]].chapterid)
+                println(this.chapterno  )
+                println(this.chapterno)
                 ExecuteSurahWordByWord()
                 //     asyncTaskcorpus = new refactoringcurrentSurahSyncWordByWord().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
-                sura = soraList!![chapterno[0] - 1]!!.chapterid.toString()
-                this.chapterno = soraList[chapterno[0] - 1]!!.chapterid
-                surahArabicName = soraList[chapterno[0] - 1]!!.nameenglish
-                surahArabicName = soraList[chapterno[0] - 1]!!.namearabic
+                sura = soraList[chapterno[0] - 1].chapterid.toString()
+                this.chapterno = soraList[chapterno[0] - 1].chapterid
+                surahArabicName = soraList[chapterno[0] - 1].nameenglish
+                surahArabicName = soraList[chapterno[0] - 1].namearabic
                 val pref = getSharedPreferences("lastreadmushaf", MODE_PRIVATE)
                 val editor = pref.edit()
                 editor.putInt(Constant.CHAPTER, sura.toInt())
                 //  editor.putInt("page", page.getAyahItemsquran().get(0).getPage());
                 editor.putString(
                     Constant.SURAH_ARABIC_NAME,
-                    soraList[chapterno[0] - 1]!!.namearabic
+                    soraList[chapterno[0] - 1].namearabic
                                 )
                 editor.apply()
 
@@ -914,7 +921,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
 
                 //   flowAyahWordAdapter.notifyDataSetChanged()
-                parentRecyclerView.post(Runnable { parentRecyclerView.scrollToPosition(verseNo) })
+                parentRecyclerView.post({ parentRecyclerView.scrollToPosition(verseNo) })
                 //   })
             }
         }
@@ -987,7 +994,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         mafoolbihi.add("مفعول")
         for (pojo in allofQuran!!) {
             //  String ar_irab_two = pojo.getAr_irab_two();
-            val ar_irab_two = pojo!!.ar_irab_two
+            val ar_irab_two = pojo.ar_irab_two
             val str = SpannableStringBuilder(ar_irab_two)
             val mudhaftrie = Trie.builder().onlyWholeWords().addKeywords(mudhafilahistr).build()
             val mudhafemit = mudhaftrie.parseText(ar_irab_two)
@@ -1121,10 +1128,10 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         val tag = view.tag
         //  val quranEntity: QuranEntity = flowAyahWordAdapter.getItem(position) as QuranEntity
         val quranEntity: QuranEntity = try {
-            allofQuran!![position]!!
+            allofQuran!![position]
         }
         catch (e: IndexOutOfBoundsException) {
-            allofQuran!![position - 1]!!
+            allofQuran!![position - 1]
         }
         val colorsentence = view.findViewById<SwitchCompat>(R.id.colorized)
         val colortag = shared.getBoolean("colortag", true)
@@ -1314,9 +1321,9 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 .show(this@QuranGrammarAct.supportFragmentManager, WordAnalysisBottomSheet.TAG)
         } else if (tag == "qurantext") {
             val word: QuranEntity = if (position != 0) {
-                allofQuran!![position - 1]!!
+                allofQuran!![position - 1]
             } else {
-                allofQuran!![position]!!
+                allofQuran!![position]
             }
             val dataBundle = Bundle()
             dataBundle.putInt(Constant.SURAH_ID, word.surah)

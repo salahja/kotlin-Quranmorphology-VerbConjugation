@@ -82,7 +82,7 @@ interface RawDao {
     fun getNasb(query: SupportSQLiteQuery): List<NasbPOJO?>?
 
     @RawQuery
-    fun getNounBreakup(query: SupportSQLiteQuery): List<NounCorpusBreakup?>?
+    fun getNounBreakup(query: SupportSQLiteQuery): List<NounCorpusBreakup>?
 
     @RawQuery
     fun getVerbBreakup(query: SupportSQLiteQuery): List<VerbCorpusBreakup?>?

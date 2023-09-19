@@ -951,7 +951,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
                     val bundle = Bundle()
 
                     val intent = Intent(activity, WordOccuranceAct::class.java)
-                    //   val intent = Intent(activity, ComposeAct::class.java)
+          //          val intent = Intent(activity, ComposeAct::class.java)
                     try {
                         if (vb.root!! != null) {
                             bundle.putString(QURAN_VERB_ROOT, vb.root)

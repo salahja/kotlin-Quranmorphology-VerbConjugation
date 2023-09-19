@@ -3,6 +3,7 @@ package com.example.compose
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mushafconsolidated.Entities.CorpusNounWbwOccurance
@@ -13,13 +14,12 @@ import com.example.mushafconsolidated.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import sj.hisnul.entity.hduanamesEnt
 
 
 class LemmaViewModel(application: Application,lemmarabic:String) : AndroidViewModel(application) {
-    val alldua: MutableLiveData<List<hduanamesEnt>> = MutableLiveData()
+    val alldua: MutableLiveData<List<NounCorpusBreakup>> = MutableLiveData()
 
-
+    val lemmalist: MutableLiveData<List<NounCorpusBreakup>> = MutableLiveData()
 
     private lateinit var util: Utils
    // var lemmarabic: String = "حمد"
@@ -34,8 +34,6 @@ class LemmaViewModel(application: Application,lemmarabic:String) : AndroidViewMo
     private var nounBreakup: ArrayList<NounCorpusBreakup>? = null
     private var verbBreakup: ArrayList<VerbCorpusBreakup>? = null
     init {
-     
-   
                 util = Utils(application)
                 //     nounBreakup = util.getNounBreakup(lemmarabic) as ArrayList<NounCorpusBreakup>?
                 //    verbBreakup= util.getVerbBreakUp(lemmarabic) as ArrayList<VerbCorpusBreakup>?
@@ -44,18 +42,20 @@ class LemmaViewModel(application: Application,lemmarabic:String) : AndroidViewMo
 
                 verbBreakup = lemmarabic.trim()
                     ?.let { util.getVerbBreakUp(it) } as ArrayList<VerbCorpusBreakup>?
-
-
-
-            //    getNounData()
                 true
-            
- 
- 
-
-
-   //     getVerbData()
     }
+
+    fun getlemmalist(lemma : String):
+            LiveData<List<NounCorpusBreakup>> {
+        lemmalist.value =util.getNounBreakup(lemma)
+
+
+        return lemmalist
+
+    }
+
+
+
     public fun loadLists(lemmarabic: String) {
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
@@ -101,14 +101,6 @@ class LemmaViewModel(application: Application,lemmarabic:String) : AndroidViewMo
                     }
 
 
-
-
-
-
-
-
-
-
                 _words.value=testList
 
 
@@ -118,41 +110,6 @@ class LemmaViewModel(application: Application,lemmarabic:String) : AndroidViewMo
             }
         }
     }
-
-
-
-
-/*    private fun getFakeData() {
-        viewModelScope.launch {
-            withContext(Dispatchers.Default) {
-                val testList = arrayListOf<VerseOccuranceModel>()
-                for (noun in nounBreakup!!) {
-                    var sb = StringBuilder()
-                    sb.append(noun.araword).append("occurs").append(":").append(noun.count)
-                        .append("as").append(noun.tag)
-                    sb.append(noun.surah).append(":").append(noun.ayah)
-                    val verses: ArrayList<CorpusNounWbwOccurance> =
-                        util.getNounOccuranceBreakVerses(noun.lemma_a!!)
-                         as ArrayList<CorpusNounWbwOccurance>
-                    val vlist: ArrayList<String> =
-                        ArrayList()
-
-                    for(vers in verses){
-                        vlist.add(vers.qurantext!!)
-
-                    }
-
-
-
-                    testList += VerseOccuranceModel(id = noun.id, title = sb.toString(),vlist)
-                    _cards.emit(testList)
-                }
-
-                *//* repeat(20) { testList += VerseOccuranceModel(id = it, title = "Card $it") }
-                 _cards.emit(testList)*//*
-            }
-        }
-    }*/
 
 
 }

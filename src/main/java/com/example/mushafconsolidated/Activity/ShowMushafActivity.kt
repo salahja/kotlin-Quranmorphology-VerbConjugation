@@ -1788,7 +1788,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         llEndRange!!.setOnClickListener {
             val starttrue = false
 
-            //   WbwSurah wbwSurah=new WbwSurah(ShowMushafActivity.this);
+            //  WbwSurah wbwSurah=new WbwSurah(ShowMushafActivity.this);
             //   startverse[0] =wbwSurah.SurahAyahPicker(false,starttrue,getSurahselected(),getAyah());
             SurahAyahPicker(false, starttrue)
         }

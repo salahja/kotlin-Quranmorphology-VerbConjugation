@@ -26,14 +26,12 @@ import com.example.mushafconsolidated.model.NewQuranCorpusWbw
 import com.example.mushafconsolidated.model.QuranCorpusWbw
 import java.util.regex.Pattern
 
-class CorpusUtilityorig {
+class CorpusUtilityorig(private var context: Context?) {
     // --Commented out by Inspection (15/08/23, 4:17 pm):final ArrayList<MousufSifa> NEWmousufSifaArrayList = new ArrayList<>();
     private val preferences: String?
-    private var context: Context? = null
     var activity: Activity? = null
 
-    constructor(context: Context?) {
-        this.context = context
+    init {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         preferences = prefs.getString("theme", "dark")
         val preferences = prefs.getString("theme", "dark")
@@ -70,7 +68,7 @@ class CorpusUtilityorig {
         try {
             //  spannableverse = corpusayahWordArrayList[sifaEntity.ayah - 1].spannableverse!!
             spannableverse =
-                corpusayahWordArrayList.get(sifaEntity.ayah - 1)!!.get(0)!!.spannableverse!!
+                corpusayahWordArrayList[sifaEntity.ayah - 1]!![0].spannableverse!!
             //spannableString = SpannableString.valueOf(corpusayahWordArrayList.get(sifaEntity.getAyah() - 1).getSpannableverse());
             try {
                 if (indexstart == 0 || indexstart > 0) {
@@ -105,7 +103,7 @@ class CorpusUtilityorig {
         val utils = Utils(QuranGrammarApplication.context!!)
         val harfnasb = utils.getHarfNasbIndexesnew(surah_id)
         //TODO SURA10 7 INNA ISM INNALIZINA(0,5,6,9 AND KHABR IN 10;8 oolika(0,12,len33)
-        if (surah_id == 2 || surah_id == 3 || surah_id == 4 || surah_id == 5 || surah_id == 6 || surah_id == 7 || surah_id == 8 || surah_id == 9 || surah_id == 10 || surah_id == 59 || surah_id == 60 || surah_id == 61 || surah_id == 62 || surah_id == 63 || surah_id == 64 || surah_id == 65 || surah_id == 66 || surah_id == 67 || surah_id == 68 || surah_id == 69 || surah_id == 70 || surah_id == 71 || surah_id == 72 || surah_id == 73 || surah_id == 74 || surah_id == 75 || surah_id == 76 || surah_id == 77 || surah_id == 78 || surah_id > 78 && surah_id <= 114) {
+        if (surah_id == 2 || surah_id == 3 || surah_id == 4 || surah_id == 5 || surah_id == 6 || surah_id == 7 || surah_id == 8 || surah_id == 9 || surah_id == 10 || surah_id == 59 || surah_id == 60 || surah_id == 61 || surah_id == 62 || surah_id == 63 || surah_id == 64 || surah_id == 65 || surah_id == 66 || surah_id == 67 || surah_id == 68 || surah_id == 69 || surah_id == 70 || surah_id == 71 || surah_id == 72 || surah_id == 73 || surah_id == 74 || surah_id == 75 || surah_id == 76 || surah_id == 77 || surah_id == 78 || surah_id in 79..114) {
             var spannableverse: SpannableString
             val err = ArrayList<String>()
             for (nasb in harfnasb!!) {
@@ -117,7 +115,7 @@ class CorpusUtilityorig {
                 val khabarend = nasb.khabarend
                 //  spannableverse = corpusayahWordArrayList[nasb.ayah - 1].spannableverse!!
                 spannableverse =
-                    corpusayahWordArrayList.get(nasb.ayah - 1)!!.get(0)!!.spannableverse!!
+                    corpusayahWordArrayList[nasb.ayah - 1]!![0].spannableverse!!
                 try {
                     if (dark) {
                         Constant.harfinnaspanDark = ForegroundColorSpan(Color.GREEN)
@@ -206,13 +204,20 @@ class CorpusUtilityorig {
         indexstart: Int,
         indexend: Int,
                                 ) {
-        val spannableverse: SpannableString?
+        lateinit var spannableverse: SpannableString
 
         try {
             //   spannableverse = corpusayahWordArrayList!!.get(0)!!.get(0).spannableverse
             //  spannableverse = corpusayahWordArrayList[sifaEntity.ayah - 1].spannableverse!!
-            spannableverse =
-                corpusayahWordArrayList!!!!?.get(mudhafen.ayah - 1)?.get(0)!!.spannableverse
+            try {
+                spannableverse = corpusayahWordArrayList.get(mudhafen.ayah - 1)?.get(0)!!.spannableverse!!
+            }catch (e:NullPointerException) {
+
+                println(e.localizedMessage)
+                println(corpusayahWordArrayList.get(0)?.get(0)?.corpus!!.ayah)
+                println(corpusayahWordArrayList.get(mudhafen.ayah)?.get(0)!!.corpus!!.ayah)
+            }
+
             // spannableString = SpannableString.valueOf(corpusayahWordArrayList.get(mudhafen.getAyah() - 1).getSpannableverse());
             try {
                 if (indexstart == 0 || indexstart > 0) {
@@ -247,10 +252,10 @@ class CorpusUtilityorig {
         val surah = utils.getShartSurahNew(surah_id)
         //  final ArrayList<ShartEntity> surah = utils.getShartSurah(surah_id);
         //TO 9;118 IZA IN THE MEANING OF HEENA AND 9 122 IZA AS HEENA
-        if (surah_id > 1 && surah_id <= 10 || surah_id > 57 && surah_id <= 114) {
+        if (surah_id in 2..10 || surah_id in 58..114) {
             for (shart in surah!!) {
                 val indexstart = shart!!.indexstart
-                val indexend = shart!!.indexend
+                val indexend = shart.indexend
                 val shartsindex = shart.shartindexstart
                 val sharteindex = shart.shartindexend
                 val jawabstartindex = shart.jawabshartindexstart
@@ -297,7 +302,7 @@ class CorpusUtilityorig {
         }
         try {
             //   spannableverse = corpusayahWordArrayList[shart.ayah - 1].spannableverse!!
-            spannableverse = corpusayahWordArrayList.get(shart.ayah - 1)!!.get(0)!!.spannableverse!!
+            spannableverse = corpusayahWordArrayList[shart.ayah - 1]!![0].spannableverse!!
             //   spannableString = SpannableString.valueOf(corpusayahWordArrayList.get(shart.getAyah() - 1).getSpannableverse());
             try {
                 if (indexstart == 0 || indexstart > 0) {
@@ -380,17 +385,17 @@ class CorpusUtilityorig {
             kanaism = ForegroundColorSpan(Constant.KASHMIRIGREEN)
             kanakhbar = ForegroundColorSpan(Constant.WHOTPINK)
         }
-        if (surah_id > 1 && surah_id <= 10 || surah_id > 58 && surah_id <= 114) {
+        if (surah_id in 2..10 || surah_id in 59..114) {
             for (kana in kanalist!!) {
                 //     val spannableverse = corpusayahWordArrayList[kana!!.ayah - 1].spannableverse
                 val spannableverse =
-                    corpusayahWordArrayList.get(kana.ayah - 1)!!.get(0)!!.spannableverse!!
+                    corpusayahWordArrayList[kana.ayah - 1]!![0].spannableverse!!
                 try {
                     if (spannableverse != null) {
                         spannableverse.setSpan(
                             harfkana,
-                            kana!!.indexstart,
-                            kana!!.indexend,
+                            kana.indexstart,
+                            kana.indexend,
                             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                                               )
                     }
@@ -398,8 +403,8 @@ class CorpusUtilityorig {
                     if (spannableverse != null) {
                         spannableverse.setSpan(
                             kanakhbar,
-                            kana!!.khabarstart,
-                            kana!!.khabarend,
+                            kana.khabarstart,
+                            kana.khabarend,
                             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                                               )
                     }
@@ -407,8 +412,8 @@ class CorpusUtilityorig {
                     if (spannableverse != null) {
                         spannableverse.setSpan(
                             kanaism,
-                            kana!!.ismkanastart,
-                            kana!!.ismkanaend,
+                            kana.ismkanastart,
+                            kana.ismkanaend,
                             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                                               )
                     }
@@ -423,7 +428,7 @@ class CorpusUtilityorig {
 
     fun composeWBWCollection(allofQuran: List<QuranEntity>?, corpusSurahWord: List<QuranCorpusWbw>?): LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>> {
 
-         var newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
+         val newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
         var qurancorpusarray = ArrayList<NewQuranCorpusWbw>()
 
 
@@ -437,14 +442,14 @@ class CorpusUtilityorig {
             var ayahWord = NewQuranCorpusWbw()
 
             try {
-                while (corpusSurahWord!![secondindex].corpus.ayah <= allofQuran!![aindex]!!.ayah) {
-                    if (corpusSurahWord!![secondindex].corpus.ayah != allofQuran!![aindex]!!.ayah) {
+                while (corpusSurahWord!![secondindex].corpus.ayah <= allofQuran[aindex].ayah) {
+                    if (corpusSurahWord[secondindex].corpus.ayah != allofQuran[aindex].ayah) {
                         break
                     }
 
-                    ayahWord.spannableverse = SpannableString.valueOf(allofQuran!![aindex]!!.qurantext)
-                    ayahWord.wbw = corpusSurahWord!![secondindex].wbw
-                    ayahWord.corpus = corpusSurahWord!![secondindex++].corpus
+                    ayahWord.spannableverse = SpannableString.valueOf(allofQuran[aindex].qurantext)
+                    ayahWord.wbw = corpusSurahWord[secondindex].wbw
+                    ayahWord.corpus = corpusSurahWord[secondindex++].corpus
                     qurancorpusarray.add(ayahWord)
 
                     ayahWord = NewQuranCorpusWbw()
@@ -489,11 +494,11 @@ class CorpusUtilityorig {
             var araone = araone
             var str: SpannableString? = null
             var tagcounter = 0
-            val b = tagone.length > 0
-            val bb = tagtwo.length > 0
-            val bbb = tagthree.length > 0
-            val bbbb = tagfour.length > 0
-            val bbbbb = tagfive.length > 0
+            val b = tagone.isNotEmpty()
+            val bb = tagtwo.isNotEmpty()
+            val bbb = tagthree.isNotEmpty()
+            val bbbb = tagfour.isNotEmpty()
+            val bbbbb = tagfive.isNotEmpty()
             if (b && !bb && !bbb && !bbbb && !bbbbb) {
                 tagcounter = 1
             } else if (b && bb && !bbb && !bbbb && !bbbbb) {
@@ -511,95 +516,100 @@ class CorpusUtilityorig {
             arafour = arafour.trim { it <= ' ' }
             arafive = arafive.trim { it <= ' ' }
             //
-            val spanhash: Map<String?, ForegroundColorSpan>
-            spanhash = stringForegroundColorSpanMap
-            if (tagcounter == 1) {
-                //   Set<String> strings = spanhash.keySet();
-                str =
-                    SpannableString(araone.trim { it <= ' ' } + aratwo.trim { it <= ' ' } + arathree.trim { it <= ' ' })
-                str.setSpan(spanhash[tagone], 0, araone.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            } else if (tagcounter == 2) {
-                val strone = SpannableString(araone.trim { it <= ' ' })
-                val strtwo = SpannableString(aratwo.trim { it <= ' ' })
-                strtwo.setSpan(spanhash[tagtwo], 0, aratwo.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                strone.setSpan(spanhash[tagone], 0, araone.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                val charSequence = TextUtils.concat(strtwo, strone)
-                str = SpannableString(charSequence)
-            } else if (tagcounter == 3) {
-                spanhash[tagone]
-                val strone = SpannableString(araone.trim { it <= ' ' })
-                val strtwo = SpannableString(aratwo.trim { it <= ' ' })
-                val strthree = SpannableString(arathree.trim { it <= ' ' })
-                strthree.setSpan(
-                    spanhash[tagthree],
-                    0,
-                    arathree.length,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                )
-                strtwo.setSpan(spanhash[tagtwo], 0, aratwo.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                strone.setSpan(spanhash[tagone], 0, araone.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                val charSequence = TextUtils.concat(strthree, strtwo, strone)
-                str = SpannableString(charSequence)
-            } else if (tagcounter == 4) {
-                //  str = new SpannableString(arafour.trim() + arathree.trim() + aratwo.trim() + araone.trim());
-                val strone = SpannableString(araone.trim { it <= ' ' })
-                val strtwo = SpannableString(aratwo.trim { it <= ' ' })
-                val strthree = SpannableString(arathree.trim { it <= ' ' })
-                val strfour = SpannableString(arafour.trim { it <= ' ' })
-                strfour.setSpan(
-                    spanhash[tagfour],
-                    0,
-                    arafour.length,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                               )
-                strthree.setSpan(
-                    spanhash[tagthree],
-                    0,
-                    arathree.length,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                )
-                strtwo.setSpan(spanhash[tagtwo], 0, aratwo.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                strone.setSpan(spanhash[tagone], 0, araone.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                val charSequence = TextUtils.concat(strfour, strthree, strtwo, strone)
-                str = SpannableString(charSequence)
-            } else if (tagcounter == 5) {
-                val strone = SpannableString(araone.trim { it <= ' ' })
-                val strtwo = SpannableString(aratwo.trim { it <= ' ' })
-                val strthree = SpannableString(arathree.trim { it <= ' ' })
-                val strfour = SpannableString(arafour.trim { it <= ' ' })
-                val strfive = SpannableString(arafive.trim { it <= ' ' })
-                strfive.setSpan(
-                    spanhash[tagone],
-                    0,
-                    arafive.length,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                               )
-                strfour.setSpan(
-                    spanhash[tagtwo],
-                    0,
-                    arafour.length,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                               )
-                strthree.setSpan(
-                    spanhash[tagthree],
-                    0,
-                    arathree.length,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                )
-                strtwo.setSpan(
-                    spanhash[tagfour],
-                    0,
-                    aratwo.length,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                              )
-                strone.setSpan(
-                    spanhash[tagfive],
-                    0,
-                    araone.length,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                              )
-                val charSequence = TextUtils.concat(strone, strtwo, strthree, strfour, strfive)
-                str = SpannableString(charSequence)
+            val spanhash: Map<String?, ForegroundColorSpan> = stringForegroundColorSpanMap
+            when (tagcounter) {
+                1 -> {
+                    //   Set<String> strings = spanhash.keySet();
+                    str =
+                        SpannableString(araone.trim { it <= ' ' } + aratwo.trim { it <= ' ' } + arathree.trim { it <= ' ' })
+                    str.setSpan(spanhash[tagone], 0, araone.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                }
+                2 -> {
+                    val strone = SpannableString(araone.trim { it <= ' ' })
+                    val strtwo = SpannableString(aratwo.trim { it <= ' ' })
+                    strtwo.setSpan(spanhash[tagtwo], 0, aratwo.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    strone.setSpan(spanhash[tagone], 0, araone.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    val charSequence = TextUtils.concat(strtwo, strone)
+                    str = SpannableString(charSequence)
+                }
+                3 -> {
+                    spanhash[tagone]
+                    val strone = SpannableString(araone.trim { it <= ' ' })
+                    val strtwo = SpannableString(aratwo.trim { it <= ' ' })
+                    val strthree = SpannableString(arathree.trim { it <= ' ' })
+                    strthree.setSpan(
+                        spanhash[tagthree],
+                        0,
+                        arathree.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                                    )
+                    strtwo.setSpan(spanhash[tagtwo], 0, aratwo.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    strone.setSpan(spanhash[tagone], 0, araone.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    val charSequence = TextUtils.concat(strthree, strtwo, strone)
+                    str = SpannableString(charSequence)
+                }
+                4 -> {
+                    //  str = new SpannableString(arafour.trim() + arathree.trim() + aratwo.trim() + araone.trim());
+                    val strone = SpannableString(araone.trim { it <= ' ' })
+                    val strtwo = SpannableString(aratwo.trim { it <= ' ' })
+                    val strthree = SpannableString(arathree.trim { it <= ' ' })
+                    val strfour = SpannableString(arafour.trim { it <= ' ' })
+                    strfour.setSpan(
+                        spanhash[tagfour],
+                        0,
+                        arafour.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                                   )
+                    strthree.setSpan(
+                        spanhash[tagthree],
+                        0,
+                        arathree.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                                    )
+                    strtwo.setSpan(spanhash[tagtwo], 0, aratwo.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    strone.setSpan(spanhash[tagone], 0, araone.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    val charSequence = TextUtils.concat(strfour, strthree, strtwo, strone)
+                    str = SpannableString(charSequence)
+                }
+                5 -> {
+                    val strone = SpannableString(araone.trim { it <= ' ' })
+                    val strtwo = SpannableString(aratwo.trim { it <= ' ' })
+                    val strthree = SpannableString(arathree.trim { it <= ' ' })
+                    val strfour = SpannableString(arafour.trim { it <= ' ' })
+                    val strfive = SpannableString(arafive.trim { it <= ' ' })
+                    strfive.setSpan(
+                        spanhash[tagone],
+                        0,
+                        arafive.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                                   )
+                    strfour.setSpan(
+                        spanhash[tagtwo],
+                        0,
+                        arafour.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                                   )
+                    strthree.setSpan(
+                        spanhash[tagthree],
+                        0,
+                        arathree.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                                    )
+                    strtwo.setSpan(
+                        spanhash[tagfour],
+                        0,
+                        aratwo.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                                  )
+                    strone.setSpan(
+                        spanhash[tagfive],
+                        0,
+                        araone.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                                  )
+                    val charSequence = TextUtils.concat(strone, strtwo, strthree, strfour, strfive)
+                    str = SpannableString(charSequence)
+                }
             }
             return str
         }
@@ -611,11 +621,11 @@ class CorpusUtilityorig {
                             ): SpannableString? {
             var str: SpannableString? = null
             var tagcounter = 0
-            val b = tagone.length > 0
-            val bb = tagtwo.length > 0
-            val bbb = tagthree.length > 0
-            val bbbb = tagfour.length > 0
-            val bbbbb = tagfive.length > 0
+            val b = tagone.isNotEmpty()
+            val bb = tagtwo.isNotEmpty()
+            val bbb = tagthree.isNotEmpty()
+            val bbbb = tagfour.isNotEmpty()
+            val bbbbb = tagfive.isNotEmpty()
             if (b && !bb && !bbb && !bbbb && !bbbbb) {
                 tagcounter = 1
             } else if (b && bb && !bbb && !bbbb && !bbbbb) {
@@ -627,12 +637,11 @@ class CorpusUtilityorig {
             } else if (b && bb && bbb && bbbb) {
                 tagcounter = 5
             }
-            val spanhash: Map<String?, ForegroundColorSpan>
             //   SharedPreferences sharedPreferences =
             //      androidx.preference.PreferenceManager.getDefaultSharedPreferences(DarkThemeApplication.context!!);
             //   String isNightmode = sharedPreferences.getString("themepref", "dark" );
             //   if (isNightmode.equals("dark")||isNightmode.equals("blue")) {
-            spanhash = stringForegroundColorSpanMap
+            val spanhash: Map<String?, ForegroundColorSpan> = stringForegroundColorSpanMap
             //  }else{
             //   spanhash = getColorSpanforPhrasesLight();
             //  }
@@ -746,11 +755,11 @@ class CorpusUtilityorig {
                 return SpannableString(araone).also { str = it }
             }
             var tagcounter = 0
-            val b = tagone!!.length > 0
-            val bb = tagtwo!!.length > 0
-            val bbb = tagthree!!.length > 0
-            val bbbb = tagfour!!.length > 0
-            val bbbbb = tagfive!!.length > 0
+            val b = tagone!!.isNotEmpty()
+            val bb = tagtwo!!.isNotEmpty()
+            val bbb = tagthree!!.isNotEmpty()
+            val bbbb = tagfour!!.isNotEmpty()
+            val bbbbb = tagfive!!.isNotEmpty()
             if (b && !bb && !bbb && !bbbb && !bbbbb) {
                 tagcounter = 1
             } else if (b && bb && !bbb && !bbbb && !bbbbb) {
@@ -767,12 +776,11 @@ class CorpusUtilityorig {
             arathree = arathree.trim { it <= ' ' }
             arafour = arafour.trim { it <= ' ' }
             arafive = arafive.trim { it <= ' ' }
-            val spanhash: Map<String?, ForegroundColorSpan>
             //   SharedPreferences sharedPreferences =
             //      androidx.preference.PreferenceManager.getDefaultSharedPreferences(DarkThemeApplication.context!!);
             //   String isNightmode = sharedPreferences.getString("themepref", "dark" );
             //   if (isNightmode.equals("dark")||isNightmode.equals("blue")) {
-            spanhash = stringForegroundColorSpanMap
+            val spanhash: Map<String?, ForegroundColorSpan> = stringForegroundColorSpanMap
             //  }else{
             //   spanhash = getColorSpanforPhrasesLight();
             //  }
@@ -1183,11 +1191,11 @@ class CorpusUtilityorig {
                 return SpannableStringBuilder(araone).also { str = it }
             }
             var tagcounter = 0
-            val b = tagone!!.length > 0
-            val bb = tagtwo!!.length > 0
-            val bbb = tagthree!!.length > 0
-            val bbbb = tagfour!!.length > 0
-            val bbbbb = tagfive!!.length > 0
+            val b = tagone!!.isNotEmpty()
+            val bb = tagtwo!!.isNotEmpty()
+            val bbb = tagthree!!.isNotEmpty()
+            val bbbb = tagfour!!.isNotEmpty()
+            val bbbbb = tagfive!!.isNotEmpty()
             if (b && !bb && !bbb && !bbbb && !bbbbb) {
                 tagcounter = 1
             } else if (b && bb && !bbb && !bbbb && !bbbbb) {
@@ -1204,12 +1212,11 @@ class CorpusUtilityorig {
             arathree = arathree.trim { it <= ' ' }
             arafour = arafour.trim { it <= ' ' }
             arafive = arafive.trim { it <= ' ' }
-            val spanhash: Map<String?, ForegroundColorSpan>
             //   SharedPreferences sharedPreferences =
             //      androidx.preference.PreferenceManager.getDefaultSharedPreferences(DarkThemeApplication.context!!);
             //   String isNightmode = sharedPreferences.getString("themepref", "dark" );
             //   if (isNightmode.equals("dark")||isNightmode.equals("blue")) {
-            spanhash = stringForegroundColorSpanMap
+            val spanhash: Map<String?, ForegroundColorSpan> = stringForegroundColorSpanMap
             //  }else{
             //   spanhash = getColorSpanforPhrasesLight();
             //  }

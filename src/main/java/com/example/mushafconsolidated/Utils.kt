@@ -668,7 +668,7 @@ fun getQuranCorpusWbwbysurah(surahid: Int): List<QuranCorpusWbw>? {
         return  database.wbwDao()?.getwbwQuranbTranslation(sid, aid, firstwordindex, lastwordindex)
     }
 
-    fun getNounBreakup(tid: String): List<NounCorpusBreakup?>? {
+    fun getNounBreakup(tid: String): List<NounCorpusBreakup>? {
         val sqlverb: String =
             ("SELECT count(root_a) as count,id,surah,ayah, lemma_a,form,araword,tag,propone,proptwo FROM nouncorpus where root_a =\""
                     + tid + "\""
