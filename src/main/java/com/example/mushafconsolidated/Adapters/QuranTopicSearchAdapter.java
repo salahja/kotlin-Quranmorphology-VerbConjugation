@@ -10,7 +10,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,19 +31,20 @@ public class QuranTopicSearchAdapter extends RecyclerView.Adapter<QuranTopicSear
     private List<quranexplorer> qurandictionaryFiltered;
     private ContactsAdapterListener listener;
     private boolean downloadtype;
-    private boolean[] mcheckedStatus;
 
-    public QuranTopicSearchAdapter(Context context, ContactsAdapterListener listener) {
-        this.context = context;
-        this.listener = listener;
+// --Commented out by Inspection START (19/09/23, 8:51 pm):
+//    public QuranTopicSearchAdapter(Context context, ContactsAdapterListener listener) {
+//        this.context = context;
+//        this.listener = listener;
+//
+//    }
+// --Commented out by Inspection STOP (19/09/23, 8:51 pm)
 
-    }
-
-    public QuranTopicSearchAdapter(Context context, ArrayList<quranexplorer> qurandictionaryArrayList, boolean b) {
+    public QuranTopicSearchAdapter(Context context, ArrayList<quranexplorer> qurandictionaryArrayList) {
         this.context = context;
         this.qurandictionaryArrayList = qurandictionaryArrayList;
         this.qurandictionaryFiltered = qurandictionaryArrayList;
-        mcheckedStatus = new boolean[this.qurandictionaryFiltered.size()];
+        boolean[] mcheckedStatus = new boolean[this.qurandictionaryFiltered.size()];
     }
 
     public Object getItem(int position) {
@@ -55,10 +55,12 @@ public class QuranTopicSearchAdapter extends RecyclerView.Adapter<QuranTopicSear
         return qurandictionaryFiltered;
     }
 
-    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {
-        this.mItemClickListener = mItemClickListener;
-
-    }
+// --Commented out by Inspection START (19/09/23, 8:51 pm):
+//    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {
+//        this.mItemClickListener = mItemClickListener;
+//
+//    }
+// --Commented out by Inspection STOP (19/09/23, 8:51 pm)
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -162,8 +164,9 @@ public class QuranTopicSearchAdapter extends RecyclerView.Adapter<QuranTopicSear
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView arabicroot, buckwaterroot, translationid, englishname;
-        public ImageView downloadicon, deleteicon;
+        public TextView arabicroot, buckwaterroot;
+        // --Commented out by Inspection (19/09/23, 8:51 pm):translationid, // --Commented out by Inspection (19/09/23, 8:51 pm):englishname;
+        // --Commented out by Inspection (19/09/23, 8:51 pm):public ImageView downloadicon, // --Commented out by Inspection (19/09/23, 8:51 pm):deleteicon;
         public CheckBox checkBox;
 
         public MyViewHolder(View view) {

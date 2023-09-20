@@ -21,8 +21,6 @@ class RootBreakFragment
  * fragment (e.g. upon screen orientation changes).
  */
     : Fragment() {
-    // TODO: Customize parameters
-    private val mColumnCount = 1
     private var root: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +42,6 @@ class RootBreakFragment
         return view
     }
     companion object {
-        // TODO: Customize parameter argument names
-        private const val ARG_COLUMN_COUNT = "column-count"
-
         // TODO: Customize parameter initialization
         fun newInstance(rootword: String?): RootBreakFragment {
             val fragment = RootBreakFragment()

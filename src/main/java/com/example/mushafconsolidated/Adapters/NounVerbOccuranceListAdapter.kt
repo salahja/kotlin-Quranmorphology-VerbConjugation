@@ -24,7 +24,7 @@ class NounVerbOccuranceListAdapter(
 ) : BaseExpandableListAdapter() {
     private val expandVerbTitles: List<String>
     private val expandVerbVerses: LinkedHashMap<String, ArrayList<SpannableString>>
-    var expandNounVerses = LinkedHashMap<String, ArrayList<SpannableString>>()
+    private var expandNounVerses = LinkedHashMap<String, ArrayList<SpannableString>>()
 
     init {
         this.expandNounVerses = expandNounVerses
@@ -33,7 +33,7 @@ class NounVerbOccuranceListAdapter(
     }
 
     override fun getChild(listPosition: Int, expandedListPosition: Int): Any {
-        return expandNounVerses[expandableListTitle[listPosition]]!!.get(expandedListPosition)
+        return expandNounVerses[expandableListTitle[listPosition]]!![expandedListPosition]
     }
 
     override fun getChildId(listPosition: Int, expandedListPosition: Int): Long {
@@ -58,7 +58,7 @@ class NounVerbOccuranceListAdapter(
             convertView = layoutInflater.inflate(R.layout.list_grammar_item, null)
         }
         val mequran =
-            Typeface.createFromAsset(QuranGrammarApplication.context!!.getAssets(), "Taha.ttf")
+            Typeface.createFromAsset(QuranGrammarApplication.context!!.assets, "Taha.ttf")
         //  Typeface mequran = Typeface.createFromAsset(DarkThemeApplication.getContext().getAssets(), quranfont);
         val expandedListTextView = convertView!!.findViewById<View>(R.id.expandedListItem) as TextView
         val expandedListTextViewlane = convertView

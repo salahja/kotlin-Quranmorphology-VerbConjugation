@@ -1,9 +1,7 @@
 package sj.hisnul.fragments
 
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -23,13 +21,12 @@ import sj.hisnul.newepository.NewDuaModel
 import java.util.Collections
 
 class DisplayFromBookMark : Fragment() {
-    val subheaders = ArrayList<String>()
-    val duacoll: ArrayList<ArrayList<hduadetailsEnt>> = ArrayList()
-     lateinit var  sadapter: SelectedDuaViewAdapter
+    private val subheaders = ArrayList<String>()
+    private val duacoll: ArrayList<ArrayList<hduadetailsEnt>> = ArrayList()
+     private lateinit var  sadapter: SelectedDuaViewAdapter
 
     //called by allduarag and  catwofrag retrival by the chaptername in hdunames
      lateinit var  recyclerView: RecyclerView
-    private  lateinit var  lists: String
     private  lateinit var  name: String
     private   var  fromcatwo = false
     private var chap_id = 0
@@ -58,7 +55,7 @@ class DisplayFromBookMark : Fragment() {
         val actionBa = (activity as AppCompatActivity?)!!.actionBar
         //  ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         actionBa?.setDisplayHomeAsUpEnabled(true)
-        recyclerView = view.findViewById<RecyclerView>(R.id.dunamerec)
+        recyclerView = view.findViewById(R.id.dunamerec)
         val utils = Utils(context)
         toolbar.title = name
         toolbar.inflateMenu(R.menu.menu_bookmark)
@@ -115,11 +112,11 @@ class DisplayFromBookMark : Fragment() {
         recyclerView.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
-        recyclerView.setLayoutManager(layoutManager)
+        recyclerView.layoutManager = layoutManager
         if (chap_id != -1) {
             val viewmodel: NewDuaModel by viewModels()
 
-            viewmodel.Duadetailsbychapter(chap_id).observe(viewLifecycleOwner){
+            viewmodel.Duadetailsbychapter(chap_id).observe(viewLifecycleOwner){ it ->
                 // val dd: ArrayList<hduanames> = utils.getdualistbychapter(chap_id) as ArrayList<hduanames>
                 for (hduanames in it) {
                     viewmodel.DuaItembyId(hduanames.ID).observe(viewLifecycleOwner){
@@ -127,7 +124,7 @@ class DisplayFromBookMark : Fragment() {
                         duacoll.add(duaItems)
                         subheaders.add(hduanames.duaname)
                         sadapter = SelectedDuaViewAdapter(duacoll, context, name, subheaders)
-                        recyclerView.setAdapter(sadapter)
+                        recyclerView.adapter = sadapter
                     }
 
 
@@ -144,18 +141,6 @@ class DisplayFromBookMark : Fragment() {
 
         //  recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view
-    }
-
-
-    private fun RefreshActivity() {
-        Log.e(TAG, "onClick called")
-        val intent: Intent = requireActivity().intent
-        val parentActivityRef: String? = intent.getStringExtra("PARENT_ACTIVITY_REF")
-        intent.putExtra("tabposition", 1)
-        requireActivity().overridePendingTransition(0, 0)
-        startActivity(intent)
-        requireActivity().finish()
-
     }
 
     companion object {

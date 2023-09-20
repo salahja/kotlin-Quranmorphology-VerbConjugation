@@ -16,7 +16,7 @@ import com.google.android.material.button.MaterialButton
 import org.sj.conjugator.interfaces.OnItemClickListener
 
 /**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
+
  * TODO: Replace the implementation with code for your data type.
  */
 class VerbDetailsRecAdapter(private val mValues: ArrayList<RootVerbDetails>) :
@@ -87,7 +87,7 @@ class VerbDetailsRecAdapter(private val mValues: ArrayList<RootVerbDetails>) :
         View.OnClickListener // current clickListerner
     {
         // public final ImageView id;
-        val conjugate: MaterialButton
+        private val conjugate: MaterialButton
         var cardview: CardView? = null
         var arabicsurahname: TextView
         var verbsaw: TextView

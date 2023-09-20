@@ -31,11 +31,11 @@ import java.util.zip.ZipInputStream
 class MainActivity : BaseActivity() {
     private var newquran: File? = null
     var recview: RecyclerView? = null
-    protected override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    protected override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         switchTheme("brown")
         super.onCreate(savedInstanceState)
         val hasPermission = ContextCompat.checkSelfPermission(
@@ -53,7 +53,7 @@ class MainActivity : BaseActivity() {
             //  PreferenceManager.setDefaultValues(this, R.xml.prefs2, true);
             sp.edit().putInt("spl", SPL).apply()
         }
-        newquran = File(FILEPATH + "/" + DATABASENAME)
+        newquran = File("$FILEPATH/$DATABASENAME")
         if (!hasPermission) {
             ActivityCompat.requestPermissions(
                 this,
@@ -73,7 +73,7 @@ class MainActivity : BaseActivity() {
     private fun computeWindowSizeClasses() {
         val metrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this)
         val editor = PreferenceManager.getDefaultSharedPreferences(this@MainActivity).edit()
-        val widthDp: Float = metrics.bounds.width() / getResources().getDisplayMetrics().density
+        val widthDp: Float = metrics.bounds.width() / resources.displayMetrics.density
         if (widthDp < 600f) {
             editor.putString("width", "compactWidth")
             editor.apply()
@@ -85,9 +85,8 @@ class MainActivity : BaseActivity() {
             editor.putString("width", "expandedWidth")
             editor.apply()
         }
-        val heightDp: Float = metrics.bounds.height() / getResources().getDisplayMetrics().density
-        val heightWindowSizeClass: WindowSizeClass
-        heightWindowSizeClass = if (heightDp < 480f) {
+        val heightDp: Float = metrics.bounds.height() / resources.displayMetrics.density
+        val heightWindowSizeClass: WindowSizeClass = if (heightDp < 480f) {
             WindowSizeClass.COMPACT
         } else if (heightDp < 900f) {
             WindowSizeClass.MEDIUM
@@ -105,7 +104,7 @@ class MainActivity : BaseActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         //check if permission had taken or not
         if (requestCode == REQUEST_WRITE_STORAGE) {
-            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //valid to download or not
                 try {
                     validateFilesAndDownload()
@@ -265,18 +264,6 @@ class MainActivity : BaseActivity() {
             }
         })
     }
-    val defaultSaveRootPath: Boolean
-        get() {
-            var useExternalStorage = false
-            val mounted = Environment.getExternalStorageState() == "mounted"
-            val freeSpace = Environment.getExternalStorageDirectory().freeSpace
-            if (mounted) {
-                if (freeSpace > 0) {
-                    useExternalStorage = true
-                }
-            }
-            return useExternalStorage
-        }
 
     enum class WindowSizeClass {
         COMPACT, MEDIUM, EXPANDED

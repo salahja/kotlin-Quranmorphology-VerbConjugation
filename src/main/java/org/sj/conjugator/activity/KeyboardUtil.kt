@@ -18,16 +18,4 @@ object KeyboardUtil {
         view.clearFocus()
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
-
-    /**
-     * @param activity the activity instance
-     */
-    fun showKeyboard(activity: Activity) {
-        var view = activity.currentFocus
-        if (view == null) view = View(activity)
-        val context = view.context
-
-        val mgr = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        mgr.showSoftInput(view, InputMethodManager.SHOW_FORCED)
-    }
 }

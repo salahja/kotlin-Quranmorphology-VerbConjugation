@@ -23,12 +23,8 @@ class MazeedTabSagheerFragmentVerb(private val context: Context) : Fragment() {
     // --Commented out by Inspection (31/1/21 5:51 AM):ArrayList<String> sarfkabeer = new ArrayList<>();
     var recyclerView: RecyclerView? = null
     var isAugmented = false
-    var isUnAugmented = false
-    private val verbweakness: String? = null
+    private var isUnAugmented = false
     private var sarfsagheerAdapter: SarfMujarradSarfSagheerListingAdapter? = null
-
-    // ArrayList sarfSagheerThulathiArray = new ArrayList();
-    private val sarfSagheerThulathiArray: ArrayList<*>? = null
     private lateinit var augmentedFormula: String
     private lateinit var unaugmentedFormula: String
     private var verbroot: String? = null
@@ -143,14 +139,11 @@ class MazeedTabSagheerFragmentVerb(private val context: Context) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView: RecyclerView
-        recyclerView = view.findViewById(R.id.sarfrecview)
+        val recyclerView: RecyclerView = view.findViewById(R.id.sarfrecview)
 
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
         sarfsagheerAdapter!!.SetOnItemClickListener(object : OnItemClickListener {
-
-            val WORDNUMBER = "wordnumber"
             override fun onItemClick(v: View?, position: Int) {
                 val wordEntity = ssagheer!![position]
                 if (v != null) {
@@ -158,21 +151,21 @@ class MazeedTabSagheerFragmentVerb(private val context: Context) : Fragment() {
                         var form = "Form "
                         if (v.tag == "form") {
                             if (wordEntity.wazan == "2") {
-                                form = form + "II"
+                                form += "II"
                             } else if (wordEntity.wazan == "3") {
-                                form = form + "III"
+                                form += "III"
                             } else if (wordEntity.wazan == "1") {
-                                form = form + "IV"
+                                form += "IV"
                             } else if (wordEntity.wazan == "7") {
-                                form = form + "V"
+                                form += "V"
                             } else if (wordEntity.wazan == "8") {
-                                form = form + "VI"
+                                form += "VI"
                             } else if (wordEntity.wazan == "4") {
-                                form = form + "VII"
+                                form += "VII"
                             } else if (wordEntity.wazan == "5") {
-                                form = form + "VIII"
+                                form += "VIII"
                             } else if (wordEntity.wazan == "9") {
-                                form = form + "X"
+                                form += "X"
                             }
                             val item = VerbFormsDialogFrag()
                             //    item.setdata(root!!WordMeanings,wbwRootwords,grammarRootsCombined);
@@ -240,7 +233,5 @@ class MazeedTabSagheerFragmentVerb(private val context: Context) : Fragment() {
     }
 
     companion object {
-        private const val WRITE_REQUEST_CODE = 101
-        private const val TAG = "PermissionDemo"
     }
 }

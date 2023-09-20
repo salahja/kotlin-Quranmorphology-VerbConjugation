@@ -10,14 +10,10 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
-import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -46,7 +42,6 @@ import com.example.Constant.CHAPTER
 import com.example.Constant.SURAH_ARABIC_NAME
 import com.example.mushafconsolidated.Activityimport.AyahCoordinate
 import com.example.mushafconsolidated.Activityimport.BaseActivity
-import com.example.mushafconsolidated.Adapters.LineMushaAudioAdapter
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
 import com.example.mushafconsolidated.Entities.HalEnt
@@ -63,7 +58,6 @@ import com.example.mushafconsolidated.databinding.NewFragmentReadingBinding
 import com.example.mushafconsolidated.fragments.newFlowAyahWordAdapter
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.model.CorpusAyahWord
-import com.example.mushafconsolidated.model.CorpusWbwWord
 import com.example.mushafconsolidated.model.NewQuranCorpusWbw
 import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
@@ -73,7 +67,6 @@ import com.example.mushafconsolidated.receiversimport.FileManager
 import com.example.mushafconsolidated.receiversimport.QuranValidateSources
 import com.example.mushafconsolidated.receiversimport.Settingsss
 import com.example.mushafconsolidated.settingsimport.Constants
-import com.example.utility.AudioPositionSaved
 import com.example.utility.ConfigPreferences
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.MovableFloatingActionButton
@@ -104,6 +97,7 @@ import java.text.MessageFormat
 import java.util.Locale
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import kotlin.math.max
 
 class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnClickListener,
     FullscreenButtonClickListener {
@@ -122,9 +116,6 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     private var kana = false
     private  var allofQuran: List<QuranEntity>?=null
-    private lateinit var shared: SharedPreferences
-
-
     private   var corpusayahWordArrayList: ArrayList<CorpusAyahWord>?=null
 
 
@@ -145,21 +136,18 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
 
     private val isMakkiMadani = 0
-    lateinit var exo_settings: ImageButton
-    lateinit var exo_close: ImageButton
-    lateinit var exo_bottom_bar: ImageButton
+    private lateinit var exo_settings: ImageButton
+    private lateinit var exo_close: ImageButton
+    private lateinit var exo_bottom_bar: ImageButton
     private lateinit   var surahWheelDisplayData: Array<String>
     private lateinit   var ayahWheelDisplayData: Array<String>
     var versestartrange = 0
-    var verseendrange = 0
+    private var verseendrange = 0
     private var currenttrack = 0
     private var resumelastplayed = 0
     private var onClickOrRange = false
-    lateinit var llStartRange: LinearLayout
-    lateinit var llEndRange: LinearLayout
-
-    //  private LinkedHashMap<Integer, Integer> hlights;
-    private val Coordinates: ArrayList<AyahCoordinate> = ArrayList()
+    private lateinit var llStartRange: LinearLayout
+    private lateinit var llEndRange: LinearLayout
     private val hlights: LinkedHashMap<Int, ArrayList<AyahCoordinate>> =
         LinkedHashMap()
     var flow = false
@@ -169,9 +157,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     private var resume = false
     var ayah = 0
     private val passage = LinkedHashMap<Int, String>()
-    private val pages = LinkedHashMap<Int, String>()
-    var audioType = 0
-    var prevqari = ""
+    private var audioType = 0
     private val handler = Handler()
     private lateinit var marray: MutableList<MediaItem>
     private  var marrayrange: List<MediaItem>?=null
@@ -180,9 +166,9 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     private  var quranbySurahadapter: List<QuranEntity ?>?=null
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var selectedqari: String
-    lateinit var qariname: MaterialTextView
+    private lateinit var qariname: MaterialTextView
     lateinit var ayaprogress: MaterialTextView
-    lateinit var canceldownload: MaterialButton
+    private lateinit var canceldownload: MaterialButton
 
     //  FrameLayout eqContainer;
 
@@ -196,24 +182,17 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     private var startAutoPlay = false
     private var startItemIndex = 0
     private var startPosition: Long = 0
-    private val ruku = LinkedHashMap<Int, ArrayList<CorpusWbwWord>>()
     private var pausePlayFlag = false
-    var surahselected = 0
-    var verselected = 0
+    private var surahselected = 0
+    private var verselected = 0
     var versescount = 0
-    lateinit var surahNameEnglish: String
-    lateinit var surahNameArabic: String
+    private lateinit var surahNameEnglish: String
+    private lateinit var surahNameArabic: String
     private lateinit var isNightmode: String
 
     // LinearLayout fabLayout1, fabLayout2,fabLayout3;
     //  FloatingActionButton fab, fab1, fab2, fab3;
-    lateinit var playfb: MovableFloatingActionButton
-
-    // Use the ExtendedFloatingActionButton to handle the
-    // These TextViews are taken to make visible and
-    // invisible along with FABs except parent FAB's action
-    // name
-    lateinit var resetfbtxt: TextView
+    private lateinit var playfb: MovableFloatingActionButton
     override fun onBackPressed() {
 
         //unregister broadcast for download ayat
@@ -236,11 +215,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     private var surah = 0
     lateinit var recyclerView: RecyclerView
     lateinit var repository: Utils
-    lateinit var lineMushaAudioAdapter: LineMushaAudioAdapter
-    
     lateinit var typeface: Typeface
-    lateinit var txtView: TextView
- 
     private lateinit var readers: Spinner
     private lateinit var downloadFooter: RelativeLayout
  
@@ -248,9 +223,9 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     private lateinit var audio_settings_bottom: RelativeLayout
 
     //  TextView startrange, startimage, endrange, endimage;
-    lateinit var startrange: MaterialTextView
-    lateinit var endrange: MaterialTextView
-    fun setStartPosition(startPosition: Long) {
+    private lateinit var startrange: MaterialTextView
+    private lateinit var endrange: MaterialTextView
+    private fun setStartPosition(startPosition: Long) {
         this.startPosition = startPosition
     }
 
@@ -310,7 +285,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         val playerbottomsheet: RelativeLayout = findViewById(R.id.audio_settings_bottom)
         audioSettingBottomBehaviour = BottomSheetBehavior.from(playerbottomsheet)
         audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
-        recyclerView = findViewById(R.id.rvAyahsPages) as RecyclerView
+        recyclerView = findViewById<RecyclerView>(R.id.rvAyahsPages)
         mausoof = sharedPreferences.getBoolean("mausoof", true)
         mudhaf = sharedPreferences.getBoolean("mudhaf", true)
         harfnasb = sharedPreferences.getBoolean("harfnasb", true)
@@ -332,16 +307,6 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         val pagenum = pref.getInt("page", 1)
         surahselected = surah
     }
-
-   private val lastPlayed: Unit
-        private get() {
-            val aplayed: AudioPositionSaved =
-                ConfigPreferences.getLastPlayedAudio(this, surah.toString())
-            if (aplayed != null) {
-                resumelastplayed = aplayed.audiopsaved!![0]!!.ayah
-                aplayed.audiopsaved!![0]!!.trackposition
-            }
-        }
 
     private fun loadFullQuran() {
         val pages: MutableList<Page> = ArrayList()
@@ -385,7 +350,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     }
 
     private fun initSpinner() {
-        readers = findViewById(R.id.selectReaders) as Spinner
+        readers = findViewById<Spinner>(R.id.selectReaders)
         readers.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -412,7 +377,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-        runOnUiThread({ //check language to load readers arabic or english
+        runOnUiThread { //check language to load readers arabic or english
             val readersNames: MutableList<String> = ArrayList()
             readersList = repository.qaris
             for (reader in readersList) {
@@ -420,18 +385,17 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                     readersNames.add(reader.name_english)
                 } /*else {
                             readersNames.add(reader.getName_english());
-    
-    
+
+
                         }*/
             }
-
             //add custom spinner adapter for readers
             val spinnerReaderAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
                 this@WordbywordMushafAct,
                 R.layout.spinner_layout_larg,
                 R.id.spinnerText,
                 readersNames
-            )
+                                                                                 )
             readers.adapter = spinnerReaderAdapter
             for (counter in readersNames.indices) {
                 if (readersNames[counter].trim { it <= ' ' } == selectedqari.trim { it <= ' ' }) {
@@ -439,7 +403,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                     break
                 }
             }
-        })
+        }
     }
 
     fun SurahAyahPicker(isrefresh: Boolean, starttrue: Boolean) {
@@ -718,7 +682,6 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     }
 
     private val SinglesendUpdatesToUI: Runnable = object : Runnable {
-        val trackchange = false
         override fun run() {
             var holder: RecyclerView.ViewHolder? = null
             holder = recyclerView.findViewHolderForAdapterPosition(currenttrack)
@@ -802,63 +765,6 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
             handler.postDelayed(this, 1500)
         }
-
-        private fun setVerseHighLight(textView: TextView, foreGroundcoloer: Int) {
-            val str = textView.text.toString()
-            val span = SpannableStringBuilder(str)
-            try {
-                span.setSpan(
-                    ForegroundColorSpan(foreGroundcoloer),
-                    hlights[currenttrack]!![0].start!!,
-                    hlights[currenttrack]!![0].end!!,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-                textView.text = span
-                val split = str.split("\n".toRegex()).dropLastWhile { it.isEmpty() }
-                    .toTypedArray()
-            } catch (exception: IndexOutOfBoundsException) {
-                println(exception)
-            }
-        }
-
-        private fun Highlightverse(textView: TextView) {
-            val start: Int
-            val end: Int
-            val starta: String
-            val endb: String
-            val str = textView.text.toString()
-            val split1 = str.split("﴿".toRegex()).dropLastWhile { it.isEmpty() }
-                .toTypedArray()
-            val span = SpannableStringBuilder(str)
-            if (currenttrack == 1) {
-                start = 0
-                endb = currenttrack.toString()
-            } else {
-                starta = currenttrack.toString()
-                start = str.indexOf(starta)
-                endb = (currenttrack + 1).toString()
-            }
-            end = str.indexOf(endb)
-            try {
-                println(span.subSequence(start, end))
-                span.setSpan(
-                    ForegroundColorSpan(Color.CYAN),
-                    start,
-                    end,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-                textView.text = span
-                val split = str.split("\n".toRegex()).dropLastWhile { it.isEmpty() }
-                    .toTypedArray()
-            } catch (exception: IndexOutOfBoundsException) {
-                println(exception)
-            }
-        }
-    }
-
-    private fun setupHandlerSingle() {
-        handler.removeCallbacks(SinglesendUpdatesToUI)
-        handler.postDelayed(SinglesendUpdatesToUI, 1000)
     }
 
     private fun releasePlayer() {
@@ -874,8 +780,10 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     override fun onStop() {
         super.onStop()
-        if (Util.SDK_INT > 23) {
-            //      this.releasePlayer();
+        when {
+            Util.SDK_INT > 23 -> {
+                //      this.releasePlayer();
+            }
         }
     }
 
@@ -1110,17 +1018,11 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         if (player != null) {
             startAutoPlay = player!!.playWhenReady
             startItemIndex = player!!.currentMediaItemIndex
-            startPosition = Math.max(0, player!!.contentPosition)
+            startPosition = max(0, player!!.contentPosition)
         }
     }
 
     override fun onFullscreenButtonClick(isFullScreen: Boolean) {}
-    fun pauseplay() {
-        if (player != null) {
-            player!!.pause()
-        }
-    }
-
     private inner class PlayerEventListener : Player.Listener {
         override fun onPlaybackStateChanged(playbackState: @Player.State Int) {
             if (playbackState == Player.STATE_ENDED) {
@@ -1225,24 +1127,24 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     @SuppressLint("WrongViewCast")
     private fun initRV() {
         ExecuteSurahWordByWord()
-        canceldownload = findViewById(R.id.canceldownload) as MaterialButton
+        canceldownload = findViewById<MaterialButton>(R.id.canceldownload)
         canceldownload.setOnClickListener(this)
-        ayaprogress = findViewById(R.id.ayaprogress) as MaterialTextView
-        qariname = findViewById(R.id.lqari) as MaterialTextView
+        ayaprogress = findViewById<MaterialTextView>(R.id.ayaprogress)
+        qariname = findViewById<MaterialTextView>(R.id.lqari)
         //buffering = (ImageView) findViewById(R.id.exo_buffering);
         val chooseDisplaytype: SwitchCompat = findViewById(R.id.chooseDisplaytype)
         chooseDisplaytype.setOnClickListener(this)
-        playfb = findViewById(R.id.playfb) as MovableFloatingActionButton
+        playfb = findViewById<MovableFloatingActionButton>(R.id.playfb)
         playfb.setOnClickListener(this)
         exo_settings = findViewById(R.id.exo_settings)
         exo_settings.setOnClickListener(this)
-        exo_close = findViewById(R.id.exo_close) as ImageButton
-        exo_bottom_bar = findViewById(R.id.exo_bottom_bar) as ImageButton
+        exo_close = findViewById<ImageButton>(R.id.exo_close)
+        exo_bottom_bar = findViewById<ImageButton>(R.id.exo_bottom_bar)
         //  private ImageView playbutton;
         val playbutton: MaterialButton = findViewById(R.id.playbutton)
-        val playresume = findViewById(R.id.playresume) as MaterialButton
+        val playresume = findViewById<MaterialButton>(R.id.playresume)
         playresume.setOnClickListener(this)
-        val surahselection = findViewById(R.id.surahselection) as MaterialButton
+        val surahselection = findViewById<MaterialButton>(R.id.surahselection)
         surahselection.setOnClickListener(this)
         exo_close.setOnClickListener(this)
         playbutton.setOnClickListener(this)
@@ -1251,10 +1153,10 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         startrange = findViewById(R.id.start_range)
         endrange = findViewById(R.id.endrange)
         startrange.setOnClickListener(this)
-        llStartRange = findViewById(R.id.llStartRange) as LinearLayout
+        llStartRange = findViewById<LinearLayout>(R.id.llStartRange)
         llStartRange.setOnClickListener(this)
         endrange.setOnClickListener(this)
-        llEndRange = findViewById(R.id.llEndRange) as LinearLayout
+        llEndRange = findViewById<LinearLayout>(R.id.llEndRange)
         llEndRange.setOnClickListener {
             val starttrue = false
             SurahAyahPicker(false, starttrue)
@@ -1267,9 +1169,9 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             }
         })
         audio_settings_bottom = findViewById(R.id.audio_settings_bottom)
-        downloadFooter = findViewById(R.id.footerdownload) as RelativeLayout
-        playerFooter = findViewById(R.id.footerplayer) as RelativeLayout
-        mediaPlayerDownloadProgress = findViewById(R.id.downloadProgress) as ProgressBar
+        downloadFooter = findViewById<RelativeLayout>(R.id.footerdownload)
+        playerFooter = findViewById<RelativeLayout>(R.id.footerplayer)
+        mediaPlayerDownloadProgress = findViewById<ProgressBar>(R.id.downloadProgress)
         chooseDisplaytype.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 singleline = true
@@ -1382,7 +1284,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         recyclerView.layoutDirection = View.LAYOUT_DIRECTION_RTL
     }
 
-    fun ExecuteSurahWordByWord() {
+    private fun ExecuteSurahWordByWord() {
         val utils = Utils(this)
         val builder = AlertDialog.Builder(this, R.style.ThemeOverlay_Material3_Dialog)
         builder.setCancelable(false) // if you want user to wait for some process to finish,
@@ -1602,7 +1504,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         }
     }
 
-    fun createDownloadLink(): List<String> {
+    private fun createDownloadLink(): List<String> {
         val chap: List<ChaptersAnaEntity?>? = repository.getSingleChapter(surah)
         surahselected = surah
         //   int ayaID=0;
@@ -1632,7 +1534,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         return downloadLin
     }
 
-    fun createDownloadLinks(): List<String> {
+    private fun createDownloadLinks(): List<String> {
         val quranbySurah: List<QuranEntity?>? =repository.getQuranbySurah(surah)
         surahselected = surah
         //   int ayaID=0;
@@ -1739,8 +1641,8 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             builder.setTitle(resources.getString(R.string.Alert))
             builder.setMessage(resources.getString(R.string.no_internet_alert))
             builder.setPositiveButton(
-                resources.getString(R.string.ok),
-                { dialog, id -> dialog.cancel() })
+                resources.getString(R.string.ok)
+                                     ) { dialog, id -> dialog.cancel() }
             builder.show()
         } else {
             //change view of footer to media
@@ -1791,7 +1693,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             editor.putInt("lastaya", currenttrack)
             editor.putInt("trackposition", hlights[currenttrack]!![0].passage!!)
             val ap: ArrayList<AudioPlayed?>? = null
-            var audioPlayed = AudioPlayed()
+            val audioPlayed = AudioPlayed()
             audioPlayed.surah=surah
             audioPlayed.ayah=currenttrack
             audioPlayed.trackposition

@@ -41,7 +41,7 @@ import java.util.concurrent.Executors
 import java.util.regex.Pattern
 
 open class WordOccuranceAct : BaseActivity() {
-    var expandableListView: ExpandableListView? = null
+    private var expandableListView: ExpandableListView? = null
     var harf = false
     lateinit var expandNounTitles: MutableList<String>
     lateinit var expandVerbTitles: List<String>
@@ -51,15 +51,15 @@ open class WordOccuranceAct : BaseActivity() {
     val expandNounVerses = LinkedHashMap<String, ArrayList<SpannableString>>()
     val expandVerbVerses = LinkedHashMap<String, ArrayList<SpannableString>>()
     lateinit var utils: Utils
-    var firstcolortat = 0
-    var maincolortag = 0
-    var pronouncolortag = 0
-    var fourcolortag = 0
+    private var firstcolortat = 0
+    private var maincolortag = 0
+    private var pronouncolortag = 0
+    private var fourcolortag = 0
     private var verbCorpusArrayList: ArrayList<VerbCorpusBreakup>? = null
     private var occurances: ArrayList<CorpusNounWbwOccurance>? = null
     private var nounCorpusArrayList: ArrayList<NounCorpusBreakup>? = null
     private lateinit var shared: SharedPreferences
-    protected override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.expand_list)
 
@@ -89,18 +89,18 @@ open class WordOccuranceAct : BaseActivity() {
             fourcolortag = Constant.GREENDARK
         }
         val callBackbutton: FloatingTextButton = findViewById(R.id.action_button)
-        val pref = "dark"
-        if (pref == "dark") {
-            val color: Int = getResources().getColor(R.color.color_background_overlay)
+
+        if (preferences == "dark") {
+            val color: Int = resources.getColor(R.color.color_background_overlay)
             callBackbutton.backgroundColor = color
         } else {
-            callBackbutton.backgroundColor = getResources().getColor(R.color.color_background)
+            callBackbutton.backgroundColor = resources.getColor(R.color.color_background)
         }
         callBackbutton.setOnClickListener { view: View? ->
             //  Intent quranintnt = new Intent(VerbOccuranceAsynKAct.this, ReadingSurahPartActivity.class);
             finish()
         }
-        val bundle: Bundle? = getIntent().getExtras()
+        val bundle: Bundle? = intent.extras
         root = bundle?.getString(Constant.QURAN_VERB_ROOT)
         if (root == "ACC" || root == "LOC" || root == "T") {
             occurances = utils.getnounoccuranceHarfNasbZarf(root!!) as ArrayList<CorpusNounWbwOccurance>?
@@ -112,7 +112,7 @@ open class WordOccuranceAct : BaseActivity() {
         }
     }
 
-    fun ExecuteNounOcurrance() {
+    private fun ExecuteNounOcurrance() {
         val ex = Executors.newSingleThreadExecutor()
         ex.execute {
             runOnUiThread { dialog!!.show() }
@@ -146,7 +146,7 @@ open class WordOccuranceAct : BaseActivity() {
                         .append(vers.wordno).append("-").append(vers.en).append("-")
                     val ref = SpannableString(sb.toString())
                     ref.setSpan(particlespanDark, 0, sb.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    val which = shared!!.getString("selecttranslation", "en_sahih")
+                    val which = shared.getString("selecttranslation", "en_sahih")
                     var trans: SpannableString? = null
                     when (which) {
                         "en_sahih" -> trans = SpannableString.valueOf(vers.translation)
@@ -167,29 +167,25 @@ open class WordOccuranceAct : BaseActivity() {
             expandNounVerses.putAll(expandVerbVerses)
             expandNounTitles.addAll(expandVerbTitles)
             //post
-            runOnUiThread(Runnable {
+            runOnUiThread({
                 dialog!!.dismiss()
-
-
-                var listAdapter: NounVerbOccuranceListAdapter
-
                 //   listAdapter = new NounVerbOccuranceListAdapter(WordOccuranceAct.this, expandNounTitles, expandNounVerses);
-                listAdapter = NounVerbOccuranceListAdapter(
+                var listAdapter: NounVerbOccuranceListAdapter = NounVerbOccuranceListAdapter(
                     this@WordOccuranceAct,
                     expandNounTitles,
                     expandNounVerses,
                     expandVerbVerses,
                     expandVerbTitles
-                )
+                                                                                            )
 
 
                 expandableListView?.setAdapter(listAdapter)
                 expandableListView!!.setOnGroupExpandListener { groupPosition ->
-                    val split = expandNounTitles.get(groupPosition).split("\\s".toRegex())
+                    val split = expandNounTitles[groupPosition].split("\\s".toRegex())
                         .dropLastWhile { it.isEmpty() }
                         .toTypedArray()
                     if (!harf) {
-                        if (expandNounTitles.get(groupPosition).contains("Hans")) {
+                        if (expandNounTitles[groupPosition].contains("Hans")) {
                             val ex =
                                 Executors.newSingleThreadExecutor()
                             ex.execute(object : Runnable {
@@ -198,10 +194,10 @@ open class WordOccuranceAct : BaseActivity() {
                                     var verbroot: String? = ""
                                     val indexOfHamza: Int = root!!.indexOf(Hamza)
                                     val indexofAlifMaksura: Int = root!!.indexOf(Ya)
-                                    if (indexOfHamza != -1) {
-                                        verbroot = root!!.replace(Hamza.toRegex(), LALIF)
+                                    verbroot = if (indexOfHamza != -1) {
+                                        root!!.replace(Hamza.toRegex(), LALIF)
                                     } else {
-                                        verbroot = root
+                                        root
                                     }
                                     if (indexofAlifMaksura != -1) {
                                         verbroot = verbroot?.replace(
@@ -222,10 +218,10 @@ open class WordOccuranceAct : BaseActivity() {
                                     list = highLightParadigm(list) as ArrayList<SpannableString>
                                     val finalList: ArrayList<SpannableString> =
                                         list
-                                    runOnUiThread(Runnable {
+                                    runOnUiThread({
                                         ex.shutdown()
                                         dialog!!.dismiss()
-                                        expandNounVerses[expandNounTitles.get(groupPosition)] =
+                                        expandNounVerses[expandNounTitles[groupPosition]] =
                                             finalList
                                         listAdapter.notifyDataSetChanged()
                                     })
@@ -250,9 +246,9 @@ open class WordOccuranceAct : BaseActivity() {
                                             sb.setSpan(
                                                 particlespanDark,
                                                 indexof,
-                                                Objects.requireNonNull<String>(
+                                                Objects.requireNonNull(
                                                     m.group(0)
-                                                ).length + indexof,
+                                                                      ).length + indexof,
                                                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                                             )
                                             lists.add(sb)
@@ -264,7 +260,7 @@ open class WordOccuranceAct : BaseActivity() {
                                     return lists
                                 }
                             })
-                        } else if (expandNounTitles.get(groupPosition).contains("lanes")) {
+                        } else if (expandNounTitles[groupPosition].contains("lanes")) {
                             val ex =
                                 Executors.newSingleThreadExecutor()
                             ex.execute(object : Runnable {
@@ -281,10 +277,10 @@ open class WordOccuranceAct : BaseActivity() {
                                     }
                                     list = highLightParadigm(list) as MutableList<SpannableString?>
                                     val finalList: List<*> = list
-                                    runOnUiThread(Runnable {
+                                    runOnUiThread({
                                         ex.shutdown()
                                         dialog!!.dismiss()
-                                        expandNounVerses[expandNounTitles.get(groupPosition)] =
+                                        expandNounVerses[expandNounTitles[groupPosition]] =
                                             finalList as ArrayList<SpannableString>
                                         listAdapter.notifyDataSetChanged()
                                     })
@@ -313,9 +309,9 @@ open class WordOccuranceAct : BaseActivity() {
                                             sb!!.setSpan(
                                                 particlespanDark,
                                                 indexof,
-                                                Objects.requireNonNull<String>(
+                                                Objects.requireNonNull(
                                                     m.group(0)
-                                                ).length + indexof,
+                                                                      ).length + indexof,
                                                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                                             )
                                             lists.add(sb!!)
@@ -327,9 +323,9 @@ open class WordOccuranceAct : BaseActivity() {
                                     return lists
                                 }
                             })
-                        } else if (expandNounTitles.get(groupPosition)
-                                .contains("Noun") || expandNounTitles.get(groupPosition)
-                                .contains("Adverb") || expandNounTitles.get(groupPosition)
+                        } else if (expandNounTitles[groupPosition]
+                                .contains("Noun") || expandNounTitles[groupPosition]
+                                .contains("Adverb") || expandNounTitles[groupPosition]
                                 .contains("Adjective")
                         ) {
                             val ex =
@@ -365,10 +361,10 @@ open class WordOccuranceAct : BaseActivity() {
                                         sb.length,
                                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                                     )
-                                    val which = shared!!.getString(
+                                    val which = shared.getString(
                                         "selecttranslation",
                                         "en_sahih"
-                                    )
+                                                                )
                                     var trans: SpannableString? = null
                                     when (which) {
                                         "en_sahih" -> trans =
@@ -392,7 +388,7 @@ open class WordOccuranceAct : BaseActivity() {
                                 runOnUiThread(Runnable {
                                     ex.shutdown()
                                     dialog.dismiss()
-                                    expandNounVerses[expandNounTitles.get(groupPosition)] =
+                                    expandNounVerses[expandNounTitles[groupPosition]] =
                                         list
                                     listAdapter.notifyDataSetChanged()
                                 })
@@ -425,10 +421,10 @@ open class WordOccuranceAct : BaseActivity() {
                                         sb.length,
                                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                                     )
-                                    val which = shared!!.getString(
+                                    val which = shared.getString(
                                         "selecttranslation",
                                         "en_sahih"
-                                    )
+                                                                )
                                     var trans: SpannableString? = null
                                     when (which) {
                                         "en_sahih" -> trans =
@@ -451,7 +447,7 @@ open class WordOccuranceAct : BaseActivity() {
                                 runOnUiThread(Runnable {
                                     ex.shutdown()
                                     dialog!!.dismiss()
-                                    expandNounVerses[expandNounTitles.get(groupPosition)] =
+                                    expandNounVerses[expandNounTitles[groupPosition]] =
                                         list
                                     listAdapter.notifyDataSetChanged()
                                 })
@@ -515,7 +511,7 @@ open class WordOccuranceAct : BaseActivity() {
                         item.arguments = dataBundle
                         val data = arrayOf<String?>(surah, ayah, "", wordno)
                         WordAnalysisBottomSheet.newInstance(data)
-                            .show(getSupportFragmentManager(), WordAnalysisBottomSheet.TAG)
+                            .show(supportFragmentManager, WordAnalysisBottomSheet.TAG)
                         //   WordAnalysisBottomSheet.newInstance(data).show(WordOccuranceAsynKAct.this).getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
                     }
                 })

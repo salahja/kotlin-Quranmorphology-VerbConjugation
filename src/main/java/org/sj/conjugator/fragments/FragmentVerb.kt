@@ -19,8 +19,8 @@ import ru.dimorinny.floatingtextbutton.FloatingTextButton
 
 class FragmentVerb : Fragment() {
     var recyclerView: RecyclerView? = null
-    var isAugmented = false
-    var isUnAugmented = false
+    private var isAugmented = false
+    private var isUnAugmented = false
     private var skabeer = ArrayList<ArrayList<*>>()
     private var augmentedFormula: String? = null
     private lateinit var unaugmentedFormula: String
@@ -59,7 +59,7 @@ class FragmentVerb : Fragment() {
         //   callButton.setVisibility(View.VISIBLE);
         callButton.setOnClickListener {
             val fm = activity
-                ?.getSupportFragmentManager()
+                ?.supportFragmentManager
             if (fm != null) {
                 fm.popBackStack()
             }
@@ -86,7 +86,7 @@ class FragmentVerb : Fragment() {
             val indictive: ArrayList<ArrayList<*>> =
                 GatherAll.instance.getMazeedListing(verbmood, verbroot, augmentedFormula)
             val sk: VerbSarfKabeerAdapter
-            if (!indictive.isEmpty()) {
+            if (indictive.isNotEmpty()) {
                 indictive.removeAt(0)
                 sk = VerbSarfKabeerAdapter(indictive, requireContext())
                 recyclerView!!.adapter = sk
@@ -110,13 +110,11 @@ class FragmentVerb : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView: RecyclerView
-        recyclerView = view.findViewById(R.id.sarfrecview)
+        val recyclerView: RecyclerView = view.findViewById(R.id.sarfrecview)
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
     }
 
     companion object {
-        private const val TAG = "PermissionDemo"
     }
 }

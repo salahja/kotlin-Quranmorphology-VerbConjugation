@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
@@ -15,55 +14,21 @@ import com.example.utility.QuranGrammarApplication
 import org.sj.conjugator.interfaces.OnItemClickListener
 import org.sj.conjugator.utilities.SharedPref
 
-class IsmFaelIsmMafoolSarfKabeerAdapter :
-    RecyclerView.Adapter<IsmFaelIsmMafoolSarfKabeerAdapter.ViewHolder> {
-    private val context: Context
+class IsmFaelIsmMafoolSarfKabeerAdapter(
+    lists: ArrayList<ArrayList<*>>,
+    private val context: Context,
+    private var newsarf: Boolean
+                                       ) :
+    RecyclerView.Adapter<IsmFaelIsmMafoolSarfKabeerAdapter.ViewHolder>() {
     private var sharedPreferences: SharedPreferences? = null
     var bookmarkpostion = 0
     var mItemClickListener: OnItemClickListener? = null
-
-    //    private final Integer arabicTextColor;
-    var mycontext: Context? = null
-    private var sharedPref: SharedPref? = null
-    private var madhi = ArrayList<String>()
-    private var mazeedregular = false
-    private val bookChapterno = 0
-    private val bookVerseno = 0
-    private val ayahNumber: Int? = null
-    private val urdu_font_selection: String? = null
-    private val arabic_font_size = 0
-    private val urdu_font_size = 0
-    private val arabic_font_selection: String? = null
-    private var sarfSagheer = ArrayList<ArrayList<*>>()
+    private var sarfSagheer = lists
     private var arabicTypeface: Typeface? = null
     private var isTraditional = false
-    private var newsarf = false
-   lateinit var fael: java.util.ArrayList<*>
-    lateinit var mafool: java.util.ArrayList<*>
 
-    constructor(lists: ArrayList<ArrayList<*>>, context: Context, newsarf: Boolean) {
-        this.context = context
-        sarfSagheer = lists
-        this.newsarf = newsarf
+    init {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    }
-
-    constructor(mazeedregular: Boolean, sarfSagheer: ArrayList<*>, activity: FragmentActivity) {
-        context = activity
-        this.sarfSagheer = sarfSagheer as ArrayList<ArrayList<*>>
-        this.mazeedregular = mazeedregular
-        sharedPref = SharedPref(context)
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    }
-
-    constructor(
-        madhi: ArrayList<String>,
-        skabeer: ArrayList<ArrayList<*>>,
-        activity: FragmentActivity
-    ) {
-        context = activity
-        sarfSagheer = skabeer
-        this.madhi = madhi
     }
 
     override fun onCreateViewHolder(
@@ -74,8 +39,7 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
         //      View view = LayoutInflater.from(parent.context!!).inflate(R.layout.sarfkabeercolumn, parent, false);
 
         //      View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sarfkabeercolumn, parent, false);
-        val view: View
-        view = if (isTraditional) {
+        val view: View = if (isTraditional) {
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.newismalasktraditional, parent, false)
         } else {
@@ -125,8 +89,8 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
 
     private fun gcase(holder: ViewHolder) {
         val language = sharedPreferences!!.getString("lan", "en")
-        val array: Array<String>
-        array = if (language == "en") context.resources.getStringArray(R.array.encase) else {
+        val array: Array<String> =
+            if (language == "en") context.resources.getStringArray(R.array.encase) else {
             context.resources.getStringArray(R.array.arcase)
         }
         if (isTraditional) {
@@ -152,8 +116,8 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
     private fun ismfaelmafoolnumbers(holder: ViewHolder) {
         val sf = SharedPref(context)
         val language = sharedPreferences!!.getString("lan", "en")
-        val array: Array<String>
-        array = if (language == "en") context.resources.getStringArray(R.array.ennumbers) else {
+        val array: Array<String> =
+            if (language == "en") context.resources.getStringArray(R.array.ennumbers) else {
             context.resources.getStringArray(R.array.arnumbers)
         }
         if (isTraditional) {
@@ -390,7 +354,7 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
                     holder.nom3!!.textSize = arabicFontsize.toFloat() //(array[0]);
                     holder.acc3!!.textSize = arabicFontsize.toFloat() //(array[1]);
                     holder.gen3!!.textSize = arabicFontsize.toFloat() //(array[2]);
-                    holder.sin1!!.textSize = arabicFontsize.toFloat() //(array[0]);
+                    holder.sin1.textSize = arabicFontsize.toFloat() //(array[0]);
                     holder.dual1.textSize = arabicFontsize.toFloat() //(array[1]);
                     holder.plu1.textSize = arabicFontsize.toFloat() //(array[2]);
                     holder.sin2.textSize = arabicFontsize.toFloat() //(array[0]);
@@ -478,10 +442,6 @@ class IsmFaelIsmMafoolSarfKabeerAdapter :
 
     fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
         this.mItemClickListener = mItemClickListener
-    }
-
-    fun setVerbArrayList(sarfsagheer: ArrayList<ArrayList<*>>) {
-        sarfSagheer = sarfsagheer
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view),

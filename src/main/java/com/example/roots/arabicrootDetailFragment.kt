@@ -1,9 +1,7 @@
 package com.example.roots
 
-import android.content.ClipData
 import android.content.Intent
 import android.os.Bundle
-import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,17 +39,6 @@ class arabicrootDetailFragment
     private val mToolbarLayout: CollapsingToolbarLayout? = null
     private val mTextView: TextView? = null
     private var rootsArrayList = ArrayList<String>()
-    private val dragListener: View.OnDragListener =
-        View.OnDragListener { v: View?, event: DragEvent ->
-            if (event.getAction() == DragEvent.ACTION_DROP) {
-                val clipDataItem: ClipData.Item = event.getClipData().getItemAt(0)
-                mItem = PlaceholderContent.ITEM_MAP.get(clipDataItem.getText().toString())
-                assert(mItem != null)
-                rootsArrayList = this.mItem!!.rootsArrayList
-                //    updateContent();
-            }
-            true
-        }
     private var adapter: RootDetailAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +47,7 @@ class arabicrootDetailFragment
             // Load the placeholder content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = PlaceholderContent.ITEM_MAP.get(requireArguments().getString(ARG_ITEM_ID))
+            mItem = PlaceholderContent.ITEM_MAP[requireArguments().getString(ARG_ITEM_ID)]
             if (mItem == null) {
                 rootsArrayList.add("")
             } else {
@@ -72,24 +59,24 @@ class arabicrootDetailFragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view: View =
             inflater.inflate(R.layout.fragment_arabicroot_details_list, container, false)
         val recyclerView: RecyclerView =
-            view.findViewById<RecyclerView>(R.id.arabicroot_detaillist_rec)
+            view.findViewById(R.id.arabicroot_detaillist_rec)
         var layoutManager = LinearLayoutManager(activity)
         adapter = RootDetailAdapter(rootsArrayList, requireContext())
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
         layoutManager = GridLayoutManager(activity, 4)
-        (layoutManager as GridLayoutManager).setSpanSizeLookup(object : GridLayoutManager.SpanSizeLookup() {
+        layoutManager.setSpanSizeLookup(object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (position == 0) 3 else 1
             }
         })
         recyclerView.setHasFixedSize(true)
         // recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setLayoutManager(layoutManager)
-        recyclerView.setAdapter(adapter)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
 
 
         //  view.setOnDragListener(dragListener);
@@ -99,14 +86,6 @@ class arabicrootDetailFragment
     override fun onDestroyView() {
         super.onDestroyView()
         val binding: FragmentArabicrootDetailBinding? = null
-    }
-
-    private fun updateContent() {
-        if (mItem != null) {
-            mTextView?.setText(mItem!!.content)
-            //    mTextView.setText(mItem.rootsArrayList);
-            mToolbarLayout?.setTitle(mItem!!.content)
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

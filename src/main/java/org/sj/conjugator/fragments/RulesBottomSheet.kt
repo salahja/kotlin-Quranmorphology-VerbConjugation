@@ -24,8 +24,6 @@ import org.sj.conjugator.interfaces.OnItemClickListener
 
 class RulesBottomSheet : BottomSheetDialogFragment() {
     var rulesadapter: rulesbottomsheetadapter? = null
-    //var context: Context? = null
-    private var kovArrayList: ArrayList<kov>? = null
     private var verbtype: Array<String>? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,10 +38,10 @@ class RulesBottomSheet : BottomSheetDialogFragment() {
         val mLayoutManager = GridLayoutManager(activity, 2)
         val db = VerbDatabaseUtils(QuranGrammarApplication.context!!)
      //   kovArrayList = db.kov as ArrayList<kov>?
-        rulesadapter=rulesbottomsheetadapter(QuranGrammarApplication.context!!)
+        rulesadapter=rulesbottomsheetadapter()
         val viewmodel: VerbModel by viewModels()
-        viewmodel.getKov().observe(this, Observer {
-            rulesadapter!!.setmutable(it!! as ArrayList<kov>, )
+        viewmodel.getKov().observe(this, {
+            rulesadapter!!.setmutable(it!! as ArrayList<kov>)
             recyclerView.setHasFixedSize(true)
             recyclerView.layoutManager = mLayoutManager
             recyclerView.adapter = rulesadapter
@@ -83,14 +81,6 @@ class RulesBottomSheet : BottomSheetDialogFragment() {
                 }
             }
         })
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return super.onCreateDialog(savedInstanceState)
-    }
-
-    override fun dismiss() {
-        super.dismiss()
     }
 
     companion object {

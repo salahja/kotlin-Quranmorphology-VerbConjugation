@@ -27,27 +27,26 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
  * FontQuranListDialogFragment.newInstance(30).show(getSupportFragmentManager(), "dialog");
 </pre> *
  */
-class BottomOptionDialog constructor() : BottomSheetDialogFragment() {
+class BottomOptionDialog : BottomSheetDialogFragment() {
     private var chap_id: Int = 0
     private var verse_id: Int = 0
     private var name: String? = null
-    public override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (getArguments() != null) {
+        if (arguments != null) {
 
             name =arguments?.getString("name")
             chap_id = arguments?.getInt("chap_id")!!
             verse_id = arguments?.getInt("verse_no")!!
         }
-        val utils: Utils = Utils(getActivity())
+        val utils: Utils = Utils(activity)
         var appContext: Context = requireContext()
         //  setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_Material3_BottomSheetDialog);
     }
 
-   public lateinit var mItemClickListener: OnItemClickListener
+   lateinit var mItemClickListener: OnItemClickListener
     var radioGroup: RadioGroup? = null
     private var fontQuranAdapter: FontQuranAdapter? = null
-    lateinit var frameLayout: RelativeLayout
     fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
         if (mItemClickListener != null) {
             this.mItemClickListener = mItemClickListener
@@ -63,35 +62,33 @@ class BottomOptionDialog constructor() : BottomSheetDialogFragment() {
     }
 
 
-    public override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setLayoutManager(LinearLayoutManager(requireContext()))
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val details: ArrayList<String> = ArrayList()
         fontQuranAdapter = FontQuranAdapter()
-        recyclerView.setAdapter(fontQuranAdapter)
+        recyclerView.adapter = fontQuranAdapter
         fontQuranAdapter!!.SetOnItemClickListener(object : OnItemClickListener {
-            public override fun onItemClick(v: View?, position: Int) {
-                val checkedRadioButtonId: Int = radioGroup!!.getCheckedRadioButtonId()
+            override fun onItemClick(v: View?, position: Int) {
+                val checkedRadioButtonId: Int = radioGroup!!.checkedRadioButtonId
             }
         })
     }
 
 
-    private class ViewHolder internal constructor(inflater: LayoutInflater, parent: ViewGroup?) :
+    private class ViewHolder(inflater: LayoutInflater, parent: ViewGroup?) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.options_bottom, parent, false)),
         View.OnClickListener {
 
-        var ivCopy: ImageView
+        var ivCopy: ImageView = itemView.findViewById(R.id.imageView)
         var ivBookmark: ImageView
         var ivShare: ImageView
         var textView: TextView
         var textView2: TextView
-        var textView3: TextView? = null
 
         init {
             // TODO: Customize the item layout
             //  super(inflater.inflate(R.layout.fragment_item_list_dialog_list_dialog_item, parent, false));
-            ivCopy = itemView.findViewById(R.id.imageView)
             ivBookmark = itemView.findViewById(R.id.imageView2)
             ivShare = itemView.findViewById(R.id.imageView3)
             textView = itemView.findViewById(R.id.textView)
@@ -137,39 +134,35 @@ class BottomOptionDialog constructor() : BottomSheetDialogFragment() {
 
     }
 
-    private inner class FontQuranAdapter constructor() :
-        RecyclerView.Adapter<BottomOptionDialog.ViewHolder>() {
+    private inner class FontQuranAdapter :
+        RecyclerView.Adapter<ViewHolder>() {
         private var mItemClickListener: OnItemClickListener? = null
-        public override fun onCreateViewHolder(
+        override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
-        ): BottomOptionDialog.ViewHolder {
+        ): ViewHolder {
             return ViewHolder(LayoutInflater.from(parent.context!!), parent)
 
 
 
         }
 
-        public override fun onBindViewHolder(holder: BottomOptionDialog.ViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val sharedPreferences: SharedPreferences =
                 androidx.preference.PreferenceManager.getDefaultSharedPreferences(
                     requireContext()
                 )
             val mequran: Typeface = Typeface.createFromAsset(
-                requireContext().getAssets(), "me_quran.ttf"
+                requireContext().assets, "me_quran.ttf"
             )
             val qalam: Typeface = Typeface.createFromAsset(
-                requireContext().getAssets(), "AlQalam.ttf"
+                requireContext().assets, "AlQalam.ttf"
             )
             val amiri: Typeface = Typeface.createFromAsset(
-                requireContext().getAssets(), "Pdms.ttf"
+                requireContext().assets, "Pdms.ttf"
             )
             val isNightmode: String? = sharedPreferences.getString("themepref", "dark")
-            holder.ivShare.setOnClickListener(object : View.OnClickListener {
-                public override fun onClick(view: View?) {
-                    System.out.printf("check")
-                }
-            })
+            holder.ivShare.setOnClickListener { System.out.printf("check") }
             /*      holder.ivShare.setOnClickListener(convertView -> {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
@@ -191,7 +184,7 @@ class BottomOptionDialog constructor() : BottomSheetDialogFragment() {
 */
         }
 
-        public override fun getItemCount(): Int {
+        override fun getItemCount(): Int {
             return 1
         }
 
@@ -201,17 +194,17 @@ class BottomOptionDialog constructor() : BottomSheetDialogFragment() {
     }
 
     companion object {
-        val TAG: String = "opton"
+        const val TAG: String = "opton"
 
         // TODO: Customize parameter argument names
-        private val ARG_OPTIONS_DATA: String = "item_count"
+        private const val ARG_OPTIONS_DATA: String = "item_count"
 
         // TODO: Customize parameters
         fun newInstance(data: Array<String>): BottomOptionDialog {
             val fragment: BottomOptionDialog = BottomOptionDialog()
             val args: Bundle = Bundle()
-            args.putStringArray(BottomOptionDialog.Companion.ARG_OPTIONS_DATA, data)
-            fragment.setArguments(args)
+            args.putStringArray(BottomOptionDialog.ARG_OPTIONS_DATA, data)
+            fragment.arguments = args
             return fragment
         }
     }

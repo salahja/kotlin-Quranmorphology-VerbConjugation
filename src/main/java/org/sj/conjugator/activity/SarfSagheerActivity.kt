@@ -14,11 +14,8 @@ import ru.dimorinny.floatingtextbutton.FloatingTextButton
 
 class SarfSagheerActivity : BaseActivity() {
     var recyclerView: RecyclerView? = null
-    private val mTextView: TextView? = null
-    private val layoutManager: LinearLayoutManager? = null
-    private val bottomNavigationView: BottomNavigationView? = null
     private var verbtype: String? = null
-    protected override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sarfsagheer)
         //  bottomNavigationView = findViewById(R.id.bottomNavView);

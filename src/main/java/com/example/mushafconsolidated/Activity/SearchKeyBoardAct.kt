@@ -9,7 +9,6 @@ import android.text.TextUtils
 import android.util.Log
 import android.util.SparseArray
 import android.view.View
-import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.ExtractedTextRequest
 import android.view.inputmethod.InputConnection
@@ -30,17 +29,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.sj.conjugator.activity.BaseActivity
 import org.sj.conjugator.activity.KeyboardUtil.hideKeyboard
 import ru.dimorinny.floatingtextbutton.FloatingTextButton
-import java.util.Arrays
 
 
 class SearchKeyBoardAct : BaseActivity(), View.OnClickListener {
     private val keyValues = SparseArray<String>()
-    lateinit var quranbtn: Button
-    lateinit var floatingActionButton: FloatingActionButton
-    lateinit var layoutBottomSheet: RelativeLayout
-    var sheetBehavior: BottomSheetBehavior<RelativeLayout?>? = null
-    var tlist: ListView? = null
-    var mlist: ListView? = null
+    private lateinit var quranbtn: Button
+    private lateinit var floatingActionButton: FloatingActionButton
+    private lateinit var layoutBottomSheet: RelativeLayout
+    private var sheetBehavior: BottomSheetBehavior<RelativeLayout?>? = null
+    private var tlist: ListView? = null
+    private var mlist: ListView? = null
     private lateinit var qurandictionaryArrayList: ArrayList<qurandictionary>
     private lateinit var keyboard: View
     private lateinit var inputConnection: InputConnection
@@ -68,9 +66,8 @@ class SearchKeyBoardAct : BaseActivity(), View.OnClickListener {
             super.onBackPressed()
         }
         //    hideKeyboardSoft();
-        val ic: InputConnection
         SetUpAutoComplete()
-        ic = actv!!.onCreateInputConnection(EditorInfo())
+        val ic: InputConnection = actv.onCreateInputConnection(EditorInfo())
         // InputConnection ic = editTextAuto.onCreateInputConnection(new EditorInfo());
         setInputConnection(ic)
         init()
@@ -83,14 +80,13 @@ class SearchKeyBoardAct : BaseActivity(), View.OnClickListener {
         val util = Utils(this@SearchKeyBoardAct)
         //  ArrayList<MujarradVerbs> verbAll = util.getMujarradAall();
         qurandictionaryArrayList = util.quranDictionary as ArrayList<qurandictionary>
-        val size = qurandictionaryArrayList!!.size
+        val size = qurandictionaryArrayList.size
         root = arrayOfNulls(size)
-        var i = 0
-        for (entity in qurandictionaryArrayList!!) {
+        for ((i, entity) in qurandictionaryArrayList.withIndex()) {
             val roots = entity.rootarabic
-            root[i++] = roots
+            root[i] = roots
         }
-        val h = HashSet(Arrays.asList(*root))
+        val h = HashSet(listOf(*root))
         val aList2: ArrayList<String?> = ArrayList(h)
         val adapters = ArrayAdapter(this, R.layout.my_simple_list_item, aList2)
         val listadapters = ArrayAdapter(this, R.layout.my_simple_list_item, root)
@@ -101,23 +97,23 @@ class SearchKeyBoardAct : BaseActivity(), View.OnClickListener {
         listdisp.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView: AdapterView<*>?, view: View?, position: Int, l: Long ->
                 // here you code
-                val qurandictionary = qurandictionaryArrayList!![position]
+                val qurandictionary = qurandictionaryArrayList[position]
                 launchActivity(qurandictionary.rootarabic)
             }
         val sizes = 1300
-        actv.setDropDownHeight(sizes)
-        actv.setThreshold(1) //will start working from first character
+        actv.dropDownHeight = sizes
+        actv.threshold = 1 //will start working from first character
         actv.setAdapter(adapters) //setting the adapter data into the AutoCompleteTextView
         actv.setTextColor(Color.RED)
-        actv.setTextSize(50.00.toFloat())
+        actv.textSize = 50.00.toFloat()
         //   editTextAuto = findViewById(R.id.autoCompleteTextView);
         actv.setRawInputType(InputType.TYPE_CLASS_TEXT)
         actv.setTextIsSelectable(true)
         //   KeyboardUtil.hideKeyboard(this);
-        actv.setShowSoftInputOnFocus(false)
-        actv.setOnFocusChangeListener(OnFocusChangeListener { view: View?, hasFocus: Boolean ->
+        actv.showSoftInputOnFocus = false
+        actv.setOnFocusChangeListener({ view: View?, hasFocus: Boolean ->
             if (hasFocus) {
-                keyboard!!.visibility = LinearLayout.VISIBLE
+                keyboard.visibility = LinearLayout.VISIBLE
                 //     actv.showDropDown();
                 if (tlist != null) tlist!!.adapter = null
                 if (mlist != null) mlist!!.adapter = null
@@ -249,13 +245,13 @@ class SearchKeyBoardAct : BaseActivity(), View.OnClickListener {
             Log.i(logTag, "Input connection == null")
             return
         }
-        val currentText = inputConnection!!.getExtractedText(ExtractedTextRequest(), 0).text
-        val beforeCursorText = inputConnection!!.getTextBeforeCursor(currentText.length, 0)
-        val afterCursorText = inputConnection!!.getTextAfterCursor(currentText.length, 0)
+        val currentText = inputConnection.getExtractedText(ExtractedTextRequest(), 0).text
+        val beforeCursorText = inputConnection.getTextBeforeCursor(currentText.length, 0)
+        val afterCursorText = inputConnection.getTextAfterCursor(currentText.length, 0)
         when (view.id) {
             R.id.fab -> {
                 toggleBottomSheet()
-                val charSequence = inputConnection!!.getTextBeforeCursor(currentText.length, 0)
+                val charSequence = inputConnection.getTextBeforeCursor(currentText.length, 0)
                 if (charSequence.toString().length == 3) {
                     //  setInputtext(charSequence.toString());
                     InitSelecton(charSequence.toString())
@@ -263,30 +259,30 @@ class SearchKeyBoardAct : BaseActivity(), View.OnClickListener {
             }
 
             R.id.key_enter -> {
-                val charSequence = inputConnection!!.getTextBeforeCursor(currentText.length, 0)
+                val charSequence = inputConnection.getTextBeforeCursor(currentText.length, 0)
                 if (charSequence.toString().length == 3) {
                     InitSelecton(charSequence.toString())
                 }
             }
 
             R.id.key_delete -> {
-                val selectedText = inputConnection!!.getSelectedText(0)
-                if (TextUtils.isEmpty(selectedText)) inputConnection!!.deleteSurroundingText(
+                val selectedText = inputConnection.getSelectedText(0)
+                if (TextUtils.isEmpty(selectedText)) inputConnection.deleteSurroundingText(
                     1,
                     0
-                ) else inputConnection!!.commitText("", 1)
+                                                                                          ) else inputConnection.commitText("", 1)
             }
 
-            R.id.key_AC -> inputConnection!!.deleteSurroundingText(
+            R.id.key_AC -> inputConnection.deleteSurroundingText(
                 beforeCursorText!!.length,
                 afterCursorText!!.length
-            )
+                                                                )
 
             else -> inputConnectionCommitText(view)
         }
     }
 
-    fun toggleBottomSheet() {
+    private fun toggleBottomSheet() {
         if (sheetBehavior!!.state != BottomSheetBehavior.STATE_EXPANDED) {
             sheetBehavior!!.setState(BottomSheetBehavior.STATE_EXPANDED)
             //    btnBottomSheet.setText("Close sheet");
@@ -296,7 +292,7 @@ class SearchKeyBoardAct : BaseActivity(), View.OnClickListener {
         }
     }
 
-    fun setInputConnection(ic: InputConnection?) {
+    private fun setInputConnection(ic: InputConnection?) {
         if (ic != null) {
             inputConnection = ic
         }
@@ -304,7 +300,7 @@ class SearchKeyBoardAct : BaseActivity(), View.OnClickListener {
 
     private fun inputConnectionCommitText(view: View) {
         val value = keyValues[view.id]
-        inputConnection!!.commitText(value, 1)
+        inputConnection.commitText(value, 1)
     }
 
     private fun InitSelecton(roots: String) {

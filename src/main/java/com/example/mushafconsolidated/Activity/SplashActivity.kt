@@ -14,7 +14,7 @@ import com.example.mushafconsolidated.R
 
 
 class SplashActivity : AppCompatActivity() {
-    val SPLASH_DISPLAY_LENGTH = 3000
+    private val SPLASH_DISPLAY_LENGTH = 3000
     private fun checkPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WAKE_LOCK) !=
             PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(

@@ -18,14 +18,14 @@ class NewDuaModel(
 ) :ViewModel(){
 
 
-    var alldua: LiveData<List<hduanamesEnt>> = MutableLiveData()
-    val duanames: MutableLiveData<List<hduanamesEnt>> = MutableLiveData()
-    var duachapter: LiveData<List<hduanamesEnt>> = MutableLiveData()
+    private var alldua: LiveData<List<hduanamesEnt>> = MutableLiveData()
+    private val duanames: MutableLiveData<List<hduanamesEnt>> = MutableLiveData()
+    private var duachapter: LiveData<List<hduanamesEnt>> = MutableLiveData()
     val util = Utils(QuranGrammarApplication.context)
-    var allduaitem: LiveData<List<hduadetailsEnt>> = MutableLiveData()
-    var duacategory: LiveData<List<hcategoryEnt>> = MutableLiveData()
-    var AllahSWT: LiveData<List<AllahNames>> = MutableLiveData()
-    var Namesd: LiveData<List<AllahNamesDetails>> = MutableLiveData()
+    private var allduaitem: LiveData<List<hduadetailsEnt>> = MutableLiveData()
+    private var duacategory: LiveData<List<hcategoryEnt>> = MutableLiveData()
+    private var AllahSWT: LiveData<List<AllahNames>> = MutableLiveData()
+    private var Namesd: LiveData<List<AllahNamesDetails>> = MutableLiveData()
     fun getNames(): LiveData<List<AllahNames>> {
 
 
@@ -70,7 +70,7 @@ class NewDuaModel(
     fun Duacatnames(cat: String): LiveData<List<hduanamesEnt>> {
 
         viewModelScope.launch {
-            duanames.value = util.getDuaCATNAMES(cat) as List<hduanamesEnt>?
+            duanames.value = util.getDuaCATNAMES(cat)
         }
 
 
@@ -82,16 +82,6 @@ class NewDuaModel(
 
         viewModelScope.launch {
             duachapter = newrepository.getdualistbychapter(chapter)
-        }
-
-        return duachapter
-    }
-
-    fun getBookmarked(chapter: Int): LiveData<List<hduanamesEnt>> {
-
-
-        viewModelScope.launch {
-            duachapter = newrepository.getBookmarked(chapter)
         }
 
         return duachapter

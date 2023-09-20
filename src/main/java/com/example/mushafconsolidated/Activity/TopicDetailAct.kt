@@ -44,7 +44,7 @@ import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.google.android.material.snackbar.Snackbar
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
-class TopicDetailAct() : BaseActivity(), OnItemClickListenerOnLong {
+class TopicDetailAct : BaseActivity(), OnItemClickListenerOnLong {
     // --Commented out by Inspection (24/10/22, 10:04 PM):int mudhafColoragainstBlack, // --Commented out by Inspection (24/10/22, 10:04 PM):mausofColoragainstBlack, sifatColoragainstBlack, // --Commented out by Inspection (24/10/22, 10:03 PM):brokenPlurarColoragainstBlack, shartagainstback;
     // --Commented out by Inspection (24/10/22, 10:04 PM):private NavigationView navigationView;
     // --Commented out by Inspection (24/10/22, 10:04 PM):private MaterialToolbar materialToolbar;
@@ -63,7 +63,7 @@ class TopicDetailAct() : BaseActivity(), OnItemClickListenerOnLong {
     //    }
     // --Commented out by Inspection STOP (24/10/22, 10:03 PM)
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        getMenuInflater().inflate(R.menu.menu_dua_group, menu)
+        menuInflater.inflate(R.menu.menu_dua_group, menu)
         return true
     }
 
@@ -78,11 +78,10 @@ class TopicDetailAct() : BaseActivity(), OnItemClickListenerOnLong {
 
     @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(api = Build.VERSION_CODES.Q)
-    protected override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         // --Commented out by Inspection (24/10/22, 10:04 PM):private boolean kana;
         val shared = PreferenceManager.getDefaultSharedPreferences(this@TopicDetailAct)
-        val preferences = shared.getString("themePref", "dark")
-        when (preferences) {
+        when (shared.getString("themePref", "dark")) {
             "light" -> switchTheme("light")
             "dark" -> switchTheme("dark")
             "blue" -> switchTheme("blue")
@@ -95,9 +94,9 @@ class TopicDetailAct() : BaseActivity(), OnItemClickListenerOnLong {
         setSupportActionBar(toolbar)
         //     Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         android.preference.PreferenceManager.setDefaultValues(this, R.xml.preferences, false)
-        val bundle: Intent = getIntent()
+        val bundle: Intent = intent
         if (bundle.extras != null) {
-            val bundles: Bundle = getIntent().getExtras()!!
+            val bundles: Bundle = intent.extras!!
             val map = bundle.getSerializableExtra("map") as HashMap<String, String>?
              var surahname=""
             if (map!!.size != 0) {
@@ -123,7 +122,7 @@ class TopicDetailAct() : BaseActivity(), OnItemClickListenerOnLong {
                 getwbwy(surah, ayah, header)
             }
             //  getwbwy(aref);
-            val linearLayoutManager = LinearLayoutManager(getApplicationContext())
+            val linearLayoutManager = LinearLayoutManager(applicationContext)
             val listener: OnItemClickListenerOnLong = this
             val flowAyahWordAdapter =
                 TopicFlowAyahWordAdapter(corpusayahWordArrayList, listener, surahname)
@@ -224,7 +223,7 @@ class TopicDetailAct() : BaseActivity(), OnItemClickListenerOnLong {
                 // wordArrayListpassage.add(word);
             }
         }
-        corpusayahWordArrayList!!.add(ayahWord)
+        corpusayahWordArrayList.add(ayahWord)
         println("check")
     }
 
@@ -233,7 +232,7 @@ class TopicDetailAct() : BaseActivity(), OnItemClickListenerOnLong {
         builder.setCancelable(false) // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_dialog)
         val item = GrammerFragmentsBottomSheet()
-        val fragmentManager: FragmentManager = getSupportFragmentManager()
+        val fragmentManager: FragmentManager = supportFragmentManager
         item.arguments = dataBundle
         val data = arrayOf(
             word.word[0].surahId.toString(),
@@ -246,7 +245,7 @@ class TopicDetailAct() : BaseActivity(), OnItemClickListenerOnLong {
             .setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out)
         transactions.show(item)
         GrammerFragmentsBottomSheet.newInstance(data)
-            .show(getSupportFragmentManager(), WordAnalysisBottomSheet.TAG)
+            .show(supportFragmentManager, WordAnalysisBottomSheet.TAG)
     }
 
     override fun onItemClick(view: View, position: Int) {
@@ -285,25 +284,25 @@ class TopicDetailAct() : BaseActivity(), OnItemClickListenerOnLong {
             dialog.window!!.attributes.windowAnimations =
                 R.style.WindowAnimationTransition //style id
             dialog.show()
-            tafsirtag.setOnClickListener({ view12: View? ->
+            tafsirtag.setOnClickListener { view12: View? ->
                 val readingintent: Intent = Intent(
                     this@TopicDetailAct,
                     TafsirFullscreenActivity::class.java
-                )
+                                                  )
                 //  flowAyahWordAdapter.getItem(position);
                 val chapter_no: Int =
-                    corpusayahWordArrayList!!.get(position).word!!.get(0).surahId
+                    corpusayahWordArrayList[position].word[0].surahId
                 val verse: Int =
-                    corpusayahWordArrayList!!.get(position).word!!.get(0).verseId
+                    corpusayahWordArrayList[position].word[0].verseId
                 val surahArrays: Array<String> =
-                    getResources().getStringArray(R.array.suraharabic)
-                val surahname: String = surahArrays.get(chapter_no - 1)
+                    resources.getStringArray(R.array.suraharabic)
+                val surahname: String = surahArrays[chapter_no - 1]
                 readingintent.putExtra(SURAH_ID, chapter_no)
                 readingintent.putExtra(AYAH_ID, verse)
                 readingintent.putExtra(SURAH_ARABIC_NAME, surahname)
                 startActivity(readingintent)
                 dialog.dismiss()
-            })
+            }
             val finalBookmarkview = bookmarkview
             bookmarkview.setOnClickListener(View.OnClickListener { view1: View? ->
                 bookMarkSelected(position, finalBookmarkview)
@@ -312,22 +311,22 @@ class TopicDetailAct() : BaseActivity(), OnItemClickListenerOnLong {
             println("check")
         } else if ((tag == "qurantext")) {
             val word: CorpusAyahWord
-            if (position != 0) {
-                word = corpusayahWordArrayList!![position - 1]
+            word = if (position != 0) {
+                corpusayahWordArrayList[position - 1]
             } else {
-                word = corpusayahWordArrayList!![position]
+                corpusayahWordArrayList[position]
             }
             val dataBundle = Bundle()
-            dataBundle.putInt(SURAH_ID, word.word!![0].surahId)
-            dataBundle.putInt(AYAHNUMBER, Math.toIntExact(word.word!![0].verseId.toLong()))
+            dataBundle.putInt(SURAH_ID, word.word[0].surahId)
+            dataBundle.putInt(AYAHNUMBER, Math.toIntExact(word.word[0].verseId.toLong()))
             LoadItemList(dataBundle, word)
         }
     }
 
     private fun bookMarkSelected(position: Int, bookmarkview: View?) {
-        val chapter_no = corpusayahWordArrayList!![position].word!![0].surahId
-        val verse = corpusayahWordArrayList!![position].word!![0].verseId
-        val surahArrays: Array<String> = getResources().getStringArray(R.array.suraharabic)
+        val chapter_no = corpusayahWordArrayList[position].word[0].surahId
+        val verse = corpusayahWordArrayList[position].word[0].verseId
+        val surahArrays: Array<String> = resources.getStringArray(R.array.suraharabic)
         val surahname = surahArrays[chapter_no - 1]
         val en = BookMarks()
         en.chapterno = chapter_no.toString()

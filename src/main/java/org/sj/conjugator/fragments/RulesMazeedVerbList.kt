@@ -35,14 +35,14 @@ class RulesMazeedVerbList : Fragment {
     lateinit var verbmood: String
     lateinit   var verbtype: String
        var ssagheer = ArrayList<SarfSagheer>()
-    lateinit  var contexts: Context
+    private lateinit  var contexts: Context
     lateinit   var recyclerView: RecyclerView
 
     //   private ArrayList sarfSagheerThulathiArray = new ArrayList();
 
     private var sarfsagheerAdapter: SarfMujarradSarfSagheerListingAdapter? = null
 
-    constructor() {}
+    constructor()
     constructor(context: Context?) {
         if (context != null) {
             this.contexts = context
@@ -52,7 +52,7 @@ class RulesMazeedVerbList : Fragment {
     // --Commented out by Inspection (13/6/21 6:51 PM):private Bitmap bitmap;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
         val view: View = inflater.inflate(R.layout.thulathilistingnotoolbar, container, false)
         val sharedPreferences: SharedPreferences =
@@ -63,12 +63,12 @@ class RulesMazeedVerbList : Fragment {
         if (indictive != null) {
             verbmood = indictive
         }
-        recyclerView = view.findViewById<RecyclerView>(R.id.sarfrecview)
+        recyclerView = view.findViewById(R.id.sarfrecview)
         if (indictive != null) {
             verbmood = indictive
         }
 
-        recyclerView = view.findViewById<RecyclerView>(R.id.sarfrecview)
+        recyclerView = view.findViewById(R.id.sarfrecview)
         if (arguments != null) {
             val rule = requireArguments().getString(QURAN_VERB_WAZAN)
             MazeedListing(ssagheer, rule)
@@ -85,10 +85,10 @@ class RulesMazeedVerbList : Fragment {
         recyclerView.setHasFixedSize(true)
         // use a linear layout manager
         val mLayoutManager = LinearLayoutManager(activity)
-        recyclerView.setLayoutManager(mLayoutManager)
-        recyclerView.setItemAnimator(DefaultItemAnimator())
+        recyclerView.layoutManager = mLayoutManager
+        recyclerView.itemAnimator = DefaultItemAnimator()
         val layoutManager = LinearLayoutManager(activity)
-        recyclerView.setLayoutManager(layoutManager)
+        recyclerView.layoutManager = layoutManager
     }
 
     private fun MazeedListing(ssagheer: java.util.ArrayList<SarfSagheer>, kov: String?) {
@@ -133,7 +133,7 @@ class RulesMazeedVerbList : Fragment {
     ) {
         for (s in mazeedEntityWeaknesses) {
             val listing: ArrayList<ArrayList<*>> = GatherAll.instance.getMazeedListing(
-                verbmood, s.root!!
+                verbmood, s.root
             )
             val ss = SarfSagheer()
             ss.weakness = listing[0][0].toString()
@@ -165,7 +165,7 @@ class RulesMazeedVerbList : Fragment {
         grantResults: IntArray
     ) {
         if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.e("value", "Permission Granted, Now you can use local drive .")
             } else {
                 Log.e("value", "Permission Denied, You cannot use local drive .")
@@ -196,6 +196,5 @@ class RulesMazeedVerbList : Fragment {
 
     companion object {
         private const val PERMISSION_REQUEST_CODE = 100
-        private const val TAG = "PermissionDemo"
     }
 }

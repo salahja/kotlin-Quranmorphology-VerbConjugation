@@ -18,27 +18,13 @@ class SarfMujarradSarfSagheerListingAdapter(
     private var sarfSagheer: ArrayList<SarfSagheer>,
     private val context: Context
 ) : RecyclerView.Adapter<SarfMujarradSarfSagheerListingAdapter.ViewHolder>() {
-    private val madhi = ArrayList<String>()
-    var rootcolor = 0
-    var weaknesscolor = 0
-    var wazancolor = 0
+    private var rootcolor = 0
+    private var weaknesscolor = 0
+    private var wazancolor = 0
     var bookmarkpostion = 0
     var mItemClickListener: OnItemClickListener? = null
-
-    //    private final Integer arabicTextColor;
-    var mycontext: Context? = null
-    var ismzaftitle = "(الْظَرْف:)"
-    var ismalatitle = "( الآلَة:)"
-    var alaheader = "اِسْم الآلَة"
-    var zarfheader = "اِسْم الْظَرفْ"
-    private val mazeedregular = false
-    private val bookChapterno = 0
-    private val bookVerseno = 0
-    private val ayahNumber: Int? = null
-    private val urdu_font_selection: String? = null
-    private val quran_arabic_font = 0
-    private val urdu_font_size = 0
-    private val arabic_font_selection: String? = null
+    private var alaheader = "اِسْم الآلَة"
+    private var zarfheader = "اِسْم الْظَرفْ"
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -131,23 +117,23 @@ class SarfMujarradSarfSagheerListingAdapter(
         holder.ismala.textSize = arabicFontsize.toFloat()
         holder.weaknessname.textSize = arabicFontsize.toFloat()
         holder.wazan.textSize = arabicFontsize.toFloat()
-        holder.mamaroof.setTypeface(mequran)
-        holder.mumaroof.setTypeface(mequran)
+        holder.mamaroof.typeface = mequran
+        holder.mumaroof.typeface = mequran
         //   holder.masdaro.setTypeface(mequran);
         // holder.masdart.setTypeface(mequran);
-        holder.ismfail.setTypeface(mequran)
-        holder.mamajhool.setTypeface(mequran)
-        holder.mumajhool.setTypeface(mequran)
-        holder.ismmafool.setTypeface(mequran)
-        holder.amr.setTypeface(mequran)
-        holder.nahiamr.setTypeface(mequran)
-        holder.babname.setTypeface(mequran)
+        holder.ismfail.typeface = mequran
+        holder.mamajhool.typeface = mequran
+        holder.mumajhool.typeface = mequran
+        holder.ismmafool.typeface = mequran
+        holder.amr.typeface = mequran
+        holder.nahiamr.typeface = mequran
+        holder.babname.typeface = mequran
         //  holder.babname.setTextColor(Color.YELLOW);
-        holder.rootword.setTypeface(mequran)
+        holder.rootword.typeface = mequran
         //  holder.rootword.setTextColor(Color.BLUE);
-        holder.ismzarf.setTypeface(mequran)
-        holder.ismala.setTypeface(mequran)
-        holder.weaknessname.setTypeface(mequran)
+        holder.ismzarf.typeface = mequran
+        holder.ismala.typeface = mequran
+        holder.weaknessname.typeface = mequran
         //  holder.weaknessname.setTextColor(Color.GREEN);
         holder.babname.setTextColor(wazancolor)
         holder.rootword.setTextColor(rootcolor)
@@ -179,10 +165,6 @@ class SarfMujarradSarfSagheerListingAdapter(
         this.mItemClickListener = mItemClickListener
     }
 
-    fun setVerbArrayList(sarfsagheer: ArrayList<SarfSagheer>) {
-        sarfSagheer = sarfsagheer
-    }
-
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view),
         View.OnClickListener // current clickListerner
     {
@@ -197,7 +179,7 @@ class SarfMujarradSarfSagheerListingAdapter(
         val ismzarf: MaterialTextView
         val ismala: MaterialTextView
         var form: MaterialTextView
-        val babno: TextView
+        private val babno: TextView
         val ismalaheader: TextView
         val ismzarfheader: TextView
         val masdart: TextView

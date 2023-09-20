@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import sj.hisnul.entity.AllahNamesDetails
 import sj.hisnul.newepository.NewDuaModel
 
 
@@ -24,22 +23,21 @@ import sj.hisnul.newepository.NewDuaModel
  * FontQuranListDialogFragment.newInstance(30).show(getSupportFragmentManager(), "dialog");
 </pre> *
  */
-class NamesDetail constructor() : BottomSheetDialogFragment() {
+class NamesDetail : BottomSheetDialogFragment() {
     var mItemClickListener: OnItemClickListener? = null
 
     // private ColorSchemeAdapter colorSchemeAdapter;
     var textView: TextView? = null
-    private var namesDetails: ArrayList<AllahNamesDetails>? = null
     fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
         this.mItemClickListener = mItemClickListener
     }
 
-    public override fun onCreateView(
+    override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view: View = inflater.inflate(R.layout.namesadapter, container, false)
-        val bundle: Bundle? = getArguments()
+        val bundle: Bundle? = arguments
         val html: String = ("<html>\n" +
                 "<head>\n" +
                 "<style type=\"text/css\">\n" +
@@ -82,8 +80,8 @@ class NamesDetail constructor() : BottomSheetDialogFragment() {
 
 
             val title: WebView = view.findViewById<View>(R.id.title) as WebView
-            val concat: String = html + it!!.get(0).title + it!!.get(0)
-                .summary+ (it?.get(0)?.details  ) + close
+            val concat: String = html + it!![0].title + it[0]
+                .summary+ (it.get(0)?.details  ) + close
             title.loadDataWithBaseURL(null, concat, "text/html", "utf-8", null)
         }
 
@@ -96,17 +94,17 @@ class NamesDetail constructor() : BottomSheetDialogFragment() {
      */
 
     companion object {
-        val TAG: String = "SURAH"
+        const val TAG: String = "SURAH"
 
         // TODO: Customize parameter argument names
-        private val ARG_OPTIONS_DATA: String = "item_count"
+        private const val ARG_OPTIONS_DATA: String = "item_count"
 
         // TODO: Customize parameters
         fun newInstance(data: Int): NamesDetail {
             val fragment: NamesDetail = NamesDetail()
             val args: Bundle = Bundle()
             args.putInt(ARG_OPTIONS_DATA, data)
-            fragment.setArguments(args)
+            fragment.arguments = args
             return fragment
         }
     }

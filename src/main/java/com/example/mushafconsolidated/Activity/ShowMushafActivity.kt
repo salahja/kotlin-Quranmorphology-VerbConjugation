@@ -61,7 +61,6 @@ import com.example.mushafconsolidated.receiversimport.FileManager
 import com.example.mushafconsolidated.receiversimport.QuranValidateSources
 import com.example.mushafconsolidated.receiversimport.Settingsss
 import com.example.mushafconsolidated.settingsimport.Constants
-import com.example.utility.AudioPositionSaved
 import com.example.utility.ConfigPreferences
 import com.example.utility.FlowLayout
 import com.example.utility.MovableFloatingActionButton
@@ -83,7 +82,6 @@ import com.google.android.exoplayer2.util.RepeatModeUtil
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textview.MaterialTextView
 import wheel.OnWheelChangedListener
 import wheel.WheelView
@@ -91,14 +89,14 @@ import java.io.File
 import java.text.MessageFormat
 import java.util.Locale
 import java.util.Objects
-
+import kotlin.math.max
 
 class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnClickListener,
     FullscreenButtonClickListener {
     val isjuz = false
-    lateinit var exo_settings: ImageButton
-    lateinit var exo_close: ImageButton
-    lateinit var exo_bottom_bar: ImageButton
+    private lateinit var exo_settings: ImageButton
+    private lateinit var exo_close: ImageButton
+    private lateinit var exo_bottom_bar: ImageButton
     lateinit var ayaprogress: MaterialTextView
     private lateinit var surahWheelDisplayData: Array<String>
     private lateinit var ayahWheelDisplayData: Array<String>
@@ -107,12 +105,12 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     private var currenttrack = 0
     private var resumelastplayed = 0
     private var onClickOrRange = false
-    lateinit var llStartRange: LinearLayout
-    lateinit var llEndRange: LinearLayout
+    private lateinit var llStartRange: LinearLayout
+    private lateinit var llEndRange: LinearLayout
 
     //  private LinkedHashMap<Integer, Integer> hlights;
     private val hlights: LinkedHashMap<Int, ArrayList<AyahCoordinate>> =
-        LinkedHashMap<Int, ArrayList<AyahCoordinate>>()
+        LinkedHashMap()
     var flow = false
     var singleline = false
     var rangeRecitation = false
@@ -121,11 +119,9 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     private var resume = false
     private var ayahcounter = 0
     var ayah = 0
-    lateinit var passageadapter: PageMushaAudioAdapter
+    private lateinit var passageadapter: PageMushaAudioAdapter
     private val passage = LinkedHashMap<Int, String>()
-    private val pages = LinkedHashMap<Int, String>()
-    var audioType = 0
-    var prevqari = ""
+    private var audioType = 0
     private val handler = Handler()
     private lateinit var marray: MutableList<MediaItem>
     private var marrayrange: List<MediaItem>? = null
@@ -138,38 +134,31 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     //  private val resetplayer: MaterialButton
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var selectedqari: String
-    lateinit var qariname: TextView
-    lateinit var buffering: ImageView
-    lateinit var canceldownload: MaterialButton
+    private lateinit var qariname: TextView
+    private lateinit var canceldownload: MaterialButton
 
     //  FrameLayout eqContainer;
 
 
-    protected lateinit var playerView: PlayerControlView
-    protected var player: ExoPlayer? = null
+    private lateinit var playerView: PlayerControlView
+    private var player: ExoPlayer? = null
     private lateinit var trackSelectionParameters: TrackSelectionParameters
     private lateinit var lastSeenTracks: Tracks
     private var startAutoPlay = false
     private var startItemIndex = 0
     private var startPosition: Long = 0
-    lateinit var playiv: ImageView
+    private lateinit var playiv: ImageView
     private var pausePlayFlag = false
     var surahselected = 0
     var verselected = 0
     var versescount = 0
     lateinit var surahNameEnglish: String
-    lateinit var surahNameArabic: String
+    private lateinit var surahNameArabic: String
     private lateinit var isNightmode: String
 
     // LinearLayout fabLayout1, fabLayout2,fabLayout3;
     //  FloatingActionButton fab, fab1, fab2, fab3;
-    lateinit var playfb: MovableFloatingActionButton
-
-    // Use the ExtendedFloatingActionButton to handle the
-    // These TextViews are taken to make visible and
-    // invisible along with FABs except parent FAB's action
-    // name
-    lateinit var resetfbtxt: TextView
+    private lateinit var playfb: MovableFloatingActionButton
     override fun onBackPressed() {
 
         //unregister broadcast for download ayat
@@ -183,17 +172,17 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         val pref: SharedPreferences = getSharedPreferences("lastaya", MODE_PRIVATE)
         val editor = pref.edit()
         editor.putInt("lastaya", currenttrack)
-        if (!hlights.isEmpty()) {
+        if (hlights.isNotEmpty()) {
             if (currenttrack == 0) {
                 Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                     hlights[currenttrack + 1]
-                )[0].passage!!?.let {
+                                                                 )[0].passage!!.let {
                     editor.putInt(
                         "trackposition", it
-                    )
+                                 )
                 }
             } else {
-                hlights[currenttrack]!![0].passage!!?.let { editor.putInt("trackposition", it) }
+                hlights[currenttrack]!![0].passage!!.let { editor.putInt("trackposition", it) }
             }
         }
         editor.apply()
@@ -204,9 +193,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     private var surah = 0
     lateinit var recyclerView: RecyclerView
     lateinit var repository: Utils
-    lateinit var lineMushaAudioAdapter: LineMushaAudioAdapter
+    private lateinit var lineMushaAudioAdapter: LineMushaAudioAdapter
     lateinit var typeface: Typeface
-    lateinit var txtView: TextView
 
     //   val translationBooks: Spinner = TODO()
     private lateinit var readers: Spinner
@@ -217,8 +205,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
     //  TextView startrange, startimage, endrange, endimage;
     lateinit var startrange: MaterialTextView
-    lateinit var endrange: MaterialTextView
-    fun setStartPosition(startPosition: Long) {
+    private lateinit var endrange: MaterialTextView
+    private fun setStartPosition(startPosition: Long) {
         this.startPosition = startPosition
     }
 
@@ -227,14 +215,13 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     private lateinit var mediaPlayerDownloadProgress: ProgressBar
     private lateinit var exoplayerBottomBehaviour: BottomSheetBehavior<RelativeLayout>
     private lateinit var audioSettingBottomBehaviour: BottomSheetBehavior<RelativeLayout>
-    lateinit var resetfab: FloatingActionButton
-    protected override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.vfour_expandable_newactivity_show_ayahs)
         //    ButterKnife.bind(this);
         //    QuranGrammarApplication.appContext = ShowMushafActivity.this;
         //  intentmyservice = new Intent(this, AudioService.class);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         val intent = Intent(BROADCAST_SEEKBAR)
         getpreferences()
         //   lastPlayed
@@ -242,7 +229,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         isNightmode = sharedPreferences.getString("themepref", "dark")!!
         //  repository = Utils.getInstance(getApplication());
         repository = Utils(this)
-        typeface = Typeface.createFromAsset(getAssets(), "me_quran.ttf")
+        typeface = Typeface.createFromAsset(assets, "me_quran.ttf")
         selectedqari = sharedPreferences.getString("qari", "35")!!
 
         //region Description
@@ -261,7 +248,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         }
         //endregion
         playerView = findViewById(R.id.player_view)
-        playerView!!.requestFocus()
+        playerView.requestFocus()
         if (savedInstanceState != null) {
             trackSelectionParameters = TrackSelectionParameters.fromBundle(
                 savedInstanceState.getBundle(KEY_TRACK_SELECTION_PARAMETERS)!!
@@ -275,11 +262,11 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         }
         val bottomsheetexoplayer: RelativeLayout = findViewById(R.id.footerplayer)
         exoplayerBottomBehaviour = BottomSheetBehavior.from(bottomsheetexoplayer)
-        exoplayerBottomBehaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
+        exoplayerBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
         val playerbottomsheet: RelativeLayout = findViewById(R.id.audio_settings_bottom)
         audioSettingBottomBehaviour = BottomSheetBehavior.from(playerbottomsheet)
-        audioSettingBottomBehaviour!!.state = BottomSheetBehavior.STATE_COLLAPSED
-        recyclerView = findViewById(R.id.rvAyahsPages) as RecyclerView
+        audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
+        recyclerView = findViewById<RecyclerView>(R.id.rvAyahsPages)
         initSpinner()
         if (!singleline) {
             if (!isjuz) {
@@ -296,17 +283,10 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
     private fun getpreferences() {
         val pref: SharedPreferences =
-            getApplicationContext().getSharedPreferences("lastreadmushaf", MODE_PRIVATE)
+            applicationContext.getSharedPreferences("lastreadmushaf", MODE_PRIVATE)
         surah = pref.getInt(CHAPTER, 20)
         surahselected = surah
     }
-
-    private val lastPlayed: Unit
-        private get() {
-            val aplayed: AudioPositionSaved =
-                ConfigPreferences.getLastPlayedAudio(this, surah.toString())
-            resumelastplayed = aplayed.audiopsaved!!.get(0)!!.ayah
-        }
 
     private fun loadQuranjuz() {
         val pages: MutableList<Page> = ArrayList()
@@ -315,10 +295,10 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         val firstpage = quranEntities?.get(0)!!.page
         lateinit var page: Page
         var ayahItems: List<QuranEntity?>?
-        for (i in firstpage..quranEntities?.get(quranEntities.size - 1)!!.page) {
+        for (i in firstpage..quranEntities.get(quranEntities.size - 1)!!.page) {
             // ayahItems = repository.getAyahsByPageQuran(surah, i);
-            ayahItems = Utils.getAyahsByPagejuz(2, i) as List<QuranEntity?>?
-            if (ayahItems!!.size > 0) {
+            ayahItems = Utils.getAyahsByPagejuz(2, i)
+            if (ayahItems!!.isNotEmpty()) {
                 page = Page()
                 page.ayahItemsquran = ayahItems
                 //    page.se(ayahItems);
@@ -336,10 +316,10 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         val firstpage = quranEntities?.get(0)!!.page
         lateinit var page: Page
         var ayahItems: List<QuranEntity?>?
-        for (i in firstpage..quranEntities?.get(quranEntities.size - 1)!!.page) {
+        for (i in firstpage..quranEntities.get(quranEntities.size - 1)!!.page) {
             ayahItems = repository.getAyahsByPageQuran(surah, i)
             if (ayahItems != null) {
-                if (ayahItems.size > 0) {
+                if (ayahItems.isNotEmpty()) {
                     page = Page()
                     page.ayahItemsquran = ayahItems
                     //    page.se(ayahItems);
@@ -354,8 +334,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
     private fun preparesJuzHlights() {
         var counter = 1
-        for (i in juzquranpages!!.indices) {
-            val page = juzquranpages!![i]
+        for (i in juzquranpages.indices) {
+            val page = juzquranpages[i]
             var aya = ""
             var builder = java.lang.StringBuilder()
             var ayahmat = java.util.ArrayList<Int>()
@@ -378,7 +358,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         ayahcounter: Int,
     ) {
         var ayahcounter = ayahcounter
-        val holder = recyclerView!!.findViewHolderForAdapterPosition(1)
+        val holder = recyclerView.findViewHolderForAdapterPosition(1)
         val ayahindex = ayahmat[0]
         val ayahmaz = ayahmat.size
         val split1 = str.toString().split("﴿".toRegex()).dropLastWhile { it.isEmpty() }
@@ -387,7 +367,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         //  = str.indexOf("1");
         val end = str.indexOf(ayahindex.toString())
         val acf = AyahCoordinate(0, end, passageno)
-        val Coordinatesf: ArrayList<AyahCoordinate> = ArrayList<AyahCoordinate>()
+        val Coordinatesf: ArrayList<AyahCoordinate> = ArrayList()
         Coordinatesf.add(acf)
         hlights[ayahcounter] = Coordinatesf
         //  ayahindex++;
@@ -396,7 +376,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             val e = str.indexOf((ayahindex + 1).toString())
             if (s != -1 && e != -1) {
                 val ac = AyahCoordinate(s, e, passageno)
-                val Coordinates: ArrayList<AyahCoordinate> = ArrayList<AyahCoordinate>()
+                val Coordinates: ArrayList<AyahCoordinate> = ArrayList()
                 Coordinates.add(ac)
                 hlights[++ayahcounter] = Coordinates
             } else {
@@ -408,8 +388,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
     private fun preparesSurahHlights() {
         var counter = 1
-        for (i in fullQuranPages!!.indices) {
-            val page = fullQuranPages!![i]
+        for (i in fullQuranPages.indices) {
+            val page = fullQuranPages[i]
             var aya = ""
             var builder = java.lang.StringBuilder()
             var ayahmat = java.util.ArrayList<Int>()
@@ -430,37 +410,37 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     }
 
     private fun initSpinner() {
-        readers = (findViewById(R.id.selectReaders) as Spinner?)!!
-        readers!!.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        readers = (findViewById<Spinner>(R.id.selectReaders))!!
+        readers.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View,
                 position: Int,
                 id: Long,
             ) {
-                readerName = readers!!.selectedItem.toString()
+                readerName = readers.selectedItem.toString()
                 getReaderAudioLink(readerName)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-        readers!!.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        readers.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View,
                 position: Int,
                 id: Long,
             ) {
-                readerName = readers!!.selectedItem.toString()
+                readerName = readers.selectedItem.toString()
                 getReaderAudioLink(readerName)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-        runOnUiThread(Runnable { //check language to load readers arabic or english
+        runOnUiThread({ //check language to load readers arabic or english
             val readersNames: MutableList<String> = ArrayList()
             readersList = repository.qaris
-            for (reader in readersList!!) {
+            for (reader in readersList) {
                 if (reader.audiotype == 0 || reader.audiotype == 2) {
                     readersNames.add(reader.name_english)
                 } /*else {
@@ -477,10 +457,10 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 R.id.spinnerText,
                 readersNames
             )
-            readers!!.adapter = spinnerReaderAdapter
+            readers.adapter = spinnerReaderAdapter
             for (counter in readersNames.indices) {
-                if (readersNames[counter].trim { it <= ' ' } == selectedqari!!.trim { it <= ' ' }) {
-                    readers!!.setSelection(counter)
+                if (readersNames[counter].trim { it <= ' ' } == selectedqari.trim { it <= ' ' }) {
+                    readers.setSelection(counter)
                     break
                 }
             }
@@ -500,19 +480,19 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         surahWheelDisplayData = arrayOf("")
         ayahWheelDisplayData = arrayOf("")
         //  val current = arrayOf<ArrayList<Any>>(ArrayList<Any>())
-        var current = ArrayList<String>()
+        val current = ArrayList<String>()
         var mDay: Int
         val chapterno = IntArray(1)
         val verseno = IntArray(1)
-        val surahArrays: Array<String> = getResources().getStringArray(R.array.surahdetails)
-        val versearrays: Array<String> = getResources().getStringArray(R.array.versescounts)
-        val intarrays: IntArray = getResources().getIntArray(R.array.versescount)
+        val surahArrays: Array<String> = resources.getStringArray(R.array.surahdetails)
+        val versearrays: Array<String> = resources.getStringArray(R.array.versescounts)
+        val intarrays: IntArray = resources.getIntArray(R.array.versescount)
         //     final AlertDialog.Builder dialogPicker = new AlertDialog.Builder(this);
         val dialogPicker = AlertDialog.Builder(this@ShowMushafActivity)
         val dlg = Dialog(this@ShowMushafActivity)
         //  AlertDialog dialog = builder.create();
         val soraList: List<ChaptersAnaEntity?>? = repository.getAllAnaChapters()
-        val inflater: LayoutInflater = this@ShowMushafActivity.getLayoutInflater()
+        val inflater: LayoutInflater = this@ShowMushafActivity.layoutInflater
         val view = inflater.inflate(R.layout.activity_wheel_t, null)
         //  View view = inflater.inflate(R.layout.activity_wheel, null);
         dialogPicker.setView(view)
@@ -531,8 +511,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             chapterno[0] = chapno[0].toInt()
             verseno[0] = 1
             //     current[0] = ArrayList<Any>()
-            val intarray: Int
-            intarray = if (surahselected != 0) {
+            val intarray: Int = if (surahselected != 0) {
                 intarrays[surahselected - 1]
             } else {
                 7
@@ -590,7 +569,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             "Cancel"
         ) { dialogInterface: DialogInterface?, i: Int -> }
         val alertDialog = dialogPicker.create()
-        val preferences = sharedPreferences!!.getString("themepref", "dark")
+        val preferences = sharedPreferences.getString("themepref", "dark")
         val db = ContextCompat.getColor(this, R.color.odd_item_bg_dark_blue_light)
         if (preferences == "light") {
             alertDialog.window!!.setBackgroundDrawableResource(R.color.md_theme_dark_onSecondary)
@@ -695,8 +674,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
             private fun updateVerses(newIndex: Int) {
                 //     current[0] = java.util.ArrayList<Any>()
-                val intarray: Int
-                intarray = if (newIndex != 0) {
+                val intarray: Int = if (newIndex != 0) {
                     intarrays[newIndex]
                 } else {
                     7
@@ -728,7 +706,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             ayah
         )
         verseendrange = verse
-        endrange!!.text = st.toString()
+        endrange.text = st.toString()
         rangeRecitation = true
     }
 
@@ -739,13 +717,13 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             ayah
         )
         versestartrange = verse
-        startrange!!.text = st.toString()
+        startrange.text = st.toString()
         rangeRecitation = true
     }
 
     private fun RefreshActivity(s: String, aya: String, b: Boolean) {
         Log.e(TAG, "onClick called")
-        val intent: Intent = this.getIntent()
+        val intent: Intent = this.intent
         //  surah = getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
         val parentActivityRef = intent.getStringExtra("PARENT_ACTIVITY_REF")
         if (b) {
@@ -769,12 +747,12 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
 ///musincadapter
             // RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(currenttrack);
-            val holder = recyclerView!!.findViewHolderForAdapterPosition(currenttrack)
+            val holder = recyclerView.findViewHolderForAdapterPosition(currenttrack)
             val ab = StringBuilder()
             ab.append("Aya").append(":").append(currenttrack).append(" ").append("of").append(
                 versescount
             )
-            ayaprogress!!.text = ab.toString()
+            ayaprogress.text = ab.toString()
             if (null != holder) {
                 try {
                     if (holder.itemView.findViewById<View?>(R.id.quran_textView) != null) {
@@ -833,7 +811,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                     ).show()
                 }
             }
-            val holderp = recyclerView!!.findViewHolderForAdapterPosition(currenttrack - 1)
+            val holderp = recyclerView.findViewHolderForAdapterPosition(currenttrack - 1)
             if (currenttrack > 1) {
                 if (null != holderp) {
                     try {
@@ -857,188 +835,12 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                     }
                 }
             }
-            recyclerView!!.post { recyclerView!!.scrollToPosition(currenttrack) }
+            recyclerView.post { recyclerView.scrollToPosition(currenttrack) }
 
             //  handler.postDelayed(this, 1000);
         }
-
-        private fun Highlightverse(textView: TextView) {
-            val start: Int
-            val end: Int
-            val starta: String
-            val endb: String
-            val str = textView.text.toString()
-            val split1 = str.split("﴿".toRegex()).dropLastWhile { it.isEmpty() }
-                .toTypedArray()
-            val span = SpannableStringBuilder(str)
-            if (currenttrack == 1) {
-                start = 0
-                endb = currenttrack.toString()
-            } else {
-                starta = currenttrack.toString()
-                start = str.indexOf(starta)
-                endb = (currenttrack + 1).toString()
-            }
-            end = str.indexOf(endb)
-            try {
-                println(span.subSequence(start, end))
-                span.setSpan(
-                    ForegroundColorSpan(Color.CYAN),
-                    start,
-                    end,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-                textView.text = span
-                val split = str.split("\n".toRegex()).dropLastWhile { it.isEmpty() }
-                    .toTypedArray()
-            } catch (exception: IndexOutOfBoundsException) {
-                println(exception)
-            }
-        }
-    }
-    private val picker: Runnable = object : Runnable {
-        val trackchange = false
-
-        // int currentAdapterP=hlights.get(currenttrack-1).get(0).passage;
-        override fun run() {
-
-            //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
-            handler.postDelayed(this, 1500)
-        }
-
-        private fun setVerseHighLight(textView: TextView, foreGroundcoloer: Int) {
-            val str = textView.text.toString()
-            val span = SpannableStringBuilder(str)
-            try {
-                span.setSpan(
-                    ForegroundColorSpan(foreGroundcoloer),
-                    hlights[currenttrack]!![0].start!!,
-                    hlights[currenttrack]!![0].end!!,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-                textView.text = span
-                val split = str.split("\n".toRegex()).dropLastWhile { it.isEmpty() }
-                    .toTypedArray()
-            } catch (exception: IndexOutOfBoundsException) {
-                println(exception)
-            }
-        }
-    }
-    private val NewsendUpdatesToUIPassage: Runnable = object : Runnable {
-        val trackchange = false
-
-        // int currentAdapterP=hlights.get(currenttrack-1).get(0).passage;
-        override fun run() {
-            lateinit var holder: RecyclerView.ViewHolder
-            if (onClickOrRange) {
-                if (hlights[currenttrack] != null) {
-                    holder = recyclerView!!.findViewHolderForAdapterPosition(
-                        hlights[versestartrange]!![0].passage!!!!
-                    )!!
-                    recyclerView!!.post {
-                        recyclerView!!.scrollToPosition(
-                            hlights[versestartrange]!![0].passage!!!!
-                        )
-                    }
-                } else {
-                    holder = hlights[currenttrack + 1]!![0].passage!!?.let {
-                        recyclerView!!.findViewHolderForAdapterPosition(
-                            it
-                        )
-                    }!!
-                    recyclerView!!.post {
-                        hlights[currenttrack + 1]?.get(0)?.let {
-                            recyclerView!!.scrollToPosition(
-                                it.passage!!
-                            )
-                        }
-                    }
-                    currenttrack++
-                }
-            } else {
-                if (hlights[currenttrack] != null) {
-                } else {
-                }
-            }
-            if (null != holder) {
-                try {
-                    if (holder.itemView.findViewById<View?>(R.id.quran_textView) != null) {
-                        if (isNightmode == "brown") {
-
-                            //    holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
-                            val textView =
-                                holder.itemView.findViewById<TextView>(R.id.quran_textView)
-                            setVerseHighLight(textView, Color.BLUE)
-                        } else {
-                            val textView =
-                                holder.itemView.findViewById<TextView>(R.id.quran_textView)
-                            setVerseHighLight(textView, Color.CYAN)
-
-                            //   holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Constant.MUSLIMMATE);
-                        }
-                    } else if (holder.itemView.findViewById<View?>(R.id.rukuview) != null) {
-                        println("rukuvue")
-                    }
-                } catch (exception: NullPointerException) {
-                    Toast.makeText(
-                        this@ShowMushafActivity,
-                        "null pointer udapte",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-            val holderp = recyclerView!!.findViewHolderForAdapterPosition(1)
-            val temp = 2
-            if (null != holderp) {
-                try {
-                    val arrayList = ArrayList<String>()
-                    val fl: FlowLayout = FlowLayout(this@ShowMushafActivity, arrayList)
-                    fl.getChildAt(ayah)
-                    val drawingCacheBackgroundColor =
-                        holderp.itemView.findViewById<View>(R.id.quran_textView).drawingCacheBackgroundColor
-                    if (holderp.itemView.findViewById<View?>(R.id.quran_textView) != null) {
-                        //    holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
-                        holderp.itemView.findViewById<View>(R.id.quran_textView)
-                            .setBackgroundColor(drawingCacheBackgroundColor)
-                    }
-                } catch (exception: NullPointerException) {
-                    Toast.makeText(
-                        this@ShowMushafActivity,
-                        "UPDATE HIGHLIGHTED",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-
-            //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
-            handler.postDelayed(this, 2000)
-        }
-
-        private fun setVerseHighLight(textView: TextView, foreGroundcoloer: Int) {
-            val str = textView.text.toString()
-            val span = SpannableStringBuilder(str)
-            try {
-                span.setSpan(
-                    ForegroundColorSpan(foreGroundcoloer),
-                    Objects.requireNonNull<ArrayList<AyahCoordinate>>(
-                        hlights[currenttrack]
-                    )[0].start!!,
-                    Objects.requireNonNull<ArrayList<AyahCoordinate>>(
-                        hlights[currenttrack]
-                    )[0].end!!,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-                textView.text = span
-                val split = str.split("\n".toRegex()).dropLastWhile { it.isEmpty() }
-                    .toTypedArray()
-            } catch (exception: IndexOutOfBoundsException) {
-                println(exception)
-            }
-        }
     }
     private val sendUpdatesToUIJuz: Runnable = object : Runnable {
-        val trackchange = false
-
         // int currentAdapterP=hlights.get(currenttrack-1).get(0).passage;
         override fun run() {
             val holder: RecyclerView.ViewHolder
@@ -1046,46 +848,46 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             ab.append("Aya").append(":").append(currenttrack).append(" ").append("of").append(
                 versescount
             )
-            ayaprogress!!.text = ab.toString()
+            ayaprogress.text = ab.toString()
             if (hlights[currenttrack] != null) {
-                holder = recyclerView!!.findViewHolderForAdapterPosition(
+                holder = recyclerView.findViewHolderForAdapterPosition(
                     Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                         hlights[currenttrack - 1]
-                    )[0].passage!!!!
-                )!!
+                    )[0].passage!!
+                                                                      )!!
                 if (currenttrack < Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                         hlights[hlights.size - 1]
-                    )[0].passage!!!!
-                ) recyclerView!!.post {
-                    recyclerView!!.scrollToPosition(
+                                                                                    )[0].passage!!
+                ) recyclerView.post {
+                    recyclerView.scrollToPosition(
                         Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                             hlights[currenttrack - 1]
-                        )[0].passage!!!!
-                    )
+                        )[0].passage!!
+                                                 )
                 } else {
-                    recyclerView!!.post {
-                        recyclerView!!.scrollToPosition(
+                    recyclerView.post {
+                        recyclerView.scrollToPosition(
                             Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                                 hlights[currenttrack]
-                            )[0].passage!!!!
-                        )
+                            )[0].passage!!
+                                                     )
                     }
                 }
             } else {
-                holder = recyclerView!!.findViewHolderForAdapterPosition(
+                holder = recyclerView.findViewHolderForAdapterPosition(
                     Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                         hlights[currenttrack + 1]
-                    )[0].passage!!!!
-                )!!
+                    )[0].passage!!
+                                                                      )!!
                 if (currenttrack < Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                         hlights[hlights.size - 1]
-                    )[0].passage!!!!
-                ) recyclerView!!.post {
-                    recyclerView!!.scrollToPosition(
+                                                                                    )[0].passage!!
+                ) recyclerView.post {
+                    recyclerView.scrollToPosition(
                         Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                             hlights[currenttrack + 1]
-                        )[0].passage!!!!
-                    )
+                        )[0].passage!!
+                                                 )
                 }
                 currenttrack++
             }
@@ -1130,7 +932,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 val pos: Int = Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                     hlights[currenttrack - 1]
                 )[0].passage!!
-                holderp = recyclerView!!.findViewHolderForAdapterPosition(pos)!!
+                holderp = recyclerView.findViewHolderForAdapterPosition(pos)!!
             }
             //   RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(1);
             val temp = 2
@@ -1177,44 +979,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 println(exception)
             }
         }
-
-        private fun Highlightverse(textView: TextView) {
-            val start: Int
-            val end: Int
-            val starta: String
-            val endb: String
-            val str = textView.text.toString()
-            val split1 = str.split("﴿".toRegex()).dropLastWhile { it.isEmpty() }
-                .toTypedArray()
-            val span = SpannableStringBuilder(str)
-            if (currenttrack == 1) {
-                start = 0
-                endb = currenttrack.toString()
-            } else {
-                starta = currenttrack.toString()
-                start = str.indexOf(starta)
-                endb = (currenttrack + 1).toString()
-            }
-            end = str.indexOf(endb)
-            try {
-                println(span.subSequence(start, end))
-                span.setSpan(
-                    ForegroundColorSpan(Color.CYAN),
-                    start,
-                    end,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-                textView.text = span
-                val split = str.split("\n".toRegex()).dropLastWhile { it.isEmpty() }
-                    .toTypedArray()
-            } catch (exception: IndexOutOfBoundsException) {
-                println(exception)
-            }
-        }
     }
     private val sendUpdatesToUIPassage: Runnable = object : Runnable {
-        val trackchange = false
-
         // int currentAdapterP=hlights.get(currenttrack-1).get(0).passage;
         override fun run() {
             val holder: RecyclerView.ViewHolder?
@@ -1222,46 +988,46 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             ab.append("Aya").append(":").append(currenttrack).append(" ").append("of").append(
                 versescount
             )
-            ayaprogress!!.text = ab.toString()
+            ayaprogress.text = ab.toString()
             if (hlights[currenttrack] != null) {
-                holder = recyclerView!!.findViewHolderForAdapterPosition(
+                holder = recyclerView.findViewHolderForAdapterPosition(
                     Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                         hlights[currenttrack]
-                    )[0].passage!!!!
-                )
+                    )[0].passage!!
+                                                                      )
                 if (currenttrack < Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                         hlights[hlights.size]
                     )[0].passage!!
-                ) recyclerView!!.post {
-                    recyclerView!!.scrollToPosition(
+                ) recyclerView.post {
+                    recyclerView.scrollToPosition(
                         Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                             hlights[currenttrack + 1]
                         )[0].passage!!
-                    )
+                                                 )
                 } else {
-                    recyclerView!!.post {
-                        recyclerView!!.scrollToPosition(
+                    recyclerView.post {
+                        recyclerView.scrollToPosition(
                             Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                                 hlights[currenttrack]
                             )[0].passage!!
-                        )
+                                                     )
                     }
                 }
             } else {
-                holder = recyclerView!!.findViewHolderForAdapterPosition(
+                holder = recyclerView.findViewHolderForAdapterPosition(
                     Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                         hlights[currenttrack + 1]
                     )[0].passage!!
-                )
+                                                                      )
                 if (currenttrack < Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                         hlights[hlights.size]
                     )[0].passage!!
-                ) recyclerView!!.post {
-                    recyclerView!!.scrollToPosition(
+                ) recyclerView.post {
+                    recyclerView.scrollToPosition(
                         Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                             hlights[currenttrack + 1]
                         )[0].passage!!
-                    )
+                                                 )
                 }
                 currenttrack++
             }
@@ -1305,7 +1071,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 val pos: Int = Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                     hlights[currenttrack - 1]
                 )[0].passage!!
-                holderp = recyclerView!!.findViewHolderForAdapterPosition(pos)!!
+                holderp = recyclerView.findViewHolderForAdapterPosition(pos)!!
             }
             //   RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(1);
             val temp = 2
@@ -1358,13 +1124,13 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         }
     }
 
-    protected fun releasePlayer() {
+    private fun releasePlayer() {
         if (player != null) {
             updateTrackSelectorParameters()
             updateStartPosition()
             player!!.release()
             player = null
-            playerView!!.player = null
+            playerView.player = null
             val mediaItems = emptyList<MediaItem>()
         }
     }
@@ -1376,14 +1142,14 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         }
     }
 
-    protected fun initializePlayer() {
+    private fun initializePlayer() {
         if (isMusicplaying) {
             releasePlayer()
         }
         if (player == null) {
-            playerFooter!!.visibility = View.VISIBLE
-            normalFooter!!.visibility = View.GONE
-            downloadFooter!!.visibility = View.GONE
+            playerFooter.visibility = View.VISIBLE
+            normalFooter.visibility = View.GONE
+            downloadFooter.visibility = View.GONE
             val stream = false
             val playbackPosition = 0L
             //      myPlayer mp=new myPlayer(ShowMushafActivity.this,surah);
@@ -1393,24 +1159,24 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 createMediaItems()
             }
             //urrah      marray = createMediaItems();
-            if (marray!!.isEmpty()) {
+            if (marray.isEmpty()) {
                 return
             }
             player = ExoPlayer.Builder(this).build()
             lastSeenTracks = Tracks.EMPTY
             player!!.addListener(PlayerEventListener())
-            player!!.trackSelectionParameters = trackSelectionParameters!!
+            player!!.trackSelectionParameters = trackSelectionParameters
             player!!.addListener(PlayerEventListener())
             player!!.addAnalyticsListener(EventLogger())
             player!!.setAudioAttributes(AudioAttributes.DEFAULT,  /* handleAudioFocus= */true)
             player!!.playWhenReady = startAutoPlay
             player!!.repeatMode = Player.REPEAT_MODE_ALL
-            playerView!!.repeatToggleModes = RepeatModeUtil.REPEAT_TOGGLE_MODE_ONE
+            playerView.repeatToggleModes = RepeatModeUtil.REPEAT_TOGGLE_MODE_ONE
             player!!.seekTo(ayah, playbackPosition)
             if (versestartrange != 0) {
                 ayah = versestartrange
             }
-            playerView!!.player = player
+            playerView.player = player
             player!!.addListener(object : Player.Listener {
                 override fun onPlaybackStateChanged(playbackState: Int) {
                     if (player!!.playWhenReady && playbackState == Player.STATE_READY) {
@@ -1437,29 +1203,29 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                     verseendrange = versescount
                 }
                 if (versestartrange != 0) {
-                    marrayrange = marray!!.subList(versestartrange, verseendrange)
+                    marrayrange = marray.subList(versestartrange, verseendrange)
                     player!!.setMediaItems(
                         marrayrange as MutableList<MediaItem>,  /* resetPosition= */
                         !haveStartPosition
                     )
                 }
             } else {
-                player!!.setMediaItems(marray!!,  /* resetPosition= */!haveStartPosition)
+                player!!.setMediaItems(marray,  /* resetPosition= */!haveStartPosition)
             }
-            val str = "(" + surahNameArabic + ")" + "(" + surahNameEnglish + ")" + ":" + readerName
-            qariname!!.text = str
+            val str = "($surahNameArabic)($surahNameEnglish):$readerName"
+            qariname.text = str
             //   qariname.setText(readerName);
             player!!.prepare()
             if (resume) {
                 player!!.seekToDefaultPosition(resumelastplayed)
             }
-            if (audioSettingBottomBehaviour!!.state == BottomSheetBehavior.STATE_EXPANDED) {
-                audioSettingBottomBehaviour!!.setState(BottomSheetBehavior.STATE_COLLAPSED)
+            if (audioSettingBottomBehaviour.state == BottomSheetBehavior.STATE_EXPANDED) {
+                audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED)
             } else {
-                audioSettingBottomBehaviour!!.setState(BottomSheetBehavior.STATE_EXPANDED)
+                audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED)
             }
-            if (exoplayerBottomBehaviour!!.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                audioSettingBottomBehaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
+            if (exoplayerBottomBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
                 player!!.play()
             }
         }
@@ -1469,7 +1235,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     private fun createMediaItemsJuz(): MutableList<MediaItem> {
         val repository = Utils(this)
         val chap: List<ChaptersAnaEntity?>? = repository.getSingleChapter(surahselected)
-        println(versestartrange.toString() + " " + verseendrange)
+        println("$versestartrange $verseendrange")
         val ayaLocations: MutableList<String> = ArrayList()
         marray = ArrayList()
         if (isSingle) {
@@ -1491,7 +1257,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 val location = FileManager.createAyaAudioLinkLocation(
                     this,
                     readerID,
-                    ayaItem!!.ayah,
+                    ayaItem.ayah,
                     ayaItem.surah
                 )
                 marray.add(MediaItem.fromUri(location))
@@ -1508,7 +1274,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                         this,
                         readerID,
                         ayaItem!!.ayah,
-                        ayaItem!!.surah
+                        ayaItem.surah
                     )
                 )
                 val location = FileManager.createAyaAudioLinkLocation(
@@ -1527,7 +1293,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                         this,
                         readerID,
                         ayaItem!!.ayah,
-                        ayaItem!!.surah
+                        ayaItem.surah
                     )
                 )
                 val location = FileManager.createAyaAudioLinkLocation(
@@ -1547,7 +1313,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         val chap: List<ChaptersAnaEntity?>? = repository.getSingleChapter(
             surahselected
         )
-        println(versestartrange.toString() + " " + verseendrange)
+        println("$versestartrange $verseendrange")
         val ayaLocations: MutableList<String> = ArrayList()
         marray = ArrayList()
         if (isSingle) {
@@ -1631,7 +1397,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         if (player != null) {
             startAutoPlay = player!!.playWhenReady
             startItemIndex = player!!.currentMediaItemIndex
-            startPosition = Math.max(0, player!!.contentPosition)
+            startPosition = max(0, player!!.contentPosition)
         }
     }
 
@@ -1747,7 +1513,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         println("check")
     }
 
-    protected fun clearStartPosition() {
+    private fun clearStartPosition() {
         startAutoPlay = true
         startItemIndex = C.INDEX_UNSET
         startPosition = C.TIME_UNSET
@@ -1755,57 +1521,57 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
     @SuppressLint("WrongViewCast", "NotifyDataSetChanged")
     private fun initRV() {
-        ayaprogress = findViewById(R.id.ayaprogress) as MaterialTextView
-        canceldownload = findViewById(R.id.canceldownload) as MaterialButton
-        canceldownload!!.setOnClickListener(this)
-        qariname = findViewById(R.id.lqari) as TextView
+        ayaprogress = findViewById<MaterialTextView>(R.id.ayaprogress)
+        canceldownload = findViewById<MaterialButton>(R.id.canceldownload)
+        canceldownload.setOnClickListener(this)
+        qariname = findViewById<TextView>(R.id.lqari)
         //  buffering = findViewById(R.id.exo_buffering) as ImageView
         val chooseDisplaytype: SwitchCompat = findViewById(R.id.chooseDisplaytype)
         chooseDisplaytype.setOnClickListener(this)
-        playfb = findViewById(R.id.playfb) as MovableFloatingActionButton
-        playfb!!.setOnClickListener(this)
+        playfb = findViewById<MovableFloatingActionButton>(R.id.playfb)
+        playfb.setOnClickListener(this)
         exo_settings = findViewById(R.id.exo_settings)
-        exo_settings!!.setOnClickListener(this)
-        exo_close = findViewById(R.id.exo_close) as ImageButton
-        exo_bottom_bar = findViewById(R.id.exo_bottom_bar) as ImageButton
+        exo_settings.setOnClickListener(this)
+        exo_close = findViewById<ImageButton>(R.id.exo_close)
+        exo_bottom_bar = findViewById<ImageButton>(R.id.exo_bottom_bar)
         //  private ImageView playbutton;
         val playbutton: MaterialButton = findViewById(R.id.playbutton)
-        val playresume = findViewById(R.id.playresume) as MaterialButton
+        val playresume = findViewById<MaterialButton>(R.id.playresume)
         playresume.setOnClickListener(this)
-        val surahselection = findViewById(R.id.surahselection) as MaterialButton
+        val surahselection = findViewById<MaterialButton>(R.id.surahselection)
         surahselection.setOnClickListener(this)
-        exo_close!!.setOnClickListener(this)
+        exo_close.setOnClickListener(this)
         playbutton.setOnClickListener(this)
-        exo_bottom_bar!!.setOnClickListener(this)
+        exo_bottom_bar.setOnClickListener(this)
         chooseDisplaytype.isChecked = singleline
         startrange = findViewById(R.id.start_range)
         endrange = findViewById(R.id.endrange)
-        startrange!!.setOnClickListener(this)
-        llStartRange = (findViewById(R.id.llStartRange) as LinearLayout?)!!
-        llStartRange!!.setOnClickListener(this)
-        endrange!!.setOnClickListener(this)
-        llEndRange = (findViewById(R.id.llEndRange) as LinearLayout?)!!
-        llEndRange!!.setOnClickListener {
+        startrange.setOnClickListener(this)
+        llStartRange = (findViewById<LinearLayout>(R.id.llStartRange))!!
+        llStartRange.setOnClickListener(this)
+        endrange.setOnClickListener(this)
+        llEndRange = (findViewById<LinearLayout>(R.id.llEndRange))!!
+        llEndRange.setOnClickListener {
             val starttrue = false
 
             //  WbwSurah wbwSurah=new WbwSurah(ShowMushafActivity.this);
             //   startverse[0] =wbwSurah.SurahAyahPicker(false,starttrue,getSurahselected(),getAyah());
             SurahAyahPicker(false, starttrue)
         }
-        llStartRange!!.setOnClickListener(object : View.OnClickListener {
+        llStartRange.setOnClickListener(object : View.OnClickListener {
             val starttrue = true
             override fun onClick(v: View) {
                 marrayrange = null
                 SurahAyahPicker(false, starttrue)
             }
         })
-        playiv = findViewById(R.id.play) as ImageView
-        playiv!!.setOnClickListener(this)
+        playiv = findViewById<ImageView>(R.id.play)
+        playiv.setOnClickListener(this)
         audio_settings_bottom = findViewById(R.id.audio_settings_bottom)
-        normalFooter = findViewById(R.id.normalfooter) as LinearLayout
-        downloadFooter = findViewById(R.id.footerdownload) as RelativeLayout
-        playerFooter = findViewById(R.id.footerplayer) as RelativeLayout
-        mediaPlayerDownloadProgress = findViewById(R.id.downloadProgress) as ProgressBar
+        normalFooter = findViewById<LinearLayout>(R.id.normalfooter)
+        downloadFooter = findViewById<RelativeLayout>(R.id.footerdownload)
+        playerFooter = findViewById<RelativeLayout>(R.id.footerplayer)
+        mediaPlayerDownloadProgress = findViewById<ProgressBar>(R.id.downloadProgress)
         chooseDisplaytype.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 singleline = true
@@ -1815,51 +1581,49 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 RefreshActivity("", "", false)
             }
         }
-        startrange!!.setOnClickListener(object : View.OnClickListener {
+        startrange.setOnClickListener(object : View.OnClickListener {
             val starttrue = true
             override fun onClick(v: View) {
                 SurahAyahPicker(false, starttrue)
             }
         })
-        endrange!!.setOnClickListener {
+        endrange.setOnClickListener {
             val starttrue = false
             SurahAyahPicker(false, starttrue)
         }
-        surahselection.setOnClickListener { SurahAyahPicker(true, true) }
-        playfb!!.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                if (audioSettingBottomBehaviour!!.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                    audioSettingBottomBehaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
-                    audio_settings_bottom!!.visibility = View.VISIBLE
-                } else {
-                    audioSettingBottomBehaviour!!.setState(BottomSheetBehavior.STATE_COLLAPSED)
-                    //    audio_settings_bottom.setVisibility(View.GONE);
-                }
-                if (exoplayerBottomBehaviour!!.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                    exoplayerBottomBehaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
-                    if (player != null) player!!.play()
-                } else {
-                    if (player != null) player!!.pause()
-                    exoplayerBottomBehaviour!!.setState(BottomSheetBehavior.STATE_COLLAPSED)
-                }
-                val st = StringBuilder()
-                val stt = StringBuilder()
-                st.append(surahNameEnglish).append("-").append(surahselected).append(":")
-                    .append("1")
-                stt.append(surahNameEnglish).append("-").append(surahselected).append(":").append(
-                    versescount
-                )
-                startrange!!.text = st.toString()
-                startrange!!.text = stt.toString()
+        surahselection.setOnClickListener { SurahAyahPicker(isrefresh = true, starttrue = true) }
+        playfb.setOnClickListener {
+            if (audioSettingBottomBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
+                audio_settings_bottom.visibility = View.VISIBLE
+            } else {
+                audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED)
+                //    audio_settings_bottom.setVisibility(View.GONE);
             }
-        })
+            if (exoplayerBottomBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                exoplayerBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
+                if (player != null) player!!.play()
+            } else {
+                if (player != null) player!!.pause()
+                exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED)
+            }
+            val st = StringBuilder()
+            val stt = StringBuilder()
+            st.append(surahNameEnglish).append("-").append(surahselected).append(":")
+                .append("1")
+            stt.append(surahNameEnglish).append("-").append(surahselected).append(":").append(
+                versescount
+                                                                                             )
+            startrange.text = st.toString()
+            startrange.text = stt.toString()
+        }
         val manager = LinearLayoutManager(this)
         manager.orientation = LinearLayoutManager.VERTICAL
         quranbySurahadapter = repository.getQuranbySurah(surah)
         var sb = StringBuilder()
         for (entity in quranbySurahadapter!!) {
             if (entity!!.passage_no != 0) {
-                sb.append(entity!!.qurantext).append("﴿").append(entity.ayah).append("﴾")
+                sb.append(entity.qurantext).append("﴿").append(entity.ayah).append("﴾")
             } else {
                 passage[entity.passage_no] = sb.toString()
                 sb = java.lang.StringBuilder()
@@ -1877,8 +1641,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         versescount = chapter[0]!!.versescount
         surahNameEnglish = chapter[0]!!.nameenglish
         surahNameArabic = chapter[0]!!.namearabic
-        recyclerView!!.layoutManager = manager
-        recyclerView!!.setHasFixedSize(true)
+        recyclerView.layoutManager = manager
+        recyclerView.setHasFixedSize(true)
         if (singleline) {
 
             lineMushaAudioAdapter = LineMushaAudioAdapter(
@@ -1891,7 +1655,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             )
 
 
-            recyclerView!!.adapter = lineMushaAudioAdapter
+            recyclerView.adapter = lineMushaAudioAdapter
         } else {
             passageadapter = if (!isjuz) {
                 PageMushaAudioAdapter(
@@ -1899,7 +1663,6 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                     this,
                     listener,
                     chapter[0]!!.chapterid.toLong(),
-                    chapter[0]!!.namearabic,
                     chapter[0]!!.ismakki,
                     header
                 )
@@ -1909,51 +1672,47 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                     this,
                     listener,
                     chapter[0]!!.chapterid.toLong(),
-                    chapter[0]!!.namearabic,
                     chapter[0]!!.ismakki,
                     header
                 )
             }
-            recyclerView!!.adapter = passageadapter
+            recyclerView.adapter = passageadapter
             passageadapter.notifyDataSetChanged()
         }
-        recyclerView!!.itemAnimator = DefaultItemAnimator()
-        exo_bottom_bar!!.setOnClickListener { SurahAyahPicker(true, true) }
-        exo_close!!.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                //reset player
-                verselected = 1
-                versestartrange = 0
-                verseendrange = 0
-                ayah = 0
-                marrayrange = emptyList()
-                resume = false
-                rangeRecitation = false
-                handler.removeCallbacks(sendUpdatesToUI)
-                recyclerView!!.post { recyclerView!!.scrollToPosition(0) }
-                releasePlayer()
-                initializePlayer()
-
-                //    RefreshActivity("", " ", false);
-            }
-        })
-        exo_settings!!.setOnClickListener {
-            if (audioSettingBottomBehaviour!!.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                audioSettingBottomBehaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
-                audio_settings_bottom!!.visibility = View.VISIBLE
+        recyclerView.itemAnimator = DefaultItemAnimator()
+        exo_bottom_bar.setOnClickListener { SurahAyahPicker(true, true) }
+        exo_close.setOnClickListener {
+            //reset player
+            verselected = 1
+            versestartrange = 0
+            verseendrange = 0
+            ayah = 0
+            marrayrange = emptyList()
+            resume = false
+            rangeRecitation = false
+            handler.removeCallbacks(sendUpdatesToUI)
+            recyclerView.post { recyclerView.scrollToPosition(0) }
+            releasePlayer()
+            initializePlayer()
+            //    RefreshActivity("", " ", false);
+        }
+        exo_settings.setOnClickListener {
+            if (audioSettingBottomBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
+                audio_settings_bottom.visibility = View.VISIBLE
             } else {
-                audioSettingBottomBehaviour!!.setState(BottomSheetBehavior.STATE_COLLAPSED)
+                audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED)
                 //    audio_settings_bottom.setVisibility(View.GONE);
             }
-            if (exoplayerBottomBehaviour!!.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                exoplayerBottomBehaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
+            if (exoplayerBottomBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                exoplayerBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
                 assert(player != null)
                 player!!.play()
             } else {
                 if (player != null) {
                     player!!.pause()
                 }
-                exoplayerBottomBehaviour!!.setState(BottomSheetBehavior.STATE_COLLAPSED)
+                exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED)
             }
         }
         playbutton.setOnClickListener { DownloadIfnotPlay() }
@@ -1961,9 +1720,9 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             resume = true
             DownloadIfnotPlay()
         }
-        canceldownload!!.setOnClickListener {
-            downloadFooter!!.visibility = View.GONE
-            normalFooter!!.visibility = View.VISIBLE
+        canceldownload.setOnClickListener {
+            downloadFooter.visibility = View.GONE
+            normalFooter.visibility = View.VISIBLE
             //stop flag of auto start audio after download
             startBeforeDownload = false
             //stop download service
@@ -1971,7 +1730,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         }
 
         // to preserver quran direction from right to left
-        recyclerView!!.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        recyclerView.layoutDirection = View.LAYOUT_DIRECTION_RTL
     }
 
     fun getReaderAudioLink(readerName: String) {
@@ -1989,7 +1748,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         }
     }
 
-    protected override fun onPause() {
+    override fun onPause() {
 //        mSensorManager.unregisterListener(this);
         super.onPause()
 
@@ -1999,7 +1758,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         startBeforeDownload = false
     }
 
-    protected override fun onResume() {
+    override fun onResume() {
         super.onResume()
 
         //register broadcast for download ayat
@@ -2008,15 +1767,15 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
         //make footer change to normal if audio end in pause
         if (!Settingsss.isMyServiceRunning(this, DownloadService::class.java)) {
-            playerFooter!!.visibility = View.GONE
-            normalFooter!!.visibility = View.GONE
+            playerFooter.visibility = View.GONE
+            normalFooter.visibility = View.GONE
         } else {
-            if (downloadFooter!!.visibility != View.VISIBLE) {
-                playerFooter!!.visibility = View.VISIBLE
+            if (downloadFooter.visibility != View.VISIBLE) {
+                playerFooter.visibility = View.VISIBLE
             } else {
-                playerFooter!!.visibility = View.GONE
+                playerFooter.visibility = View.GONE
             }
-            normalFooter!!.visibility = View.GONE
+            normalFooter.visibility = View.GONE
         }
 
         //loadPagesReadLoge();
@@ -2029,35 +1788,35 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             val status = intent.getStringExtra(AudioAppConstants.Download.DOWNLOAD)
             if (status != null) {
                 if (status == AudioAppConstants.Download.IN_DOWNLOAD) {
-                    downloadFooter!!.visibility = View.VISIBLE
-                    normalFooter!!.visibility = View.GONE
-                    playerFooter!!.visibility = View.GONE
-                    mediaPlayerDownloadProgress!!.max = max
-                    mediaPlayerDownloadProgress!!.progress = value
+                    downloadFooter.visibility = View.VISIBLE
+                    normalFooter.visibility = View.GONE
+                    playerFooter.visibility = View.GONE
+                    mediaPlayerDownloadProgress.max = max
+                    mediaPlayerDownloadProgress.progress = value
                 } else if (status == AudioAppConstants.Download.FAILED) {
-                    mediaPlayerDownloadProgress!!.max = 1
-                    mediaPlayerDownloadProgress!!.progress = 1
+                    mediaPlayerDownloadProgress.max = 1
+                    mediaPlayerDownloadProgress.progress = 1
                 } else if (status == AudioAppConstants.Download.SUCCESS) {
-                    mediaPlayerDownloadProgress!!.max = 1
-                    mediaPlayerDownloadProgress!!.progress = 1
+                    mediaPlayerDownloadProgress.max = 1
+                    mediaPlayerDownloadProgress.progress = 1
                     //check if you auto play after download
                     if (startBeforeDownload) {
                         //change views
-                        downloadFooter!!.visibility = View.GONE
-                        normalFooter!!.visibility = View.GONE
-                        playerFooter!!.visibility = View.VISIBLE
+                        downloadFooter.visibility = View.GONE
+                        normalFooter.visibility = View.GONE
+                        playerFooter.visibility = View.VISIBLE
                         initializePlayer()
                     } else {
-                        downloadFooter!!.visibility = View.GONE
-                        normalFooter!!.visibility = View.GONE
-                        playerFooter!!.visibility = View.GONE
+                        downloadFooter.visibility = View.GONE
+                        normalFooter.visibility = View.GONE
+                        playerFooter.visibility = View.GONE
                     }
                 }
             }
         }
     }
 
-    fun createDownloadLink(): List<String> {
+    private fun createDownloadLink(): List<String> {
         val chap: List<ChaptersAnaEntity?>? = repository.getSingleChapter(surah)
         surahselected = surah
         val downloadLin: MutableList<String> = ArrayList()
@@ -2075,16 +1834,16 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
             //   int ayaLength = String.valueOf(ayaItem.ayaID).trim().length();
             if (suraLength == 1) suraID =
-                "00" + (chap!!.get(0)!!.chapterid) else if (suraLength == 2) suraID =
-                "0" + chap?.get(0)!!.chapterid
-            val s = downloadLink + chap!!.get(0)!!.chapterid + AudioAppConstants.Extensions.MP3
+                "00" + (chap[0]!!.chapterid) else if (suraLength == 2) suraID =
+                "0" + chap.get(0)!!.chapterid
+            val s = downloadLink + chap[0]!!.chapterid + AudioAppConstants.Extensions.MP3
             downloadLin.add(s)
             Log.d("DownloadLinks", downloadLink + suraID + AudioAppConstants.Extensions.MP3)
         }
         return downloadLin
     }
 
-    fun createDownloadLinks(): List<String>? {
+    private fun createDownloadLinks(): List<String> {
         val chap = repository.getSingleChapter(surah)
         val quranbySurah: List<QuranEntity?>? = repository.getQuranbySurah(surah)
         surahselected = surah
@@ -2120,8 +1879,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
                     //create aya link
                     val suraLength: Int =
-                        chap!!.get(0)!!.chapterid.toString().trim { it <= ' ' }.length
-                    var suraID: String = chap.get(0)!!.chapterid.toString() + ""
+                        chap!![0]!!.chapterid.toString().trim { it <= ' ' }.length
+                    var suraID: String = chap[0]!!.chapterid.toString() + ""
 
 
                     val ayaLength = ayaItem.ayah.toString().trim { it <= ' ' }.length
@@ -2162,21 +1921,20 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             //internal media play
 
             //internal media play
-            val Links: List<String>?
             val everyayah = true
-            Links = if (audioType != 2) {
+            val Links: List<String>? = if (audioType != 2) {
                 createDownloadLinks()
             } else {
                 createDownloadLink()
             }
 
-            if (Links!!.size != 0) {
+            if (Links!!.isNotEmpty()) {
                 //check if the internet is opened
                 DownLoadIfNot(internetStatus, Links as ArrayList<String>)
             } else {
                 initializePlayer()
-                playerFooter!!.visibility = View.VISIBLE
-                audio_settings_bottom!!.visibility = View.GONE
+                playerFooter.visibility = View.VISIBLE
+                audio_settings_bottom.visibility = View.GONE
             }
         } else {
             //Other thing in download
@@ -2188,18 +1946,19 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         if (internetStatus <= 0) {
             val builder = AlertDialog.Builder(this, R.style.MyAlertDialogStyle)
             builder.setCancelable(false)
-            builder.setTitle(getResources().getString(R.string.Alert))
-            builder.setMessage(getResources().getString(R.string.no_internet_alert))
-            builder.setPositiveButton(getResources().getString(R.string.ok),
-                DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+            builder.setTitle(resources.getString(R.string.Alert))
+            builder.setMessage(resources.getString(R.string.no_internet_alert))
+            builder.setPositiveButton(
+                resources.getString(R.string.ok),
+                { dialog, id -> dialog.cancel() })
             builder.show()
         } else {
             //change view of footer to media
             //      footerContainer.setVisibility(View.VISIBLE);
-            playerFooter!!.visibility = View.GONE
-            audioSettingBottomBehaviour!!.state = BottomSheetBehavior.STATE_COLLAPSED
+            playerFooter.visibility = View.GONE
+            audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
             //  mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-            downloadFooter!!.visibility = View.VISIBLE
+            downloadFooter.visibility = View.VISIBLE
 
             //check audio folders
 
@@ -2232,7 +1991,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         }
     }
 
-    protected override fun onDestroy() {
+    override fun onDestroy() {
         super.onDestroy()
         releasePlayer()
         handler.removeCallbacks(sendUpdatesToUI)
@@ -2245,7 +2004,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             val audioPlayed = AudioPlayed()
             audioPlayed.surah = surah
             audioPlayed.ayah = currenttrack
-            if (!hlights.isEmpty()) {
+            if (hlights.isNotEmpty()) {
                 editor.putInt(
                     "trackposition", Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                         hlights[currenttrack]
@@ -2309,9 +2068,6 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         lateinit var readerName: String
         var startBeforeDownload = false
         private const val TAG = "ShowMushafActivity"
-
-        //   int pos;
-        private const val songEnded = 0
     }
 
     override fun onClick(v: View?) {

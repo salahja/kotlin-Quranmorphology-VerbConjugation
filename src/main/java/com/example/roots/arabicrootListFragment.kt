@@ -30,7 +30,7 @@ import com.example.roots.placeholder.PlaceholderContent
  * item details side-by-side using two vertical panes.
  */
 class arabicrootListFragment : Fragment() {
-    var iswordorverb: String? = null
+    private var iswordorverb: String? = null
 
     /**
      * Method to intercept global key events in the
@@ -38,7 +38,7 @@ class arabicrootListFragment : Fragment() {
      * Currently provides a toast when Ctrl + Z and Ctrl + F
      * are triggered
      */
-    var unhandledKeyEventListenerCompat =
+    private var unhandledKeyEventListenerCompat =
         OnUnhandledKeyEventListenerCompat { v: View, event: KeyEvent ->
             if (event.keyCode == KeyEvent.KEYCODE_Z && event.isCtrlPressed) {
                 Toast.makeText(
@@ -66,13 +66,13 @@ class arabicrootListFragment : Fragment() {
         binding = FragmentArabicrootListBinding.inflate(inflater, container, false)
         val bundle = this.arguments
         iswordorverb = bundle!!.getString(WORDDETAILS)
-        return binding!!.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         ViewCompat.addOnUnhandledKeyEventListener(view, unhandledKeyEventListenerCompat)
-        val recyclerView = binding!!.arabicrootList
+        val recyclerView = binding.arabicrootList
 
         // Leaving this not using view binding as it relies on if the view is visible the current
         // layout configuration (layout, layout-sw600dp)
@@ -92,15 +92,10 @@ class arabicrootListFragment : Fragment() {
         )
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-      //  binding = null
-    }
-
-    private class SimpleItemRecyclerViewAdapter internal constructor(
+    private class SimpleItemRecyclerViewAdapter(
         private val mValues: List<PlaceholderContent.PlaceholderItem>,
         private val mItemDetailFragmentContainer: View?, private val iswordorverb: String?
-    ) :
+                                               ) :
         RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val binding = ArabicrootListContentBinding.inflate(
@@ -170,7 +165,7 @@ class arabicrootListFragment : Fragment() {
             return mValues.size
         }
 
-        internal inner class ViewHolder(binding: ArabicrootListContentBinding) :
+        inner class ViewHolder(binding: ArabicrootListContentBinding) :
             RecyclerView.ViewHolder(binding.root) {
             val mIdView: TextView
             val mContentView: TextView

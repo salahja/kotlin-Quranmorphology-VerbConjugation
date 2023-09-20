@@ -23,26 +23,26 @@ import androidx.appcompat.app.AppCompatDelegate
 
 
 
-class MushafApplication constructor() : Application() {
-    fun setAppContext(mAppContext: Context) {
-        MushafApplication.Companion.appContext = mAppContext
+class MushafApplication : Application() {
+    private fun setAppContext(mAppContext: Context) {
+        MushafApplication.appContext = mAppContext
     }
 
-    public override fun onCreate() {
+    override fun onCreate() {
         super.onCreate()
-        MushafApplication.Companion.instance = this
-        setAppContext(getApplicationContext())
+        MushafApplication.instance = this
+        setAppContext(applicationContext)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
 
     companion object {
         var instance: MushafApplication? = null
             get() {
-                return MushafApplication.Companion.instance
+                return MushafApplication.instance
             }
         var appContext: Context? = null
             get() {
-                return MushafApplication.Companion.appContext
+                return MushafApplication.appContext
             }
 
         init {

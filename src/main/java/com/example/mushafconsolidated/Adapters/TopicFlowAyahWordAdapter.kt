@@ -77,8 +77,8 @@ class TopicFlowAyahWordAdapter(
     surahname: String
 ) :
     RecyclerView.Adapter<TopicFlowAyahWordAdapter.ItemViewAdapter>() {
-    val arabicfontSize: Int
-    val translationfontsize: Int
+    private val arabicfontSize: Int
+    private val translationfontsize: Int
     val mItemClickListener: OnItemClickListenerOnLong?
     private val issentence: Boolean
     var context: Context? = null
@@ -88,7 +88,7 @@ class TopicFlowAyahWordAdapter(
     private lateinit var SurahName: String
     private  val isMakkiMadani = 0
     lateinit   var ayahWord: CorpusAyahWord
-    lateinit  var quranverses: SpannableString
+    private lateinit  var quranverses: SpannableString
 
     init {
         mItemClickListener = listener
@@ -122,7 +122,7 @@ class TopicFlowAyahWordAdapter(
     override fun getItemId(position: Int): Long {
         val ayahWord = ayahWordArrayList[position]
         var itemId: Long = 0
-        for (word in ayahWord.word!!) {
+        for (word in ayahWord.word) {
             itemId = word.verseId.toLong()
         }
         return itemId
@@ -206,10 +206,10 @@ class TopicFlowAyahWordAdapter(
         } catch (e: IndexOutOfBoundsException) {
         }
         assert(ayahWord != null)
-        holder.header.text = ayahWord!!.topictitle
+        holder.header.text = ayahWord.topictitle
         holder.quran_textView.text = quranverses
         holder.quran_textView.textSize = 16f
-        holder.quran_textView.setTypeface(custom_font)
+        holder.quran_textView.typeface = custom_font
         holder.base_cardview.visibility = View.GONE
         holder.mafoolbihi.visibility = View.GONE
         holder.base_cardview.visibility = View.GONE
@@ -218,42 +218,42 @@ class TopicFlowAyahWordAdapter(
         wordBywordWithTranslation(showrootkey, holder, showWordColor, wbw, ayahWord, showWordByword)
         if (showTransliteration) {
             holder.quran_transliteration.text =
-                Html.fromHtml(ayahWord!!.en_transliteration, Html.FROM_HTML_MODE_LEGACY)
+                Html.fromHtml(ayahWord.en_transliteration, Html.FROM_HTML_MODE_LEGACY)
             holder.quran_transliteration.textSize = translationfontsize.toFloat()
             holder.quran_transliteration.textSize = translationfontsize.toFloat()
             holder.quran_transliteration.visibility = View.VISIBLE
         }
         if (showTranslation) {
             if (whichtranslation == "en_arberry") {
-                holder.translate_textView.text = ayahWord!!.en_arberry
+                holder.translate_textView.text = ayahWord.en_arberry
                 holder.translate_textViewnote.setText(R.string.arberry)
                 holder.translate_textView.textSize = translationfontsize.toFloat()
                 holder.translate_textView.visibility = View.VISIBLE
                 holder.translate_textViewnote.visibility = View.VISIBLE
             }
             if (whichtranslation == "en_sahih") {
-                holder.translate_textView.text = ayahWord!!.quranTranslate
+                holder.translate_textView.text = ayahWord.quranTranslate
                 holder.translate_textViewnote.setText(R.string.ensahih)
                 holder.translate_textView.textSize = translationfontsize.toFloat()
                 holder.translate_textView.visibility = View.VISIBLE
                 holder.translate_textViewnote.visibility = View.VISIBLE
             }
             if (whichtranslation == "en_jalalayn") {
-                holder.translate_textView.text = ayahWord!!.en_jalalayn
+                holder.translate_textView.text = ayahWord.en_jalalayn
                 holder.translate_textViewnote.setText(R.string.enjalalayn)
                 holder.translate_textView.textSize = translationfontsize.toFloat()
                 holder.translate_textView.visibility = View.VISIBLE
                 holder.translate_textViewnote.visibility = View.VISIBLE
             }
             if (whichtranslation == "ur_jalalayn") {
-                holder.translate_textView.text = ayahWord!!.ur_jalalayn
+                holder.translate_textView.text = ayahWord.ur_jalalayn
                 holder.translate_textViewnote.setText(R.string.enjalalayn)
                 holder.translate_textView.textSize = translationfontsize.toFloat()
                 holder.translate_textView.visibility = View.VISIBLE
                 holder.translate_textViewnote.visibility = View.VISIBLE
             }
             if (whichtranslation == "ur_junagarhi") {
-                holder.translate_textView.text = ayahWord!!.ur_junagarhi
+                holder.translate_textView.text = ayahWord.ur_junagarhi
                 holder.translate_textViewnote.setText(R.string.urjunagadi)
                 holder.translate_textView.textSize = translationfontsize.toFloat()
                 holder.translate_textView.visibility = View.VISIBLE
@@ -266,9 +266,9 @@ class TopicFlowAyahWordAdapter(
         }
         if (showErab) {
             holder.erabexpand.visibility = View.VISIBLE
-            holder.erab_textView.text = ayahWord!!.ar_irab_two
+            holder.erab_textView.text = ayahWord.ar_irab_two
             holder.erab_textView.textSize = translationfontsize.toFloat()
-            holder.erab_textView.setTypeface(custom_font)
+            holder.erab_textView.typeface = custom_font
             //     holder.erab_textView.setVisibility(View.VISIBLE);
             holder.erab_textViewnote.visibility = View.VISIBLE
         } else {
@@ -285,10 +285,10 @@ class TopicFlowAyahWordAdapter(
         showWbwTranslation: Boolean
     ) {
         val FONTS_LOCATION_PATH = "fonts/DejaVuSans.ttf"
-        val colorwordfont = Typeface.createFromAsset((QuranGrammarApplication.instance)?.getAssets(), FONTS_LOCATION_PATH)
+        val colorwordfont = Typeface.createFromAsset((QuranGrammarApplication.instance)?.assets, FONTS_LOCATION_PATH)
         val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         holder.flow_word_by_word.removeAllViews()
-        for (word in ayahWord!!.word!!) {
+        for (word in ayahWord!!.word) {
             @SuppressLint("InflateParams") val view = inflater.inflate(R.layout.word_by_word, null)
             arabic = view.findViewById(R.id.word_arabic_textView)
             rootword = view.findViewById(R.id.root_word)
@@ -298,28 +298,28 @@ class TopicFlowAyahWordAdapter(
             val sb = StringBuilder()
             sb.append(word.wordno)
             if (showrootkey) {
-                spannedroot = if (!word.rootword!!.isEmpty()) {
+                spannedroot = if (word.rootword!!.isNotEmpty()) {
                     getSpannedRoots(word)
                 } else {
                     SpannableString.valueOf(word.rootword)
                 }
-                rootword.setText(spannedroot)
-                rootword.setTextSize(arabicfontSize.toFloat())
-                rootword.setVisibility(View.VISIBLE)
+                rootword.text = spannedroot
+                rootword.textSize = arabicfontSize.toFloat()
+                rootword.visibility = View.VISIBLE
             }
             if (showWordColor) {
                 var spannedword: SpannableString
                 // word.getRootword();
                 spannedword = getSpannedWords(word)
-                arabic.setText(spannedword)
+                arabic.text = spannedword
             } else {
-                arabic.setText(word.wordsAr)
+                arabic.text = word.wordsAr
             }
-            rootword.setText(spannedroot)
-            rootword.setTextSize(arabicfontSize.toFloat())
+            rootword.text = spannedroot
+            rootword.textSize = arabicfontSize.toFloat()
             //  arabic.setTextSize(18);
-            arabic.setTextSize(arabicfontSize.toFloat())
-            arabic.setTypeface(colorwordfont)
+            arabic.textSize = arabicfontSize.toFloat()
+            arabic.typeface = colorwordfont
             if (showWbwTranslation) {
                 when (wbw) {
                     "en" -> {
@@ -352,7 +352,7 @@ class TopicFlowAyahWordAdapter(
                 val utils = Utils(context)
                 val verbCorpusRootWords: List<VerbCorpus> =
                     utils.getQuranRoot(word.surahId, word.verseId, word.wordno) as List<VerbCorpus>
-                if (verbCorpusRootWords.size > 0 && verbCorpusRootWords[0].tag == "V") {
+                if (verbCorpusRootWords.isNotEmpty() && verbCorpusRootWords[0].tag == "V") {
                     //    vbdetail = ams.getVerbDetails();
                     print("check")
                 }
@@ -460,16 +460,16 @@ class TopicFlowAyahWordAdapter(
     private fun setChapterInfo(holder: ItemViewAdapter, verse: CorpusAyahWord?) {
         val surahInfo = StringBuilder()
         //        surahInfo.append(surahName+".");
-        surahInfo.append(verse!!.word!![0].surahId).append(".")
-        surahInfo.append(verse.word!![0].verseId).append("-")
+        surahInfo.append(verse!!.word[0].surahId).append(".")
+        surahInfo.append(verse.word[0].verseId).append("-")
         //  surahInfo.append(SurahName);
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
             context!!
         )
         val isNightmode = sharedPreferences.getString("themepref", "dark")
         val imgs: TypedArray =
-            QuranGrammarApplication.    context!!.getResources().obtainTypedArray(R.array.sura_imgs)
-        val drawable = imgs.getDrawable(verse.word!![0].surahId.toString().toInt() - 1)
+            QuranGrammarApplication.    context!!.resources.obtainTypedArray(R.array.sura_imgs)
+        val drawable = imgs.getDrawable(verse.word[0].surahId.toString().toInt() - 1)
         imgs.recycle()
         holder.surahicon.setImageDrawable(drawable)
         if (isNightmode == "dark" || isNightmode == "blue") {
@@ -492,9 +492,9 @@ class TopicFlowAyahWordAdapter(
         }
         if (isNightmode == "dark" || isNightmode == "blue" || isNightmode == "green") {
 //TextViewCompat.setCompoundDrawableTintList()
-            holder.surah_info.setCompoundDrawableTintList(ColorStateList.valueOf(Color.CYAN))
+            holder.surah_info.compoundDrawableTintList = ColorStateList.valueOf(Color.CYAN)
         } else {
-            holder.surah_info.setCompoundDrawableTintList(ColorStateList.valueOf(Color.BLUE))
+            holder.surah_info.compoundDrawableTintList = ColorStateList.valueOf(Color.BLUE)
             //   holder.surah_info.setBackgroundColor(getContext().getResources().getColor(R.color.burntamber));
             //   imageViewIcon.setColorFilter(getContext().getResources().getColor(R.color.blue));
         }
@@ -526,19 +526,19 @@ class TopicFlowAyahWordAdapter(
         //val makkimadaniicon: ImageView
         //val expandImageButton: ImageView
         val erabexpand: ImageView
-        val erab_notes_expand: ImageView
-        val colorize: SwitchCompat
+        private val erab_notes_expand: ImageView
+        private val colorize: SwitchCompat
         val flow_word_by_word: FlowLayout
 
         //   RelativeLayout colllayout;
-        val erabnotescardView: CardView
-        val mafoolatarow: ImageView
+        private val erabnotescardView: CardView
+        private val mafoolatarow: ImageView
         val surahicon: ImageView
-        val ivoverflow: ImageView
-        val hiddenGroup: Group
+        private val ivoverflow: ImageView
+        private val hiddenGroup: Group
         val base_cardview: MaterialCardView
         val tafsir: FloatingActionButton
-        val jumptofb: FloatingActionButton
+        private val jumptofb: FloatingActionButton
         val bookmarfb: FloatingActionButton
         val fabmenu: FloatingActionButton
         val helpfb: FloatingActionButton
@@ -619,7 +619,7 @@ class TopicFlowAyahWordAdapter(
                     fabmenu.animate().rotationBy(180f)
                     tafsir.visibility = View.VISIBLE
                     tafsir.animate().translationX(
-                        (QuranGrammarApplication.instance)?.getResources()!!.getDimension(R.dimen.standard_55)
+                        (QuranGrammarApplication.instance)?.resources!!.getDimension(R.dimen.standard_55)
                     )
                     tafsir.animate().rotationBy(360f)
                     tafsir.animate().duration = 1500
@@ -631,7 +631,7 @@ class TopicFlowAyahWordAdapter(
                     //   jumptofb.animate().rotationBy(360);
                     bookmarfb.visibility = View.VISIBLE
                     bookmarfb.animate().translationX(
-                        -          (QuranGrammarApplication.instance)?.getResources()!!.getDimension(R.dimen.standard_105)
+                        -          (QuranGrammarApplication.instance)?.resources!!.getDimension(R.dimen.standard_105)
                     )
                     bookmarfb.animate().rotationBy(360f)
                     bookmarfb.animate().duration = 1200
@@ -640,12 +640,12 @@ class TopicFlowAyahWordAdapter(
                     //   animationbook.start();
                     summbaryfb.visibility = View.VISIBLE
                     summbaryfb.animate().translationX(
-                        -(QuranGrammarApplication.instance)?.getResources()!!.getDimension(R.dimen.standard_155)
+                        -(QuranGrammarApplication.instance)?.resources!!.getDimension(R.dimen.standard_155)
                     )
                     summbaryfb.animate().rotationBy(360f)
                     helpfb.visibility = View.VISIBLE
                     helpfb.animate().translationX(
-                        -(QuranGrammarApplication.instance)?.getResources()!!.getDimension(R.dimen.standard_205)
+                        -(QuranGrammarApplication.instance)?.resources!!.getDimension(R.dimen.standard_205)
                     )
                     helpfb.animate().rotationBy(360f)
 
@@ -654,7 +654,7 @@ class TopicFlowAyahWordAdapter(
                         animhelp.setDuration(1000);
                         animhelp.start();*/sharescreenfb.visibility = View.VISIBLE
                     sharescreenfb.animate().translationX(
-                        -(QuranGrammarApplication.instance)?.getResources()!!.getDimension(R.dimen.standard_255)
+                        -(QuranGrammarApplication.instance)?.resources!!.getDimension(R.dimen.standard_255)
                     )
                     sharescreenfb.animate().rotationBy(360f)
                     sharescreenfb.animate().duration = 1000
@@ -666,9 +666,9 @@ class TopicFlowAyahWordAdapter(
                             TafsirFullscreenActivity::class.java
                         )
                         //  flowAyahWordAdapter.getItem(position);
-                        val chapter_no = ayahWord!!.word!![0].surahId
+                        val chapter_no = ayahWord.word[0].surahId
                         //   int verse = ayahWord.getWord().get(0).getVerseId();
-                        val verse = ayahWord!!.word!![0].verseId
+                        val verse = ayahWord.word[0].verseId
                         //   String name = getSurahArabicName();
                         readingintent.putExtra(SURAH_ID, chapter_no)
                         readingintent.putExtra(AYAH_ID, verse)
@@ -683,9 +683,9 @@ class TopicFlowAyahWordAdapter(
                     summbaryfb.setOnClickListener {
                         closeFABMenu()
                         //  HideFabMenu();
-                        val chapter_no = ayahWord!!.word!![0].surahId
+                        val chapter_no = ayahWord.word[0].surahId
                         //   int verse = ayahWord.getWord().get(0).getVerseId();
-                        val verse = ayahWord!!.word!![0].verseId
+                        val verse = ayahWord.word[0].verseId
                         val dataBundle = Bundle()
                         dataBundle.putInt(SURAH_ID, chapter_no)
                         val item = SurahSummary()
@@ -760,7 +760,7 @@ class TopicFlowAyahWordAdapter(
 
                             val uri = FileProvider.getUriForFile(
                                 (context as AppCompatActivity?)!!,
-                                QuranGrammarApplication.context!!.getPackageName() + ".provider",
+                                QuranGrammarApplication.context!!.packageName + ".provider",
                                 imageFile
                             )
 
@@ -811,9 +811,9 @@ class TopicFlowAyahWordAdapter(
                     //  position = flowAyahWordAdapter.getAdapterposition();
 
                     //  flowAyahWordAdapter.getItem(position);
-                    val chapter_no = ayahWord!!.word!![0].surahId
+                    val chapter_no = ayahWord.word[0].surahId
                     //   int verse = ayahWord.getWord().get(0).getVerseId();
-                    val verse = ayahWord!!.word!![0].verseId
+                    val verse = ayahWord.word[0].verseId
                     val en = BookMarks()
                     en.chapterno = chapter_no.toString()
                     en.verseno = verse.toString()
@@ -884,9 +884,7 @@ class TopicFlowAyahWordAdapter(
         }
 
         override fun onClick(v: View) {
-            if (mItemClickListener != null) {
-                mItemClickListener.onItemClick(v, layoutPosition)
-            }
+            mItemClickListener?.onItemClick(v, layoutPosition)
         }
 
         override fun onLongClick(v: View): Boolean {

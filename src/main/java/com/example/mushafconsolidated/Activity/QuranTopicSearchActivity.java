@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;
@@ -31,7 +32,6 @@ import com.example.mushafconsolidated.Entities.quranexplorer;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong;
-import com.example.mushafconsolidated.model.CorpusAyahWord;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -40,20 +40,8 @@ import java.util.List;
 
 public class QuranTopicSearchActivity extends BaseActivity implements OnItemClickListenerOnLong {
     private static final int LAUNCH_SECOND_ACTIVITY = 1;
-    private static final String TAG = MainActivity.class.getSimpleName();
-    // url to fetch contacts json
-    private static final String URL = "https://api.androidhive.info/json/contacts.json";
     FloatingActionButton btnSelection;
-    private RecyclerView recyclerView;
-    private ArrayList<CorpusAyahWord> corpusayahWordArrayList;
     private QuranTopicSearchAdapter searchDownloadAdapter;
-    private SearchView searchView;
-    private View readytodownload, downloadedtranslation, backbutton;
-    private ArrayList<quranexplorer> qurandictionaryArrayList;
-    //  private DownloadSearchAdapter.ContactsAdapterListener contactsAdapterListener;
-    private View translationDownloaded;
-    private View translationReadytoDownload;
-    private View view2, view1, view3;
 
     public QuranTopicSearchActivity() {
         super();
@@ -64,11 +52,11 @@ public class QuranTopicSearchActivity extends BaseActivity implements OnItemClic
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if (resultCode == Activity.RESULT_OK) {
-                String result = data.getStringExtra("result");
+                String result = null;
+                if (data != null) {
+                    result = data.getStringExtra("result");
+                }
                 if (result != null) {
-                    final String[] split = result.split(",");
-                    //       File file=new File(split[0]);
-                    //    new InsertingTranslationFetch(TranslationActivitySearch.this).execute(split[0], split[1]);
                 }
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -102,9 +90,9 @@ public class QuranTopicSearchActivity extends BaseActivity implements OnItemClic
         Utils utils = new Utils(this);
         btnSelection = findViewById(R.id.btnShow);
         //     searchDownloadAdapter = new DownloadSearchAdapter(this,translationEntity -> {});
-        qurandictionaryArrayList = (ArrayList<quranexplorer>) utils.getTopicSearchAll();
-        recyclerView = findViewById(R.id.recycler_view);
-        searchDownloadAdapter = new QuranTopicSearchAdapter(QuranTopicSearchActivity.this, qurandictionaryArrayList, false);
+        ArrayList<quranexplorer> qurandictionaryArrayList = (ArrayList<quranexplorer>) utils.getTopicSearchAll();
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        searchDownloadAdapter = new QuranTopicSearchAdapter(QuranTopicSearchActivity.this, qurandictionaryArrayList);
         whiteNotificationBar(recyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -114,23 +102,23 @@ public class QuranTopicSearchActivity extends BaseActivity implements OnItemClic
         btnSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String data = "";
-                String titles = "";
+                StringBuilder data = new StringBuilder();
+                StringBuilder titles = new StringBuilder();
                 List<quranexplorer> stList = ((QuranTopicSearchAdapter) searchDownloadAdapter).getList();
                 HashMap<String, String> datas = new HashMap<>();
                 for (int i = 0; i < stList.size(); i++) {
                     quranexplorer selectedlist = stList.get(i);
                     if (selectedlist.isSelected()) {
                         datas.put(selectedlist.getTitle(), selectedlist.getAyahref());
-                        data = data + selectedlist.getAyahref() + ",";
-                        titles = titles + selectedlist.getTitle() + ",";
+                        data.append(selectedlist.getAyahref()).append(",");
+                        titles.append(selectedlist.getTitle()).append(",");
 
                     }
 
                 }
                 //  extracted(data, titles);
                 Bundle dataBundle = new Bundle();
-                if (!data.contains("null")) {
+                if (!data.toString().contains("null")) {
                     if (datas.size() > 0) {
                         dataBundle.putSerializable("map", datas);
                         Intent intents = new Intent(QuranTopicSearchActivity.this, TopicDetailAct.class);
@@ -146,33 +134,17 @@ public class QuranTopicSearchActivity extends BaseActivity implements OnItemClic
 
     }
 
-    private void extracted(String data, String titles) {
-        if (data.contains("null")) {
-            String[] split = titles.split("-");
-            Utils utils1 = new Utils(getApplicationContext());
-            ArrayList<quranexplorer> topicSearch = (ArrayList<quranexplorer>) utils1.getTopicSearch(split[0]);
-            data = "";
-            for (quranexplorer search : topicSearch) {
-                if (!search.getAyahref().contains("null") || !search.getAyahref().contains("ref")) {
-                    data = data + search.getAyahref() + ",";
-                }
-            }
-
-        }
-        data = data.replaceAll("null", "");
-        data = data.replaceAll(",,", ",");
-        data = data.replaceAll(":,", "");
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         // Associate searchable configuration with the SearchView
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.action_search)
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
                 .getActionView();
-        searchView.setSearchableInfo(searchManager
-                .getSearchableInfo(getComponentName()));
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager
+                    .getSearchableInfo(getComponentName()));
+        }
         searchView.setMaxWidth(Integer.MAX_VALUE);
 
         searchView.setQueryHint("Type something…");
@@ -225,19 +197,6 @@ public class QuranTopicSearchActivity extends BaseActivity implements OnItemClic
 
     }
 
-  /*
-    @Override
-    public void onBackPressed() {
-        finish();
-
-        if (!searchView.isIconified()) {
-            searchView.setIconified(true);
-            return;
-        }
-        super.onBackPressed();
-    }
-   */
-
     private void whiteNotificationBar(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             int flags = view.getSystemUiVisibility();
@@ -248,13 +207,13 @@ public class QuranTopicSearchActivity extends BaseActivity implements OnItemClic
     }
 
     @Override
-    public void onItemClick(View v, int position) {
+    public void onItemClick(@NonNull View v, int position) {
         Toast.makeText(this, "onItemCLick", Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
-    public void onItemLongClick(int position, View v) {
+    public void onItemLongClick(int position, @NonNull View v) {
     }
 
 }

@@ -78,8 +78,6 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
 
     private lateinit var inputConnection: InputConnection
     private var mazeedEntityVerbs: ArrayList<MazeedEntity> = ArrayList()
-    private var isautocomplete = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.conjugator_key_activity_autocomplete)
@@ -110,7 +108,7 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
         // val size = verbAll?.size
         //   root = arrayOfNulls(size!!)
         val actv: AutoCompleteTextView =
-            findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView)
+            findViewById(R.id.autoCompleteTextView)
         editTextAuto = findViewById(R.id.autoCompleteTextView)
         var i = 0
         viewmodel.getMujarradll().observe(this) {
@@ -657,7 +655,7 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
     private fun InitDiaalog(root: String, wazan: String, verbtype: String) {
         val dataBundle = Bundle()
         val selectedRadioButton: RadioButton =
-            findViewById<RadioButton>(verbmood.getCheckedRadioButtonId())
+            findViewById(verbmood.getCheckedRadioButtonId())
         //get RadioButton text
         val selected: String = selectedRadioButton.text.toString()
         // display it as Toast to the user

@@ -20,7 +20,7 @@ class MujarradVerbs {
     @Ignore
     constructor(verb: String, root: String, babname: String, verbtype: String, bab: String) {
         this.verb = verb
-        this.root = root!!
+        this.root = root
         this.babname = babname
         this.verbtype = verbtype
         this.bab = bab
@@ -37,7 +37,7 @@ class MujarradVerbs {
         id: Int
     ) {
         this.verb = verb
-        this.root = root!!
+        this.root = root
         this.bab = bab
         this.verbtype = verbtype
         this.babname = babname

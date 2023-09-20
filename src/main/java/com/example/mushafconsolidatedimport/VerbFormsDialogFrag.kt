@@ -26,7 +26,7 @@ class VerbFormsDialogFrag : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         //  return inflater.inflate(R.layout.verb_forms, container, false);
         val view: View = inflater.inflate(R.layout.webview, container, false)
         val bundle = this.arguments

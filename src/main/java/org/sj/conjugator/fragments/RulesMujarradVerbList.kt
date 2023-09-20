@@ -34,7 +34,7 @@ class RulesMujarradVerbList : Fragment {
 
     // --Commented out by Inspection (13/6/21 6:51 PM):Button llPdf;
     lateinit var verbtype: String
-    lateinit var contexts: Context
+    private lateinit var contexts: Context
     var ssagheer = ArrayList<SarfSagheer>()
     lateinit var recyclerView: RecyclerView
 
@@ -52,7 +52,7 @@ class RulesMujarradVerbList : Fragment {
     // --Commented out by Inspection (13/6/21 6:51 PM):private Bitmap bitmap;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
         val view: View = inflater.inflate(R.layout.thulathilistingnotoolbar, container, false)
         val sharedPreferences: SharedPreferences =
@@ -64,7 +64,7 @@ class RulesMujarradVerbList : Fragment {
             verbmood = indictive
         }
 
-        recyclerView = view.findViewById<RecyclerView>(R.id.sarfrecview)
+        recyclerView = view.findViewById(R.id.sarfrecview)
         if (arguments != null) {
             val rule = requireArguments().getString(QURAN_VERB_WAZAN)
             MujarradListing(ssagheer, rule)
@@ -80,10 +80,10 @@ class RulesMujarradVerbList : Fragment {
         recyclerView.setHasFixedSize(true)
         // use a linear layout manager
         val mLayoutManager = LinearLayoutManager(activity)
-        recyclerView.setLayoutManager(mLayoutManager)
-        recyclerView.setItemAnimator(DefaultItemAnimator())
+        recyclerView.layoutManager = mLayoutManager
+        recyclerView.itemAnimator = DefaultItemAnimator()
         val layoutManager = LinearLayoutManager(activity)
-        recyclerView.setLayoutManager(layoutManager)
+        recyclerView.layoutManager = layoutManager
     }
 
     private fun MujarradListing(ssagheer: java.util.ArrayList<SarfSagheer>, kov: String?) {
@@ -199,7 +199,5 @@ class RulesMujarradVerbList : Fragment {
     }
 
     companion object {
-        private const val PERMISSION_REQUEST_CODE = 100
-        private const val TAG = "PermissionDemo"
     }
 }

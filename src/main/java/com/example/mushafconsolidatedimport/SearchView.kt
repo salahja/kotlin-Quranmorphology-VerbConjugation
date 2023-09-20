@@ -11,24 +11,7 @@ import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.mushafconsolidated.R
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-  
- 
- 
- 
- 
- 
- 
+import kotlin.math.hypot
 
 class SearchView constructor(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
     private val open_search_button: View
@@ -39,28 +22,20 @@ class SearchView constructor(context: Context, attrs: AttributeSet?) : FrameLayo
     init {
         LayoutInflater.from(context)
             .inflate(R.layout.m_search_view, this, true)
-        open_search_button = getRootView().findViewById(R.id.open_search_button)
-        close_search_button = getRootView().findViewById(R.id.close_search_button)
-        search_input_text = getRootView().findViewById(R.id.search_input_text)
-        search_open_view = getRootView().findViewById(R.id.search_open_view)
-        open_search_button.setOnClickListener(object : OnClickListener {
-            public override fun onClick(v: View?) {
-                openSearch()
-            }
-        })
-        close_search_button.setOnClickListener(object : OnClickListener {
-            public override fun onClick(v: View?) {
-                closeSearch()
-            }
-        })
+        open_search_button = rootView.findViewById(R.id.open_search_button)
+        close_search_button = rootView.findViewById(R.id.close_search_button)
+        search_input_text = rootView.findViewById(R.id.search_input_text)
+        search_open_view = rootView.findViewById(R.id.search_open_view)
+        open_search_button.setOnClickListener { openSearch() }
+        close_search_button.setOnClickListener { closeSearch() }
     }
 
     private fun closeSearch() {
-        val cx: Int = search_open_view.getWidth() / 2
-        val cy: Int = search_open_view.getHeight() / 2
+        val cx: Int = search_open_view.width / 2
+        val cy: Int = search_open_view.height / 2
 
         // get the initial radius for the clipping circle
-        val initialRadius: Float = Math.hypot(cx.toDouble(), cy.toDouble()).toFloat()
+        val initialRadius: Float = hypot(cx.toDouble(), cy.toDouble()).toFloat()
 
         // create the animation (the final radius is zero)
         val anim: Animator = ViewAnimationUtils.createCircularReveal(
@@ -113,15 +88,15 @@ class SearchView constructor(context: Context, attrs: AttributeSet?) : FrameLayo
     }
 
     private fun openSearch() {
-        search_input_text.setText("")
-        search_open_view.setVisibility(VISIBLE)
+        search_input_text.text = ""
+        search_open_view.visibility = VISIBLE
         val circularReveal: Animator = ViewAnimationUtils.createCircularReveal(
             search_open_view,
-            (open_search_button.getRight() + open_search_button.getLeft()) / 2,
-            (open_search_button.getTop() + open_search_button.getBottom()) / 2,
-            0f, open_search_button.getWidth().toFloat()
+            (open_search_button.right + open_search_button.left) / 2,
+            (open_search_button.top + open_search_button.bottom) / 2,
+            0f, open_search_button.width.toFloat()
         )
-        circularReveal.setDuration(300)
+        circularReveal.duration = 300
         circularReveal.start()
     }
 }

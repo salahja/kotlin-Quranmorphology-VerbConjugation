@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
@@ -15,48 +14,21 @@ import com.example.utility.QuranGrammarApplication
 import org.sj.conjugator.interfaces.OnItemClickListener
 import org.sj.conjugator.utilities.SharedPref
 
-class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.ViewHolder> {
-    private val context: Context
+@Suppress("SameParameterValue", "SameParameterValue", "SameParameterValue", "SameParameterValue",
+    "SameParameterValue", "SameParameterValue"
+         )
+class IsmAlaSarfKabeerAdapter(lists: ArrayList<ArrayList<*>>, private val context: Context) :
+    RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.ViewHolder>() {
     private var sharedPreferences: SharedPreferences? = null
     var bookmarkpostion = 0
     var mItemClickListener: OnItemClickListener? = null
-
-    //    private final Integer arabicTextColor;
-    var mycontext: Context? = null
-    private var madhi = ArrayList<String>()
-    private var mazeedregular = false
-    private val bookChapterno = 0
-    private val bookVerseno = 0
-    private val ayahNumber: Int? = null
-    private val urdu_font_selection: String? = null
-    private val arabic_font_size = 0
     private var arabicTypeface: Typeface? = null
-    private val urdu_font_size = 0
-    private val arabic_font_selection: String? = null
-    private var sarfSagheer = ArrayList<ArrayList<*>>()
+    private var sarfSagheer = lists
     private var isTraditional = false
     private var defaultfont = false
 
-    constructor(lists: ArrayList<ArrayList<*>>, context: Context) {
-        this.context = context
-        sarfSagheer = lists
+    init {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    }
-
-    constructor(mazeedregular: Boolean, sarfSagheer: ArrayList<*>, activity: FragmentActivity) {
-        context = activity
-        this.sarfSagheer = sarfSagheer as ArrayList<ArrayList<*>>
-        this.mazeedregular = mazeedregular
-    }
-
-    constructor(
-        madhi: ArrayList<String>,
-        skabeer: ArrayList<ArrayList<*>>,
-        activity: FragmentActivity
-    ) {
-        context = activity
-        sarfSagheer = skabeer
-        this.madhi = madhi
     }
 
     override fun onCreateViewHolder(
@@ -65,8 +37,7 @@ class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.Vie
     ): ViewHolder {
         isTraditional = SharedPref.SarfKabeerOthers()
         //      View view = LayoutInflater.from(parent.context!!).inflate(R.layout.sarfkabeercolumn, parent, false);
-        val view: View
-        view = if (isTraditional) {
+        val view: View = if (isTraditional) {
             LayoutInflater.from(parent.context).inflate(R.layout.ismalasktraditional, parent, false)
         } else {
             LayoutInflater.from(parent.context).inflate(R.layout.ismalacolumkabeer, parent, false)
@@ -95,8 +66,7 @@ class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.Vie
     private fun gcase(holder: ViewHolder) {
         val sf = SharedPref(context)
         val language = sharedPreferences!!.getString("lan", "en")
-        val array: Array<String>
-        array = if (language == "en") {
+        val array: Array<String> = if (language == "en") {
             context.resources.getStringArray(R.array.encase)
         } else {
             context.resources.getStringArray(R.array.arcase)
@@ -112,21 +82,21 @@ class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.Vie
             holder.acc2!!.text = array[1]
             holder.gen2!!.text = array[2]
         } else {
-            holder.nom!!.text = array[0]
-            holder.acc!!.text = array[1]
-            holder.gen!!.text = array[2]
+            holder.nom.text = array[0]
+            holder.acc.text = array[1]
+            holder.gen.text = array[2]
         }
     }
 
     private fun ismalanumbers(holder: ViewHolder) {
         val sf = SharedPref(context)
         val language = sharedPreferences!!.getString("lan", "en")
-        val array: Array<String>
-        array = if (language == "en") context.resources.getStringArray(R.array.ennumbers) else {
+        val array: Array<String> =
+            if (language == "en") context.resources.getStringArray(R.array.ennumbers) else {
             context.resources.getStringArray(R.array.arnumbers)
         }
         if (isTraditional) {
-            holder.sin1!!.text = array[0]
+            holder.sin1.text = array[0]
             holder.dual1.text = array[1]
             holder.plu1.text = array[2]
             holder.sin2.text = array[0]
@@ -169,29 +139,6 @@ class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.Vie
         holder.mifaalseven.text = mifaalseven
         holder.mifaaleight.text = mifaaleight
         holder.mifaalnine.text = mifaalnine
-    }
-
-    private fun IsmAlamifalmifalatunNaqis(holder: ViewHolder, position: Int) {
-        val mifalatunone = sarfSagheer[position][0].toString() //String mifalatunone);
-        val mifalatuntwo = sarfSagheer[position][1].toString() //String mifalatuntwo);
-        val mifalatunthree = sarfSagheer[position][2].toString() //String mifalatunthree);
-        val mifalatunfour = sarfSagheer[position][3].toString() //String mifalatunfour);
-        val mifalatunfive = sarfSagheer[position][4].toString() //String mifalatunfive);
-        val mifalatunsix = sarfSagheer[position][5].toString() //String mifalatunsix);
-        val mifalatunseven = sarfSagheer[position][6].toString() //String mifalatunseven);
-        val mifalatuneight = sarfSagheer[position][7].toString() //String mifalatuneight);
-        val mifalatunnine = sarfSagheer[position][8].toString() //mifalatunnine);
-        //      FontSIzeSelection(holder);
-        SetTypeface(holder)
-        holder.mifalatunone.text = mifalatunone
-        holder.mifalatuntwo.text = mifalatuntwo
-        holder.mifalatunthree.text = mifalatunthree
-        holder.mifalatunfour.text = mifalatunfour
-        holder.mifalatunfive.text = mifalatunfive
-        holder.mifalatunsix.text = mifalatunsix
-        holder.mifalatunseven.text = mifalatunseven
-        holder.mifalatuneight.text = mifalatuneight
-        holder.mifalatunnine.text = mifalatunnine
     }
 
     private fun IsmAlamifalmifal(holder: ViewHolder, position: Int) {
@@ -385,10 +332,6 @@ class IsmAlaSarfKabeerAdapter : RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.Vie
 
     fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
         this.mItemClickListener = mItemClickListener
-    }
-
-    fun setVerbArrayList(sarfsagheer: ArrayList<ArrayList<*>>) {
-        sarfSagheer = sarfsagheer
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view),

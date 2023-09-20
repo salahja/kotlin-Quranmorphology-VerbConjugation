@@ -26,7 +26,6 @@ import org.sj.conjugator.utilities.ThemeHelper.applyTheme
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */   class SettingsFragmentVerb : PreferenceFragmentCompat() {
-    private val mDivider: Drawable? = null
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.verbpreferences, rootKey)
         val themePreference = findPreference<ListPreference>("themePref")
@@ -57,10 +56,5 @@ import org.sj.conjugator.utilities.ThemeHelper.applyTheme
 
     companion object {
         const val TAG = "SettingsFragmentTag"
-        fun setArabicTextFontSize(paramContext: Context, paramString: String?) {
-            val editor = paramContext.getSharedPreferences("properties", 0).edit()
-            editor.putString("Arabic_Font_Size", paramString)
-            editor.apply()
-        }
     }
 }

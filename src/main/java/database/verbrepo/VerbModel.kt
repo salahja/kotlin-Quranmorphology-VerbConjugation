@@ -17,16 +17,16 @@ import sj.hisnul.entity.hduanamesEnt
 class VerbModel(
     private val newrepository: VerbRepository = VerbGraph.repository
 ) :ViewModel(){
-    var mazeelist: MutableLiveData<List<MazeedEntity>> = MutableLiveData()
-    var mujarradlist: MutableLiveData<List<MujarradVerbs>> = MutableLiveData()
-    var mazeedall: LiveData<List<MazeedEntity>> = MutableLiveData()
-    var mujaradall: LiveData<List<MujarradVerbs>> = MutableLiveData()
+    private var mazeelist: MutableLiveData<List<MazeedEntity>> = MutableLiveData()
+    private var mujarradlist: MutableLiveData<List<MujarradVerbs>> = MutableLiveData()
+    private var mazeedall: LiveData<List<MazeedEntity>> = MutableLiveData()
+    private var mujaradall: LiveData<List<MujarradVerbs>> = MutableLiveData()
     var duachapter: LiveData<List<hduanamesEnt>> = MutableLiveData()
     val util = Utils(QuranGrammarApplication.context)
     var allduaitem: LiveData<List<hduadetailsEnt>> = MutableLiveData()
     var duacategory: LiveData<List<hcategoryEnt>> = MutableLiveData()
 
-    var kovs: LiveData<List<kov>> = MutableLiveData()
+    private var kovs: LiveData<List<kov>> = MutableLiveData()
 
 
     fun getMazeelist(root : String): MutableLiveData<List<MazeedEntity>> {

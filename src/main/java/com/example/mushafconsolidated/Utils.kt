@@ -61,7 +61,7 @@ class Utils {
 
     constructor()
 
-    private class deleteWordAsyncTask internal constructor(private val mAsyncTaskDao: BookMarkDao) :
+    private class deleteWordAsyncTask(private val mAsyncTaskDao: BookMarkDao) :
         AsyncTask<BookMarks?, Void?, Void?>() {
 
 
@@ -70,80 +70,42 @@ class Utils {
             return null
         }
     }
-/*
-
-     fun getSurahSummary(id: Int): List<surahsummary?>? {
-        return  database.surahsummaryDao()?.getSurahSummary(id)
-    }
-*/
-fun getQuranCorpusWbwbysurah(surahid: Int): List<QuranCorpusWbw>? {
-    return  database.QuranDao()?.getQuranCorpusWbwbysurah(surahid)
-}
-
-    fun getNamesDetails(id: Int): List<AllahNamesDetails?>? {
-        return  database.NamesDetailsDao()?.ALLAH_NAMES_DETAILS_DETAILS(id)
-    }
-
 
     fun getMudhafSurahNew(id: Int): List<NewMudhafEntity?>? {
-        return  database.NewMudhafDao()?.getMudhafSurah(id)
+        return database.NewMudhafDao().getMudhafSurah(id)
     }
 
     fun getMudhafSurahAyahNew(id: Int, aid: Int): List<NewMudhafEntity>? {
-        return  database.NewMudhafDao()?.getMudhafSurahAyah(id, aid)
+        return database.NewMudhafDao().getMudhafSurahAyah(id, aid)
     }
 
     fun getAllAnaChapters(): List<ChaptersAnaEntity?>? {
 
-        return database.AnaQuranChapterDao()?.chapterslist()
+        return database.AnaQuranChapterDao().chapterslist()
     }
 
     fun getSingleChapter(id: Int): List<ChaptersAnaEntity?>? {
         Log.d( TAG, "getSingleChapter: started")
-        return  database.AnaQuranChapterDao()?.getSingleChapters(id)
+        return database.AnaQuranChapterDao().getSingleChapters(id)
     }
-
-    val bookMarks: List<BookMarks?>?
-        get() {
-            Log.d( TAG, "getAllItems: started")
-            return  database.BookMarkDao()?.getBookMarks()
-        }
 
     fun getQuranRoot(id: Int, verseid: Int, wordid: Int): List<VerbCorpus?>? {
         Log.d( TAG, "getQuranRoot: started")
-        return  database.VerbCorpusDao()?.getVerbRootsurahayahwordid(id, verseid, wordid)
-    }
-
-    fun getQuranRootaAyah(id: Int, verseid: Int): List<VerbCorpus?>? {
-        Log.d( TAG, "getQuranRoot: getQuranRootaAyah")
-        return  database.VerbCorpusDao()?.getQuranRootaAyah(id, verseid)
+        return database.VerbCorpusDao().getVerbRootsurahayahwordid(id, verseid, wordid)
     }
 
     fun getQuranNouns(id: Int, verseid: Int, wordid: Int): List<NounCorpus?>? {
         Log.d( TAG, "getQuranNouns: started")
-        return  database.NounCorpusDao()?.getQuranNounsBysurahayahword(id, verseid, wordid)
-    }
-
-    fun getQuranNounAyah(id: Int, verseid: Int): List<NounCorpus?>? {
-        Log.d( TAG, "getQuranNouns: started")
-        return  database.NounCorpusDao()?.getQuranNounAyah(id, verseid)
-    }
-    fun getQuranCorpusWbw(id: Int, ayaid: Int, wordid: Int): List<QuranCorpusWbw>? {
-        Log.d( TAG, "getwbwTranslatonbyword: started")
-        return  database.QuranDao()?.getQuranCorpusWbw(id, ayaid, wordid)
-    }
-    fun getwbwTranslatonbywordNew(id: Int, ayaid: Int, wordid: Int): List<wbwentity?>? {
-        Log.d( TAG, "getwbwTranslatonbyword: started")
-        return  database.wbwDao()?.getwbwTranslationbywordno(id, ayaid, wordid)
+        return database.NounCorpusDao().getQuranNounsBysurahayahword(id, verseid, wordid)
     }
 
     fun insertBookMark(entity: BookMarks?) {
         //    database?.BookMarkDao().deleteAllBookMakrs();
-        AsyncTask.execute({
+        AsyncTask.execute {
             AsyncTask.execute(object : Runnable {
-                public override fun run() {
+                override fun run() {
                     // and deleting
-               database.BookMarkDao()?.insertBookmark(entity)
+                    database.BookMarkDao().insertBookmark(entity)
                     //  runOnUiThread(new Runnable() {
                     //  public void run() {
                     //   itemTextView.setText("item deleted");
@@ -151,173 +113,7 @@ fun getQuranCorpusWbwbysurah(surahid: Int): List<QuranCorpusWbw>? {
                     //  });
                 }
             })
-        })
-    }
-
-    fun getCorpusWbwBySurahAyah(tid: Int, aid: Int): List<NewCorpusExpandWbwPOJO?>? {
-        val sqlverb: String =
-            ("SELECT CorpusExpand.rootaraone || rootaratwo || rootarathree || rootarafour || rootarafive AS root_a,\n" +
-                    "       CorpusExpand.surah,\n" +
-                    "       CorpusExpand.ayah,\n" +
-                    "       CorpusExpand.wordno,\n" +
-                    "       CorpusExpand.wordcount,\n" +
-                    "       Qurans.translation,\n" +
-                    "       CorpusExpand.araone,\n" +
-                    "       CorpusExpand.aratwo,\n" +
-                    "       CorpusExpand.arathree,\n" +
-                    "       CorpusExpand.arafour,\n" +
-                    "       CorpusExpand.arafive,\n" +
-                    "       CorpusExpand.rootaraone,\n" +
-                    "       CorpusExpand.rootaratwo,\n" +
-                    "       CorpusExpand.rootarathree,\n" +
-                    "       CorpusExpand.rootarafour,\n" +
-                    "       CorpusExpand.rootarafive,\n" +
-                    "       CorpusExpand.lemaraone,\n" +
-                    "       CorpusExpand.lemaratwo,\n" +
-                    "       CorpusExpand.lemarathree,\n" +
-                    "       CorpusExpand.lemarafour,\n" +
-                    "       CorpusExpand.lemarafive,\n" +
-                    "            CorpusExpand.form_one,\n" +
-                    "       CorpusExpand.form_two,\n" +
-                    "       CorpusExpand.form_three,\n" +
-                    "       CorpusExpand.form_four,\n" +
-                    "       CorpusExpand.form_five,\n" +
-                    "       CorpusExpand.tagone,\n" +
-                    "       CorpusExpand.tagtwo,\n" +
-                    "       CorpusExpand.tagthree,\n" +
-                    "       CorpusExpand.tagfour,\n" +
-                    "       CorpusExpand.tagfive,\n" +
-                    "       CorpusExpand.detailsone,\n" +
-                    "       CorpusExpand.detailstwo,\n" +
-                    "       CorpusExpand.detailsthree,\n" +
-                    "       CorpusExpand.detailsfour,\n" +
-                    "       CorpusExpand.detailsfive,\n" +
-                    "       wbw.en,\n" +
-                    "       wbw.bn,\n" +
-                    "       wbw.[in],\n" +
-                    "       wbw.ur,\n" +
-                    "       qurans.qurantext\n" +
-                    "  FROM corpusexpand,\n" +
-                    "       qurans,\n" +
-                    "       wbw\n" +
-                    " WHERE CorpusExpand.surah == \""
-                    + tid + "\""
-                    + "AND CorpusExpand.ayah== \""
-                    + aid + "\""
-                    + "AND \n" +
-                    "       corpusexpand.surah = wbw.surah AND \n" +
-                    "       corpusexpand.ayah = wbw.ayah AND \n" +
-                    "       corpusexpand.wordno = wbw.wordno AND\n" +
-                    "       corpusexpand.surah = qurans.surah AND \n" +
-                    "       corpusexpand.ayah = qurans.ayah  \n" +
-                    " ORDER BY corpusexpand.surah,\n" +
-                    "          corpusexpand.ayah")
-        val query = SimpleSQLiteQuery(sqlverb)
-        //  List<Book> result = booksDao.getBooks(query);
-        return database.RawDao().getNewCorpusWbw(query)
-    }
-
-    fun getCorpusWbwBySurahForTameez(tid: Int): List<CorpusExpandWbwPOJO?>? {
-        val sqlverb: String =
-            ("SELECT CorpusExpand.rootaraone || rootaratwo || rootarathree || rootarafour || rootarafive AS root_a,\n" +
-                    "       CorpusExpand.surah,\n" +
-                    "       CorpusExpand.ayah,\n" +
-                    "       CorpusExpand.wordno,\n" +
-                    "       CorpusExpand.wordcount,\n" +
-                    "       Qurans.translation,\n" +
-                    "       CorpusExpand.araone,\n" +
-                    "       CorpusExpand.aratwo,\n" +
-                    "       CorpusExpand.arathree,\n" +
-                    "       CorpusExpand.arafour,\n" +
-                    "       CorpusExpand.arafive,\n" +
-                    "       CorpusExpand.tagone,\n" +
-                    "       CorpusExpand.tagtwo,\n" +
-                    "       CorpusExpand.tagthree,\n" +
-                    "       CorpusExpand.tagfour,\n" +
-                    "       CorpusExpand.tagfive,\n" +
-                    "       CorpusExpand.detailsone,\n" +
-                    "       CorpusExpand.detailstwo,\n" +
-                    "       CorpusExpand.detailsthree,\n" +
-                    "       CorpusExpand.detailsfour,\n" +
-                    "       CorpusExpand.detailsfive,\n" +
-                    "       wbw.en,\n" +
-                    "       wbw.bn,\n" +
-                    "       wbw.[in],\n" +
-                    "       wbw.ur,\n" +
-                    "       qurans.qurantext\n" +
-                    "  FROM corpusexpand,\n" +
-                    "       qurans,\n" +
-                    "       wbw,\n" +
-                    "       tameez\n" +
-                    " WHERE CorpusExpand.surah == \""
-                    + tid + "\""
-                    + "AND \n" +
-                    "       corpusexpand.surah = wbw.surah AND \n" +
-                    "       corpusexpand.ayah = wbw.ayah AND \n" +
-                    "       corpusexpand.wordno = wbw.wordno AND\n" +
-                    "       corpusexpand.surah = qurans.surah AND \n" +
-                    "       corpusexpand.ayah = qurans.ayah AND \n" +
-                    "       corpusexpand.surah = tameez.surah AND \n" +
-                    "       corpusexpand.ayah = tameez.ayah  \n" +
-                    " ORDER BY corpusexpand.surah,\n" +
-                    "          corpusexpand.ayah")
-        val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
-        //  List<Book> result = booksDao.getBooks(query);
-        return database.RawDao().getCorpusWbwfortameez(query)
-    }
-
-    fun getCorpusWbwBySurah(tid: Int): List<CorpusExpandWbwPOJO?>? {
-        val sqlverb: String =
-            ("SELECT CorpusExpand.rootaraone || rootaratwo || rootarathree || rootarafour || rootarafive AS root_a,\n" +
-                    "       CorpusExpand.surah,\n" +
-                    "       CorpusExpand.ayah,\n" +
-                    "       CorpusExpand.wordno,\n" +
-                    "       CorpusExpand.wordcount,\n" +
-                    "       Qurans.translation,\n" +
-                    "       Qurans.passage_no,\n" +
-                    "       Qurans.ar_irab_two,\n" +
-                    "       Qurans.tafsir_kathir,\n" +
-                    "       Qurans.en_transliteration,\n" +
-                    "       Qurans.en_jalalayn,\n" +
-                    "       Qurans.en_arberry,\n" +
-                    "       Qurans.ur_jalalayn,\n" +
-                    "       Qurans.ur_junagarhi,\n" +
-                    "       CorpusExpand.araone,\n" +
-                    "       CorpusExpand.aratwo,\n" +
-                    "       CorpusExpand.arathree,\n" +
-                    "       CorpusExpand.arafour,\n" +
-                    "       CorpusExpand.arafive,\n" +
-                    "       CorpusExpand.tagone,\n" +
-                    "       CorpusExpand.tagtwo,\n" +
-                    "       CorpusExpand.tagthree,\n" +
-                    "       CorpusExpand.tagfour,\n" +
-                    "       CorpusExpand.tagfive,\n" +
-                    "       CorpusExpand.detailsone,\n" +
-                    "       CorpusExpand.detailstwo,\n" +
-                    "       CorpusExpand.detailsthree,\n" +
-                    "       CorpusExpand.detailsfour,\n" +
-                    "       CorpusExpand.detailsfive,\n" +
-                    "       wbw.en,\n" +
-                    "       wbw.bn,\n" +
-                    "       wbw.[in],\n" +
-                    "       wbw.ur,\n" +
-                    "       qurans.qurantext\n" +
-                    "  FROM corpusexpand,\n" +
-                    "       qurans,\n" +
-                    "       wbw\n" +
-                    " WHERE CorpusExpand.surah == \""
-                    + tid + "\""
-                    + "AND \n" +
-                    "       corpusexpand.surah = wbw.surah AND \n" +
-                    "       corpusexpand.ayah = wbw.ayah AND \n" +
-                    "       corpusexpand.wordno = wbw.wordno AND\n" +
-                    "       corpusexpand.surah = qurans.surah AND \n" +
-                    "       corpusexpand.ayah = qurans.ayah  \n" +
-                    " ORDER BY corpusexpand.surah,\n" +
-                    "          corpusexpand.ayah")
-        val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
-        //  List<Book> result = booksDao.getBooks(query);
-        return database.RawDao().getCorpusWbw(query)
+        }
     }
 
     fun getCorpusWbwBySurahAyahtopic(tid: Int, aid: Int): List<CorpusExpandWbwPOJO>{
@@ -574,7 +370,7 @@ fun getQuranCorpusWbwbysurah(surahid: Int): List<QuranCorpusWbw>? {
 
 
     fun getHarfNasbIndexesnew(id: Int): List<NewNasbEntity?>? {
-        return  database.NewNasbDao()?.getHarfNasbIndices(id)
+        return database.NewNasbDao().getHarfNasbIndices(id)
     }
 
 
@@ -602,19 +398,19 @@ fun getQuranCorpusWbwbysurah(surahid: Int): List<QuranCorpusWbw>? {
         }*/
 
     fun getSifabySurah(id: Int): List<SifaEntity?>? {
-        return  database.SifaDao()?.getSifaindexesBySurah(id)
+        return database.SifaDao().getSifaindexesBySurah(id)
     }
 
     fun getSifabySurahAyah(id: Int, aid: Int): List<SifaEntity>? {
-        return  database.SifaDao()?.getSifaindexesBySurahAyah(id, aid)
+        return database.SifaDao().getSifaindexesBySurahAyah(id, aid)
     }
 
     fun getShartSurahNew(id: Int): List<NewShartEntity?>? {
-        return  database.NewShartDAO()?.getShartBySurah(id)
+        return database.NewShartDAO().getShartBySurah(id)
     }
 
     fun getRootDictionary(id: String): List<lughat?>? {
-        return  database.LughatDao()?.getRootWordDictionary(id.trim { it <= ' ' })
+        return database.LughatDao().getRootWordDictionary(id.trim { it <= ' ' })
     }
 
     fun getLanesDifinition(id: String): List<lanelexicon?>? {
@@ -622,11 +418,11 @@ fun getQuranCorpusWbwbysurah(surahid: Int): List<QuranCorpusWbw>? {
     }
 
     fun getHansDifinition(id: String): List<hanslexicon?>? {
-        return  database.HansDao()?.getHansDefinition(id.trim { it <= ' ' })
+        return database.HansDao().getHansDefinition(id.trim { it <= ' ' })
     }
 
     fun getArabicWord(id: String?): List<lughat?>? {
-        return  database.LughatDao()?.getArabicWord(id)
+        return database.LughatDao().getArabicWord(id)
     }
 
     val quranDictionary: List<qurandictionary?>?
@@ -638,25 +434,21 @@ fun getQuranCorpusWbwbysurah(surahid: Int): List<QuranCorpusWbw>? {
         return database.qurandictionaryDao().getDictionaryroot(root)
     }
 
-    fun getTopicSearch(id: String?): List<quranexplorer>? {
-        return  database.QuranExplorerDao()?.getFilter(id)
-    }
-
     val topicSearchAll: List<quranexplorer>?
         get() {
             return  database.QuranExplorerDao()?.aLL
         }
 
     fun getKananew(id: Int): List<NewKanaEntity>? {
-        return  database.NewKanaDao()?.getkanabysurah(id)
+        return database.NewKanaDao().getkanabysurah(id)
     }
 
     fun getShartSurahAyahNew(id: Int, ayah: Int): List<NewShartEntity>? {
-        return  database.NewShartDAO()?.getShartBySurahAyah(id, ayah)
+        return database.NewShartDAO().getShartBySurahAyah(id, ayah)
     }
 
     fun getwbwQuranBySurahAyah(id: Int, aid: Int): List<wbwentity>? {
-        return  database.wbwDao()?.getwbwQuranBySurahAyah(id, aid)
+        return database.wbwDao().getwbwQuranBySurahAyah(id, aid)
     }
 
     fun getwbwQuranbTranslation(
@@ -665,7 +457,7 @@ fun getQuranCorpusWbwbysurah(surahid: Int): List<QuranCorpusWbw>? {
         firstwordindex: Int,
         lastwordindex: Int,
     ): List<wbwentity>? {
-        return  database.wbwDao()?.getwbwQuranbTranslation(sid, aid, firstwordindex, lastwordindex)
+        return database.wbwDao().getwbwQuranbTranslation(sid, aid, firstwordindex, lastwordindex)
     }
 
     fun getNounBreakup(tid: String): List<NounCorpusBreakup>? {
@@ -690,44 +482,25 @@ fun getQuranCorpusWbwbysurah(surahid: Int): List<QuranCorpusWbw>? {
 
     val grammarRules: List<GrammarRules?>?
         get() {
-            return  database.grammarRulesDao()?.grammarRules
+            return database.grammarRulesDao().grammarRules
         }
 
-
-
-
-
-    fun allnounscount(id: String): List<NounCorpus>? {
-        return database.NounCorpusDao()?.allnounscount(id)
-    }
-    fun allverbcount(id: String): List<VerbCorpus>? {
-        return database.VerbCorpusDao()?.allverbcount(id)
-    }
-
-
     fun getQuranbySurah(id: Int): List<QuranEntity>? {
-        return database.QuranDao()?.getQuranVersesBySurah(id)
+        return database.QuranDao().getQuranVersesBySurah(id)
     }
 
 
     fun getAyahsByPageQuran(surah: Int, pageno: Int): List<QuranEntity?>? {
-        return database.QuranDao()?.getAyahsByPage(surah, pageno)
+        return database.QuranDao().getAyahsByPage(surah, pageno)
     }
 
     fun getsurahayahVerses(id: Int, aid: Int): List<QuranEntity?>? {
-        return database.QuranDao()?.getsurahayahVerses(id, aid)
+        return database.QuranDao().getsurahayahVerses(id, aid)
     }
 
     fun getQuranbySurahAyahrange(surahid: Int, from: Int, to: Int): List<QuranEntity?>? {
-        return  database.QuranDao()!!.getQuranbySurahAyahrange(surahid, from, to)
+        return  database.QuranDao().getQuranbySurahAyahrange(surahid, from, to)
     }
-
-    val hcategory: ArrayList<hcategoryEnt>
-        get() {
-            return  database.gethDuaCategoryDao()?.getcatetory() as ArrayList<hcategoryEnt>
-        }
-
-
 
     val names: ArrayList<AllahNames>
         get() {
@@ -794,7 +567,7 @@ fun getQuranCorpusWbwbysurah(surahid: Int): List<QuranCorpusWbw>? {
         private const val TAG: String = "Utils"
         private lateinit var database: QuranAppDatabase
         fun getsurahayahVerses(id: Int, aid: Int): List<QuranEntity?>? {
-            return  database.QuranDao()?.getsurahayahVerses(id, aid)
+            return database.QuranDao().getsurahayahVerses(id, aid)
         }
 
 
@@ -802,7 +575,7 @@ fun getQuranCorpusWbwbysurah(surahid: Int): List<QuranCorpusWbw>? {
 
 
         fun getQuranbySurahAyahrange(surahid: Int, from: Int, to: Int): List<QuranEntity?>? {
-            return  database.QuranDao()?.getQuranbySurahAyahrange(surahid, from, to)
+            return database.QuranDao().getQuranbySurahAyahrange(surahid, from, to)
         }
 
         //select * from qurans where ayah>=50 and ayah<=78 and surah=9
@@ -815,38 +588,12 @@ fun getQuranCorpusWbwbysurah(surahid: Int): List<QuranCorpusWbw>? {
         }
 
 */
-
-
-        fun deleteBookmark(bookmark: BookMarks?) {
-            val bookMarkDao: BookMarkDao? = database.BookMarkDao()
-            if (bookMarkDao != null) {
-                deleteWordAsyncTask(bookMarkDao).execute(bookmark)
-            }
-        }
-
-        fun deleteCollection(count: String?) {
-       database.BookMarkDao()?.deleteCollection(count)
-        }
-
         fun getQuranbyJuz(juz: Int): List<QuranEntity?>? {
-            return  database.QuranDao()?.getQuranbyJuz(juz)
+            return database.QuranDao().getQuranbyJuz(juz)
         }
-
-
-
-
-        val collectionCount: List<BookMarks?>?
-            get() {
-                return  database.BookMarkDao()?.collectionCount
-            }
-
-        fun getCollectionbygroup(header: String?): List<BookMarks?>? {
-            return  database.BookMarkDao()?.getCollectionbygroup(header)
-        }
-
 
         fun getAyahsByPagejuz(juz: Int, pageno: Int): List<QuranEntity?>? {
-            return  database.QuranDao()?.getAyahsByPagejuz(juz, pageno)
+            return database.QuranDao().getAyahsByPagejuz(juz, pageno)
         }
     }
 }

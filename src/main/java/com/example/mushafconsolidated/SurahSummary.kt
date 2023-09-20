@@ -1,23 +1,17 @@
 package com.example.mushafconsolidated
 
 import android.os.Bundle
-import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.TextView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
-import com.example.mushafconsolidated.Entities.QuranEntity
-import com.example.mushafconsolidated.Entities.surahsummary
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.text.NumberFormat
-import java.util.Locale
 
 
 /**
@@ -29,7 +23,7 @@ import java.util.Locale
  * FontQuranListDialogFragment.newInstance(30).show(getSupportFragmentManager(), "dialog");
 </pre> *
  */
-class SurahSummary constructor() : BottomSheetDialogFragment() {
+class SurahSummary : BottomSheetDialogFragment() {
     var mItemClickListener: OnItemClickListener? = null
 
     // private ColorSchemeAdapter colorSchemeAdapter;
@@ -38,17 +32,17 @@ class SurahSummary constructor() : BottomSheetDialogFragment() {
         this.mItemClickListener = mItemClickListener
     }
 
-    public override fun onCreateView(
+    override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view: View = inflater.inflate(R.layout.namesadapter, container, false)
-        val bundle: Bundle? = getArguments()
+        val bundle: Bundle? = arguments
         val webView: WebView = view.findViewById<View>(R.id.title) as WebView
         //  WebSettingsCompat.setForceDark(webView.settings, FORCE_DARK_ON);
         if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
             WebSettingsCompat.setForceDark(
-                webView.getSettings(),
+                webView.settings,
                 WebSettingsCompat.FORCE_DARK_ON
             )
         }
@@ -96,9 +90,9 @@ class SurahSummary constructor() : BottomSheetDialogFragment() {
                 "</html>"
         assert(bundle != null)
         val item_count: Int = bundle!!.getInt("item_count")
-        val utils: Utils = Utils(getActivity())
+        val utils: Utils = Utils(activity)
         val viewmodel: QuranVIewModel by viewModels()
-        viewmodel.getSurahSummary(item_count).observe(this, Observer {
+        viewmodel.getSurahSummary(item_count).observe(this, {
           //  val surahSummary: ArrayList<surahsummary> = utils.getSurahSummary(item_count) as ArrayList<surahsummary>
             //   String  ayah = getVersesDetails(item_count, surahSummary);
             var sum: String =       it.get(0).summary
@@ -116,79 +110,18 @@ class SurahSummary constructor() : BottomSheetDialogFragment() {
     }
 
     companion object {
-        val TAG: String = "SURAH"
+        const val TAG: String = "SURAH"
 
         // TODO: Customize parameter argument names
-        private val ARG_OPTIONS_DATA: String = "item_count"
+        private const val ARG_OPTIONS_DATA: String = "item_count"
 
         // TODO: Customize parameters
         fun newInstance(data: Int): SurahSummary {
             val fragment: SurahSummary = SurahSummary()
             val args: Bundle = Bundle()
-            args.putInt(SurahSummary.Companion.ARG_OPTIONS_DATA, data)
-            fragment.setArguments(args)
+            args.putInt(SurahSummary.ARG_OPTIONS_DATA, data)
+            fragment.arguments = args
             return fragment
-        }
-
-        private fun getVersesDetails(
-            item_count: Int,
-            surahSummary: ArrayList<surahsummary>
-        ): StringBuilder {
-            val versesrange: String = surahSummary.get(0).versesrange
-            var wbwentities: List<QuranEntity> = ArrayList()
-                var header: StringBuilder  =    java.lang.StringBuilder ()
-            val wb: ArrayList<List<QuranEntity>> = ArrayList()
-            val split: Array<String> =
-                versesrange.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-            for (s: String in split) {
-                val split1: Array<String> =
-                    s.split("-".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-                var s1: Int = split1.get(0).trim({ it <= ' ' }).toInt()
-                val from: Int = split1.get(0).trim({ it <= ' ' }).toInt()
-                val s2: Int = split1.get(1).trim({ it <= ' ' }).toInt()
-                while (s1 <= s2) {
-                    wbwentities = Utils.Companion.getsurahayahVerses(item_count, s1) as List<QuranEntity>
-                    header = java.lang.StringBuilder()
-                    header.append("From Verse").append(":").append(from).append(" to ").append(s2)
-                        .append(",").append(from).append("-").append(s2)
-                    wbwentities.get(0).erabspnabble=SpannableStringBuilder.valueOf(header)
-
-                //    wbwentities[0].setErabspnabble(SpannableStringBuilder.valueOf(header))
-                    wb.add(wbwentities)
-                    s1++
-                }
-            }
-            val ayah: StringBuilder  = StringBuilder ()
-            ayah.append("<div class='ayah' >")
-            for (list: List<QuranEntity> in wb) {
-                val str: String = list.get(0).erabspnabble.toString()
-                val split1: Array<String> =
-                    str.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-                var surahaya: Array<String>
-                var from: Int = 0
-                var to: Int = 0
-                try {
-                    surahaya = split1.get(1).split("-".toRegex()).dropLastWhile({ it.isEmpty() })
-                        .toTypedArray()
-                    from = surahaya.get(0).toInt()
-                    to = surahaya.get(1).toInt()
-                } catch (e: ArrayIndexOutOfBoundsException) {
-                }
-                val vno: Int = list.get(0).ayah
-                val nf: NumberFormat = NumberFormat.getInstance(Locale.forLanguageTag("AR"))
-                val s: String = "\uFD3E" + nf.format(vno.toLong()) + "\uFD3F"
-                if (list.get(0).ayah == from) {
-                    ayah.append("<h3>").append(split1.get(0)).append("</h3>")
-                }
-                ayah.append(
-                    s + list.get(0).qurantext + "<br>" + list.get(0).translation + "<br>"
-                )
-                if (list.get(0).ayah == to) {
-                    ayah.append("<hr>")
-                }
-            }
-            ayah.append("</div>")
-            return ayah
         }
     }
 }

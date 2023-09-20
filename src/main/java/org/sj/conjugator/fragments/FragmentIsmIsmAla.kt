@@ -21,8 +21,8 @@ import org.sj.conjugator.utilities.GatherAll
 import ru.dimorinny.floatingtextbutton.FloatingTextButton
 
 class FragmentIsmIsmAla : Fragment() {
-    var isAugmented = false
-    var isUnAugmented = false
+    private var isAugmented = false
+    private var isUnAugmented = false
     var recyclerView: RecyclerView? = null
     private var unaugmentedFormula: String? = null
     private var verbroot: String? = null
@@ -78,7 +78,7 @@ class FragmentIsmIsmAla : Fragment() {
         skabeer = setUparrays(view)
         callButton.setOnClickListener {
             val fm = activity
-                ?.getSupportFragmentManager()
+                ?.supportFragmentManager
             if (fm != null) {
                 fm.popBackStack()
             }
@@ -101,7 +101,7 @@ class FragmentIsmIsmAla : Fragment() {
         //   OldThulathi();
         val mujarradListing: ArrayList<ArrayList<*>> =
             GatherAll.instance.getMujarradIsmAla(verbroot, unaugmentedFormula)
-        if (!mujarradListing.isEmpty()) {
+        if (mujarradListing.isNotEmpty()) {
             val ska = IsmAlaSarfKabeerAdapter(mujarradListing, requireContext())
             recyclerView!!.adapter = ska
             recyclerView!!.setHasFixedSize(true)

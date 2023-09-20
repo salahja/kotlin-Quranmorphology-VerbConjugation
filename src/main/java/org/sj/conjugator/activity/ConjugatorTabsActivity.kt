@@ -47,7 +47,7 @@ class ConjugatorTabsActivity :  BaseActivity() {
     private val mazeedartitles = arrayOf("صرف صغير", "تصريف الأفعال ", "لاسم الفاعل/الاسم المفعول")
     var dataBundle: Bundle? = null
     private var ismujarrad = false
-    protected override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_newtabs)
         val callButton: FloatingTextButton = findViewById(R.id.action_button)

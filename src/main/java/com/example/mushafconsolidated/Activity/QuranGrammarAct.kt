@@ -73,7 +73,6 @@ import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet
 import com.example.mushafconsolidated.fragments.newFlowAyahWordAdapter
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.intrfaceimport.PassdataInterface
-import com.example.mushafconsolidated.model.CorpusAyahWord
 import com.example.mushafconsolidated.model.NewQuranCorpusWbw
 import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
@@ -156,7 +155,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
     private lateinit var shared: SharedPreferences
 
     //  private OnClickListener onClickListener;
-    private var corpusayahWordArrayList: ArrayList<CorpusAyahWord>? = null
+
     //  private val newadapterlist = LinkedHashMap<Int, ArrayList<NewCorpusAyahWord>>()
 
     private var mafoolbihiwords: List<MafoolBihi?>? = null
@@ -640,10 +639,9 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         verseWheel.setEntriesv(current)
         verseWheel.currentIndex = this.verseNo
         dialogPicker.setPositiveButton("Done") { dialogInterface: DialogInterface?, i: Int ->
-            val sura: String
             try {
                 surahArabicName =
-                    suraNumber.toString() + "-" + soraList.get(chapterno[0] - 1).nameenglish + "-" + soraList[chapterno[0] - 1].abjadname
+                    suraNumber.toString() + "-" + soraList[chapterno[0] - 1].nameenglish + "-" + soraList[chapterno[0] - 1].abjadname
                 surahArabicName = soraList[chapterno[0] - 1].abjadname
                 verseNo = verseno[0]
                 versescount = soraList[chapterno[0] - 1].versescount
@@ -681,8 +679,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 ExecuteSurahWordByWord()
                 //     asyncTaskcorpus = new refactoringcurrentSurahSyncWordByWord().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
-
-                sura = soraList[chapterno[0] - 1].chapterid.toString()
+            val sura: String = soraList[chapterno[0] - 1].chapterid.toString()
                 this.chapterno = soraList[chapterno[0] - 1].chapterid
                 surahArabicName = soraList[chapterno[0] - 1].nameenglish
                 surahArabicName = soraList[chapterno[0] - 1].namearabic
@@ -819,7 +816,6 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         builder.setView(R.layout.layout_loading_dialog)
         val dialog = builder.create()
 
-        corpusayahWordArrayList = ArrayList()
         mafoolbihiwords = mainViewModel.getMafoolSurah(chapterno).value
         Jumlahaliya = mainViewModel.getHalsurah(chapterno).value
         Tammezent = mainViewModel.getTameezsurah(chapterno).value
@@ -921,7 +917,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
 
                 //   flowAyahWordAdapter.notifyDataSetChanged()
-                parentRecyclerView.post({ parentRecyclerView.scrollToPosition(verseNo) })
+                parentRecyclerView.post { parentRecyclerView.scrollToPosition(verseNo) }
                 //   })
             }
         }
@@ -1139,8 +1135,11 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             bookMarkSelected(position)
         } else if (tag == "collection") {
             val dataBundle = Bundle()
-            val chapterno = corpusayahWordArrayList!![position - 1].word[0].surahId
-            val verse = corpusayahWordArrayList!![position - 1].word[0].verseId
+
+            val chapterno =corpusSurahWord!![position - 1].corpus.surah
+            val verse = corpusSurahWord!![position - 1].corpus.ayah
+
+
             dataBundle.putInt(Constant.SURAH_ID, chapterno)
             dataBundle.putInt(Constant.AYAHNUMBER, verse)
             dataBundle.putString(Constant.SURAH_ARABIC_NAME, surahArabicName)
@@ -1220,8 +1219,9 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 ReloadActivity(colorsentence)
             }
         } else if (tag == "overflowbottom") {
-            val chapterno = corpusayahWordArrayList!![position - 1].word[0].surahId
-            val verse = corpusayahWordArrayList!![position - 1].word[0].verseId
+
+            val chapterno =corpusSurahWord!![position - 1].corpus.surah
+            val verse = corpusSurahWord!![position - 1].corpus.ayah
             val name = surahArabicName
             val data = arrayOf(chapterno.toString(), verse.toString(), name)
             BottomOptionDialog.newInstance(data)
@@ -1231,7 +1231,8 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         } else if (tag == "sharefb") {
             takeScreenShot(window.decorView)
         } else if (tag == "helpfb") {
-            val chapterno = corpusayahWordArrayList!![position - 1].word[0].surahId
+            val chapterno =corpusSurahWord!![position - 1].corpus.surah
+
             val dataBundle = Bundle()
             dataBundle.putInt(Constant.SURAH_ID, chapterno)
             val item = SurahSummary()
@@ -1250,9 +1251,9 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                     if (item.itemId == R.id.actionTafsir) { // Handle option1 Click
                         val readingintent =
                             Intent(this@QuranGrammarAct, TafsirFullscreenActivity::class.java)
-                        val chapterno = corpusayahWordArrayList!![position - 1].word[0].surahId
-                        val verse = corpusayahWordArrayList!![position - 1].word[0].verseId
 
+                        val chapterno =corpusSurahWord!![position - 1].corpus.surah
+                        val verse = corpusSurahWord!![position - 1].corpus.ayah
                         readingintent.putExtra(Constant.SURAH_ID, chapterno)
                         readingintent.putExtra(Constant.AYAH_ID, verse)
                         readingintent.putExtra(Constant.SURAH_ARABIC_NAME, surahArabicName)
@@ -1415,8 +1416,10 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
     private fun bookMarkSelected(position: Int) {
         //  position = flowAyahWordAdapter.getAdapterposition();
-        val chapterno = corpusayahWordArrayList!![position - 1].word[0].surahId
-        val verse = corpusayahWordArrayList!![position - 1].word[0].verseId
+
+        val chapterno =corpusSurahWord!![position - 1].corpus.surah
+        val verse = corpusSurahWord!![position - 1].corpus.ayah
+
         val en = BookMarks()
         en.header = "pins"
         en.chapterno = chapterno.toString()

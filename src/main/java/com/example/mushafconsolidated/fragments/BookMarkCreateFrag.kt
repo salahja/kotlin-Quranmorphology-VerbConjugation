@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.RadioGroup
-import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
@@ -38,25 +37,19 @@ import com.google.android.material.snackbar.Snackbar
  * ThemeListPrefrence.newInstance(30).show(getSupportFragmentManager(), "dialog");
 </pre> *
  */
-class BookMarkCreateFrag constructor() : BottomSheetDialogFragment(), OnItemClickListener,
-    View.OnClickListener {
+class BookMarkCreateFrag : BottomSheetDialogFragment(), OnItemClickListener,
+                           View.OnClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var suraname: String
     private var chapter: Int = 0
     private var verse: Int = 0
     private var selectedposition: Int = 0
-    lateinit var addtocollection: MaterialButton
-    lateinit var newcollection: MaterialButton
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
+    private lateinit var addtocollection: MaterialButton
+    private lateinit var newcollection: MaterialButton
     lateinit var mItemClickListener: OnItemClickListener
     lateinit var radioGroup: RadioGroup
     private val bookmarCrateAdapter: BookmarkCreateAdapter? = null
-    var frameLayout: RelativeLayout? = null
     var collectionC: List<BookMarksPojo?>? = ArrayList()
-    var bookMarks: ArrayList<BookMarks> = ArrayList()
     fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
         this.mItemClickListener = mItemClickListener!!
     }
@@ -66,21 +59,21 @@ class BookMarkCreateFrag constructor() : BottomSheetDialogFragment(), OnItemClic
         savedInstanceState: Bundle?,
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val bundle: Bundle? = getArguments()
+        val bundle: Bundle? = arguments
         assert(bundle != null)
         val stringArray: Array<String>? =
-            bundle!!.getStringArray(BookMarkCreateFrag.Companion.ARG_OPTIONS_DATA)
-        chapter = stringArray!!.get(0).toInt()
-        verse = stringArray.get(1).toInt()
-        suraname = (stringArray.get(2))
+            bundle!!.getStringArray(BookMarkCreateFrag.ARG_OPTIONS_DATA)
+        chapter = stringArray!![0].toInt()
+        verse = stringArray[1].toInt()
+        suraname = (stringArray[2])
         return inflater.inflate(R.layout.bookmark_create, container, false)
     }
 
     public override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setLayoutManager(LinearLayoutManager(requireContext()))
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val details: ArrayList<String> = ArrayList()
-        val utils: Utils = Utils(getActivity())
+        val utils: Utils = Utils(activity)
         collectionC = utils.collectionC
    //     val bookmarkCreateAdapter = BookmarkCreateAdapter(collectionC as List<BookMarksPojo>?)
         val bookmarkCreateAdapter = BookmarkCreateAdapter(collectionC as List<BookMarksPojo>?)
@@ -88,47 +81,43 @@ class BookMarkCreateFrag constructor() : BottomSheetDialogFragment(), OnItemClic
         addtocollection = view.findViewById(R.id.addtocollection)
         newcollection.setOnClickListener(this)
         addtocollection.setOnClickListener(this)
-        recyclerView.setAdapter(bookmarCrateAdapter)
-        newcollection.setOnClickListener(object : View.OnClickListener {
-            public override fun onClick(v: View) {
-                val dialogPicker = androidx.appcompat.app.AlertDialog.Builder(
-                    activity!!
-                )
-                val dlg: Dialog = Dialog(requireActivity())
-                //  AlertDialog dialog =  .create();
-                //      soraList = utils.getAllAnaChapters();
-                val inflater: LayoutInflater = requireActivity().getLayoutInflater()
-                val view: View = inflater.inflate(R.layout.folder_bookmark, null)
-                //  View view = inflater.inflate(R.layout.activity_wheel, null);
-                dialogPicker.setView(view)
-                val mTextView: EditText = view.findViewById(R.id.tvFolderName)
-                dialogPicker.setPositiveButton(
-                    "Done",
-                    DialogInterface.OnClickListener({ dialogInterface: DialogInterface?, i: Int ->
-                        val str: String = mTextView.getText().toString()
-                        bookMarkSelected(v, selectedposition, str)
-                    })
-                )
-                dialogPicker.setNegativeButton(
-                    "Cancel",
-                    DialogInterface.OnClickListener({ dialogInterface: DialogInterface?, i: Int -> })
-                )
-                dialogPicker.show()
-            }
-        })
-        addtocollection.setOnClickListener(object : View.OnClickListener {
-            public override fun onClick(v: View) {
-                val bookMarksPojo: BookMarksPojo = collectionC?.get(selectedposition)!!
-                bookMarkSelected(
-                    v,
-                    bookMarksPojo.getChapterno().toInt(),
-                    bookMarksPojo.header.toString()
-                )
-            }
-        })
+        recyclerView.adapter = bookmarCrateAdapter
+        newcollection.setOnClickListener { v ->
+            val dialogPicker = AlertDialog.Builder(
+                activity!!
+                                                  )
+            val dlg: Dialog = Dialog(requireActivity())
+            //  AlertDialog dialog =  .create();
+            //      soraList = utils.getAllAnaChapters();
+            val inflater: LayoutInflater = requireActivity().layoutInflater
+            val view: View = inflater.inflate(R.layout.folder_bookmark, null)
+            //  View view = inflater.inflate(R.layout.activity_wheel, null);
+            dialogPicker.setView(view)
+            val mTextView: EditText = view.findViewById(R.id.tvFolderName)
+            dialogPicker.setPositiveButton(
+                "Done",
+                { dialogInterface: DialogInterface?, i: Int ->
+                    val str: String = mTextView.getText().toString()
+                    bookMarkSelected(v, selectedposition, str)
+                }
+                                          )
+            dialogPicker.setNegativeButton(
+                "Cancel",
+                { dialogInterface: DialogInterface?, i: Int -> }
+                                          )
+            dialogPicker.show()
+        }
+        addtocollection.setOnClickListener { v ->
+            val bookMarksPojo: BookMarksPojo = collectionC?.get(selectedposition)!!
+            bookMarkSelected(
+                v,
+                bookMarksPojo.getChapterno().toInt(),
+                bookMarksPojo.header.toString()
+                            )
+        }
 
 
-        bookmarkCreateAdapter!!.SetOnItemClickListener(object : OnItemClickListener {
+        bookmarkCreateAdapter.SetOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
                 val holder = recyclerView.findViewHolderForAdapterPosition(position)
                 if (holder != null) {
@@ -154,7 +143,7 @@ class BookMarkCreateFrag constructor() : BottomSheetDialogFragment(), OnItemClic
                     val mTextView = view.findViewById<EditText>(R.id.tvFolderName)
                     dialogPicker.setPositiveButton("Done") { dialogInterface: DialogInterface?, i: Int ->
                         val str = mTextView.text.toString()
-                        bookMarkSelected(v!!, position, str)
+                        bookMarkSelected(v, position, str)
                     }
                     dialogPicker.setNegativeButton(
                         "Cancel"
@@ -170,7 +159,7 @@ class BookMarkCreateFrag constructor() : BottomSheetDialogFragment(), OnItemClic
                             )
                         println("check")
                     }
-                    book.header?.let { bookMarkSelected(v!!, selectedposition, it) }
+                    book.header?.let { bookMarkSelected(v, selectedposition, it) }
                     Toast.makeText(activity, "create collections", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -213,17 +202,17 @@ class BookMarkCreateFrag constructor() : BottomSheetDialogFragment(), OnItemClic
     public override fun onClick(v: View) {}
 
     companion object {
-        val TAG: String = "opton"
+        const val TAG: String = "opton"
 
         // TODO: Customize parameter argument names
-        private val ARG_OPTIONS_DATA: String = "item_count"
+        private const val ARG_OPTIONS_DATA: String = "item_count"
 
         // TODO: Customize parameters
         fun newInstance(data: Array<String>): BookMarkCreateFrag {
             val fragment: BookMarkCreateFrag = BookMarkCreateFrag()
             val args: Bundle = Bundle()
-            args.putStringArray(BookMarkCreateFrag.Companion.ARG_OPTIONS_DATA, data)
-            fragment.setArguments(args)
+            args.putStringArray(BookMarkCreateFrag.ARG_OPTIONS_DATA, data)
+            fragment.arguments = args
             return fragment
         }
     }

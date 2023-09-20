@@ -216,7 +216,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                                 VERBMOOD,
                                 VerbWazan.getVerbMood(wordDetails.mood_kananumbers)
                             )
-                            if (wordDetails.thulathibab!!.length == 0) {
+                            if (wordDetails.thulathibab!!.isEmpty()) {
                                 newbundle.putString(
                                     QURAN_VERB_WAZAN,
                                     VerbWazan.getMazeedWazan(wordDetails.form)

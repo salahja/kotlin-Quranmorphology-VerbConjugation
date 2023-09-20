@@ -27,7 +27,6 @@ class PageMushaAudioAdapter(
     val context: Context,
     listener: OnItemClickListenerOnLong?,
     surah_id: Long,
-    surahName: String?,
     ismakki: Int,
     header: ArrayList<String>,
 ) :
@@ -38,8 +37,8 @@ class PageMushaAudioAdapter(
     private val isMakkiMadani: Int
 
     // --Commented out by Inspection (25/08/23, 7:28 pm):public TextView arabic, rootword;
-    val arabicfontSize: Int
-    val translationfontsize: Int
+    private val arabicfontSize: Int
+    private val translationfontsize: Int
     val mItemClickListener: OnItemClickListenerOnLong?
 
     // --Commented out by Inspection (25/08/23, 7:28 pm):private CorpusAyahWord ayahWord;
@@ -194,13 +193,13 @@ class PageMushaAudioAdapter(
                 aya = ayahItem!!.qurantext
                 builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ ", aya, ayahItem.ayah))
             }
-            holder.quran_textView!!.setText(
+            holder.quran_textView.setText(
                 getSpannable(builder.toString()),
                 TextView.BufferType.SPANNABLE
-            )
-            holder.quran_textView!!.setTypeface(custom_font)
+                                         )
+            holder.quran_textView.typeface = custom_font
             if (!defaultfont) {
-                holder.quran_textView!!.textSize = arabicfontSize.toFloat()
+                holder.quran_textView.textSize = arabicfontSize.toFloat()
             }
         }
     }
@@ -346,14 +345,12 @@ class PageMushaAudioAdapter(
                 view.setOnClickListener(this)
                 view.setOnLongClickListener(this)
                 quran_textView.setOnClickListener(this)
-                quran_textView.setTag("verse")
+                quran_textView.tag = "verse"
             }
         }
 
         override fun onClick(v: View) {
-            if (mItemClickListener != null) {
-                mItemClickListener.onItemClick(v, layoutPosition)
-            }
+            mItemClickListener?.onItemClick(v, layoutPosition)
         }
 
         override fun onLongClick(v: View): Boolean {

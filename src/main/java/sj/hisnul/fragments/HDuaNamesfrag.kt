@@ -2,11 +2,9 @@ package sj.hisnul.fragments
 
 
 import android.app.ActionBar
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -14,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -30,9 +27,9 @@ import sj.hisnul.entity.hduanamesEnt
 import sj.hisnul.newepository.NewDuaModel
 
 class HDuaNamesfrag : Fragment() {
-    val subheaders = ArrayList<String>()
-    val duacoll: ArrayList<ArrayList<hduadetailsEnt>> = ArrayList<ArrayList<hduadetailsEnt>>()
-    var sadapter: SelectedDuaViewAdapter? = null
+    private val subheaders = ArrayList<String>()
+    private val duacoll: ArrayList<ArrayList<hduadetailsEnt>> = ArrayList()
+    private var sadapter: SelectedDuaViewAdapter? = null
 
     //called by allduarag and  catwofrag retrival by the chaptername in hdunames
     lateinit var recyclerView: RecyclerView
@@ -52,7 +49,7 @@ class HDuaNamesfrag : Fragment() {
         }
        // val utils = Utils(activity)
         if (chap_id != -1) {
-            viewmodel.Duadetailsbychapter(chap_id).observe(this) {
+            viewmodel.Duadetailsbychapter(chap_id).observe(this) { it ->
                 // val dd: ArrayList<hduanames> = utils.getdualistbychapter(chap_id) as ArrayList<hduanames>
                 for (hduanames in it) {
                     viewmodel.DuaItembyId(hduanames.ID).observe(this) {
@@ -60,7 +57,7 @@ class HDuaNamesfrag : Fragment() {
                         duacoll.add(duaItems)
                         subheaders.add(hduanames.duaname)
                         sadapter = SelectedDuaViewAdapter(duacoll, context, name, subheaders)
-                        recyclerView.setAdapter(sadapter)
+                        recyclerView.adapter = sadapter
 
                     }
 
@@ -83,21 +80,18 @@ class HDuaNamesfrag : Fragment() {
         setHasOptionsMenu(true)
         val view = arrayOf<View>(inflater.inflate(R.layout.dunamefragview, container, false))
         setHasOptionsMenu(true)
-        val toolbar: MaterialToolbar = view[0].findViewById<MaterialToolbar>(R.id.toolbarmain)
-        val actionBa: ActionBar? = (requireActivity() as AppCompatActivity).getActionBar()
+        val toolbar: MaterialToolbar = view[0].findViewById(R.id.toolbarmain)
+        val actionBa: ActionBar? = (requireActivity() as AppCompatActivity).actionBar
         coordinatorLayout = view[0].findViewById<View>(R.id.coordinatorLayout) as CoordinatorLayout
         val shared: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context)
 
-        if (actionBa != null) {
-            actionBa.setDisplayHomeAsUpEnabled(true)
-        }
-        recyclerView = view[0].findViewById<RecyclerView>(R.id.dunamerec)
+        actionBa?.setDisplayHomeAsUpEnabled(true)
+        recyclerView = view[0].findViewById(R.id.dunamerec)
       //  val utils = Utils(context)
-
-        toolbar.setTitle(name)
+        toolbar.title = name
         toolbar.inflateMenu(R.menu.menu_bookmark)
-        toolbar.setOnMenuItemClickListener(Toolbar.OnMenuItemClickListener { item: MenuItem ->
+        toolbar.setOnMenuItemClickListener({ item: MenuItem ->
             when (item.itemId) {
                 R.id.bookmark -> {
                     Toast.makeText(context, "First book item", Toast.LENGTH_SHORT).show()
@@ -160,28 +154,9 @@ class HDuaNamesfrag : Fragment() {
         recyclerView.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
-        recyclerView.setLayoutManager(layoutManager)
+        recyclerView.layoutManager = layoutManager
         //  recyclerView.setLayoutManager(new LinearLayoutManager(context!!));
         return view[0]
-    }
-
-    private fun RefreshActivity() {
-        Log.e(TAG, "onClick called")
-        val intent: Intent = requireActivity().intent
-        val parentActivityRef: String? = intent.getStringExtra("PARENT_ACTIVITY_REF")
-        intent.putExtra("tabposition", 1)
-        requireActivity().overridePendingTransition(0, 0)
-        startActivity(intent)
-        requireActivity().finish()
-        //requireActivity().overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left)
-        //  HisnulMainAct.viewPager.setCurrentItem(0);
-        //    HisnulMainAct.viewPager.setCurrentItem(1);
-        //  colorsentence.setOnCheckedChangeListener (null);
-        //  colorsentence.setChecked(true);
-    }
-
-    fun allowBackPressed(): Boolean {
-        return true
     }
 
     companion object {

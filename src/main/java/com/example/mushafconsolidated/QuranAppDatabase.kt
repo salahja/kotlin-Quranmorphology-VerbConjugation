@@ -84,7 +84,7 @@ import java.io.File
     entities = [hduadetailsEnt::class, hduanamesEnt::class, hcategoryEnt::class,AllahNamesDetails::class,lanerootdictionary::class, Qari::class, surahsummary::class, quranexplorer::class, AllahNames::class, MafoolMutlaqEnt::class, BadalErabNotesEnt::class, HalEnt::class, MafoolBihi::class, LiajlihiEnt::class, TameezEnt::class, GrammarRules::class, hanslexicon::class, qurandictionary::class, lanelexicon::class, lughat::class, NewNasbEntity::class, NewShartEntity::class, NewKanaEntity::class, NewMudhafEntity::class, SifaEntity::class, wbwentity::class, NounCorpus::class, VerbCorpus::class, QuranEntity::class, CorpusEntity::class, BookMarks::class, ChaptersAnaEntity::class],
     version = 1
 )
-abstract class QuranAppDatabase constructor() : RoomDatabase() {
+abstract class QuranAppDatabase : RoomDatabase() {
     /**
      * Ana quran chapter dao
      *
@@ -329,7 +329,7 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
     companion object {
         //  public static  <QuranAppDatabase> quranAppDatabaseInstance;
         private val initialCallBack: Callback = object : Callback() {
-            public override fun onCreate(db: SupportSQLiteDatabase) {
+            override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 //  new InitialAsyncTask(quranAppDatabaseInstance).execute();
             }
@@ -337,8 +337,7 @@ abstract class QuranAppDatabase constructor() : RoomDatabase() {
 
 
 
-        var quranAppDatabaseInstance: QuranAppDatabase? = null
-        var quranAppDatabaseInstanceasset: QuranAppDatabase? = null
+        private var quranAppDatabaseInstance: QuranAppDatabase? = null
 
         @Synchronized
         fun getInstance(context: Context): QuranAppDatabase? {

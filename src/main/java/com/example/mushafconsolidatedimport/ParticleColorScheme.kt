@@ -24,7 +24,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
  *
  * @constructor Create empty Particle color scheme
  */
-class ParticleColorScheme constructor() : BottomSheetDialogFragment() {
+class ParticleColorScheme : BottomSheetDialogFragment() {
     var mItemClickListener: OnItemClickListener? = null
     var textView: TextView? = null
     private var colorSchemeAdapter: ColorSchemeAdapter? = null
@@ -49,14 +49,13 @@ class ParticleColorScheme constructor() : BottomSheetDialogFragment() {
 
 
 
-    public override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //  recyclerView.setLayoutManager(new LinearLayoutManager(context!!));
-        val mLayoutManager: GridLayoutManager = GridLayoutManager(getActivity(), 2)
+        val mLayoutManager: GridLayoutManager = GridLayoutManager(activity, 2)
         // parentRecyclerView = view.findViewById(R.id.juzRecyclerView);
         val recyclerView: RecyclerView = view.findViewById(R.id.colorrecview)
-        recyclerView.setLayoutManager(mLayoutManager)
-        val spanhash: Map<String?, ForegroundColorSpan>
-        spanhash = CorpusUtilityorig.stringForegroundColorSpanMap
+        recyclerView.layoutManager = mLayoutManager
+        val spanhash = CorpusUtilityorig.stringForegroundColorSpanMap
         textView = view.findViewById(R.id.Colortv)
         val particle: java.util.ArrayList<String?>? =null
         particle?.add("PN = \"Proper Noun(اسم علم)\",")
@@ -105,25 +104,24 @@ class ParticleColorScheme constructor() : BottomSheetDialogFragment() {
         val details: ArrayList<String> = ArrayList()
         val sample: String = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ"
         colorSchemeAdapter = ColorSchemeAdapter(spanhash, particle)
-        recyclerView.setAdapter(colorSchemeAdapter)
+        recyclerView.adapter = colorSchemeAdapter
         colorSchemeAdapter!!.SetOnItemClickListener(object : OnItemClickListener {
-            public override fun onItemClick(v: View?, position: Int) {
+            override fun onItemClick(v: View?, position: Int) {
                 //      int checkedRadioButtonId = textView.getCheckedRadioButtonId();
                 //Toast.makeText(context!!, "", Toast.LENGTH_SHORT).show();
             }
         })
     }
 
-    private class ViewHolder internal constructor(inflater: LayoutInflater, parent: ViewGroup?) :
+    private class ViewHolder(inflater: LayoutInflater, parent: ViewGroup?) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.coloradapter, parent, false)),
         View.OnClickListener {
 
-        val text: TextView
+        val text: TextView = itemView.findViewById(R.id.Colortv)
 
         init {
             // TODO: Customize the item layout
             //  super(inflater.inflate(R.layout.fragment_item_list_dialog_list_dialog_item, parent, false));
-            text = itemView.findViewById(R.id.Colortv)
             itemView.setOnClickListener(this)
         }
 
@@ -135,15 +133,11 @@ class ParticleColorScheme constructor() : BottomSheetDialogFragment() {
     }
 
     private class ColorSchemeAdapter :
-        RecyclerView.Adapter<ParticleColorScheme.ViewHolder> {
+        RecyclerView.Adapter<ViewHolder> {
         private var particle: ArrayList<String?>? = null
         private var mItemCount: String? = null
         private var spanhash: Map<String?, ForegroundColorSpan>? = null
         private var mItemClickListener: OnItemClickListener? = null
-
-        internal constructor(itemCount: String?) {
-            mItemCount = itemCount
-        }
 
         constructor(
             spanhash: Map<String?, ForegroundColorSpan>,
@@ -162,8 +156,8 @@ class ParticleColorScheme constructor() : BottomSheetDialogFragment() {
             position: Int
         ) {
             val sample = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ"
-            val mequran = Typeface.createFromAsset(context!!.getAssets(), "me_quran.ttf")
-            val qalam = Typeface.createFromAsset(context!!.getAssets(), "AlQalam.ttf")
+            val mequran = Typeface.createFromAsset(context!!.assets, "me_quran.ttf")
+            val qalam = Typeface.createFromAsset(context!!.assets, "AlQalam.ttf")
             val s = particle!![position]
             val split = s?.split("\\s".toRegex())?.dropLastWhile { it.isEmpty() }
                 ?.toTypedArray()
@@ -172,8 +166,8 @@ class ParticleColorScheme constructor() : BottomSheetDialogFragment() {
 
 
             sp.setSpan(foregroundColorSpan, 0, s!!.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            holder.text.setText(sp)
-            holder.text.setTextSize(20f)
+            holder.text.text = sp
+            holder.text.textSize = 20f
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -195,13 +189,9 @@ class ParticleColorScheme constructor() : BottomSheetDialogFragment() {
     }
 
     companion object {
-        // TODO: Customize parameter argument names
-        private val ARG_OPTIONS_DATA: String = "item_count"
-
         // TODO: Customize parameters
         fun newInstance(): ParticleColorScheme {
-            val fragment: ParticleColorScheme = ParticleColorScheme()
-            return fragment
+            return ParticleColorScheme()
         }
     }
 }

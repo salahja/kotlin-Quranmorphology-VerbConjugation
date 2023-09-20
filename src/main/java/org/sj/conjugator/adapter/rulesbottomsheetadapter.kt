@@ -1,6 +1,5 @@
 package org.sj.conjugator.adapter
 
-import android.content.Context
 import android.graphics.Typeface
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
@@ -33,34 +32,10 @@ class CustomRecyclerAdapter constructor(
     // ...
 }
  */
-class rulesbottomsheetadapter constructor( private val context: Context?
-                                     ) :
+class rulesbottomsheetadapter :
     RecyclerView.Adapter<rulesbottomsheetadapter.ViewHolder>() {
-
-
-
-
-    private val madhi = ArrayList<String>()
-    var rootcolor = 0
-    var weaknesscolor = 0
-    var wazancolor = 0
     var bookmarkpostion = 0
     var mItemClickListener: OnItemClickListener? = null
-
-    //    private final Integer arabicTextColor;
-    var mycontext: Context? = null
-    var ismzaftitle = "(الْظَرْف:)"
-    var ismalatitle = "( الآلَة:)"
-    var alaheader = "اِسْم الآلَة"
-    var zarfheader = "اِسْم الْظَرفْ"
-    private val mazeedregular = false
-    private val bookChapterno = 0
-    private val bookVerseno = 0
-    private val ayahNumber: Int? = null
-    private val urdu_font_selection: String? = null
-    private val quran_arabic_font = 0
-    private val urdu_font_size = 0
-    private val arabic_font_selection: String? = null
     private var kovArrayList = ArrayList<kov>()
 
 
@@ -88,7 +63,7 @@ class rulesbottomsheetadapter constructor( private val context: Context?
         val fonts = prefs.getString("Arabic_Font_Size", "25")
 
         val mequran = Typeface.createFromAsset(
-            QuranGrammarApplication.context!!.getAssets(),
+            QuranGrammarApplication.context!!.assets,
             "me_quran.ttf"
         )
         val arabicFontsize = Integer.valueOf(fonts)
@@ -99,7 +74,7 @@ class rulesbottomsheetadapter constructor( private val context: Context?
 
 
         holder.rulenumber.textSize = arabicFontsize.toFloat()
-        holder.rulenumber.setTypeface(mequran)
+        holder.rulenumber.typeface = mequran
     }
 
     override fun getItemId(position: Int): Long {
@@ -119,15 +94,11 @@ class rulesbottomsheetadapter constructor( private val context: Context?
         this.mItemClickListener = mItemClickListener
     }
 
-    fun setVerbArrayList(sarfsagheer: ArrayList<kov>) {
-        kovArrayList = sarfsagheer
-    }
-
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view),
         View.OnClickListener // current clickListerner
     {
         val rulenumber: TextView
-        val rulename: TextView
+        private val rulename: TextView
 
         init {
             //    itemView.setTag(this);

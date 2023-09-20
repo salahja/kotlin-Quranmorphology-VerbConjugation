@@ -21,13 +21,11 @@ import ru.dimorinny.floatingtextbutton.FloatingTextButton
 
 class FragmentIsmZarf : Fragment() {
     var recyclerView: RecyclerView? = null
-    var isAugmented = false
-    var isUnAugmented = false
+    private var isAugmented = false
+    private var isUnAugmented = false
     private lateinit var callButton: FloatingTextButton
     private lateinit  var layoutManager: LinearLayoutManager
     private   var skabeer = ArrayList<ArrayList<*>>()
-    private   val getsarfsagheer: ArrayList<ArrayList<*>>? = null
-    private   val verbformmazeed = 0
     private lateinit var verbformthulathi: String
     private lateinit   var augmentedFormula: String
     private   lateinit var unaugmentedFormula: String
@@ -56,17 +54,17 @@ class FragmentIsmZarf : Fragment() {
             val callingfragment = dataBundle.getString(MUJARRADVERBTAG)
             if (callingfragment != null) {
                 if (callingfragment == "tverblist") {
-                    callButton.setVisibility(View.VISIBLE)
+                    callButton.visibility = View.VISIBLE
                 } else {
-                    callButton.setVisibility(View.GONE)
+                    callButton.visibility = View.GONE
                 }
             } else {
-                callButton.setVisibility(View.GONE)
+                callButton.visibility = View.GONE
             }
         }
-        callButton.setOnClickListener(View.OnClickListener {
+        callButton.setOnClickListener({
             val fm = activity
-                ?.getSupportFragmentManager()
+                ?.supportFragmentManager
             if (fm != null) {
                 fm.popBackStack()
             }
@@ -82,11 +80,11 @@ class FragmentIsmZarf : Fragment() {
         verbroot = dataBundle.getString(QURAN_VERB_ROOT)!!
         verbmood = dataBundle.getString(VERBMOOD)!!
         recyclerView = view.findViewById(R.id.sarfrecview)
-        skabeer = setUparrays(view)
+        skabeer = setUparrays()
         return view
     }
 
-    private fun setUparrays(view: View): ArrayList<ArrayList<*>> {
+    private fun setUparrays(): ArrayList<ArrayList<*>> {
         if (isUnAugmented) {
             ninitThulathiAdapter()
         } else {
@@ -100,7 +98,7 @@ class FragmentIsmZarf : Fragment() {
     private fun ninitThulathiAdapter() {
         val mujarradListing: ArrayList<ArrayList<*>> =
             GatherAll.instance.getMujarradZarf(verbroot, unaugmentedFormula)
-        if (!mujarradListing.isEmpty()) {
+        if (mujarradListing.isNotEmpty()) {
             val ska = IsmZarffKabeerAdapter(mujarradListing, requireContext())
             recyclerView!!.adapter = ska
             recyclerView!!.setHasFixedSize(true)
@@ -110,8 +108,7 @@ class FragmentIsmZarf : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView: RecyclerView
-        recyclerView = view.findViewById(R.id.sarfrecview)
+        val recyclerView: RecyclerView = view.findViewById(R.id.sarfrecview)
         layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
         val ref: ImageView
@@ -119,11 +116,6 @@ class FragmentIsmZarf : Fragment() {
         //dismiss(ref);
     }
 
-    private fun dismiss(ref: ImageView) {
-        ref.setOnClickListener { val s = "tagone" }
-    }
-
     companion object {
-        private const val TAG = "PermissionDemo"
     }
 }

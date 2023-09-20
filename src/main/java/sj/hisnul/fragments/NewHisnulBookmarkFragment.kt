@@ -148,16 +148,6 @@ class NewHisnulBookmarkFragment : Fragment(), AdapterView.OnItemClickListener {
         })
     }
 
-
-    private fun loadFragments(fragment: Fragment, fragtag: String) {
-        // load fragment
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            .setCustomAnimations(R.anim.left_slide, android.R.anim.fade_out)
-        transaction.replace(R.id.frame_container, fragment)
-        transaction.addToBackStack(fragtag)
-        transaction.commit()
-    }
-
     companion object {
         fun newInstance(): NewHisnulBookmarkFragment {
             return NewHisnulBookmarkFragment()

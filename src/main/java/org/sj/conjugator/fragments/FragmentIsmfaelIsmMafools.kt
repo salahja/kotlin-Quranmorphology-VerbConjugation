@@ -20,9 +20,8 @@ import ru.dimorinny.floatingtextbutton.FloatingTextButton
 
 class FragmentIsmfaelIsmMafools : Fragment() {
     var recyclerView: RecyclerView? = null
-    var regularverb = false
-    var isAugmented = false
-    var isUnAugmented = false
+    private var isAugmented = false
+    private var isUnAugmented = false
     private var skabeer = ArrayList<ArrayList<*>>()
     private var augmentedFormula: String? = null
     private var unaugmentedFormula: String? = null
@@ -64,7 +63,7 @@ class FragmentIsmfaelIsmMafools : Fragment() {
         }
         callButton.setOnClickListener {
             val fm = activity
-                ?.getSupportFragmentManager()
+                ?.supportFragmentManager
             if (fm != null) {
                 fm.popBackStack()
             }
@@ -97,7 +96,7 @@ class FragmentIsmfaelIsmMafools : Fragment() {
     private fun initMazeedAdapterNew() {
         val arrayLists: ArrayList<ArrayList<*>> =
             GatherAll.instance.buildAugmenteParticiples(verbroot!!, augmentedFormula!!)
-        if (!arrayLists.isEmpty()) {
+        if (arrayLists.isNotEmpty()) {
             val ska = IsmFaelIsmMafoolSarfKabeerAdapter(arrayLists, requireContext(), false)
             recyclerView!!.adapter = ska
             recyclerView!!.setHasFixedSize(true)
@@ -108,7 +107,7 @@ class FragmentIsmfaelIsmMafools : Fragment() {
     private fun ninitThulathiAdapter() {
         val mujarradListing: ArrayList<ArrayList<*>> =
             GatherAll.instance.getMujarradParticiple(verbroot, unaugmentedFormula)
-        if (!mujarradListing.isEmpty()) {
+        if (mujarradListing.isNotEmpty()) {
             val newsarf = true
             val ska = IsmFaelIsmMafoolSarfKabeerAdapter(mujarradListing, requireContext(), newsarf)
             recyclerView!!.adapter = ska
@@ -119,14 +118,12 @@ class FragmentIsmfaelIsmMafools : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView: RecyclerView
-        recyclerView = view.findViewById(R.id.sarfrecview)
+        val recyclerView: RecyclerView = view.findViewById(R.id.sarfrecview)
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
         var ref: ImageView
     }
 
     companion object {
-        private const val TAG = "PermissionDemo"
     }
 }

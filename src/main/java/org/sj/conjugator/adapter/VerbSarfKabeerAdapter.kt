@@ -18,7 +18,6 @@ class VerbSarfKabeerAdapter(
     private val context: Context
 ) :
     RecyclerView.Adapter<VerbSarfKabeerAdapter.ViewHolder>() {
-    private val madhi = ArrayList<String>()
     var bookmarkpostion = 0
     var mItemClickListener: OnItemClickListener? = null
     private var arabicTypeface: Typeface? = null
@@ -34,8 +33,7 @@ class VerbSarfKabeerAdapter(
             )
         defaultfont = prefs.getBoolean("default_font", true)
         aBoolean = prefs.getBoolean("sarfkabeer_format_verb", true)
-        val view: View
-        view = if (aBoolean) {
+        val view: View = if (aBoolean) {
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.newverbsarfkabeertraditional, parent, false)
         } else {
@@ -83,20 +81,20 @@ class VerbSarfKabeerAdapter(
         holder.antunnaid!!.text = array[11]
         holder.anaid!!.text = array[12]
         holder.nahnuid!!.text = array[13]
-        holder.huaid.setTypeface(arabicTypeface) //(array[0]);
-        holder.humamid.setTypeface(arabicTypeface) //(array[1]);
-        holder.humid.setTypeface(arabicTypeface) //(array[2]);
-        holder.hiaid.setTypeface(arabicTypeface) //(array[3]);
-        holder.humafid.setTypeface(arabicTypeface) //(array[4]);
-        holder.hunnaid.setTypeface(arabicTypeface) //(array[5]);
-        holder.antaid.setTypeface(arabicTypeface) //(array[6]);
-        holder.antumamid.setTypeface(arabicTypeface) //(array[7]);
-        holder.antumid.setTypeface(arabicTypeface) //(array[8]);
-        holder.antiid.setTypeface(arabicTypeface) //(array[9]);
-        holder.antumafid.setTypeface(arabicTypeface) //(array[10]);
-        holder.antunnaid.setTypeface(arabicTypeface) //(array[11]);
-        holder.anaid.setTypeface(arabicTypeface) //(array[12]);
-        holder.nahnuid.setTypeface(arabicTypeface) //(array[13]);
+        holder.huaid.typeface = arabicTypeface //(array[0]);
+        holder.humamid.typeface = arabicTypeface //(array[1]);
+        holder.humid.typeface = arabicTypeface //(array[2]);
+        holder.hiaid.typeface = arabicTypeface //(array[3]);
+        holder.humafid.typeface = arabicTypeface //(array[4]);
+        holder.hunnaid.typeface = arabicTypeface //(array[5]);
+        holder.antaid.typeface = arabicTypeface //(array[6]);
+        holder.antumamid.typeface = arabicTypeface //(array[7]);
+        holder.antumid.typeface = arabicTypeface //(array[8]);
+        holder.antiid.typeface = arabicTypeface //(array[9]);
+        holder.antumafid.typeface = arabicTypeface //(array[10]);
+        holder.antunnaid.typeface = arabicTypeface //(array[11]);
+        holder.anaid.typeface = arabicTypeface //(array[12]);
+        holder.nahnuid.typeface = arabicTypeface //(array[13]);
     }
 
     private fun AmarNahi(holder: ViewHolder, position: Int) {
@@ -154,12 +152,12 @@ class VerbSarfKabeerAdapter(
             antumaf = sarfSagheer[position][2].toString()
             antunna = sarfSagheer[position][4].toString()
         }
-        holder.nahiamranta.setTypeface(arabicTypeface)
-        holder.nahiamrantuma.setTypeface(arabicTypeface)
-        holder.nahiamrantum.setTypeface(arabicTypeface)
-        holder.nahiamranti.setTypeface(arabicTypeface)
-        holder.nahiamrantumaf.setTypeface(arabicTypeface)
-        holder.nahiamrantunna.setTypeface(arabicTypeface)
+        holder.nahiamranta.typeface = arabicTypeface
+        holder.nahiamrantuma.typeface = arabicTypeface
+        holder.nahiamrantum.typeface = arabicTypeface
+        holder.nahiamranti.typeface = arabicTypeface
+        holder.nahiamrantumaf.typeface = arabicTypeface
+        holder.nahiamrantunna.typeface = arabicTypeface
         holder.nahiamranta.text = anta
         holder.nahiamrantuma.text = antuma
         holder.nahiamrantum.text = antum
@@ -220,12 +218,12 @@ class VerbSarfKabeerAdapter(
             antumaf = sarfSagheer[position][2].toString()
             antunna = sarfSagheer[position][4].toString()
         }
-        holder.amranta.setTypeface(arabicTypeface)
-        holder.amrantuma.setTypeface(arabicTypeface)
-        holder.amrantum.setTypeface(arabicTypeface)
-        holder.amranti.setTypeface(arabicTypeface)
-        holder.amrantumaf.setTypeface(arabicTypeface)
-        holder.amrantunna.setTypeface(arabicTypeface)
+        holder.amranta.typeface = arabicTypeface
+        holder.amrantuma.typeface = arabicTypeface
+        holder.amrantum.typeface = arabicTypeface
+        holder.amranti.typeface = arabicTypeface
+        holder.amrantumaf.typeface = arabicTypeface
+        holder.amrantunna.typeface = arabicTypeface
         holder.amranta.text = anta
         holder.amrantuma.text = antuma
         holder.amrantum.text = antum
@@ -345,20 +343,20 @@ class VerbSarfKabeerAdapter(
         //     FontSIzeSelection(holder);
 //ismfaile
         //   SharedPref.arabicFontSelection();
-        holder.muzmajhua.setTypeface(arabicTypeface)
-        holder.muzmajhuma.setTypeface(arabicTypeface)
-        holder.muzmajhum.setTypeface(arabicTypeface)
-        holder.muzmajhia.setTypeface(arabicTypeface)
-        holder.muzmajhumaf.setTypeface(arabicTypeface)
-        holder.muzmajhunna.setTypeface(arabicTypeface)
-        holder.muzmajanta.setTypeface(arabicTypeface)
-        holder.muzmajantuma.setTypeface(arabicTypeface)
-        holder.muzmajantum.setTypeface(arabicTypeface)
-        holder.muzmajanti.setTypeface(arabicTypeface)
-        holder.muzmajantumaf.setTypeface(arabicTypeface)
-        holder.muzmajantunna.setTypeface(arabicTypeface)
-        holder.muzmajana.setTypeface(arabicTypeface)
-        holder.muzmajnahnu.setTypeface(arabicTypeface)
+        holder.muzmajhua.typeface = arabicTypeface
+        holder.muzmajhuma.typeface = arabicTypeface
+        holder.muzmajhum.typeface = arabicTypeface
+        holder.muzmajhia.typeface = arabicTypeface
+        holder.muzmajhumaf.typeface = arabicTypeface
+        holder.muzmajhunna.typeface = arabicTypeface
+        holder.muzmajanta.typeface = arabicTypeface
+        holder.muzmajantuma.typeface = arabicTypeface
+        holder.muzmajantum.typeface = arabicTypeface
+        holder.muzmajanti.typeface = arabicTypeface
+        holder.muzmajantumaf.typeface = arabicTypeface
+        holder.muzmajantunna.typeface = arabicTypeface
+        holder.muzmajana.typeface = arabicTypeface
+        holder.muzmajnahnu.typeface = arabicTypeface
         holder.muzmajhua.text = hua
         holder.muzmajhuma.text = huma
         holder.muzmajhum.text = hum
@@ -582,20 +580,20 @@ class VerbSarfKabeerAdapter(
             ana = sarfSagheer[position][11].toString()
             nahnu = sarfSagheer[position][12].toString()
         }
-        holder.madimajhua.setTypeface(arabicTypeface)
-        holder.madimajhuma.setTypeface(arabicTypeface)
-        holder.madimajhum.setTypeface(arabicTypeface)
-        holder.madimajhia.setTypeface(arabicTypeface)
-        holder.madimajhumaf.setTypeface(arabicTypeface)
-        holder.madimajhunna.setTypeface(arabicTypeface)
-        holder.madimajanta.setTypeface(arabicTypeface)
-        holder.madimajantuma.setTypeface(arabicTypeface)
-        holder.madimajantum.setTypeface(arabicTypeface)
-        holder.madimajanti.setTypeface(arabicTypeface)
-        holder.madimajantumaf.setTypeface(arabicTypeface)
-        holder.madimajantunna.setTypeface(arabicTypeface)
-        holder.madimajana.setTypeface(arabicTypeface)
-        holder.madimajnahnu.setTypeface(arabicTypeface)
+        holder.madimajhua.typeface = arabicTypeface
+        holder.madimajhuma.typeface = arabicTypeface
+        holder.madimajhum.typeface = arabicTypeface
+        holder.madimajhia.typeface = arabicTypeface
+        holder.madimajhumaf.typeface = arabicTypeface
+        holder.madimajhunna.typeface = arabicTypeface
+        holder.madimajanta.typeface = arabicTypeface
+        holder.madimajantuma.typeface = arabicTypeface
+        holder.madimajantum.typeface = arabicTypeface
+        holder.madimajanti.typeface = arabicTypeface
+        holder.madimajantumaf.typeface = arabicTypeface
+        holder.madimajantunna.typeface = arabicTypeface
+        holder.madimajana.typeface = arabicTypeface
+        holder.madimajnahnu.typeface = arabicTypeface
         holder.madimajhua.text = hua
         holder.madimajhuma.text = huma
         holder.madimajhum.text = hum
@@ -720,20 +718,20 @@ class VerbSarfKabeerAdapter(
             ana = sarfSagheer[position][11].toString()
             nahnu = sarfSagheer[position][12].toString()
         }
-        holder.muzhua.setTypeface(arabicTypeface)
-        holder.muzhuma.setTypeface(arabicTypeface)
-        holder.muzhum.setTypeface(arabicTypeface)
-        holder.muzhia.setTypeface(arabicTypeface)
-        holder.muzhumaf.setTypeface(arabicTypeface)
-        holder.muzhunna.setTypeface(arabicTypeface)
-        holder.muzanta.setTypeface(arabicTypeface)
-        holder.muzantuma.setTypeface(arabicTypeface)
-        holder.muzantum.setTypeface(arabicTypeface)
-        holder.muzanti.setTypeface(arabicTypeface)
-        holder.muzantumaf.setTypeface(arabicTypeface)
-        holder.muzantunna.setTypeface(arabicTypeface)
-        holder.muzana.setTypeface(arabicTypeface)
-        holder.muznahnu.setTypeface(arabicTypeface)
+        holder.muzhua.typeface = arabicTypeface
+        holder.muzhuma.typeface = arabicTypeface
+        holder.muzhum.typeface = arabicTypeface
+        holder.muzhia.typeface = arabicTypeface
+        holder.muzhumaf.typeface = arabicTypeface
+        holder.muzhunna.typeface = arabicTypeface
+        holder.muzanta.typeface = arabicTypeface
+        holder.muzantuma.typeface = arabicTypeface
+        holder.muzantum.typeface = arabicTypeface
+        holder.muzanti.typeface = arabicTypeface
+        holder.muzantumaf.typeface = arabicTypeface
+        holder.muzantunna.typeface = arabicTypeface
+        holder.muzana.typeface = arabicTypeface
+        holder.muznahnu.typeface = arabicTypeface
         holder.muzhua.text = hua
         holder.muzhuma.text = huma
         holder.muzhum.text = hum
@@ -862,8 +860,7 @@ class VerbSarfKabeerAdapter(
             context
         )
         val language = sharedPreferences.getString("lan", "en")
-        val arrayheadings: Array<String>
-        arrayheadings =
+        val arrayheadings: Array<String> =
             if (language == "en") context.resources.getStringArray(R.array.enverbheadings) else {
                 context.resources.getStringArray(R.array.arverbheadings)
             }
@@ -874,20 +871,20 @@ class VerbSarfKabeerAdapter(
         holder.presentpassive.text = arrayheadings[4]
         holder.command.text = arrayheadings[5]
         holder.negcommand.text = arrayheadings[6]
-        holder.madhihua.setTypeface(arabicTypeface)
+        holder.madhihua.typeface = arabicTypeface
         //        holder.madhihuma.setTypeface(arabicTypeface);
-        holder.madhihum.setTypeface(arabicTypeface)
-        holder.madhihia.setTypeface(arabicTypeface)
-        holder.madhihumaf.setTypeface(arabicTypeface)
-        holder.madhihunna.setTypeface(arabicTypeface)
-        holder.madhianta.setTypeface(arabicTypeface)
-        holder.madhiantuma.setTypeface(arabicTypeface)
-        holder.madhiantum.setTypeface(arabicTypeface)
-        holder.madhianti.setTypeface(arabicTypeface)
-        holder.madhiantunna.setTypeface(arabicTypeface)
-        holder.madhiantumaf.setTypeface(arabicTypeface)
-        holder.madhiana.setTypeface(arabicTypeface)
-        holder.madhinahnu.setTypeface(arabicTypeface)
+        holder.madhihum.typeface = arabicTypeface
+        holder.madhihia.typeface = arabicTypeface
+        holder.madhihumaf.typeface = arabicTypeface
+        holder.madhihunna.typeface = arabicTypeface
+        holder.madhianta.typeface = arabicTypeface
+        holder.madhiantuma.typeface = arabicTypeface
+        holder.madhiantum.typeface = arabicTypeface
+        holder.madhianti.typeface = arabicTypeface
+        holder.madhiantunna.typeface = arabicTypeface
+        holder.madhiantumaf.typeface = arabicTypeface
+        holder.madhiana.typeface = arabicTypeface
+        holder.madhinahnu.typeface = arabicTypeface
         holder.madhihua.text = hua
         holder.madhihua.text = hua
         holder.madhihuma.text = huma
@@ -921,10 +918,6 @@ class VerbSarfKabeerAdapter(
 
     fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
         this.mItemClickListener = mItemClickListener
-    }
-
-    fun setVerbArrayList(sarfsagheer: ArrayList<ArrayList<*>>) {
-        sarfSagheer = sarfsagheer
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view),

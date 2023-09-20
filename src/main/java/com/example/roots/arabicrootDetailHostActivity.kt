@@ -10,21 +10,21 @@ import com.example.mushafconsolidated.R
 import com.google.android.material.appbar.MaterialToolbar
 
 class arabicrootDetailHostActivity : BaseActivity() {
-    protected override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_arabicroot_detail)
-        val bundle: Bundle? = getIntent().getExtras()
+        val bundle: Bundle? = intent.extras
         val wordorverb: String? = bundle?.getString(WORDDETAILS)
         val arguments = Bundle()
         arguments.putString(WORDDETAILS, wordorverb)
         val toolbar: MaterialToolbar = findViewById(R.id.toolbar_layout)
-        toolbar.setTitle("Root List")
+        toolbar.title = "Root List"
         if (wordorverb == "word") {
-            toolbar.setTitle("Root List(Nouns/Verbs")
+            toolbar.title = "Root List(Nouns/Verbs"
         } else {
-            toolbar.setTitle("Verb Root List")
+            toolbar.title = "Verb Root List"
         }
-        val fragmentManager: FragmentManager = getSupportFragmentManager()
+        val fragmentManager: FragmentManager = supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
         transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
         val newCustomFragment = arabicrootListFragment.newInstance(wordorverb)
