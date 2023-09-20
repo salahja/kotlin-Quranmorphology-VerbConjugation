@@ -30,7 +30,7 @@ class Ajwaf1Vocalizer : TrilateralNounSubstitutionApplier(), IAugmentedTrilatera
         substitutions.add(InfixSubstitution("َوِ", "َا")) // EX: (مُنْقادٌ، مُقْتادٌ)
     }
 
-    override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
+     fun isApplieds(mazeedConjugationResult: MazeedConjugationResult): Boolean {
         val kov = mazeedConjugationResult.kov
         val formulaNo = mazeedConjugationResult.formulaNo
         when (kov) {
@@ -39,7 +39,7 @@ class Ajwaf1Vocalizer : TrilateralNounSubstitutionApplier(), IAugmentedTrilatera
                     4, 5, 9 -> return true
                 }
                 when (formulaNo) {
-                    1, 5, 9 -> return true
+                    1,  -> return true
                 }
                 when (formulaNo) {
                     1, 4, 5, 9 -> return true
@@ -52,6 +52,35 @@ class Ajwaf1Vocalizer : TrilateralNounSubstitutionApplier(), IAugmentedTrilatera
                 }
                 when (formulaNo) {
                     1, 4, 5, 9 -> return true
+                }
+            }
+
+            17 -> when (formulaNo) {
+                1, 4, 5, 9 -> return true
+            }
+        }
+        return false
+    }
+    override fun isApplied(mazeedConjugationResult: MazeedConjugationResult): Boolean {
+        val kov = mazeedConjugationResult.kov
+        val formulaNo = mazeedConjugationResult.formulaNo
+        when (kov) {
+            15 -> {
+                when (formulaNo) {
+                    4, 5, 9 -> return true
+                }
+                when (formulaNo) {
+                    1, -> return true
+                }
+
+            }
+
+            16 -> {
+                when (formulaNo) {
+                    1, 5, 9 -> return true
+                }
+                when (formulaNo) {
+                   4,  -> return true
                 }
             }
 

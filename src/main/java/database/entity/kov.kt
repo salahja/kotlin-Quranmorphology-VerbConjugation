@@ -11,7 +11,4 @@ class kov(var c1: String ,  var c2: String,
           var example: String ,
 
           @PrimaryKey(autoGenerate = true)
-          var id: Int = 0) {
-
-
-}
+          var id: Int = 0)

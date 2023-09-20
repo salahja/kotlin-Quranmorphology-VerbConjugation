@@ -27,7 +27,7 @@ class UnaugmentedTrilateralActiveParticipleConjugator private constructor() :
         suffixIndex: Int
     ): UnaugmentedTrilateralActiveParticiple {
         val suffix = GenericNounSuffixContainer.getInstance()[suffixIndex]
-        return UnaugmentedTrilateralActiveParticiple(root!!, suffix)
+        return UnaugmentedTrilateralActiveParticiple(root!!, suffix!!)
     }
 
     override fun createNounList(root: UnaugmentedTrilateralRoot, formulaName: String): List<*> {
