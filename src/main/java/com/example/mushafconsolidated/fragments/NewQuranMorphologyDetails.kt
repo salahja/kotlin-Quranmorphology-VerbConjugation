@@ -15,25 +15,23 @@ import com.example.utility.CorpusUtilityorig.Companion.NewSetWordSpanTag
 import java.util.Objects
 
 
-open class NewQuranMorphologyDetails {
+open class NewQuranMorphologyDetails(
+    corpusSurahWord: List<QuranCorpusWbw>,
+    corpusNounWord: ArrayList<NounCorpus>?,
+    verbCorpuses: ArrayList<VerbCorpus>?,
+    context: Context?
+                                    ) {
     open var form = 0
     open var Thulathi: String? = null
 
     // --Commented out by Inspection (16/08/23, 1:44 pm):private CorpusWbwWord word;
-    private var corpusNoun: ArrayList<NounCorpus>? = null
+    private var corpusNoun: ArrayList<NounCorpus>? = corpusNounWord
     //  private var corpusSurahWord: ArrayList<NewCorpusExpandWbwPOJO>? = null
     private var corpusSurahWord: ArrayList<QuranCorpusWbw>? = null
-    private var verbcorpusform: ArrayList<VerbCorpus>? = null
+    private var verbcorpusform: ArrayList<VerbCorpus>? = verbCorpuses
 
-    constructor(
-        corpusSurahWord: List<QuranCorpusWbw>,
-        corpusNounWord: ArrayList<NounCorpus>?,
-        verbCorpuses: ArrayList<VerbCorpus>?,
-        context: Context?
-    ) {
+    init {
         this.corpusSurahWord = corpusSurahWord as ArrayList<QuranCorpusWbw>
-        verbcorpusform = verbCorpuses
-        corpusNoun = corpusNounWord
     }
 
 
@@ -122,6 +120,16 @@ open class NewQuranMorphologyDetails {
                     "IND" -> {
                         vbdetail["mood"] = verbfeaturesenglisharabic.IND
                         vbdetail["verbmood"] = "Indicative"
+
+
+
+                            if(  corpusSurahWord!![0].corpus.wordcount==3){
+                                if(corpusSurahWord!![0].corpus.detailsone!!.contains("EMPH") && corpusSurahWord!![0].corpus.detailsone!!.contains("EMPH")){
+                                    vbdetail["emph"]="EMPH"
+                                }
+
+                            }
+
                     }
 
                     "JUS" -> {
@@ -133,6 +141,7 @@ open class NewQuranMorphologyDetails {
                         vbdetail["mood"] = verbfeaturesenglisharabic.SUBJ
                         vbdetail["verbmood"] = "Subjunctive"
                     }
+
                 }
             }
             vbdetail["lemma"] = verbcorpusform!![0].lemma_a
@@ -582,15 +591,24 @@ open class NewQuranMorphologyDetails {
             )
             val one: Int = corpusSurahWord[0].corpus.araone!!.length //2
             val two: Int = corpusSurahWord[0].corpus.aratwo!!.length //3
+            var expandTagsthree=""
             val expandTagsone = expandTags(
                 corpusSurahWord[0].corpus.tagone!!
             )
             val expandTagstwo = expandTags(
                 corpusSurahWord[0].corpus.tagtwo!!
             )
-            val expandTagsthree = expandTags(
-                corpusSurahWord[0].corpus.tagthree!!
-            )
+
+            expandTagsthree =
+                if( corpusSurahWord[0].corpus.detailsthree!!.contains("SUFFIX|+n:EMPH")){
+                    "EMPH – emphatic suffix nūn"
+                }else {
+                    expandTags(
+                        corpusSurahWord[0].corpus.tagthree!!
+                              )
+                }
+
+
             sb.append(corpusSurahWord[0].corpus.tagthree)
             sb.append("|")
             sb.append(corpusSurahWord[0].corpus.tagtwo)

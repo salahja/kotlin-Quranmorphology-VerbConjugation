@@ -29,7 +29,7 @@ class NewAjroomiyaDetailHostActivity : BaseActivity() {
         val bundle1 = Bundle()
         bundle1.putInt("chap_id", 1)
         bundle1.putBoolean("cattwo", false)
-        val fragvsi: Fragment = newAjroomiyaListFragment.newInstance()
+        val fragvsi: Fragment = NewAjroomiyaListFragment.newInstance()
         fragvsi.arguments = bundle1
         val transaction: FragmentTransaction = getSupportFragmentManager().beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)

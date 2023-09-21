@@ -37,7 +37,7 @@ import com.google.android.material.chip.Chip
 import org.sj.conjugator.fragments.SarfSagheer
 
 
-class newRootWordDisplayAdapter(
+class NewRootWordDisplayAdapter(
     private  var context: Context,
     haliaSentence: ArrayList<HalEnt>?,
     tameez: ArrayList<TameezEnt>?,
@@ -58,7 +58,7 @@ class newRootWordDisplayAdapter(
     thulathiSarfSagheer: Boolean,
     sarfSagheerList: ArrayList<SarfSagheer>?
                                ) :
-    RecyclerView.Adapter<newRootWordDisplayAdapter.ItemViewAdapter>() {
+    RecyclerView.Adapter<NewRootWordDisplayAdapter.ItemViewAdapter>() {
     var mItemClickListener: OnItemClickListener? = null
     private val alaheader: String = "اِسْم الآلَة"
     private val zarfheader: String = "اِسْم الْظَرفْ"
@@ -113,7 +113,7 @@ class newRootWordDisplayAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): newRootWordDisplayAdapter.ItemViewAdapter {
+    ): NewRootWordDisplayAdapter.ItemViewAdapter {
         val view: View
         if (isverbconjugation) {
           isviewtype=1
@@ -136,7 +136,7 @@ class newRootWordDisplayAdapter(
     }
 
     override fun onBindViewHolder(
-        holder: newRootWordDisplayAdapter.ItemViewAdapter,
+        holder: NewRootWordDisplayAdapter.ItemViewAdapter,
         position: Int,
     ) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
@@ -215,7 +215,7 @@ class newRootWordDisplayAdapter(
             }
         }
         val mequran: Typeface = Typeface.createFromAsset(context.assets, quranFont)
-        Log.d(newRootWordDisplayAdapter.TAG, "onBindViewHolder: called")
+        Log.d(NewRootWordDisplayAdapter.TAG, "onBindViewHolder: called")
         if ((theme == "dark") || (theme == "blue") || (theme == "green")) {
             rootcolor = Constant.BYELLOW
             weaknesscolor = Constant.BCYAN
@@ -430,17 +430,17 @@ class newRootWordDisplayAdapter(
         holder.wdetailstv.textSize = 16f
         if (worddetails["lemma"] != null || worddetails["lemma"]!!.isNotEmpty()) {
             holder.lemma.visibility = View.VISIBLE
-            holder.lemma.text = newRootWordDisplayAdapter.LEMMA + worddetails.get("lemma")
+            holder.lemma.text = NewRootWordDisplayAdapter.LEMMA + worddetails.get("lemma")
             //        holder.lemma.setTextSize(arabicFontsize);
         }
         if (worddetails["root"] != null) {
-            holder.rootView.text = newRootWordDisplayAdapter.ROOTWORDSTRING + worddetails.get(
+            holder.rootView.text = NewRootWordDisplayAdapter.ROOTWORDSTRING + worddetails.get(
                 "root"
                                                                                              )
             //    holder.rootView.setTextSize(arabicFontsize);
         }
         if (vbdetail["root"] != null) {
-            holder.rootView.text = newRootWordDisplayAdapter.ROOTWORDSTRING + vbdetail.get(
+            holder.rootView.text = NewRootWordDisplayAdapter.ROOTWORDSTRING + vbdetail.get(
                 "root"
                                                                                           )
             //    holder.rootView.setTextSize(arabicFontsize);
@@ -472,18 +472,18 @@ class newRootWordDisplayAdapter(
            holder.rootword?.text = sagheer.verbroot
            holder.babdetails?.text = sagheer.wazanname
         }
-        FontSizeSelection(holder)
+        fontSizeSelection(holder)
         Fonttypeface(holder)
         //   VerbHeader(holder);
         if (particples) {
-            SetTypeFace(holder)
-            IsmFael(holder)
-            IsmFaelFem(holder)
-            IsmMafool(holder)
-            IsmMafoolFem(holder)
+            setTypeFace(holder)
+            ismFael(holder)
+            ismFaelFem(holder)
+            ismMafool(holder)
+            ismMafoolFem(holder)
             gcase(holder)
             ismfaelmafoolnumbers(holder)
-            FontSIzeSelection(holder)
+            fontSIzeSelection(holder)
             val array: Array<String>
             val language: String? = sharedPreferences.getString("lan", "en")
             array = if ((language == "en")) {
@@ -509,7 +509,7 @@ class newRootWordDisplayAdapter(
         return corpusexpand.size
     }
 
-    private fun gcase(holder: newRootWordDisplayAdapter.ItemViewAdapter) {
+    private fun gcase(holder: NewRootWordDisplayAdapter.ItemViewAdapter) {
         val sharedPreferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context!!)
         //  String theme = sharedPreferences.getString("theme", 1);
@@ -535,7 +535,7 @@ class newRootWordDisplayAdapter(
         holder.gen3?.text = array.get(2)
     }
 
-    private fun ismfaelmafoolnumbers(holder: newRootWordDisplayAdapter.ItemViewAdapter) {
+    private fun ismfaelmafoolnumbers(holder: NewRootWordDisplayAdapter.ItemViewAdapter) {
         val language: String? = sharedPreferences.getString("lan", "en")
         val isTraditional: Boolean = true
         val array: Array<String>
@@ -556,8 +556,8 @@ class newRootWordDisplayAdapter(
         holder.plu4?.text = array.get(2)
     }
 
-    private fun IsmFael(
-        holder: newRootWordDisplayAdapter.ItemViewAdapter,
+    private fun ismFael(
+        holder: NewRootWordDisplayAdapter.ItemViewAdapter,
                        ) {
         val iisone: String = ismfaelmafool[0][0].toString() //isone);
         val iistwo: String = ismfaelmafool[0][2].toString() //istwo);
@@ -568,8 +568,8 @@ class newRootWordDisplayAdapter(
         val iisseven: String = ismfaelmafool[0][12].toString() //isseven);
         val iiseight: String = ismfaelmafool[0][14].toString() //iseight);
         val iisnine: String = ismfaelmafool[0][16].toString() //isnine);
-        FontSIzeSelection(holder)
-        SetTypeFace(holder)
+        fontSIzeSelection(holder)
+        setTypeFace(holder)
         holder.isone?.text = iisone
         holder.istwo?.text = iistwo
         holder.isthree?.text = iisthree
@@ -581,8 +581,8 @@ class newRootWordDisplayAdapter(
         holder.isnine?.text = iisnine
     }
 
-    private fun IsmFaelFem(
-        holder: newRootWordDisplayAdapter.ItemViewAdapter,
+    private fun ismFaelFem(
+        holder: NewRootWordDisplayAdapter.ItemViewAdapter,
                           ) {
         val iisone: String = ismfaelmafool[1][1].toString() //isone);
         val iistwo: String = ismfaelmafool[1][3].toString() //istwo);
@@ -593,8 +593,8 @@ class newRootWordDisplayAdapter(
         val iisseven: String = ismfaelmafool[1][13].toString() //isseven);
         val iiseight: String = ismfaelmafool[1][15].toString() //iseight);
         val iisnine: String = ismfaelmafool[1][17].toString() //isnine);
-        FontSIzeSelection(holder)
-        SetTypeFace(holder)
+        fontSIzeSelection(holder)
+        setTypeFace(holder)
         holder.ismfemone?.text = iisone
         holder.ismfemtwo?.text = iistwo
         holder.ismfemthree?.text = iisthree
@@ -606,7 +606,7 @@ class newRootWordDisplayAdapter(
         holder.ismfemnine?.text = iisnine
     }
 
-    private fun IsmMafoolFem(holder: newRootWordDisplayAdapter.ItemViewAdapter) {
+    private fun ismMafoolFem(holder: NewRootWordDisplayAdapter.ItemViewAdapter) {
         val smafone: String = ismfaelmafool[1][1].toString()
         val smaftwo: String = ismfaelmafool[1][3].toString() //imaftwo);
         val smafthree: String = ismfaelmafool[1][5].toString() //imafthree);
@@ -616,8 +616,8 @@ class newRootWordDisplayAdapter(
         val smafseven: String = ismfaelmafool[1][13].toString() //imafseven);
         val smafeight: String = ismfaelmafool[1][15].toString() //imafeight);
         val smafnine: String = ismfaelmafool[1][17].toString() //imafnine);
-        FontSIzeSelection(holder)
-        SetTypeFace(holder)
+        fontSIzeSelection(holder)
+        setTypeFace(holder)
         holder.imafoolfemone?.text = smafone
         holder.imafoolfemtwo?.text = smaftwo
         holder.imafoolfemthree?.text = smafthree
@@ -629,8 +629,8 @@ class newRootWordDisplayAdapter(
         holder.imafoolfemnine?.text = smafnine
     }
 
-    private fun IsmMafool(
-        holder: newRootWordDisplayAdapter.ItemViewAdapter,
+    private fun ismMafool(
+        holder: NewRootWordDisplayAdapter.ItemViewAdapter,
                          ) {
         val smafone: String = ismfaelmafool[0][0].toString()
         val smaftwo: String = ismfaelmafool[0][2].toString() //imaftwo);
@@ -641,8 +641,8 @@ class newRootWordDisplayAdapter(
         val smafseven: String = ismfaelmafool[0][12].toString() //imafseven);
         val smafeight: String = ismfaelmafool[0][14].toString() //imafeight);
         val smafnine: String = ismfaelmafool[0][16].toString() //imafnine);
-        FontSIzeSelection(holder)
-        SetTypeFace(holder)
+        fontSIzeSelection(holder)
+        setTypeFace(holder)
         holder.imafone?.text = smafone
         holder.imaftwo?.text = smaftwo
         holder.imafthree?.text = smafthree
@@ -654,7 +654,7 @@ class newRootWordDisplayAdapter(
         holder.imafnine?.text = smafnine
     }
 
-    private fun SetTypeFace(holder: newRootWordDisplayAdapter.ItemViewAdapter) {
+    private fun setTypeFace(holder: NewRootWordDisplayAdapter.ItemViewAdapter) {
         //  final Typeface arabicTypeface = Typeface.createFromAsset(context.getAssets(), "Pdms.ttf");
         //  Typeface arabicTypeface = Typeface.createFromAsset(context.getAssets(), SharedPref.arabicFontSelection());
         //  Typeface arabicTypeface = Typeface.createFromAsset(QuranGrammarApplication.context!!.getAssets(), "Taha.ttf");
@@ -735,7 +735,7 @@ class newRootWordDisplayAdapter(
         holder.isnine?.typeface = arabicTypeface //;//iisnine);
     }
 
-    private fun FontSIzeSelection(holder: newRootWordDisplayAdapter.ItemViewAdapter) {
+    private fun fontSIzeSelection(holder: NewRootWordDisplayAdapter.ItemViewAdapter) {
         val sharedPreferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context!!)
         val arabicFontsize: Int = sharedPreferences.getInt("pref_font_arabic_key", 20)
@@ -804,7 +804,7 @@ class newRootWordDisplayAdapter(
         holder.isnine?.textSize = arabicFontsize.toFloat() //iisnine);
     }
 
-    private fun Fonttypeface(holder: newRootWordDisplayAdapter.ItemViewAdapter) {
+    private fun Fonttypeface(holder: NewRootWordDisplayAdapter.ItemViewAdapter) {
         val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(
             context
         )
@@ -832,7 +832,7 @@ class newRootWordDisplayAdapter(
         }
     }
 
-    private fun FontSizeSelection(holder: newRootWordDisplayAdapter.ItemViewAdapter) {
+    private fun fontSizeSelection(holder: NewRootWordDisplayAdapter.ItemViewAdapter) {
         val sharedPreferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context!!)
         val fontsize: Int = sharedPreferences.getInt("pref_font_arabic_key", 20)

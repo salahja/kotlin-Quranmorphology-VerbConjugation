@@ -26,14 +26,14 @@ import com.example.mushafconsolidated.databinding.NewFragmentAjroomiyaListBindin
  * item details. On larger screens, the Navigation controller presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-class newAjroomiyaListFragment : Fragment() {
+class NewAjroomiyaListFragment : Fragment() {
     /**
      * Method to intercept global key events in the
      * item list fragment to trigger keyboard shortcuts
      * Currently provides a toast when Ctrl + Z and Ctrl + F
      * are triggered
      */
-    var unhandledKeyEventListenerCompat =
+    private var unhandledKeyEventListenerCompat =
         OnUnhandledKeyEventListenerCompat { v: View, event: KeyEvent ->
             if (event.keyCode == KeyEvent.KEYCODE_Z && event.isCtrlPressed) {
                 Toast.makeText(
@@ -59,7 +59,7 @@ class newAjroomiyaListFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View{
         binding = NewFragmentAjroomiyaListBinding.inflate(inflater, container, false)
-        return binding!!.getRoot()
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -87,7 +87,7 @@ class newAjroomiyaListFragment : Fragment() {
 
             val fragvsi = NewAjroomiyaDetailFragment()
              fragvsi.arguments=bundle1
-            val transaction: FragmentTransaction = getParentFragmentManager().beginTransaction()
+            val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             transaction.replace(R.id.frame_container, fragvsi, "items")
             //     transaction.addToBackStack("setting");
@@ -151,7 +151,7 @@ class newAjroomiyaListFragment : Fragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val id = mValues[position]!!.id
             val s = id.toString()
-            holder.mIdView.text = s
+           // holder.mIdView.text = s
             //   holder.mContentView.setText(mValues.get(position).getHarf());
             holder.mContentView.text = mValues[position]!!.worddetails
             //    holder.mContentView.setText(HtmlCompat.fromHtml(mValues.get(position).getWorddetails() ,0));
@@ -165,20 +165,20 @@ class newAjroomiyaListFragment : Fragment() {
         }
 
         inner class ViewHolder(binding: GrammarruleListContentBinding) :
-            RecyclerView.ViewHolder(binding.getRoot()) {
-            val mIdView: TextView
+            RecyclerView.ViewHolder(binding.root) {
+          //  val mIdView: TextView
             val mContentView: TextView
 
             init {
-                mIdView = binding.idText
+               // mIdView = binding.idText
                 mContentView = binding.content
             }
         }
     }
 
     companion object {
-        fun newInstance(): newAjroomiyaListFragment {
-            return newAjroomiyaListFragment()
+        fun newInstance(): NewAjroomiyaListFragment {
+            return NewAjroomiyaListFragment()
 
         }
 

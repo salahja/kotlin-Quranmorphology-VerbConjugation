@@ -43,7 +43,7 @@ import com.example.Constant.VERBMOOD
 import com.example.Constant.VERBTYPE
 import com.example.mushafconsolidated.Activity.LughatWordDetailsAct
 import com.example.mushafconsolidated.Activity.WordOccuranceAct
-import com.example.mushafconsolidated.Adaptersimport.newRootWordDisplayAdapter
+import com.example.mushafconsolidated.Adaptersimport.NewRootWordDisplayAdapter
 import com.example.mushafconsolidated.Entities.HalEnt
 import com.example.mushafconsolidated.Entities.LiajlihiEnt
 import com.example.mushafconsolidated.Entities.MafoolBihi
@@ -88,7 +88,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
 
 
     private val wazannumberslist = ArrayList<String>()
-    private var rwAdapter: newRootWordDisplayAdapter? = null
+    private var rwAdapter: NewRootWordDisplayAdapter? = null
     var chapterid = 0
     var ayanumber = 0
     private var isMazeedSarfSagheer = false
@@ -119,7 +119,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
     private var root: String? = null
     private lateinit var mujarradwazan: String
     private lateinit var mazeedwazan: String
-    private lateinit var verbmood: String
+    private  var verbmood: String=""
     private var isHarf = false
     private var isrelative = false
     private var isdem = false
@@ -216,7 +216,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
 
         //if any true..good for verb conjugation
         if (!(vbdetail.isEmpty() || !Objects.requireNonNull(vbdetail["tense"])
-                ?.contains("Imperative")!!)
+            ?.contains("Imperative")!!)
         ) {
             isimperative = true
         }
@@ -287,12 +287,24 @@ class WordAnalysisBottomSheet : DialogFragment() {
             }
         }
         //      root= vbdetail.get("root");
+
+        /*
+
+         */
         if (ismujarrad && !isparticple) {
             mujarradwazan = vbdetail["wazan"].toString()
-            verbmood = vbdetail["verbmood"].toString()
+            verbmood = if(vbdetail["emph"]!=null){
+                "Emphasized"
+            }else {
+                vbdetail["verbmood"].toString()
+            }
         } else if (ismazeed && !isparticple) {
             mazeedwazan = vbdetail["form"].toString()
-            verbmood = vbdetail["verbmood"].toString()
+            verbmood = if(vbdetail["emph"]!=null){
+                "Emphasized"
+            }else {
+                vbdetail["verbmood"].toString()
+            }
         } else if (ismujarrad) { //when mujarrad particple use N=nasara bab
             mujarradwazan = "N"
         } else if (ismazeed) { //when mazeed get the form
@@ -589,7 +601,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
             } else {
                 //          rwAdapter = RootWordDisplayAdapter(context!!)
 
-                rwAdapter = newRootWordDisplayAdapter(
+                rwAdapter = NewRootWordDisplayAdapter(
                     requireContext(),
                     haliaSentence as ArrayList<HalEnt>?,
                     tameezWord as ArrayList<TameezEnt>?,
@@ -609,7 +621,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
                     isMazeedSarfSagheer,
                     isThulathiSarfSagheer,
                     sarfSagheerList
-                )
+                                                     )
 
 
 
@@ -633,10 +645,10 @@ class WordAnalysisBottomSheet : DialogFragment() {
      * @param s S
      */
     private fun storepreferences(chapterid: Int, ayanumber: Int, s: String) {
-        var pref: SharedPreferences?
-        pref = requireContext().getSharedPreferences("lastread", Context.MODE_PRIVATE)
-        val editor = pref.edit()
-        editor.putInt(SURAH_ID, chapterid)
+        var pref: SharedPreferences? =
+            requireContext().getSharedPreferences("lastread", Context.MODE_PRIVATE)
+        val editor = pref?.edit()
+        editor!!.putInt(SURAH_ID, chapterid)
         editor.putInt(Constant.AYAH_ID, ayanumber)
         editor.putString(Constant.SURAH_ARABIC_NAME, s)
         editor.apply()
@@ -866,7 +878,13 @@ class WordAnalysisBottomSheet : DialogFragment() {
                         dataBundle.putString(QURAN_VERB_ROOT, " ")
                     } else if (isroot) {
                         dataBundle.putString("arabicword", "")
-                        dataBundle.putString(VERBMOOD, vbdetail["verbmood"])
+                        if(vbdetail["emph"]!=null){
+
+                            dataBundle.putString(VERBMOOD, "Emphasized")
+                        }else {
+                            dataBundle.putString(VERBMOOD, vbdetail["verbmood"])
+                        }
+
                         if (vbdetail.isNotEmpty()) {
                             dataBundle.putString(QURAN_VERB_WAZAN, vb.wazan)
                             dataBundle.putString(QURAN_VERB_ROOT, vb.root)
@@ -980,7 +998,14 @@ class WordAnalysisBottomSheet : DialogFragment() {
                             if (vbdetail.isEmpty()) {
                                 dataBundle.putString(VERBMOOD, "Indicative")
                             } else {
-                                dataBundle.putString(VERBMOOD, vbdetail["verbmood"])
+
+                                if(vbdetail["emph"]!=null){
+
+                                    dataBundle.putString(VERBMOOD, "Emphasized")
+                                }else {
+                                    dataBundle.putString(VERBMOOD, vbdetail["verbmood"])
+                                }
+
                             }
                             dataBundle.putString(QURAN_VERB_WAZAN, vb.wazan)
                             dataBundle.putString(QURAN_VERB_ROOT, vb.root)

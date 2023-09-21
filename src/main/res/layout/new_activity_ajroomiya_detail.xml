@@ -66,20 +66,6 @@
                     android:scrollbars="vertical" />
 
 
-                <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:id="@+id/bottomNavView"
-                    style="@style/ThemeOverlay.Material3.BottomAppBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_7"
-                    android:layout_gravity="bottom"
-
-
-
-
-
-                    app:labelVisibilityMode="auto"
-                    app:menu="@menu/bottom_nav_menu" />
-
 
                 <com.example.utility.MovableFloatingActionButton
                     android:id="@+id/fab"

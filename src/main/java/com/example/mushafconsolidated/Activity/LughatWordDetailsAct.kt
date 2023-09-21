@@ -157,7 +157,6 @@ class LughatWordDetailsAct : BaseActivity() {
         var conjugationroot = bundle!!.getString(Constant.QURAN_VERB_ROOT)
         val vocubaluryroot = bundle.getString(Constant.QURAN_VERB_ROOT)
         val verbformthulathi = bundle.getString(Constant.QURAN_VERB_WAZAN)
-        val verbtype: String?
         val ss = conjugationroot!!.replace("[\\[\\]]".toRegex(), "")
         val verbroot = ss.replace("[,;\\s]".toRegex(), "")
         val starts = conjugationroot.indexOf(ArabicLiterals.LALIF)
@@ -166,9 +165,6 @@ class LughatWordDetailsAct : BaseActivity() {
             conjugationroot =
                 conjugationroot.replace(ArabicLiterals.LALIF, hamza.trim { it <= ' ' })
         }
-        val verbform: String?
-        val verbmood: String?
-        val arabicword: String?
         if (bundle.getString("nouncase") != null) {
             nouncase = bundle.getString(Constant.NOUNCASE)
             isnoun = true
@@ -178,10 +174,10 @@ class LughatWordDetailsAct : BaseActivity() {
                 "GEN" -> isIsmMajroor = true
             }
         }
-        verbform = bundle.getString(Constant.QURAN_VERB_WAZAN)
-        verbmood = bundle.getString(Constant.VERBMOOD)
-        verbtype = bundle.getString(Constant.VERBTYPE)
-        arabicword = bundle.getString("arabicword")
+        val verbform: String? = bundle.getString(Constant.QURAN_VERB_WAZAN)
+        val verbmood: String? = bundle.getString(Constant.VERBMOOD)
+        val verbtype: String? = bundle.getString(Constant.VERBTYPE)
+        val arabicword: String? = bundle.getString("arabicword")
         isdictionary = bundle.getBoolean("dictionary")
         isimperative = bundle.getBoolean(Constant.IMPERATIVE, false)
         isparticple = bundle.getBoolean(Constant.ISPARTICPLE, false)
@@ -200,14 +196,10 @@ class LughatWordDetailsAct : BaseActivity() {
         } catch (e: NullPointerException) {
             println(e.message)
         }
-        ismujarrad = if (verbtype != null && verbtype == "mujarrad") {
-            true
-        } else {
-            false
-        }
+        ismujarrad = verbtype != null && verbtype == "mujarrad"
         if (isdictionary) {
             dataBundle!!.putString(Constant.QURAN_VERB_ROOT, verbroot)
-        } else if (arabicword != null && arabicword.length == 0) {
+        } else if (arabicword != null && arabicword.isEmpty()) {
             try {
                 dataBundle!!.putString(Constant.QURAN_VERB_ROOT, verbroot)
                 dataBundle!!.putString(Constant.QURAN_VERB_WAZAN, verbform)
@@ -529,14 +521,14 @@ class LughatWordDetailsAct : BaseActivity() {
         private fun getdictionary(position: Int): Fragment {
             if (position == 0) {
                 //hanes
-                var fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[0].toString())
+                val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[0].toString())
 
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 1) {
                 //kabes
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[1].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             }
        /*     val fragv = FragmentVerb()
@@ -549,27 +541,27 @@ class LughatWordDetailsAct : BaseActivity() {
             if (position == 0) {
                 //hanes
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[0].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 1) {
                 //kabes
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[1].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 2) {
                 //english
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[2].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 3) {
                 //urudu
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[3].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 4) {
                 //urudu
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[4].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } /*else if (position == 5) {
                 val fragv = FragmentVerb()
@@ -603,12 +595,12 @@ class LughatWordDetailsAct : BaseActivity() {
             } else if (position == 1) {
                 //kabes
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[1].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 2) {
                 //english
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[2].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 3) {
                 //urudu
@@ -647,24 +639,24 @@ class LughatWordDetailsAct : BaseActivity() {
             } else if (position == 1) {
                 //kabes
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[1].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 2) {
                 //english
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[2].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 3) {
                 //urudu
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[3].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 4) {
                 //jussive/sujunnctive/marfu/mansub/majroor
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[4].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
-            } /*else if (position == 5) {
+            } else if (position == 5) {
                 val fragv = FragmentVerb()
                 fragv.arguments = dataBundle
                 return fragv.newInstance()
@@ -683,30 +675,30 @@ class LughatWordDetailsAct : BaseActivity() {
             }
             val fragv = FragmentVerb()
             fragv.arguments = dataBundle
-            return fragv.newInstance()*/
-            return TODO("Provide the return value")
+            return fragv.newInstance()
+
         }
 
         private fun getMazeedMarfu(position: Int): Fragment {
             if (position == 0) {
                 //hanes
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[0].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 1) {
                 //kabes
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[1].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 2) {
                 //english
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[2].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 3) {
                 //urudu
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[3].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 4) {
                 val fragv = FragmentVerb()
@@ -727,17 +719,17 @@ class LughatWordDetailsAct : BaseActivity() {
             if (position == 0) {
                 //hanes
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[0].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 1) {
                 //kabes
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[1].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 2) {
                 //english
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[2].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             }
            /* val fragv = FragmentVerb()
@@ -750,32 +742,32 @@ class LughatWordDetailsAct : BaseActivity() {
             if (position == 0) {
                 //hanes
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[0].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 1) {
                 //kabes
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[1].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 2) {
                 //english
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[2].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 3) {
                 //urudu
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[3].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 4) {
                 //jussive/sujunnctive/marfu/mansub/majroor
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[4].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 5) {
                 // org.sj.conjugator.fragments.FragmentVerb fragv = new org.sj.conjugator.fragments.FragmentVerb();
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[5].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } /*else if (position == 6) {
                 val fragv = FragmentVerb()
@@ -804,32 +796,32 @@ class LughatWordDetailsAct : BaseActivity() {
             if (position == 0) {
                 //hanes
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[0].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 1) {
                 //kabes
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[1].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 2) {
                 //english
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[2].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 3) {
                 //urudu
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[3].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 4) {
                 //jussive/sujunnctive/marfu/mansub/majroor
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[4].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 5) {
                 // org.sj.conjugator.fragments.FragmentVerb fragv = new org.sj.conjugator.fragments.FragmentVerb();
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[5].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } /*else if (position == 6) {
                 val fragv = FragmentVerb()
@@ -850,27 +842,27 @@ class LughatWordDetailsAct : BaseActivity() {
             if (position == 0) {
                 //hanes
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[0].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 1) {
                 //kabes
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[1].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 2) {
                 //english
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[2].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 3) {
                 //urudu
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[3].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } else if (position == 4) {
                 //jussive/sujunnctive/marfu/mansub/majroor
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[4].toString())
-                fragv.setArguments(dataBundle)
+                fragv.arguments = dataBundle
                 return fragv.newInstance()
             } /*else if (position == 5) {
                 val fragv = FragmentVerb()
