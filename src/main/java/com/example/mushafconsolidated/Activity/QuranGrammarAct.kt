@@ -177,6 +177,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
            )
        }
    */
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val fragment = supportFragmentManager.findFragmentById(R.id.frame_container)
         if (fragment !is IOnBackPressed || !(fragment as IOnBackPressed).onBackPressed()) {
@@ -811,7 +812,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
     }
 
     private fun ExecuteSurahWordByWord() {
-        val builder = AlertDialog.Builder(this, R.style.ThemeOverlay_Material3_Dialog)
+        val builder = AlertDialog.Builder(this, com.google.android.material.R.style.ThemeOverlay_Material3_Dialog)
         builder.setCancelable(false) // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_dialog)
         val dialog = builder.create()

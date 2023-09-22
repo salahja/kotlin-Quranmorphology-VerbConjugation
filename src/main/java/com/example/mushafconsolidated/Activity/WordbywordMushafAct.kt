@@ -285,7 +285,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         val playerbottomsheet: RelativeLayout = findViewById(R.id.audio_settings_bottom)
         audioSettingBottomBehaviour = BottomSheetBehavior.from(playerbottomsheet)
         audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
-        recyclerView = findViewById<RecyclerView>(R.id.rvAyahsPages)
+        recyclerView = findViewById(R.id.rvAyahsPages)
         mausoof = sharedPreferences.getBoolean("mausoof", true)
         mudhaf = sharedPreferences.getBoolean("mudhaf", true)
         harfnasb = sharedPreferences.getBoolean("harfnasb", true)
@@ -350,7 +350,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     }
 
     private fun initSpinner() {
-        readers = findViewById<Spinner>(R.id.selectReaders)
+        readers = findViewById(R.id.selectReaders)
         readers.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -406,7 +406,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         }
     }
 
-    fun SurahAyahPicker(isrefresh: Boolean, starttrue: Boolean) {
+    fun surahAyahPicker(isrefresh: Boolean, starttrue: Boolean) {
         val mTextView: TextView
         val chapterWheel: WheelView
         val verseWheel: WheelView
@@ -875,9 +875,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                     }
                 })
                 val haveStartPosition = startItemIndex != C.INDEX_UNSET
-                if (haveStartPosition) {
-                    //    player.seekTo(startItemIndex, startPosition);
-                }
+
                 if (rangeRecitation) {
                     marrayrange = marray.subList(versestartrange, verseendrange)
                     player!!.setMediaItems(marrayrange as MutableList<MediaItem>,  /* resetPosition= */!haveStartPosition)
@@ -1127,19 +1125,19 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     @SuppressLint("WrongViewCast")
     private fun initRV() {
         ExecuteSurahWordByWord()
-        canceldownload = findViewById<MaterialButton>(R.id.canceldownload)
+        canceldownload = findViewById(R.id.canceldownload)
         canceldownload.setOnClickListener(this)
-        ayaprogress = findViewById<MaterialTextView>(R.id.ayaprogress)
-        qariname = findViewById<MaterialTextView>(R.id.lqari)
+        ayaprogress = findViewById(R.id.ayaprogress)
+        qariname = findViewById(R.id.lqari)
         //buffering = (ImageView) findViewById(R.id.exo_buffering);
         val chooseDisplaytype: SwitchCompat = findViewById(R.id.chooseDisplaytype)
         chooseDisplaytype.setOnClickListener(this)
-        playfb = findViewById<MovableFloatingActionButton>(R.id.playfb)
+        playfb = findViewById(R.id.playfb)
         playfb.setOnClickListener(this)
         exo_settings = findViewById(R.id.exo_settings)
         exo_settings.setOnClickListener(this)
-        exo_close = findViewById<ImageButton>(R.id.exo_close)
-        exo_bottom_bar = findViewById<ImageButton>(R.id.exo_bottom_bar)
+        exo_close = findViewById(R.id.exo_close)
+        exo_bottom_bar = findViewById(R.id.exo_bottom_bar)
         //  private ImageView playbutton;
         val playbutton: MaterialButton = findViewById(R.id.playbutton)
         val playresume = findViewById<MaterialButton>(R.id.playresume)
@@ -1153,25 +1151,25 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         startrange = findViewById(R.id.start_range)
         endrange = findViewById(R.id.endrange)
         startrange.setOnClickListener(this)
-        llStartRange = findViewById<LinearLayout>(R.id.llStartRange)
+        llStartRange = findViewById(R.id.llStartRange)
         llStartRange.setOnClickListener(this)
         endrange.setOnClickListener(this)
-        llEndRange = findViewById<LinearLayout>(R.id.llEndRange)
+        llEndRange = findViewById(R.id.llEndRange)
         llEndRange.setOnClickListener {
             val starttrue = false
-            SurahAyahPicker(false, starttrue)
+            surahAyahPicker(false, starttrue)
         }
         llStartRange.setOnClickListener(object : View.OnClickListener {
             val starttrue = true
             override fun onClick(v: View) {
                 marrayrange = null
-                SurahAyahPicker(false, starttrue)
+                surahAyahPicker(false, starttrue)
             }
         })
         audio_settings_bottom = findViewById(R.id.audio_settings_bottom)
-        downloadFooter = findViewById<RelativeLayout>(R.id.footerdownload)
-        playerFooter = findViewById<RelativeLayout>(R.id.footerplayer)
-        mediaPlayerDownloadProgress = findViewById<ProgressBar>(R.id.downloadProgress)
+        downloadFooter = findViewById(R.id.footerdownload)
+        playerFooter = findViewById(R.id.footerplayer)
+        mediaPlayerDownloadProgress = findViewById(R.id.downloadProgress)
         chooseDisplaytype.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 singleline = true
@@ -1184,14 +1182,14 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         startrange.setOnClickListener(object : View.OnClickListener {
             val starttrue = true
             override fun onClick(v: View) {
-                SurahAyahPicker(false, starttrue)
+                surahAyahPicker(false, starttrue)
             }
         })
         endrange.setOnClickListener {
             val starttrue = false
-            SurahAyahPicker(false, starttrue)
+            surahAyahPicker(false, starttrue)
         }
-        surahselection.setOnClickListener { SurahAyahPicker(true, true) }
+        surahselection.setOnClickListener { surahAyahPicker(true, true) }
         playfb.setOnClickListener {
             if (audioSettingBottomBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
                 audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
@@ -1231,7 +1229,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 }
             }
         }
-        exo_bottom_bar.setOnClickListener { SurahAyahPicker(true, true) }
+        exo_bottom_bar.setOnClickListener { surahAyahPicker(true, true) }
         exo_close.setOnClickListener {
             //reset player
             verselected = 1
@@ -1286,7 +1284,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     private fun ExecuteSurahWordByWord() {
         val utils = Utils(this)
-        val builder = AlertDialog.Builder(this, R.style.ThemeOverlay_Material3_Dialog)
+        val builder = AlertDialog.Builder(this, com.google.android.material.R.style.ThemeOverlay_Material3_Dialog)
         builder.setCancelable(false) // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_dialog)
         val      mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
@@ -1730,9 +1728,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     override fun onStart() {
         super.onStart()
-        if (Util.SDK_INT > 23) {
-            //   this.initializePlayer();
-        }
+
     }
 
     companion object {

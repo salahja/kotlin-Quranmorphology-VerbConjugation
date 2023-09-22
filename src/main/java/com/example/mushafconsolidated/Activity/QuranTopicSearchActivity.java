@@ -99,36 +99,33 @@ public class QuranTopicSearchActivity extends BaseActivity implements OnItemClic
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         //   recyclerView.addItemDecoration(new MyDividerItemDecoration(this, DividerItemDecoration.VERTICAL, 36));
         recyclerView.setAdapter(searchDownloadAdapter);
-        btnSelection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                StringBuilder data = new StringBuilder();
-                StringBuilder titles = new StringBuilder();
-                List<quranexplorer> stList = ((QuranTopicSearchAdapter) searchDownloadAdapter).getList();
-                HashMap<String, String> datas = new HashMap<>();
-                for (int i = 0; i < stList.size(); i++) {
-                    quranexplorer selectedlist = stList.get(i);
-                    if (selectedlist.isSelected()) {
-                        datas.put(selectedlist.getTitle(), selectedlist.getAyahref());
-                        data.append(selectedlist.getAyahref()).append(",");
-                        titles.append(selectedlist.getTitle()).append(",");
-
-                    }
+        btnSelection.setOnClickListener(v -> {
+            StringBuilder data = new StringBuilder();
+            StringBuilder titles = new StringBuilder();
+            List<quranexplorer> stList = ((QuranTopicSearchAdapter) searchDownloadAdapter).getList();
+            HashMap<String, String> datas = new HashMap<>();
+            for (int i = 0; i < stList.size(); i++) {
+                quranexplorer selectedlist = stList.get(i);
+                if (selectedlist.isSelected()) {
+                    datas.put(selectedlist.getTitle(), selectedlist.getAyahref());
+                    data.append(selectedlist.getAyahref()).append(",");
+                    titles.append(selectedlist.getTitle()).append(",");
 
                 }
-                //  extracted(data, titles);
-                Bundle dataBundle = new Bundle();
-                if (!data.toString().contains("null")) {
-                    if (datas.size() > 0) {
-                        dataBundle.putSerializable("map", datas);
-                        Intent intents = new Intent(QuranTopicSearchActivity.this, TopicDetailAct.class);
-                        intents.putExtras(dataBundle);
-                        startActivity(intents);
 
-                    }
-                } else {
-                    Toast.makeText(QuranTopicSearchActivity.this, "Not found", Toast.LENGTH_SHORT).show();
+            }
+            //  extracted(data, titles);
+            Bundle dataBundle = new Bundle();
+            if (!data.toString().contains("null")) {
+                if (datas.size() > 0) {
+                    dataBundle.putSerializable("map", datas);
+                    Intent intents = new Intent(QuranTopicSearchActivity.this, TopicDetailAct.class);
+                    intents.putExtras(dataBundle);
+                    startActivity(intents);
+
                 }
+            } else {
+                Toast.makeText(QuranTopicSearchActivity.this, "Not found", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -179,7 +176,6 @@ public class QuranTopicSearchActivity extends BaseActivity implements OnItemClic
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             return true;
         }
