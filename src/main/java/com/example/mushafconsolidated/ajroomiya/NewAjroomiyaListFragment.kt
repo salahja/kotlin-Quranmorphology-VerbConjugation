@@ -7,16 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewCompat.OnUnhandledKeyEventListenerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.Entities.GrammarRules
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.ajroomiya.placeholder.AjroomiyaRulecontents
 import com.example.mushafconsolidated.databinding.GrammarruleListContentBinding
 import com.example.mushafconsolidated.databinding.NewFragmentAjroomiyaListBinding
+import com.example.utility.QuranGrammarApplication
+import com.example.utility.QuranGrammarApplication.Companion.context
 
 /**
  * A fragment representing a list of GrammarRules. This fragment
@@ -151,13 +156,27 @@ class NewAjroomiyaListFragment : Fragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val id = mValues[position]!!.id
             val s = id.toString()
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context!!)
+            val theme = sharedPreferences.getString("themepref", "dark")
            // holder.mIdView.text = s
             //   holder.mContentView.setText(mValues.get(position).getHarf());
-            holder.mContentView.text = mValues[position]!!.worddetails
+            val str= mValues[position]!!.worddetails!!.replace("\n", " ")
+            holder.mContentView.text = str
             //    holder.mContentView.setText(HtmlCompat.fromHtml(mValues.get(position).getWorddetails() ,0));
             holder.itemView.tag = mValues[position]
             holder.itemView.setOnClickListener(mOnClickListener)
             holder.itemView.setOnContextClickListener(mOnContextClickListener)
+            if (theme == "green") {
+                holder.cardview.setCardBackgroundColor(context!!.resources.getColor(R.color.mdgreen_theme_dark_onPrimary))
+            } else if(theme=="blue"){
+                holder.cardview.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context!!,
+                        R.color.bg_surface_dark_blue
+                                          )
+                                                  )
+            }
+
         }
 
         override fun getItemCount(): Int {
@@ -166,12 +185,17 @@ class NewAjroomiyaListFragment : Fragment() {
 
         inner class ViewHolder(binding: GrammarruleListContentBinding) :
             RecyclerView.ViewHolder(binding.root) {
-          //  val mIdView: TextView
+            val cardview: CardView
+
+            //  val mIdView: TextView
             val mContentView: TextView
+       //     val cardView: CardView
 
             init {
                // mIdView = binding.idText
                 mContentView = binding.content
+                cardview=binding.cardview
+
             }
         }
     }

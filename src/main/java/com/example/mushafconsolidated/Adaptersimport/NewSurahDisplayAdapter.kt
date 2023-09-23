@@ -81,6 +81,8 @@ class NewSurahDisplayAdapter(
         }
         if (theme == "green") {
             holder.surahcardview.setCardBackgroundColor(context.resources.getColor(R.color.mdgreen_theme_dark_onPrimary))
+        } else if(theme=="blue"){
+            holder.surahcardview.setCardBackgroundColor(context.resources.getColor(R.color.bg_surface_dark_blue))
         }
         if (theme == "dark" || theme == "blue" || theme == "green") {
             holder.makkimadaniIcon.setColorFilter(Color.CYAN)

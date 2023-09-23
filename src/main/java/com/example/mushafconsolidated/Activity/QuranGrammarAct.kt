@@ -86,6 +86,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import database.NamesGridImageAct
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.ahocorasick.trie.Trie
 import org.sj.conjugator.activity.ConjugatorAct
 import sj.hisnul.activity.HisnulBottomACT
@@ -96,8 +99,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.util.Date
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOnLong {
@@ -816,23 +817,18 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         builder.setCancelable(false) // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_dialog)
         val dialog = builder.create()
+        val listener: OnItemClickListenerOnLong = this
 
-        mafoolbihiwords = mainViewModel.getMafoolSurah(chapterno).value
-        Jumlahaliya = mainViewModel.getHalsurah(chapterno).value
-        Tammezent = mainViewModel.getTameezsurah(chapterno).value
-        Liajlihient = mainViewModel.getLiajlihiSurah(chapterno).value
-        Mutlaqent = mainViewModel.getMutlaqSurah(chapterno).value
-        BadalErabNotesEnt = mainViewModel.getbadalSurah(chapterno).value
-
-
-         allofQuran = mainViewModel.getquranbySUrah(chapterno).value
-        corpusSurahWord = mainViewModel.getQuranCorpusWbwbysurah(chapterno).value
-
+        lateinit var scope: CoroutineScope
+        val corpus = CorpusUtilityorig(this)
+        scope=CoroutineScope(Dispatchers.Main)
+        bysurah(dialog,scope,corpus,listener)
+/*
         val ex = Executors.newSingleThreadExecutor()
         ex.execute {
             //do inbackground
             bysurah(dialog, ex)
-        }
+        }*/
     }
 
 
@@ -843,45 +839,58 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun bysurah(dialog: AlertDialog, ex: ExecutorService) {
+    private fun bysurah(
+        dialog: AlertDialog,
+        ex: CoroutineScope,
+        corpus: CorpusUtilityorig,
+        listener: OnItemClickListenerOnLong
+                       ) {
 
 
-        runOnUiThread { dialog.show() }
+      runOnUiThread { dialog.show() }
+        ex.launch {
+            mafoolbihiwords = mainViewModel.getMafoolSurah(chapterno).value
+            Jumlahaliya = mainViewModel.getHalsurah(chapterno).value
+            Tammezent = mainViewModel.getTameezsurah(chapterno).value
+            Liajlihient = mainViewModel.getLiajlihiSurah(chapterno).value
+            Mutlaqent = mainViewModel.getMutlaqSurah(chapterno).value
+            BadalErabNotesEnt = mainViewModel.getbadalSurah(chapterno).value
 
 
-        val corpus = CorpusUtilityorig(this)
-        newnewadapterlist = corpus.composeWBWCollection(allofQuran, corpusSurahWord)
+            allofQuran = mainViewModel.getquranbySUrah(chapterno).value
+            corpusSurahWord = mainViewModel.getQuranCorpusWbwbysurah(chapterno).value
 
-
-
-        if (kana) {
-            newnewadapterlist.let { corpus.setKana(it, chapterno) }
-        }
-        if (shart) {
-            newnewadapterlist.let { corpus.setShart(it, chapterno) }
-        }
-        if (mudhaf) {
-            newnewadapterlist.let { corpus.setMudhafFromDB(it, chapterno) }
-            //   corpusayahWordArrayList?.get(0)?.let { corpus.setMudhafFromDB(it, chapterno) }
-        }
-        if (mausoof) {
-            newnewadapterlist.let { corpus.SetMousufSifaDB(it, chapterno) }
-            //  corpus.NewMAOUSOOFSIFA(corpusayahWordArrayList);
-        }
-        if (harfnasb) {
-            newnewadapterlist.let { corpus.newnewHarfNasbDb(it, chapterno) }
-        }
+            newnewadapterlist = corpus.composeWBWCollection(allofQuran, corpusSurahWord)
 
 
 
-        runOnUiThread {
+            if (kana) {
+                newnewadapterlist.let { corpus.setKana(it, chapterno) }
+            }
+            if (shart) {
+                newnewadapterlist.let { corpus.setShart(it, chapterno) }
+            }
+            if (mudhaf) {
+                newnewadapterlist.let { corpus.setMudhafFromDB(it, chapterno) }
+                //   corpusayahWordArrayList?.get(0)?.let { corpus.setMudhafFromDB(it, chapterno) }
+            }
+            if (mausoof) {
+                newnewadapterlist.let { corpus.SetMousufSifaDB(it, chapterno) }
+                //  corpus.NewMAOUSOOFSIFA(corpusayahWordArrayList);
+            }
+            if (harfnasb) {
+                newnewadapterlist.let { corpus.newnewHarfNasbDb(it, chapterno) }
+            }
+
+
+      //
 
             parentRecyclerView = binding.overlayViewRecyclerView
 
             if (jumptostatus) {
                 surahorpart = chapterno
             }
-            val listener: OnItemClickListenerOnLong = this
+
             val header = ArrayList<String>()
             header.add(rukucount.toString())
             header.add(versescount.toString())
@@ -908,8 +917,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                     isMakkiMadani,
                     listener
                                                                )
-                dialog.dismiss()
-                ex.shutdown()
+
                 newflowAyahWordAdapter.addContext(this@QuranGrammarAct)
                 parentRecyclerView.setHasFixedSize(true)
                 parentRecyclerView.adapter = newflowAyahWordAdapter
@@ -921,7 +929,12 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 parentRecyclerView.post { parentRecyclerView.scrollToPosition(verseNo) }
                 //   })
             }
+            runOnUiThread {
+                   dialog.dismiss()
+
+            }
         }
+        //}
     }
 
     private fun HightLightKeyWord() {
