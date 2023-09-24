@@ -344,6 +344,12 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 transaction.addToBackStack(null)
                 transaction.commit()
                 navigationView.setCheckedItem(R.id.surahnav)
+
+            }
+            if (item.itemId == R.id.mushafview) {
+                val settingints = Intent(this@QuranGrammarAct, ShowMushafActivity::class.java)
+
+                startActivity(settingints)
             }
             if (item.itemId == R.id.conjugationnav) {
                 materialToolbar.title = "Conjugator"
@@ -362,12 +368,12 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 settingint.putExtra(Constants.SURAH_INDEX, chapterno)
                 startActivity(settingint)
             }
-            if (item.itemId == R.id.mushafview) {
+           /* if (item.itemId == R.id.mushafview) {
                 materialToolbar.title = "Mushaf"
                 val settingints = Intent(this@QuranGrammarAct, QuranGrammarAct::class.java)
                 //      settingints.putExtra(Constants.SURAH_INDEX, getChapterno());
                 startActivity(settingints)
-            }
+            }*/
         }
         navigationView.setNavigationItemSelectedListener { item: MenuItem ->
             if (item.itemId == R.id.bookmark) {

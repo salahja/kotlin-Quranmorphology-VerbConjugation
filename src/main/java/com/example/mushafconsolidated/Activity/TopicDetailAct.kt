@@ -31,17 +31,22 @@ import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.Adapters.TopicFlowAyahWordAdapter
 import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.Entities.CorpusExpandWbwPOJO
+import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.R
-
 import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.fragments.GrammerFragmentsBottomSheet
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet
-
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.model.CorpusAyahWord
 import com.example.mushafconsolidated.model.CorpusWbwWord
+import com.example.mushafconsolidated.model.NewQuranCorpusWbw
+import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
+import com.example.utility.CorpusUtility
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 class TopicDetailAct : BaseActivity(), OnItemClickListenerOnLong {
@@ -50,6 +55,14 @@ class TopicDetailAct : BaseActivity(), OnItemClickListenerOnLong {
     // --Commented out by Inspection (24/10/22, 10:04 PM):private MaterialToolbar materialToolbar;
     // --Commented out by Inspection (24/10/22, 10:03 PM):private FlowAyahWordAdapterPassage flowAyahWordAdapterpassage;
     private lateinit var corpusayahWordArrayList: ArrayList<CorpusAyahWord>
+    private var corpusSurahWord: List<QuranCorpusWbw>? = null
+    private var newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
+    private var allofQuran: ArrayList<QuranEntity>? = null
+    private lateinit var mainViewModel: QuranVIewModel
+
+    private lateinit var newcorpusayahWordArrayList: ArrayList<QuranCorpusWbw>
+    private lateinit var arrayofquran: ArrayList<ArrayList<QuranEntity>>
+    private lateinit var arrayofadapterlist: ArrayList<LinkedHashMap<Int,ArrayList<NewQuranCorpusWbw>>>
 
     // --Commented out by Inspection (24/10/22, 10:04 PM):private int chapterno;
     // --Commented out by Inspection START (24/10/22, 10:03 PM):
@@ -99,20 +112,49 @@ class TopicDetailAct : BaseActivity(), OnItemClickListenerOnLong {
             val bundles: Bundle = intent.extras!!
             val map = bundle.getSerializableExtra("map") as HashMap<String, String>?
              var surahname=""
+
+
             if (map!!.size != 0) {
                 bundles.getSerializable("map")
                 //  LinkedHashMap map = (LinkedHashMap) bundles.get("map");
                 val keys: Set<String> = map.keys
                 corpusayahWordArrayList = ArrayList()
-                for (key: String in keys) {
-                    val splits = map[key]
-                    assert(splits != null)
-                    val split = splits!!.split(",".toRegex()).dropLastWhile { it.isEmpty() }
-                        .toTypedArray()
-                    for (s: String in split) {
-                        getwbwy(s, key)
+                arrayofquran=ArrayList()
+                arrayofadapterlist=ArrayList()
+                val scope:CoroutineScope
+                val builder = AlertDialog.Builder(this, com.google.android.material.R.style.ThemeOverlay_Material3_Dialog)
+                builder.setCancelable(false) // if you want user to wait for some process to finish,
+                builder.setView(R.layout.layout_loading_dialog)
+                val dialog = builder.create()
+                runOnUiThread { dialog.show() }
+                val listener: OnItemClickListenerOnLong = this
+                scope=CoroutineScope(Dispatchers.IO)
+                scope.launch {
+                    for (key: String in keys) {
+                        val splits = map[key]
+                        assert(splits != null)
+                        val split = splits!!.split(",".toRegex()).dropLastWhile { it.isEmpty() }
+                            .toTypedArray()
+                        for (s: String in split) {
+                            getwbwy(s, key)
+                        }
                     }
+                    runOnUiThread {
+                        dialog.dismiss()
+                        val linearLayoutManager = LinearLayoutManager(applicationContext)
+
+                        val flowAyahWordAdapter =
+                            TopicFlowAyahWordAdapter(corpusayahWordArrayList, listener, surahname)
+                        val parentRecyclerView: RecyclerView = findViewById(R.id.recycler_view)
+                        parentRecyclerView.layoutManager = linearLayoutManager
+                        flowAyahWordAdapter.addContext(this@TopicDetailAct)
+                        parentRecyclerView.setHasFixedSize(true)
+                        parentRecyclerView.adapter = flowAyahWordAdapter
+                        flowAyahWordAdapter.notifyDataSetChanged()
+                    }
+
                 }
+
             } else {
                 val surah = bundle.extras!!.getInt(SURAH_ID)
                 val ayah = bundle.extras!!.getInt(AYAH_ID)
@@ -122,16 +164,7 @@ class TopicDetailAct : BaseActivity(), OnItemClickListenerOnLong {
                 getwbwy(surah, ayah, header)
             }
             //  getwbwy(aref);
-            val linearLayoutManager = LinearLayoutManager(applicationContext)
-            val listener: OnItemClickListenerOnLong = this
-            val flowAyahWordAdapter =
-                TopicFlowAyahWordAdapter(corpusayahWordArrayList, listener, surahname)
-            val parentRecyclerView: RecyclerView = findViewById(R.id.recycler_view)
-            parentRecyclerView.layoutManager = linearLayoutManager
-            flowAyahWordAdapter.addContext(this@TopicDetailAct)
-            parentRecyclerView.setHasFixedSize(true)
-            parentRecyclerView.adapter = flowAyahWordAdapter
-            flowAyahWordAdapter.notifyDataSetChanged()
+
         }
     }
 
@@ -146,13 +179,107 @@ class TopicDetailAct : BaseActivity(), OnItemClickListenerOnLong {
         val ayah = ss[1].trim { it <= ' ' }.toInt()
         preparewbwarray(header, suraid, ayah)
     }
+    private fun newpreparewbwarray(header: String?, suraid: Int, ayah: Int) {
+        val utils = Utils(this@TopicDetailAct)
+        //  CorpusWbwWord word = new CorpusWbwWord();
+        val ayahWord = CorpusAyahWord()
+        val wordArrayList = ArrayList<CorpusWbwWord>()
+        val wbw: List<CorpusExpandWbwPOJO> = utils.getCorpusWbwBySurahAyahtopic(suraid, ayah)
 
+
+    /*    mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
+        allofQuran = mainViewModel.getsurahayahVerses(suraid,ayah).value as ArrayList<QuranEntity>?
+        corpusSurahWord = mainViewModel.getQuranCorpusWbwbysurahAyah(suraid,ayah).value
+
+        newnewadapterlist = corpus.composeWBWCollection(allofQuran, corpusSurahWord)
+        arrayofquran.add(allofQuran!!)
+        arrayofadapterlist.add(newnewadapterlist)*/
+        //    final Object o6 = wbwa.get(verseglobal).get(0);
+        val sb = StringBuilder()
+        if (wbw != null) {
+            for (pojo: CorpusExpandWbwPOJO in wbw) {
+                val word = CorpusWbwWord()
+                word.surahId = pojo.surah
+                sb.append(pojo.araone).append(pojo.aratwo)
+                val sequence = TextUtils.concat(
+                    pojo.araone + pojo.aratwo +
+                            pojo.arathree + pojo.arafour
+                                               )
+                //   Object o4 = pojo.getWord();
+                val en: Any = pojo.en
+                val bn: Any = pojo.bn
+                val ind: Any = pojo.`in`
+                val ur = pojo.ur
+                word.rootword = pojo.root_a
+                word.surahId = pojo.surah
+                word.verseId = pojo.ayah
+                word.wordno = pojo.wordno
+                word.wordcount = pojo.wordcount
+                word.wordsAr = sequence.toString()
+                //  word.setWordindex(getIndex(pojo.getQuranverses()));
+                word.translateEn = en.toString()
+                word.translateBn = bn.toString()
+                word.translateIndo = ind.toString()
+                word.translationUrdu = ur
+                word.araone = pojo.araone
+                word.aratwo = pojo.aratwo
+                word.arathree = pojo.arathree
+                word.arafour = pojo.arafour
+                word.arafive = pojo.arafive
+                word.tagone = pojo.tagone
+                word.tagtwo = pojo.tagtwo
+                word.tagthree = pojo.tagthree
+                word.tagfour = pojo.tagfour
+                word.tagfive = pojo.tagfive
+                word.passage_no = pojo.passage_no
+                word.detailsone = pojo.detailsone
+                word.detailstwo = pojo.detailstwo
+                word.detailsthree = pojo.detailsthree
+                word.detailsfour = pojo.detailsfour
+                word.detailsfive = pojo.detailsfive
+                word.corpusSpnnableQuranverse = SpannableString.valueOf(pojo.qurantext)
+                //    word.setQuranversestr(pojo.getQuranverses());
+                word.quranversestr = pojo.qurantext
+                word.translations = pojo.translation
+                word.surahId = (pojo.surah)
+                word.verseId = (pojo.ayah)
+                word.wordno = pojo.wordno
+                word.wordcount = (pojo.wordcount)
+                ayahWord.ar_irab_two = (pojo.ar_irab_two)
+                ayahWord.tafsir_kathir = (pojo.tafsir_kathir)
+                //  ayahWord.setSpannableverse(SpannableStringBuilder.valueOf(pojo.getQuranverses()));
+                ayahWord.spannableverse = SpannableString.valueOf(pojo.qurantext)
+                ayahWord.passage_no = pojo.passage_no
+                ayahWord.en_transliteration = (pojo.en_transliteration)
+                ayahWord.en_jalalayn = (pojo.en_jalalayn)
+                //  ayahWord.setSpannableverse(SpannableStringBuilder.valueOf(pojo.getQuranverses()));
+                ayahWord.en_arberry = pojo.en_arberry
+                ayahWord.quranTranslate = pojo.translation
+                ayahWord.ur_jalalayn = (pojo.ur_jalalayn)
+                //  ayahWord.setSpannableverse(SpannableStringBuilder.valueOf(pojo.getQuranverses()));
+                ayahWord.ur_junagarhi = pojo.ur_junagarhi
+                ayahWord.topictitle = header
+                wordArrayList.add(word)
+                ayahWord.word = wordArrayList
+                // wordArrayListpassage.add(word);
+            }
+        }
+        corpusayahWordArrayList.add(ayahWord)
+
+
+
+
+
+        println("check")
+    }
     private fun preparewbwarray(header: String?, suraid: Int, ayah: Int) {
         val utils = Utils(this@TopicDetailAct)
         //  CorpusWbwWord word = new CorpusWbwWord();
         val ayahWord = CorpusAyahWord()
         val wordArrayList = ArrayList<CorpusWbwWord>()
         val wbw: List<CorpusExpandWbwPOJO> = utils.getCorpusWbwBySurahAyahtopic(suraid, ayah)
+        val corpus = CorpusUtility(this)
+
         //    final Object o6 = wbwa.get(verseglobal).get(0);
         val sb = StringBuilder()
         if (wbw != null) {
@@ -224,6 +351,12 @@ class TopicDetailAct : BaseActivity(), OnItemClickListenerOnLong {
             }
         }
         corpusayahWordArrayList.add(ayahWord)
+        val index =corpusayahWordArrayList.size
+        corpus.setMudhafFromDB(corpusayahWordArrayList,suraid,ayah,corpusayahWordArrayList.size)
+        corpus.SetMousufSifaDB(corpusayahWordArrayList,suraid,ayah,corpusayahWordArrayList.size)
+        corpus.setKana(corpusayahWordArrayList,suraid,ayah,corpusayahWordArrayList.size)
+        corpus.setShart(corpusayahWordArrayList,suraid,ayah,corpusayahWordArrayList.size)
+      corpus.newnewHarfNasbDb(corpusayahWordArrayList,suraid,ayah,corpusayahWordArrayList.size)
         println("check")
     }
 

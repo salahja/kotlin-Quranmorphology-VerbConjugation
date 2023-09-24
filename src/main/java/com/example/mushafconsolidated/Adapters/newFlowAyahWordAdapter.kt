@@ -215,7 +215,7 @@ class newFlowAyahWordAdapter(
                 "blue" -> holder.itemView.setBackgroundColor(
                     ContextCompat.getColor(
                         context,
-                        R.color.bg_dark_blue
+                        R.color.bg_surface_dark_blue
                                           )
                                                             )
             }

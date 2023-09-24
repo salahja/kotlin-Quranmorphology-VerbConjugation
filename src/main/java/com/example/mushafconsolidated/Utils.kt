@@ -17,7 +17,6 @@ import com.example.mushafconsolidated.Entities.CorpusExpandWbwPOJO
 import com.example.mushafconsolidated.Entities.CorpusNounWbwOccurance
 import com.example.mushafconsolidated.Entities.CorpusVerbWbwOccurance
 import com.example.mushafconsolidated.Entities.GrammarRules
-import com.example.mushafconsolidated.Entities.NewCorpusExpandWbwPOJO
 import com.example.mushafconsolidated.Entities.NewKanaEntity
 import com.example.mushafconsolidated.Entities.NewMudhafEntity
 import com.example.mushafconsolidated.Entities.NewNasbEntity
@@ -38,10 +37,7 @@ import com.example.mushafconsolidated.Entities.qurandictionary
 import com.example.mushafconsolidated.Entities.quranexplorer
 import com.example.mushafconsolidated.Entities.wbwentity
 import com.example.mushafconsolidated.model.Juz
-import com.example.mushafconsolidated.model.QuranCorpusWbw
 import database.entity.AllahNames
-import sj.hisnul.entity.AllahNamesDetails
-import sj.hisnul.entity.hcategoryEnt
 import sj.hisnul.entity.hduanamesEnt
 
 
@@ -372,6 +368,11 @@ class Utils {
     fun getHarfNasbIndexesnew(id: Int): List<NewNasbEntity?>? {
         return database.NewNasbDao().getHarfNasbIndices(id)
     }
+    fun getHarfNasbIndicesSurahAyah(id: Int,aid :Int): List<NewNasbEntity?>? {
+        return database.NewNasbDao().getHarfNasbIndicesSurahAyah(id,aid)
+    }
+
+
 
 
     //  List<Book> result = booksDao.getBooks(query);
@@ -441,6 +442,9 @@ class Utils {
 
     fun getKananew(id: Int): List<NewKanaEntity>? {
         return database.NewKanaDao().getkanabysurah(id)
+    }
+    fun getKananewSurahAyah(id: Int,aid: Int): List<NewKanaEntity>? {
+        return database.NewKanaDao().getkanabysurahAyah(id,aid)
     }
 
     fun getShartSurahAyahNew(id: Int, ayah: Int): List<NewShartEntity>? {

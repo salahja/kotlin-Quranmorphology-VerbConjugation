@@ -2,6 +2,7 @@
 package com.example.mushafconsolidated.fragments
 
 
+import NewRootWordDisplayAdapter
 import Utility.ArabicLiterals
 import android.annotation.SuppressLint
 import android.content.Context
@@ -43,7 +44,6 @@ import com.example.Constant.VERBMOOD
 import com.example.Constant.VERBTYPE
 import com.example.mushafconsolidated.Activity.LughatWordDetailsAct
 import com.example.mushafconsolidated.Activity.WordOccuranceAct
-import com.example.mushafconsolidated.Adaptersimport.NewRootWordDisplayAdapter
 import com.example.mushafconsolidated.Entities.HalEnt
 import com.example.mushafconsolidated.Entities.LiajlihiEnt
 import com.example.mushafconsolidated.Entities.MafoolBihi
@@ -71,6 +71,8 @@ import com.example.utility.QuranGrammarApplication
 import com.google.android.material.button.MaterialButton
 import database.entity.MujarradVerbs
 import database.verbrepo.VerbModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import org.sj.conjugator.activity.ConjugatorTabsActivity
 import org.sj.conjugator.fragments.SarfSagheer
 import org.sj.conjugator.utilities.GatherAll
@@ -171,12 +173,19 @@ class WordAnalysisBottomSheet : DialogFragment() {
         builder.setCancelable(false) // if you want user to wait for some process to finish,
         builder.setView(layout.layout_loading_dialog)
         dialog = builder.create()
+        val scope:CoroutineScope
+        scope= CoroutineScope(Dispatchers.Main)
+        val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
+        rwAdapter = NewRootWordDisplayAdapter(requireContext())
+       // requireActivity().runOnUiThread { dialog.show() }
+    //    scope.launch {
+
 
 
         Objects.requireNonNull(requireActivity())
             .runOnUiThread { dialog.show() }
 
-        val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
+
 
 
         val mafoolbihi = mainViewModel.getMafoolbihiword(chapterid, ayanumber, wordno).value
@@ -591,8 +600,9 @@ class WordAnalysisBottomSheet : DialogFragment() {
             setKana(models)
         }
         requireActivity().runOnUiThread {
-            ex.shutdown()
+           // ex.shutdown()
             dialog.dismiss()
+        }
             if (showGrammarFragments) {
                 GrammarFragmentsListAdapter(
                     requireContext(),
@@ -631,7 +641,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
 
                 recyclerView.adapter = rwAdapter
             }
-        }
+      //  }scope
 
         return view
     }

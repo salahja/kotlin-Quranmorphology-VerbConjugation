@@ -62,6 +62,7 @@ import com.example.utility.QuranGrammarApplication
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textview.MaterialTextView
 import com.tooltip.Tooltip
 import sj.hisnul.fragments.NamesDetail
 import java.io.File
@@ -515,7 +516,7 @@ class TopicFlowAyahWordAdapter(
         val erab_textView: TextView
         val surah_info: TextView
         val mafoolbihi: TextView
-        val quran_textView: TextView
+        val quran_textView: MaterialTextView
 
         // --Commented out by Inspection (23/08/23, 6:09 am):public final TextView erab_notes;
         //      public final TextView quran_transliterationnote;
