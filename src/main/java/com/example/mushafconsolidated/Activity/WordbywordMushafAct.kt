@@ -1334,20 +1334,20 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
         //      corpus.highLightVerbs(corpusayahWordArrayList,surah_id);
         if (kana) {
-            corpus.setKana(newnewadapterlist, surah)
+            corpus.setKana(newnewadapterlist, surah, ayah, newnewadapterlist.size)
         }
         if (shart) {
-            corpus.setShart(newnewadapterlist, surah)
+            corpus.setShart(newnewadapterlist, surah, ayah, newnewadapterlist.size)
         }
         if (mudhaf) {
-            corpus.setMudhafFromDB(newnewadapterlist, surah)
+            corpus.setMudhafFromDB(newnewadapterlist, surah, ayah, newnewadapterlist.size)
         }
         if (mausoof) {
-            corpus.SetMousufSifaDB(newnewadapterlist, surah)
+            corpus.SetMousufSifaDB(newnewadapterlist, surah, ayah, newnewadapterlist.size)
             //  corpus.NewMAOUSOOFSIFA(corpusayahWordArrayList);
         }
         if (harfnasb) {
-            corpus.newnewHarfNasbDb(newnewadapterlist, surah)
+            corpus.newnewHarfNasbDb(newnewadapterlist, surah, ayah, newnewadapterlist.size)
         }
         //     corpus.highLightVerbs(corpusayahWordArrayList,surah_id);
         //post

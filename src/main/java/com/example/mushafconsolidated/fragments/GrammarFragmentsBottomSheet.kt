@@ -201,8 +201,15 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
         )
         if (whichtranslation == "en_sahih") {
             translation.add(SpannableString.valueOf(quran!![0].translation))
-        } else {
-            translation.add(SpannableString.valueOf(quran!![0].ur_junagarhi))
+        } else   if (whichtranslation == "en_arberry"){
+            translation.add(SpannableString.valueOf(quran!![0].en_arberry))
+        } else   if (whichtranslation == "en_jalalayn"){
+            translation.add(SpannableString.valueOf(quran!![0].en_jalalayn))
+        }
+
+
+        else {
+            translation.add(SpannableString.valueOf(quran!![0].translation))
         }
         val shartarray: MutableList<SpannableString> =  ArrayList()
         newSetShart(shartarray)

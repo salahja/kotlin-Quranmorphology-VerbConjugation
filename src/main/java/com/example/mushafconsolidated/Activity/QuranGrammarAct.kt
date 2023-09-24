@@ -877,15 +877,24 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 newnewadapterlist.let { corpus.setShart(it, chapterno) }
             }
             if (mudhaf) {
-                newnewadapterlist.let { corpus.setMudhafFromDB(it, chapterno) }
+                newnewadapterlist.let { corpus.setMudhafFromDB(
+                    it,
+                    chapterno
+                                                              ) }
                 //   corpusayahWordArrayList?.get(0)?.let { corpus.setMudhafFromDB(it, chapterno) }
             }
             if (mausoof) {
-                newnewadapterlist.let { corpus.SetMousufSifaDB(it, chapterno) }
+                newnewadapterlist.let { corpus.SetMousufSifaDB(
+                    it,
+                    chapterno
+                                                              ) }
                 //  corpus.NewMAOUSOOFSIFA(corpusayahWordArrayList);
             }
             if (harfnasb) {
-                newnewadapterlist.let { corpus.newnewHarfNasbDb(it, chapterno) }
+                newnewadapterlist.let { corpus.newnewHarfNasbDb(
+                    it,
+                    chapterno
+                                                               ) }
             }
 
 

@@ -756,6 +756,7 @@ class newFlowAyahWordAdapter(
                 //        word.getRootword();
                 val araword =
                     word.corpus!!.araone + word.corpus!!.aratwo + word.corpus!!.arathree + word.corpus!!.arafour + word.corpus!!.arafive
+
                 val spannedword: SpannableString = getSpannedWords(word)
                 //   arabic.setText(fixArabic(String.valueOf(spannedword)));
                 if (showWbwTranslation) {
@@ -863,6 +864,7 @@ class newFlowAyahWordAdapter(
                 arabicChipview.setOnClickListener /* l = */ {
                     val dialog = Dialog(context)
                     dialog.setTitle(word.corpus!!.araone + word.corpus!!.aratwo + word.corpus!!.arathree + word.corpus!!.arafour + word.corpus!!.arafive)
+
                     val dataBundle = Bundle()
                     dataBundle.putInt(Constant.SURAH_ID, word.corpus!!.surah)
                     dataBundle.putInt(
