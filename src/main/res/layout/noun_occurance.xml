@@ -208,7 +208,8 @@
                 android:textIsSelectable="true"
 
 
-                android:textSize="16.0sp" />
+                android:textSize="16.0sp"
+                android:autofillHints="" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -229,7 +230,8 @@
                 android:textIsSelectable="true"
 
 
-                android:textSize="16.0sp" />
+                android:textSize="16.0sp"
+                android:autofillHints="" />
 
             <TextView
                 android:id="@id/lengths"

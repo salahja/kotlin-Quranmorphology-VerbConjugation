@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.example.utility.ZoomLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fadeScrollbars="true"
@@ -935,7 +936,8 @@
                     android:gravity="center|right"
                     android:paddingStart="5.0dip"
                     android:paddingEnd="3.0dip"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    tools:ignore="TooManyViews" />
 
                 <TextView
                     android:id="@+id/accusative2"

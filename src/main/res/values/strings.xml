@@ -15,7 +15,7 @@
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name"></string>
+<!--    <string name="app_name"></string>-->
     <string name="app_names">Bottom</string>
     <!--Main-->
 
@@ -849,7 +849,8 @@ Stream audio when possible (non-gapless audio only)
     <string name="title_ajroomiyanotes_detail">AjroomiyaNotes Detail</string>
     <string name="title_activity_ajroomiya_detail_host">AjroomiyaDetailHostActivity</string>
     <string name="title_ajroomiya_list">Items</string>
-    <string name="title_ajroomiya_detail">Ajroomiya Detail</string>>
+    <string name="title_ajroomiya_detail">Ajroomiya Detail</string>
+    <string name="app_name">QuranCorpus</string>>
 
 
 </resources>

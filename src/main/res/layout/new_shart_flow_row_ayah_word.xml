@@ -122,7 +122,8 @@
 
             android:textIsSelectable="true"
             android:textSize="25sp"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:autofillHints="" />
 
 
         <TextView
@@ -150,7 +151,8 @@
 
             android:textIsSelectable="true"
             android:textSize="25sp"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:autofillHints="" />
 
 
         <TextView

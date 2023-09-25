@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space_1"
             android:hint="@string/quran_sura"
-            android:layout_weight="60" />
+            android:layout_weight="60"
+            android:autofillHints="" />
 
         <EditText
             android:layout_gravity="end"
@@ -34,7 +35,8 @@
             android:hint="@string/quran_ayah"
             android:layout_weight="20"
             android:inputType="number"
-            android:imeOptions="actionUnspecified|actionGo|flagNoFullscreen" />
+            android:imeOptions="actionUnspecified|actionGo|flagNoFullscreen"
+            android:autofillHints="" />
 
         <EditText
             android:layout_gravity="end"
@@ -44,7 +46,8 @@
             android:hint="@string/quran_page"
             android:layout_weight="20"
             android:inputType="number"
-            android:imeOptions="actionUnspecified|actionGo|flagNoFullscreen" />
+            android:imeOptions="actionUnspecified|actionGo|flagNoFullscreen"
+            android:autofillHints="" />
     </LinearLayout>
 
     <LinearLayout

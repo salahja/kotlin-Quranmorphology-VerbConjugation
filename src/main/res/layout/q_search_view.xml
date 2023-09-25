@@ -48,7 +48,8 @@
             android:maxLines="1"
             android:paddingLeft="@dimen/space_3"
             android:paddingRight="@dimen/space_3"
-            android:textCursorDrawable="@null" />
+            android:textCursorDrawable="@null"
+            android:autofillHints="" />
 
 
         <ImageButton

@@ -25,7 +25,8 @@
             RadioGroup:layout_constraintEnd_toEndOf="parent"
             RadioGroup:layout_constraintHorizontal_bias="0.522"
             RadioGroup:layout_constraintStart_toStartOf="parent"
-            RadioGroup:layout_constraintTop_toTopOf="parent" />
+            RadioGroup:layout_constraintTop_toTopOf="parent"
+            android:autofillHints="" />
 
         <RadioGroup
             android:id="@id/sgFolderType"

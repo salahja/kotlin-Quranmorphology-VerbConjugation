@@ -336,7 +336,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowLightStatusBar" >true</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
     </style>
 
@@ -729,7 +729,7 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
-    <style name="RadioButton"></style>
+<!--    <style name="RadioButton"></style>-->
 
     <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">>
         <item name="closeIcon">@drawable/abc_ic_clear_material</item>
