@@ -33,7 +33,6 @@ import com.example.Constant.WORDMEANING
 import com.example.Constant.WORDNUMBER
 import com.example.Constant.particlespanDark
 import com.example.mushafconsolidated.Activity.LughatWordDetailsAct
-import com.example.mushafconsolidated.Activity.TopicDetailAct
 import com.example.mushafconsolidated.Adapters.NounVerbOccuranceListAdapter
 import com.example.mushafconsolidated.Entities.CorpusNounWbwOccurance
 import com.example.mushafconsolidated.Entities.CorpusVerbWbwOccurance
@@ -49,6 +48,7 @@ import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.databinding.ActivityRootBreakupBinding
 import com.example.mushafconsolidated.fragments.QuranMorphologyDetails
+import com.example.mushafconsolidated.fragments.TopicDetailsFrag
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet
 import com.example.utility.CorpusUtilityorig.Companion.getSpannableVerses
 import com.example.utility.QuranGrammarApplication
@@ -178,9 +178,23 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                     newbundle.putString(ARABICWORD, wordDetails.arabic)
                     newbundle.putString(WORDMEANING, wordDetails.en)
                     newbundle.putSerializable("map", datas)
-                    val intents = Intent(this@RootBreakupAct, TopicDetailAct::class.java)
+                /*    val intents = Intent(this@RootBreakupAct, TopicDetailAct::class.java)
                     intents.putExtras(newbundle)
                     startActivity(intents)
+*/
+                //    dataBundle.putSerializable("map", datas)
+
+                    val fragmentManagers = supportFragmentManager
+                    val transactions = fragmentManagers.beginTransaction()
+                    transactions.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
+                    val fragvsi = TopicDetailsFrag.newInstance(newbundle)
+                    fragvsi.arguments = newbundle
+                    transactions.replace(R.id.frame_container, fragvsi)
+                    transactions.addToBackStack(null)
+                    transactions.commit()
+
+
+
 
                     //   Fragment ayahfragment=new Fragment();
                     //   ayahfragment.setArguments(newbundle);
@@ -240,9 +254,32 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                             newbundle.putString(ARABICWORD, wordDetails.arabic)
                             newbundle.putString(WORDMEANING, wordDetails.en)
                             newbundle.putSerializable("map", datas)
-                            val intents = Intent(this@RootBreakupAct, TopicDetailAct::class.java)
+             /*               val intents = Intent(this@RootBreakupAct, TopicDetailAct::class.java)
                             intents.putExtras(newbundle)
                             startActivity(intents)
+*/
+
+
+                            val fragmentManagers = supportFragmentManager
+                            val transactions = fragmentManagers.beginTransaction()
+                            transactions.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
+                            val fragvsi = TopicDetailsFrag.newInstance(newbundle)
+                            fragvsi.arguments = newbundle
+                            transactions.add(R.id.frame_container, fragvsi)
+                            transactions.addToBackStack(null)
+                            transactions.commit()
+
+
+
+
+
+
+
+
+
+
+
+
                         }
                     }
                 }

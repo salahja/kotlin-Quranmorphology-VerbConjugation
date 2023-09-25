@@ -16,7 +16,6 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import com.example.Constant
 import com.example.justJava.FrameSpan
-import com.example.mushafconsolidated.Activity.TopicDetailAct
 import com.example.mushafconsolidated.Entities.NewMudhafEntity
 import com.example.mushafconsolidated.Entities.NewShartEntity
 import com.example.mushafconsolidated.Entities.QuranEntity
@@ -29,7 +28,7 @@ import java.util.regex.Pattern
 
 class CorpusUtilityorig(private var context: Context?) {
     var ayah=0
-    constructor(context: TopicDetailAct, suraid: Int, ayah: Int) : this(context){
+    constructor(context: Context, suraid: Int, ayah: Int) : this(context){
 
         this.ayah=ayah
     }

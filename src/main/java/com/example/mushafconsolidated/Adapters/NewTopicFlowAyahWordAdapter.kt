@@ -75,7 +75,7 @@ import java.util.Date
 class NewTopicFlowAyahWordAdapter(
     private val ayahWordArrayList: ArrayList<LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>>,
     listener: OnItemClickListenerOnLong?,
-    surahname: String,
+
     arrayofquran: ArrayList<ArrayList<QuranEntity>>,
     surahArrays: Array<String>
                                  ) :
@@ -105,7 +105,7 @@ class NewTopicFlowAyahWordAdapter(
         arabicfontSize = sharedPreferences.getInt("pref_font_arabic_key", 18)
         translationfontsize = sharedPreferences.getInt("pref_font_englsh_key", 18)
         defaultfont = sharedPreferences.getBoolean("default_font", true)
-        SurahName = surahname
+
         this.arrayofquran=arrayofquran
         this.surahArrays=surahArrays
     }
@@ -460,7 +460,7 @@ class NewTopicFlowAyahWordAdapter(
                         dataBundle.putInt(SURAH_ID, word.corpus!!.surah)
                         dataBundle.putInt(AYAHNUMBER, Math.toIntExact(word.corpus!!.ayah.toLong()))
                         dataBundle.putInt(WORDNUMBER, Math.toIntExact(word.corpus!!.wordno.toLong()))
-                        dataBundle.putString(SURAH_ARABIC_NAME, SurahName)
+                        dataBundle.putString(SURAH_ARABIC_NAME, "SurahName")//TODO
                         LoadItemList(dataBundle)
                     }
 
@@ -486,7 +486,7 @@ class NewTopicFlowAyahWordAdapter(
                                 word.corpus!!.ayah.toString(),
                                 word.wbw!!.en,
                                 word.corpus!!.wordno.toString(),
-                                SurahName
+                                "SurahName" //TODO
                                               )
                            WordAnalysisBottomSheet.newInstance(data).show(
                              (context as AppCompatActivity?)!!.supportFragmentManager,
