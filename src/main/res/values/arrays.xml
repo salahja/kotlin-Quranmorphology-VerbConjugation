@@ -26,43 +26,6 @@
 
 
     </integer-array>
-    <string-array name="verbliststhulathienglish">
-        <item>Thulathi-Selection</item>
-        <item>1.Thulathi Regular</item>
-        <item>2.Thulathi Mahmooz FA</item>
-        <item>3.Thulathi Mahmooz Ayn</item>
-        <item>4.Thulathi Mahmooz Lam</item>
-        <item>5.Thulathi Mithal Wawi</item>
-        <item>7.Thulathi Mithal Yayi</item>
-        <item>7.Thulathi Ajwaf Wawi</item>
-        <item>8.Thulathi Ajwaf Yayi</item>
-        <item>9.Thulathi Mudhaf</item>
-        <item>10.Thulathi NaqisWAWI</item>
-        <item>11.Thulathi NaqisYAYI</item>
-        <item>12.Thulathi Lafeef Mafrooq</item>
-        <item>13.Thulathi Lafeef Maqroon</item>
-
-
-    </string-array>
-
-    <string-array name="verbliststhulathiarabic">
-        <item>الثلاثية المجردة-اختيار</item>
-        <item>1.الثلاثية المجردة سالم</item>
-        <item>2.الثلاثية المجردة مَهْمُوْزُ الفاءِ</item>
-        <item>3.الثلاثية المجردة  مَهْمُوْزُ العَيْنِ</item>
-        <item>4.الثلاثية المجردة  مَهْمُوْزُ الاَمِ</item>
-        <item>5.الثلاثية المجردة  الْمِثَالُ الوَاوِيُّ</item>
-        <item>7.الثلاثية المجردة   الْمِثَالُ اليائِيُّ</item>
-        <item>7.الثلاثية المجردة الْأجْوافُ الوَاوِيُّ</item>
-        <item>8.الثلاثية المجردة الْأجْوافُ اليائِيُّ</item>
-        <item>9.الثلاثية المجردة مُضَافُ</item>
-        <item>10.الثلاثية المجردة النَّاقِصُ الوَاوِيُّ</item>
-        <item>11.الثلاثية المجردة النَّاقِصُ اليائِيُّ</item>
-        <item>12.الثلاثية المجردة  اللّفِيْفُ المَفْرُمْقُ</item>
-        <item>13.الثلاثية المجردة  اللّفِيْفُ المَقْروْنُ</item>
-
-
-    </string-array>
 
 
     <string-array name="enverbheadings">
@@ -503,40 +466,6 @@
         <item>Yasser Al-Dussary</item>
     </string-array>
 
-    <string-array name="themeListArray">
-        <item>light</item>
-        <item>Dark Black</item>
-        <item>Dark Blue</item>
-        <item>Green</item>
-        <item>Brown</item>
-
-    </string-array>
-
-    <string-array name="themeEntryArray">
-        <item>light</item>
-        <item>dark</item>
-        <item>blue</item>
-        <item>green</item>
-        <item>brown</item>
-    </string-array>
-
-    <string-array name="mmthemeListArray">
-        <item>Purple Dark</item>
-        <item>Dark Black</item>
-
-        <item>Green</item>
-        <item>Brown</item>
-
-    </string-array>
-
-    <string-array name="mmthemeEntryArray">
-        <item>purple</item>
-        <item>dark</item>
-        <item>green</item>
-
-        <item>brown</item>
-    </string-array>
-
     <string-array name="arabicFontListArray">
         <item>Quranic</item>
 
@@ -550,21 +479,6 @@
         <item>quranicfontregular.ttf</item>
         <item>DejaVuSans.ttf</item>
         <item>me_quran.ttf</item>
-        <item>qalam.ttf</item>
-        <item>NotoNaskhArabic-VariableFont_wght.ttf</item>
-
-    </string-array>
-    <string-array name="quranwordlistarray">
-
-        <item>DejaVuSans.ttf</item>
-        <item>Mirza</item>
-     </string-array>
-
-    <string-array name="quranwordentryarray">
-        <item>quranicfontregular.ttf</item>
-        <item>DejaVuSans.ttf</item>
-        <item>me_quran.ttf</item>
-        <item>Mirza-Medium.ttf</item>
         <item>qalam.ttf</item>
         <item>NotoNaskhArabic-VariableFont_wght.ttf</item>
 
@@ -810,125 +724,6 @@
         <item>"النَّاس"</item>
 
     </string-array>
-    <integer-array name="makkimadani">
-
-        <item>1</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>1</item>
-        <item>1</item>
-        <item>0</item>
-        <item>0</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>0</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>0</item>
-        <item>1</item>
-        <item>0</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>0</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>0</item>
-        <item>1</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>0</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>0</item>
-        <item>0</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>0</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-
-
-    </integer-array>
     <string-array name="versescounts">
 
         <item>7</item>
@@ -1084,48 +879,6 @@
     </string-array>
 
 
-    <string-array translatable="false" name="quran_readers_urls">
-        <item>http://download.quranicaudio.com/quran/muhammad_siddeeq_al-minshaawee/</item>
-        <item>http://download.quranicaudio.com/quran/mahmood_khaleel_al-husaree/</item>
-        <item>http://download.quranicaudio.com/quran/abdurrahmaan_as-sudays/</item>
-        <item>http://download.quranicaudio.com/quran/nasser_bin_ali_alqatami/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Abdul_Basit_Murattal_192kbps/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Abdul_Basit_Mujawwad_128kbps/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Abdullah_Basfar_192kbps/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Abdurrahmaan_As-Sudais_192kbps/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Abu_Bakr_Ash-Shaatree_128kbps/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Alafasy_128kbps/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Ghamadi_40kbps/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Ibrahim_Walk_192kbps_TEST/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Hani_Rifai_192kbps/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Husary_128kbps_Mujawwad/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Hudhaify_128kbps/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Maher_AlMuaiqly_64kbps/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Minshawy_Mujawwad_192kbps/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Mohammad_al_Tablaway_128kbps/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Muhammad_Ayyoub_128kbps/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Muhammad_Jibreel_128kbps/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Saood_ash-Shuraym_128kbps/</item>
-        <item>http://mirrors.quranicaudio.com/everyayah/Yasser_Ad-Dussary_128kbps/</item>
-        <item>http://download.quranicaudio.com/quran/abdul_basit_murattal/</item>
-        <item>http://download.quranicaudio.com/quran/abdulbaset_mujawwad/</item>
-        <item>http://download.quranicaudio.com/quran/aziz_alili/</item>
-        <item>http://download.quranicaudio.com/quran/salahbudair/</item>
-        <item>http://download.quranicaudio.com/quran/sa3ood_al-shuraym/</item>
-        <item>http://download.quranicaudio.com/quran/yasser_ad-dussary/</item>
-        <item>http://download.quranicaudio.com/quran/mohammad_altablawi/</item>
-        <item>http://download.quranicaudio.com/quran/sahl_yaaseen/</item>
-        <item>http://download.quranicaudio.com/quran/abu_bakr_ash-shaatree/</item>
-        <item>http://download.quranicaudio.com/quran/ahmad_nauina/</item>
-        <item>http://download.quranicaudio.com/quran/akram_al_alaqmi/</item>
-        <item>http://download.quranicaudio.com/quran/ali_hajjaj_alsouasi/</item>
-    </string-array>
-
-    <array name="parts">
-        <item>1/4</item>
-        <item>1/2</item>
-        <item>3/4</item>
-    </array>
     <integer-array name="versescount">
 
         <item>7</item>

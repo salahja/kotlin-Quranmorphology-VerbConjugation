@@ -4,8 +4,6 @@
 
 
     <dimen name="gridrow_padding">2dp</dimen>
-    <dimen name="gridrow_paddingdouble">5dp</dimen>
-    <dimen name="appbar_padding">16dp</dimen>
 
 
     <!-- Dimens for staggered asymmetric grid layout cards-->
@@ -19,7 +17,6 @@
     <dimen name="lineSpacingExtra">2dp</dimen>
     <dimen name="lineWidth">0.2dp</dimen>
 
-    <dimen name="icon_size">24.0dip</dimen>
     <dimen name="space_3">16.0dip</dimen>
     <!--
     Because the window insets on round devices are larger than 15dp, this padding only applies
@@ -35,12 +32,7 @@
     <dimen name="space_2">8.0dip</dimen>
     <dimen name="space_5">20.0dip</dimen>
 
-    <dimen name="mushaf_small_component_corner_radius">24dp</dimen>
-    <dimen name="mushaf_medium_component_corner_radius">5dp</dimen>
-    <dimen name="mushaf_large_component_corner_radius">22dp</dimen>
-
     <dimen name="item_width">200dp</dimen>
-    <dimen name="item_widths">600dp</dimen>
     <dimen name="app_bar_height">200dp</dimen>
 
     <dimen name="text_margin">16dp</dimen>
@@ -50,21 +42,7 @@
     <dimen name="drawer_footer_view_margin">12dp</dimen>
     <dimen name="drawer_footer_view_width">45dp</dimen>
     <dimen name="drawer_footer_view_height">45dp</dimen>
-    <dimen name="list_item_spacing">16dp</dimen>
-    <dimen name="text_size_12">12sp</dimen>
-    <dimen name="text_size_14">14sp</dimen>
-    <dimen name="text_size_16">16sp</dimen>
-    <dimen name="text_size_20">20sp</dimen>
     <dimen name="toolbar_height">48dp</dimen>
-    <dimen name="padding_10">80dp</dimen>
-    <dimen name="padding_19">152dp</dimen>
-    <dimen name="padding_2">16dp</dimen>
-    <dimen name="padding_3">24dp</dimen>
-    <dimen name="padding_4">32dp</dimen>
-    <dimen name="padding_5">40dp</dimen>
-    <dimen name="padding_6">48dp</dimen>
-    <dimen name="padding_7">56dp</dimen>
-    <dimen name="padding_8">64dp</dimen>
     <dimen name="dp_15">15dp</dimen>
     <dimen name="dp_10">10dp</dimen>
     <dimen name="gridrow_cattxt_textsize">26sp</dimen>
@@ -104,24 +82,11 @@
     <dimen name="design_tab_text_size">14sp</dimen>
     <dimen name="design_tab_text_size_2line">12sp</dimen>
     <dimen name="design_textinput_caption_translate_y">5dp</dimen>
-    <dimen name="dialogbuttons">14dp</dimen>
-    <dimen name="dialogtitle">15dp</dimen>
     <dimen name="disabled_alpha_material_dark">0.3</dimen>
     <dimen name="disabled_alpha_material_light">0.26</dimen>
-    <dimen name="dualistchild_duaname_textsize">14dp</dimen>
-    <dimen name="dualistchild_duanum_width">42dp</dimen>
-    <dimen name="dualistchild_margin">12dp</dimen>
-    <dimen name="dualistduatextpadding">5dp</dimen>
-    <dimen name="dualistview_duanum_width">45dp</dimen>
-    <dimen name="dualistview_height">60dp</dimen>
-    <dimen name="dualistview_textsize">15dp</dimen>
-    <dimen name="dualistview_topmargin">2dp</dimen>
     <dimen name="fastscroll_default_thickness">8dp</dimen>
     <dimen name="fastscroll_margin">0dp</dimen>
     <dimen name="fastscroll_minimum_range">50dp</dimen>
-    <dimen name="generaltextpadding">7dp</dimen>
-
-    <dimen name="gridrow_imgview_width">80dp</dimen>
 
 
     <dimen name="highlight_alpha_material_colored">0.26</dimen>
@@ -135,32 +100,16 @@
     <dimen name="item_touch_helper_swipe_escape_max_velocity">800dp</dimen>
     <dimen name="item_touch_helper_swipe_escape_velocity">120dp</dimen>
 
-    <dimen name="padding">8dp</dimen>
-    <dimen name="padding_12">12dp</dimen>
-    <dimen name="padding_16">16dp</dimen>
-    <dimen name="padding_20">20dp</dimen>
-    <dimen name="padding_24">24dp</dimen>
-    <dimen name="padding_32">32dp</dimen>
-
-    <dimen name="padding_double_neg">-16dp</dimen>
-<!--    <dimen name="preference_dropdown_padding_start">0dp</dimen>
+    <!--    <dimen name="preference_dropdown_padding_start">0dp</dimen>
     <dimen name="preference_icon_minWidth">0dp</dimen>
     <dimen name="preference_seekbar_padding_horizontal">0dp</dimen>
     <dimen name="preference_seekbar_padding_vertical">15dp</dimen>
     <dimen name="preference_seekbar_value_minWidth">36dp</dimen>
     <dimen name="preferences_detail_width">300dp</dimen>
     <dimen name="preferences_header_width">384dp</dimen>-->
-    <dimen name="radio_button_conner_radius">10dp</dimen>
     <dimen name="radio_button_stroke_border">2dp</dimen>
-    <dimen name="seekbar_pref_width">270dp</dimen>
-
-    <dimen name="space_4">16dp</dimen>
-
-    <dimen name="space_6">32dp</dimen>
 
 
-    <dimen name="textpadding_double">16dp</dimen>
-    <dimen name="textpadding_half">4dp</dimen>
     <dimen name="tooltip_corner_radius">2dp</dimen>
     <dimen name="tooltip_horizontal_padding">16dp</dimen>
     <dimen name="tooltip_margin">8dp</dimen>
@@ -169,11 +118,7 @@
     <dimen name="tooltip_vertical_padding">6.5dp</dimen>
     <dimen name="tooltip_y_offset_non_touch">0dp</dimen>
     <dimen name="tooltip_y_offset_touch">16dp</dimen>
-    <dimen name="viewpager_textsize">17dp</dimen>
     <dimen name="text_size_30">30dp</dimen>
-    <dimen name="ui_margin_medium">10dp</dimen>
-    <dimen name="ui_margin">10dp</dimen>
-    <dimen name="text_size_large">25dp</dimen>
     <dimen name="standard_55">-55dp</dimen>
     <dimen name="standard_105">-115dp</dimen>
     <dimen name="standard_155">-175dp</dimen>
@@ -183,212 +128,43 @@
 
     <dimen name="standard_405">-405dp</dimen>
 
-    <dimen name="audio_55">55dp</dimen>
     <dimen name="audio_105">115dp</dimen>
     <dimen name="audio_155">175dp</dimen>
     <dimen name="audio_205">240dp</dimen>
     <dimen name="audio_255">300dp</dimen>
     <dimen name="audio_305">365dp</dimen>
-    <dimen name="audioaud_405">485dp</dimen>
 
     mm mulsimmate
 
 
     <dimen name="fab_margin">58dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
-    <dimen name="prayer_info">150dp</dimen>
 
     <!--old app data-->
 
-    <dimen name="small_margin">3dp</dimen>
-    <dimen name="margin">10dp</dimen>
-    <dimen name="double_margin">20dp</dimen>
-    <dimen name="occasions_margin">20dp</dimen>
-    <dimen name="margin_times_four">40dp</dimen>
-    <dimen name="huge_margin">60dp</dimen>
-    <dimen name="ex_margin">85dp</dimen>
 
-    <dimen name="xx_margin">130dp</dimen>
-    <dimen name="xxx_margin">140dp</dimen>
-    <dimen name="xxxx_margin">170dp</dimen>
-
-
-    <dimen name="main_clock_small_top_margin">205dp</dimen>
-    <dimen name="main_clock_top_margin">245dp</dimen>
-    <dimen name="main_clock_left_margin">265dp</dimen>
-    <dimen name="main_clock_large_left_margin">290dp</dimen>
-    <dimen name="prayer_times_font">30sp</dimen>
-    <dimen name="main_title_large">21sp</dimen>
-    <dimen name="mini_font">10sp</dimen>
-    <dimen name="main_sub_title_large">15sp</dimen>
-    <dimen name="main_remaining_time">40sp</dimen>
-    <dimen name="x_large_font">50sp</dimen>
-    <dimen name="xx_large_font">66sp</dimen>
-
-    <dimen name="cell_calender">50dp</dimen>
-    <dimen name="weather_day">80dp</dimen>
-    <dimen name="main_weather_font">80sp</dimen>
-    <dimen name="weather_day_icon">25dp</dimen>
-    <dimen name="weather_day_padding_icons">8dp</dimen>
-    <dimen name="weather_day_font">15sp</dimen>
-    <dimen name="prayer_split_v">2dp</dimen>
-    <dimen name="prayer_split_h">2dp</dimen>
-    <dimen name="date_number">30sp</dimen>
-    <dimen name="mid">24sp</dimen>
-    <dimen name="small">15sp</dimen>
-    <dimen name="larg">25sp</dimen>
-    <dimen name="very_small">12sp</dimen>
-
-    <dimen name="azkar">50dp</dimen>
-    <dimen name="event">80dp</dimen>
-
-    <dimen name="about_text_size">16sp</dimen>
     <dimen name="fabsize">45sp</dimen>
-    <dimen name="next_prev_cal_dimen">30dp</dimen>
-    <dimen name="cell_calender_h">40dp</dimen>
 
     <!--
 Refer to App Widget Documentation for margin information
 http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
-    <dimen name="widget_margin">0dp</dimen>
 
 
     <dimen name="wheel_item_width">160dp</dimen>
     <dimen name="wheel_item_height">40dp</dimen>
     <dimen name="wheel_divider_height">1dp</dimen>
     <dimen name="wheel_text_size">20sp</dimen>
-    <dimen name="layout_padding">16dp</dimen>
 
 
-    <dimen name="_62sdp">62.00dp</dimen>
-    <dimen name="_63sdp">63.00dp</dimen>
-    <dimen name="_64sdp">64.00dp</dimen>
-    <dimen name="_65sdp">65.00dp</dimen>
-    <dimen name="_66sdp">66.00dp</dimen>
-    <dimen name="_67sdp">67.00dp</dimen>
-    <dimen name="_68sdp">68.00dp</dimen>
-    <dimen name="_69sdp">69.00dp</dimen>
-    <dimen name="_6sdp">6.00dp</dimen>
-    <dimen name="_70sdp">70.00dp</dimen>
-    <dimen name="_71sdp">71.00dp</dimen>
-    <dimen name="_72sdp">72.00dp</dimen>
-    <dimen name="_73sdp">73.00dp</dimen>
-    <dimen name="_74sdp">74.00dp</dimen>
-    <dimen name="_75sdp">75.00dp</dimen>
-    <dimen name="_76sdp">76.00dp</dimen>
-    <dimen name="_77sdp">77.00dp</dimen>
-    <dimen name="_78sdp">78.00dp</dimen>
-    <dimen name="_79sdp">79.00dp</dimen>
-    <dimen name="_7sdp">7.00dp</dimen>
-    <dimen name="_80sdp">80.00dp</dimen>
-    <dimen name="_81sdp">81.00dp</dimen>
-    <dimen name="_82sdp">82.00dp</dimen>
-    <dimen name="_83sdp">83.00dp</dimen>
-    <dimen name="_84sdp">84.00dp</dimen>
-    <dimen name="_85sdp">85.00dp</dimen>
-    <dimen name="_86sdp">86.00dp</dimen>
-    <dimen name="_87sdp">87.00dp</dimen>
-    <dimen name="_88sdp">88.00dp</dimen>
-    <dimen name="_89sdp">89.00dp</dimen>
-    <dimen name="_8sdp">8.00dp</dimen>
-    <dimen name="_90sdp">90.00dp</dimen>
-    <dimen name="_91sdp">91.00dp</dimen>
-    <dimen name="_92sdp">92.00dp</dimen>
-    <dimen name="_93sdp">93.00dp</dimen>
-    <dimen name="_94sdp">94.00dp</dimen>
-    <dimen name="_95sdp">95.00dp</dimen>
-    <dimen name="_96sdp">96.00dp</dimen>
-    <dimen name="_97sdp">97.00dp</dimen>
-    <dimen name="_98sdp">98.00dp</dimen>
-    <dimen name="_99sdp">99.00dp</dimen>
     <dimen name="_9sdp">9.00dp</dimen>
-    <dimen name="_minus10sdp">-10.00dp</dimen>
-    <dimen name="_minus11sdp">-11.00dp</dimen>
-    <dimen name="_minus12sdp">-12.00dp</dimen>
-    <dimen name="_minus13sdp">-13.00dp</dimen>
-    <dimen name="_minus14sdp">-14.00dp</dimen>
-    <dimen name="_minus15sdp">-15.00dp</dimen>
-    <dimen name="_minus16sdp">-16.00dp</dimen>
-    <dimen name="_minus17sdp">-17.00dp</dimen>
-    <dimen name="_minus18sdp">-18.00dp</dimen>
-    <dimen name="_minus19sdp">-19.00dp</dimen>
-    <dimen name="_minus1sdp">-1.00dp</dimen>
-    <dimen name="_minus20sdp">-20.00dp</dimen>
-    <dimen name="_minus21sdp">-21.00dp</dimen>
-    <dimen name="_minus22sdp">-22.00dp</dimen>
-    <dimen name="_minus23sdp">-23.00dp</dimen>
-    <dimen name="_minus24sdp">-24.00dp</dimen>
-    <dimen name="_minus25sdp">-25.00dp</dimen>
-    <dimen name="_minus26sdp">-26.00dp</dimen>
-    <dimen name="_minus27sdp">-27.00dp</dimen>
-    <dimen name="_minus28sdp">-28.00dp</dimen>
-    <dimen name="_minus29sdp">-29.00dp</dimen>
-    <dimen name="_minus2sdp">-2.00dp</dimen>
-    <dimen name="_minus30sdp">-30.00dp</dimen>
-    <dimen name="_minus31sdp">-31.00dp</dimen>
-    <dimen name="_minus32sdp">-32.00dp</dimen>
-    <dimen name="_minus33sdp">-33.00dp</dimen>
-    <dimen name="_minus34sdp">-34.00dp</dimen>
-    <dimen name="_minus35sdp">-35.00dp</dimen>
-    <dimen name="_minus36sdp">-36.00dp</dimen>
-    <dimen name="_minus37sdp">-37.00dp</dimen>
-    <dimen name="_minus38sdp">-38.00dp</dimen>
-    <dimen name="_minus39sdp">-39.00dp</dimen>
-    <dimen name="_minus3sdp">-3.00dp</dimen>
-    <dimen name="_minus40sdp">-40.00dp</dimen>
-    <dimen name="_minus41sdp">-41.00dp</dimen>
-    <dimen name="_minus42sdp">-42.00dp</dimen>
-    <dimen name="_minus43sdp">-43.00dp</dimen>
-    <dimen name="_minus44sdp">-44.00dp</dimen>
-    <dimen name="_minus45sdp">-45.00dp</dimen>
-    <dimen name="_minus46sdp">-46.00dp</dimen>
-    <dimen name="_minus47sdp">-47.00dp</dimen>
-    <dimen name="_minus48sdp">-48.00dp</dimen>
-    <dimen name="_minus49sdp">-49.00dp</dimen>
-    <dimen name="_minus4sdp">-4.00dp</dimen>
-    <dimen name="_minus50sdp">-50.00dp</dimen>
-    <dimen name="_minus51sdp">-51.00dp</dimen>
-    <dimen name="_minus52sdp">-52.00dp</dimen>
-    <dimen name="_minus53sdp">-53.00dp</dimen>
-    <dimen name="_minus54sdp">-54.00dp</dimen>
-    <dimen name="_minus55sdp">-55.00dp</dimen>
-    <dimen name="_minus56sdp">-56.00dp</dimen>
-    <dimen name="_minus57sdp">-57.00dp</dimen>
-    <dimen name="_minus58sdp">-58.00dp</dimen>
-    <dimen name="_minus59sdp">-59.00dp</dimen>
-    <dimen name="_minus5sdp">-5.00dp</dimen>
-    <dimen name="_minus60sdp">-60.00dp</dimen>
-    <dimen name="_minus6sdp">-6.00dp</dimen>
-    <dimen name="_minus7sdp">-7.00dp</dimen>
-    <dimen name="_minus8sdp">-8.00dp</dimen>
 
-    <dimen name="_29sdp">29.00dp</dimen>
-    <dimen name="_30sdp">30.00dp</dimen>
-    <dimen name="_16sdp">16dp</dimen>
-    <dimen name="_17ssp">17sp</dimen>
-    <dimen name="_5sdp">5dp</dimen>
     <dimen name="_10sdp">10dp</dimen>
-    <dimen name="ayahs_size">16sp</dimen>
-    <dimen name="draw_number">8dp</dimen>
     <dimen name="hiad_14_dp">14sp</dimen>
     <dimen name="full_version_title_size">18sp</dimen>
     <dimen name="hiad_non_wifi_play_button_h">26dp</dimen>
-    <dimen name="fab_margintwo">70</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-
-    <dimen name="standard_12">12dp</dimen>
-    <dimen name="standard_23">23dp</dimen>
-
-    <dimen name="standard_100">100dp</dimen>
-    <dimen name="standard_145">145dp</dimen>
-
-    <dimen name="vstandard_12">12dp</dimen>
-    <dimen name="vstandard_23">23dp</dimen>
-    <dimen name="vstandard_55">100dp</dimen>
-    <dimen name="vstandard_100">200dp</dimen>
-    <dimen name="vstandard_145">145dp</dimen>
 
 
 </resources>

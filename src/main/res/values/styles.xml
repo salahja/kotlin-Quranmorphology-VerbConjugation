@@ -7,12 +7,6 @@
         <item name="android:textColor">?textColorLight</item>
     </style>
 
-    <style name="textStyle">
-        <item name="android:textColor">@color/kashmirigreen</item>
-        <item name="android:textSize">@dimen/abc_text_size_headline_material</item>
-        ...
-    </style>
-
     <style name="ayah_translation">
         <item name="android:textSize">22.0sp</item>
         <item name="android:gravity">right</item>
@@ -21,15 +15,6 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-
-
-    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/colorAccent</item>
-    </style>
 
     <!--  Starting activity theme
         <style name="DarkThemeApp.Launcher">
@@ -45,26 +30,8 @@
         <item name="android:layout_height">fill_parent</item>
     </style>
 
-    <style name="HorizontalLine">
-        <item name="background">@color/dark_gray</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">1.0dip</item>
-    </style>
-
     <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/colorPrimary</item>
-    </style>
-
-    <style name="DarkThemeDialog" parent="Theme.Material3.DayNight.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:colorBackground">@color/bg_dark_blue</item>
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowTitleStyle">@null</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
-        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
-        <item name="android:gravity">center</item>
     </style>
 
     <style name="TabTextAppearance" parent="@style/TextAppearance.Design.Tab">
@@ -88,14 +55,6 @@
         <item name="tabTextColor">?colorOnPrimarySurface</item>
     </style>
 
-    <style name="RoundedTabLayoutStyleBrown" parent="Widget.Design.TabLayout">
-        <item name="tabBackground">@drawable/tabs_selector_brown</item>
-        <item name="tabIndicator">@drawable/shape_tab_indicator</item>
-        <item name="android:textSize">15.0sp</item>
-        <item name="android:background">?selectableItemBackground</item>
-        <item name="tabSelectedTextColor">?android:textColor</item>
-        <item name="tabTextColor">?colorOnPrimarySurface</item>
-    </style>
     <style name="Widget.Material3.TabLayout" parent="@style/Widget.Design.TabLayout">
         <item name="android:background">?colorSurface</item>
         <item name="enforceMaterialTheme">true</item>
@@ -156,49 +115,12 @@
     </style>
 
 
-
- -
-
-    <style name="ShapeAppearance.dark.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/mushaf_small_component_corner_radius</item>
-    </style>
-
-    <style name="ShapeAppearance.dark.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/mushaf_medium_component_corner_radius</item>
-    </style>
-
-    <style name="ShapeAppearance.dark.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/mushaf_large_component_corner_radius</item>
-    </style>
-
-    <style name="AppCardBlue" parent="Widget.Material3.CardView.Elevated">
-        <item name="cardElevation">8dp</item>
-        <item name="cardBackgroundColor">@color/solarizedBase02</item>
-    </style>
-
-    <style name="CustomCardviewDark" parent="CardView.Dark">
-        <item name="cardBackgroundColor">#F3931F</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">10dp</item>
-    </style>
+    -
 
     <style name="CardView.Dark">
         <item name="cardBackgroundColor">@color/cardview_dark_background</item>
     </style>
 
-
-    <style name="spinner_styles_purple" parent="Widget.AppCompat.Spinner.DropDown">
-        <item name="android:background">@drawable/spinner_btn_darkpurple_shape</item>
-        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
-        <item name="android:textColor">#993399</item>
-        <item name="android:dividerHeight">5dp</item>
-        <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>
-        <item name="android:popupBackground">@color/md_theme_light_tertiary</item>
-    </style>
 
     <style name="spinner_styles_blue" parent="Widget.AppCompat.Spinner.DropDown">
         <item name="android:background">@drawable/xldabc_btn_default_mtrl_shape</item>
@@ -219,97 +141,13 @@
         <item name="android:popupBackground">@color/bg_black</item>
     </style>
 
-    <style name="SpinnerItem">
-        <item name="android:textColor">#993399</item>
-        <item name="android:background">@drawable/custom_search_box</item>
-    </style>
-
     <style name="SpinnerDropDownItem">
         <item name="android:textColor">#993399</item>
         <item name="android:background">@drawable/custom_search_box</item>
     </style>
 
-    <style name="spinner_styles_brown" parent="Base.Widget.AppCompat.DropDownItem.Spinner">
-        <item name="android:background">@android:drawable/btn_dropdown</item>
-        <item name="android:dividerHeight">5dp</item>
-        <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
-        <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>
-        <item name="android:popupBackground">@color/BlanchedAlmond</item>
-    </style>
 
-
-    <style name="DialogAnimation">
-        <item name="android:background">@color/transparent</item>
-        <item name="android:windowEnterAnimation">@anim/slide_left</item>
-        <item name="android:windowExitAnimation">@anim/slide_right</item>
-    </style>
-
-    <style name="DialogTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:background">@color/transparent</item>
-        <item name="android:windowEnterAnimation">@anim/slide_up</item>
-        <item name="android:windowExitAnimation">@anim/slide_down</item>
-    </style>
     <!--  Base application theme.  -->
-    <style name="Theme.Shrine" parent="Theme.Material3.Light.NoActionBar">
-        <!--  Customize your theme here.  -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowLightStatusBar" >true</item>
-        <item name="android:textColorPrimary">@color/textColorPrimary</item>
-    </style>
-
-    <style name="Widget.Shrine.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-        <item name="hintTextAppearance">@style/TextAppearance.Shrine.TextInputLayout.HintText</item>
-        <item name="hintTextColor">@color/textColorPrimary</item>
-        <item name="android:paddingBottom">8dp</item>
-        <item name="boxStrokeColor">@color/textInputOutlineColor</item>
-    </style>
-
-    <style name="TextAppearance.Shrine.TextInputLayout.HintText" parent="TextAppearance.MaterialComponents.Subtitle2">
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
-    </style>
-
-    <style name="Widget.Shrine.Button" parent="Widget.Material3.Button">
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
-        <item name="backgroundTint">?attr/colorPrimaryDark</item>
-        <item name="android:stateListAnimator" tools:ignore="NewApi">
-            @animator/shr_next_button_state_list_anim
-        </item>
-    </style>
-
-    <style name="Widget.Shrine.Button.TextButton" parent="Widget.Material3.Button.TextButton">
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
-    </style>
-
-    <style name="Widget.Shrine.Toolbar" parent="Widget.AppCompat.Toolbar">
-        <item name="android:background">?attr/colorAccent</item>
-        <item name="android:theme">@style/Theme.Shrine</item>
-        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
-        <item name="titleTextAppearance">@style/TextAppearance.Shrine.Toolbar</item>
-    </style>
-
-    <style name="TextAppearance.Shrine.Toolbar" parent="TextAppearance.MaterialComponents.Button">
-        <item name="android:textSize">16sp</item>
-    </style>
-
-    <style name="TextAppearance.Shrine.Title" parent="TextAppearance.MaterialComponents.Headline4">
-        <item name="textAllCaps">true</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
-    </style>
-
-    <style name="Widget.Shrine.Backdrop" parent="">
-        <item name="android:background">?attr/colorAccent</item>
-    </style>
-
-    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
-    </style>
-
-    <style name="CustomBottomSheet" parent="Widget.Material3.BottomSheet">
-        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
-    </style>
 
     <style name="Theme.Design.BottomSheetDialog" parent="@style/Theme.AppCompat.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -317,113 +155,22 @@
         <item name="bottomSheetStyle">@style/Widget.Design.BottomSheet.Modal</item>
     </style>
 
-    <style name="CustomShapeAppearanceBottomSheetDialog" parent="Theme.Material3.BottomSheetDialog">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopRight">30dp</item>
-        <item name="cornerSizeTopLeft">30dp</item>
-        <item name="cornerSizeBottomRight">0dp</item>
-        <item name="cornerSizeBottomLeft">0dp</item>
-    </style>
-
-    <style name="Theme.Material3.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowAnimationStyle">
-            @style/Animation.MaterialComponents.BottomSheetDialog
-        </item>
-        <item name="bottomSheetStyle">@style/Widget.Material3.BottomSheet.Modal</item>
-    </style>
-
-    <style name="bstyle" parent="Theme.Material3.DayNight.BottomSheetDialog">
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
-    </style>
-
-    <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/BlueThemeSheetDesign</item>
-    </style>
-
-    <style name="ModalBottomSheetDialog" parent="Widget.Material3.BottomSheet.Modal">
-        <item name="backgroundTint">@color/shrine_pink_light</item>
-        <item name="shapeAppearance">@style/ShapeAppearance.App.LargeComponent</item>
-    </style>
-
-    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
-        <item name="cornerFamily">cut</item>
-        <item name="cornerSize">24dp</item>
-    </style>
     <!--     MyBottomSheetStyle -->
-    <style name="MyBottomSheetStyle" parent="Theme.Material3.DayNight.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/BrownThemeSheetDesign</item>
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
-    </style>
 
-    <style name="BrownThemeSheetDesign" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/brown_bottom_corners</item>
-    </style>
     <!--    END MyBottomSheetStyle -->
     <!--     BlueBottomSheetStyle -->
-    <style name="BlueBottomSheetStyle" parent="Theme.Material3.DayNight.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/BlueThemeSheetDesign</item>
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
-    </style>
 
-    <style name="BlueThemeSheetDesign" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/blue_bottom_corners</item>
-    </style>
     <!--   END BlueBottomSheetStyle -->
     <!--     BlueBottomSheetStyle -->
-    <style name="GreenBottomSheetStyle" parent="Theme.Material3.DayNight.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/BlueThemeSheetDesign</item>
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
-    </style>
 
-    <style name="GreenThemeSheetDesign" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/green_bottom_corners</item>
-    </style>
     <!--   END BlueBottomSheetStyle -->
 
 
+    <!--   parent="ThemeOverlay.Material3.DynamicColors.Dark">-->
 
 
-
-
-
-
-
-    <style name="Widget.Theme.Material3.DayNight.DarkActionBar.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/black_overlay</item>
-    </style>
-
-    <style name="Widget.Theme.Material3.DayNight.DarkActionBar.ButtonBar.Fullscreen" parent="">
-        <item name="android:background">@color/black_overlay</item>
-        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
-    </style>
-
-    <style name="HorizontalLine3dpWidth" />
- <!--   parent="ThemeOverlay.Material3.DynamicColors.Dark">-->
-
-
-
-
-
-
-
-    <style name="TabStyle" parent="Widget.Material3.TabLayout">
-        <item name="tabTextColor">@color/black</item>
-        <item name="android:background">@color/white</item>
-        <item name="tabIndicatorColor">@color/red</item>
-        <item name="tabIndicatorFullWidth">false</item>
-        <item name="tabInlineLabel">true</item>
-        <item name="tabIndicatorHeight">2dp</item>
-        <item name="tabMode">scrollable</item>
-        <item name="tabSelectedTextColor">@color/black</item>
-    </style>
-
-    <color name="shrine_pink_light">#C979EB</color>
     <color name="md_theme_blue_outline">#E939A8</color>
     <color name="primaryColorBrownDark">#5e342e</color>
-    <color name="primaryColorBrown">#795548</color>
-
-
 
 
     <style name="AppTheme.DarkGreen" parent="Theme.Material3.Dark.NoActionBar">
@@ -455,17 +202,7 @@
         <item name="colorPrimaryInverse">@color/mdgreen_theme_dark_inversePrimary</item>
     </style>
 
-    <style name="Widget.MushafApplication.AppWidget.Container" parent="android:Widget">
-        <item name="android:id">@android:id/background</item>
-        <item name="android:background">?android:attr/colorBackground</item>
-    </style>
-
-    <style name="Widget.MushafApplication.AppWidget.InnerView" parent="android:Widget">
-        <item name="android:background">?android:attr/colorBackground</item>
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
-    </style>
-
-<!--    <style name="RadioButton"></style>-->
+    <!--    <style name="RadioButton"></style>-->
 
     <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">>
         <item name="closeIcon">@drawable/abc_ic_clear_material</item>
@@ -537,37 +274,6 @@
         <item name="colorSurface">@color/bg_surface_brown</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <item name="textColorLight">@color/neutral7</item>
-    </style>
-    <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
-
-        <item name="android:textSize">30sp</item>
-        <item name="colorControlNormal">@android:color/transparent</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
-    </style>
-
-
-
-
-
-
-
-
-    <style name="spinner_style" parent="Base.Widget.AppCompat.DropDownItem.Spinner">
-        <item name="android:textColor">@color/white</item>
-
-        <item name="android:dividerHeight">5dp</item>
-        <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>
-        <item name="android:popupBackground">#395e60</item>
-    </style>
-
-    <style name="TopSheet_DialogAnimation">
-        <item name="android:windowEnterAnimation">@anim/slide_down</item>
-        <item name="android:windowExitAnimation">@anim/slide_up</item>
-    </style>
-
-    <style name="exoplayerSetting">
-        <item name="android:src">@drawable/audio_settings</item>
-        <item name="android:contentDescription">@string/exo_controls_vr_description</item>
     </style>
 
 

@@ -1,48 +1,6 @@
 <resources>
 
 
-    <style name="AppTextField" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
-        <item name="boxBackgroundColor">@color/text_field_background</item>
-    </style>
-
-    <color name="text_field_background">#F3F1F1</color>
-
-
-    <style name="Theme.DarkBlue.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.DarkBlue.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="Theme.MaterialComponents.DayNight.DarkActionBar.Fullscreen" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="android:actionBarStyle">
-            @style/Widget.Material3.MaterialCalendar.Fullscreen
-        </item>
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowBackground">@null</item>
-    </style>
-
-    <style name="Theme.Material3.DayNight.NoActionBar.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
-        <!-- Radius of the outer bound of widgets to make the rounded corners -->
-        <item name="appWidgetRadius">16dp</item>
-        <!--
-        Radius of the inner view's bound of widgets to make the rounded corners.
-        It needs to be 8dp or less than the value of appWidgetRadius
-        -->
-        <item name="appWidgetInnerRadius">8dp</item>
-    </style>
-
-    <style name="Theme.Material3.DayNight.NoActionBar.AppWidgetContainer" parent="Theme.Material3.DayNight.NoActionBar.AppWidgetContainerParent">
-        <!-- Apply padding to avoid the content of the widget colliding with the rounded corners -->
-        <item name="appWidgetPadding">16dp</item>
-    </style>
     <!-- Base application theme. -->
     <style name="Base.Theme.MaterialComponents.DayNight.DarkActionBar" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -57,15 +15,6 @@
     </style>
 
     <style name="Theme.MaterialComponents.DayNight.NoActionBar" parent="Base.Theme.MaterialComponents.DayNight.NoActionBar" />
-
-    <style name="Theme.MaterialComponents.DayNight.NoActionBar.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.MaterialComponents.DayNight.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.MaterialComponents.DayNight.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>
