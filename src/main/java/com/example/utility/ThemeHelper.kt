@@ -39,7 +39,7 @@ object ThemeHelper {
             LIGHT_THEME -> {
 
                 //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                QuranGrammarApplication.context!!.setTheme(R.style.Theme_White)
+                QuranGrammarApplication.context!!.setTheme(R.style.AppTheme)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
 
@@ -54,7 +54,7 @@ object ThemeHelper {
             }
 
             BROWN_MODE -> {
-                QuranGrammarApplication.context!!.setTheme(R.style.Theme_Green)
+                QuranGrammarApplication.context!!.setTheme(R.style.AppTheme_DarkGreen)
             }
 
             GREEN_MODE -> {
