@@ -686,54 +686,58 @@ class NewTopicFlowAyahWordAdapter(
                 private fun showFABMenu() {
                     isFABOpen = true
                     fabmenu.animate().rotationBy(180f)
-                    tafsir.visibility = View.VISIBLE
-                    tafsir.animate().translationX(
-                        (QuranGrammarApplication.instance)?.resources!!.getDimension(R.dimen.standard_55)
-                    )
-                    tafsir.animate().rotationBy(360f)
-                    tafsir.animate().duration = 1500
-                    // ObjectAnimator animation = ObjectAnimator.ofFloat(tafsir, "translationX", 90f);
-                    // animation.setDuration(1000);
-                    //  animation.start();
-                    //  jumptofb.setVisibility(View.VISIBLE);
-                    //   jumptofb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_105));
-                    //   jumptofb.animate().rotationBy(360);
-                    bookmarfb.visibility = View.VISIBLE
-                    bookmarfb.animate().translationX(
-                        -          (QuranGrammarApplication.instance)?.resources!!.getDimension(R.dimen.standard_105)
-                    )
-                    bookmarfb.animate().rotationBy(360f)
-                    bookmarfb.animate().duration = 1200
-                    //  ObjectAnimator animationbook = ObjectAnimator.ofFloat(bookmarfb, "translationX", 155f);
-                    // animationbook.setDuration(1000);
-                    //   animationbook.start();
-                    summbaryfb.visibility = View.VISIBLE
-                    summbaryfb.animate().translationX(
-                        -(QuranGrammarApplication.instance)?.resources!!.getDimension(R.dimen.standard_155)
-                    )
-                    summbaryfb.animate().rotationBy(360f)
-                    helpfb.visibility = View.VISIBLE
-                    helpfb.animate().translationX(
-                        -(QuranGrammarApplication.instance)?.resources!!.getDimension(R.dimen.standard_205)
-                    )
-                    helpfb.animate().rotationBy(360f)
+
+                        tafsir.visibility = View.VISIBLE
+                        tafsir.animate().translationX(
+                            -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_55)
+                                                     )
+                        tafsir.animate().rotationBy(360f)
+                        tafsir.animate().duration = 1500
 
 
-                    /*   ObjectAnimator animhelp = ObjectAnimator.ofFloat(helpfb, "translationX", 255f);
-                        animhelp.setDuration(1000);
-                        animhelp.start();*/sharescreenfb.visibility = View.VISIBLE
-                    sharescreenfb.animate().translationX(
-                        -(QuranGrammarApplication.instance)?.resources!!.getDimension(R.dimen.standard_255)
-                    )
-                    sharescreenfb.animate().rotationBy(360f)
-                    sharescreenfb.animate().duration = 1000
+/*
+                        jumptofb.visibility = View.VISIBLE
+                        jumptofb.animate().translationX(
+                            -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_105)
+                                                       )
+                        jumptofb.animate().rotationBy(360f)*/
+                        bookmarfb.visibility = View.VISIBLE
+
+
+                        bookmarfb.animate().translationX(
+                            -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_105)
+                                                        )
+
+
+
+
+                        bookmarfb.animate().rotationBy(360f)
+                        bookmarfb.animate().duration = 600
+                        summbaryfb.visibility = View.VISIBLE
+                        summbaryfb.animate().translationX(
+                            -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_155)
+                                                         )
+                        summbaryfb.animate().rotationBy(360f)
+                        helpfb.visibility = View.VISIBLE
+                        helpfb.animate().translationX(
+                            -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_205)
+                                                     )
+                        helpfb.animate().rotationBy(360f)
+                        sharescreenfb.visibility = View.VISIBLE
+                        sharescreenfb.animate().translationX(
+                            -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_255)
+                                                            )
+                        sharescreenfb.animate().rotationBy(360f)
+                        sharescreenfb.animate().duration = 500
+
+
                     tafsir.setOnClickListener {
                         closeFABMenu()
                         //HideFabMenu();
                         val readingintent = Intent(
                             context as AppCompatActivity?,
                             TafsirFullscreenActivity::class.java
-                        )
+                                                  )
                         //  flowAyahWordAdapter.getItem(position);
                         val chapter_no = ayahWord.corpus!!.surah
                         //   int verse = ayahWord.getWord().get(0).getcorpus!!.ayah();
@@ -743,11 +747,6 @@ class NewTopicFlowAyahWordAdapter(
                         readingintent.putExtra(AYAH_ID, verse)
                         readingintent.putExtra(SURAH_ARABIC_NAME, SurahName)
                         (context as AppCompatActivity?)!!.startActivity(readingintent)
-                    }
-                    bookmarfb.setOnClickListener {
-                        closeFABMenu()
-                        //   HideFabMenu();
-                        bookMarkSelected(position)
                     }
                     summbaryfb.setOnClickListener {
                         closeFABMenu()
@@ -764,24 +763,20 @@ class NewTopicFlowAyahWordAdapter(
                         SurahSummary.newInstance(chapter_no).show(
                             (context as AppCompatActivity?)!!.supportFragmentManager,
                             NamesDetail.TAG
-                        )
+                                                                 )
                     }
-                    helpfb.setOnClickListener {
+                    helpfb.setOnClickListener { v: View? ->
                         closeFABMenu()
-                        //  HideFabMenu();
-
-                        //    FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
-                        //   transactions.show(item);
                         ParticleColorScheme.newInstance().show(
-                            (context as AppCompatActivity?)!!.supportFragmentManager,
+                            (context as AppCompatActivity).supportFragmentManager,
                             WordAnalysisBottomSheet.TAG
-                        )
+                                                              )
                     }
                     sharescreenfb.setOnClickListener(object : View.OnClickListener {
                         override fun onClick(v: View) {
                             closeFABMenu()
                             //HideFabMenu();
-                            takeScreenShot((context as AppCompatActivity?)!!.window.decorView)
+                            takeScreenShot((context as AppCompatActivity).window.decorView)
                         }
 
                         private fun takeScreenShot(view: View) {
@@ -789,10 +784,9 @@ class NewTopicFlowAyahWordAdapter(
                             val format = DateFormat.format("MM-dd-yyyy_hh:mm:ss", date)
                             try {
                                 val mainDir = File(
-                                    (context as AppCompatActivity?)!!.getExternalFilesDir(
-                                        Environment.DIRECTORY_PICTURES
-                                    ), "FilShare"
-                                )
+                                    context!!.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                                    "FilShare"
+                                                  )
                                 if (!mainDir.exists()) {
                                     val mkdir = mainDir.mkdir()
                                 }
@@ -801,8 +795,6 @@ class NewTopicFlowAyahWordAdapter(
                                 view.isDrawingCacheEnabled = true
                                 val color = Color.RED
                                 val bitmap = getBitmapFromView(view, color)
-                                //  Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
-                                //  view.setDrawingCacheEnabled(false);
                                 val imageFile = File(path)
                                 val fileOutputStream = FileOutputStream(imageFile)
                                 bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream)
@@ -817,7 +809,7 @@ class NewTopicFlowAyahWordAdapter(
                         fun getBitmapFromView(view: View, defaultColor: Int): Bitmap {
                             val bitmap = Bitmap.createBitmap(
                                 view.width, view.height, Bitmap.Config.ARGB_8888
-                            )
+                                                            )
                             val canvas = Canvas(bitmap)
                             canvas.drawColor(defaultColor)
                             view.draw(canvas)
@@ -825,55 +817,60 @@ class NewTopicFlowAyahWordAdapter(
                         }
 
                         private fun shareScreenShot(imageFile: File) {
-
-
                             val uri = FileProvider.getUriForFile(
-                                (context as AppCompatActivity?)!!,
+                                context!!,
                                 QuranGrammarApplication.context!!.packageName + ".provider",
                                 imageFile
-                            )
-
-
-                            /*      CropImage.activity(uri)
-                .start(this);*/
+                                                                )
                             val intent = Intent()
                             intent.action = Intent.ACTION_SEND
                             intent.type = "image/*"
                             intent.putExtra(
                                 Intent.EXTRA_TEXT,
                                 "Download Application from Instagram"
-                            )
+                                           )
                             intent.putExtra(Intent.EXTRA_STREAM, uri)
-                            val resInfoList =
-                                (context as AppCompatActivity?)!!.packageManager.queryIntentActivities(
-                                    intent,
-                                    PackageManager.MATCH_DEFAULT_ONLY
-                                )
+                            val resInfoList = context!!.packageManager.queryIntentActivities(
+                                intent,
+                                PackageManager.MATCH_DEFAULT_ONLY
+                                                                                          )
                             for (resolveInfo in resInfoList) {
                                 val packageName = resolveInfo.activityInfo.packageName
-                                (context as AppCompatActivity?)!!.grantUriPermission(
+                                context!!.grantUriPermission(
                                     packageName,
                                     uri,
                                     Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
-                                )
+                                                          )
                             }
                             //  startActivity(Intent.createChooser(intent, "Share PDF using.."));
                             try {
-                                (context as AppCompatActivity?)!!.startActivity(
+                                context!!.startActivity(
                                     Intent.createChooser(
                                         intent,
                                         "Share With"
-                                    )
-                                )
+                                                        )
+                                                     )
                             } catch (e: ActivityNotFoundException) {
-                                Toast.makeText(
-                                    context as AppCompatActivity?,
-                                    "No App Available",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                Toast.makeText(context, "No App Available", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                         }
                     })
+                }
+
+                private fun closeFABMenu() {
+                    isFABOpen = false
+                    fabmenu.animate().rotationBy(-180f)
+                    tafsir.animate().translationX(0f)
+                    tafsir.animate().rotationBy(0f)
+
+                    //   jumptofb.animate().translationX(0);
+                    bookmarfb.animate().translationX(0f)
+                    bookmarfb.animate().rotationBy(360f)
+                    summbaryfb.animate().translationX(0f)
+                    helpfb.animate().translationX(0f)
+                    sharescreenfb.animate().translationX(0f)
+                    sharescreenfb.animate().rotationBy(360f)
                 }
 
                 private fun bookMarkSelected(position: Int) {
@@ -898,20 +895,6 @@ class NewTopicFlowAyahWordAdapter(
                     snackbar.show()
                 }
 
-                private fun closeFABMenu() {
-                    isFABOpen = false
-                    fabmenu.animate().rotationBy(-180f)
-                    tafsir.animate().translationX(0f)
-                    tafsir.animate().rotationBy(0f)
-
-                    //   jumptofb.animate().translationX(0);
-                    bookmarfb.animate().translationX(0f)
-                    bookmarfb.animate().rotationBy(360f)
-                    summbaryfb.animate().translationX(0f)
-                    helpfb.animate().translationX(0f)
-                    sharescreenfb.animate().translationX(0f)
-                    sharescreenfb.animate().rotationBy(360f)
-                }
             })
             mafoolatarow.setOnClickListener { view1: View? ->
                 TransitionManager.beginDelayedTransition(

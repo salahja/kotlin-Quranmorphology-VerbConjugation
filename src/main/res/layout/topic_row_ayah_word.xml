@@ -6,8 +6,10 @@
     android:orientation="vertical"
     app:cardBackgroundColor="@android:color/transparent">
 
-    <include layout="@layout/quran_imageview_row" />
-
+    <include layout="@layout/quran_imageview_row"
+        android:layout_width="match_parent"
+        android:layout_gravity="start"
+        android:layout_height="match_parent"/>
 
     <com.example.utility.FlowLayout
         android:id="@+id/flow_word_by_word"

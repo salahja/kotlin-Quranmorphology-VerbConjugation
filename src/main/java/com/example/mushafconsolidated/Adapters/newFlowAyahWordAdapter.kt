@@ -1215,6 +1215,9 @@ class newFlowAyahWordAdapter(
                                                          )
                             tafsir.animate().rotationBy(360f)
                             tafsir.animate().duration = 1500
+
+
+
                             jumptofb.visibility = View.VISIBLE
                             jumptofb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_105)
