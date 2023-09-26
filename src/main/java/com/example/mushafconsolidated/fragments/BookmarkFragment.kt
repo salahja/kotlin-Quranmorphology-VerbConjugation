@@ -39,7 +39,7 @@ internal class BookmarkFragment : Fragment() {
     private val mRecview: RecyclerView? = null
     private lateinit var mViewPager: ViewPager2
     private val listView: ListView? = null
-    var mediator: TabLayoutMediator? = null
+    private var mediator: TabLayoutMediator? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,7 +55,7 @@ internal class BookmarkFragment : Fragment() {
 
         //  mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = view.findViewById<ViewPager2>(R.id.container)
-        mViewPager.setAdapter(mSectionsPagerAdapter)
+        mViewPager.adapter = mSectionsPagerAdapter
         mediator = TabLayoutMediator(tabLayout, mViewPager,
             TabConfigurationStrategy { tab: TabLayout.Tab, position: Int ->
                 tab.setText(
@@ -75,7 +75,7 @@ internal class BookmarkFragment : Fragment() {
         layoutManager = LinearLayoutManager(activity)
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                mViewPager.setCurrentItem(tab.position)
+                mViewPager.currentItem = tab.position
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {}

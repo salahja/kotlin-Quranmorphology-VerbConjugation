@@ -12,6 +12,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mushafconsolidated.Entities.qurandictionary;
@@ -62,6 +63,7 @@ public class QuranTopicSearchAdapter extends RecyclerView.Adapter<QuranTopicSear
 //    }
 // --Commented out by Inspection STOP (19/09/23, 8:51 pm)
 
+    @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -70,7 +72,7 @@ public class QuranTopicSearchAdapter extends RecyclerView.Adapter<QuranTopicSear
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         quranexplorer entity = qurandictionaryFiltered.get(position);
         String ayahref = entity.getAyahref();
         if (ayahref != null) {

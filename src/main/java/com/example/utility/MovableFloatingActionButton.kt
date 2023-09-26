@@ -7,6 +7,9 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup.MarginLayoutParams
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 
 class MovableFloatingActionButton : FloatingActionButton, OnTouchListener {
     private var downRawX = 0f
@@ -50,20 +53,20 @@ class MovableFloatingActionButton : FloatingActionButton, OnTouchListener {
             val parentWidth = viewParent.width
             val parentHeight = viewParent.height
             var newX = motionEvent.rawX + dX
-            newX = Math.max(
+            newX = max(
                 layoutParams.leftMargin.toFloat(),
                 newX
             ) // Don't allow the FAB past the left hand side of the parent
-            newX = Math.min(
+            newX = min(
                 (parentWidth - viewWidth - layoutParams.rightMargin).toFloat(),
                 newX
             ) // Don't allow the FAB past the right hand side of the parent
             var newY = motionEvent.rawY + dY
-            newY = Math.max(
+            newY = max(
                 layoutParams.topMargin.toFloat(),
                 newY
             ) // Don't allow the FAB past the top of the parent
-            newY = Math.min(
+            newY = min(
                 (parentHeight - viewHeight - layoutParams.bottomMargin).toFloat(),
                 newY
             ) // Don't allow the FAB past the bottom of the parent
@@ -78,9 +81,9 @@ class MovableFloatingActionButton : FloatingActionButton, OnTouchListener {
             val upRawY = motionEvent.rawY
             val upDX = upRawX - downRawX
             val upDY = upRawY - downRawY
-            if (Math.abs(upDX) < CLICK_DRAG_TOLERANCE && Math.abs(
+            if (abs(upDX) < CLICK_DRAG_TOLERANCE && abs(
                     upDY
-                ) < CLICK_DRAG_TOLERANCE
+                                                       ) < CLICK_DRAG_TOLERANCE
             ) { // A click
                 performClick()
             } else { // A drag

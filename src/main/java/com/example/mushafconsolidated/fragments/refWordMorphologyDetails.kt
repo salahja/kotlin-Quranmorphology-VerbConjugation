@@ -10,17 +10,15 @@ import com.example.utility.CorpusConstants.verbfeaturesenglisharabic
 import com.example.utility.CorpusUtilityorig
 
 
-class refWordMorphologyDetails : QuranMorphologyDetails {
+class refWordMorphologyDetails(
+    private var word: CorpusEntity,
+    corpusNounWord: List<*>,
+    verbCorpusRootWord: List<*>
+                              ) : QuranMorphologyDetails() {
     private var verbCorpusRootWord: ArrayList<VerbCorpus>? = null
     private var corpusNounWord: ArrayList<NounCorpus>? = null
-    private var word: CorpusEntity
 
-    constructor(
-        word: CorpusEntity,
-        corpusNounWord: List<*>,
-        verbCorpusRootWord: List<*>
-    ) {
-        this.word = word
+    init {
         this.corpusNounWord = corpusNounWord as ArrayList<NounCorpus>?
         this.verbCorpusRootWord = verbCorpusRootWord as ArrayList<VerbCorpus>?
     }

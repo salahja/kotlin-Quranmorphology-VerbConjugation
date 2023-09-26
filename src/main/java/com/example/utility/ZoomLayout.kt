@@ -9,8 +9,10 @@ import android.view.ScaleGestureDetector
 import android.view.ScaleGestureDetector.OnScaleGestureListener
 import android.view.View
 import android.widget.FrameLayout
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.sign
 
- 
 class ZoomLayout : FrameLayout, OnScaleGestureListener {
     private var mode:  ZoomLayout.Mode =
       ZoomLayout.Mode.NONE
@@ -97,8 +99,8 @@ class ZoomLayout : FrameLayout, OnScaleGestureListener {
                 parent.requestDisallowInterceptTouchEvent(true)
                 val maxDx = child().width - child().width / scale / 2 * scale
                 val maxDy = child().height - child().height / scale / 2 * scale
-                dx = Math.min(Math.max(dx, -maxDx), maxDx)
-                dy = Math.min(Math.max(dy, -maxDy), maxDy)
+                dx = min(max(dx, -maxDx), maxDx)
+                dy = min(max(dy, -maxDy), maxDy)
                 Log.i(
                     ZoomLayout.Companion.TAG,
                     "Width: " + child().width + ", scale " + scale + ", dx " + dx
@@ -122,11 +124,11 @@ class ZoomLayout : FrameLayout, OnScaleGestureListener {
             ZoomLayout.Companion.TAG,
             "onScale$scaleFactor"
         )
-        if (lastScaleFactor == 0f || Math.signum(scaleFactor) == Math.signum(lastScaleFactor)) {
+        if (lastScaleFactor == 0f || sign(scaleFactor) == sign(lastScaleFactor)) {
             scale *= scaleFactor
-            scale = Math.max(
-                ZoomLayout.Companion.MIN_ZOOM,
-                Math.min(scale,ZoomLayout.Companion.MAX_ZOOM)
+            scale = max(
+                MIN_ZOOM,
+                min(scale,MAX_ZOOM)
             )
             lastScaleFactor = scaleFactor
         } else {

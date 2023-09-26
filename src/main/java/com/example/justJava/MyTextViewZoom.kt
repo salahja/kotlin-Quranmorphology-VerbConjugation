@@ -10,17 +10,18 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.widget.ImageView
 import android.widget.TextView
+import kotlin.math.sqrt
 
 class MyTextViewZoom : Activity(), OnTouchListener {
     // These matrices will be used to scale points of the image
-    var matrix = Matrix()
-    var savedMatrix = Matrix()
+    private var matrix = Matrix()
+    private var savedMatrix = Matrix()
     var mode = NONE
 
     // these PointF objects are used to record the point(s) the user is touching
     var start = PointF()
-    var mid = PointF()
-    var oldDist = 1f
+    private var mid = PointF()
+    private var oldDist = 1f
     override fun onCreate(savedInstanceState: Bundle?) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState)
@@ -87,7 +88,7 @@ class MyTextViewZoom : Activity(), OnTouchListener {
     private fun spacing(event: MotionEvent): Float {
         val x = event.getX(0) - event.getX(1)
         val y = event.getY(0) - event.getY(1)
-        return Math.sqrt((x * x + y * y).toDouble()).toFloat()
+        return sqrt((x * x + y * y).toDouble()).toFloat()
     }
 
     /*

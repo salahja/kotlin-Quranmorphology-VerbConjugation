@@ -9,13 +9,6 @@ public abstract class TextColourSpan extends CharacterStyle {
     public static TextColourSpan newInstance(Context context, int resourceId) {
         Resources resources = context.getResources();
         ColorStateList colorStateList = resources.getColorStateList(resourceId);
-        if (colorStateList != null) {
-            return new ColourStateListSpan(colorStateList);
-        }
-        int colour = resources.getColor(resourceId);
-        if (colour >= 0) {
-            return new StaticColourSpan(colour);
-        }
-        return null;
+        return new ColourStateListSpan(colorStateList);
     }
 }

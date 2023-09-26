@@ -37,15 +37,15 @@ class FontQuranListDialogFragment constructor() : BottomSheetDialogFragment() {
 
     public override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setLayoutManager(LinearLayoutManager(requireContext()))
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 //        radioGroup = view.findViewById(R.id.rdgroup)
         val details: ArrayList<String> = ArrayList()
         val sample: String = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ"
         fontQuranAdapter = FontQuranAdapter(sample)
-        recyclerView.setAdapter(fontQuranAdapter)
+        recyclerView.adapter = fontQuranAdapter
         fontQuranAdapter!!.SetOnItemClickListener(object : OnItemClickListener {
             public override fun onItemClick(v: View?, position: Int) {
-                var checkedRadioButtonId: Int = radioGroup.getCheckedRadioButtonId()
+                var checkedRadioButtonId: Int = radioGroup.checkedRadioButtonId
                 //Toast.makeText(context!!, "", Toast.LENGTH_SHORT).show();
             }
         })
@@ -87,7 +87,7 @@ class FontQuranListDialogFragment constructor() : BottomSheetDialogFragment() {
             rdqalam.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {
                     val editor: SharedPreferences.Editor =
-                        android.preference.PreferenceManager.getDefaultSharedPreferences(getActivity())
+                        android.preference.PreferenceManager.getDefaultSharedPreferences(activity)
                             .edit()
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                     editor.putString("Arabic_Font_Selection", "AlQalam.ttf")
@@ -98,7 +98,7 @@ class FontQuranListDialogFragment constructor() : BottomSheetDialogFragment() {
             rdmequran.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {
                     val editor: SharedPreferences.Editor =
-                        android.preference.PreferenceManager.getDefaultSharedPreferences(getActivity())
+                        android.preference.PreferenceManager.getDefaultSharedPreferences(activity)
                             .edit()
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                     editor.putString("Arabic_Font_Selection", "me_quran.ttf")
@@ -109,7 +109,7 @@ class FontQuranListDialogFragment constructor() : BottomSheetDialogFragment() {
             rdamiri.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {
                     val editor: SharedPreferences.Editor =
-                        android.preference.PreferenceManager.getDefaultSharedPreferences(getActivity())
+                        android.preference.PreferenceManager.getDefaultSharedPreferences(activity)
                             .edit()
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                     editor.putString("Arabic_Font_Selection", "quranicfontregular.ttf")
@@ -121,7 +121,7 @@ class FontQuranListDialogFragment constructor() : BottomSheetDialogFragment() {
 
         public override fun onClick(v: View) {
             if (mItemClickListener != null) {
-                mItemClickListener!!.onItemClick(v, getLayoutPosition())
+                mItemClickListener!!.onItemClick(v, layoutPosition)
             }
         }
     }
@@ -145,30 +145,30 @@ class FontQuranListDialogFragment constructor() : BottomSheetDialogFragment() {
         ) {
             val sample: String = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ"
             val mequran: Typeface = Typeface.createFromAsset(
-                requireContext().getAssets(), "me_quran.ttf"
+                requireContext().assets, "me_quran.ttf"
             )
             val qalam: Typeface = Typeface.createFromAsset(
-                requireContext().getAssets(), "AlQalam.ttf"
+                requireContext().assets, "AlQalam.ttf"
             )
             val quran: Typeface = Typeface.createFromAsset(
-                requireContext().getAssets(), "quranicfontregular.ttf"
+                requireContext().assets, "quranicfontregular.ttf"
             )
-            holder.text.setText(sample)
-            holder.qalamtext.setText(sample)
-            holder.mequrantext.setText(sample)
-            holder.qalamtext.setTypeface(qalam)
-            holder.mequrantext.setTypeface(mequran)
-            holder.quranictext.setText(sample)
-            holder.quranictext.setTypeface(quran)
+            holder.text.text = sample
+            holder.qalamtext.text = sample
+            holder.mequrantext.text = sample
+            holder.qalamtext.typeface = qalam
+            holder.mequrantext.typeface = mequran
+            holder.quranictext.text = sample
+            holder.quranictext.typeface = quran
             val theme: String? = PreferenceManager.getDefaultSharedPreferences(
                 requireActivity()
             ).getString("Arabic_Font_Selection", "me_quran.ttf")
             if ((theme == "me_quran.ttf")) {
-                holder.rdmequran.setChecked(true)
+                holder.rdmequran.isChecked = true
             } else if ((theme == "AlQalam.ttf")) {
-                holder.rdqalam.setChecked(true)
+                holder.rdqalam.isChecked = true
             } else if ((theme == "quranicfontregular.ttf")) {
-                holder.rdamiri.setChecked(true)
+                holder.rdamiri.isChecked = true
             }
         }
 

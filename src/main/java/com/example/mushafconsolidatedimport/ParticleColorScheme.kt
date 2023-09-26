@@ -26,7 +26,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
  */
 class ParticleColorScheme : BottomSheetDialogFragment() {
     var mItemClickListener: OnItemClickListener? = null
-    var textView: TextView? = null
+    private var textView: TextView? = null
     private var colorSchemeAdapter: ColorSchemeAdapter? = null
 
     /**
@@ -132,25 +132,14 @@ class ParticleColorScheme : BottomSheetDialogFragment() {
 
     }
 
-    private class ColorSchemeAdapter :
-        RecyclerView.Adapter<ViewHolder> {
-        private var particle: ArrayList<String?>? = null
+    private class ColorSchemeAdapter(
+        spanhash: Map<String?, ForegroundColorSpan>,
+        private var particle: java.util.ArrayList<String?>?
+                                    ) :
+        RecyclerView.Adapter<ViewHolder>() {
         private var mItemCount: String? = null
-        private var spanhash: Map<String?, ForegroundColorSpan>? = null
+        private var spanhash: Map<String?, ForegroundColorSpan>? = spanhash
         private var mItemClickListener: OnItemClickListener? = null
-
-        constructor(
-            spanhash: Map<String?, ForegroundColorSpan>,
-            particle: java.util.ArrayList<String?>?
-        ) {
-            this.spanhash = spanhash
-            this.particle = particle
-        }
-
-
-
-
-
         override fun onBindViewHolder(
             holder: ViewHolder,
             position: Int

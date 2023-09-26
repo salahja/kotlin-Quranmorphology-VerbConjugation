@@ -87,7 +87,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
     var chapterid = 0
     private var ayanumber = 0
     private var isverbconjugaton = false
-    var participles = false
+    private var participles = false
     lateinit var expandableListView: ExpandableListView
     var expandableListTitle: List<String>? = null
     var expandableListDetail: LinkedHashMap<String, List<SpannableString>>? = null
@@ -235,7 +235,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
         val utils = Utils(requireContext())
     //    val nasabarray: List<NewNasbEntity> =
          //   utils.getHarfNasbIndSurahAyahSnew(chapterid, ayanumber)
-   val nasabarray=     model.getnasab(chapterid,ayanumber).value
+        val nasabarray=     model.getnasab(chapterid,ayanumber).value
         if (nasabarray != null) {
             for (nasbEntity in nasabarray) {
                 //System.out.println("CHECK");
@@ -327,7 +327,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                         if (list != null) {
                             for (w in list) {
                                 StringBuilder()
-                                var temp: StringBuilder = getSelectedTranslation(w!!)
+                                val temp: StringBuilder = getSelectedTranslation(w!!)
                                 sb.append(temp).append(" ")
                             }
                         }
@@ -339,12 +339,12 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                         if (wbwayah != null) {
                             for (w in wbwayah) {
                                 StringBuilder()
-                                var temp: StringBuilder = w?.let { getSelectedTranslation(it) }!!
+                                val temp: StringBuilder = w?.let { getSelectedTranslation(it) }!!
                                 if (w.wordno == harfword) {
                                     sb.append(temp).append(" ")
-                                } else if (w.wordno >= shartSword && w.wordno <= shartEword) {
+                                } else if (w.wordno in shartSword..shartEword) {
                                     sb.append(temp).append(" ")
-                                } else if (w.wordno >= jawbSword && w.wordno <= jawabEword) {
+                                } else if (w.wordno in jawbSword..jawabEword) {
                                     //     sb. append("... ");
                                     khabarsb.append(temp).append(" ")
                                 }
@@ -394,7 +394,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                         if (list != null) {
                             for (w in list) {
                                 StringBuilder()
-                                var temp: StringBuilder = getSelectedTranslation(w)
+                                val temp: StringBuilder = getSelectedTranslation(w)
                                 sb.append(temp).append(" ")
                             }
                         }
@@ -433,7 +433,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                         if (lists != null) {
                             for (w in lists) {
                                 StringBuilder()
-                                var temp: StringBuilder = getSelectedTranslation(w!!)
+                                val temp: StringBuilder = getSelectedTranslation(w!!)
                                 sb.append(temp).append(" ")
                             }
                         }
@@ -476,7 +476,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                         if (list != null) {
                             for (w in list) {
                                 StringBuilder()
-                                var temp: StringBuilder = getSelectedTranslation(w!!)
+                                val temp: StringBuilder = getSelectedTranslation(w!!)
                                 sb.append(temp).append(" ")
                             }
                         }
@@ -502,7 +502,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                         if (harf != null) {
                             for (w in harf) {
                                 StringBuilder()
-                                var temp: StringBuilder = getSelectedTranslation(w!!)
+                                val temp: StringBuilder = getSelectedTranslation(w!!)
                                 sb.append(temp).append(" ")
                             }
                         }
@@ -510,7 +510,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                         if (ism != null) {
                             for (w in ism) {
                                 StringBuilder()
-                                var temp: StringBuilder = getSelectedTranslation(w!!)
+                                val temp: StringBuilder = getSelectedTranslation(w!!)
                                 sb.append(temp).append(" ")
                             }
                         }
@@ -665,7 +665,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                     if (wbwayah != null) {
                         for (w in wbwayah) {
                             StringBuilder()
-                            var temp: StringBuilder = getSelectedTranslation(w!!)
+                            val temp: StringBuilder = getSelectedTranslation(w!!)
                             if (w.wordno == harfword) {
                                 sb.append(temp.append(" "))
                             } else if (w.wordno in ismSword..ismEword) {
@@ -728,7 +728,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                         if (list != null) {
                             for (w in list) {
                                 StringBuilder()
-                                var temp: StringBuilder = getSelectedTranslation(w!!)
+                                val temp: StringBuilder = getSelectedTranslation(w!!)
                                 sb.append(temp).append(" ")
                             }
                         }
@@ -766,7 +766,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                         if (lists != null) {
                             for (w in lists) {
                                 StringBuilder()
-                                var temp: StringBuilder = getSelectedTranslation(w)
+                                val temp: StringBuilder = getSelectedTranslation(w)
                                 sb.append(temp).append(" ")
                             }
                         }
@@ -818,7 +818,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                         if (list != null) {
                             for (w in list) {
                                 StringBuilder()
-                                var temp: StringBuilder = getSelectedTranslation(w)
+                                val temp: StringBuilder = getSelectedTranslation(w)
                                 sb.append(temp).append(" ")
                             }
                         }
@@ -833,7 +833,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                         if (wbwayah != null) {
                             for (w in wbwayah) {
                                 StringBuilder()
-                                var temp: StringBuilder = getSelectedTranslation(w)
+                                val temp: StringBuilder = getSelectedTranslation(w)
                                 if (w.wordno == harfword) {
                                     sb.append(temp).append(" ")
                                 } else if (w.wordno in ismSword..ismEword) {
@@ -916,7 +916,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                 if (list != null) {
                     for (w in list) {
                         StringBuilder()
-                        var temp: StringBuilder = getSelectedTranslation(w)
+                        val temp: StringBuilder = getSelectedTranslation(w)
                         ssb.append(temp).append(" ")
                     }
                 }
@@ -963,7 +963,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                     if (list != null) {
                         for (w in list) {
                             StringBuilder()
-                            var temp: StringBuilder = getSelectedTranslation(w)
+                            val temp: StringBuilder = getSelectedTranslation(w)
                             ssb.append(temp).append(" ")
                         }
                     }
@@ -1075,7 +1075,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                         )
                         if (list != null) {
                             for (w in list) {
-                                var temp: StringBuilder = getSelectedTranslation(w)
+                                val temp: StringBuilder = getSelectedTranslation(w)
                                 sb.append(temp).append(" ")
                             }
                         }
@@ -1088,7 +1088,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                         )
                         if (wbwayah != null) {
                             for (w in wbwayah) {
-                                var temp: StringBuilder = getSelectedTranslation(w)
+                                val temp: StringBuilder = getSelectedTranslation(w)
                                 if (w.wordno == harfword) {
                                     sb.append(temp).append(" ")
                                 } else if (w.wordno in shartSword..shartEword) {
@@ -1131,7 +1131,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                         if (harfnshart != null) {
                             for (w in harfnshart) {
                                 StringBuilder()
-                                var temp: StringBuilder = getSelectedTranslation(w)
+                                val temp: StringBuilder = getSelectedTranslation(w)
                                 getSelectedTranslation(w)
                                 sb.append(temp).append(" ")
                             }
@@ -1143,7 +1143,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
                         )
                         if (wbwayah != null) {
                             for (w in wbwayah) {
-                                var temp: StringBuilder = getSelectedTranslation(w)
+                                val temp: StringBuilder = getSelectedTranslation(w)
                                 if (w.wordno == harfword) {
                                     sb.append(temp).append(" ")
                                 } else if (w.wordno in shartSword..shartEword) {

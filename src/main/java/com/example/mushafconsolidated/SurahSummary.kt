@@ -92,10 +92,10 @@ class SurahSummary : BottomSheetDialogFragment() {
         val item_count: Int = bundle!!.getInt("item_count")
         val utils: Utils = Utils(activity)
         val viewmodel: QuranVIewModel by viewModels()
-        viewmodel.getSurahSummary(item_count).observe(this, {
-          //  val surahSummary: ArrayList<surahsummary> = utils.getSurahSummary(item_count) as ArrayList<surahsummary>
+        viewmodel.getSurahSummary(item_count).observe(this) {
+            //  val surahSummary: ArrayList<surahsummary> = utils.getSurahSummary(item_count) as ArrayList<surahsummary>
             //   String  ayah = getVersesDetails(item_count, surahSummary);
-            var sum: String =       it.get(0).summary
+            var sum: String = it[0].summary
             sum = sum.replace("God".toRegex(), "Allah(SWT)")
             var odiv: String = "<div>"
             val cdiv: String = "</div>"
@@ -104,7 +104,7 @@ class SurahSummary : BottomSheetDialogFragment() {
             //   String concat = html.concat(odiv).concat(ayah.toString()).concat(close);
             val concat: String = html + odiv + close
             webView.loadDataWithBaseURL(null, concat, "text/html", "utf-8", null)
-        })
+        }
 
         return view
     }

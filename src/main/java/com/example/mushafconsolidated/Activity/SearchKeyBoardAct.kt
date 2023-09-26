@@ -111,14 +111,14 @@ class SearchKeyBoardAct : BaseActivity(), View.OnClickListener {
         actv.setTextIsSelectable(true)
         //   KeyboardUtil.hideKeyboard(this);
         actv.showSoftInputOnFocus = false
-        actv.setOnFocusChangeListener({ view: View?, hasFocus: Boolean ->
+        actv.setOnFocusChangeListener { view: View?, hasFocus: Boolean ->
             if (hasFocus) {
                 keyboard.visibility = LinearLayout.VISIBLE
                 //     actv.showDropDown();
                 if (tlist != null) tlist!!.adapter = null
                 if (mlist != null) mlist!!.adapter = null
             } //   keyboard.setVisibility(LinearLayout.GONE);
-        })
+        }
     }
 
     private fun init() {

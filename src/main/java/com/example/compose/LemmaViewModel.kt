@@ -19,7 +19,7 @@ import kotlinx.coroutines.withContext
 class LemmaViewModel(application: Application,lemmarabic:String) : AndroidViewModel(application) {
     val alldua: MutableLiveData<List<NounCorpusBreakup>> = MutableLiveData()
 
-    val lemmalist: MutableLiveData<List<NounCorpusBreakup>> = MutableLiveData()
+    private val lemmalist: MutableLiveData<List<NounCorpusBreakup>> = MutableLiveData()
 
     private lateinit var util: Utils
    // var lemmarabic: String = "حمد"
@@ -38,10 +38,10 @@ class LemmaViewModel(application: Application,lemmarabic:String) : AndroidViewMo
                 //     nounBreakup = util.getNounBreakup(lemmarabic) as ArrayList<NounCorpusBreakup>?
                 //    verbBreakup= util.getVerbBreakUp(lemmarabic) as ArrayList<VerbCorpusBreakup>?
                 nounBreakup = lemmarabic.trim()
-                    ?.let { util.getNounBreakup(it) } as ArrayList<NounCorpusBreakup>?
+                    .let { util.getNounBreakup(it) } as ArrayList<NounCorpusBreakup>?
 
                 verbBreakup = lemmarabic.trim()
-                    ?.let { util.getVerbBreakUp(it) } as ArrayList<VerbCorpusBreakup>?
+                    .let { util.getVerbBreakUp(it) } as ArrayList<VerbCorpusBreakup>?
                 true
     }
 
@@ -73,7 +73,7 @@ class LemmaViewModel(application: Application,lemmarabic:String) : AndroidViewMo
                     val lists :ArrayList<String> =  ArrayList<String>()
 
                  for(ver in nouns){
-                     var sb = StringBuilder()
+                     val sb = StringBuilder()
                      sb.append(ver.surah).append(":").append(ver.ayah)
                      sb.append(ver.qurantext)
                          lists.add(sb.toString())
@@ -91,7 +91,7 @@ class LemmaViewModel(application: Application,lemmarabic:String) : AndroidViewMo
 
 
                     for(ver in verses){
-                        var sb = StringBuilder()
+                        val sb = StringBuilder()
                         sb.append(ver.surah).append(":").append(ver.ayah)
                         sb.append(ver.qurantext)
                         lists.add(sb.toString())

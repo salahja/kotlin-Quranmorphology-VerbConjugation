@@ -41,9 +41,7 @@ class JuzSurahDisplayAdapter(private val context: Context?, private val JuzArray
         val context = QuranGrammarApplication.context!!
         val pref = context.getSharedPreferences("lastread", Context.MODE_PRIVATE)
         val imgs = this.context?.resources?.obtainTypedArray(R.array.sura_imgs)
-        if (imgs != null) {
-            imgs.recycle()
-        }
+        imgs?.recycle()
         val array = imgs
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         val juzdetail = "Juz" + " " + java.lang.String.valueOf(juzitem.juz)
@@ -88,7 +86,7 @@ class JuzSurahDisplayAdapter(private val context: Context?, private val JuzArray
         var tvJuz: TextView
         var tvArabic: TextView
         var part: TextView? = null
-        var surahcardview: CardView
+        private var surahcardview: CardView
 
         init {
             surahcardview = itemView.findViewById(R.id.surahcardview)

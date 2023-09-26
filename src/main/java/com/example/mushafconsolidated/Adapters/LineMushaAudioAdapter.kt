@@ -45,8 +45,8 @@ class LineMushaAudioAdapter(
     private val isMakkiMadani: Int
 
     // --Commented out by Inspection (25/08/23, 7:54 pm):public TextView arabic, rootword;
-    val arabicfontSize: Int
-    val translationfontsize: Int
+    private val arabicfontSize: Int
+    private val translationfontsize: Int
     val mItemClickListener: OnItemClickListenerOnLong?
     private var isNightmode: String? = null
 
@@ -169,32 +169,32 @@ class LineMushaAudioAdapter(
             val imgs = context.resources.obtainTypedArray(R.array.sura_imgs)
 
             // You have to set your header items values with the help of model class and you can modify as per your needs
-            holder.tvRukus!!.text = String.format("Ruku's :%s", header[0])
-            holder.tvVerses!!.text = String.format("Aya's :%s", header[1])
-            holder.tvSura!!.text = header[3]
+            holder.tvRukus.text = String.format("Ruku's :%s", header[0])
+            holder.tvVerses.text = String.format("Aya's :%s", header[1])
+            holder.tvSura.text = header[3]
             val chapterno = header[2]
             val tauba = chapterno.toInt()
             if (tauba == 9) {
-                holder.ivBismillah!!.visibility = View.GONE
+                holder.ivBismillah.visibility = View.GONE
             }
             if (isMakkiMadani == 1) {
-                holder.ivLocationmakki!!.visibility = View.VISIBLE
-                holder.ivLocationmadani!!.visibility = View.GONE
+                holder.ivLocationmakki.visibility = View.VISIBLE
+                holder.ivLocationmadani.visibility = View.GONE
             } else {
-                holder.ivLocationmadani!!.visibility = View.VISIBLE
-                holder.ivLocationmakki!!.visibility = View.GONE
+                holder.ivLocationmadani.visibility = View.VISIBLE
+                holder.ivLocationmakki.visibility = View.GONE
             }
             val drawable = imgs.getDrawable(chapterno.toInt() - 1)
             imgs.recycle()
-            holder.ivSurahIcon!!.setImageDrawable(drawable)
+            holder.ivSurahIcon.setImageDrawable(drawable)
             if (isNightmode == "dark" || isNightmode == "blue" || isNightmode == "green") {
-                holder.ivLocationmakki!!.setColorFilter(Color.CYAN)
-                holder.ivSurahIcon!!.setColorFilter(Color.CYAN)
-                holder.ivLocationmadani!!.setColorFilter(Color.CYAN)
+                holder.ivLocationmakki.setColorFilter(Color.CYAN)
+                holder.ivSurahIcon.setColorFilter(Color.CYAN)
+                holder.ivLocationmadani.setColorFilter(Color.CYAN)
             } else {
-                holder.ivLocationmakki!!.setColorFilter(Color.BLACK)
-                holder.ivSurahIcon!!.setColorFilter(Color.BLACK)
-                holder.ivLocationmadani!!.setColorFilter(Color.BLACK)
+                holder.ivLocationmakki.setColorFilter(Color.BLACK)
+                holder.ivSurahIcon.setColorFilter(Color.BLACK)
+                holder.ivLocationmadani.setColorFilter(Color.BLACK)
             }
         } else {
             displayAyats(
@@ -215,7 +215,7 @@ class LineMushaAudioAdapter(
         }
     }
 
-    fun displayAyats(
+    private fun displayAyats(
         showrootkey: Boolean,
         holder: ItemViewAdapter,
         position: Int,
@@ -229,7 +229,7 @@ class LineMushaAudioAdapter(
         showWordByword: Boolean,
         whichtranslation: String?,
         showKathir: Boolean,
-    ) {
+                            ) {
         //   holder.flowwbw.setBackgroundColor(R.style.Theme_DarkBlue);
         var entity: QuranEntity? = null
 
@@ -242,7 +242,7 @@ class LineMushaAudioAdapter(
         }
         val aya = ""
         entity?.let { storepreferences(it) }
-        val lp = holder.quran_textView!!.layoutParams
+        val lp = holder.quran_textView.layoutParams
         if (entity!!.passage_no != 0) {
             val builder = StringBuilder()
             builder.append(entity.qurantext)
@@ -261,87 +261,87 @@ class LineMushaAudioAdapter(
                 s = "\uFD3F" + "\u0639" + "\uFD3E"
             }
             //     builder.append("۩");
-            holder.quran_textView!!.text = entity.qurantext + s
-            holder.quran_textView!!.textSize = arabicfontSize.toFloat()
-            holder.quran_textView!!.setTypeface(custom_font)
+            holder.quran_textView.text = entity.qurantext + s
+            holder.quran_textView.textSize = arabicfontSize.toFloat()
+            holder.quran_textView.typeface = custom_font
             if (showTranslation) {
                 if (whichtranslation == "en_arberry") {
                     if (entity != null) {
-                        holder.translate_textView!!.text = entity.en_arberry
+                        holder.translate_textView.text = entity.en_arberry
                     }
-                    holder.translate_textViewnote!!.setText(R.string.arberry)
-                    holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                    holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                    holder.translate_textView!!.visibility = View.VISIBLE
-                    holder.translate_textViewnote!!.visibility = View.VISIBLE
+                    holder.translate_textViewnote.setText(R.string.arberry)
+                    holder.translate_textView.textSize = translationfontsize.toFloat()
+                    holder.translate_textView.textSize = translationfontsize.toFloat()
+                    holder.translate_textView.visibility = View.VISIBLE
+                    holder.translate_textViewnote.visibility = View.VISIBLE
                 }
                 if (whichtranslation == "en_sahih") {
                     if (entity != null) {
-                        holder.translate_textView!!.text = entity.translation
+                        holder.translate_textView.text = entity.translation
                     }
-                    holder.translate_textViewnote!!.setText(R.string.ensahih)
-                    holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                    holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                    holder.translate_textView!!.visibility = View.VISIBLE
-                    holder.translate_textViewnote!!.visibility = View.VISIBLE
+                    holder.translate_textViewnote.setText(R.string.ensahih)
+                    holder.translate_textView.textSize = translationfontsize.toFloat()
+                    holder.translate_textView.textSize = translationfontsize.toFloat()
+                    holder.translate_textView.visibility = View.VISIBLE
+                    holder.translate_textViewnote.visibility = View.VISIBLE
                 }
                 if (whichtranslation == "en_jalalayn") {
                     if (entity != null) {
-                        holder.translate_textView!!.text = entity.en_jalalayn
+                        holder.translate_textView.text = entity.en_jalalayn
                     }
-                    holder.translate_textViewnote!!.setText(R.string.enjalalayn)
-                    holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                    holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                    holder.translate_textView!!.visibility = View.VISIBLE
-                    holder.translate_textViewnote!!.visibility = View.VISIBLE
+                    holder.translate_textViewnote.setText(R.string.enjalalayn)
+                    holder.translate_textView.textSize = translationfontsize.toFloat()
+                    holder.translate_textView.textSize = translationfontsize.toFloat()
+                    holder.translate_textView.visibility = View.VISIBLE
+                    holder.translate_textViewnote.visibility = View.VISIBLE
                 }
                 if (whichtranslation == "ur_jalalayn") {
                     if (entity != null) {
-                        holder.translate_textView!!.text = entity.ur_jalalayn
+                        holder.translate_textView.text = entity.ur_jalalayn
                     }
-                    holder.translate_textViewnote!!.setText(R.string.enjalalayn)
-                    holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                    holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                    holder.translate_textView!!.visibility = View.VISIBLE
-                    holder.translate_textViewnote!!.visibility = View.VISIBLE
+                    holder.translate_textViewnote.setText(R.string.enjalalayn)
+                    holder.translate_textView.textSize = translationfontsize.toFloat()
+                    holder.translate_textView.textSize = translationfontsize.toFloat()
+                    holder.translate_textView.visibility = View.VISIBLE
+                    holder.translate_textViewnote.visibility = View.VISIBLE
                 }
                 if (whichtranslation == "ur_junagarhi") {
                     if (entity != null) {
-                        holder.translate_textView!!.text = entity.ur_junagarhi
+                        holder.translate_textView.text = entity.ur_junagarhi
                     }
-                    holder.translate_textViewnote!!.setText(R.string.urjunagadi)
-                    holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                    holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                    holder.translate_textView!!.visibility = View.VISIBLE
-                    holder.translate_textViewnote!!.visibility = View.VISIBLE
+                    holder.translate_textViewnote.setText(R.string.urjunagadi)
+                    holder.translate_textView.textSize = translationfontsize.toFloat()
+                    holder.translate_textView.textSize = translationfontsize.toFloat()
+                    holder.translate_textView.visibility = View.VISIBLE
+                    holder.translate_textViewnote.visibility = View.VISIBLE
                 }
-                holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                holder.translate_textView!!.visibility = View.VISIBLE
-                holder.translate_textViewnote!!.visibility = View.VISIBLE
+                holder.translate_textView.textSize = translationfontsize.toFloat()
+                holder.translate_textView.textSize = translationfontsize.toFloat()
+                holder.translate_textView.visibility = View.VISIBLE
+                holder.translate_textViewnote.visibility = View.VISIBLE
             }
 
             //  holder.sajdaverse.setImageResource(R.drawable.ruku_new);
         }
         if (entity.passage_no > 0) {
-            holder.rukuview!!.visibility = View.VISIBLE
+            holder.rukuview.visibility = View.VISIBLE
         }
         if (entity.has_prostration == 1) {
             val builder = StringBuilder()
             builder.append(entity.qurantext)
             builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ ۩", aya, entity.ayah))
             //     builder.append("۩");
-            holder.quran_textView!!.text = builder.toString()
+            holder.quran_textView.text = builder.toString()
         } else {
             val builder = StringBuilder()
             builder.append(entity.qurantext)
             builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ ", aya, entity.ayah))
-            holder.quran_textView!!.text = builder.toString()
+            holder.quran_textView.text = builder.toString()
         }
         if (!defaultfont) {
-            holder.quran_textView!!.textSize = arabicfontSize.toFloat()
+            holder.quran_textView.textSize = arabicfontSize.toFloat()
         }
-        holder.quran_textView!!.setTypeface(custom_font)
+        holder.quran_textView.typeface = custom_font
 
         /*     if(entity.getPassage_no()!=0){
            holder.sajdaverse.setVisibility(View.VISIBLE);
@@ -352,58 +352,58 @@ class LineMushaAudioAdapter(
         if (showTranslation) {
             if (whichtranslation == "en_arberry") {
                 if (entity != null) {
-                    holder.translate_textView!!.text = entity.en_arberry
+                    holder.translate_textView.text = entity.en_arberry
                 }
-                holder.translate_textViewnote!!.setText(R.string.arberry)
-                holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                holder.translate_textView!!.visibility = View.VISIBLE
-                holder.translate_textViewnote!!.visibility = View.VISIBLE
+                holder.translate_textViewnote.setText(R.string.arberry)
+                holder.translate_textView.textSize = translationfontsize.toFloat()
+                holder.translate_textView.textSize = translationfontsize.toFloat()
+                holder.translate_textView.visibility = View.VISIBLE
+                holder.translate_textViewnote.visibility = View.VISIBLE
             }
             if (whichtranslation == "en_sahih") {
                 if (entity != null) {
-                    holder.translate_textView!!.text = entity.translation
+                    holder.translate_textView.text = entity.translation
                 }
-                holder.translate_textViewnote!!.setText(R.string.ensahih)
-                holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                holder.translate_textView!!.visibility = View.VISIBLE
-                holder.translate_textViewnote!!.visibility = View.VISIBLE
+                holder.translate_textViewnote.setText(R.string.ensahih)
+                holder.translate_textView.textSize = translationfontsize.toFloat()
+                holder.translate_textView.textSize = translationfontsize.toFloat()
+                holder.translate_textView.visibility = View.VISIBLE
+                holder.translate_textViewnote.visibility = View.VISIBLE
             }
             if (whichtranslation == "en_jalalayn") {
                 if (entity != null) {
-                    holder.translate_textView!!.text = entity.en_jalalayn
+                    holder.translate_textView.text = entity.en_jalalayn
                 }
-                holder.translate_textViewnote!!.setText(R.string.enjalalayn)
-                holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                holder.translate_textView!!.visibility = View.VISIBLE
-                holder.translate_textViewnote!!.visibility = View.VISIBLE
+                holder.translate_textViewnote.setText(R.string.enjalalayn)
+                holder.translate_textView.textSize = translationfontsize.toFloat()
+                holder.translate_textView.textSize = translationfontsize.toFloat()
+                holder.translate_textView.visibility = View.VISIBLE
+                holder.translate_textViewnote.visibility = View.VISIBLE
             }
             if (whichtranslation == "ur_jalalayn") {
                 if (entity != null) {
-                    holder.translate_textView!!.text = entity.ur_jalalayn
+                    holder.translate_textView.text = entity.ur_jalalayn
                 }
-                holder.translate_textViewnote!!.setText(R.string.enjalalayn)
-                holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                holder.translate_textView!!.visibility = View.VISIBLE
-                holder.translate_textViewnote!!.visibility = View.VISIBLE
+                holder.translate_textViewnote.setText(R.string.enjalalayn)
+                holder.translate_textView.textSize = translationfontsize.toFloat()
+                holder.translate_textView.textSize = translationfontsize.toFloat()
+                holder.translate_textView.visibility = View.VISIBLE
+                holder.translate_textViewnote.visibility = View.VISIBLE
             }
             if (whichtranslation == "ur_junagarhi") {
                 if (entity != null) {
-                    holder.translate_textView!!.text = entity.ur_junagarhi
+                    holder.translate_textView.text = entity.ur_junagarhi
                 }
-                holder.translate_textViewnote!!.setText(R.string.urjunagadi)
-                holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                holder.translate_textView!!.textSize = translationfontsize.toFloat()
-                holder.translate_textView!!.visibility = View.VISIBLE
-                holder.translate_textViewnote!!.visibility = View.VISIBLE
+                holder.translate_textViewnote.setText(R.string.urjunagadi)
+                holder.translate_textView.textSize = translationfontsize.toFloat()
+                holder.translate_textView.textSize = translationfontsize.toFloat()
+                holder.translate_textView.visibility = View.VISIBLE
+                holder.translate_textViewnote.visibility = View.VISIBLE
             }
-            holder.translate_textView!!.textSize = translationfontsize.toFloat()
-            holder.translate_textView!!.textSize = translationfontsize.toFloat()
-            holder.translate_textView!!.visibility = View.VISIBLE
-            holder.translate_textViewnote!!.visibility = View.VISIBLE
+            holder.translate_textView.textSize = translationfontsize.toFloat()
+            holder.translate_textView.textSize = translationfontsize.toFloat()
+            holder.translate_textView.visibility = View.VISIBLE
+            holder.translate_textViewnote.visibility = View.VISIBLE
         }
         //  setTextSizes(holder);
     }
@@ -440,7 +440,7 @@ class LineMushaAudioAdapter(
         lateinit var tvVerses: TextView
         lateinit var quran_textView: AppCompatTextView
         lateinit var rukuview: View
-        lateinit var sajdaverse: ImageView
+        private lateinit var sajdaverse: ImageView
         lateinit var ivSurahIcon: ImageView
         lateinit var ivLocationmakki: ImageView
         lateinit var ivLocationmadani: ImageView
@@ -472,7 +472,7 @@ class LineMushaAudioAdapter(
                 view.setOnLongClickListener(this)
                 quran_textView.setOnClickListener(this)
                 quran_textView.setOnLongClickListener(this)
-                quran_textView.setTag("verse")
+                quran_textView.tag = "verse"
                 val shared =
                     androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
                 val colortag = shared.getBoolean("colortag", true)
@@ -480,9 +480,7 @@ class LineMushaAudioAdapter(
         }
 
         override fun onClick(v: View) {
-            if (mItemClickListener != null) {
-                mItemClickListener.onItemClick(v, layoutPosition)
-            }
+            mItemClickListener?.onItemClick(v, layoutPosition)
         }
 
         override fun onLongClick(v: View): Boolean {

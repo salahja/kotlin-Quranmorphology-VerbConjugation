@@ -19,7 +19,7 @@ class GrammarFragmentsListAdapter(
     private val expandableListDetail: HashMap<String, List<SpannableString>>
 ) : BaseExpandableListAdapter() {
     override fun getChild(listPosition: Int, expandedListPosition: Int): Any {
-        return expandableListDetail[expandableListTitle[listPosition]]!!.get(expandedListPosition)
+        return expandableListDetail[expandableListTitle[listPosition]]!![expandedListPosition]
     }
 
     override fun getChildId(listPosition: Int, expandedListPosition: Int): Long {
@@ -39,10 +39,10 @@ class GrammarFragmentsListAdapter(
         if (convertView == null) {
             val layoutInflater = context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            convertView = layoutInflater.inflate(R.layout.list_grammar_item, null)
+            convertView = layoutInflater.inflate(R.layout.list_grammar_item, parent,false)
         }
         val mequran =
-            Typeface.createFromAsset(QuranGrammarApplication.context!!.getAssets(), "Roboto.ttf")
+            Typeface.createFromAsset(QuranGrammarApplication.context!!.assets, "Roboto.ttf")
         val expandedListTextView = convertView?.findViewById<View>(R.id.expandedListItem) as TextView
         expandedListTextView.text = expandedListText as CharSequence?
         //    expandedListTextView.setTypeface(mequran);
@@ -76,7 +76,7 @@ class GrammarFragmentsListAdapter(
         if (convertView == null) {
             val layoutInflater =
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            convertView = layoutInflater.inflate(R.layout.list_group, null)
+            convertView = layoutInflater.inflate(R.layout.list_group, parent,false)
         }
         val listTitleTextView = convertView
             ?.findViewById<View>(R.id.listTitle) as TextView

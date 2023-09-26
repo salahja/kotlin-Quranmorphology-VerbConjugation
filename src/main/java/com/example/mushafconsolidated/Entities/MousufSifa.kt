@@ -9,12 +9,12 @@ class MousufSifa {
     var wordno: Int = 0
     var startindex: Int = 0
     var endindex: Int = 0
-    var wordfrom: Int = 0
-    var wordto: Int = 0
+    private var wordfrom: Int = 0
+    private var wordto: Int = 0
     var verse: SpannableString? = null
-    var translations: String? = null
-    var phrasetype: String? = null
-    var disconnected: Int = 0
+    private var translations: String? = null
+    private var phrasetype: String? = null
+    private var disconnected: Int = 0
     var comment: String? = null
 
     constructor(

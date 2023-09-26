@@ -46,18 +46,18 @@ class CollectionFrag constructor() : Fragment() {
 
         val vmodel: QuranVIewModel by viewModels()
         //vmodel.getBookmarksCollection().value
-        collectionShowAdapter = CollectionShowAdapter(getActivity())
+        collectionShowAdapter = CollectionShowAdapter(activity)
         vmodel.getBookmarksCollection().observe(viewLifecycleOwner, Observer {
 
             mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation)
             coordinatorLayout = view.findViewById(R.id.coordinatorLayoutbookmark)
-            layoutManager = LinearLayoutManager(getActivity())
-            mRecview.setLayoutManager(layoutManager)
+            layoutManager = LinearLayoutManager(activity)
+            mRecview.layoutManager = layoutManager
             //    bookmarksShowAdapter.setBookMarkArrayList((ArrayList<String>) bookmarstringarray);
 
             collectionShowAdapter.bookMarkArrayList= it
 
-            mRecview.setAdapter(collectionShowAdapter)
+            mRecview.adapter = collectionShowAdapter
             //    mRecview.setLayoutManager(new LinearLayoutManager(getActivity()));
             enableSwipeToDeleteAndUndo()
         })
@@ -71,17 +71,17 @@ class CollectionFrag constructor() : Fragment() {
 
     private fun enableSwipeToDeleteAndUndo() {
         val swipeToDeleteCallback: SwipeToDeleteCallback =
-            object : SwipeToDeleteCallback(getActivity()) {
+            object : SwipeToDeleteCallback(activity) {
                 public override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
                     //    final int position = viewHolder.getAdapterPosition();
                     //  final String item = mAdapter.getData().get(position);
                     //   mAdapter.removeItem(position);
-                    val position: Int = viewHolder.getAdapterPosition()
+                    val position: Int = viewHolder.adapterPosition
                     val item: BookMarks =
-                        collectionShowAdapter!!.bookMarkArrayList!!.get(position)
+                        collectionShowAdapter.bookMarkArrayList!![position]
                     //   final int code = item.hashCode();
-                    collectionShowAdapter!!.getItemId(position)
-                    collectionShowAdapter!!.removeItem(position)
+                    collectionShowAdapter.getItemId(position)
+                    collectionShowAdapter.removeItem(position)
                     val snackbar: Snackbar = Snackbar
                         .make(
                             (coordinatorLayout)!!,
@@ -91,14 +91,14 @@ class CollectionFrag constructor() : Fragment() {
                     snackbar.setAction("UNDO", object : View.OnClickListener {
                         public override fun onClick(view: View?) {
                             //     bookmarksShowAdapter.restoreItem(item, position);
-                            mRecview!!.scrollToPosition(position)
+                            mRecview.scrollToPosition(position)
                         }
                     })
                     snackbar.setActionTextColor(Color.CYAN)
                     snackbar.show()
-                    val itemId: Long = collectionShowAdapter!!.getItemId(position)
-                    val bookmarkid: Int = collectionShowAdapter!!.bookmarid
-                    collectionShowAdapter!!.bookChapterno
+                    val itemId: Long = collectionShowAdapter.getItemId(position)
+                    val bookmarkid: Int = collectionShowAdapter.bookmarid
+                    collectionShowAdapter.bookChapterno
                     //      bookmarksShowAdapter.getBookMarkArrayList(bookmarkid)
                     //  Utils butils = new Utils(getActivity());
                     //  butils.deleteBookmarks(bookmarid);
@@ -115,10 +115,10 @@ class CollectionFrag constructor() : Fragment() {
 
     public override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        collectionShowAdapter!!.SetOnItemClickListener(object : OnItemClickListener {
+        collectionShowAdapter.SetOnItemClickListener(object : OnItemClickListener {
             public override fun onItemClick(v: View?, position: Int) {
                 val bmark: BookMarksPojo =
-                    collectionShowAdapter!!.getItem(position) as BookMarksPojo
+                    collectionShowAdapter.getItem(position) as BookMarksPojo
                 val dataBundle: Bundle = Bundle()
                 dataBundle.putInt(Constant.SURAH_ID, bmark.getChapterno().toInt())
                 dataBundle.putInt(Constant.AYAHNUMBER, bmark.getVerseno().toInt())
@@ -129,7 +129,7 @@ class CollectionFrag constructor() : Fragment() {
                 //   frag.setArguments(dataBundle);
                 val header: String? = bmark.header
                 var fragment: Fragment?
-                val readingintent: Intent = Intent(getActivity(), QuranGrammarAct::class.java)
+                val readingintent: Intent = Intent(activity, QuranGrammarAct::class.java)
                 readingintent.putExtra(Constant.MUFRADATFRAGTAG, false)
                 readingintent.putExtra(Constant.CHAPTER, bmark.getChapterno().toInt())
                 readingintent.putExtra(Constant.AYAH_ID, bmark.getVerseno().toInt())

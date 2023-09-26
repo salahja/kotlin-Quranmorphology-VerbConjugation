@@ -3,6 +3,7 @@ package com.example.utility
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
+import kotlin.math.max
 
 class MyFlowLayout : ViewGroup {
     private val rtl = true
@@ -33,7 +34,7 @@ class MyFlowLayout : ViewGroup {
             //check if child can be placed in the current row, else go to next line
             if (currentChildHookPointx + childWidth > realWidth) {
                 //new line
-                currentWidth = Math.max(currentWidth, currentChildHookPointx)
+                currentWidth = max(currentWidth, currentChildHookPointx)
 
                 //reset for new line
                 currentChildHookPointx = 0
@@ -43,14 +44,14 @@ class MyFlowLayout : ViewGroup {
             var nextChildHookPointy: Int
             nextChildHookPointx = currentChildHookPointx + childWidth
             nextChildHookPointy = currentChildHookPointy
-            currentHeight = Math.max(currentHeight, currentChildHookPointy + childHeight)
+            currentHeight = max(currentHeight, currentChildHookPointy + childHeight)
             val lp = child.layoutParams as LayoutParams
             lp.x = currentChildHookPointx
             lp.y = currentChildHookPointy
             currentChildHookPointx = nextChildHookPointx
             currentChildHookPointy = nextChildHookPointy
         }
-        currentWidth = Math.max(currentChildHookPointx, currentWidth)
+        currentWidth = max(currentChildHookPointx, currentWidth)
         setMeasuredDimension(
             resolveSize(currentWidth, widthMeasureSpec),
             resolveSize(currentHeight, heightMeasureSpec)
@@ -87,7 +88,7 @@ class MyFlowLayout : ViewGroup {
     }
 
     class LayoutParams : MarginLayoutParams {
-        var spacing = -1
+        private var spacing = -1
         var x = 0
         var y = 0
 

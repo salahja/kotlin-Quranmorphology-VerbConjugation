@@ -50,8 +50,8 @@ class TafsirFullscreenActivity : BaseActivity() {
         }
         val viewmodel : QuranVIewModel by viewModels()
 
-        viewmodel.getsurahayahVerses(sura!!, ayah!!).observe(this, {
-         //   val list: List<QuranEntity?>? = Utils.getsurahayahVerses(sura!!, ayah!!)
+        viewmodel.getsurahayahVerses(sura!!, ayah!!).observe(this) {
+            //   val list: List<QuranEntity?>? = Utils.getsurahayahVerses(sura!!, ayah!!)
             val actionBar: ActionBar? = supportActionBar
             val sourcelable: TextView = findViewById(R.id.tvSourceLabel)
             val tafsir: TextView = findViewById(R.id.tvTafsir)
@@ -66,8 +66,7 @@ class TafsirFullscreenActivity : BaseActivity() {
             tafsir.text = tafsir_kathissr
             translation.text = it!![0].translation
             tvaryah.text = it[0].qurantext
-        })
-
+        }
     }
 
     override fun onBackPressed() {

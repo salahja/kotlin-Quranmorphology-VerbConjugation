@@ -18,9 +18,9 @@ import android.text.SpannableString
 
 class CorpusAyahWord {
     lateinit var word: ArrayList<CorpusWbwWord>
-    var isHasProstration = false
-    var quranArabic: String? = null
-    lateinit var quranTranslate: String
+    private var isHasProstration = false
+    private var quranArabic: String? = null
+    private lateinit var quranTranslate: String
     var spannableverse: SpannableString? = null
     var ar_irab_two: String? = null
     var tafsir_kathir: String? = null

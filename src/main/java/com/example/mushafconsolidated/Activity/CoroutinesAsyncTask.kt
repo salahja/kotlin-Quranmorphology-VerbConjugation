@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.Executors
 
-abstract class CoroutinesAsyncTask<Params, Progress, Result>(val taskName: String) {
+abstract class CoroutinesAsyncTask<Params, Progress, Result>(private val taskName: String) {
 
     val TAG by lazy {
         CoroutinesAsyncTask::class.java.simpleName
@@ -25,14 +25,14 @@ abstract class CoroutinesAsyncTask<Params, Progress, Result>(val taskName: Strin
     }
 
     var status: Constant.Constant.Status = Constant.Constant.Status.PENDING
-    var preJob: Job? = null
-    var bgJob: Deferred<Result>? = null
+    private var preJob: Job? = null
+    private var bgJob: Deferred<Result>? = null
     abstract fun doInBackground(vararg params: Params?): Result
     open fun onProgressUpdate(vararg values: Progress?) {}
     open fun onPostExecute(result: Result?) {}
     open fun onPreExecute() {}
     open fun onCancelled(result: Result?) {}
-    protected var isCancelled = false
+    private var isCancelled = false
 
     /**
      * Executes background task parallel with other background tasks in the queue using

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -79,7 +80,7 @@ class TopicDetailsFrag : Fragment1(), OnItemClickListenerOnLong {
         arrayofadapterlist = ArrayList()
         val bundle: Bundle? = arguments
         val surahArrays = resources.getStringArray(R.array.surahdetails)
-        if (maps!!.size != 0) {
+        if (maps.size != 0) {
 
             val surahname = ""
             val listener: OnItemClickListenerOnLong = this
@@ -93,7 +94,12 @@ class TopicDetailsFrag : Fragment1(), OnItemClickListenerOnLong {
             requireActivity().runOnUiThread { dialog.show() }
             val scope: CoroutineScope
             scope = CoroutineScope(Dispatchers.Main)
-            scope.launch {
+         //   val value = GlobalScope.async {
+              //  delay(1000)
+                println("thread running on [${Thread.currentThread().name}]")
+
+
+     scope.launch {
                 for (key: String in keys) {
                     val splits = maps[key]
                     assert(splits != null)
@@ -104,7 +110,7 @@ class TopicDetailsFrag : Fragment1(), OnItemClickListenerOnLong {
                     }
                 }
                 requireActivity().runOnUiThread {
-                    dialog.dismiss()
+
                     val linearLayoutManager = LinearLayoutManager(requireContext())
                     /*       val flowAyahWordAdapter =
                            TopicFlowAyahWordAdapter(corpusayahWordArrayList, listener, surahname)*/
@@ -121,13 +127,15 @@ class TopicDetailsFrag : Fragment1(), OnItemClickListenerOnLong {
                     parentRecyclerView.setHasFixedSize(true)
                     parentRecyclerView.adapter = flowAyahWordAdapter
                     flowAyahWordAdapter.notifyDataSetChanged()
+                    dialog.dismiss()
                 }
             }
+
         } else{
 
 
             val surah =   bundle!!.getInt(Constant.SURAH_ID)
-            val ayah =      bundle!!.getInt(Constant.SURAH_ID)
+            val ayah =      bundle.getInt(Constant.SURAH_ID)
          //       ..   val header = bundle.extras!!.getString(Constant.ARABICWORD)
           //  surahname = bundle.extras!!.getString(Constant.SURAH_ARABIC_NAME)!!
             corpusayahWordArrayList = ArrayList()
@@ -297,13 +305,13 @@ class TopicDetailsFrag : Fragment1(), OnItemClickListenerOnLong {
             val ayah = flowAyahWordAdapter.ayahWord.corpus!!.ayah
             val surah = flowAyahWordAdapter.ayahWord.corpus!!.surah
             word = if (position != 0) {
-                arrayofquran[position].get(0)
+                arrayofquran[position][0]
             } else {
-                arrayofquran[position].get(0)
+                arrayofquran[position][0]
             }
             val dataBundle = Bundle()
-            dataBundle.putInt(Constant.SURAH_ID, arrayofquran[position].get(0).surah)
-            dataBundle.putInt(Constant.AYAHNUMBER, arrayofquran[position].get(0).ayah)
+            dataBundle.putInt(Constant.SURAH_ID, arrayofquran[position][0].surah)
+            dataBundle.putInt(Constant.AYAHNUMBER, arrayofquran[position][0].ayah)
             LoadItemList(dataBundle, word)
         }
     }

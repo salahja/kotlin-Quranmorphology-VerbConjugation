@@ -160,16 +160,16 @@ object Constant {
     const val DATABASE_URL =
         "http://127.0.0.1/drupal/sites/default/files/2021-04/QuranDatabase.db.zip"
     const val DATABAWSE_FILENAME = "QuranDatabase.db.zip"
-    val PURPLE = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.purple)
+    private val PURPLE = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.purple)
     val PURPLES = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.purples)
-    val PeachPuff = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.PeachPuff)
+    private val PeachPuff = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.PeachPuff)
     val BBLUE = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.RoyalBlue)
     val BCYAN = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.cyan)
     val BYELLOW = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.yellow)
     val BWHITE = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.white)
-    val TEAL = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.teal300)
+    private val TEAL = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.teal300)
     val GOLD = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.Gold)
-    val DARKGOLDENROD =
+    private val DARKGOLDENROD =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.DarkGoldenrod)
     val MARIGOLD = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.marigold)
     val WMIDNIHTBLUE =
@@ -182,7 +182,7 @@ object Constant {
     //  public static final int MARIGOLD = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.marigold);
     val FORESTGREEN =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.sforestgreen)
-    val LIME = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.Lime)
+    private val LIME = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.Lime)
     val KASHMIRIGREEN =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.kashmirigreen)
     val MIDNIGHTBLUE =
@@ -191,33 +191,33 @@ object Constant {
     val ORANGE400 = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.orange400)
     val DARKMAGENTA =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.DarkMagenta)
-    val TEAL400 = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.teal400)
-    val ORANGE100 = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.orange100)
-    val LIGHTPINK = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.LightPink)
-    val CYANLIGHT = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.cyan_light)
+    private val TEAL400 = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.teal400)
+    private val ORANGE100 = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.orange100)
+    private val LIGHTPINK = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.LightPink)
+    private val CYANLIGHT = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.cyan_light)
     val MUSLIMMATE =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.colorMuslimMate)
     val CYANLIGHTEST =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.cyan_lightest)
-    val ORANGERED = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.OrangeRed)
+    private val ORANGERED = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.OrangeRed)
     val GREENYELLOW =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.GreenYellow)
-    val HOTPINK = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.HotPink)
-    val SALMON = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.Salmon)
-    val BROWN = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.LightSlateGray)
-    val MEDIUMSLATEBLUE =
+    private val HOTPINK = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.HotPink)
+    private val SALMON = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.Salmon)
+    private val BROWN = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.LightSlateGray)
+    private val MEDIUMSLATEBLUE =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.MediumSlateBlue)
-    val DarkTurquoise =
+    private val DarkTurquoise =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.Lavender)
     val DeepPink = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.DeepPink)
-    val Fuchsia = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.Fuchsia)
+    private val Fuchsia = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.Fuchsia)
     val pinkshade = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.pinkshade)
     val Magenta = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.Magenta)
     val prussianblue =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.prussianblue)
     val deepburnsienna =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.deepburnsienna)
-    var mazeedsignificance: Map<String, String>? = null
+    private var mazeedsignificance: Map<String, String>? = null
 
     //lgiht
     var nounspanLight = ForegroundColorSpan(BBLUE)

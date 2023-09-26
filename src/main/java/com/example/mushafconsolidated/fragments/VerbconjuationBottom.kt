@@ -53,14 +53,14 @@ class VerbconjuationBottom constructor() : BottomSheetDialogFragment() {
 
     public override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setLayoutManager(LinearLayoutManager(context!!))
+        recyclerView.layoutManager = LinearLayoutManager(context!!)
         val details: ArrayList<String> = ArrayList()
         mLocalityList = requireArguments().getStringArrayList("list")
         fontQuranAdapter = FontQuranAdapter()
-        recyclerView.setAdapter(fontQuranAdapter)
+        recyclerView.adapter = fontQuranAdapter
         fontQuranAdapter!!.SetOnItemClickListener(object : OnItemClickListener {
             public override fun onItemClick(v: View?, position: Int) {
-                val checkedRadioButtonId: Int = radioGroup!!.getCheckedRadioButtonId()
+                val checkedRadioButtonId: Int = radioGroup!!.checkedRadioButtonId
             }
         })
     }
@@ -111,7 +111,7 @@ class VerbconjuationBottom constructor() : BottomSheetDialogFragment() {
 
         public override fun onClick(v: View) {
             if (mItemClickListener != null) {
-                mItemClickListener!!.onItemClick(v, getLayoutPosition())
+                mItemClickListener!!.onItemClick(v, layoutPosition)
             }
         }
     }
@@ -140,20 +140,20 @@ class VerbconjuationBottom constructor() : BottomSheetDialogFragment() {
             val theme: String? = PreferenceManager.getDefaultSharedPreferences(
                 requireActivity()
             ).getString("themepref", "dark")
-            holder.hua.setText(mLocalityList!!.get(0))
-            holder.huma.setText(mLocalityList!!.get(1))
-            holder.hum.setText(mLocalityList!!.get(2))
-            holder.hia.setText(mLocalityList!!.get(3))
-            holder.humaf.setText(mLocalityList!!.get(4))
-            holder.hunna.setText(mLocalityList!!.get(5))
-            holder.anta.setText(mLocalityList!!.get(6))
-            holder.antumam.setText(mLocalityList!!.get(7))
-            holder.antum.setText(mLocalityList!!.get(8))
-            holder.anti.setText(mLocalityList!!.get(9))
-            holder.antumaf.setText(mLocalityList!!.get(7))
-            holder.antunna.setText(mLocalityList!!.get(10))
-            holder.ana.setText(mLocalityList!!.get(11))
-            holder.nahnu.setText(mLocalityList!!.get(12))
+            holder.hua.text = mLocalityList!!.get(0)
+            holder.huma.text = mLocalityList!!.get(1)
+            holder.hum.text = mLocalityList!!.get(2)
+            holder.hia.text = mLocalityList!!.get(3)
+            holder.humaf.text = mLocalityList!!.get(4)
+            holder.hunna.text = mLocalityList!!.get(5)
+            holder.anta.text = mLocalityList!!.get(6)
+            holder.antumam.text = mLocalityList!!.get(7)
+            holder.antum.text = mLocalityList!!.get(8)
+            holder.anti.text = mLocalityList!!.get(9)
+            holder.antumaf.text = mLocalityList!!.get(7)
+            holder.antunna.text = mLocalityList!!.get(10)
+            holder.ana.text = mLocalityList!!.get(11)
+            holder.nahnu.text = mLocalityList!!.get(12)
         }
 
         public override fun getItemCount(): Int {
@@ -166,18 +166,18 @@ class VerbconjuationBottom constructor() : BottomSheetDialogFragment() {
     }
 
     companion object {
-        val TAG: String = "opton"
+        const val TAG: String = "opton"
         private val localityList: List<*>? = null
 
         // TODO: Customize parameter argument names
-        private val ARG_OPTIONS_DATA: String = "item_count"
+        private const val ARG_OPTIONS_DATA: String = "item_count"
 
         // TODO: Customize parameters
         fun newInstance(list: ArrayList<*>?): VerbconjuationBottom {
             val fragment: VerbconjuationBottom = VerbconjuationBottom()
             val bundle: Bundle = Bundle()
             bundle.putParcelableArrayList("list", list as java.util.ArrayList<out Parcelable>?)
-            fragment.setArguments(bundle)
+            fragment.arguments = bundle
             return fragment
         }
     }

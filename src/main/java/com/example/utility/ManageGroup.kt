@@ -66,7 +66,7 @@ class ManageGroup : Group {
      *
      * @param idsToRemove All the ids to remove from the group.
      */
-    fun removeReferencedIds(vararg idsToRemove: Int) {
+    private fun removeReferencedIds(vararg idsToRemove: Int) {
         for (id in idsToRemove) {
             mRemovedRefIds.add(id)
         }
@@ -97,7 +97,7 @@ class ManageGroup : Group {
      *
      * @return All current ids in group plus those removed.
      */
-    val allReferencedIds: IntArray
+    private val allReferencedIds: IntArray
         get() = joinArrays(referencedIds, copySetToIntArray(mRemovedRefIds))
 
     private fun copySetToIntArray(fromSet: Set<Int>): IntArray {

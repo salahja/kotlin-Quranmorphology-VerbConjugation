@@ -84,11 +84,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments != null) {
-            // TODO: Rename and change types of parameters
-            // String mParam1 = getArguments().getString(ARG_PARAM1);
-            //     String mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     private fun setToolbarMenu() {
@@ -287,15 +283,15 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
         }
         val viewmodel :    QuranVIewModel by viewModels()
         ParentAdapter = NewSurahDisplayAdapter(context)
-        viewmodel.getAllChapters().observe(viewLifecycleOwner, {
+        viewmodel.getAllChapters().observe(viewLifecycleOwner) {
             parentRecyclerView.layoutManager = mLayoutManager
             parentRecyclerView.setHasFixedSize(true)
             parentRecyclerView.layoutManager = mLayoutManager
-            allAnaChapters= it as ArrayList<ChaptersAnaEntity>
-            ParentAdapter.setUp(it as ArrayList<ChaptersAnaEntity>)
+            allAnaChapters = it as ArrayList<ChaptersAnaEntity>
+            ParentAdapter.setUp(it)
             ParentAdapter.setmutable(it)
             parentRecyclerView.adapter = ParentAdapter
-        })
+        }
 
 
 
@@ -306,8 +302,8 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
     private fun initnavagation(view: View) {
         bottomNavigationView = view.findViewById(R.id.bottomNavView)
         btnBottomSheet = view.findViewById(R.id.fab)
-        btnBottomSheet.setOnClickListener({ v: View? -> toggleBottomSheets() })
-        bottomNavigationView.setOnItemReselectedListener({ item: MenuItem ->
+        btnBottomSheet.setOnClickListener { v: View? -> toggleBottomSheets() }
+        bottomNavigationView.setOnItemReselectedListener { item: MenuItem ->
             if (item.itemId == R.id.surahnav) {
                 val fragmentManager =
                     Objects.requireNonNull(requireActivity())
@@ -339,7 +335,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
 
                 startActivity(settingints)
             }
-        })
+        }
     }
 
     private fun toggleBottomSheets() {

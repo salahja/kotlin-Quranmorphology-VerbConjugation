@@ -63,7 +63,7 @@ class   NewAjroomiyaDetailFragment
         //  View rootView = binding.getRoot();
        mToolbarLayout = rootView.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)
          mTextView = rootView.findViewById<WebView>(R.id.ajroomiya_detail)
-        val webSettings = mTextView.getSettings()
+        val webSettings = mTextView.settings
         webSettings.javaScriptEnabled = true
         //  mTextView.setInitialScale(1);
         //   mTextView.getSettings().setLoadWithOverviewMode(true);

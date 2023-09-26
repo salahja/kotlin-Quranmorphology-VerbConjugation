@@ -37,14 +37,14 @@ import org.sj.conjugator.fragments.SarfSagheer
 
 class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter.ItemViewAdapter> {
     var mItemClickListener: OnItemClickListener? = null
-    val alaheader = "اِسْم الآلَة"
-    val zarfheader = "اِسْم الْظَرفْ"
-    var verblist: ListView? = null
+    private val alaheader = "اِسْم الآلَة"
+    private val zarfheader = "اِسْم الْظَرفْ"
+    private var verblist: ListView? = null
     var arabicFontsize: Int? = null
-    var rootcolor = 0
-    var weaknesscolor = 0
-    var wazancolor = 0
-    var isSarfSagheerMazeed = false
+    private var rootcolor = 0
+    private var weaknesscolor = 0
+    private var wazancolor = 0
+    private var isSarfSagheerMazeed = false
     private var context: Context
 
     private var corpusexpand: ArrayList<QuranCorpusWbw>? = null
@@ -182,45 +182,45 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
         if (particples || isverb) {
             holder.verbconjugationbtn.visibility = View.VISIBLE
             if (worddetails["formnumber"] != null) {
-                holder.mazeedmeaning.text = worddetails.get("formnumber")
+                holder.mazeedmeaning.text = worddetails["formnumber"]
                 holder.mazeedmeaning.visibility = View.VISIBLE
                 holder.mazeedmeaning.textSize = arabicFontsize!!.toFloat()
             }
             verblist = ListView(context)
             if (wazannumberslist.size == 1) {
-                holder.rdone.text = wazannumberslist.get(position)
+                holder.rdone.text = wazannumberslist[position]
                 holder.rdone.visibility = View.VISIBLE
                 holder.rdone.isChecked = true
                 holder.rdone.textSize = arabicFontsize!!.toFloat()
             }
             if (wazannumberslist.size == 2) {
-                holder.rdone.text = wazannumberslist.get(position)
+                holder.rdone.text = wazannumberslist[position]
                 holder.rdone.visibility = View.VISIBLE
                 holder.rdone.isChecked = true
-                holder.rdtwo.text = wazannumberslist.get(position + 1)
+                holder.rdtwo.text = wazannumberslist[position + 1]
                 holder.rdtwo.visibility = View.VISIBLE
                 holder.rdtwo.textSize = arabicFontsize!!.toFloat()
                 holder.rdone.textSize = arabicFontsize!!.toFloat()
             }
             if (wazannumberslist.size == 3) {
-                holder.rdone.text = wazannumberslist.get(position)
+                holder.rdone.text = wazannumberslist[position]
                 holder.rdone.visibility = View.VISIBLE
                 holder.rdone.isChecked = true
-                holder.rdtwo.text = wazannumberslist.get(position + 1)
+                holder.rdtwo.text = wazannumberslist[position + 1]
                 holder.rdtwo.visibility = View.VISIBLE
-                holder.rdthree.text = wazannumberslist.get(position + 2)
+                holder.rdthree.text = wazannumberslist[position + 2]
                 holder.rdthree.visibility = View.VISIBLE
                 holder.rdthree.textSize = arabicFontsize!!.toFloat()
                 holder.rdone.textSize = arabicFontsize!!.toFloat()
                 holder.rdtwo.textSize = arabicFontsize!!.toFloat()
             }
             if (wazannumberslist.size == 4) {
-                holder.rdone.text = wazannumberslist.get(position)
+                holder.rdone.text = wazannumberslist[position]
                 holder.rdone.visibility = View.VISIBLE
                 holder.rdone.isChecked = true
-                holder.rdtwo.text = wazannumberslist.get(position + 1)
+                holder.rdtwo.text = wazannumberslist[position + 1]
                 holder.rdtwo.visibility = View.VISIBLE
-                holder.rdfour.text = wazannumberslist.get(position + 3)
+                holder.rdfour.text = wazannumberslist[position + 3]
                 holder.rdfour.visibility = View.VISIBLE
                 holder.rdfour.textSize = arabicFontsize!!.toFloat()
                 holder.rdthree.textSize = arabicFontsize!!.toFloat()
@@ -258,8 +258,8 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
         val ismfaelmafoolarray: ArrayList<*> = ArrayList<Any?>()
         if (isSarfSagheerMazeed || isSarfSagheerThulahi) {
             sagheer = sarfsagheer!![position]
-            holder.mazeedmeaning.text = vbdetail.get("mazeed")
-            holder.mazeedmeaning.text = vbdetail.get("formnumber")
+            holder.mazeedmeaning.text = vbdetail["mazeed"]
+            holder.mazeedmeaning.text = vbdetail["formnumber"]
             //    holder.mazeedmeaning.setText(Html.fromHtml(vbdetail.get("mazeed")));
             holder.mazeedmeaning.visibility = View.VISIBLE
             holder.mazeedmeaning.textSize = arabicFontsize!!.toFloat()
@@ -267,7 +267,7 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
         if (isnoun && !particples) {
             holder.verbconjugationbtn.visibility = View.GONE
         }
-        holder.translationView.text = worddetails.get("translation")
+        holder.translationView.text = worddetails["translation"]
 
 
         //  String replace = word.toString().replace("\n", "<br/>").replace("\\n", "<br/>");
@@ -360,7 +360,7 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
             }
         }
         if (haliaSentence.isNotEmpty()) {
-            holder.haliaSentence!!.text = haliaSentence.get(0).text
+            holder.haliaSentence!!.text = haliaSentence[0].text
             holder.haliaSentence!!.visibility = View.VISIBLE
             holder.haliaSentence!!.textSize = arabicFontsize!!.toFloat()
             holder.haliaSentence!!.typeface = mequran
@@ -387,7 +387,7 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
         //    holder.wordView.setText(worddetails.get("word"));
         val vb: StringBuilder  = StringBuilder ()
         val pron: StringBuilder  = StringBuilder ()
-        holder.lemma.text = vbdetail.get("lemma")
+        holder.lemma.text = vbdetail["lemma"]
         //   holder.wordView.setTextSize(arabicFontsize);
         //   holder.lemma.setTextSize(arabicFontsize);
         worddetails["noun"]
@@ -399,7 +399,7 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
         }
         if (worddetails["noun"] != null) {
             holder.noundetails.visibility = View.VISIBLE
-            holder.noundetails.text = worddetails.get("noun")
+            holder.noundetails.text = worddetails["noun"]
             //     holder.noundetails.setTextSize(arabicFontsize);
         }
         if (worddetails["PRON"] != null) {
@@ -427,7 +427,7 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
         }
         if (vbdetail["verbmood"] != null) {
             holder.moodrules?.visibility = View.VISIBLE
-            holder.moodrules?.text = vbdetail.get("verbmood")
+            holder.moodrules?.text = vbdetail["verbmood"]
             //  holder.moodrules.setTextSize(arabicFontsize);
         }
         if (vb.length > 2) {
@@ -436,8 +436,8 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
             //  holder.verbdetails.setTextSize(arabicFontsize);
         }
         holder.referenceView.text =
-            corpusexpand?.get(0)!!.corpus.surah.toString() + ":" + corpusexpand!!.get(0).corpus
-                .ayah + ":" + corpusexpand!!.get(0).corpus.wordno
+            corpusexpand?.get(0)!!.corpus.surah.toString() + ":" + corpusexpand!![0].corpus
+                .ayah + ":" + corpusexpand!![0].corpus.wordno
         val worddetail: SpannableStringBuilder? = worddetails["worddetails"]
         //  holder.wdetailstv.setText(worddetail, TextView.BufferType.SPANNABLE);
         holder.wdetailstv.text = worddetail
@@ -445,19 +445,15 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
         holder.wdetailstv.textSize = 16f
         if (worddetails["lemma"] != null || worddetails["lemma"]!!.isNotEmpty()) {
             holder.lemma.visibility = View.VISIBLE
-            holder.lemma.text = NewRootWordDisplayAdapter.LEMMA + worddetails.get("lemma")
+            holder.lemma.text = NewRootWordDisplayAdapter.LEMMA + worddetails["lemma"]
             //        holder.lemma.setTextSize(arabicFontsize);
         }
         if (worddetails["root"] != null) {
-            holder.rootView.text = NewRootWordDisplayAdapter.ROOTWORDSTRING + worddetails.get(
-                "root"
-                                                                                             )
+            holder.rootView.text = NewRootWordDisplayAdapter.ROOTWORDSTRING + worddetails["root"]
             //    holder.rootView.setTextSize(arabicFontsize);
         }
         if (vbdetail["root"] != null) {
-            holder.rootView.text = NewRootWordDisplayAdapter.ROOTWORDSTRING + vbdetail.get(
-                "root"
-                                                                                          )
+            holder.rootView.text = NewRootWordDisplayAdapter.ROOTWORDSTRING + vbdetail["root"]
             //    holder.rootView.setTextSize(arabicFontsize);
         }
         if (isSarfSagheerMazeed || isSarfSagheerThulahi) {
@@ -508,10 +504,10 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
                 QuranGrammarApplication.context!!.resources
                     .getStringArray(R.array.arismfaelmafoolheadings)
             }
-            holder.apmas?.text = array.get(0)
-            holder.apfem?.text = array.get(1)
-            holder.ppmas?.text = array.get(2)
-            holder.ppfem?.text = array.get(3)
+            holder.apmas?.text = array[0]
+            holder.apfem?.text = array[1]
+            holder.ppmas?.text = array[2]
+            holder.ppfem?.text = array[3]
             holder.apmas?.textSize = arabicFontsize!!.toFloat()
             holder.apfem?.textSize = arabicFontsize!!.toFloat()
             holder.apfem?.gravity = View.TEXT_ALIGNMENT_CENTER
@@ -537,18 +533,18 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
             .getStringArray(R.array.encase) else {
             QuranGrammarApplication.context!!.resources.getStringArray(R.array.arcase)
         }
-        holder.nom?.text = array.get(0)
-        holder.acc?.text = array.get(1)
-        holder.gen?.text = array.get(2)
-        holder.nom1?.text = array.get(0)
-        holder.acc1?.text = array.get(1)
-        holder.gen1?.text = array.get(2)
-        holder.nom2?.text = array.get(0)
-        holder.acc2?.text = array.get(1)
-        holder.gen2?.text = array.get(2)
-        holder.nom3?.text = array.get(0)
-        holder.acc3?.text = array.get(1)
-        holder.gen3?.text = array.get(2)
+        holder.nom?.text = array[0]
+        holder.acc?.text = array[1]
+        holder.gen?.text = array[2]
+        holder.nom1?.text = array[0]
+        holder.acc1?.text = array[1]
+        holder.gen1?.text = array[2]
+        holder.nom2?.text = array[0]
+        holder.acc2?.text = array[1]
+        holder.gen2?.text = array[2]
+        holder.nom3?.text = array[0]
+        holder.acc3?.text = array[1]
+        holder.gen3?.text = array[2]
     }
 
     private fun ismfaelmafoolnumbers(holder: NewRootWordDisplayAdapter.ItemViewAdapter) {
@@ -558,18 +554,18 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
         array = if ((language == "en")) context.resources.getStringArray(R.array.ennumbers) else {
             context.resources.getStringArray(R.array.arnumbers)
         }
-        holder.sin1?.text = array.get(0)
-        holder.dual1?.text = array.get(1)
-        holder.plu1?.text = array.get(2)
-        holder.sin2?.text = array.get(0)
-        holder.dual2?.text = array.get(1)
-        holder.plu2?.text = array.get(2)
-        holder.sin3?.text = array.get(0)
-        holder.dual3?.text = array.get(1)
-        holder.plu3?.text = array.get(2)
-        holder.sin4?.text = array.get(0)
-        holder.dual4?.text = array.get(1)
-        holder.plu4?.text = array.get(2)
+        holder.sin1?.text = array[0]
+        holder.dual1?.text = array[1]
+        holder.plu1?.text = array[2]
+        holder.sin2?.text = array[0]
+        holder.dual2?.text = array[1]
+        holder.plu2?.text = array[2]
+        holder.sin3?.text = array[0]
+        holder.dual3?.text = array[1]
+        holder.plu3?.text = array[2]
+        holder.sin4?.text = array[0]
+        holder.dual4?.text = array[1]
+        holder.plu4?.text = array[2]
     }
 
     private fun ismFael(
@@ -968,40 +964,40 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
         val imafoolfemseven: TextView?
         val imafoolfemeight: TextView?
         val imafoolfemnine: TextView?
-        val mifalone: TextView?
+        private val mifalone: TextView?
         private val mifaltwo: TextView?
         private val mifalthree: TextView?
-        val mifalfour: TextView?
+        private val mifalfour: TextView?
         private val mifalfive: TextView?
         private val mifalsix: TextView?
-        val mifalseven: TextView?
+        private val mifalseven: TextView?
         private val mifaleight: TextView?
         private val mifalnine: TextView?
-        val mifalatunone: TextView?
+        private val mifalatunone: TextView?
         private val mifalatuntwo: TextView?
         private val mifalatunthree: TextView?
-        val mifalatunfour: TextView?
+        private val mifalatunfour: TextView?
         private val mifalatunfive: TextView?
         private val mifalatunsix: TextView?
-        val mifalatunseven: TextView?
-        val mifalatuneight: TextView?
-        val mifalatunnine: TextView?
-        val mifaalone: TextView?
+        private val mifalatunseven: TextView?
+        private val mifalatuneight: TextView?
+        private val mifalatunnine: TextView?
+        private val mifaalone: TextView?
         private val mifaaltwo: TextView?
         private val mifaalthree: TextView?
-        val mifaalfour: TextView?
+        private val mifaalfour: TextView?
         private val mifaalfive: TextView?
         private val mifaalsix: TextView?
-        val mifaalseven: TextView?
+        private val mifaalseven: TextView?
         private val mifaaleight: TextView?
         private val mifaalnine: TextView?
-        val mafalunone: TextView?
+        private val mafalunone: TextView?
         private val mafaluntwo: TextView?
         private val mafalunthree: TextView?
-        val mafalunfour: TextView?
+        private val mafalunfour: TextView?
         private val mafalunfive: TextView?
         private val mafalunsix: TextView?
-        val mafalunseven: TextView?
+        private val mafalunseven: TextView?
         private val mafaluneight: TextView?
         private val mafalunnine: TextView?
         val sin1: TextView?
@@ -1028,7 +1024,7 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
         val nom3: TextView?
         val acc3: TextView?
         val gen3: TextView?
-        var wordDictionary: TextView?=null
+        private var wordDictionary: TextView?=null
         var moodrules: TextView?=null
         //  val triroot: Chip
         // // val paradigm: Chip

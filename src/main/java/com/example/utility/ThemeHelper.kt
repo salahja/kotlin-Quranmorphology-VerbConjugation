@@ -20,13 +20,13 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.example.mushafconsolidated.R
 
 object ThemeHelper {
-    const val LIGHT_THEME = "light"
-    const val DARK_THEME = "dark"
+    private const val LIGHT_THEME = "light"
+    private const val DARK_THEME = "dark"
 
     // private static int sCurrentTheme = LIGHT_THEME;
-    const val DARK_BLUE = "blue"
-    const val GREEN_MODE = "green"
-    const val BROWN_MODE = "brown"
+    private const val DARK_BLUE = "blue"
+    private const val GREEN_MODE = "green"
+    private const val BROWN_MODE = "brown"
 
     //   public static final String LIGHT_MODE = "light";
     //  public static final String DARK_MODE = "dark";

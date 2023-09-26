@@ -28,11 +28,11 @@ import com.example.utility.QuranGrammarApplication
 class BookmarksShowAdapter : RecyclerView.Adapter<BookmarksShowAdapter.ViewHolder> {
     private var bookMarksNew: List<BookMarks?>? = null
     var mItemClickListener: OnItemClickListener? = null
-    var BookmarksShowAdapterContext: Context? = null
+    private var BookmarksShowAdapterContext: Context? = null
     var bookmarkpostion: Int = 0
     var pref: PreferenceUtil? = null
-    var holderposition: Int = 0
-    var bookmarid: Int = 0
+    private var holderposition: Int = 0
+    private var bookmarid: Int = 0
     val bookChapterno: Int = 0
     var bookMarkArrayList: List<BookMarks?>? = null
 
@@ -58,19 +58,19 @@ class BookmarksShowAdapter : RecyclerView.Adapter<BookmarksShowAdapter.ViewHolde
 
     public override fun onBindViewHolder(holder: BookmarksShowAdapter.ViewHolder, position: Int) {
 
-        val bookMark: BookMarks? = bookMarkArrayList!!.get(position)
+        val bookMark: BookMarks? = bookMarkArrayList!![position]
         holderposition = position
         if (bookMark != null) {
             bookmarid = bookMark.id
         }
         val imgs: TypedArray =
-            QuranGrammarApplication.context?.getResources()!!.obtainTypedArray(R.array.sura_imgs)
+            QuranGrammarApplication.context?.resources!!.obtainTypedArray(R.array.sura_imgs)
         val shared: SharedPreferences? =
             QuranGrammarApplication.context?.let { PreferenceManager.getDefaultSharedPreferences(it) }
         val isNightmode: String? = shared?.getString("theme", "dark")
         val chapterno: String? = bookMark?.chapterno
         if (chapterno != null) {
-            if (!chapterno.isEmpty()) {
+            if (chapterno.isNotEmpty()) {
                 val drawable: Drawable? = imgs.getDrawable((chapterno.toInt() - 1))
                 holder.surahicon.setImageDrawable(drawable)
             }
@@ -79,25 +79,25 @@ class BookmarksShowAdapter : RecyclerView.Adapter<BookmarksShowAdapter.ViewHolde
             holder.surahicon.setColorFilter(Color.CYAN)
         }
         if (bookMark != null) {
-            holder.header.setText(bookMark.header)
+            holder.header.text = bookMark.header
         }
         if (bookMark != null) {
-            holder.datestamp.setText(bookMark.datetime)
+            holder.datestamp.text = bookMark.datetime
         }
         if (bookMark != null) {
-            holder.suraName.setText(bookMark.surahname)
+            holder.suraName.text = bookMark.surahname
         }
         if (bookMark != null) {
-            holder.chapterno.setText(bookMark.chapterno)
+            holder.chapterno.text = bookMark.chapterno
         }
         if (bookMark != null) {
-            holder.verseno.setText(bookMark.verseno + "")
+            holder.verseno.text = bookMark.verseno + ""
         }
         val arabicFontSize: Int = shared?.getInt("pref_font_arabic_key", 18) ?: 18
-        holder.datestamp.setTextSize(arabicFontSize.toFloat())
-        holder.suraName.setTextSize(arabicFontSize.toFloat())
-        holder.verseno.setTextSize(arabicFontSize.toFloat())
-        holder.chapterno.setTextSize(arabicFontSize.toFloat())
+        holder.datestamp.textSize = arabicFontSize.toFloat()
+        holder.suraName.textSize = arabicFontSize.toFloat()
+        holder.verseno.textSize = arabicFontSize.toFloat()
+        holder.chapterno.textSize = arabicFontSize.toFloat()
         /*     if (isNightmode.equals("dark")) {
             ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.color_background_overlay);
             holder.cardView.setCardBackgroundColor(ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.color_background_overlay));
@@ -119,7 +119,7 @@ class BookmarksShowAdapter : RecyclerView.Adapter<BookmarksShowAdapter.ViewHolde
     }
 
     fun getItem(position: Int): BookMarks? {
-        return bookMarkArrayList!!.get(position)
+        return bookMarkArrayList!![position]
     }
 
 
@@ -140,7 +140,7 @@ class BookmarksShowAdapter : RecyclerView.Adapter<BookmarksShowAdapter.ViewHolde
         val header: TextView
 
         init {
-            view.setTag(this)
+            view.tag = this
             itemView.setOnClickListener(this)
             header = view.findViewById(R.id.header)
             surahicon = view.findViewById(R.id.surahicon)
@@ -150,25 +150,25 @@ class BookmarksShowAdapter : RecyclerView.Adapter<BookmarksShowAdapter.ViewHolde
             suraName = view.findViewById<View>(R.id.surahname) as TextView
             verseno = view.findViewById(R.id.verseno)
             chapterno = view.findViewById(R.id.chapterno)
-            surahicon.setTag("iocn")
+            surahicon.tag = "iocn"
             surahicon.setOnClickListener(this)
-            chapterno.setTag("chapter")
+            chapterno.tag = "chapter"
             chapterno.setOnClickListener(this)
-            suraName.setTag("surah")
+            suraName.tag = "surah"
             suraName.setOnClickListener(this)
-            verseno.setTag("verse")
+            verseno.tag = "verse"
             verseno.setOnClickListener(this)
             view.setOnClickListener(this) // current clickListerner
         }
 
         public override fun onClick(v: View) {
             if (mItemClickListener != null) {
-                mItemClickListener!!.onItemClick(v, getLayoutPosition())
+                mItemClickListener!!.onItemClick(v, layoutPosition)
             }
         }
     }
 
     companion object {
-        private val TAG: String = "BookmarksShowAdapter"
+        private const val TAG: String = "BookmarksShowAdapter"
     }
 }

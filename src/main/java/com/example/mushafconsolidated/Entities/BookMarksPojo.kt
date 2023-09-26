@@ -1,6 +1,6 @@
 
 package com.example.mushafconsolidated.DAO
-class BookMarksPojo {
+class BookMarksPojo() {
     var id: Int = 0
     var header: String? = null
     private var verseno: String? = null
@@ -8,9 +8,6 @@ class BookMarksPojo {
     private var surahname: String? = null
     private var datetime: String? = null
     var count: String? = null
-
-    constructor()
-
     fun getVerseno(): String {
         return (verseno)!!
     }

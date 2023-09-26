@@ -50,13 +50,13 @@ class FragmentContainerView constructor() : BottomSheetDialogFragment() {
 
     public override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setLayoutManager(LinearLayoutManager(requireContext()))
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val details: ArrayList<String> = ArrayList()
         fontQuranAdapter = FontQuranAdapter()
-        recyclerView.setAdapter(fontQuranAdapter)
+        recyclerView.adapter = fontQuranAdapter
         fontQuranAdapter!!.SetOnItemClickListener(object : OnItemClickListener {
             public override fun onItemClick(v: View?, position: Int) {
-                val checkedRadioButtonId: Int = radioGroup!!.getCheckedRadioButtonId()
+                val checkedRadioButtonId: Int = radioGroup!!.checkedRadioButtonId
             }
         })
     }
@@ -88,7 +88,7 @@ class FragmentContainerView constructor() : BottomSheetDialogFragment() {
             purple.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {
                     val editor: SharedPreferences.Editor =
-                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
+                        PreferenceManager.getDefaultSharedPreferences(activity).edit()
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                     editor.putString("themepref", "light")
                     editor.apply()
@@ -98,7 +98,7 @@ class FragmentContainerView constructor() : BottomSheetDialogFragment() {
             black.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {
                     val editor: SharedPreferences.Editor =
-                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
+                        PreferenceManager.getDefaultSharedPreferences(activity).edit()
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                     editor.putString("themepref", "dark")
                     editor.apply()
@@ -108,7 +108,7 @@ class FragmentContainerView constructor() : BottomSheetDialogFragment() {
             dark_blue.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {
                     val editor: SharedPreferences.Editor =
-                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
+                        PreferenceManager.getDefaultSharedPreferences(activity).edit()
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                     editor.putString("themepref", "blue")
                     editor.apply()
@@ -118,7 +118,7 @@ class FragmentContainerView constructor() : BottomSheetDialogFragment() {
             green.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {
                     val editor: SharedPreferences.Editor =
-                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
+                        PreferenceManager.getDefaultSharedPreferences(activity).edit()
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                     editor.putString("themepref", "green")
                     editor.apply()
@@ -128,7 +128,7 @@ class FragmentContainerView constructor() : BottomSheetDialogFragment() {
             brown.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {
                     val editor: SharedPreferences.Editor =
-                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
+                        PreferenceManager.getDefaultSharedPreferences(activity).edit()
                     editor.putString("themepref", "brown")
                     editor.apply()
                     dismiss()
@@ -138,7 +138,7 @@ class FragmentContainerView constructor() : BottomSheetDialogFragment() {
 
         public override fun onClick(v: View) {
             if (mItemClickListener != null) {
-                mItemClickListener!!.onItemClick(v, getLayoutPosition())
+                mItemClickListener!!.onItemClick(v, layoutPosition)
             }
         }
     }
@@ -168,17 +168,17 @@ class FragmentContainerView constructor() : BottomSheetDialogFragment() {
                 requireActivity()
             ).getString("themepref", "dark")
             if ((theme == "light")) {
-                holder.purple.setChecked(true)
+                holder.purple.isChecked = true
             } else if ((theme == "dark")) {
-                holder.black.setChecked(true)
+                holder.black.isChecked = true
             } else if ((theme == "blue")) {
-                holder.dark_blue.setChecked(true)
+                holder.dark_blue.isChecked = true
             } else if ((theme == "light")) {
-                holder.green.setChecked(true)
+                holder.green.isChecked = true
             } else if ((theme == "brown")) {
-                holder.brown.setChecked(true)
+                holder.brown.isChecked = true
             } else if ((theme == "green")) {
-                holder.green.setChecked(true)
+                holder.green.isChecked = true
             }
         }
 
@@ -192,10 +192,10 @@ class FragmentContainerView constructor() : BottomSheetDialogFragment() {
     }
 
     companion object {
-        val TAG: String = "opton"
+        const val TAG: String = "opton"
 
         // TODO: Customize parameter argument names
-        private val ARG_OPTIONS_DATA: String = "item_count"
+        private const val ARG_OPTIONS_DATA: String = "item_count"
 
         // TODO: Customize parameters
         fun newInstance(): FragmentContainerView {

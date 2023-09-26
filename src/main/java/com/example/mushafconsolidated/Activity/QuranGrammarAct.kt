@@ -43,11 +43,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import arabicrootListFragment
 import com.example.Constant
 import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.BottomOptionDialog
@@ -78,7 +80,6 @@ import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.example.mushafconsolidated.settingsimport.Constants
 import com.example.mushafconsolidatedimport.ParticleColorScheme
-import com.example.roots.arabicrootDetailHostActivity
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -178,7 +179,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
            )
        }
    */
-    @Deprecated("Deprecated in Java")
+   @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val fragment = supportFragmentManager.findFragmentById(R.id.frame_container)
         if (fragment !is IOnBackPressed || !(fragment as IOnBackPressed).onBackPressed()) {
@@ -186,6 +187,16 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         }
         //  finish();
     }
+
+/*    override fun onBackPressed() {
+      //  super.onBackPressed()
+        //   super.onBackPressed()
+        val setIntent = Intent(Intent.ACTION_MAIN)
+        setIntent.addCategory(Intent.CATEGORY_HOME)
+        setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(setIntent)
+    //    super.onBackPressed();
+    }*/
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_dua_group, menu)
@@ -310,8 +321,8 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             val transaction = fragmentManager.beginTransaction()
             transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
             val newCustomFragment = NewSurahDisplayFrag.newInstance()
-            transaction.replace(R.id.frame_container, newCustomFragment)
-            transaction.addToBackStack(null)
+            transaction.add(R.id.frame_container, newCustomFragment)
+            transaction.addToBackStack("surah")
             transaction.commit()
         }
     }
@@ -382,24 +393,45 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 //  TameezDisplayFrag bookmarkFragment=new TameezDisplayFrag();
                 val transactions = supportFragmentManager.beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                transactions.replace(R.id.frame_container, bookmarkFragment)
+                transactions.add(R.id.frame_container, bookmarkFragment)
                     .addToBackStack("mujarrad")
                 transactions.commit()
             }
             if (item.itemId == R.id.rootdetails) {
                 drawerLayout.closeDrawers()
-                val bundle = Bundle()
+         /*       val bundle = Bundle()
                 val roots = Intent(this, arabicrootDetailHostActivity::class.java)
                 bundle.putString(Constant.WORDDETAILS, "word")
                 roots.putExtras(bundle)
 
-                startActivity(roots)
+                startActivity(roots)*/
+                val fragmentManager: FragmentManager = supportFragmentManager
+                val transaction = fragmentManager.beginTransaction()
+                transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
+                val newCustomFragment = arabicrootListFragment.newInstance("word")
+                //    newCustomFragment.arguments = bundle
+                transaction.replace(R.id.frame_container, newCustomFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+
+
+
             }
             if (item.itemId == R.id.verbdetails) {
                 drawerLayout.closeDrawers()
+            /*    drawerLayout.closeDrawers()
                 val verbdetails = Intent(this, arabicrootDetailHostActivity::class.java)
                 verbdetails.putExtra(Constant.WORDDETAILS, "verb")
                 startActivity(verbdetails)
+*/
+                val fragmentManager: FragmentManager = supportFragmentManager
+                val transaction = fragmentManager.beginTransaction()
+                transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
+                val newCustomFragment = arabicrootListFragment.newInstance("verb")
+            //    newCustomFragment.arguments = bundle
+                transaction.replace(R.id.frame_container, newCustomFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
             }
             if (item.itemId == R.id.jumptoverse) {
                 drawerLayout.closeDrawers()
@@ -849,7 +881,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         dialog: AlertDialog,
         ex: CoroutineScope,
         corpus: CorpusUtilityorig,
-        listener: OnItemClickListenerOnLong
+        listener: OnItemClickListenerOnLong,
                        ) {
 
 

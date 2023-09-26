@@ -73,7 +73,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
     private var occurances: ArrayList<CorpusNounWbwOccurance>? = null
     private lateinit var nounCorpusArrayList: ArrayList<NounCorpusBreakup>
     private lateinit var expandableListView: ExpandableListView
-    var harf = false
+    private var harf = false
     lateinit var expandNounTitles: MutableList<String>
     private lateinit var expandVerbTitles: List<String>
     var counter = 0

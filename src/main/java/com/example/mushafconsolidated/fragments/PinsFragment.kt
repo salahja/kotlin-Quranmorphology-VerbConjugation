@@ -43,19 +43,19 @@ class PinsFragment constructor() : Fragment() {
     ): View? {
         //    View rootView = inflater.inflate(R.layout.activity_collection, container, false);
         val view: View = inflater.inflate(R.layout.fragment_bookmark, container, false)
-        val utils: Utils = Utils(getActivity())
+        val utils: Utils = Utils(activity)
 
        val vmodel: QuranVIewModel by viewModels()
-        bookmarksShowAdapter = BookmarksShowAdapter(getActivity())
+        bookmarksShowAdapter = BookmarksShowAdapter(activity)
         vmodel.getBookmarks().observe(viewLifecycleOwner, Observer {
 
             mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation)
             coordinatorLayout = view.findViewById(R.id.coordinatorLayoutbookmark)
             layoutManager = LinearLayoutManager(QuranGrammarApplication.context)
-            mRecview.setLayoutManager(layoutManager)
+            mRecview.layoutManager = layoutManager
             //  bookmarksShowAdapter!!.setBookMarkArrayList(bookMarksNew)
             bookmarksShowAdapter!!.bookMarkArrayList = it
-            mRecview.setAdapter(bookmarksShowAdapter)
+            mRecview.adapter = bookmarksShowAdapter
             enableSwipeToDeleteAndUndo()
 
         })
@@ -65,9 +65,9 @@ class PinsFragment constructor() : Fragment() {
 
     private fun enableSwipeToDeleteAndUndo() {
         val swipeToDeleteCallback: SwipeToDeleteCallback =
-            object : SwipeToDeleteCallback(getActivity()) {
+            object : SwipeToDeleteCallback(activity) {
                 public override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
-                    val position: Int = viewHolder.getAdapterPosition()
+                    val position: Int = viewHolder.adapterPosition
                   /*  val item: BookMarks? =
                         bookmarksShowAdapter!!.getBookMarkArrayList()?.get(position)*/
                     val item: BookMarks?  = bookmarksShowAdapter!!.getItem(position)
@@ -82,8 +82,8 @@ class PinsFragment constructor() : Fragment() {
                         )
                     snackbar.setAction(
                         "UNDO",
-                        View.OnClickListener({ view: View? -> mRecview!!.scrollToPosition(position) })
-                    )
+                        View.OnClickListener { view: View? -> mRecview!!.scrollToPosition(position) }
+                                      )
                     snackbar.setActionTextColor(Color.CYAN)
                     snackbar.show()
                     bookmarksShowAdapter!!.bookChapterno
@@ -104,13 +104,13 @@ class PinsFragment constructor() : Fragment() {
             override fun onItemClick(v: View?, position: Int) {
                 val bmark: BookMarks = bookmarksShowAdapter!!.getItem(position) as BookMarks
                 val dataBundle: Bundle = Bundle()
-                bmark.chapterno?.let { dataBundle.putInt(Constant.SURAH_ID, it.toInt()) }
-                bmark.verseno?.let { dataBundle.putInt(Constant.AYAHNUMBER, it.toInt()) }
+                bmark.chapterno.let { dataBundle.putInt(Constant.SURAH_ID, it.toInt()) }
+                bmark.verseno.let { dataBundle.putInt(Constant.AYAHNUMBER, it.toInt()) }
                 dataBundle.putString(Constant.SURAH_ARABIC_NAME, bmark.surahname)
-                val readingintent: Intent = Intent(getActivity(), QuranGrammarAct::class.java)
+                val readingintent: Intent = Intent(activity, QuranGrammarAct::class.java)
                 readingintent.putExtra(Constant.MUFRADATFRAGTAG, false)
-                bmark.chapterno?.let { readingintent.putExtra(Constant.CHAPTER, it.toInt()) }
-                bmark.verseno?.let { readingintent.putExtra(Constant.AYAH_ID, it.toInt()) }
+                bmark.chapterno.let { readingintent.putExtra(Constant.CHAPTER, it.toInt()) }
+                bmark.verseno.let { readingintent.putExtra(Constant.AYAH_ID, it.toInt()) }
                 readingintent.putExtra(Constant.CHAPTERORPART, true)
                 readingintent.putExtra(Constant.SURAH_ARABIC_NAME, bmark.surahname)
                 readingintent.putExtra(Constant.WBW, true)

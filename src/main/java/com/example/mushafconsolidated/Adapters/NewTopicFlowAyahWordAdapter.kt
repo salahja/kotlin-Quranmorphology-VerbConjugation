@@ -130,7 +130,7 @@ class NewTopicFlowAyahWordAdapter(
     override fun getItemId(position: Int): Long {
         val ayahWord = ayahWordArrayList[position]
         var itemId: Long = 0
-      return ayahWord[0]!!.get(0).corpus!!.ayah.toLong()
+      return ayahWord[0]!![0].corpus!!.ayah.toLong()
 
 
 
@@ -209,7 +209,7 @@ class NewTopicFlowAyahWordAdapter(
 
         //   String wbw = sharedPreferences.getString("wordByWord", String.valueOf(Context.MODE_PRIVATE));
         try {
-            entity = arrayofquran!![position].get(0)
+            entity = arrayofquran[position][0]
         } catch (e: IndexOutOfBoundsException) {
             println("check")
         }
@@ -217,10 +217,10 @@ class NewTopicFlowAyahWordAdapter(
 
 
 
-            ayahWord = ayahWordArrayList[position].get(0)!!.get(0)
+            ayahWord = ayahWordArrayList[position][0]!![0]
 
         try {
-            quranverses = ayahWordArrayList[position].get(0)!!.get(0).spannableverse!!
+            quranverses = ayahWordArrayList[position][0]!![0].spannableverse!!
         } catch (e: IndexOutOfBoundsException) {
         }
         assert(ayahWord != null)
@@ -242,7 +242,7 @@ class NewTopicFlowAyahWordAdapter(
             holder.quran_transliteration.visibility = View.VISIBLE
         }
         if (showJalalayn) {
-           holder.quran_jalalaynnote.setText("Jalalayn");
+            holder.quran_jalalaynnote.text = "Jalalayn";
             if (entity != null) {
                 holder.quran_jalalayn.text = entity.en_jalalayn
             }
@@ -339,7 +339,7 @@ class NewTopicFlowAyahWordAdapter(
         val colorwordfont = Typeface.createFromAsset((QuranGrammarApplication.instance)?.assets, FONTS_LOCATION_PATH)
         val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         holder.flow_word_by_word.removeAllViews()
-        val wordarray = ayahWordArrayList[position].get(0)
+        val wordarray = ayahWordArrayList[position][0]
         if (wordarray != null) {
             for (word in wordarray) {
                 @SuppressLint("InflateParams") val view = inflater.inflate(R.layout.word_by_word, null)
@@ -523,7 +523,7 @@ class NewTopicFlowAyahWordAdapter(
         val surahInfo = StringBuilder()
         //        surahInfo.append(surahName+".");
         val surahname = surahArrays[verse!!.corpus!!.surah - 1]
-        surahInfo.append(surahname).append(" ").append("Ayah").append(" ").append(verse!!.corpus!!.ayah)
+        surahInfo.append(surahname).append(" ").append("Ayah").append(" ").append(verse.corpus!!.ayah)
       //  surahInfo.append(verse!!.corpus!!.surah).append(".")
       //  surahInfo.append(verse.corpus!!.ayah).append("-").append(surahname)
 

@@ -31,7 +31,7 @@ class NewAjroomiyaDetailHostActivity : BaseActivity() {
         bundle1.putBoolean("cattwo", false)
         val fragvsi: Fragment = NewAjroomiyaListFragment.newInstance()
         fragvsi.arguments = bundle1
-        val transaction: FragmentTransaction = getSupportFragmentManager().beginTransaction()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transaction.replace(R.id.frame_container, fragvsi, "items")
         //     transaction.addToBackStack("setting");

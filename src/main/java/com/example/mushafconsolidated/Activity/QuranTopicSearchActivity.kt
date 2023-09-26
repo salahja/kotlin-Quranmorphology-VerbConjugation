@@ -27,7 +27,7 @@ import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class QuranTopicSearchActivity : BaseActivity(), OnItemClickListenerOnLong {
-    lateinit var btnSelection: FloatingActionButton
+    private lateinit var btnSelection: FloatingActionButton
     private var searchDownloadAdapter: QuranTopicSearchAdapter? = null
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -37,12 +37,9 @@ class QuranTopicSearchActivity : BaseActivity(), OnItemClickListenerOnLong {
                 if (data != null) {
                     result = data.getStringExtra("result")
                 }
-                if (result != null) {
-                }
+
             }
-            if (resultCode == RESULT_CANCELED) {
-                // Write your code if there's no result
-            }
+
         }
     }
     override fun onResume() {

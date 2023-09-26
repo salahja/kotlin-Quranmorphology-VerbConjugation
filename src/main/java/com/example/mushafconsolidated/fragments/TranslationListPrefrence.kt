@@ -37,12 +37,12 @@ class TranslationListPrefrence constructor() : BottomSheetDialogFragment() {
     private var name: String? = null
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (getArguments() != null) {
+        if (arguments != null) {
             name = requireArguments().getString("name")
             chap_id = requireArguments().getInt("chap_id")
             verse_id = requireArguments().getInt("verse_no")
         }
-        val utils: Utils = Utils(getActivity())
+        val utils: Utils = Utils(activity)
         //  setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_Material3_BottomSheetDialog);
     }
 
@@ -69,13 +69,13 @@ class TranslationListPrefrence constructor() : BottomSheetDialogFragment() {
 
     public override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setLayoutManager(LinearLayoutManager(requireContext()))
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val details: ArrayList<String> = ArrayList()
         fontQuranAdapter = FontQuranAdapter()
-        recyclerView.setAdapter(fontQuranAdapter)
+        recyclerView.adapter = fontQuranAdapter
         fontQuranAdapter!!.SetOnItemClickListener(object : OnItemClickListener {
             public override fun onItemClick(v: View?, position: Int) {
-                val checkedRadioButtonId: Int = radioGroup!!.getCheckedRadioButtonId()
+                val checkedRadioButtonId: Int = radioGroup!!.checkedRadioButtonId
             }
         })
     }
@@ -113,7 +113,7 @@ class TranslationListPrefrence constructor() : BottomSheetDialogFragment() {
             en_sahih.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {
                     val editor: SharedPreferences.Editor =
-                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
+                        PreferenceManager.getDefaultSharedPreferences(activity).edit()
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                     editor.putString("selecttranslation", "en_sahih")
                     editor.apply()
@@ -123,7 +123,7 @@ class TranslationListPrefrence constructor() : BottomSheetDialogFragment() {
             ur_junagarhi.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {
                     val editor: SharedPreferences.Editor =
-                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
+                        PreferenceManager.getDefaultSharedPreferences(activity).edit()
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                     editor.putString("selecttranslation", "ur_junagarhi")
                     editor.apply()
@@ -133,7 +133,7 @@ class TranslationListPrefrence constructor() : BottomSheetDialogFragment() {
             en_jalalayn.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {
                     val editor: SharedPreferences.Editor =
-                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
+                        PreferenceManager.getDefaultSharedPreferences(activity).edit()
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                     editor.putString("selecttranslation", "en_jalalayn")
                     editor.apply()
@@ -143,7 +143,7 @@ class TranslationListPrefrence constructor() : BottomSheetDialogFragment() {
             ur_jalalayn.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {
                     val editor: SharedPreferences.Editor =
-                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
+                        PreferenceManager.getDefaultSharedPreferences(activity).edit()
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                     editor.putString("selecttranslation", "ur_jalalayn")
                     editor.apply()
@@ -153,7 +153,7 @@ class TranslationListPrefrence constructor() : BottomSheetDialogFragment() {
             en_erberry.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {
                     val editor: SharedPreferences.Editor =
-                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
+                        PreferenceManager.getDefaultSharedPreferences(activity).edit()
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                     editor.putString("selecttranslation", "en_arberry")
                     editor.apply()
@@ -164,7 +164,7 @@ class TranslationListPrefrence constructor() : BottomSheetDialogFragment() {
 
         public override fun onClick(v: View) {
             if (mItemClickListener != null) {
-                mItemClickListener!!.onItemClick(v, getLayoutPosition())
+                mItemClickListener!!.onItemClick(v, layoutPosition)
             }
         }
     }
@@ -194,15 +194,15 @@ class TranslationListPrefrence constructor() : BottomSheetDialogFragment() {
                 requireActivity()
             ).getString("selecttranslation", "en_sahih")
             if ((theme == "en_sahih")) {
-                holder.en_sahih.setChecked(true)
+                holder.en_sahih.isChecked = true
             } else if ((theme == "ur_jalalayn")) {
-                holder.ur_junagarhi.setChecked(true)
+                holder.ur_junagarhi.isChecked = true
             } else if ((theme == "ur_junagarhi")) {
-                holder.en_jalalayn.setChecked(true)
+                holder.en_jalalayn.isChecked = true
             } else if ((theme == "ur_jalalayn")) {
-                holder.ur_jalalayn.setChecked(true)
+                holder.ur_jalalayn.isChecked = true
             } else if ((theme == "en_erberry")) {
-                holder.en_erberry.setChecked(true)
+                holder.en_erberry.isChecked = true
             }
 
 
@@ -237,10 +237,10 @@ class TranslationListPrefrence constructor() : BottomSheetDialogFragment() {
     }
 
     companion object {
-        val TAG: String = "opton"
+        const val TAG: String = "opton"
 
         // TODO: Customize parameter argument names
-        private val ARG_OPTIONS_DATA: String = "item_count"
+        private const val ARG_OPTIONS_DATA: String = "item_count"
 
         // TODO: Customize parameters
         fun newInstance(): TranslationListPrefrence {

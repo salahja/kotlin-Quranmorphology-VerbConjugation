@@ -2,7 +2,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 
-class SharedPref(val sharedContext: Context) {
+class SharedPref(private val sharedContext: Context) {
     init {
         //  this.sharedPreferences = sharedPreferences;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(

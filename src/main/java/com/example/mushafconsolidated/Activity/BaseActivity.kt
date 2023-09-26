@@ -7,7 +7,7 @@ import com.example.mushafconsolidated.R
 import com.google.android.material.color.DynamicColors
 
 open class BaseActivity : AppCompatActivity() {
-    var currenttheme: String? = null
+    private var currenttheme: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         currenttheme =
             PreferenceManager.getDefaultSharedPreferences(this).getString("themepref", "dark")

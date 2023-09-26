@@ -101,7 +101,7 @@ class WordLughatAdapter(
         val meaning: TextView
         val rootwowrd: TextView
         val arabicword: TextView
-        val referenceView: TextView
+        private val referenceView: TextView
         var dismissview: ImageView? = null
         var i: Int = ContextCompat.getColor(context!!, R.color.kashmirigreen)
 

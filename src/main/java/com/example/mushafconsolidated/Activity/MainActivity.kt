@@ -30,7 +30,7 @@ import java.util.zip.ZipInputStream
 
 class MainActivity : BaseActivity() {
     private var newquran: File? = null
-    var recview: RecyclerView? = null
+    private var recview: RecyclerView? = null
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
     }

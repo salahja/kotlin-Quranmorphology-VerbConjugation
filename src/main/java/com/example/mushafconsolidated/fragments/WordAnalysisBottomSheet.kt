@@ -655,7 +655,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
      * @param s S
      */
     private fun storepreferences(chapterid: Int, ayanumber: Int, s: String) {
-        var pref: SharedPreferences? =
+        val pref: SharedPreferences? =
             requireContext().getSharedPreferences("lastread", Context.MODE_PRIVATE)
         val editor = pref?.edit()
         editor!!.putInt(SURAH_ID, chapterid)

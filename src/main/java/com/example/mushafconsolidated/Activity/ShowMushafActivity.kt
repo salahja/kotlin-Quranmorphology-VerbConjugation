@@ -101,7 +101,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     private lateinit var surahWheelDisplayData: Array<String>
     private lateinit var ayahWheelDisplayData: Array<String>
     var versestartrange = 0
-    var verseendrange = 0
+    private var verseendrange = 0
     private var currenttrack = 0
     private var resumelastplayed = 0
     private var onClickOrRange = false
@@ -149,10 +149,10 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     private var startPosition: Long = 0
     private lateinit var playiv: ImageView
     private var pausePlayFlag = false
-    var surahselected = 0
-    var verselected = 0
+    private var surahselected = 0
+    private var verselected = 0
     var versescount = 0
-    lateinit var surahNameEnglish: String
+    private lateinit var surahNameEnglish: String
     private lateinit var surahNameArabic: String
     private lateinit var isNightmode: String
 
@@ -204,7 +204,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     private lateinit var audio_settings_bottom: RelativeLayout
 
     //  TextView startrange, startimage, endrange, endimage;
-    lateinit var startrange: MaterialTextView
+    private lateinit var startrange: MaterialTextView
     private lateinit var endrange: MaterialTextView
     private fun setStartPosition(startPosition: Long) {
         this.startPosition = startPosition
@@ -295,7 +295,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         val firstpage = quranEntities?.get(0)!!.page
         lateinit var page: Page
         var ayahItems: List<QuranEntity?>?
-        for (i in firstpage..quranEntities.get(quranEntities.size - 1)!!.page) {
+        for (i in firstpage..quranEntities[quranEntities.size - 1]!!.page) {
             // ayahItems = repository.getAyahsByPageQuran(surah, i);
             ayahItems = Utils.getAyahsByPagejuz(2, i)
             if (ayahItems!!.isNotEmpty()) {
@@ -316,7 +316,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         val firstpage = quranEntities?.get(0)!!.page
         lateinit var page: Page
         var ayahItems: List<QuranEntity?>?
-        for (i in firstpage..quranEntities.get(quranEntities.size - 1)!!.page) {
+        for (i in firstpage..quranEntities[quranEntities.size - 1]!!.page) {
             ayahItems = repository.getAyahsByPageQuran(surah, i)
             if (ayahItems != null) {
                 if (ayahItems.isNotEmpty()) {
@@ -437,7 +437,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-        runOnUiThread({ //check language to load readers arabic or english
+        runOnUiThread { //check language to load readers arabic or english
             val readersNames: MutableList<String> = ArrayList()
             readersList = repository.qaris
             for (reader in readersList) {
@@ -449,14 +449,13 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
                         }*/
             }
-
             //add custom spinner adapter for readers
             val spinnerReaderAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
                 this@ShowMushafActivity,
                 R.layout.spinner_layout_larg,
                 R.id.spinnerText,
                 readersNames
-            )
+                                                                                 )
             readers.adapter = spinnerReaderAdapter
             for (counter in readersNames.indices) {
                 if (readersNames[counter].trim { it <= ' ' } == selectedqari.trim { it <= ' ' }) {
@@ -464,7 +463,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                     break
                 }
             }
-        })
+        }
     }
 
 
@@ -1195,9 +1194,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 }
             })
             val haveStartPosition = startItemIndex != C.INDEX_UNSET
-            if (haveStartPosition) {
-                //    player.seekTo(startItemIndex, startPosition);
-            }
+
             if (rangeRecitation) {
                 if (verseendrange == 0) {
                     verseendrange = versescount
@@ -1415,7 +1412,6 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 assert(player != null)
                 player!!.seekToDefaultPosition()
                 player!!.prepare()
-            } else {
             }
         }
 
@@ -1835,7 +1831,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             //   int ayaLength = String.valueOf(ayaItem.ayaID).trim().length();
             if (suraLength == 1) suraID =
                 "00" + (chap[0]!!.chapterid) else if (suraLength == 2) suraID =
-                "0" + chap.get(0)!!.chapterid
+                "0" + chap[0]!!.chapterid
             val s = downloadLink + chap[0]!!.chapterid + AudioAppConstants.Extensions.MP3
             downloadLin.add(s)
             Log.d("DownloadLinks", downloadLink + suraID + AudioAppConstants.Extensions.MP3)
@@ -1949,8 +1945,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             builder.setTitle(resources.getString(R.string.Alert))
             builder.setMessage(resources.getString(R.string.no_internet_alert))
             builder.setPositiveButton(
-                resources.getString(R.string.ok),
-                { dialog, id -> dialog.cancel() })
+                resources.getString(R.string.ok)
+                                     ) { dialog, id -> dialog.cancel() }
             builder.show()
         } else {
             //change view of footer to media
@@ -2050,8 +2046,10 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
     override fun onStart() {
         super.onStart()
-        if (Util.SDK_INT > 23) {
-            //   this.initializePlayer();
+        when {
+            Util.SDK_INT > 23 -> {
+                //   this.initializePlayer();
+            }
         }
     }
 

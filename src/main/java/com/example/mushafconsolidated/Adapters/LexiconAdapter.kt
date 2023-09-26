@@ -44,15 +44,15 @@ class LexiconAdapter(
         //  Typeface typeface = Typeface.createFromAsset(context.getAssets(), quranfont);
         //   Typeface mequran = Typeface.createFromAsset(DarkThemeApplication.context!!.getAssets(), "Roboto.ttf");
         val mequran: Typeface =
-            Typeface.createFromAsset(QuranGrammarApplication.context!!.getAssets(), "Taha.ttf")
-        var lanes: String = lanesdictionary.get(position)
+            Typeface.createFromAsset(QuranGrammarApplication.context!!.assets, "Taha.ttf")
+        var lanes: String = lanesdictionary[position]
         holder.wordDictionary.requestFocus()
-        holder.wordDictionary.getSettings().setLightTouchEnabled(true)
-        holder.wordDictionary.getSettings().setBuiltInZoomControls(true)
-        holder.wordDictionary.getSettings().setBuiltInZoomControls(true)
-        holder.wordDictionary.getSettings().setSupportZoom(true)
-        val webSettings: WebSettings = holder.wordDictionary.getSettings()
-        webSettings.setJavaScriptEnabled(true)
+        holder.wordDictionary.settings.lightTouchEnabled = true
+        holder.wordDictionary.settings.builtInZoomControls = true
+        holder.wordDictionary.settings.builtInZoomControls = true
+        holder.wordDictionary.settings.setSupportZoom(true)
+        val webSettings: WebSettings = holder.wordDictionary.settings
+        webSettings.javaScriptEnabled = true
         //  mTextView.setInitialScale(1);
         //   mTextView.getSettings().setLoadWithOverviewMode(true);
         //    mTextView.getSettings().setUseWideViewPort(true);
@@ -67,7 +67,7 @@ class LexiconAdapter(
                 "utf-8",
                 null
             )
-            holder.wordDictionary.getSettings().setBuiltInZoomControls(true)
+            holder.wordDictionary.settings.builtInZoomControls = true
         } else if ((language == "lanes")) {
             //   wv.loadDataWithBaseURL(null,myHtmlString, "text/html", "UTF-8", null);
             data.append("<!DOCTYPE html><html lang=\"en\"><head>")
@@ -75,11 +75,11 @@ class LexiconAdapter(
                 .append(lanes)
             //    holder. wordDictionary.loadDataWithBaseURL("file:///android_asset/", data .toString(), "text/html", "utf-8", null);
             //    holder.wordDictionary.loadDataWithBaseURL(null, lanes , "text/html", "utf-8", null);
-            lanes = "<link rel=\"stylesheet\" type=\"text/css\" href=\"lexicon.css\" />" + lanes
+            lanes = "<link rel=\"stylesheet\" type=\"text/css\" href=\"lexicon.css\" />$lanes"
             // lets assume we have /assets/style.css file
 
             // holder.wordDictionary.loadDataWithBaseURL("file:///android_asset/", data.toString(), "text/html", "UTF-8", null);
-            holder.wordDictionary.getSettings().setBuiltInZoomControls(true)
+            holder.wordDictionary.settings.builtInZoomControls = true
             holder.wordDictionary.loadDataWithBaseURL(
                 "file:///android_asset/",
                 lanes,
@@ -96,12 +96,12 @@ class LexiconAdapter(
                 //  holder. wordDictionary.loadDataWithBaseURL("file:///android_asset/", data .toString(), "text/html", "utf-8", null);
                 , "text/html", "utf-8", null
             )
-            holder.wordDictionary.getSettings().setBuiltInZoomControls(true)
+            holder.wordDictionary.settings.builtInZoomControls = true
         }
     }
 
     public override fun getItemId(position: Int): Long {
-        return lanesdictionary.get(position).length.toLong()
+        return lanesdictionary[position].length.toLong()
     }
 
     public override fun getItemCount(): Int {
@@ -109,17 +109,17 @@ class LexiconAdapter(
     }
 
     fun getItem(position: Int): Any {
-        return lanesdictionary.get(position)
+        return lanesdictionary[position]
     }
 
     inner class ItemViewAdapter constructor(view: View) : RecyclerView.ViewHolder(view),
         View.OnClickListener // current clickListerner
     {
-        val wordDictionaryUrdu: TextView
+        private val wordDictionaryUrdu: TextView
         var meaning: TextView?=null
-        val rootwowrd: TextView
+        private val rootwowrd: TextView
         var arabicword: TextView?=null
-        var referenceView: TextView?=null
+        private var referenceView: TextView?=null
         var dismissview: ImageView? = null
         var wordDictionary: WebView
         var i: Int = ContextCompat.getColor(context!!, R.color.kashmirigreen)
@@ -135,7 +135,7 @@ class LexiconAdapter(
 
         public override fun onClick(v: View) {
             if (mItemClickListener != null) {
-                mItemClickListener!!.onItemClick(v, getLayoutPosition())
+                mItemClickListener!!.onItemClick(v, layoutPosition)
             }
         }
     }

@@ -146,7 +146,7 @@ open class QuranMorphologyDetails() {
                     Thulathi=null
                 }
                  */
-                Thulathi = if (s.length > 0) s else {
+                Thulathi = if (s.isNotEmpty()) s else {
                     null
                 }
             }
@@ -871,17 +871,17 @@ open class QuranMorphologyDetails() {
     companion object {
         fun getFormName(form: String?): String {
             var formdetails = ""
-            when (form) {
-                "IV" -> formdetails = "Form-IV(إِفْعَال)"
-                "II" -> formdetails = "Form-II(تَفْعِيل)"
-                "III" -> formdetails = "Form-III(فَاعَلَ)"
-                "VII" -> formdetails = "Form-VII(اِنْفِعَال)"
-                "VIII" -> formdetails = "Form-VIII(اِفْتِعَال)"
-                "VI" -> formdetails = "Form-VI(تَفَاعُل)"
-                "V" -> formdetails = "Form-V(تَفَعُّل)"
-                "X" -> formdetails = "Form-X(اِسْتِفْعَال)"
+            formdetails = when (form) {
+                "IV" -> "Form-IV(إِفْعَال)"
+                "II" -> "Form-II(تَفْعِيل)"
+                "III" -> "Form-III(فَاعَلَ)"
+                "VII" -> "Form-VII(اِنْفِعَال)"
+                "VIII" -> "Form-VIII(اِفْتِعَال)"
+                "VI" -> "Form-VI(تَفَاعُل)"
+                "V" -> "Form-V(تَفَعُّل)"
+                "X" -> "Form-X(اِسْتِفْعَال)"
                 else ->
-                    formdetails=""
+                    ""
             }
             return formdetails
         }

@@ -38,7 +38,7 @@ object PlaceholderContent {
     }
 
     private fun createPlaceholderItem(position: Int): PlaceholderItem {
-        val array: Array<String> = QuranGrammarApplication.context!!.getResources()
+        val array: Array<String> = QuranGrammarApplication.context!!.resources
             .getStringArray(R.array.arabicletters)
         // return new PlaceholderItem(String.valueOf(position), "Item " + position, makeDetails(position));
         return PlaceholderItem(
@@ -65,7 +65,7 @@ object PlaceholderContent {
         strings: ArrayList<String>
     ): ArrayList<String> {
         val builder = StringBuilder()
-        val searchs=s+'%';
+        val searchs= "$s%";
         //%
         val util=Utils(QuranGrammarApplication.context!!)
         val letter: ArrayList<qurandictionary> = util.getByfirstletter(searchs) as ArrayList<qurandictionary>
@@ -77,9 +77,7 @@ object PlaceholderContent {
 
         //   ArrayList<qurandictionary> letter = Utils.getRootwordsbyLetter("غ");
         builder.append("Details about Item: ").append(position)
-        for (i in 0 until position) {
-            //          builder.append("\nMore details information here.");
-        }
+
         return strings
     }
 
@@ -92,7 +90,7 @@ object PlaceholderContent {
         val details: ArrayList<String>,
         rootsArrayList: ArrayList<String>
     ) {
-        var rootsArrayList = ArrayList<String>()
+        private var rootsArrayList = ArrayList<String>()
 
         init {
             this.rootsArrayList = rootsArrayList

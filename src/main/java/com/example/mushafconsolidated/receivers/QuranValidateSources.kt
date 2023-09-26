@@ -37,12 +37,12 @@ object QuranValidateSources {
     fun validateAyaAudio(context: Context, reader: Int, aya: Int, sura: Int): Boolean {
 
         //create file name from aya id and sura id
-        val suraLength: Int = sura.toString().trim({ it <= ' ' }).length
+        val suraLength: Int = sura.toString().trim { it <= ' ' }.length
         var suraID: String = sura.toString() + ""
-        val ayaLength: Int = aya.toString().trim({ it <= ' ' }).length
+        val ayaLength: Int = aya.toString().trim { it <= ' ' }.length
         var ayaID: String = aya.toString() + ""
-        if (suraLength == 1) suraID = "00" + sura else if (suraLength == 2) suraID = "0" + sura
-        if (ayaLength == 1) ayaID = "00" + aya else if (ayaLength == 2) ayaID = "0" + aya
+        if (suraLength == 1) suraID = "00$sura" else if (suraLength == 2) suraID = "0$sura"
+        if (ayaLength == 1) ayaID = "00$aya" else if (ayaLength == 2) ayaID = "0$aya"
 
         //Audio file path
         ///storage/emulated/0/Mushafapplication/Audio/1/8.mp3
@@ -53,7 +53,7 @@ object QuranValidateSources {
                     + ayaID + AudioAppConstants.Extensions.Companion.MP3)
         val filePath: String = (Environment
             .getExternalStorageDirectory()
-            .getAbsolutePath()
+            .absolutePath
                 + context.getString(string.app_folder_path)
                 + "/Audio/" + reader + "/" + suraID
                 + AudioAppConstants.Extensions.Companion.MP3)
@@ -67,9 +67,9 @@ object QuranValidateSources {
     fun validateSurahAudio(context: Context, reader: Int, sura: Int): Boolean {
 
         //create file name from aya id and sura id
-        val suraLength: Int = sura.toString().trim({ it <= ' ' }).length
+        val suraLength: Int = sura.toString().trim { it <= ' ' }.length
         var suraID: String = sura.toString() + ""
-        if (suraLength == 1) suraID = "00" + sura else if (suraLength == 2) suraID = "0" + sura
+        if (suraLength == 1) suraID = "00$sura" else if (suraLength == 2) suraID = "0$sura"
 
 
         //Audio file path
@@ -81,7 +81,7 @@ object QuranValidateSources {
                     + AudioAppConstants.Extensions.Companion.MP3)
         val filePath: String = (Environment
             .getExternalStorageDirectory()
-            .getAbsolutePath()
+            .absolutePath
                 + context.getString(string.app_folder_path)
                 + "/Audio/" + reader + "/" + suraID
                 + AudioAppConstants.Extensions.Companion.MP3)

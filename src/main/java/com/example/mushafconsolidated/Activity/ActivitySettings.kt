@@ -149,7 +149,7 @@ class ActivitySettings : BaseActivity(),
                         if (newValue is Int) {
                             val newValueInt: Int
                             newValueInt = try {
-                                newValue as Int
+                                newValue
                             } catch (nfe: NumberFormatException) {
                                 Log.e(
                                     TAG,

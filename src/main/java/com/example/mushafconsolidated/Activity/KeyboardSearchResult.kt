@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.text.SpannableString
 
 class KeyboardSearchResult : WordOccuranceAct() {
-    val expandlexicon = LinkedHashMap<String, ArrayList<SpannableString>>()
+    private val expandlexicon = LinkedHashMap<String, ArrayList<SpannableString>>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         executeDictionary()
     }
-    fun executeDictionary() {
+    private fun executeDictionary() {
         //  ArrayList<lanelexicon> lanesDifinition = utils.getLanesDifinition(root);
         //  ArrayList<SpannableString> lanesdifinition ;
         val list: ArrayList<SpannableString> = ArrayList()

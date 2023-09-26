@@ -56,7 +56,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 var lemmarabic: String?=null
 var words: List<VerseOccuranceModel>? = null
-val EXPANSTION_TRANSITION_DURATION = 300
+const val EXPANSTION_TRANSITION_DURATION = 300
 
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalCoroutinesApi

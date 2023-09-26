@@ -53,7 +53,7 @@ class FileUtility(var context: Context) {
         return status
     }
 
-    fun requestPermission() {
+    private fun requestPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(
                 (context as Activity),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -73,7 +73,7 @@ class FileUtility(var context: Context) {
         }
     }
 
-    fun checkPermission(): Boolean {
+    private fun checkPermission(): Boolean {
         val result = ContextCompat.checkSelfPermission(
             (context as Activity),
             Manifest.permission.WRITE_EXTERNAL_STORAGE

@@ -42,7 +42,7 @@ import java.util.regex.Pattern
 
 open class WordOccuranceAct : BaseActivity() {
     private var expandableListView: ExpandableListView? = null
-    var harf = false
+    private var harf = false
     lateinit var expandNounTitles: MutableList<String>
     lateinit var expandVerbTitles: List<String>
     var root: String? = null
@@ -167,7 +167,7 @@ open class WordOccuranceAct : BaseActivity() {
             expandNounVerses.putAll(expandVerbVerses)
             expandNounTitles.addAll(expandVerbTitles)
             //post
-            runOnUiThread({
+            runOnUiThread {
                 dialog!!.dismiss()
                 //   listAdapter = new NounVerbOccuranceListAdapter(WordOccuranceAct.this, expandNounTitles, expandNounVerses);
                 var listAdapter: NounVerbOccuranceListAdapter = NounVerbOccuranceListAdapter(
@@ -203,7 +203,7 @@ open class WordOccuranceAct : BaseActivity() {
                                         verbroot = verbroot?.replace(
                                             Ya.toRegex(),
                                             AlifMaksuraString
-                                        )
+                                                                    )
                                     }
                                     var list: ArrayList<SpannableString> =
                                         ArrayList()
@@ -218,13 +218,13 @@ open class WordOccuranceAct : BaseActivity() {
                                     list = highLightParadigm(list) as ArrayList<SpannableString>
                                     val finalList: ArrayList<SpannableString> =
                                         list
-                                    runOnUiThread({
+                                    runOnUiThread {
                                         ex.shutdown()
                                         dialog!!.dismiss()
                                         expandNounVerses[expandNounTitles[groupPosition]] =
                                             finalList
                                         listAdapter.notifyDataSetChanged()
-                                    })
+                                    }
                                 }
 
                                 private fun highLightParadigm(list: List<*>): MutableList<*> {
@@ -250,7 +250,7 @@ open class WordOccuranceAct : BaseActivity() {
                                                     m.group(0)
                                                                       ).length + indexof,
                                                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                            )
+                                                      )
                                             lists.add(sb)
                                             //   System.out.println("Found value: " + m.group(2) );
                                         } else {
@@ -277,13 +277,13 @@ open class WordOccuranceAct : BaseActivity() {
                                     }
                                     list = highLightParadigm(list) as MutableList<SpannableString?>
                                     val finalList: List<*> = list
-                                    runOnUiThread({
+                                    runOnUiThread {
                                         ex.shutdown()
                                         dialog!!.dismiss()
                                         expandNounVerses[expandNounTitles[groupPosition]] =
                                             finalList as ArrayList<SpannableString>
                                         listAdapter.notifyDataSetChanged()
-                                    })
+                                    }
                                 }
 
                                 private fun highLightParadigm(list: List<*>): MutableList<*> {
@@ -303,8 +303,8 @@ open class WordOccuranceAct : BaseActivity() {
                                             indexof = l.toString().indexOf(
                                                 Objects.requireNonNull(
                                                     m.group(0)
-                                                )
-                                            )
+                                                                      )
+                                                                          )
                                             sb = SpannableString(l.toString())
                                             sb!!.setSpan(
                                                 particlespanDark,
@@ -313,7 +313,7 @@ open class WordOccuranceAct : BaseActivity() {
                                                     m.group(0)
                                                                       ).length + indexof,
                                                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                            )
+                                                        )
                                             lists.add(sb!!)
                                             //   System.out.println("Found value: " + m.group(2) );
                                         } else {
@@ -324,9 +324,9 @@ open class WordOccuranceAct : BaseActivity() {
                                 }
                             })
                         } else if (expandNounTitles[groupPosition]
-                                .contains("Noun") || expandNounTitles[groupPosition]
-                                .contains("Adverb") || expandNounTitles[groupPosition]
-                                .contains("Adjective")
+                                    .contains("Noun") || expandNounTitles[groupPosition]
+                                    .contains("Adverb") || expandNounTitles[groupPosition]
+                                    .contains("Adjective")
                         ) {
                             val ex =
                                 Executors.newSingleThreadExecutor()
@@ -342,7 +342,7 @@ open class WordOccuranceAct : BaseActivity() {
                                 val verses: ArrayList<CorpusNounWbwOccurance> =
                                     utils.getNounOccuranceBreakVerses(
                                         split[1]
-                                    ) as ArrayList<CorpusNounWbwOccurance>
+                                                                     ) as ArrayList<CorpusNounWbwOccurance>
                                 for (vers in verses) {
                                     val sb = StringBuilder()
                                     SpannableString(vers.qurantext)
@@ -350,7 +350,7 @@ open class WordOccuranceAct : BaseActivity() {
                                         getSpannableVerses(
                                             vers.araone + vers.aratwo + vers.arathree + vers.arafour + vers.arafive,
                                             vers.qurantext!!
-                                        )
+                                                          )
                                     sb.append(vers.surah).append(":").append(vers.ayah)
                                         .append(":").append(vers.wordno).append("-")
                                         .append(vers.en).append("-")
@@ -360,7 +360,7 @@ open class WordOccuranceAct : BaseActivity() {
                                         0,
                                         sb.length,
                                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                    )
+                                               )
                                     val which = shared.getString(
                                         "selecttranslation",
                                         "en_sahih"
@@ -380,10 +380,10 @@ open class WordOccuranceAct : BaseActivity() {
                                             SpannableString.valueOf(vers.en_arberry)
                                     }
                                     val charSequence =
-                                        TextUtils.concat(ref, "\n ", spannableVerses,"\n ",trans)
+                                        TextUtils.concat(ref, "\n ", spannableVerses, "\n ", trans)
                                     list.add(SpannableString.valueOf(charSequence))
-                                  //  list.add(SpannableString.valueOf(charSequence))
-                                   // list.add(trans!!)
+                                    //  list.add(SpannableString.valueOf(charSequence))
+                                    // list.add(trans!!)
                                 }
                                 runOnUiThread(Runnable {
                                     ex.shutdown()
@@ -408,7 +408,7 @@ open class WordOccuranceAct : BaseActivity() {
                                         getSpannableVerses(
                                             vers.araone + vers.aratwo + vers.arathree + vers.arafour + vers.arafive,
                                             vers.qurantext!!
-                                        )
+                                                          )
                                     sb.append(vers.surah).append(":").append(vers.ayah)
                                         .append(":").append(vers.wordno).append("-")
                                         .append(vers.en).append("-")
@@ -420,7 +420,7 @@ open class WordOccuranceAct : BaseActivity() {
                                         0,
                                         sb.length,
                                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                    )
+                                               )
                                     val which = shared.getString(
                                         "selecttranslation",
                                         "en_sahih"
@@ -440,9 +440,9 @@ open class WordOccuranceAct : BaseActivity() {
                                             SpannableString.valueOf(vers.en_arberry)
                                     }
                                     val charSequence =
-                                        TextUtils.concat(ref, "\n ", spannableVerses, "\n ",trans)
+                                        TextUtils.concat(ref, "\n ", spannableVerses, "\n ", trans)
                                     list.add(SpannableString.valueOf(charSequence))
-                                   // trans?.let { list.add(it) }
+                                    // trans?.let { list.add(it) }
                                 }
                                 runOnUiThread(Runnable {
                                     ex.shutdown()
@@ -459,11 +459,11 @@ open class WordOccuranceAct : BaseActivity() {
                     override fun onChildClick(
                         parent: ExpandableListView, v: View,
                         groupPosition: Int, childPosition: Int, id: Long
-                    ): Boolean {
+                                             ): Boolean {
                         val child = listAdapter.getChild(
                             groupPosition,
                             childPosition
-                        ) as CharSequence
+                                                        ) as CharSequence
                         val split =
                             child.toString().split("-".toRegex()).dropLastWhile { it.isEmpty() }
                                 .toTypedArray()
@@ -472,17 +472,20 @@ open class WordOccuranceAct : BaseActivity() {
                         return if (surahaya.size > 1) {
                             try {
                                 Integer.valueOf(surahaya[2])
-                            } catch (e: NumberFormatException) {
+                            }
+                            catch (e: NumberFormatException) {
                                 return false
                             }
                             try {
                                 Integer.valueOf(surahaya[1])
-                            } catch (e: NumberFormatException) {
+                            }
+                            catch (e: NumberFormatException) {
                                 return false
                             }
                             try {
                                 Integer.valueOf(surahaya[0])
-                            } catch (e: NumberFormatException) {
+                            }
+                            catch (e: NumberFormatException) {
                                 return false
                             }
                             val wordno = surahaya[2]
@@ -505,7 +508,7 @@ open class WordOccuranceAct : BaseActivity() {
                         surah: String,
                         ayah: String,
                         wordno: String
-                    ) {
+                                            ) {
                         val item = WordAnalysisBottomSheet()
                         //    item.setdata(rootWordMeanings,wbwRootwords,grammarRootsCombined);
                         item.arguments = dataBundle
@@ -515,7 +518,7 @@ open class WordOccuranceAct : BaseActivity() {
                         //   WordAnalysisBottomSheet.newInstance(data).show(WordOccuranceAsynKAct.this).getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
                     }
                 })
-            })
+            }
         }
     }
 

@@ -72,21 +72,21 @@ class CutCopyPasteEditText : AppCompatEditText {
     /**
      * Text was cut from this EditText.
      */
-    fun onCut() {
+    private fun onCut() {
         if (mOnCutCopyPasteListener != null) mOnCutCopyPasteListener!!.onCut()
     }
 
     /**
      * Text was copied from this EditText.
      */
-    fun onCopy() {
+    private fun onCopy() {
         if (mOnCutCopyPasteListener != null) mOnCutCopyPasteListener!!.onCopy()
     }
 
     /**
      * Text was pasted into the EditText.
      */
-    fun onPaste() {
+    private fun onPaste() {
         if (mOnCutCopyPasteListener != null) mOnCutCopyPasteListener!!.onPaste()
     }
 

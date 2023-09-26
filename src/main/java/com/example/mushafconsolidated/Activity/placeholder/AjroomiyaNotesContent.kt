@@ -18,13 +18,13 @@ object AjroomiyaNotesContent {
     /**
      * An array of sample (placeholder) items.
      */
-    val ITEMS: MutableList<GrammarRules> = ArrayList()
+    private val ITEMS: MutableList<GrammarRules> = ArrayList()
 
     /**
      * A map of sample (placeholder) items, by ID.
      */
     //   public static final Map<String, PlaceholderItem> ITEM_MAP = new HashMap<String, PlaceholderItem>();
-    val ITEM_MAP: MutableMap<String?, GrammarRules?> = HashMap()
+    private val ITEM_MAP: MutableMap<String?, GrammarRules?> = HashMap()
     private const val COUNT = 25
 
     /*

@@ -31,15 +31,15 @@ object AppPreference {
      *
      * @return SharedPreferences object
      */
-    fun OpenConfigPreferences(): SharedPreferences? {
-        try {
-            return QuranGrammarApplication.instance?.getSharedPreferences(
+    private fun OpenConfigPreferences(): SharedPreferences? {
+        return try {
+            QuranGrammarApplication.instance?.getSharedPreferences(
                 AudioAppConstants.Preferences.Companion.CONFIG,
                 Context.MODE_PRIVATE
-            )
+                                                                  )
         } catch (e: Exception) {
             e.printStackTrace()
-            return null
+            null
         }
     }
 

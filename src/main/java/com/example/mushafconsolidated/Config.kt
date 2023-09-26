@@ -33,8 +33,8 @@ class Config constructor() {
     var fullWidth: Boolean = false
     var keepScreenOn: Boolean = false
     var enableAnalytics: Boolean = false
-    var fontArabic: String? = null
-    var fontSizeArabic: String? = null
+    private var fontArabic: String? = null
+    private var fontSizeArabic: String? = null
     var fontSizeTranslation: Int = 0
     var showErab: Boolean = false
     fun load(context: Context?) {
@@ -55,7 +55,7 @@ class Config constructor() {
         }
     }
 
-    fun loadDefault() {
+    private fun loadDefault() {
         fontArabic = Config.Companion.defaultArabicFont
         fontSizeArabic = Config.Companion.defaultFontSizeArabic
     }
@@ -74,7 +74,7 @@ class Config constructor() {
         ed.commit();
     }*/
     private fun getStringInt(sp: SharedPreferences, key: String, defValue: Int): Int {
-        return sp.getString(key, Integer.toString(defValue))!!.toInt()
+        return sp.getString(key, defValue.toString())!!.toInt()
     } /*  public boolean loadFont() {
       if (loadedFont != Config.fontArabic) {
           String name;
@@ -104,33 +104,33 @@ class Config constructor() {
   }*/
 
     companion object {
-        val FONT_QALAM_MAJEED: Int = 0
-        val FONT_HAFS: Int = 1
-        val FONT_NOOREHUDA: Int = 2
-        val FONT_ME_QURAN: Int = 3
-        val FONT_MAX: Int = 3
-        val LANG: String = "lang"
-        val LANG_BN: String = "bn"
-        val LANG_EN: String = "en"
-        val LANG_INDO: String = "indo"
-        val SHOW_TRANSLATION: String = "showTranslation"
-        val SHOW_Erab: String = "showErab"
-        val WORD_BY_WORD: String = "wordByWord"
-        val KEEP_SCREEN_ON: String = "keepScreenOn"
-        val ARABIC_FONT: String = "arabicFont"
-        val FONT_SIZE_ARABIC: String = "fontSizeArabic"
-        val FONT_SIZE_TRANSLATION: String = "fontSizeTranslation"
-        val FONT_SIZE_ERAB: String = "fontSizeErab"
-        val FIRST_RUN: String = "firstRun"
-        val DATABASE_VERSION: String = "dbVersion"
-        val defaultLang: String = "en"
-        val defaultShowTranslation: Boolean = true
-        val defaultShowErab: Boolean = true
-        val defaultWordByWord: Boolean = true
-        val defaultKeepScreenOn: Boolean = true
-        val defaultArabicFont: String = "Uthmani.oft"
-        val defaultFontSizeArabic: String = "20"
-        val defaultFontSizeTranslation: String = "14"
-        val defaultFontSizeErab: String = "14"
+        const val FONT_QALAM_MAJEED: Int = 0
+        const val FONT_HAFS: Int = 1
+        const val FONT_NOOREHUDA: Int = 2
+        const val FONT_ME_QURAN: Int = 3
+        const val FONT_MAX: Int = 3
+        const val LANG: String = "lang"
+        const val LANG_BN: String = "bn"
+        const val LANG_EN: String = "en"
+        const val LANG_INDO: String = "indo"
+        const val SHOW_TRANSLATION: String = "showTranslation"
+        const val SHOW_Erab: String = "showErab"
+        const val WORD_BY_WORD: String = "wordByWord"
+        const val KEEP_SCREEN_ON: String = "keepScreenOn"
+        const val ARABIC_FONT: String = "arabicFont"
+        const val FONT_SIZE_ARABIC: String = "fontSizeArabic"
+        const val FONT_SIZE_TRANSLATION: String = "fontSizeTranslation"
+        const val FONT_SIZE_ERAB: String = "fontSizeErab"
+        const val FIRST_RUN: String = "firstRun"
+        const val DATABASE_VERSION: String = "dbVersion"
+        const val defaultLang: String = "en"
+        const val defaultShowTranslation: Boolean = true
+        const val defaultShowErab: Boolean = true
+        const val defaultWordByWord: Boolean = true
+        const val defaultKeepScreenOn: Boolean = true
+        const val defaultArabicFont: String = "Uthmani.oft"
+        const val defaultFontSizeArabic: String = "20"
+        const val defaultFontSizeTranslation: String = "14"
+        const val defaultFontSizeErab: String = "14"
     }
 }

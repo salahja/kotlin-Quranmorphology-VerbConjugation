@@ -42,8 +42,7 @@ class WordMorphologyDetails : QuranMorphologyDetails {
         get() {
             //   SpannableString  tagspannable = null;
             var tagspannable: SpannableString? = null
-            val wordcount: Int = word.wordcount
-            when (wordcount) {
+            when (word.wordcount) {
                 1 -> {
                     val tagone: String = word.tagone!!
                     var expandTagsone: String = expandTags(tagone)
@@ -112,9 +111,9 @@ class WordMorphologyDetails : QuranMorphologyDetails {
                     if ((word.tagthree == "V")) {
                         expandTagsthree = getVerbDetails(expandTagsthree, word.detailsthree!!)
                     }
-                    expandTagsone + " "
-                    expandTagstwo + " "
-                    expandTagsthree + " "
+                    "$expandTagsone "
+                    "$expandTagstwo "
+                    "$expandTagsthree "
                     sb.append(word.tagthree)
                     sb.append("|")
                     sb.append(word.tagtwo)
@@ -155,13 +154,13 @@ class WordMorphologyDetails : QuranMorphologyDetails {
                         (tagfour == "N") || (tagfour == "ADJ") || (tagfour == "PN")
                     if (tagnounone) {
                         expandTagsone = getNounDetails(word.detailsone)
-                        expandTagsone + " "
+                        "$expandTagsone "
                     } else if (tagnountwo) {
                         expandTagstwo = getNounDetails(word.detailstwo)
-                        expandTagstwo + " "
+                        "$expandTagstwo "
                     } else if (tagnounthree) {
                         expandTagsthree = getNounDetails(word.detailsthree)
-                        expandTagsthree + " "
+                        "$expandTagsthree "
                     } else if (tagnounfour) {
                         expandTagsfour = getNounDetails(word.detailsfour)
                     }

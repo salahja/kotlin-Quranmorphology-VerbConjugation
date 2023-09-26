@@ -24,7 +24,7 @@ class OvalCustomKeyboard : LinearLayout, View.OnClickListener {
 
     // --Commented out by Inspection (18/08/23, 6:13 am):private final String LogTag = "Keyboard";
     var mycontext: Context? = null
-    var keyboard: OvalCustomKeyboard? = null
+    private var keyboard: OvalCustomKeyboard? = null
 
     // --Commented out by Inspection (18/08/23, 6:13 am):private MaterialButton key1;
     // --Commented out by Inspection (18/08/23, 6:13 am):private MaterialButton key2;
@@ -55,7 +55,7 @@ class OvalCustomKeyboard : LinearLayout, View.OnClickListener {
     //    }
     // --Commented out by Inspection STOP (18/08/23, 6:13 am)
     //  private com.sjconjugatortwo.keyboard.KeyBoardInitActivity InitActivity;
-    val radioText: String? = null
+    private val radioText: String? = null
 
 /*
     constructor(keyBoardInitActivity: ConjugatorAct?) : super(keyBoardInitActivity) {
@@ -203,7 +203,7 @@ class OvalCustomKeyboard : LinearLayout, View.OnClickListener {
         val dataBundle = Bundle()
         dataBundle.putString(QURAN_VERB_WAZAN, radioText)
         dataBundle.putString(QURAN_VERB_WAZAN, babs)
-        dataBundle.putString(QURAN_VERB_ROOT, root!!)
+        dataBundle.putString(QURAN_VERB_ROOT, root)
         //   QuranVerbConjDialog dialog = new QuranVerbConjDialog(getContext());
         //  dialog.setArguments(dataBundle);
         //   Intent i = new Intent(getContext(), VerbQueryActivity.class);

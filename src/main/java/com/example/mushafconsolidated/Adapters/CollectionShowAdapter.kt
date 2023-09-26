@@ -26,10 +26,10 @@ import com.example.utility.QuranGrammarApplication
 </BookmarksShowAdapter.ViewHolder> */
 class CollectionShowAdapter : RecyclerView.Adapter<CollectionShowAdapter.ViewHolder> {
     var mItemClickListener: OnItemClickListener? = null
-    var BookmarksShowAdapterContext: Context? = null
+    private var BookmarksShowAdapterContext: Context? = null
     var bookmarkpostion: Int = 0
     var pref: PreferenceUtil? = null
-    var holderposition: Int = 0
+    private var holderposition: Int = 0
     var bookmarid: Int = 0
     val surahName: String? = null
     val bookChapterno: Int = 0
@@ -58,18 +58,18 @@ class CollectionShowAdapter : RecyclerView.Adapter<CollectionShowAdapter.ViewHol
 
     public override fun onBindViewHolder(holder: CollectionShowAdapter.ViewHolder, position: Int) {
 
-        val bookMark: BookMarks? = bookMarkArrayList!!.get(position)
+        val bookMark: BookMarks? = bookMarkArrayList!![position]
         holderposition = position
         if (bookMark != null) {
             bookmarid = bookMark.id
         }
         val imgs: TypedArray =
-            QuranGrammarApplication.context?.getResources()!!.obtainTypedArray(R.array.sura_imgs)
+            QuranGrammarApplication.context?.resources!!.obtainTypedArray(R.array.sura_imgs)
         val shared: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context!!)
         val isNightmode: String? = shared.getString("theme", "dark")
         val chapterno: String = bookMark!!.chapterno.toString()
-        if (!chapterno.isEmpty()) {
+        if (chapterno.isNotEmpty()) {
             val drawable: Drawable? = imgs.getDrawable((chapterno.toInt() - 1))
             holder.pinicon.setImageDrawable(drawable)
             //     holder.surahicon.setImageDrawable(drawable);
@@ -78,21 +78,21 @@ class CollectionShowAdapter : RecyclerView.Adapter<CollectionShowAdapter.ViewHol
         if ((isNightmode == "dark") || (isNightmode == "blue")) {
             holder.pinicon.setColorFilter(Color.CYAN)
         }
-        holder.pinicon.setVisibility(View.GONE)
-        holder.collectionicon.setVisibility(View.VISIBLE)
+        holder.pinicon.visibility = View.GONE
+        holder.collectionicon.visibility = View.VISIBLE
         if (bookMark.header != null) {
-            holder.header.setText(bookMark.header + "(" + bookMark.count + " aya;s" + ")")
+            holder.header.text = bookMark.header + "(" + bookMark.count + " aya;s" + ")"
             //   holder.header.setText(bookMark.getHeader());
         }
        // holder.datestamp.setText(bookMark.getDatetime())
-        holder.suraName.setText(bookMark.surahname)
-        holder.chapterno.setText(bookMark.chapterno.toString())
-        holder.verseno.setText(bookMark.verseno + "")
+        holder.suraName.text = bookMark.surahname
+        holder.chapterno.text = bookMark.chapterno.toString()
+        holder.verseno.text = bookMark.verseno + ""
         val arabicFontSize: Int = shared.getInt("pref_font_arabic_key", 18)
-        holder.datestamp.setTextSize(arabicFontSize.toFloat())
-        holder.suraName.setTextSize(arabicFontSize.toFloat())
-        holder.verseno.setTextSize(arabicFontSize.toFloat())
-        holder.chapterno.setTextSize(arabicFontSize.toFloat())
+        holder.datestamp.textSize = arabicFontSize.toFloat()
+        holder.suraName.textSize = arabicFontSize.toFloat()
+        holder.verseno.textSize = arabicFontSize.toFloat()
+        holder.chapterno.textSize = arabicFontSize.toFloat()
         /*     if (isNightmode.equals("dark")) {
             ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.color_background_overlay);
             holder.cardView.setCardBackgroundColor(ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.color_background_overlay));
@@ -115,7 +115,7 @@ class CollectionShowAdapter : RecyclerView.Adapter<CollectionShowAdapter.ViewHol
     }
 
     fun getItem(position: Int): BookMarks? {
-        return bookMarkArrayList!!.get(position)
+        return bookMarkArrayList!![position]
     }
 
     // public void restoreItem(ArrayList<BookMarks> item, int position) {
@@ -149,12 +149,12 @@ class CollectionShowAdapter : RecyclerView.Adapter<CollectionShowAdapter.ViewHol
 
         public override fun onClick(v: View) {
             if (mItemClickListener != null) {
-                mItemClickListener!!.onItemClick(v, getLayoutPosition())
+                mItemClickListener!!.onItemClick(v, layoutPosition)
             }
         }
     }
 
     companion object {
-        private val TAG: String = "BookmarksShowAdapter"
+        private const val TAG: String = "BookmarksShowAdapter"
     }
 }

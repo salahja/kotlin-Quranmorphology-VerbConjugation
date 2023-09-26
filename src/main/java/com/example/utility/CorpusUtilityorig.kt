@@ -59,7 +59,7 @@ class CorpusUtilityorig(private var context: Context?) {
         //TODO 9:94 JAWABHARMAHDOOF 9 95 JAWABHSARMAHODFF
         //TO 9;118 IZA IN THE MEANING OF HEENA AND 9 122 IZA AS HEENA
         for (sifaEntity in surah!!) {
-            val indexstart = sifaEntity!!.startindex
+            val indexstart = sifaEntity.startindex
             val indexend = sifaEntity.endindex
             //  sifaspans = new BackgroundColorSpan(WBURNTUMBER);
             SifaSpansSetup(corpusayahWordArrayList, sifaEntity, indexstart, indexend,size)
@@ -197,7 +197,7 @@ class CorpusUtilityorig(private var context: Context?) {
         //TODO 9:94 JAWABHARMAHDOOF 9 95 JAWABHSARMAHODFF
         //TO 9;118 IZA IN THE MEANING OF HEENA AND 9 122 IZA AS HEENA
         for (mudhafen in surah!!) {
-            val indexstart = mudhafen!!.startindex
+            val indexstart = mudhafen.startindex
             val indexend = mudhafen.endindex
             val frameshartharf = FrameSpan(Color.GREEN, 2f, Constant.RECKT)
             MudhafSpansSetup(
@@ -225,12 +225,12 @@ class CorpusUtilityorig(private var context: Context?) {
             //   spannableverse = corpusayahWordArrayList!!.get(0)!!.get(0).spannableverse
             //  spannableverse = corpusayahWordArrayList[sifaEntity.ayah - 1].spannableverse!!
             try {
-                spannableverse = corpusayahWordArrayList.get(size- 1)?.get(0)!!.spannableverse!!
+                spannableverse = corpusayahWordArrayList[size- 1]?.get(0)!!.spannableverse!!
             }catch (e:NullPointerException) {
 
                 println(e.localizedMessage)
-                println(corpusayahWordArrayList.get(0)?.get(0)?.corpus!!.ayah)
-                println(corpusayahWordArrayList.get(mudhafen.ayah)?.get(0)!!.corpus!!.ayah)
+                println(corpusayahWordArrayList[0]?.get(0)?.corpus!!.ayah)
+                println(corpusayahWordArrayList[mudhafen.ayah]?.get(0)!!.corpus!!.ayah)
             }
 
             // spannableString = SpannableString.valueOf(corpusayahWordArrayList.get(mudhafen.getAyah() - 1).getSpannableverse());
@@ -241,12 +241,12 @@ class CorpusUtilityorig(private var context: Context?) {
                     } else {
                         Constant.mudhafspansDark = BackgroundColorSpan(Constant.GREENYELLOW)
                     }
-                    spannableverse?.setSpan(
+                    spannableverse.setSpan(
                         Constant.mudhafspansDark,
                         indexstart,
                         indexend,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                           )
+                                          )
                     //   spannableverse.setSpan(new UnderlineSpan(),indexstart, indexend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
             }
@@ -271,7 +271,7 @@ class CorpusUtilityorig(private var context: Context?) {
         //TO 9;118 IZA IN THE MEANING OF HEENA AND 9 122 IZA AS HEENA
         if (surah_id in 2..10 || surah_id in 58..114) {
             for (shart in surah!!) {
-                val indexstart = shart!!.indexstart
+                val indexstart = shart.indexstart
                 val indexend = shart.indexend
                 val shartsindex = shart.shartindexstart
                 val sharteindex = shart.shartindexend
@@ -623,12 +623,12 @@ class CorpusUtilityorig(private var context: Context?) {
             //   spannableverse = corpusayahWordArrayList!!.get(0)!!.get(0).spannableverse
             //  spannableverse = corpusayahWordArrayList[sifaEntity.ayah - 1].spannableverse!!
             try {
-                spannableverse = corpusayahWordArrayList.get(mudhafen.ayah - 1)?.get(0)!!.spannableverse!!
+                spannableverse = corpusayahWordArrayList[mudhafen.ayah - 1]?.get(0)!!.spannableverse!!
             }catch (e:NullPointerException) {
 
                 println(e.localizedMessage)
-                println(corpusayahWordArrayList.get(0)?.get(0)?.corpus!!.ayah)
-                println(corpusayahWordArrayList.get(mudhafen.ayah)?.get(0)!!.corpus!!.ayah)
+                println(corpusayahWordArrayList[0]?.get(0)?.corpus!!.ayah)
+                println(corpusayahWordArrayList[mudhafen.ayah]?.get(0)!!.corpus!!.ayah)
             }
 
             // spannableString = SpannableString.valueOf(corpusayahWordArrayList.get(mudhafen.getAyah() - 1).getSpannableverse());
@@ -639,12 +639,12 @@ class CorpusUtilityorig(private var context: Context?) {
                     } else {
                         Constant.mudhafspansDark = BackgroundColorSpan(Constant.GREENYELLOW)
                     }
-                    spannableverse?.setSpan(
+                    spannableverse.setSpan(
                         Constant.mudhafspansDark,
                         indexstart,
                         indexend,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                           )
+                                          )
                     //   spannableverse.setSpan(new UnderlineSpan(),indexstart, indexend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
             }

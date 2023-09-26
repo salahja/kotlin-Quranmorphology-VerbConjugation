@@ -71,7 +71,7 @@ class CardsViewModel(mApplication: Application, verbroot: String, nounroot: Stri
                 val testList = arrayListOf<ExpandableCardModelSpannableLists>()
                 occurances = util.getnounoccuranceHarfNasbZarf(nounroot) as ArrayList<CorpusNounWbwOccurance>?
                 nounCorpusArrayList = nounroot.trim()
-                    ?.let { util.getNounBreakup(it) } as ArrayList<NounCorpusBreakup>?
+                    .let { util.getNounBreakup(it) } as ArrayList<NounCorpusBreakup>?
 
                 for (vers in occurances!!) {
                     //    alist.add("");
@@ -90,7 +90,7 @@ class CardsViewModel(mApplication: Application, verbroot: String, nounroot: Stri
                         .append(vers.wordno).append("-").append(vers.en).append("-")
                     val ref = SpannableString(sb.toString())
                     ref.setSpan(Constant.particlespanDark, 0, sb.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    val which = shared!!.getString("selecttranslation", "en_sahih")
+                    val which = shared.getString("selecttranslation", "en_sahih")
                     var trans: String? = null
                     when (which) {
                         "en_sahih" -> trans = SpannableString.valueOf(vers.translation).toString()
@@ -163,9 +163,9 @@ val islocation=
                val testList = arrayListOf<ExpandableCardModelSpannableLists>()
 
                 nounCorpusArrayList = nounroot.trim()
-                    ?.let { util.getNounBreakup(it) } as ArrayList<NounCorpusBreakup>?
+                    .let { util.getNounBreakup(it) } as ArrayList<NounCorpusBreakup>?
                 verbCorpusArray = verbroot.trim()
-                    ?.let { util.getVerbBreakUp(it) } as ArrayList<VerbCorpusBreakup>?
+                    .let { util.getVerbBreakUp(it) } as ArrayList<VerbCorpusBreakup>?
 
 
                 for (noun in nounCorpusArrayList!!) {
@@ -179,11 +179,11 @@ val islocation=
                     val lists: ArrayList<SpannableString> = ArrayList<SpannableString>()
 
                     for (nounverse in verses) {
-                        var nounverseBuilder = StringBuilder()
-                        val which = shared!!.getString(
+                        val nounverseBuilder = StringBuilder()
+                        val which = shared.getString(
                             "selecttranslation",
                             "en_sahih"
-                        )
+                                                    )
                         NounVerseBuilder(nounverse, nounverseBuilder, which, lists)
                         val span = SpannableString(nounverseBuilder)
                         span.setSpan(
@@ -220,11 +220,11 @@ val islocation=
                     lemma = verbbreakup.lemma_a.toString()
                     if (verses != null) {
                         for (ver in verses) {
-                            var verbversBuilder = StringBuilder()
-                            val which = shared!!.getString(
+                            val verbversBuilder = StringBuilder()
+                            val which = shared.getString(
                                 "selecttranslation",
                                 "en_sahih"
-                            )
+                                                        )
 
 
                             VerseVerseBuilder(verbversBuilder, ver, which)
@@ -281,7 +281,7 @@ val islocation=
                 ver!!.araone + ver.aratwo + ver.arathree + ver.arafour + ver.arafive,
                 ver.qurantext!!
             )
-        verbversBuilder.append(ver!!.surah).append(":").append(ver.ayah)
+        verbversBuilder.append(ver.surah).append(":").append(ver.ayah)
             .append(":").append(ver.wordno).append("-")
             .append(ver.en).append("-").append("\n").append("\n")
         verbversBuilder.append(spannableVerses).append("\n").append("\n")

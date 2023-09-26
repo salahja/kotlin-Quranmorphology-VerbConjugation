@@ -134,11 +134,11 @@ class NewSurahDisplayAdapter(
                         for (details in listonearray) {
                             // name match condition. this might differ depending on your requirement
                             // here we are looking for name or phone number match
-                            if (details.nameenglish.toLowerCase(Locale.ROOT).contains(
+                            if (details.nameenglish.lowercase(Locale.ROOT).contains(
                                     charString.lowercase(
                                         Locale.getDefault()
                                     )
-                                )
+                                                                                   )
                             ) {
                                 filteredList.add(details)
                             }

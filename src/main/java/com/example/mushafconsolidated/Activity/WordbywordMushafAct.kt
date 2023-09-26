@@ -1034,7 +1034,6 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 assert(player != null)
                 player!!.seekToDefaultPosition()
                 player!!.prepare()
-            } else {
             }
         }
 

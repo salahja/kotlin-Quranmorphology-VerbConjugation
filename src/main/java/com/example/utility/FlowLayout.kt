@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import com.example.mushafconsolidated.R
+import kotlin.math.max
 
 class FlowLayout : ViewGroup {
     private var horizontalSpacing = 0
@@ -114,15 +115,15 @@ class FlowLayout : ViewGroup {
                     realignBottom(start, i, lineThickness)
                     start = i
                 }
-                prevLinePosition = prevLinePosition + lineThicknessWithSpacing
+                prevLinePosition += lineThicknessWithSpacing
                 lineThickness = childThickness
                 lineLength = childLength
                 lineThicknessWithSpacing = childThickness + spacingThickness
                 lineLengthWithSpacing = lineLength + spacingLength
             }
             lineThicknessWithSpacing =
-                Math.max(lineThicknessWithSpacing, childThickness + spacingThickness)
-            lineThickness = Math.max(lineThickness, childThickness)
+                max(lineThicknessWithSpacing, childThickness + spacingThickness)
+            lineThickness = max(lineThickness, childThickness)
             var posX: Int
             var posY: Int
             if (orientation == HORIZONTAL) {
@@ -137,7 +138,7 @@ class FlowLayout : ViewGroup {
                 posY = paddingTop + lineLength - childHeight
             }
             lp.setPosition(posX, posY)
-            controlMaxLength = Math.max(controlMaxLength, lineLength)
+            controlMaxLength = max(controlMaxLength, lineLength)
             controlMaxThickness = prevLinePosition + lineThickness
         }
         if (orientation == HORIZONTAL) {

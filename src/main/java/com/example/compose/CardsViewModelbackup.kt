@@ -50,7 +50,7 @@ class CardsViewModelbackup(mApplication: Application, verbroot: String, nounroot
     private var nounCorpusArrayList: ArrayList<NounCorpusBreakup>? = null
     private var verbCorpusArray: ArrayList<VerbCorpusBreakup>? = null
     private var occurances: ArrayList<CorpusNounWbwOccurance>? = null
-    val loading= mutableStateOf(true)
+    private val loading= mutableStateOf(true)
     init {
         shared = PreferenceManager.getDefaultSharedPreferences(mApplication)
         var job = Job()
@@ -69,7 +69,7 @@ class CardsViewModelbackup(mApplication: Application, verbroot: String, nounroot
                 val testList = arrayListOf<ExpandableCardModelSpannableLists>()
                 occurances = util.getnounoccuranceHarfNasbZarf(nounroot) as ArrayList<CorpusNounWbwOccurance>?
                 nounCorpusArrayList = nounroot.trim()
-                    ?.let { util.getNounBreakup(it) } as ArrayList<NounCorpusBreakup>?
+                    .let { util.getNounBreakup(it) } as ArrayList<NounCorpusBreakup>?
 
                 for (vers in occurances!!) {
                     //    alist.add("");
@@ -87,7 +87,7 @@ class CardsViewModelbackup(mApplication: Application, verbroot: String, nounroot
                         .append(vers.wordno).append("-").append(vers.en).append("-")
                     val ref = SpannableString(sb.toString())
                     ref.setSpan(Constant.particlespanDark, 0, sb.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    val which = shared!!.getString("selecttranslation", "en_sahih")
+                    val which = shared.getString("selecttranslation", "en_sahih")
                     var trans: String? = null
                     when (which) {
                         "en_sahih" -> trans = SpannableString.valueOf(vers.translation).toString()
@@ -129,9 +129,9 @@ class CardsViewModelbackup(mApplication: Application, verbroot: String, nounroot
                val testList = arrayListOf<ExpandableCardModel>()
 
                 nounCorpusArrayList = nounroot.trim()
-                    ?.let { util.getNounBreakup(it) } as ArrayList<NounCorpusBreakup>?
+                    .let { util.getNounBreakup(it) } as ArrayList<NounCorpusBreakup>?
                 verbCorpusArray = verbroot.trim()
-                    ?.let { util.getVerbBreakUp(it) } as ArrayList<VerbCorpusBreakup>?
+                    .let { util.getVerbBreakUp(it) } as ArrayList<VerbCorpusBreakup>?
 
 
                 for (noun in nounCorpusArrayList!!) {
@@ -145,11 +145,11 @@ class CardsViewModelbackup(mApplication: Application, verbroot: String, nounroot
                     val lists: ArrayList<String> = ArrayList<String>()
 
                     for (nounverse in verses) {
-                        var nounverseBuilder = StringBuilder()
-                        val which = shared!!.getString(
+                        val nounverseBuilder = StringBuilder()
+                        val which = shared.getString(
                             "selecttranslation",
                             "en_sahih"
-                        )
+                                                    )
                         NounVerseBuilder(nounverse, nounverseBuilder, which, lists)
                         lists.add(nounverseBuilder.toString())
                     }
@@ -190,11 +190,11 @@ class CardsViewModelbackup(mApplication: Application, verbroot: String, nounroot
                     lemma = verbbreakup.lemma_a.toString()
                     if (verses != null) {
                         for (ver in verses) {
-                            var verbversBuilder = StringBuilder()
-                            val which = shared!!.getString(
+                            val verbversBuilder = StringBuilder()
+                            val which = shared.getString(
                                 "selecttranslation",
                                 "en_sahih"
-                            )
+                                                        )
 
 
                             VerseVerseBuilder(verbversBuilder, ver, which)
@@ -251,7 +251,7 @@ class CardsViewModelbackup(mApplication: Application, verbroot: String, nounroot
                 ver!!.araone + ver.aratwo + ver.arathree + ver.arafour + ver.arafive,
                 ver.qurantext!!
             )
-        verbversBuilder.append(ver!!.surah).append(":").append(ver.ayah)
+        verbversBuilder.append(ver.surah).append(":").append(ver.ayah)
             .append(":").append(ver.wordno).append("-")
             .append(ver.en).append("-").append("\n").append("\n")
         verbversBuilder.append(spannableVerses).append("\n").append("\n")

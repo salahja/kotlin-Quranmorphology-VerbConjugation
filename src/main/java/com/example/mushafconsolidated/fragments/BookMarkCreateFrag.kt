@@ -95,16 +95,14 @@ class BookMarkCreateFrag : BottomSheetDialogFragment(), OnItemClickListener,
             dialogPicker.setView(view)
             val mTextView: EditText = view.findViewById(R.id.tvFolderName)
             dialogPicker.setPositiveButton(
-                "Done",
-                { dialogInterface: DialogInterface?, i: Int ->
-                    val str: String = mTextView.getText().toString()
-                    bookMarkSelected(v, selectedposition, str)
-                }
-                                          )
+                "Done"
+                                          ) { dialogInterface: DialogInterface?, i: Int ->
+                val str: String = mTextView.text.toString()
+                bookMarkSelected(v, selectedposition, str)
+            }
             dialogPicker.setNegativeButton(
-                "Cancel",
-                { dialogInterface: DialogInterface?, i: Int -> }
-                                          )
+                "Cancel"
+                                          ) { dialogInterface: DialogInterface?, i: Int -> }
             dialogPicker.show()
         }
         addtocollection.setOnClickListener { v ->

@@ -2,44 +2,44 @@ package com.example.mushafconsolidated.model
 
 
 class SarfSagheerPOJO {
-    var mamaroof //((CharSequence) toArray[0]);
+    private var mamaroof //((CharSequence) toArray[0]);
             : String? = null
-    var mumaroof: String? = null
-    var ismfail //((CharSequence) toArray[2]);
+    private var mumaroof: String? = null
+    private var ismfail //((CharSequence) toArray[2]);
             : String? = null
-    var mamajhool //((CharSequence) toArray[3]);
+    private var mamajhool //((CharSequence) toArray[3]);
             : String? = null
-    var mumajhool //((CharSequence) toArray[4]);
+    private var mumajhool //((CharSequence) toArray[4]);
             : String? = null
     var ismmafool //((CharSequence) toArray[5]);
             : String? = null
-    var amrone: String? = null
-    var amrtwo: String? = null
-    var amrthree: String? = null
-    var nahiamrthree //(nahiamr);
+    private var amrone: String? = null
+    private var amrtwo: String? = null
+    private var amrthree: String? = null
+    private var nahiamrthree //(nahiamr);
             : String? = null
-    var nahiamrone //(nahiamr);
+    private var nahiamrone //(nahiamr);
             : String? = null
-    var nahiamrtwo //(nahiamr);
+    private var nahiamrtwo //(nahiamr);
             : String? = null
-    var ismzarfone //(zarfheader);
+    private var ismzarfone //(zarfheader);
             : String? = null
-    var ismzarftwo //(zarfheader);
+    private var ismzarftwo //(zarfheader);
             : String? = null
-    var ismzarfthree //(zarfheader);
+    private var ismzarfthree //(zarfheader);
             : String? = null
     var ismalaone //(alaheader);
             : String? = null
     var ismalatwo //(ismala);
             : String? = null
-    var ismalathree //(ismala);
+    private var ismalathree //(ismala);
             : String? = null
-    var masdar: String? = null
+    private var masdar: String? = null
     var rootword //((CharSequence) toArray[19]);
             : String? = null
     var babname //((CharSequence) toArray[20]);
             : String? = null
-    var weaknessname //((CharSequence) toArray[21]);
+    private var weaknessname //((CharSequence) toArray[21]);
             : String? = null
     var wazan //((CharSequence) toArray[22]);
             : String? = null
