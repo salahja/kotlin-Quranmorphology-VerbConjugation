@@ -24,15 +24,9 @@ class CatTwoAdapter(
     RecyclerView.Adapter<CatTwoAdapter.ViewHolder?>() {
   //  private val catTwoArrayList: ArrayList<hcategory>
 
-   private var mylist:   List<hcategoryEnt> =ArrayList<hcategoryEnt>()
+   private var mylist:   List<hcategoryEnt> =ArrayList()
 
     var mItemClickListener: OnItemClickListener? = null
-
-    init {
-        //catTwoArrayList = lists
-
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         //      View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sarfkabeercolumn, parent, false);
         val view =
@@ -46,7 +40,7 @@ class CatTwoAdapter(
         val catOne: hcategoryEnt = mylist[position]
 
 
-        val icon: Drawable? = imgs.getDrawable(catOne!!.id - 1)
+        val icon: Drawable? = imgs.getDrawable(catOne.id - 1)
         imgs.recycle()
         //  CatTwo catOne= catTwoArrayList.get(position);
         val sharedPreferences: SharedPreferences =
@@ -58,8 +52,8 @@ class CatTwoAdapter(
         val sb = StringBuilder()
         sb.append(catOne.id)
         //    holder.rulenumber.setTextSize(arabicFontsize);
-        holder.title.setText(catOne.title)
-        holder.title.setTextSize(18f)
+        holder.title.text = catOne.title
+        holder.title.textSize = 18f
         //  holder.id.setCompoundDrawablesWithIntrinsicBounds( icon, null, null, null);
         holder.id.setImageDrawable(icon)
     }
@@ -95,15 +89,15 @@ class CatTwoAdapter(
         var cardview: CardView? = null
 
         init {
-            id = view.findViewById<ImageView>(R.id.imgview)
-            title = view.findViewById<TextView>(R.id.content)
+            id = view.findViewById(R.id.imgview)
+            title = view.findViewById(R.id.content)
             view.setOnClickListener(this)
             id.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {
             if (mItemClickListener != null) {
-                mItemClickListener!!.onItemClick(v, getLayoutPosition())
+                mItemClickListener!!.onItemClick(v, layoutPosition)
             }
         }
     }

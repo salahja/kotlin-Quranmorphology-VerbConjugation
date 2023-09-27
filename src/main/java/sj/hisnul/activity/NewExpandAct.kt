@@ -27,7 +27,7 @@ import java.util.Collections
 import java.util.Objects
 
 class NewExpandAct : BaseActivity(), SearchView.OnQueryTextListener, SearchView.OnCloseListener {
-     lateinit var  dataheader: ArrayList<String>
+     private lateinit var  dataheader: ArrayList<String>
 
     //  ExpandableListView expandableListView;
     private   var  previousGroup = -1
@@ -35,27 +35,27 @@ class NewExpandAct : BaseActivity(), SearchView.OnQueryTextListener, SearchView.
     private  lateinit var  parentItemsList: ArrayList<ParentItem>
     private  lateinit var  expandableListView: ExpandableListView
     private  lateinit var  childItemsList: ArrayList<ChildItem>
-    private   var  hduanamesArrayList: ArrayList<hduanamesEnt> = ArrayList<hduanamesEnt>()
+    private   var  hduanamesArrayList: ArrayList<hduanamesEnt> = ArrayList()
     private  lateinit var  customAdapter: CustomAdapter
-    protected override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.expand_act)
         //     setContentView(R.layout.activity_dua_group);
         val toolbar: Toolbar = findViewById(R.id.my_action_bar)
         // setSupportActionBar(toolbar);
         setSupportActionBar(toolbar)
-        val actionbar: ActionBar? = getSupportActionBar()
+        val actionbar: ActionBar? = supportActionBar
         val shared: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context)
         assert(actionbar != null)
         if (actionbar != null) {
             actionbar.setDisplayHomeAsUpEnabled(true)
         }
-        val intent: Intent = getIntent()
-        val bundle: Bundle? = intent.getExtras()
+        val intent: Intent = intent
+        val bundle: Bundle? = intent.extras
         //   String list=   bundle.getString("list");
         val dua_id: Int = bundle!!.getInt("dua_id")
-        expandableListView = (findViewById(R.id.expandableListView) as ExpandableListView?)!!
+        expandableListView = (findViewById<ExpandableListView>(R.id.expandableListView))!!
         //  expandableListDetail = ExpandableListDataPump.getData();
         expandableListView = findViewById(R.id.expandableListView)
         //  iv_groupIndicator = findViewById(R.id.iv_groupIndicator);
@@ -70,7 +70,7 @@ class NewExpandAct : BaseActivity(), SearchView.OnQueryTextListener, SearchView.
             hduanamesArrayList= userlist as ArrayList<hduanamesEnt>
             dataheader = ArrayList()
             for (duanamesDetail in hduanamesArrayList) {
-                dataheader!!.add(duanamesDetail.duaname)
+                dataheader.add(duanamesDetail.duaname)
             }
             subjects = HashMap()
             parentItemsList = ArrayList()
@@ -100,42 +100,42 @@ class NewExpandAct : BaseActivity(), SearchView.OnQueryTextListener, SearchView.
 
     private fun addItem(parentItemName: String, childItemName: String, id: String, chapterid: Int) {
         var parentItemName: String? = parentItemName
-        val size = parentItemsList!!.size
+        val size = parentItemsList.size
         val groupPosition: Int
         if (parentItemName!!.isEmpty()) {
-            parentItemName = parentItemsList!![size - 1].name
+            parentItemName = parentItemsList[size - 1].name
         }
         //check the hash map if the group already exists
-        var parentItemObj = subjects!![parentItemName]
+        var parentItemObj = subjects[parentItemName]
         //add the group if doesn't exists
         if (parentItemObj == null) {
             parentItemObj = ParentItem()
             parentItemObj.name = parentItemName
             parentItemObj.chapterid = chapterid
-            subjects!![parentItemName] = parentItemObj
-            parentItemsList!!.add(parentItemObj)
+            subjects[parentItemName] = parentItemObj
+            parentItemsList.add(parentItemObj)
         }
         //get the children for the group
         childItemsList = parentItemObj.childList
         //size of the children list
-        var listSize = childItemsList!!.size
+        var listSize = childItemsList.size
         //add to the counter
         listSize++
         //create a new child and add that to the group
         val childItemObj = ChildItem()
         childItemObj.name = childItemName
         childItemObj.id = id
-        childItemsList!!.add(childItemObj)
+        childItemsList.add(childItemObj)
         parentItemObj.childList = childItemsList
         //find the group position inside the list
-        groupPosition = parentItemsList!!.indexOf(parentItemObj)
+        groupPosition = parentItemsList.indexOf(parentItemObj)
     }
 
     private fun displayList() {
         //  loadData();
         customAdapter = CustomAdapter(this, parentItemsList)
         expandableListView.setAdapter(customAdapter)
-        expandableListView.setOnGroupClickListener(ExpandableListView.OnGroupClickListener { parent: ExpandableListView?, v: View?, groupPosition: Int, id: Long ->
+        expandableListView.setOnGroupClickListener({ parent: ExpandableListView?, v: View?, groupPosition: Int, id: Long ->
             previousGroup = if (expandableListView.isGroupExpanded(groupPosition)) {
                 expandableListView.collapseGroup(groupPosition)
                 -1
@@ -148,18 +148,18 @@ class NewExpandAct : BaseActivity(), SearchView.OnQueryTextListener, SearchView.
             }
             true
         })
-        expandableListView.setOnGroupExpandListener(ExpandableListView.OnGroupExpandListener { groupPosition: Int ->
+        expandableListView.setOnGroupExpandListener({ groupPosition: Int ->
             /* Auto Scrolling */expandableListView.setSelectedGroup(groupPosition)
         })
-        expandableListView.setOnChildClickListener(ExpandableListView.OnChildClickListener { parent: ExpandableListView?, v: View?, groupPosition: Int, childPosition: Int, id: Long ->
-            val chap_id = parentItemsList!![groupPosition].chapterid
-            Objects.requireNonNull(getSupportActionBar())?.hide()
+        expandableListView.setOnChildClickListener({ parent: ExpandableListView?, v: View?, groupPosition: Int, childPosition: Int, id: Long ->
+            val chap_id = parentItemsList[groupPosition].chapterid
+            Objects.requireNonNull(this.supportActionBar)!!.hide()
             val bundle1 = Bundle()
             bundle1.putInt("chap_id", chap_id)
             bundle1.putBoolean("cattwo", false)
             val fragvsi: Fragment = HDuaNamesfrag.newInstance()
             fragvsi.arguments = bundle1
-            val transaction: FragmentTransaction = getSupportFragmentManager().beginTransaction()
+            val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             transaction.replace(R.id.frame_container, fragvsi, "items")
             //     transaction.addToBackStack("setting");
@@ -171,28 +171,15 @@ class NewExpandAct : BaseActivity(), SearchView.OnQueryTextListener, SearchView.
 
     override fun onResume() {
         super.onResume()
-        Objects.requireNonNull(getSupportActionBar())?.show()
+        Objects.requireNonNull(supportActionBar)!!.show()
     }
 
-    /*
-    @Override
-        public void onBackPressed() {
-            super.onBackPressed();
-
-            getSupportActionBar().show();
-
-        }
-
-   */
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        getMenuInflater().inflate(R.menu.menu_search, menu)
+        menuInflater.inflate(R.menu.menu_search, menu)
         val searchManager: SearchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         var searchView = menu.findItem(R.id.search).actionView as SearchView?
         searchView = menu.findItem(R.id.search).actionView as SearchView?
-        searchView!!.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()))
+        searchView!!.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.queryHint = "Type something…"
 
 
@@ -231,25 +218,25 @@ class NewExpandAct : BaseActivity(), SearchView.OnQueryTextListener, SearchView.
     }
 
     override fun onClose(): Boolean {
-        customAdapter!!.filterData("")
+        customAdapter.filterData("")
         //  expandAll();
         return false
     }
 
     override fun onQueryTextSubmit(query: String): Boolean {
-        customAdapter!!.filterData(query)
+        customAdapter.filterData(query)
         expandAll()
         return false
     }
 
     override fun onQueryTextChange(newText: String): Boolean {
-        customAdapter!!.filterData(newText)
+        customAdapter.filterData(newText)
         expandAll()
         return false
     }
 
     private fun expandAll() {
-        val count = customAdapter!!.groupCount
+        val count = customAdapter.groupCount
         for (i in 0 until count) {
             expandableListView.expandGroup(i)
         }

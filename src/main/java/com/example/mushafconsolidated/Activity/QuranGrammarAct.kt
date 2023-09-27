@@ -1,6 +1,7 @@
 package com.example.mushafconsolidated.Activity
 
 import android.annotation.SuppressLint
+import android.app.ActivityManager
 import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.DialogInterface
@@ -31,6 +32,7 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import android.window.OnBackInvokedDispatcher
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -45,13 +47,15 @@ import androidx.core.content.FileProvider
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import arabicrootListFragment
 import com.example.Constant
-import com.example.mushafconsolidated.Activityimport.BaseActivity
+import com.example.Constant.SURAHFRAGTAG
 import com.example.mushafconsolidated.BottomOptionDialog
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.BookMarks
@@ -69,12 +73,10 @@ import com.example.mushafconsolidated.databinding.NewFragmentReadingBinding
 import com.example.mushafconsolidated.fragments.BookMarkCreateFrag
 import com.example.mushafconsolidated.fragments.BookmarkFragment
 import com.example.mushafconsolidated.fragments.GrammerFragmentsBottomSheet
-import com.example.mushafconsolidated.fragments.IOnBackPressed
 import com.example.mushafconsolidated.fragments.NewSurahDisplayFrag
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet
 import com.example.mushafconsolidated.fragments.newFlowAyahWordAdapter
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
-import com.example.mushafconsolidated.intrfaceimport.PassdataInterface
 import com.example.mushafconsolidated.model.NewQuranCorpusWbw
 import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
@@ -91,6 +93,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.ahocorasick.trie.Trie
+import org.sj.conjugator.activity.BaseActivity
 import org.sj.conjugator.activity.ConjugatorAct
 import sj.hisnul.activity.HisnulBottomACT
 import sj.hisnul.fragments.NamesDetail
@@ -102,13 +105,14 @@ import java.io.IOException
 import java.util.Date
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
-class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOnLong {
+class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
+    private var bundle: Intent? = null
+    private var bundles: Bundle? = null
     private lateinit var mainViewModel: QuranVIewModel
     private var corpusSurahWord: List<QuranCorpusWbw>? = null
     private var newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
     private lateinit var newflowAyahWordAdapter: newFlowAyahWordAdapter
     lateinit var binding: NewFragmentReadingBinding
-
     private lateinit var surahWheelDisplayData: Array<String>
     private lateinit var ayahWheelDisplayData: Array<String>
     private lateinit var btnBottomSheet: FloatingActionButton
@@ -118,6 +122,17 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
     var verseNumber = 0
     var suraNumber = 0
     private var rukucount = 0
+    private fun RefreshActivity() {
+        val intent: Intent = this.intent
+        //  surah = getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
+        val parentActivityRef = intent.getStringExtra("PARENT_ACTIVITY_REF")
+
+        this.overridePendingTransition(0, 0)
+        startActivity(intent)
+        this.finish()
+        this.overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left)
+    }
+
     var surahname: String? = null
     private var mudhafColoragainstBlack = 0
     private var mausofColoragainstBlack = 0
@@ -141,10 +156,8 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
     // ChipNavigationBar chipNavigationBar;
     private lateinit var materialToolbar: Toolbar
-
     //goes with extracttwothree
- //   private lateinit var refflowAyahWordAdapter: refFlowAyahWordAdapter
-
+    //   private lateinit var refflowAyahWordAdapter: refFlowAyahWordAdapter
     // private lateinit var flowAyahWordAdapterpassage: FlowAyahWordAdapterPassage
     // private UpdateMafoolFlowAyahWordAdapter flowAyahWordAdapter;
     private var mausoof = false
@@ -155,40 +168,41 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
     private var kana = false
     private var allofQuran: List<QuranEntity>? = null
     private lateinit var shared: SharedPreferences
-
     //  private OnClickListener onClickListener;
-
     //  private val newadapterlist = LinkedHashMap<Int, ArrayList<NewCorpusAyahWord>>()
-
     private var mafoolbihiwords: List<MafoolBihi?>? = null
     private var Jumlahaliya: List<HalEnt?>? = null
     private var Tammezent: List<TameezEnt?>? = null
     private var Mutlaqent: List<MafoolMutlaqEnt?>? = null
     private var Liajlihient: List<LiajlihiEnt?>? = null
     private var BadalErabNotesEnt: List<BadalErabNotesEnt?>? = null
-
-
     private var isMakkiMadani = 0
     var chapterno = 0
     private lateinit var parentRecyclerView: RecyclerView
     private var mushafview = false
-
     /*   private val viewModelS: MazeedViewModel by viewModels {
            MazeedViewModelFactoryies(
                (this.application as QuranGrammarApplication).database.quranDao()
            )
        }
    */
-   @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        val fragment = supportFragmentManager.findFragmentById(R.id.frame_container)
-        if (fragment !is IOnBackPressed || !(fragment as IOnBackPressed).onBackPressed()) {
-            super.onBackPressed()
-        }
-        //  finish();
-    }
+    /*
+       @Deprecated("Deprecated in Java")
+        override fun onBackPressed() {
+           val hasCategory = getIntent().hasCategory(Intent.CATEGORY_LAUNCHER)
+           supportFragmentManager.restoreBackStack("SURAH")
+           super.onBackPressed()
+          // val fragments: NewSurahDisplayFrag =  supportFragmentManager.findFragmentByTag("SURAH") as NewSurahDisplayFrag
 
-/*    override fun onBackPressed() {
+          // val fragment = supportFragmentManager.findFragmentByTag("SURAH")
+          //  if (fragment !is IOnBackPressed || !(fragment as IOnBackPressed).onBackPressed()) {
+          //      super.onBackPressed()
+          //  }
+            //  finish();
+        }
+
+    */
+    /*    override fun onBackPressed() {
       //  super.onBackPressed()
         //   super.onBackPressed()
         val setIntent = Intent(Intent.ACTION_MAIN)
@@ -197,6 +211,39 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         startActivity(setIntent)
     //    super.onBackPressed();
     }*/
+    /*override fun onBackPressed() {
+
+    val fms = this
+        ?.supportFragmentManager
+    if (fms != null) {
+        fms.popBackStack()
+    }
+//    return
+    val fm: android.app.FragmentManager? = fragmentManager
+
+    for (entry in 0 until fm!!.backStackEntryCount) {
+        Log.i(TAG, "Found fragment: " + fm!!.getBackStackEntryAt(entry).id)
+    }
+
+    super.onBackPressed()
+
+}*/
+    override fun onBackPressed() {
+        val myFragment: NewSurahDisplayFrag? =
+            supportFragmentManager.findFragmentByTag(SURAHFRAGTAG) as NewSurahDisplayFrag?
+
+
+        val mngr = getSystemService(ACTIVITY_SERVICE) as ActivityManager
+        val taskList = mngr.getRunningTasks(10)
+        val baseActivity = taskList.get(0).baseActivity
+        val contains = taskList.get(0).baseActivity!!.className.contains("QuranGrammar")
+        if (myFragment != null && myFragment.isVisible() && contains) {
+           finish()
+        }
+
+
+        super.onBackPressed()
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_dua_group, menu)
@@ -208,6 +255,14 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         searchView.gravity = View.TEXT_ALIGNMENT_CENTER
         searchView.maxWidth = Int.MAX_VALUE
         return true
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
@@ -240,7 +295,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         val preferences = shared.getString("themepref", "dark")
         super.onCreate(savedInstanceState)
         binding = NewFragmentReadingBinding.inflate(layoutInflater)
-         mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
+        mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
         val view = binding.root
         setContentView(view)
         // Get a reference to the ViewModel scoped to this Fragment
@@ -278,17 +333,17 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         shart = shared.getBoolean("shart", true)
         kana = shared.getBoolean("kana", true)
         getpreferences()
-        val bundle = intent
-        if (bundle.extras != null) {
-            val bundles = intent.extras
+        bundle = intent
+        if (bundle!!.extras != null) {
+            bundles = intent.extras
             //   if (bundle != null) {
             val lastread = bundles!!.getString(Constant.QURAN_VERB_ROOT)
             if (null != lastread && lastread == "quran") {
                 getpreferences()
                 chapterorpart = true
             } else {
-                val chapter = bundle.getIntExtra(Constant.CHAPTER, 1)
-                mushafview = bundles.getBoolean("passages", false)
+                val chapter = bundle!!.getIntExtra(Constant.CHAPTER, 1)
+                mushafview = bundles!!.getBoolean("passages", false)
                 val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
                 val list = mainViewModel.loadListschapter().value
 
@@ -298,10 +353,12 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
                 surahArabicName = list!![chapter - 1].abjadname
                 //   setChapterno( bundle.etIntExtra(SURAH_ID,2));
-                verseNo = bundle.getIntExtra(Constant.AYAH_ID, 1)
+                verseNo = bundle!!.getIntExtra(Constant.AYAH_ID, 1)
                 versescount = list[chapter - 1].versescount
                 isMakkiMadani = list[chapter - 1].ismakki
                 rukucount = list[chapter - 1].rukucount
+                bundles = null
+                bundle = null
                 SetTranslation()
             }
         } else {
@@ -317,14 +374,27 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             rukucount = list[chapterno - 1].rukucount
             surahArabicName = surahname.toString()
             //    SetTranslation();
-            val fragmentManager = supportFragmentManager
-            val transaction = fragmentManager.beginTransaction()
-            transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
-            val newCustomFragment = NewSurahDisplayFrag.newInstance()
-            transaction.add(R.id.frame_container, newCustomFragment)
-            transaction.addToBackStack("surah")
-            transaction.commit()
+            /*         val fragmentManager = supportFragmentManager
+                     val transaction = fragmentManager.beginTransaction()
+                     transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
+                     val newCustomFragment = NewSurahDisplayFrag.newInstance()
+                     transaction.replace(R.id.frame_container, newCustomFragment)
+                     transaction.addToBackStack("surah")
+                     transaction.commit()
+         */
+
+            supportFragmentManager.commit {
+                replace<NewSurahDisplayFrag>(R.id.frame_container_qurangrammar,SURAHFRAGTAG)
+                setReorderingAllowed(true)
+                addToBackStack("SURAH")
+                setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
+                supportFragmentManager.saveBackStack("replacement")
+            }
         }
+    }
+
+    override fun getOnBackInvokedDispatcher(): OnBackInvokedDispatcher {
+        return super.getOnBackInvokedDispatcher()
     }
 
     private fun initnavigation() {
@@ -351,11 +421,10 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 val transaction = fragmentManager.beginTransaction()
                 transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
                 val newCustomFragment = NewSurahDisplayFrag.newInstance()
-                transaction.replace(R.id.frame_container, newCustomFragment)
+                transaction.replace(R.id.frame_container_qurangrammar, newCustomFragment)
                 transaction.addToBackStack(null)
                 transaction.commit()
                 navigationView.setCheckedItem(R.id.surahnav)
-
             }
             if (item.itemId == R.id.mushafview) {
                 val settingints = Intent(this@QuranGrammarAct, ShowMushafActivity::class.java)
@@ -379,12 +448,12 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 settingint.putExtra(Constants.SURAH_INDEX, chapterno)
                 startActivity(settingint)
             }
-           /* if (item.itemId == R.id.mushafview) {
-                materialToolbar.title = "Mushaf"
-                val settingints = Intent(this@QuranGrammarAct, QuranGrammarAct::class.java)
-                //      settingints.putExtra(Constants.SURAH_INDEX, getChapterno());
-                startActivity(settingints)
-            }*/
+            /* if (item.itemId == R.id.mushafview) {
+                 materialToolbar.title = "Mushaf"
+                 val settingints = Intent(this@QuranGrammarAct, QuranGrammarAct::class.java)
+                 //      settingints.putExtra(Constants.SURAH_INDEX, getChapterno());
+                 startActivity(settingints)
+             }*/
         }
         navigationView.setNavigationItemSelectedListener { item: MenuItem ->
             if (item.itemId == R.id.bookmark) {
@@ -393,43 +462,48 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 //  TameezDisplayFrag bookmarkFragment=new TameezDisplayFrag();
                 val transactions = supportFragmentManager.beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                transactions.add(R.id.frame_container, bookmarkFragment)
+                transactions.add(R.id.frame_container_qurangrammar, bookmarkFragment)
                     .addToBackStack("mujarrad")
                 transactions.commit()
             }
             if (item.itemId == R.id.rootdetails) {
                 drawerLayout.closeDrawers()
-         /*       val bundle = Bundle()
-                val roots = Intent(this, arabicrootDetailHostActivity::class.java)
-                bundle.putString(Constant.WORDDETAILS, "word")
-                roots.putExtras(bundle)
+                /*       val bundle = Bundle()
+                       val roots = Intent(this, arabicrootDetailHostActivity::class.java)
+                       bundle.putString(Constant.WORDDETAILS, "word")
+                       roots.putExtras(bundle)
 
-                startActivity(roots)*/
+                       startActivity(roots)*/
                 val fragmentManager: FragmentManager = supportFragmentManager
                 val transaction = fragmentManager.beginTransaction()
                 transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
                 val newCustomFragment = arabicrootListFragment.newInstance("word")
                 //    newCustomFragment.arguments = bundle
-                transaction.replace(R.id.frame_container, newCustomFragment)
+                transaction.replace(
+                    R.id.frame_container_qurangrammar,
+                    newCustomFragment,
+                    "rootfragment"
+                                   )
                 transaction.addToBackStack(null)
                 transaction.commit()
-
-
-
             }
             if (item.itemId == R.id.verbdetails) {
                 drawerLayout.closeDrawers()
-            /*    drawerLayout.closeDrawers()
-                val verbdetails = Intent(this, arabicrootDetailHostActivity::class.java)
-                verbdetails.putExtra(Constant.WORDDETAILS, "verb")
-                startActivity(verbdetails)
-*/
+                /*    drawerLayout.closeDrawers()
+                    val verbdetails = Intent(this, arabicrootDetailHostActivity::class.java)
+                    verbdetails.putExtra(Constant.WORDDETAILS, "verb")
+                    startActivity(verbdetails)
+    */
                 val fragmentManager: FragmentManager = supportFragmentManager
                 val transaction = fragmentManager.beginTransaction()
                 transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
                 val newCustomFragment = arabicrootListFragment.newInstance("verb")
-            //    newCustomFragment.arguments = bundle
-                transaction.replace(R.id.frame_container, newCustomFragment)
+                //    newCustomFragment.arguments = bundle
+                transaction.replace(
+                    R.id.frame_container_qurangrammar,
+                    newCustomFragment,
+                    "rootfragment"
+                                   )
                 transaction.addToBackStack(null)
                 transaction.commit()
             }
@@ -505,7 +579,6 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         jumpDialog.show()
 
         ok = jumpDialog.findViewById(R.id.ok)
-
         val currentsurah = quranEntity.surah
         verseNumber = quranEntity.ayah
         sorasShow = java.util.ArrayList()
@@ -626,20 +699,14 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
         surahWheelDisplayData = arrayOf("")
         ayahWheelDisplayData = arrayOf("")
-
         val current = ArrayList<String>()
         val chapterno = IntArray(1)
         val verseno = IntArray(1)
         val surahArrays = resources.getStringArray(R.array.surahdetails)
         val versearrays = resources.getStringArray(R.array.versescounts)
         val intarrays = resources.getIntArray(R.array.versescount)
-
         val dialogPicker = AlertDialog.Builder(this@QuranGrammarAct)
-
-
-
-
-     val   soraList = mainViewModel.loadListschapter().value as ArrayList<ChaptersAnaEntity>
+        val soraList = mainViewModel.loadListschapter().value as ArrayList<ChaptersAnaEntity>
         val inflater = this@QuranGrammarAct.layoutInflater
         val view = inflater.inflate(R.layout.activity_wheel_t, null)
         //  View view = inflater.inflate(R.layout.activity_wheel, null);
@@ -659,7 +726,6 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 .toTypedArray()
             chapterno[0] = chapno[0].toInt()
             verseno[0] = 1
-
             val intarray: Int = if (this.chapterno != 0) {
                 intarrays[this.chapterno - 1]
             } else {
@@ -688,7 +754,6 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 isMakkiMadani = soraList[chapterno[0] - 1].ismakki
                 rukucount = soraList[chapterno[0] - 1].rukucount
                 currentSelectSurah = soraList[chapterno[0] - 1].chapterid
-
             }
             catch (e: ArrayIndexOutOfBoundsException) {
                 surahArabicName =
@@ -701,7 +766,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 currentSelectSurah = soraList[chapterno[0]].chapterid
                 this.chapterno = soraList[chapterno[0]].chapterid
                 println(soraList[chapterno[0]].chapterid)
-                println(this.chapterno  )
+                println(this.chapterno)
                 println(this.chapterno)
             }
             parentRecyclerView = binding.overlayViewRecyclerView
@@ -712,27 +777,26 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 jumptostatus = true
                 surahorpart = currentSelectSurah
                 surah_id = currentSelectSurah
-                this.chapterno=currentSelectSurah
+                this.chapterno = currentSelectSurah
                 println(soraList[chapterno[0]].chapterid)
-                println(this.chapterno  )
+                println(this.chapterno)
                 println(this.chapterno)
                 ExecuteSurahWordByWord()
                 //     asyncTaskcorpus = new refactoringcurrentSurahSyncWordByWord().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
             val sura: String = soraList[chapterno[0] - 1].chapterid.toString()
-                this.chapterno = soraList[chapterno[0] - 1].chapterid
-                surahArabicName = soraList[chapterno[0] - 1].nameenglish
-                surahArabicName = soraList[chapterno[0] - 1].namearabic
-                val pref = getSharedPreferences("lastreadmushaf", MODE_PRIVATE)
-                val editor = pref.edit()
-                editor.putInt(Constant.CHAPTER, sura.toInt())
-                //  editor.putInt("page", page.getAyahItemsquran().get(0).getPage());
-                editor.putString(
-                    Constant.SURAH_ARABIC_NAME,
-                    soraList[chapterno[0] - 1].namearabic
-                                )
-                editor.apply()
-
+            this.chapterno = soraList[chapterno[0] - 1].chapterid
+            surahArabicName = soraList[chapterno[0] - 1].nameenglish
+            surahArabicName = soraList[chapterno[0] - 1].namearabic
+            val pref = getSharedPreferences("lastreadmushaf", MODE_PRIVATE)
+            val editor = pref.edit()
+            editor.putInt(Constant.CHAPTER, sura.toInt())
+            //  editor.putInt("page", page.getAyahItemsquran().get(0).getPage());
+            editor.putString(
+                Constant.SURAH_ARABIC_NAME,
+                soraList[chapterno[0] - 1].namearabic
+                            )
+            editor.apply()
         }
         dialogPicker.setNegativeButton("Cancel") { dialogInterface: DialogInterface?, i: Int -> }
         val alertDialog = dialogPicker.create()
@@ -817,7 +881,6 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             }
 
             private fun updateVerses(newIndex: Int) {
-
                 val intarray: Int = if (newIndex != 0) {
                     intarrays[newIndex]
                 } else {
@@ -845,36 +908,30 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
     }
 
     private fun SetTranslation() {
-
         shared.getBoolean("prefs_show_erab", true)
         ExecuteSurahWordByWord()
     }
 
     private fun ExecuteSurahWordByWord() {
-        val builder = AlertDialog.Builder(this, com.google.android.material.R.style.ThemeOverlay_Material3_Dialog)
+        val builder = AlertDialog.Builder(
+            this,
+            com.google.android.material.R.style.ThemeOverlay_Material3_Dialog
+                                         )
         builder.setCancelable(false) // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_dialog)
         val dialog = builder.create()
         val listener: OnItemClickListenerOnLong = this
-
         lateinit var scope: CoroutineScope
         val corpus = CorpusUtilityorig(this)
-        scope=CoroutineScope(Dispatchers.Main)
-        bysurah(dialog,scope,corpus,listener)
-/*
-        val ex = Executors.newSingleThreadExecutor()
-        ex.execute {
-            //do inbackground
-            bysurah(dialog, ex)
-        }*/
+        scope = CoroutineScope(Dispatchers.Main)
+        bysurah(dialog, scope, corpus, listener)
+        /*
+                val ex = Executors.newSingleThreadExecutor()
+                ex.execute {
+                    //do inbackground
+                    bysurah(dialog, ex)
+                }*/
     }
-
-
-
-
-
-
-
 
     @SuppressLint("NotifyDataSetChanged")
     private fun bysurah(
@@ -883,9 +940,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         corpus: CorpusUtilityorig,
         listener: OnItemClickListenerOnLong,
                        ) {
-
-
-      runOnUiThread { dialog.show() }
+        runOnUiThread { dialog.show() }
         ex.launch {
             mafoolbihiwords = mainViewModel.getMafoolSurah(chapterno).value
             Jumlahaliya = mainViewModel.getHalsurah(chapterno).value
@@ -909,35 +964,37 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 newnewadapterlist.let { corpus.setShart(it, chapterno) }
             }
             if (mudhaf) {
-                newnewadapterlist.let { corpus.setMudhafFromDB(
-                    it,
-                    chapterno
-                                                              ) }
+                newnewadapterlist.let {
+                    corpus.setMudhafFromDB(
+                        it,
+                        chapterno
+                                          )
+                }
                 //   corpusayahWordArrayList?.get(0)?.let { corpus.setMudhafFromDB(it, chapterno) }
             }
             if (mausoof) {
-                newnewadapterlist.let { corpus.SetMousufSifaDB(
-                    it,
-                    chapterno
-                                                              ) }
+                newnewadapterlist.let {
+                    corpus.SetMousufSifaDB(
+                        it,
+                        chapterno
+                                          )
+                }
                 //  corpus.NewMAOUSOOFSIFA(corpusayahWordArrayList);
             }
             if (harfnasb) {
-                newnewadapterlist.let { corpus.newnewHarfNasbDb(
-                    it,
-                    chapterno
-                                                               ) }
+                newnewadapterlist.let {
+                    corpus.newnewHarfNasbDb(
+                        it,
+                        chapterno
+                                           )
+                }
             }
-
-
-      //
-
+            //
             parentRecyclerView = binding.overlayViewRecyclerView
 
             if (jumptostatus) {
                 surahorpart = chapterno
             }
-
             val header = ArrayList<String>()
             header.add(rukucount.toString())
             header.add(versescount.toString())
@@ -968,17 +1025,12 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 newflowAyahWordAdapter.addContext(this@QuranGrammarAct)
                 parentRecyclerView.setHasFixedSize(true)
                 parentRecyclerView.adapter = newflowAyahWordAdapter
-
-
-
-
                 //   flowAyahWordAdapter.notifyDataSetChanged()
                 parentRecyclerView.post { parentRecyclerView.scrollToPosition(verseNo) }
                 //   })
             }
             runOnUiThread {
-                   dialog.dismiss()
-
+                dialog.dismiss()
             }
         }
         //}
@@ -1196,8 +1248,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             bookMarkSelected(position)
         } else if (tag == "collection") {
             val dataBundle = Bundle()
-
-            val chapterno =corpusSurahWord!![position - 1].corpus.surah
+            val chapterno = corpusSurahWord!![position - 1].corpus.surah
             val verse = corpusSurahWord!![position - 1].corpus.ayah
 
 
@@ -1238,7 +1289,6 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         } else if (tag == "arrowback") {
             val currentsurah = quranEntity.surah
             if (currentsurah != 1) {
-
                 val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
 
                 soraList = mainViewModel.loadListschapter().value as ArrayList<ChaptersAnaEntity>
@@ -1280,8 +1330,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                 ReloadActivity(colorsentence)
             }
         } else if (tag == "overflowbottom") {
-
-            val chapterno =corpusSurahWord!![position - 1].corpus.surah
+            val chapterno = corpusSurahWord!![position - 1].corpus.surah
             val verse = corpusSurahWord!![position - 1].corpus.ayah
             val name = surahArabicName
             val data = arrayOf(chapterno.toString(), verse.toString(), name)
@@ -1292,8 +1341,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
         } else if (tag == "sharefb") {
             takeScreenShot(window.decorView)
         } else if (tag == "helpfb") {
-            val chapterno =corpusSurahWord!![position - 1].corpus.surah
-
+            val chapterno = corpusSurahWord!![position - 1].corpus.surah
             val dataBundle = Bundle()
             dataBundle.putInt(Constant.SURAH_ID, chapterno)
             val item = SurahSummary()
@@ -1312,8 +1360,7 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
                     if (item.itemId == R.id.actionTafsir) { // Handle option1 Click
                         val readingintent =
                             Intent(this@QuranGrammarAct, TafsirFullscreenActivity::class.java)
-
-                        val chapterno =corpusSurahWord!![position - 1].corpus.surah
+                        val chapterno = corpusSurahWord!![position - 1].corpus.surah
                         val verse = corpusSurahWord!![position - 1].corpus.ayah
                         readingintent.putExtra(Constant.SURAH_ID, chapterno)
                         readingintent.putExtra(Constant.AYAH_ID, verse)
@@ -1477,16 +1524,13 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
 
     private fun bookMarkSelected(position: Int) {
         //  position = flowAyahWordAdapter.getAdapterposition();
-
-        val chapterno =corpusSurahWord!![position - 1].corpus.surah
+        val chapterno = corpusSurahWord!![position - 1].corpus.surah
         val verse = corpusSurahWord!![position - 1].corpus.ayah
-
         val en = BookMarks()
         en.header = "pins"
         en.chapterno = chapterno.toString()
         en.verseno = verse.toString()
         en.surahname = surahArabicName
-
         val viewmodel: QuranVIewModel by viewModels()
 
         viewmodel.Insertbookmark(en)
@@ -1520,7 +1564,6 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
     }
 
     private fun initView() {
-
         val linearLayoutManager = LinearLayoutManager(applicationContext)
         btnBottomSheet = binding.fab
         val verlayViewRecyclerView = findViewById<RecyclerView>(R.id.overlayViewRecyclerView)
@@ -1537,29 +1580,27 @@ class QuranGrammarAct : BaseActivity(), PassdataInterface, OnItemClickListenerOn
             //    btnBottomSheet.setText("Expand sheet");
         }
     }
-
-    override fun ondatarecevied(
-        chapterno: Int,
-        partname: String?,
-        totalverses: Int,
-        rukucount: Int,
-        makkimadani: Int,
-                               ) {
-        Log.e(TAG, "onClick called")
-        val intent =
-            intent.putExtra("chapter", chapterno).putExtra("chapterorpart", chapterorpart).putExtra(
-                Constant.SURAH_ARABIC_NAME, partname
-                                                                                                   )
-                .putExtra(Constant.VERSESCOUNT, totalverses).putExtra(Constant.RUKUCOUNT, rukucount)
-                .putExtra(
-                    Constant.MAKKI_MADANI, makkimadani
-                         )
-        overridePendingTransition(0, 0)
-        startActivity(intent)
-        finish()
-        overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left)
-    }
-
+    /*    override fun ondatarecevied(
+            chapterno: Int,
+            partname: String?,
+            totalverses: Int,
+            rukucount: Int,
+            makkimadani: Int,
+                                   ) {
+            Log.e(TAG, "onClick called")
+            val intent =
+                intent.putExtra("chapter", chapterno).putExtra("chapterorpart", chapterorpart).putExtra(
+                    Constant.SURAH_ARABIC_NAME, partname
+                                                                                                       )
+                    .putExtra(Constant.VERSESCOUNT, totalverses).putExtra(Constant.RUKUCOUNT, rukucount)
+                    .putExtra(
+                        Constant.MAKKI_MADANI, makkimadani
+                             )
+            overridePendingTransition(0, 0)
+            startActivity(intent)
+            finish()
+            overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left)
+        }*/
     companion object {
         private const val TAG = "fragment"
     }

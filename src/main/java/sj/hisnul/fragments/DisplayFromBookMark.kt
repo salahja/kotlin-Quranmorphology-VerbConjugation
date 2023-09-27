@@ -123,7 +123,7 @@ class DisplayFromBookMark : Fragment() {
                         val duaItems: ArrayList<hduadetailsEnt> = it as ArrayList<hduadetailsEnt>
                         duacoll.add(duaItems)
                         subheaders.add(hduanames.duaname)
-                        sadapter = SelectedDuaViewAdapter(duacoll, context, name, subheaders)
+                        sadapter = SelectedDuaViewAdapter(duacoll, subheaders)
                         recyclerView.adapter = sadapter
                     }
 
@@ -144,7 +144,6 @@ class DisplayFromBookMark : Fragment() {
     }
 
     companion object {
-        private const val TAG = "PermissionDemo"
         fun newInstance(): DisplayFromBookMark {
             return DisplayFromBookMark()
         }

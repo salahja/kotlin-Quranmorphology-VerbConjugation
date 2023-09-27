@@ -21,6 +21,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant
+import com.example.Constant.ISMAKKI
+import com.example.Constant.RUKUCOUNT
+import com.example.Constant.SURAHNAME
+import com.example.Constant.SURAH_ID
+import com.example.Constant.VERSESCOUNT
 import com.example.mushafconsolidated.Activity.QuranGrammarAct
 import com.example.mushafconsolidated.Activity.ShowMushafActivity
 import com.example.mushafconsolidated.Adaptersimport.JuzSurahDisplayAdapter
@@ -77,10 +82,12 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
 
 
      */
+/*
     override fun onAttach(context: Context) {
         super.onAttach(context)
         datapasser = context as PassdataInterface
     }
+*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -173,7 +180,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
         run {}
     }
 
-    override fun onDestroy() {
+/*    override fun onDestroy() {
         super.onDestroy()
         val fragment =
             Objects.requireNonNull(requireActivity()).supportFragmentManager.findFragmentByTag("group")
@@ -181,7 +188,8 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
             Objects.requireNonNull(requireActivity()).supportFragmentManager.beginTransaction()
                 .remove(fragment).commit()
         }
-    }
+    }*/
+/*
 
     override fun onDetach() {
         super.onDetach()
@@ -192,6 +200,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
                 .remove(fragment).commit()
         }
     }
+*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -313,7 +322,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
                 transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
                 val newCustomFragment =
                     newInstance()
-                transaction.replace(R.id.frame_container, newCustomFragment)
+                transaction.replace(R.id.frame_container_qurangrammar, newCustomFragment)
                 transaction.addToBackStack(null)
                 transaction.commit()
             }
@@ -353,24 +362,18 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
         ParentAdapter.SetOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
                 val item: ChaptersAnaEntity = ParentAdapter.getItem(position) as ChaptersAnaEntity
-                passData(
-                    item.chapterid,
-                    item.abjadname,
-                    item.versescount,
-                    item.rukucount,
-                    item.ismakki
-                )
+
+                val settingint = Intent(requireActivity(), QuranGrammarAct::class.java)
+                settingint.putExtra(SURAH_ID,item.chapterid)
+
+                settingint.putExtra(RUKUCOUNT,item.rukucount)
+                settingint.putExtra(ISMAKKI,item.ismakki)
+                settingint.putExtra(VERSESCOUNT,item.versescount)
+                settingint.putExtra(SURAHNAME,item.abjadname)
+                startActivity(settingint)
             }
 
-            private fun passData(
-                chapterid: Int,
-                abjadname: String,
-                versescount: Int,
-                rukucount: Int,
-                ismakki: Int,
-            ) {
-                datapasser.ondatarecevied(chapterid, abjadname, versescount, rukucount, ismakki)
-            }
+
         })
 
         /*
@@ -382,6 +385,40 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
  */
     }
 
+
+  /*  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        ParentAdapter.SetOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(v: View?, position: Int) {
+                val item: ChaptersAnaEntity = ParentAdapter.getItem(position) as ChaptersAnaEntity
+                passData(
+                    item.chapterid,
+                    item.abjadname,
+                    item.versescount,
+                    item.rukucount,
+                    item.ismakki
+                        )
+            }
+
+            private fun passData(
+                chapterid: Int,
+                abjadname: String,
+                versescount: Int,
+                rukucount: Int,
+                ismakki: Int,
+                                ) {
+                datapasser.ondatarecevied(chapterid, abjadname, versescount, rukucount, ismakki)
+            }
+        })
+
+        *//*
+
+  private void passData(int chapter_no,String partname,int versescount,int rukucount) {
+    getDatapasser().ondatarecevied(chapter_no,true,partname);
+  }
+
+ *//*
+    }  */
     override fun onQueryTextSubmit(query: String): Boolean {
         ParentAdapter.filter.filter(query)
         //  Utils.LogDebug("Submitted: "+query);

@@ -460,7 +460,7 @@ class NewTopicFlowAyahWordAdapter(
                         dataBundle.putInt(SURAH_ID, word.corpus!!.surah)
                         dataBundle.putInt(AYAHNUMBER, Math.toIntExact(word.corpus!!.ayah.toLong()))
                         dataBundle.putInt(WORDNUMBER, Math.toIntExact(word.corpus!!.wordno.toLong()))
-                        dataBundle.putString(SURAH_ARABIC_NAME, "SurahName")//TODO
+                        dataBundle.putString(SURAH_ARABIC_NAME, SurahName)//TODO
                         LoadItemList(dataBundle)
                     }
 
@@ -523,6 +523,7 @@ class NewTopicFlowAyahWordAdapter(
         val surahInfo = StringBuilder()
         //        surahInfo.append(surahName+".");
         val surahname = surahArrays[verse!!.corpus!!.surah - 1]
+        SurahName=surahname
         surahInfo.append(surahname).append(" ").append("Ayah").append(" ").append(verse.corpus!!.ayah)
       //  surahInfo.append(verse!!.corpus!!.surah).append(".")
       //  surahInfo.append(verse.corpus!!.ayah).append("-").append(surahname)

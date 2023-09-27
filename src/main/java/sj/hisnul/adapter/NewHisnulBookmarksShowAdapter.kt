@@ -22,17 +22,14 @@ import sj.hisnul.entity.hduanamesEnt
 class NewHisnulBookmarksShowAdapter :
     RecyclerView.Adapter<NewHisnulBookmarksShowAdapter.ViewHolder?> {
     var mItemClickListener: OnItemClickListener? = null
-    var BookmarksShowAdapterContext: Context? = null
+    private var BookmarksShowAdapterContext: Context? = null
     var bookmarkpostion = 0
     var bookMarkArrayList: ArrayList<hduanamesEnt>? = null
     var pref: PreferenceUtil? = null
-    var holderposition = 0
+    private var holderposition = 0
     var bookmarid = 0
-    val surahName: String? = null
     val bookChapterno = 0
-    val bookVerseno = 0
 
-    constructor() {}
     constructor(context: Context?) {
         BookmarksShowAdapterContext = context
     }
@@ -65,25 +62,18 @@ class NewHisnulBookmarksShowAdapter :
         if (!empty) {
             val sb = StringBuilder()
             sb.append(catOne.ID)
-            holder.id.setText(sb)
-            holder.duaname.setText(catOne.chapname)
-            holder.duaname.setTextSize(18f)
+            holder.id.text = sb
+            holder.duaname.text = catOne.chapname
+            holder.duaname.textSize = 18f
         } else {
-            holder.duaname.setVisibility(View.GONE)
-            holder.id.setVisibility(View.GONE)
+            holder.duaname.visibility = View.GONE
+            holder.id.visibility = View.GONE
             holder.ivdelete.visibility = View.GONE
         }
     }
 
     /*val itemCount: Int
         get() = bookMarkArrayList!!.size*/
-
-    fun getBookMarkArrayList(): List<hduanamesEnt>? {
-        return bookMarkArrayList
-    }
-
-
-
     fun removeItem(position: Int) {
         bookMarkArrayList!!.removeAt(position)
         notifyItemRemoved(position)
@@ -106,27 +96,26 @@ class NewHisnulBookmarksShowAdapter :
             view.setOnClickListener(this)
             //    itemView.setTag(this);
             //     itemView.setOnClickListener(onItemClickListener);
-            id = view.findViewById<TextView>(R.id.id)
-            chapter = view.findViewById<TextView>(R.id.chapter)
-            duaname = view.findViewById<TextView>(R.id.duaname)
-            ivdelete = view.findViewById<ImageView>(R.id.ivdelete)
+            id = view.findViewById(R.id.id)
+            chapter = view.findViewById(R.id.chapter)
+            duaname = view.findViewById(R.id.duaname)
+            ivdelete = view.findViewById(R.id.ivdelete)
             chapter.setOnClickListener(this)
             id.setOnClickListener(this)
             ivdelete.setOnClickListener(this)
 
-            id.setTag("id")
+            id.tag = "id"
             ivdelete.tag = "delete"
-            duaname.setTag("id")
+            duaname.tag = "id"
         }
 
         override fun onClick(v: View) {
             if (mItemClickListener != null) {
-                mItemClickListener!!.onItemClick(v, getLayoutPosition())
+                mItemClickListener!!.onItemClick(v, layoutPosition)
             }
         }
     }
 
     companion object {
-        private const val TAG = "BookmarksShowAdapter"
     }
 }

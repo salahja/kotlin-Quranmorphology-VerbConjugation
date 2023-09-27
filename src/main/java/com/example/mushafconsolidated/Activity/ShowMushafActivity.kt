@@ -186,6 +186,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             }
         }
         editor.apply()
+        finish()
         super.onBackPressed()
     }
 

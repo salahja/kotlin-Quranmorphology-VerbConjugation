@@ -23,7 +23,7 @@ import sj.hisnul.fragments.NewHisnulBookmarkFragment
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 class HisnulBottomACT : BaseActivity(), OnItemClickListenerOnLong {
-    lateinit var btnBottomSheet: FloatingActionButton
+    private lateinit var btnBottomSheet: FloatingActionButton
 
     private lateinit var bottomNavigationView: BottomNavigationView
 /*    override fun onBackPressed() {
@@ -35,11 +35,10 @@ class HisnulBottomACT : BaseActivity(), OnItemClickListenerOnLong {
     }*/
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
-    protected override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         val shared: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(this@HisnulBottomACT)
-        val preferences: String? = shared.getString("themePref", "dark")
-        when (preferences) {
+        when (shared.getString("themePref", "dark")) {
             "white" -> switchTheme("white")
             "dark" -> switchTheme("dark")
             "blue" -> switchTheme("blue")
@@ -51,7 +50,7 @@ class HisnulBottomACT : BaseActivity(), OnItemClickListenerOnLong {
         android.preference.PreferenceManager.setDefaultValues(this, R.xml.preferences, false)
         initView()
         initnavigation()
-        val fragmentManager: FragmentManager = getSupportFragmentManager()
+        val fragmentManager: FragmentManager = supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
         transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
         val newCustomFragment: CatTwoFrag = CatTwoFrag.newInstance()
@@ -63,14 +62,14 @@ class HisnulBottomACT : BaseActivity(), OnItemClickListenerOnLong {
     private fun initnavigation() {
         btnBottomSheet = findViewById(R.id.fab)
         bottomNavigationView = findViewById(R.id.bottomNavView)
-        btnBottomSheet.setOnClickListener(View.OnClickListener { v: View? -> toggleBottomSheets() })
+        btnBottomSheet.setOnClickListener({ v: View? -> toggleBottomSheets() })
         bottomNavigationView.setOnNavigationItemReselectedListener(
-            BottomNavigationView.OnNavigationItemReselectedListener { item: MenuItem ->
+            { item: MenuItem ->
                 var fragment: Fragment
                 when (item.itemId) {
                     R.id.category -> {
                         //    materialToolbar.setTitle("Surah");
-                        val fragmentManager: FragmentManager = getSupportFragmentManager()
+                        val fragmentManager: FragmentManager = supportFragmentManager
                         val transaction = fragmentManager.beginTransaction()
                         transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
                         val newCustomFragment: CatTwoFrag = CatTwoFrag.newInstance()
@@ -80,7 +79,7 @@ class HisnulBottomACT : BaseActivity(), OnItemClickListenerOnLong {
                     }
 
                     R.id.alldua -> {
-                        val fragmentManagers: FragmentManager = getSupportFragmentManager()
+                        val fragmentManagers: FragmentManager = supportFragmentManager
                         val transactions = fragmentManagers.beginTransaction()
                         transactions.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
                         val ALLFAR: AllDuaFrag = AllDuaFrag.newInstance()
@@ -90,7 +89,7 @@ class HisnulBottomACT : BaseActivity(), OnItemClickListenerOnLong {
                     }
 
                     R.id.bookmark -> {
-                        val fragmentManagerss: FragmentManager = getSupportFragmentManager()
+                        val fragmentManagerss: FragmentManager = supportFragmentManager
                         val transactionss = fragmentManagerss.beginTransaction()
                         transactionss.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
                         val b: NewHisnulBookmarkFragment = NewHisnulBookmarkFragment.newInstance()
@@ -114,7 +113,7 @@ class HisnulBottomACT : BaseActivity(), OnItemClickListenerOnLong {
     }
 
     private fun initView() {
-        val linearLayoutManager = LinearLayoutManager(getApplicationContext())
+        val linearLayoutManager = LinearLayoutManager(applicationContext)
         btnBottomSheet = findViewById(R.id.fab)
     //    layoutBottomSheet = findViewById(R.id.bottom_sheet)
         //    btnBottomSheet=findViewById(R.id.btn_bottom_sheet);
@@ -123,16 +122,16 @@ class HisnulBottomACT : BaseActivity(), OnItemClickListenerOnLong {
 
         //  coordinatorLayout = findViewById(R.id.coordinatorLayout);
         val verlayViewRecyclerView: RecyclerView = findViewById(R.id.overlayViewRecyclerView)
-        verlayViewRecyclerView.setLayoutManager(linearLayoutManager)
+        verlayViewRecyclerView.layoutManager = linearLayoutManager
         // bookmarkchip.setOnClickListener(v -> CheckStringLENGTHS());
     }
 
-    fun toggleBottomSheets() {
-        if (bottomNavigationView.getVisibility() == View.VISIBLE) {
-            bottomNavigationView.setVisibility(View.GONE)
+    private fun toggleBottomSheets() {
+        if (bottomNavigationView.visibility == View.VISIBLE) {
+            bottomNavigationView.visibility = View.GONE
             //    btnBottomSheet.setText("Close sheet");
         } else {
-            bottomNavigationView.setVisibility(View.VISIBLE)
+            bottomNavigationView.visibility = View.VISIBLE
             //    btnBottomSheet.setText("Expand sheet");
         }
     }

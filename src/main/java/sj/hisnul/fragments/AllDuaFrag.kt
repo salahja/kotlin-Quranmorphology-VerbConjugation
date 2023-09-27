@@ -49,7 +49,7 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
         savedInstanceState: Bundle?,
     ): View {
         val view: View = inflater.inflate(
-            com.example.mushafconsolidated.R.layout.activity_dua_group,
+            R.layout.activity_dua_group,
             container,
             false
         )
@@ -76,7 +76,7 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
 
         //  binding.duaListView.adapter = ska
         val toolbar: MaterialToolbar =
-            view.findViewById<MaterialToolbar>(com.example.mushafconsolidated.R.id.my_action_bar)
+            view.findViewById(R.id.my_action_bar)
         (activity as AppCompatActivity?)?.setSupportActionBar(toolbar)
 
         // recyclerView.setHasFixedSize(true)
@@ -99,7 +99,7 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
                 val transaction = requireActivity().supportFragmentManager.beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 transaction.replace(
-                    com.example.mushafconsolidated.R.id.frame_container,
+                    R.id.frame_container,
                     fragvsi,
                     "items"
                 )
@@ -122,37 +122,37 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(com.example.mushafconsolidated.R.menu.menu_search, menu)
-        val searchItem = menu.findItem(com.example.mushafconsolidated.R.id.search)
+        inflater.inflate(R.menu.menu_search, menu)
+        val searchItem = menu.findItem(R.id.search)
         val searchManager: SearchManager =
             requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
         if (searchItem != null) {
             searchView = (searchItem.actionView as SearchView?)!!
             val sear: Drawable = ContextCompat.getDrawable(
                 requireContext(),
-                com.example.mushafconsolidated.R.drawable.custom_search_box
+                R.drawable.custom_search_box
             )!!
-            searchView!!.clipToOutline = true
-            searchView!!.setBackgroundDrawable(sear)
-            searchView!!.gravity = View.TEXT_ALIGNMENT_CENTER
-            searchView!!.maxWidth = Int.MAX_VALUE
+            searchView.clipToOutline = true
+            searchView.setBackgroundDrawable(sear)
+            searchView.gravity = View.TEXT_ALIGNMENT_CENTER
+            searchView.maxWidth = Int.MAX_VALUE
         }
         if (searchView != null) {
-            searchView!!.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
             queryTextListener = object : SearchView.OnQueryTextListener {
                 override fun onQueryTextChange(newText: String): Boolean {
                     //   Log.i("onQueryTextChange", newText);
-                    ska.getFilter().filter(newText)
+                    ska.filter.filter(newText)
                     return true
                 }
 
                 override fun onQueryTextSubmit(query: String): Boolean {
                     //    Log.i("onQueryTextSubmit", query);
-                    ska.getFilter().filter(query)
+                    ska.filter.filter(query)
                     return false
                 }
             }
-            searchView!!.setOnQueryTextListener(queryTextListener)
+            searchView.setOnQueryTextListener(queryTextListener)
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -161,7 +161,7 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
         if (item.itemId == R.id.search) { // Not implemented here
             return false
         }
-        searchView!!.setOnQueryTextListener(queryTextListener)
+        searchView.setOnQueryTextListener(queryTextListener)
         return super.onOptionsItemSelected(item)
     }
 
@@ -171,7 +171,7 @@ class AllDuaFrag : Fragment(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(query: String): Boolean {
-        ska.getFilter().filter(query)
+        ska.filter.filter(query)
 
         return true
     }

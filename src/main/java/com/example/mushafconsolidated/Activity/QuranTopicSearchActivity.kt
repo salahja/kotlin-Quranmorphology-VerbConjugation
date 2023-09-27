@@ -95,7 +95,8 @@ class QuranTopicSearchActivity : BaseActivity(), OnItemClickListenerOnLong {
             }
             //  extracted(data, titles);
             val dataBundle = Bundle()
-            if (!data.toString().contains("null")) {
+
+            if(data.isNotEmpty()){
 
                 btnSelection.hide()
 
@@ -111,7 +112,7 @@ class QuranTopicSearchActivity : BaseActivity(), OnItemClickListenerOnLong {
                 transactions.commit()
 
             } else {
-                Toast.makeText(this@QuranTopicSearchActivity, "Not found", Toast.LENGTH_SHORT)
+                Toast.makeText(this@QuranTopicSearchActivity, "Please Select", Toast.LENGTH_SHORT)
                     .show()
             }
         })

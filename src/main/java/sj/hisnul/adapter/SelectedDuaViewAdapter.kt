@@ -1,7 +1,6 @@
 package sj.hisnul.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.text.Html
 import android.view.LayoutInflater
@@ -13,14 +12,10 @@ import com.example.mushafconsolidated.R
 import sj.hisnul.entity.hduadetailsEnt
 
 class SelectedDuaViewAdapter(
-    val duadetailsitems: ArrayList<ArrayList<hduadetailsEnt>>,
-    context: Context?,
-    name: String?,
-    var subheaders: ArrayList<String>,
+    private val duadetailsitems: ArrayList<ArrayList<hduadetailsEnt>>,
+    private var subheaders: ArrayList<String>,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var mItemClickListener: OnItemClickListener? = null
-    var weaknesscolor = 0
-    var wazancolor = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == TYPE_ITEM) {
             //Inflating recycle view item layout
@@ -45,95 +40,91 @@ class SelectedDuaViewAdapter(
     ) {
         if (holder is HeaderViewHolder) {
             val items = duadetailsitems[position]
-            val headerHolder = holder
-            headerHolder.headerTitle.text = "Header View"
+            holder.headerTitle.text = "Header View"
             if (!items[0].top?.isEmpty()!!) {
-                headerHolder.headerTitle.text = items[0].bottom
-                headerHolder.headerTitle.visibility = View.VISIBLE
+                holder.headerTitle.text = items[0].bottom
+                holder.headerTitle.visibility = View.VISIBLE
             } else {
-                headerHolder.headerTitle.visibility = View.GONE
+                holder.headerTitle.visibility = View.GONE
             }
-            headerHolder.headerTitle.setOnClickListener { view: View? -> }
+            holder.headerTitle.setOnClickListener { view: View? -> }
         } else if (holder is FooterViewHolder) {
-            val footerHolder = holder
-            footerHolder.footerText.text = "footer"
-            footerHolder.footerText.setOnClickListener { view: View? -> }
+            holder.footerText.text = "footer"
+            holder.footerText.setOnClickListener { view: View? -> }
         } else if (holder is ViewHolder) {
             //   try {
             val items = duadetailsitems[position - 1]
             val str = subheaders[position - 1]
-            val itemViewHolder = holder
             //   final Integer arabicFontsize = Integer.valueOf(fonts);
             val sb = StringBuilder()
             sb.append(items[0].ID)
-            itemViewHolder.duaheader.text = str
+            holder.duaheader.text = str
             //    holder.rulenumbe.r.setTextSize(arabicFontsize);
-            itemViewHolder.tvDuaNumber.text = sb
+            holder.tvDuaNumber.text = sb
             //  holder.title.setText(catOne.getTitle_en());
             //  holder.title.setTextSize(18);
-            itemViewHolder.tvDuaNumber.textSize = 18f
-            itemViewHolder.duaheader.textSize = 24f
+            holder.tvDuaNumber.textSize = 18f
+            holder.duaheader.textSize = 24f
             if (!items[0].top?.isEmpty()!!) {
-                itemViewHolder.top.text = items[0].top
-                itemViewHolder.top.textSize = 24f
-                itemViewHolder.top.visibility = View.VISIBLE
+                holder.top.text = items[0].top
+                holder.top.textSize = 24f
+                holder.top.visibility = View.VISIBLE
             } else {
-                itemViewHolder.top.visibility = View.GONE
+                holder.top.visibility = View.GONE
             }
-            if (!items[0].arabic!!.isEmpty()) {
-                itemViewHolder.tvDuaArabic.text = items[0].arabic
-                itemViewHolder.tvDuaArabic.textSize = 24f
-                itemViewHolder.tvDuaArabic.visibility = View.VISIBLE
+            if (items[0].arabic!!.isNotEmpty()) {
+                holder.tvDuaArabic.text = items[0].arabic
+                holder.tvDuaArabic.textSize = 24f
+                holder.tvDuaArabic.visibility = View.VISIBLE
             } else {
-                itemViewHolder.tvDuaArabic.visibility = View.GONE
+                holder.tvDuaArabic.visibility = View.GONE
             }
-            if (!items[0].arabic!!.isEmpty()) {
-                itemViewHolder.tvDuaTranslation.text = items[0].translations
-                itemViewHolder.tvDuaTranslation.textSize = 24f
-                itemViewHolder.tvDuaTranslation.visibility = View.VISIBLE
+            if (items[0].arabic!!.isNotEmpty()) {
+                holder.tvDuaTranslation.text = items[0].translations
+                holder.tvDuaTranslation.textSize = 24f
+                holder.tvDuaTranslation.visibility = View.VISIBLE
             } else {
-                itemViewHolder.tvDuaTranslation.visibility = View.GONE
+                holder.tvDuaTranslation.visibility = View.GONE
             }
-            if (!items[0].transliteration!!.isEmpty()) {
-                itemViewHolder.tvliteration.text = Html.fromHtml(items[0].transliteration)
-                itemViewHolder.tvliteration.textSize = 24f
-                itemViewHolder.tvliteration.visibility = View.VISIBLE
+            if (items[0].transliteration!!.isNotEmpty()) {
+                holder.tvliteration.text = Html.fromHtml(items[0].transliteration)
+                holder.tvliteration.textSize = 24f
+                holder.tvliteration.visibility = View.VISIBLE
             } else {
-                itemViewHolder.tvliteration.visibility = View.GONE
+                holder.tvliteration.visibility = View.GONE
             }
-            if (!items[0].bottom!!.isEmpty()) {
-                itemViewHolder.tvbottom.text = items[0].bottom
-                itemViewHolder.tvbottom.visibility = View.VISIBLE
-                itemViewHolder.tvbottom.textSize = 24f
+            if (items[0].bottom!!.isNotEmpty()) {
+                holder.tvbottom.text = items[0].bottom
+                holder.tvbottom.visibility = View.VISIBLE
+                holder.tvbottom.textSize = 24f
             } else {
-                itemViewHolder.tvbottom.visibility = View.GONE
+                holder.tvbottom.visibility = View.GONE
             }
-            itemViewHolder.tvDuaReference.text = items[0].reference
-            itemViewHolder.sharebtn.setOnClickListener { convertView: View ->
+            holder.tvDuaReference.text = items[0].reference
+            holder.sharebtn.setOnClickListener { convertView: View ->
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
                 intent.putExtra(
                     Intent.EXTRA_TEXT,
                     """
-                    ${itemViewHolder.duaheader.text}
+                    ${holder.duaheader.text}
                     
-                    ${itemViewHolder.tvDuaArabic.text}
+                    ${holder.tvDuaArabic.text}
                     
-                    ${itemViewHolder.tvDuaTranslation.text}
+                    ${holder.tvDuaTranslation.text}
                     
-                    ${itemViewHolder.tvDuaReference.text}
+                    ${holder.tvDuaReference.text}
                     
                     ${convertView.resources.getString(R.string.action_share_credit)}
                     """.trimIndent()
-                )
+                               )
                 intent.type = "text/plain"
                 convertView.context.startActivity(
                     Intent.createChooser(
                         intent,
                         convertView.resources.getString(R.string.action_share_title)
-                    )
-                )
-
+                                        )
+                                                 )
             }
         }
     }

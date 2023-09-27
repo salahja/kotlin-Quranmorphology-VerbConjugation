@@ -18,15 +18,15 @@ import org.sj.conjugator.interfaces.OnItemClickListener
 import sj.hisnul.entity.hduanamesEnt
 import java.util.Locale
 
-class CatAllAdapter() :
+class CatAllAdapter :
     RecyclerView.Adapter<CatAllAdapter.ViewHolder?>(), Filterable {
 
     var mItemClickListener: OnItemClickListener? = null
 
 
-    private var mList:   List<hduanamesEnt> =ArrayList<hduanamesEnt>()
+    private var mList:   List<hduanamesEnt> =ArrayList()
 
-    private var duasfiltered:   List<hduanamesEnt> =ArrayList<hduanamesEnt>()
+    private var duasfiltered:   List<hduanamesEnt> =ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         //    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rwz,parent, false);
         val view =
@@ -45,20 +45,24 @@ class CatAllAdapter() :
         //  String arabic_font_category = prefs.getString("arabic_font_category", "DejaVuSans.tff");
         val isNightmode: String? = sharedPreferences.getString("themepref", "dark")
         if (isNightmode == "dark") {
-            holder.tvReference.setCompoundDrawableTintList(ColorStateList.valueOf(Color.WHITE))
+            holder.tvReference.compoundDrawableTintList = ColorStateList.valueOf(Color.WHITE)
         }
-        if (isNightmode == "dark") {
-            holder.cardview.setCardBackgroundColor(QuranGrammarApplication.context!!.resources.getColor(R.color.bg_dark_blue))
-        } else if (isNightmode == "blue") {
-            holder.cardview.setCardBackgroundColor(QuranGrammarApplication.context!!.resources.getColor(R.color.bg_dark_blue))
-        } else if (isNightmode == "white") {
-            holder.cardview.setCardBackgroundColor(QuranGrammarApplication.context!!.resources.getColor(R.color.md_theme_dark_inversePrimary))
+        when (isNightmode) {
+            "dark" -> {
+                holder.cardview.setCardBackgroundColor(QuranGrammarApplication.context!!.resources.getColor(R.color.bg_dark_blue))
+            }
+            "blue" -> {
+                holder.cardview.setCardBackgroundColor(QuranGrammarApplication.context!!.resources.getColor(R.color.bg_dark_blue))
+            }
+            "white" -> {
+                holder.cardview.setCardBackgroundColor(QuranGrammarApplication.context!!.resources.getColor(R.color.md_theme_dark_inversePrimary))
+            }
         }
         val catOne: hduanamesEnt = duasfiltered[position]
-        holder.tvReference.setText(catOne.chap_id.toString())
-        holder.tvChapname.setText(catOne.chapname)
-        holder.tvChapname.setTextSize(18f)
-        holder.tvReference.setTextSize(18f)
+        holder.tvReference.text = catOne.chap_id.toString()
+        holder.tvChapname.text = catOne.chapname
+        holder.tvChapname.textSize = 18f
+        holder.tvReference.textSize = 18f
     }
 
     override fun getItemId(position: Int): Long {
@@ -85,7 +89,7 @@ class CatAllAdapter() :
                 duasfiltered = if (charString.isEmpty()) {
                     mList
                 } else {
-                    val filteredList: MutableList<hduanamesEnt> = ArrayList<hduanamesEnt>()
+                    val filteredList: MutableList<hduanamesEnt> = ArrayList()
                     for (details in mList) {
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
@@ -123,16 +127,16 @@ class CatAllAdapter() :
         val cardview: CardView
 
         init {
-            tvReference = view.findViewById<TextView>(R.id.txtReference)
-            tvChapname = view.findViewById<TextView>(R.id.txtDuaName)
-            cardview = view.findViewById<CardView>(R.id.cardview)
+            tvReference = view.findViewById(R.id.txtReference)
+            tvChapname = view.findViewById(R.id.txtDuaName)
+            cardview = view.findViewById(R.id.cardview)
             view.setOnClickListener(this)
             tvReference.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {
             if (mItemClickListener != null) {
-                mItemClickListener!!.onItemClick(v, getLayoutPosition())
+                mItemClickListener!!.onItemClick(v, layoutPosition)
             }
         }
     }

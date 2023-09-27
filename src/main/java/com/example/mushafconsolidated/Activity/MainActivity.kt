@@ -146,8 +146,9 @@ class MainActivity : BaseActivity() {
             PageAdapter pageAdapter=new PageAdapter(pages,this);
             recview.setAdapter(pageAdapter);*/
             val homeactivity = Intent(this@MainActivity, QuranGrammarAct::class.java)
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
             startActivity(homeactivity)
-            //   MainActivity.this.finish();
+            finish();
             //   initnavigation();
         }
     }

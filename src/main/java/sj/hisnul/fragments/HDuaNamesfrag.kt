@@ -56,7 +56,7 @@ class HDuaNamesfrag : Fragment() {
                         val duaItems: ArrayList<hduadetailsEnt> = it as ArrayList<hduadetailsEnt>
                         duacoll.add(duaItems)
                         subheaders.add(hduanames.duaname)
-                        sadapter = SelectedDuaViewAdapter(duacoll, context, name, subheaders)
+                        sadapter = SelectedDuaViewAdapter(duacoll, subheaders)
                         recyclerView.adapter = sadapter
 
                     }
@@ -91,11 +91,10 @@ class HDuaNamesfrag : Fragment() {
       //  val utils = Utils(context)
         toolbar.title = name
         toolbar.inflateMenu(R.menu.menu_bookmark)
-        toolbar.setOnMenuItemClickListener({ item: MenuItem ->
+        toolbar.setOnMenuItemClickListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.bookmark -> {
                     Toast.makeText(context, "First book item", Toast.LENGTH_SHORT).show()
-
                     var dunamesbyid: java.util.ArrayList<hduanamesEnt> = ArrayList()
 
                     viewmodel.Duadetailsbychapter(chap_id).observe(viewLifecycleOwner) {
@@ -106,17 +105,11 @@ class HDuaNamesfrag : Fragment() {
                         } else {
                             viewmodel.update(0, chap_id)
                         }
-
                     }
 //sadapter.duadetailsitems
                     //sadapter.duadetailsitems
-
                     //  val up = utils.updateFav(1, chap_id)!!
-
-
                     //   val upd = utils.updateFav(0, chap_id)!!
-
-
                     val snackbar =
                         Snackbar.make(coordinatorLayout, "BookMarked", Snackbar.LENGTH_LONG)
                     view[0] = snackbar.view
@@ -148,8 +141,7 @@ class HDuaNamesfrag : Fragment() {
             }
             Toast.makeText(activity, "tool", Toast.LENGTH_SHORT).show()
             false
-        })
-
+        }
         //AconSarfSagheerAdapter sk=new AconSarfSagheerAdapter(ar, MainActivity.this);
         recyclerView.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(activity)
@@ -160,7 +152,6 @@ class HDuaNamesfrag : Fragment() {
     }
 
     companion object {
-        private const val TAG = "PermissionDemo"
         fun newInstance(): HDuaNamesfrag {
             return HDuaNamesfrag()
         }

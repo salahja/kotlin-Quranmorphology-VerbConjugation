@@ -14,15 +14,10 @@ class CustomAdapter(
     private val context: Context,
     private val parentItemArrayList: ArrayList<ParentItem>,
 ) : BaseExpandableListAdapter() {
-    private val originalList: ArrayList<ParentItem>
-    var currentgrouposition = 0
-    var childCheckboxState = HashMap<Int, Int>()
-    var listOfStatusFilters = ArrayList<String>()
-    var selectedfilters = ArrayList<Selected>()
+    private val originalList: ArrayList<ParentItem> = ArrayList()
     private var childItemArrayList: ArrayList<ChildItem>? = null
 
     init {
-        originalList = ArrayList()
         originalList.addAll(parentItemArrayList)
     }
 
@@ -62,7 +57,7 @@ class CustomAdapter(
         isExpanded: Boolean,
         view: View?,
         parent: ViewGroup?,
-    ): View? {
+    ): View {
         var view = view
         val parentItemInfo = getGroup(groupPosition) as ParentItem
         if (view == null) {
@@ -89,7 +84,7 @@ class CustomAdapter(
         isLastChild: Boolean,
         view: View?,
         viewGroup: ViewGroup?,
-    ): View? {
+    ): View {
         var view = view
         val childItemInfo = getChild(groupPosition, childPosition) as ChildItem
         getGroup(groupPosition)

@@ -25,9 +25,6 @@ import sj.hisnul.newepository.NewDuaModel
  */
 class NamesDetail : BottomSheetDialogFragment() {
     var mItemClickListener: OnItemClickListener? = null
-
-    // private ColorSchemeAdapter colorSchemeAdapter;
-    var textView: TextView? = null
     fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
         this.mItemClickListener = mItemClickListener
     }
@@ -81,7 +78,7 @@ class NamesDetail : BottomSheetDialogFragment() {
 
             val title: WebView = view.findViewById<View>(R.id.title) as WebView
             val concat: String = html + it!![0].title + it[0]
-                .summary+ (it.get(0)?.details  ) + close
+                .summary+ (it[0].details) + close
             title.loadDataWithBaseURL(null, concat, "text/html", "utf-8", null)
         }
 
@@ -101,7 +98,7 @@ class NamesDetail : BottomSheetDialogFragment() {
 
         // TODO: Customize parameters
         fun newInstance(data: Int): NamesDetail {
-            val fragment: NamesDetail = NamesDetail()
+            val fragment = NamesDetail()
             val args: Bundle = Bundle()
             args.putInt(ARG_OPTIONS_DATA, data)
             fragment.arguments = args

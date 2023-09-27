@@ -19,11 +19,7 @@ import sj.hisnul.newepository.NewDuaModel
 class CatTwoFrag : Fragment() {
     lateinit var recyclerView: RecyclerView
 
-    val duacatmodel: NewDuaModel by viewModels()
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
+    private val duacatmodel: NewDuaModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,22 +27,21 @@ class CatTwoFrag : Fragment() {
     ): View {
 
         val view: View = inflater.inflate(R.layout.frag_catwo_drawble, container, false)
-        recyclerView = view.findViewById<RecyclerView>(R.id.recview)
+        recyclerView = view.findViewById(R.id.recview)
 
 
 
 
-      lateinit    var duagrouptwo: ArrayList<hcategoryEnt>;
+      lateinit    var duagrouptwo: ArrayList<hcategoryEnt>
         val adapter = CatTwoAdapter( requireContext())
-        val layoutManager: GridLayoutManager
-        layoutManager = GridLayoutManager(activity, 3)
+        val layoutManager: GridLayoutManager = GridLayoutManager(activity, 3)
         recyclerView.setHasFixedSize(true)
         // recyclerView.setLayoutManager(new LinearLayoutManager(context!!));
-        recyclerView.setLayoutManager(layoutManager)
+        recyclerView.layoutManager = layoutManager
 
         duacatmodel.duaCategory().observe(viewLifecycleOwner){
             adapter.setmutable(it)
-            recyclerView.setAdapter(adapter)
+            recyclerView.adapter = adapter
         }
 
  /*
@@ -77,7 +72,7 @@ class CatTwoFrag : Fragment() {
             override fun onItemClick(v: View?, position: Int) {
                 val catTwo: hcategoryEnt = adapter.getItem(position) as hcategoryEnt
            //     val catTwo: hcategory = duagrouptwo[position]
-                if (!catTwo.title.isEmpty()) {
+                if (catTwo.title.isNotEmpty()) {
                     val intent = Intent(activity, NewExpandAct::class.java)
                     intent.putExtra("PARENT_ACTIVITY_REF", "ParentActivityIsA")
                     startActivity(intent)
