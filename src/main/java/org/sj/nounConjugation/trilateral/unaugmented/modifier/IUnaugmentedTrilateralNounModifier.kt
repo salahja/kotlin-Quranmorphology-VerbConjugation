@@ -24,5 +24,6 @@ interface IUnaugmentedTrilateralNounModifier {
         kov: Int,
         conjugations: List<*>,
         formula: String
+
     ): ConjugationResult
 }

@@ -13,6 +13,7 @@ import com.example.mushafconsolidated.R
 import com.example.utility.QuranGrammarApplication
 import org.sj.conjugator.interfaces.OnItemClickListener
 import org.sj.conjugator.utilities.SharedPref
+import org.sj.verbConjugation.FaelMafool
 
 class IsmFaelIsmMafoolSarfKabeerAdapter(
     lists: ArrayList<ArrayList<*>>,
@@ -54,19 +55,24 @@ class IsmFaelIsmMafoolSarfKabeerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //  final List sarf = sarfSagheer.get(position);
         val newsarf = true
+
+        val ismfael = sarfSagheer[0][0]
+        val ismmafool = sarfSagheer[0][1]
+       // val ismfael=faelmafoolMas
+      //  val ismmafool=faelmafoolFem
         if (newsarf) {
             SetTypeFace(holder)
-            IsmFael(holder, 0)
-            IsmFaelFem(holder, 0)
-            IsmMafool(holder, 1)
-            IsmMafoolFem(holder, 1)
-        } else {
+            IsmFael(ismfael as FaelMafool,holder, 0)
+            IsmFaelFem(ismfael as FaelMafool,holder, 0)
+            IsmMafool(ismmafool as FaelMafool, holder, 1)
+            IsmMafoolFem(ismmafool as  FaelMafool, holder, 1)
+        }/* else {
             SetTypeFace(holder)
-            IsmFael(holder, 6)
+            IsmFael(ismfael, holder, 6)
             IsmFaelFem(holder, 6)
             IsmMafool(holder, 7)
             IsmMafoolFem(holder, 7)
-        }
+        }*/
         gcase(holder)
         ismfaelmafoolnumbers(holder)
         //      FontSIzeSelection(holder);
@@ -146,16 +152,18 @@ class IsmFaelIsmMafoolSarfKabeerAdapter(
         }
     }
 
-    private fun IsmFael(holder: ViewHolder, position: Int) {
-        val iisone = sarfSagheer[position][0].toString() //isone);
-        val iistwo = sarfSagheer[position][2].toString() //istwo);
-        val iisthree = sarfSagheer[position][4].toString() //isthree);
-        val iisfour = sarfSagheer[position][6].toString() //isfour);
-        val iisfive = sarfSagheer[position][8].toString() //isfive);
-        val iissix = sarfSagheer[position][10].toString() //issix);
-        val iisseven = sarfSagheer[position][12].toString() //isseven);
-        val iiseight = sarfSagheer[position][14].toString() //iseight);
-        val iisnine = sarfSagheer[position][16].toString() //isnine);
+    private fun IsmFael(ismfael: FaelMafool, holder: ViewHolder, position: Int) {
+
+        val iisone =  ismfael.nomsinM!!.replace("[", "").replace("]", "");//[0].toString() //isone);
+        iisone.replace("[\"\\[ \\]]", "")
+        val iistwo =  ismfael.nomdualM//[2].toString() //istwo);
+        val iisthree =  ismfael.nomplurarM//[4].toString() //isthree);
+        val iisfour =  ismfael.accsinM//[6].toString() //isfour);
+        val iisfive =  ismfael.accdualM//[8].toString() //isfive);
+        val iissix =  ismfael.accplurarlM//[10].toString() //issix);
+        val iisseven =  ismfael.gensinM//[12].toString() //isseven);
+        val iiseight =  ismfael.gendualM//[14].toString() //iseight);
+        val iisnine =  ismfael.genplurarM//[16].toString() //isnine);
         //    FontSIzeSelection(holder);
         SetTypeFace(holder)
         holder.isone.text = iisone
@@ -169,16 +177,19 @@ class IsmFaelIsmMafoolSarfKabeerAdapter(
         holder.isnine.text = iisnine
     }
 
-    private fun IsmFaelFem(holder: ViewHolder, position: Int) {
-        val iisone = sarfSagheer[position][1].toString() //isone);
-        val iistwo = sarfSagheer[position][3].toString() //istwo);
-        val iisthree = sarfSagheer[position][5].toString() //isthree);
-        val iisfour = sarfSagheer[position][7].toString() //isfour);
-        val iisfive = sarfSagheer[position][9].toString() //isfive);
-        val iissix = sarfSagheer[position][11].toString() //issix);
-        val iisseven = sarfSagheer[position][13].toString() //isseven);
-        val iiseight = sarfSagheer[position][15].toString() //iseight);
-        val iisnine = sarfSagheer[position][17].toString() //isnine);
+    private fun IsmFaelFem(ismfael : FaelMafool, holder: ViewHolder, position: Int) {
+
+        val iisone =  ismfael.nomsinF//[0].toString() //isone);
+        val iistwo =  ismfael.nomdualF//[2].toString() //istwo);
+        val iisthree =  ismfael.nomplurarF//[4].toString() //isthree);
+        val iisfour =  ismfael.accsinF//[6].toString() //isfour);
+        val iisfive =  ismfael.accdualF//[8].toString() //isfive);
+        val iissix =  ismfael.accplurarlF//[10].toString() //issix);
+        val iisseven =  ismfael.gensinF//[12].toString() //isseven);
+        val iiseight =  ismfael.gendualF//[14].toString() //iseight);
+        val iisnine =  ismfael.genplurarF!!.replace("[", "").replace("]", "")//[16].toString() //isnine);
+
+
         //     FontSIzeSelection(holder);
         SetTypeFace(holder)
         holder.ismfemone.text = iisone
@@ -192,16 +203,18 @@ class IsmFaelIsmMafoolSarfKabeerAdapter(
         holder.ismfemnine.text = iisnine
     }
 
-    private fun IsmMafoolFem(holder: ViewHolder, position: Int) {
-        val smafone = sarfSagheer[position][1].toString()
-        val smaftwo = sarfSagheer[position][3].toString() //imaftwo);
-        val smafthree = sarfSagheer[position][5].toString() //imafthree);
-        val smaffour = sarfSagheer[position][7].toString() //imaffour);
-        val smaffive = sarfSagheer[position][9].toString() //imaffive);
-        val smafsix = sarfSagheer[position][11].toString() //imafseven);
-        val smafseven = sarfSagheer[position][13].toString() //imafseven);
-        val smafeight = sarfSagheer[position][15].toString() //imafeight);
-        val smafnine = sarfSagheer[position][17].toString() //imafnine);
+    private fun IsmMafoolFem(ismmafoolFem: FaelMafool, holder: ViewHolder, position: Int) {
+
+        val smafone =  ismmafoolFem.nomsinF//[2].toString() //istwo);
+        val smaftwo=ismmafoolFem.nomdualF
+        val smafthree =  ismmafoolFem.nomplurarF//[4].toString() //isthree);
+        val smaffour =  ismmafoolFem.accsinF//[6].toString() //isfour);
+        val smaffive =  ismmafoolFem.accdualF//[8].toString() //isfive);
+        val smafsix =  ismmafoolFem.accplurarlF//[10].toString() //issix);
+        val smafseven =  ismmafoolFem.gensinF//[12].toString() //isseven);
+        val smafeight =  ismmafoolFem.gendualF//[14].toString() //iseight);
+        val smafnine =  ismmafoolFem.genplurarF!!.replace("[", "").replace("]", "")//[16].toString() //isnine);
+
         //     FontSIzeSelection(holder);
         SetTypeFace(holder)
         holder.imafoolfemone.text = smafone
@@ -215,16 +228,22 @@ class IsmFaelIsmMafoolSarfKabeerAdapter(
         holder.imafoolfemnine.text = smafnine
     }
 
-    private fun IsmMafool(holder: ViewHolder, position: Int) {
-        val smafone = sarfSagheer[position][0].toString()
-        val smaftwo = sarfSagheer[position][2].toString() //imaftwo);
-        val smafthree = sarfSagheer[position][4].toString() //imafthree);
-        val smaffour = sarfSagheer[position][6].toString() //imaffour);
-        val smaffive = sarfSagheer[position][8].toString() //imaffive);
-        val smafsix = sarfSagheer[position][10].toString() //imafseven);
-        val smafseven = sarfSagheer[position][12].toString() //imafseven);
-        val smafeight = sarfSagheer[position][14].toString() //imafeight);
-        val smafnine = sarfSagheer[position][16].toString() //imafnine);
+    private fun IsmMafool(ismmafoolMas: FaelMafool, holder: ViewHolder, position: Int) {
+
+
+
+        val smafone =  ismmafoolMas.nomsinM!!.replace("[", "").replace("]", "")//[2].toString() //istwo);
+        val smaftwo=ismmafoolMas.nomdualM
+        val smafthree =  ismmafoolMas.nomplurarM//[4].toString() //isthree);
+        val smaffour =  ismmafoolMas.accsinM//[6].toString() //isfour);
+        val smaffive =  ismmafoolMas.accdualM//[8].toString() //isfive);
+        val smafsix =  ismmafoolMas.accplurarlM//[10].toString() //issix);
+        val smafseven =  ismmafoolMas.gensinM//[12].toString() //isseven);
+        val smafeight =  ismmafoolMas.gendualM//[14].toString() //iseight);
+        val smafnine =  ismmafoolMas.genplurarM//[16].toString() //isnine);
+
+
+
         //     FontSIzeSelection(holder);
         SetTypeFace(holder)
         holder.imafone.text = smafone

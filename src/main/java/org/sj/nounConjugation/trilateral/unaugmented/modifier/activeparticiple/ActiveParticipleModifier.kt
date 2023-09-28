@@ -34,6 +34,7 @@ class ActiveParticipleModifier private constructor() : IUnaugmentedTrilateralNou
         kov: Int,
         conjugations: List<*>,
         formula: String
+
     ): ConjugationResult {
         val conjResult = ConjugationResult(kov, root!!, conjugations as List<*>, formula)
         if (geminator.isApplied(conjResult)) geminator.apply(conjResult.finalResult as MutableList<Any>, root!!)
@@ -48,4 +49,6 @@ class ActiveParticipleModifier private constructor() : IUnaugmentedTrilateralNou
     companion object {
         val instance = ActiveParticipleModifier()
     }
+
+
 }

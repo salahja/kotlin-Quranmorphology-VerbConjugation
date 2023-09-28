@@ -87,7 +87,7 @@ class FragmentVerb : Fragment() {
                 GatherAll.instance.getMazeedListing(verbmood, verbroot, augmentedFormula)
             val sk: VerbSarfKabeerAdapter
             if (indictive.isNotEmpty()) {
-                indictive.removeAt(0)
+               // indictive.removeAt(0)
                 sk = VerbSarfKabeerAdapter(indictive, requireContext())
                 recyclerView!!.adapter = sk
                 recyclerView!!.setHasFixedSize(true)
@@ -101,7 +101,7 @@ class FragmentVerb : Fragment() {
     private fun ninitThulathiAdapter() {
         val mujarradListing: ArrayList<ArrayList<*>> =
             GatherAll.instance.getMujarradListing(verbmood, verbroot, unaugmentedFormula)
-        mujarradListing.removeAt(0)
+      //  mujarradListing.removeAt(0)
         val ska = VerbSarfKabeerAdapter(mujarradListing, requireContext())
         recyclerView!!.adapter = ska
         recyclerView!!.setHasFixedSize(true)

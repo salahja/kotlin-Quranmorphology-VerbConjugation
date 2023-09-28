@@ -297,14 +297,15 @@
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@id/ismalaheader"
+            android:id="@+id/ismzarfheader"
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
             android:layout_toEndOf="@+id/ismzarfheader"
             android:gravity="center|end"
             android:paddingStart="5.0dip"
-            android:text="اِسْم الْظَرفْ"
+
+
             android:paddingEnd="3.0dip"
 
             android:textAlignment="center"
@@ -319,12 +320,13 @@
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/ismzarfheader"
+
+            android:id="@id/ismalaheader"
             android:layout_alignParentStart="true"
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
-            android:text="اِسْم الآلَة"
+
             android:paddingStart="5.0dip"
             android:paddingEnd="3.0dip"
 

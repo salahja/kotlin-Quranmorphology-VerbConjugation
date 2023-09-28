@@ -95,7 +95,7 @@ class FragmentIsmfaelIsmMafools : Fragment() {
 
     private fun initMazeedAdapterNew() {
         val arrayLists: ArrayList<ArrayList<*>> =
-            GatherAll.instance.buildAugmenteParticiples(verbroot!!, augmentedFormula!!)
+            GatherAll.instance.buildMazeedParticiples(verbroot!!, augmentedFormula!!)
         if (arrayLists.isNotEmpty()) {
             val ska = IsmFaelIsmMafoolSarfKabeerAdapter(arrayLists, requireContext(), false)
             recyclerView!!.adapter = ska

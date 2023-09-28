@@ -33,6 +33,7 @@ class TimeAndPlaceModifier private constructor() : IUnaugmentedTrilateralNounMod
         kov: Int,
         conjugations: List<*>,
         formula: String
+
     ): ConjugationResult {
         val conjResult = ConjugationResult(kov, root!!, conjugations as List<*>, formula)
         geminator.apply(conjResult.finalResult as MutableList<Any>, root!!)
@@ -47,4 +48,6 @@ class TimeAndPlaceModifier private constructor() : IUnaugmentedTrilateralNounMod
     companion object {
         val instance = TimeAndPlaceModifier()
     }
+
+
 }

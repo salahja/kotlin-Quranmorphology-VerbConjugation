@@ -129,6 +129,7 @@ class RulesMujarradVerbList : Fragment {
             val listing: ArrayList<ArrayList<*>> = GatherAll.instance.getMujarradListing(
                 verbmood, s.root
             )
+
             val ss = SarfSagheer()
             ss.weakness = listing[0][0].toString()
             ss.wazanname = listing[0][1].toString()

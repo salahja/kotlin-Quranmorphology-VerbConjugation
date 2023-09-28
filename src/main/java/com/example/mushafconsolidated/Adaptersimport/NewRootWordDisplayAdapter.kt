@@ -34,6 +34,7 @@ import com.example.utility.QuranGrammarApplication
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
 import org.sj.conjugator.fragments.SarfSagheer
+import org.sj.verbConjugation.FaelMafool
 
 class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter.ItemViewAdapter> {
     var mItemClickListener: OnItemClickListener? = null
@@ -487,11 +488,13 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
         Fonttypeface(holder)
         //   VerbHeader(holder);
         if (particples) {
+            val ismfael = ismfaelmafool[0][0]
+            val ismmafool = ismfaelmafool[0][1]
             setTypeFace(holder)
-            ismFael(holder)
-            ismFaelFem(holder)
-            ismMafool(holder)
-            ismMafoolFem(holder)
+            ismFael(ismfael as FaelMafool, holder)
+            ismFaelFem(ismfael as FaelMafool,holder)
+            ismMafool(ismmafool as FaelMafool,holder)
+            ismMafoolFem(ismmafool as FaelMafool,holder)
             gcase(holder)
             ismfaelmafoolnumbers(holder)
             fontSIzeSelection(holder)
@@ -569,17 +572,22 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
     }
 
     private fun ismFael(
-        holder: NewRootWordDisplayAdapter.ItemViewAdapter,
+        ismfael: FaelMafool,
+        holder: ItemViewAdapter,
                        ) {
-        val iisone: String = ismfaelmafool[0][0].toString() //isone);
-        val iistwo: String = ismfaelmafool[0][2].toString() //istwo);
-        val iisthree: String = ismfaelmafool[0][4].toString() //isthree);
-        val iisfour: String = ismfaelmafool[0][6].toString() //isfour);
-        val iisfive: String = ismfaelmafool[0][8].toString() //isfive);
-        val iissix: String = ismfaelmafool[0][10].toString() //issix);
-        val iisseven: String = ismfaelmafool[0][12].toString() //isseven);
-        val iiseight: String = ismfaelmafool[0][14].toString() //iseight);
-        val iisnine: String = ismfaelmafool[0][16].toString() //isnine);
+
+        val iisone =  ismfael.nomsinM!!.replace("[", "").replace("]", "");//[0].toString() //isone);
+        iisone.replace("[\"\\[ \\]]", "")
+        val iistwo =  ismfael.nomdualM//[2].toString() //istwo);
+        val iisthree =  ismfael.nomplurarM//[4].toString() //isthree);
+        val iisfour =  ismfael.accsinM//[6].toString() //isfour);
+        val iisfive =  ismfael.accdualM//[8].toString() //isfive);
+        val iissix =  ismfael.accplurarlM//[10].toString() //issix);
+        val iisseven =  ismfael.gensinM//[12].toString() //isseven);
+        val iiseight =  ismfael.gendualM//[14].toString() //iseight);
+        val iisnine =  ismfael.genplurarM//[16].toString() //isnine);
+
+
         fontSIzeSelection(holder)
         setTypeFace(holder)
         holder.isone?.text = iisone
@@ -594,17 +602,20 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
     }
 
     private fun ismFaelFem(
-        holder: NewRootWordDisplayAdapter.ItemViewAdapter,
+        ismfael: FaelMafool,
+        holder: ItemViewAdapter,
                           ) {
-        val iisone: String = ismfaelmafool[1][1].toString() //isone);
-        val iistwo: String = ismfaelmafool[1][3].toString() //istwo);
-        val iisthree: String = ismfaelmafool[1][5].toString() //isthree);
-        val iisfour: String = ismfaelmafool[1][7].toString() //isfour);
-        val iisfive: String = ismfaelmafool[1][9].toString() //isfive);
-        val iissix: String = ismfaelmafool[1][11].toString() //issix);
-        val iisseven: String = ismfaelmafool[1][13].toString() //isseven);
-        val iiseight: String = ismfaelmafool[1][15].toString() //iseight);
-        val iisnine: String = ismfaelmafool[1][17].toString() //isnine);
+        val iisone =  ismfael.nomsinF//[0].toString() //isone);
+        val iistwo =  ismfael.nomdualF//[2].toString() //istwo);
+        val iisthree =  ismfael.nomplurarF//[4].toString() //isthree);
+        val iisfour =  ismfael.accsinF//[6].toString() //isfour);
+        val iisfive =  ismfael.accdualF//[8].toString() //isfive);
+        val iissix =  ismfael.accplurarlF//[10].toString() //issix);
+        val iisseven =  ismfael.gensinF//[12].toString() //isseven);
+        val iiseight =  ismfael.gendualF//[14].toString() //iseight);
+        val iisnine =  ismfael.genplurarF!!.replace("[", "").replace("]", "")//[16].toString() //isnine);
+
+
         fontSIzeSelection(holder)
         setTypeFace(holder)
         holder.ismfemone?.text = iisone
@@ -618,16 +629,18 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
         holder.ismfemnine?.text = iisnine
     }
 
-    private fun ismMafoolFem(holder: NewRootWordDisplayAdapter.ItemViewAdapter) {
-        val smafone: String = ismfaelmafool[1][1].toString()
-        val smaftwo: String = ismfaelmafool[1][3].toString() //imaftwo);
-        val smafthree: String = ismfaelmafool[1][5].toString() //imafthree);
-        val smaffour: String = ismfaelmafool[1][7].toString() //imaffour);
-        val smaffive: String = ismfaelmafool[1][9].toString() //imaffive);
-        val smafsix: String = ismfaelmafool[1][11].toString() //imafseven);
-        val smafseven: String = ismfaelmafool[1][13].toString() //imafseven);
-        val smafeight: String = ismfaelmafool[1][15].toString() //imafeight);
-        val smafnine: String = ismfaelmafool[1][17].toString() //imafnine);
+    private fun ismMafoolFem(ismmafoolFem: FaelMafool, holder: ItemViewAdapter) {
+
+        val smafone =  ismmafoolFem.nomsinF//[2].toString() //istwo);
+        val smaftwo=ismmafoolFem.nomdualF
+        val smafthree =  ismmafoolFem.nomplurarF//[4].toString() //isthree);
+        val smaffour =  ismmafoolFem.accsinF//[6].toString() //isfour);
+        val smaffive =  ismmafoolFem.accdualF//[8].toString() //isfive);
+        val smafsix =  ismmafoolFem.accplurarlF//[10].toString() //issix);
+        val smafseven =  ismmafoolFem.gensinF//[12].toString() //isseven);
+        val smafeight =  ismmafoolFem.gendualF//[14].toString() //iseight);
+        val smafnine =  ismmafoolFem.genplurarF!!.replace("[", "").replace("]", "")//[16].toString() //isnine);
+
         fontSIzeSelection(holder)
         setTypeFace(holder)
         holder.imafoolfemone?.text = smafone
@@ -642,17 +655,19 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
     }
 
     private fun ismMafool(
-        holder: NewRootWordDisplayAdapter.ItemViewAdapter,
+        ismmafoolMas: FaelMafool,
+        holder: ItemViewAdapter,
                          ) {
-        val smafone: String = ismfaelmafool[0][0].toString()
-        val smaftwo: String = ismfaelmafool[0][2].toString() //imaftwo);
-        val smafthree: String = ismfaelmafool[0][4].toString() //imafthree);
-        val smaffour: String = ismfaelmafool[0][6].toString() //imaffour);
-        val smaffive: String = ismfaelmafool[0][8].toString() //imaffive);
-        val smafsix: String = ismfaelmafool[0][10].toString() //imafseven);
-        val smafseven: String = ismfaelmafool[0][12].toString() //imafseven);
-        val smafeight: String = ismfaelmafool[0][14].toString() //imafeight);
-        val smafnine: String = ismfaelmafool[0][16].toString() //imafnine);
+        val smafone =  ismmafoolMas.nomsinM!!.replace("[", "").replace("]", "")//[2].toString() //istwo);
+        val smaftwo=ismmafoolMas.nomdualM
+        val smafthree =  ismmafoolMas.nomplurarM//[4].toString() //isthree);
+        val smaffour =  ismmafoolMas.accsinM//[6].toString() //isfour);
+        val smaffive =  ismmafoolMas.accdualM//[8].toString() //isfive);
+        val smafsix =  ismmafoolMas.accplurarlM//[10].toString() //issix);
+        val smafseven =  ismmafoolMas.gensinM//[12].toString() //isseven);
+        val smafeight =  ismmafoolMas.gendualM//[14].toString() //iseight);
+        val smafnine =  ismmafoolMas.genplurarM//[16].toString() //isnine);
+
         fontSIzeSelection(holder)
         setTypeFace(holder)
         holder.imafone?.text = smafone

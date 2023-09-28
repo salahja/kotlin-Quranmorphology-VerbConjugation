@@ -90,6 +90,10 @@ class SarfMujarradSarfSagheerListingAdapter(
         holder.nahiamr.text = sagheer.nahiamrone
         holder.ismzarfheader.text = zarfheader
         holder.ismalaheader.text = alaheader
+
+
+
+
         zarf.append(sagheer.ismalaone as CharSequence?).append(", ").append(sagheer.ismalatwo)
             .append(", ").append(sagheer.ismalathree)
         ismala.append(sagheer.zarfone as CharSequence?).append(", ").append(sagheer.zarftwo)
