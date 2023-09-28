@@ -122,17 +122,6 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
     var verseNumber = 0
     var suraNumber = 0
     private var rukucount = 0
-    private fun RefreshActivity() {
-        val intent: Intent = this.intent
-        //  surah = getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
-        val parentActivityRef = intent.getStringExtra("PARENT_ACTIVITY_REF")
-
-        this.overridePendingTransition(0, 0)
-        startActivity(intent)
-        this.finish()
-        this.overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left)
-    }
-
     var surahname: String? = null
     private var mudhafColoragainstBlack = 0
     private var mausofColoragainstBlack = 0
@@ -334,7 +323,8 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
         kana = shared.getBoolean("kana", true)
         getpreferences()
         bundle = intent
-        if (bundle!!.extras != null) {
+        bundles = intent.extras
+        if (bundles!=null) {
             bundles = intent.extras
             //   if (bundle != null) {
             val lastread = bundles!!.getString(Constant.QURAN_VERB_ROOT)
@@ -342,7 +332,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 getpreferences()
                 chapterorpart = true
             } else {
-                val chapter = bundle!!.getIntExtra(Constant.CHAPTER, 1)
+                val chapter = bundles!!.getInt(Constant.SURAH_ID, 1)
                 mushafview = bundles!!.getBoolean("passages", false)
                 val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
                 val list = mainViewModel.loadListschapter().value
@@ -353,7 +343,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
 
                 surahArabicName = list!![chapter - 1].abjadname
                 //   setChapterno( bundle.etIntExtra(SURAH_ID,2));
-                verseNo = bundle!!.getIntExtra(Constant.AYAH_ID, 1)
+              //  verseNo = bundle!!.getIntExtra(Constant.AYAH_ID, 1)
                 versescount = list[chapter - 1].versescount
                 isMakkiMadani = list[chapter - 1].ismakki
                 rukucount = list[chapter - 1].rukucount
@@ -616,17 +606,17 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 suraNumber = position + 1
                 val sora: ChaptersAnaEntity = soraList[position]
                 //   surahIndex.inputType = suraNumber
-                val verseAdapter: ArrayAdapter<String?>
+                val verseAdapter1: ArrayAdapter<String?>
                 val versesNumbers = if (suraNumber == 1) sora.versescount + 1 else sora.versescount
                 val numbers = arrayOfNulls<String>(versesNumbers)
                 for (i in 1..versesNumbers) {
                     numbers[i - 1] = i.toString() + ""
                 }
-                verseAdapter = ArrayAdapter<String?>(
+                verseAdapter1 = ArrayAdapter<String?>(
                     this@QuranGrammarAct,
                     R.layout.spinner_layout_larg, numbers
-                                                    )
-                verses.adapter = verseAdapter
+                                                     )
+                verses.adapter = verseAdapter1
                 if (verseNumber <= numbers.size) {
                     verses.setSelection(verseNumber - 1)
                 } else {
