@@ -43,14 +43,17 @@ class Geminator {
      * @param conjResult ConjugationResult
      */
     fun apply(tense: String, active: Boolean, conjResult: ConjugationResult) {
-        if (genericGeminator.isApplied(conjResult)) genericGeminator.apply(
+        if (genericGeminator.isApplied(conjResult))
+            genericGeminator.apply(
             tense,
             active,
             conjResult
         )
         //else
-        if (tGeminator.isApplied(conjResult)) tGeminator.apply(tense, active, conjResult)
+        if (tGeminator.isApplied(conjResult))
+            tGeminator.apply(tense, active, conjResult)
         //else
-        if (nGeminator.isApplied(conjResult)) nGeminator.apply(tense, active, conjResult)
+        if (nGeminator.isApplied(conjResult))
+            nGeminator.apply(tense, active, conjResult)
     }
 }

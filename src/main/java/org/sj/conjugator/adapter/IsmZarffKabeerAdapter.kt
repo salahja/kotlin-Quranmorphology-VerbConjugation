@@ -13,6 +13,9 @@ import com.example.mushafconsolidated.R
 import com.example.utility.QuranGrammarApplication
 import org.sj.conjugator.interfaces.OnItemClickListener
 import org.sj.conjugator.utilities.SharedPref
+import org.sj.verbConjugation.IsmZarfMafalatun
+import org.sj.verbConjugation.IsmZarfMafalun
+import org.sj.verbConjugation.IsmZarfMafilun
 
 class IsmZarffKabeerAdapter(lists: ArrayList<ArrayList<*>>, private val context: Context) :
     RecyclerView.Adapter<IsmZarffKabeerAdapter.ViewHolder>() {
@@ -61,16 +64,21 @@ class IsmZarffKabeerAdapter(lists: ArrayList<ArrayList<*>>, private val context:
 //        final String[] array = (String[]) sarfSagheer.get(position).toArray();
         //   ArrayList list = sarfSagheer.get(position);
         //    position++;
-        val size = sarfSagheer[0].size
-        if (size > 1) {
-            Zarfmafal(holder, 0)
-            Zarfmafil(holder, 1)
-            Zarfmafalatun(holder, 2)
+
+        val mafil =sarfSagheer[0][0]
+        val mafalatun =sarfSagheer[1][0]
+        val mafalun = sarfSagheer[2][0]
+
+        Zarfmafalatun(mafalatun as IsmZarfMafalatun,holder, 2)
+        Zarfmafil(mafil as IsmZarfMafilun,holder, 1)
+            Zarfmafal(mafalun as IsmZarfMafalun,holder, 0)
+
+
             ismzarfnumbers(holder)
             gcase(holder)
             FontSIzeSelection(holder)
             SetTypeface(holder)
-        }
+
     }
 
     private fun gcase(holder: ViewHolder) {
@@ -127,15 +135,15 @@ class IsmZarffKabeerAdapter(lists: ArrayList<ArrayList<*>>, private val context:
         }
     }
 
-    private fun Zarfmafal(holder: ViewHolder, position: Int) {
-        val mafalunone = sarfSagheer[position][0].toString() //String smafalunone);
-        val mafaluntwo = sarfSagheer[position][1].toString() //String smafaluntwo);
+    private fun Zarfmafal(mafil: IsmZarfMafalun, holder: ViewHolder, position: Int) {
+        val mafalunone =  mafil.nomsinMafalun
+        val mafaluntwo = mafil.nomdualMafalun
         val mafalunthree = "" //String smafalunthree);
-        val mafalunfour = sarfSagheer[position][2].toString() //String smafalunfour);
-        val mafalunfive = sarfSagheer[position][3].toString() //String smafalunfive);
+        val mafalunfour = mafil.accsinMafalun
+        val mafalunfive =  mafil.accdualMafalun
         val mafalunsix = "" //String smafalunsix);
-        val mafalunseven = sarfSagheer[position][4].toString() //String smafalunseven);
-        val mafaluneight = sarfSagheer[position][5].toString() //String smafaluneight);
+        val mafalunseven =  mafil.gensinMafalun
+        val mafaluneight =  mafil.gendualMafalun
         val mafalunnine = "" //mafalunnine);
         holder.mafalunone.text = mafalunone
         holder.mafaluntwo.text = mafaluntwo
@@ -148,15 +156,15 @@ class IsmZarffKabeerAdapter(lists: ArrayList<ArrayList<*>>, private val context:
         holder.mafalunnine.text = mafalunnine
     }
 
-    private fun Zarfmafil(holder: ViewHolder, position: Int) {
-        val zarfmafalunone = sarfSagheer[position][0].toString() //String zarfmafalunone);
-        val zarfmafaluntwo = sarfSagheer[position][1].toString() //String zarfmafaluntwo);
+    private fun Zarfmafil(mafil: IsmZarfMafilun, holder: ViewHolder, position: Int) {
+        val zarfmafalunone =mafil.nomsinMafilun  //[0].toString() //String zarfmafalunone);
+        val zarfmafaluntwo =mafil.nomdualMafilun  //[1].toString() //String zarfmafaluntwo);
         val zarfmafalunthree = "-" //String zarfmafalunthree);
-        val zarfmafalunfour = sarfSagheer[position][2].toString() //String zarfmafalunfour);
-        val zarfmafalunfive = sarfSagheer[position][3].toString() //String zarfmafalunfive);
+        val zarfmafalunfour =mafil.accsinMafilun //[2].toString() //String zarfmafalunfour);
+        val zarfmafalunfive =mafil. accdualMafilun //[3].toString() //String zarfmafalunfive);
         val zarfmafalunsix = "-" //String zarfmafalunsix);
-        val zarfmafalunseven = sarfSagheer[position][4].toString() //String zarfmafalunseven);
-        val zarfmafaluneight = sarfSagheer[position][5].toString() //String zarfmafaluneight);
+        val zarfmafalunseven =mafil.gensinMafilun  //[4].toString() //String zarfmafalunseven);
+        val zarfmafaluneight =mafil.gendualMafilun  //[5].toString() //String zarfmafaluneight);
         val zarfmafalunnine = "-" //mifalatunnine);
         holder.zarfmafalunone.text = zarfmafalunone
         holder.zarfmafaluntwo.text = zarfmafaluntwo
@@ -169,15 +177,15 @@ class IsmZarffKabeerAdapter(lists: ArrayList<ArrayList<*>>, private val context:
         holder.zarfmafalunnine.text = zarfmafalunnine
     }
 
-    private fun Zarfmafalatun(holder: ViewHolder, position: Int) {
-        val zarffemone = sarfSagheer[position][0].toString() //String zarffemone);
-        val zarffemtwo = sarfSagheer[position][1].toString() //String zarffemtwo);
+    private fun Zarfmafalatun(mafalun: IsmZarfMafalatun, holder: ViewHolder, position: Int) {
+        val zarffemone =mafalun.nomsinMafalatun  //[0].toString() //String zarffemone);
+        val zarffemtwo =mafalun.nomdualMafalatun //[1].toString() //String zarffemtwo);
         val zarffemthree = "-" //String zarffemthree);
-        val zarffemfour = sarfSagheer[position][2].toString() //String zarffemfour);
-        val zarffemfive = sarfSagheer[position][3].toString() //String zarffemfive);
+        val zarffemfour =mafalun.accsinMafalatun  //[2].toString() //String zarffemfour);
+        val zarffemfive =mafalun.accdualMafalatun  //[3].toString() //String zarffemfive);
         val zarffemsix = "-" //String zarffemsix);
-        val zarffemseven = sarfSagheer[position][4].toString() //String zarffemseven);
-        val zarffemeight = sarfSagheer[position][5].toString() //String zarffemeight);
+        val zarffemseven =mafalun.gensinMafalatun  //[4].toString() //String zarffemseven);
+        val zarffemeight =mafalun.gendualMafalatun //[5].toString() //String zarffemeight);
         val zarffemnine = "-" //mifalatunnine);
         holder.zarffemone.text = zarffemone
         holder.zarffemtwo.text = zarffemtwo

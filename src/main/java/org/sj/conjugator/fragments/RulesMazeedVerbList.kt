@@ -28,6 +28,10 @@ import org.sj.conjugator.activity.ConjugatorTabsActivity
 import org.sj.conjugator.adapter.SarfMujarradSarfSagheerListingAdapter
 import org.sj.conjugator.interfaces.OnItemClickListener
 import org.sj.conjugator.utilities.GatherAll
+import org.sj.verbConjugation.AmrNahiAmr
+import org.sj.verbConjugation.FaelMafool
+import org.sj.verbConjugation.MadhiMudharay
+import org.sj.verbConjugation.VerbDetails
 import java.util.concurrent.Executors
 
 class RulesMazeedVerbList : Fragment {
@@ -136,7 +140,24 @@ class RulesMazeedVerbList : Fragment {
                 verbmood, s.root
             )
             val ss = SarfSagheer()
-            ss.weakness = listing[0][0].toString()
+            ss.weakness = (listing[3][0] as VerbDetails).verbtype
+            ss.wazanname =(listing[3][0] as VerbDetails).babname
+            ss.verbroot = (listing[3][0] as VerbDetails).verbroot
+            ss.madhi =(listing[0][0] as MadhiMudharay).hua
+            ss.madhimajhool = (listing[0][1] as MadhiMudharay).hua
+            ss.mudharay = (listing[0][2] as MadhiMudharay).hua
+            ss.mudharaymajhool = (listing[0][3] as MadhiMudharay).hua
+            ss.amrone =  (listing[2][0] as AmrNahiAmr).anta
+            ss.nahiamrone = (listing[2][1] as AmrNahiAmr).anta
+            ss.ismfael = (listing[1][0] as FaelMafool).nomsinM
+            ss.ismmafool = (listing[1][1] as FaelMafool).nomsinM
+
+
+
+            ss.verbtype = (listing[3][0] as VerbDetails).mazeedormujarad
+            ss.wazan = (listing[3][0] as VerbDetails).wazannumberorname
+
+/*            ss.weakness = listing[0][0].toString()
             ss.wazanname = listing[0][1].toString()
             ss.verbroot = listing[0][2].toString()
             ss.madhi = listing[0][3].toString()
@@ -154,7 +175,7 @@ class RulesMazeedVerbList : Fragment {
             ss.zarftwo = listing[0][15].toString()
             ss.zarfthree = listing[0][16].toString()
             ss.verbtype = listing[0][17].toString()
-            ss.wazan = listing[0][18].toString()
+            ss.wazan = listing[0][18].toString()*/
             ssagheer.add(ss)
         }
     }

@@ -2,8 +2,12 @@ package org.sj.verbConjugation.trilateral.unaugmented
 
 import org.sj.verbConjugation.AmrNahiAmr
 import org.sj.verbConjugation.FaelMafool
-import org.sj.verbConjugation.IsmAlaZarfSagheer
-import org.sj.verbConjugation.IsmZarf
+import org.sj.verbConjugation.IsmAlaMifaalun
+import org.sj.verbConjugation.IsmAlaMifalatun
+import org.sj.verbConjugation.IsmAlaMifalun
+import org.sj.verbConjugation.IsmZarfMafalatun
+import org.sj.verbConjugation.IsmZarfMafalun
+import org.sj.verbConjugation.IsmZarfMafilun
 import org.sj.verbConjugation.MadhiMudharay
 
 open class ConjugationResult(
@@ -18,8 +22,12 @@ open class ConjugationResult(
     var madhiMudharay: MadhiMudharay = MadhiMudharay()
     var faelMafool: FaelMafool = FaelMafool()
 
-    var ismala: IsmAlaZarfSagheer = IsmAlaZarfSagheer()
-    var ismzarf: IsmZarf = IsmZarf()
+    var zarfMafalun: IsmZarfMafalun = IsmZarfMafalun()
+    var zarfMafilun: IsmZarfMafilun = IsmZarfMafilun()
+    var zarfMafalatun: IsmZarfMafalatun =IsmZarfMafalatun()
+    var alaMifalun: IsmAlaMifalun =IsmAlaMifalun()
+    var alaMifalatun: IsmAlaMifalatun =IsmAlaMifalatun()
+    var alaMifaalun: IsmAlaMifaalun =IsmAlaMifaalun()
 
         var amrandnahi: AmrNahiAmr= AmrNahiAmr()
         protected set
@@ -29,100 +37,6 @@ open class ConjugationResult(
         this.root = root
         finalResult = ArrayList(originalResult)
 
-
-        val filterNotNull = originalResult.filterNotNull()
-
-
-        if(filterNotNull.size==5){
-
-
-             amrandnahi.anta= filterNotNull[0].toString()
-            amrandnahi.antuma= filterNotNull[2].toString()
-            amrandnahi.antum= filterNotNull[3].toString()
-            amrandnahi.anti= filterNotNull[1].toString()
-            amrandnahi.antumaf= filterNotNull[2].toString()
-            amrandnahi.antunna= filterNotNull[4].toString()
-
-        }
-
-      else  if(originalResult.size==13) {
-            val toString = finalResult.toString()
-            val split = toString.split(",")
-
-
-
-
-            madhiMudharay.hua = split[0]
-            madhiMudharay.huma = split[1]
-            madhiMudharay.hum = split[2]
-            madhiMudharay.hia = split[3]
-            madhiMudharay.humaf = split[4]
-            madhiMudharay.hunna = split[5]
-            madhiMudharay.anta = split[6]
-            madhiMudharay.antuma = split[7]
-            madhiMudharay.antum = split[8]
-            madhiMudharay.anti = split[9]
-            madhiMudharay.antumaf = split[7]
-            madhiMudharay.antunna = split[10]
-            madhiMudharay.ana = split[11]
-            madhiMudharay.nahnu = split[12]
-
-
-
-
-
-
-
-
-        }else if(originalResult.size==18  && originalResult[0].toString().isNotEmpty()){
-            val toString = finalResult.toString()
-            val split = toString.split(",")
-            faelMafool.nomsinM = split[0]//sinM
-            faelMafool.nomdualM  = split[2]//dualM
-            faelMafool.nomplurarM  = split[4]//plurarM
-            faelMafool.accsinM  = split[6]//sinM
-            faelMafool.accdualM  = split[8]//dualM
-            faelMafool.accplurarlM  = split[10]//plurarlM
-            faelMafool.gensinM  = split[12]//sinM
-            faelMafool.gendualM  = split[14]//dualM
-            faelMafool.genplurarM  = split[16]//plurarM
-
-
-            faelMafool. nomsinF  = split[1]//sinF
-            faelMafool. nomdualF  = split[3]//dualF
-            faelMafool. nomplurarF  = split[5]//plurarF
-            faelMafool. accsinF  = split[7]//sinF
-            faelMafool. accdualF  = split[9]//dualF
-            faelMafool. accplurarlF  = split[11]//plurarlF
-            faelMafool. gensinF  = split[13]//sinF
-            faelMafool. gendualF  = split[15]//dualF
-            faelMafool. genplurarF  = split[17]//plurarF
-
-        }
-        else if(originalResult.size==18  && originalResult[0].toString().isEmpty()) {
-
-            val toString = finalResult.toString()
-            val split = toString.split(",")
-            //1,3,7,9,13,14
-            faelMafool.nomsinM = split[0]//sinM
-            faelMafool.nomdualM = split[2]//dualM
-            faelMafool.nomplurarM = split[4]//plurarM
-            faelMafool.accsinM = split[6]//sinM
-            faelMafool.accdualM = split[8]//dualM
-            faelMafool.accplurarlM = split[10]//plurarlM
-            faelMafool.gensinM = split[12]//sinM
-            faelMafool.gendualM = split[14]//dualM
-            faelMafool.genplurarM = split[16]//plurarM
-            faelMafool.nomsinF = split[1]//sinF
-            faelMafool.nomdualF = split[3]//dualF
-            faelMafool.nomplurarF = split[5]//plurarF
-            faelMafool.accsinF = split[7]//sinF
-            faelMafool.accdualF = split[9]//dualF
-            faelMafool.accplurarlF = split[11]//plurarlF
-            faelMafool.gensinF = split[13]//sinF
-            faelMafool.gendualF = split[15]//dualF
-            faelMafool.genplurarF = split[17]
-        }
 
 
     }

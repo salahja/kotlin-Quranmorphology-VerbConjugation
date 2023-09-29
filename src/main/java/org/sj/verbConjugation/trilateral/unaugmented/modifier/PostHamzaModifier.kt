@@ -27,7 +27,7 @@ import org.sj.verbConjugation.util.SystemConstants
  * @version 1.0
  */
 class PostHamzaModifier {
-    private val modifiersMap: MutableMap<String, AbstractLamMahmouz> = HashMap()
+    private val modifiersMap: HashMap<String, AbstractLamMahmouz> = HashMap()
 
     init {
         //خمس أنواع  أساسية  للمهموز للمعلوم والمبني لمجهول في الماضي والمضارع والأمر

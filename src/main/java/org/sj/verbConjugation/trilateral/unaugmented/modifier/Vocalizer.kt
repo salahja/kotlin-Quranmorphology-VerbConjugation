@@ -148,6 +148,10 @@ class Vocalizer {
         imperativeList.add(Imperative3Vocalizer())
         imperativeList.add(org.sj.verbConjugation.trilateral.unaugmented.modifier.vocalizer.mithal.Imperative1Vocalizer())
         imperativeList.add(org.sj.verbConjugation.trilateral.unaugmented.modifier.vocalizer.mithal.Imperative2Vocalizer())
+
+        //        imperativeList.add(new org.sj.verbConjugation.trilateral.unaugmented.modifier.vocalizer.mithal.Imperative2Vocalizer());
+
+
     }
 
     /**
@@ -167,6 +171,8 @@ class Vocalizer {
                 (vocalizer as SubstitutionsApplier).apply(conjResult.finalResult as MutableList<Any>, conjResult.root!!)
                 break
             }
+
+            
         }
     }
 }

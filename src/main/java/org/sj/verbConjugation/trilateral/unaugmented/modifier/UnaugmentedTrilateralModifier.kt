@@ -29,7 +29,10 @@ class UnaugmentedTrilateralModifier private constructor() {
     private val vocalizer = Vocalizer()
     private val hamzaModifier = HamzaModifier()
     private val postHamzaModifier = PostHamzaModifier()
+  
 
+
+  
     /**
      * اخراج قائمة الأفعال بعد التعديلات
      * البدء بالادغام
@@ -57,6 +60,53 @@ class UnaugmentedTrilateralModifier private constructor() {
         postHamzaModifier.apply(tense, active, conjResult)
 
         VerbLamAlefModifier.instance.apply(conjResult)
+        val filterNotNull = conjResult.finalResult.filterNotNull()
+
+
+        if(filterNotNull.size==5){
+
+
+            conjResult.amrandnahi.anta= filterNotNull[0].toString()
+            conjResult.amrandnahi.antuma= filterNotNull[2].toString()
+            conjResult.amrandnahi.antum= filterNotNull[3].toString()
+            conjResult.amrandnahi.anti= filterNotNull[1].toString()
+            conjResult.amrandnahi.antumaf= filterNotNull[2].toString()
+            conjResult.amrandnahi.antunna= filterNotNull[4].toString()
+
+        }
+
+        else  if( conjResult.finalResult.size==13) {
+            val toString =  conjResult.finalResult.toString()
+            val split = toString.split(",")
+
+
+
+
+            conjResult.madhiMudharay.hua = split[0]
+            conjResult.madhiMudharay.huma = split[1]
+            conjResult.madhiMudharay.hum = split[2]
+            conjResult.madhiMudharay.hia = split[3]
+            conjResult.madhiMudharay.humaf = split[4]
+            conjResult.madhiMudharay.hunna = split[5]
+            conjResult.madhiMudharay.anta = split[6]
+            conjResult.madhiMudharay.antuma = split[7]
+            conjResult.madhiMudharay.antum = split[8]
+            conjResult.madhiMudharay.anti = split[9]
+            conjResult.madhiMudharay.antumaf = split[7]
+            conjResult.madhiMudharay.antunna = split[10]
+            conjResult.madhiMudharay.ana = split[11]
+            conjResult.madhiMudharay.nahnu = split[12]
+            
+
+
+
+
+
+
+
+
+        }
+
         return conjResult
     }
 

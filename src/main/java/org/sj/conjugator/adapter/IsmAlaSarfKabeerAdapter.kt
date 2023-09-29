@@ -13,6 +13,9 @@ import com.example.mushafconsolidated.R
 import com.example.utility.QuranGrammarApplication
 import org.sj.conjugator.interfaces.OnItemClickListener
 import org.sj.conjugator.utilities.SharedPref
+import org.sj.verbConjugation.IsmAlaMifaalun
+import org.sj.verbConjugation.IsmAlaMifalatun
+import org.sj.verbConjugation.IsmAlaMifalun
 
 @Suppress("SameParameterValue", "SameParameterValue", "SameParameterValue", "SameParameterValue",
     "SameParameterValue", "SameParameterValue"
@@ -54,9 +57,13 @@ class IsmAlaSarfKabeerAdapter(lists: ArrayList<ArrayList<*>>, private val contex
         // } else {
         //     IsmAlamifalmifalatun(holder, 0);
         //  }
-        IsmAlamifalmifal(holder, 0)
-        IsmAlaMifalatun(holder, 1)
-        IsmAlaMifaal(holder, 2)
+        val mifalun =sarfSagheer[0][0]
+        val mifalatun =sarfSagheer[1][0]
+        val mifaalun = sarfSagheer[2][0]
+
+        IsmAlamifalmifal(mifalun as IsmAlaMifalun ,holder, 0)
+        IsmAlaMifalatun(mifalatun as IsmAlaMifalatun,holder, 1)
+        IsmAlaMifaal(mifaalun as IsmAlaMifaalun     ,holder, 2)
         gcase(holder)
         ismalanumbers(holder)
         FontSIzeSelection(holder)
@@ -118,15 +125,15 @@ class IsmAlaSarfKabeerAdapter(lists: ArrayList<ArrayList<*>>, private val contex
         }
     }
 
-    private fun IsmAlaMifaal(holder: ViewHolder, position: Int) {
-        val mifaalone = sarfSagheer[position][0].toString() //String mifaalone);
-        val mifaaltwo = sarfSagheer[position][1].toString() //String mifaaltwo);
+    private fun IsmAlaMifaal(mifaal: IsmAlaMifaalun, holder: ViewHolder, position: Int) {
+        val mifaalone =  mifaal.nomsinMifaalun
+        val mifaaltwo = mifaal.nomdualMifaalun
         val mifaalthree = "-" //String mifaalthree);
-        val mifaalfour = sarfSagheer[position][2].toString() //String mifaalfour);
-        val mifaalfive = sarfSagheer[position][3].toString() //String mifaalfive);
+        val mifaalfour =  mifaal.accsinMifaalun
+        val mifaalfive = mifaal.accdualMifaalun
         val mifaalsix = "-" //String mifaalsix);
-        val mifaalseven = sarfSagheer[position][4].toString() //String mifaalseven);
-        val mifaaleight = sarfSagheer[position][5].toString() //String mifaaleight);
+        val mifaalseven =  mifaal.gensinMifaalun
+        val mifaaleight =  mifaal.gendualMifaalun
         val mifaalnine = "-" //mifaalnine);
         //     FontSIzeSelection(holder);
         SetTypeface(holder)
@@ -141,15 +148,15 @@ class IsmAlaSarfKabeerAdapter(lists: ArrayList<ArrayList<*>>, private val contex
         holder.mifaalnine.text = mifaalnine
     }
 
-    private fun IsmAlamifalmifal(holder: ViewHolder, position: Int) {
-        val mifalone = sarfSagheer[position][0].toString() //String smifalone);
-        val mifaltwo = sarfSagheer[position][1].toString() //String smifaltwo);
+    private fun IsmAlamifalmifal(mifal: IsmAlaMifalun, holder: ViewHolder, position: Int) {
+        val mifalone =mifal.nomsinMifalun
+        val mifaltwo = mifal.nomdualMifalun //String smifaltwo);
         val mifalthree = "-" //String smifalthree);
-        val mifalfour = sarfSagheer[position][2].toString() //String smifalfour);
-        val mifalfive = sarfSagheer[position][3].toString() //String smifalfive);
+        val mifalfour =mifal.accsinMifalun
+        val mifalfive = mifal.accdualMifalun
         val mifalsix = "-"
-        val mifalseven = sarfSagheer[position][4].toString() //String smifalseven);
-        val mifaleight = sarfSagheer[position][5].toString() //String smifaleight);
+        val mifalseven = mifal.gensinMifalun
+        val mifaleight = mifal.gendualMifalun//String smifaleight);
         val mifalnine = "-" //mifalnine);
         //    FontSIzeSelection(holder);
         SetTypeface(holder)
@@ -166,15 +173,15 @@ class IsmAlaSarfKabeerAdapter(lists: ArrayList<ArrayList<*>>, private val contex
         holder.mifalnine.text = mifalnine
     }
 
-    private fun IsmAlaMifalatun(holder: ViewHolder, position: Int) {
-        val mifalatunone = sarfSagheer[position][0].toString() //String mifalatunone);
-        val mifalatuntwo = sarfSagheer[position][1].toString() //String mifalatuntwo);
+    private fun IsmAlaMifalatun(mifalatun: IsmAlaMifalatun, holder: ViewHolder, position: Int) {
+        val mifalatunone = mifalatun.nomsinMifalatun
+        val mifalatuntwo = mifalatun.nomdualMifalatun
         val mifalatunthree = "-" //String mifalatunthree);
-        val mifalatunfour = sarfSagheer[position][2].toString() //String mifalatunfour);
-        val mifalatunfive = sarfSagheer[position][3].toString() //String mifalatunfive);
+        val mifalatunfour = mifalatun.accsinMifalatun
+        val mifalatunfive = mifalatun.accdualMifalatun
         val mifalatunsix = "-" //String mifalatunsix);
-        val mifalatunseven = sarfSagheer[position][4].toString() //String mifalatunseven);
-        val mifalatuneight = sarfSagheer[position][5].toString() //String mifalatuneight);
+        val mifalatunseven =mifalatun.gensinMifalatun
+        val mifalatuneight =mifalatun.gendualMifalatun
         val mifalatunnine = "-" //mifalatunnine);
         //    FontSIzeSelection(holder);
         SetTypeface(holder)

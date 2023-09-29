@@ -38,12 +38,13 @@ class HamzaModifier {
     private val modifiersMap: MutableMap<String, List<SubstitutionsApplier>> = HashMap()
 
     init {
-        val activePastList: MutableList<SubstitutionsApplier> = LinkedList()
-        val passivePastList: MutableList<SubstitutionsApplier> = LinkedList()
-        val activePresentList: MutableList<SubstitutionsApplier> = LinkedList()
-        val passivePresentList: MutableList<SubstitutionsApplier> = LinkedList()
-        val imperativeList: MutableList<SubstitutionsApplier> = LinkedList()
-        val emphasizedImperativeList: MutableList<SubstitutionsApplier> = LinkedList()
+        val activePastList: LinkedList<SubstitutionsApplier> = LinkedList()
+      //  val activePastList: MutableList<SubstitutionsApplier> = LinkedList()
+        val passivePastList: LinkedList<SubstitutionsApplier> = LinkedList()
+        val activePresentList: LinkedList<SubstitutionsApplier> = LinkedList()
+        val passivePresentList: LinkedList<SubstitutionsApplier> = LinkedList()
+        val imperativeList: LinkedList<SubstitutionsApplier> = LinkedList()
+        val emphasizedImperativeList: LinkedList<SubstitutionsApplier> = LinkedList()
 
         //خمس أنواع  أساسية  للمهموز للمعلوم والمبني لمجهول في الماضي والمضارع والأمر
         modifiersMap[SystemConstants.PAST_TENSE + "true"] = activePastList
@@ -56,6 +57,7 @@ class HamzaModifier {
         modifiersMap[SystemConstants.PRESENT_TENSE + "false"] = passivePresentList
 
         //قائمة الماضي المبني لمعلوم
+
         activePastList.add(ActivePastMahmouz())
         activePastList.add(org.sj.verbConjugation.trilateral.unaugmented.modifier.hamza.faa.ActivePastMahmouz())
         activePastList.add(org.sj.verbConjugation.trilateral.unaugmented.modifier.hamza.lam.ActivePastMahmouz())
