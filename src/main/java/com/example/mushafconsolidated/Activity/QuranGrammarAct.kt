@@ -1,5 +1,6 @@
 package com.example.mushafconsolidated.Activity
 
+import ArabicrootListFragment
 import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.app.Dialog
@@ -53,7 +54,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import arabicrootListFragment
 import com.example.Constant
 import com.example.Constant.SURAHFRAGTAG
 import com.example.mushafconsolidated.BottomOptionDialog
@@ -80,6 +80,7 @@ import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.model.NewQuranCorpusWbw
 import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
+
 import com.example.mushafconsolidated.settingsimport.Constants
 import com.example.mushafconsolidatedimport.ParticleColorScheme
 import com.example.utility.CorpusUtilityorig
@@ -467,7 +468,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 val fragmentManager: FragmentManager = supportFragmentManager
                 val transaction = fragmentManager.beginTransaction()
                 transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
-                val newCustomFragment = arabicrootListFragment.newInstance("word")
+                val newCustomFragment = ArabicrootListFragment.newInstance("word")
                 //    newCustomFragment.arguments = bundle
                 transaction.replace(
                     R.id.frame_container_qurangrammar,
@@ -487,12 +488,14 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 val fragmentManager: FragmentManager = supportFragmentManager
                 val transaction = fragmentManager.beginTransaction()
                 transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
-                val newCustomFragment = arabicrootListFragment.newInstance("verb")
+                val newCustomFragment = ArabicrootListFragment.newInstance("VERB")
+              //  QuranVerbRootListFragment
+
                 //    newCustomFragment.arguments = bundle
                 transaction.replace(
                     R.id.frame_container_qurangrammar,
                     newCustomFragment,
-                    "rootfragment"
+                    "verbfragment"
                                    )
                 transaction.addToBackStack(null)
                 transaction.commit()
