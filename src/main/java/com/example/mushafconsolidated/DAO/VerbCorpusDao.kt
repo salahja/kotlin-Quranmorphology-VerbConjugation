@@ -20,4 +20,7 @@ interface VerbCorpusDao {
     fun getQuranRootbyString(root: String?): List<VerbCorpus?>?
     @Query("SELECT count(root_a) as count, * FROM verbcorpus where root_a=:verbroot   group by root_a,form order by chapterno,verseno")
     fun allverbcount(verbroot :String): List<VerbCorpus>
+
+    @Query("select * from verbcorpus where root_a  LIKE  :arg  group by root_a order by root_a  ")
+    fun getQuranVerbsByfirstletter(arg: String?): List<VerbCorpus>
 }

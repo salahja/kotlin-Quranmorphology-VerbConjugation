@@ -25,7 +25,7 @@
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.example.roots.arabicrootDetailFragment" />
+        tools:context="com.example.quranroots.ArabicrootDetailFragment" />
 
     <TextView
         android:id="@+id/verbsaw"

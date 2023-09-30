@@ -1,4 +1,4 @@
-package com.example.roots
+package com.example.quranroots
 
 import android.os.Bundle
 import android.view.LayoutInflater

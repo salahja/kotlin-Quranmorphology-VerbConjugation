@@ -566,6 +566,10 @@ class Utils {
     fun getByfirstletter(id: String): List<qurandictionary> {
         return  database.qurandictionaryDao().getByfirstletter(id)
     }
+    fun getQuranVerbsByfirstletter(id: String): List<VerbCorpus> {
+        return  database.VerbCorpusDao().getQuranVerbsByfirstletter(id)
+    }
+
 
     companion object {
         private const val TAG: String = "Utils"

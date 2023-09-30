@@ -6,7 +6,7 @@
     app:startDestination="@id/fragment_arabicroot_detail">
     <fragment
         android:id="@+id/fragment_arabicroot_detail"
-        android:name="com.example.roots.arabicrootDetailFragment"
+        android:name="com.example.quranroots.ArabicrootDetailFragment"
         android:label="@string/title_arabicroot_detail"
         tools:layout="@layout/fragment_arabicroot_detail">
         <argument

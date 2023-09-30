@@ -17,19 +17,19 @@ import com.example.Constant.WORDDETAILS
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.databinding.ArabicrootListContentBinding
 import com.example.mushafconsolidated.databinding.FragmentArabicrootListBinding
-import com.example.roots.arabicrootDetailFragment
-import com.example.roots.placeholder.PlaceholderContent
+import com.example.quranroots.ArabicrootDetailFragment
+import com.example.quranroots.placeholder.PlaceholderContent
 
 
 /**
  * A fragment representing a list of arabicrootitems. This fragment
  * has different presentations for handset and larger screen devices. On
  * handsets, the fragment presents a list of items, which when touched,
- * lead to a [arabicrootDetailFragment] representing
+ * lead to a [ArabicrootDetailFragment] representing
  * item details. On larger screens, the Navigation controller presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-class arabicrootListFragment : Fragment() {
+class ArabicrootListFragment : Fragment() {
     private var iswordorverb: String? = null
 
     /**
@@ -119,7 +119,7 @@ class arabicrootListFragment : Fragment() {
                 val item =
                     itemView.tag as PlaceholderContent.PlaceholderItem
                 val arguments = Bundle()
-                arguments.putString(arabicrootDetailFragment.ARG_ITEM_ID, item.id)
+                arguments.putString(ArabicrootDetailFragment.ARG_ITEM_ID, item.id)
                 arguments.putString(WORDDETAILS, iswordorverb)
                 if (mItemDetailFragmentContainer != null) {
                     findNavController(mItemDetailFragmentContainer)
@@ -178,8 +178,8 @@ class arabicrootListFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(wordorverb: String?): arabicrootListFragment {
-            val fragment = arabicrootListFragment()
+        fun newInstance(wordorverb: String?): ArabicrootListFragment {
+            val fragment = ArabicrootListFragment()
             val args = Bundle()
             args.putString(WORDDETAILS, wordorverb)
             fragment.arguments = args

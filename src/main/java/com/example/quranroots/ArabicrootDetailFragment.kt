@@ -1,5 +1,6 @@
-package com.example.roots
+package com.example.quranroots
 
+import ArabicrootListFragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,22 +12,21 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import arabicrootListFragment
 import com.example.Constant.QURAN_VERB_ROOT
 import com.example.Constant.WORDDETAILS
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.databinding.FragmentArabicrootDetailBinding
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
-import com.example.roots.placeholder.PlaceholderContent
+import com.example.quranroots.placeholder.PlaceholderContent
 import com.google.android.material.appbar.CollapsingToolbarLayout
 
 /**
  * A fragment representing a single arabicroot detail screen.
- * This fragment is either contained in a [arabicrootListFragment]
+ * This fragment is either contained in a [ArabicrootListFragment]
  * in two-pane mode (on larger screen devices) or self-contained
  * on handsets.
  */
-class arabicrootDetailFragment
+class ArabicrootDetailFragment
 /**
  * Mandatory empty constructor for the fragment manager to instantiate the
  * fragment (e.g. upon screen orientation changes).

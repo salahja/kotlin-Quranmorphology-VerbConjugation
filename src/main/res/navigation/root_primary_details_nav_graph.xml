@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/arabicroot_list_fragment"
-        android:name="com.example.roots.arabicrootDetailFragment"
+        android:name="com.example.quranroots.ArabicrootDetailFragment"
         android:label="arabicrootListFragment">
         <argument
             android:name="worddetail"
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/arabicroot_detail_fragment"
-        android:name="com.example.roots.arabicrootDetailFragment"
+        android:name="com.example.quranroots.ArabicrootDetailFragment"
         android:label="arabicroot_detail"
         tools:layout="@layout/fragment_arabicroot_detail">
         <argument
