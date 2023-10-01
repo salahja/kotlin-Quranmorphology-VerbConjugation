@@ -21,8 +21,8 @@
         app:layout_constraintEnd_toStartOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.example.roots.arabicrootDetailHostActivity"
-        tools:listitem="@layout/arabicroot_list_content" />
+
+        tools:listitem="@layout/verbroot_list_content" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -34,7 +34,7 @@
         app:layout_constraintGuide_begin="@dimen/item_width" />
 
     <fragment
-        android:id="@+id/arabicroot_detail_nav_container"
+        android:id="@+id/verbroot_detail_nav_container"
 
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
         app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:navGraph="@navigation/root_primary_details_sub_nav_graph" />
+        app:navGraph="@navigation/verb_root_primary_details_sub_nav_graph" />
 
     <View
         android:id="@+id/divider2"

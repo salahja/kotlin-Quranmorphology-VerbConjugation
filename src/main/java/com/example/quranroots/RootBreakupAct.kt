@@ -60,6 +60,7 @@ import org.sj.conjugator.utilities.ArabicLiterals
 import java.util.concurrent.Executors
 import java.util.regex.Pattern
 
+
 class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener {
     private lateinit var binding: ActivityRootBreakupBinding
     lateinit var shared: SharedPreferences
@@ -184,14 +185,29 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
 */
                 //    dataBundle.putSerializable("map", datas)
 
-                    val fragmentManagers = supportFragmentManager
+                 /*   val fragmentManagers = supportFragmentManager
                     val transactions = fragmentManagers.beginTransaction()
                     transactions.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
                     val fragvsi = TopicDetailsFrag.newInstance(newbundle)
                     fragvsi.arguments = newbundle
-                    transactions.replace(R.id.frame_container, fragvsi)
+                    transactions.add(R.id.frame_container, fragvsi)
                     transactions.addToBackStack(null)
-                    transactions.commit()
+                    transactions.commit()*/
+                
+
+                    val item = TopicDetailsFrag()
+                    val fragmentManager = supportFragmentManager
+                    item.arguments = newbundle
+
+                    fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out).show(item)
+
+
+
+
+
+
+
 
 
 
@@ -254,12 +270,12 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                             newbundle.putString(ARABICWORD, wordDetails.arabic)
                             newbundle.putString(WORDMEANING, wordDetails.en)
                             newbundle.putSerializable("map", datas)
-             /*               val intents = Intent(this@RootBreakupAct, TopicDetailAct::class.java)
+                      val intents = Intent(this@RootBreakupAct, TopicDetailAct::class.java)
                             intents.putExtras(newbundle)
                             startActivity(intents)
-*/
 
 
+/*
                             val fragmentManagers = supportFragmentManager
                             val transactions = fragmentManagers.beginTransaction()
                             transactions.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
@@ -267,12 +283,15 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                             fragvsi.arguments = newbundle
                             transactions.add(R.id.frame_container, fragvsi)
                             transactions.addToBackStack(null)
-                            transactions.commit()
+                            transactions.commit()*/
 
 
-
-
-
+                        /*    val topfrag: TopicDetailsFrag = TopicDetailsFrag.newInstance(newbundle)
+                            topfrag.show(
+                                supportFragmentManager,
+                                TopicDetailsFrag.TAG
+                            )
+*/
 
 
 

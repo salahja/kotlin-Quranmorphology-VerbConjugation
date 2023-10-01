@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -49,7 +49,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [TopicDetailsFrag.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TopicDetailsFrag : Fragment1(), OnItemClickListenerOnLong {
+class TopicDetailsFrag : DialogFragment(), OnItemClickListenerOnLong {
     private lateinit var maps: HashMap<String, String>
     private lateinit var flowAyahWordAdapter: NewTopicFlowAyahWordAdapter
 
@@ -63,7 +63,9 @@ class TopicDetailsFrag : Fragment1(), OnItemClickListenerOnLong {
     private lateinit var mainViewModel: QuranVIewModel
     private lateinit var newcorpusayahWordArrayList: ArrayList<QuranCorpusWbw>
     private lateinit var arrayofquran: ArrayList<ArrayList<QuranEntity>>
-    private lateinit var arrayofadapterlist: ArrayList<LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>>
+  private lateinit var arrayofadapterlist: ArrayList<LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>>
+ //   private lateinit var layoutBottomSheet: RelativeLayout
+ //   private var sheetBehavior: BottomSheetBehavior<RelativeLayout?>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle: Bundle? = arguments
@@ -79,6 +81,8 @@ class TopicDetailsFrag : Fragment1(), OnItemClickListenerOnLong {
         arrayofquran = ArrayList()
         arrayofadapterlist = ArrayList()
         val bundle: Bundle? = arguments
+       // layoutBottomSheet = view.findViewById(R.id.bottom_sheet)
+      //  sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet)
         val surahArrays = resources.getStringArray(R.array.surahdetails)
         if (maps.size != 0) {
 
@@ -195,6 +199,7 @@ class TopicDetailsFrag : Fragment1(), OnItemClickListenerOnLong {
         corpusSurahWord = mainViewModel.getQuranCorpusWbwbysurahAyah(suraid, ayah).value
         val corpus = CorpusUtilityorig(requireContext())
         this.newnewadapterlist = corpus.composeWBWCollection(allofQuran, corpusSurahWord)
+
         this.allofQuran?.let { arrayofquran.add(it) }
         corpus.setKana(newnewadapterlist, suraid, ayah, newnewadapterlist.size)
 

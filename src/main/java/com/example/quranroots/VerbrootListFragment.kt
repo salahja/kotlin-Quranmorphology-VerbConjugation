@@ -1,3 +1,5 @@
+
+
 import android.content.ClipData
 import android.content.ClipDescription
 import android.os.Bundle
@@ -15,21 +17,13 @@ import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant.WORDDETAILS
 import com.example.mushafconsolidated.R
-import com.example.mushafconsolidated.databinding.ArabicrootListContentBinding
-import com.example.mushafconsolidated.databinding.FragmentArabicrootListBinding
+import com.example.mushafconsolidated.databinding.FragmentVerbrootListBinding
+import com.example.mushafconsolidated.databinding.VerbrootListContentBinding
 import com.example.quranroots.ArabicrootDetailFragment
 import com.example.quranroots.placeholder.PlaceholderContent
+import com.example.quranroots.placeholder.VerbHolderContent
 
-
-/**
- * A fragment representing a list of arabicrootitems. This fragment
- * has different presentations for handset and larger screen devices. On
- * handsets, the fragment presents a list of items, which when touched,
- * lead to a [ArabicrootDetailFragment] representing
- * item details. On larger screens, the Navigation controller presents the list of items and
- * item details side-by-side using two vertical panes.
- */
-class ArabicrootListFragment : Fragment() {
+class VerbrootListFragment : Fragment() {
     private var iswordorverb: String? = null
 
     /**
@@ -57,32 +51,31 @@ class ArabicrootListFragment : Fragment() {
             }
             false
         }
-    private  var binding: FragmentArabicrootListBinding?=null
+    private  var binding: FragmentVerbrootListBinding?=null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentArabicrootListBinding.inflate(inflater, container, false)
+        binding = FragmentVerbrootListBinding.inflate(inflater, container, false)
         val bundle = this.arguments
         iswordorverb = bundle!!.getString(WORDDETAILS)
         return binding!!.root
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding  = null
-    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         ViewCompat.addOnUnhandledKeyEventListener(view, unhandledKeyEventListenerCompat)
-        val recyclerView = binding!!.arabicrootList
+        val recyclerView = binding?.arabicrootList
 
         // Leaving this not using view binding as it relies on if the view is visible the current
         // layout configuration (layout, layout-sw600dp)
         val itemDetailFragmentContainer =
-            view.findViewById<View>(R.id.arabicroot_detail_nav_container)
+            view.findViewById<View>(R.id.verbroot_detail_nav_container)
         requireArguments().getString(WORDDETAILS)
-        setupRecyclerView(recyclerView, itemDetailFragmentContainer)
+        if (recyclerView != null) {
+            setupRecyclerView(recyclerView, itemDetailFragmentContainer)
+        }
     }
 
     private fun setupRecyclerView(
@@ -90,22 +83,22 @@ class ArabicrootListFragment : Fragment() {
         itemDetailFragmentContainer: View
     ) {
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(
-            PlaceholderContent.ITEMS,
+            VerbHolderContent.ITEMS,
             itemDetailFragmentContainer, iswordorverb
         )
     }
 
     private class SimpleItemRecyclerViewAdapter(
-        private val mValues: List<PlaceholderContent.PlaceholderItem>,
+        private val mValues: List<VerbHolderContent.ItemHolder>,
         private val mItemDetailFragmentContainer: View?, private val iswordorverb: String?
                                                ) :
         RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val binding = ArabicrootListContentBinding.inflate(
+            val binding = VerbrootListContentBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+                                                              )
             return ViewHolder(binding)
         }
 
@@ -120,15 +113,15 @@ class ArabicrootListFragment : Fragment() {
             holder.itemView.tag = mValues[position]
             holder.itemView.setOnClickListener { itemView: View ->
                 val item =
-                    itemView.tag as PlaceholderContent.PlaceholderItem
+                    itemView.tag as VerbHolderContent.ItemHolder
                 val arguments = Bundle()
                 arguments.putString(ArabicrootDetailFragment.ARG_ITEM_ID, item.id)
                 arguments.putString(WORDDETAILS, iswordorverb)
                 if (mItemDetailFragmentContainer != null) {
                     findNavController(mItemDetailFragmentContainer)
-                        .navigate(R.id.fragment_arabicroot_detail, arguments)
+                        .navigate(R.id.fragment_verbroot_detail, arguments)
                 } else {
-                    findNavController(itemView).navigate(R.id.show_arabicroot_detail, arguments)
+                    findNavController(itemView).navigate(R.id.show_verbroot_detail, arguments)
                 }
             }
             /*
@@ -168,7 +161,7 @@ class ArabicrootListFragment : Fragment() {
             return mValues.size
         }
 
-        inner class ViewHolder(binding: ArabicrootListContentBinding) :
+        inner class ViewHolder(binding: VerbrootListContentBinding) :
             RecyclerView.ViewHolder(binding.root) {
             val mIdView: TextView
             val mContentView: TextView
@@ -180,9 +173,14 @@ class ArabicrootListFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding= null
+    }
+
     companion object {
-        fun newInstance(wordorverb: String?): ArabicrootListFragment {
-            val fragment = ArabicrootListFragment()
+        fun newInstance(wordorverb: String?): VerbrootListFragment {
+            val fragment = VerbrootListFragment()
             val args = Bundle()
             args.putString(WORDDETAILS, wordorverb)
             fragment.arguments = args
