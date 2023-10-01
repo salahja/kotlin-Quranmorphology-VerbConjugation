@@ -25,7 +25,11 @@ interface QuranDao {
 
     fun getQuranCorpusWbwbysurah(surahid: Int): List<QuranCorpusWbw>
 
+    @Transaction
+    @Query("SELECT * FROM CorpusExpand JOIN wbw ON wbw.id = CorpusExpand.id where  CorpusExpand.rootaraone||CorpusExpand.rootaratwo ||CorpusExpand.rootarathree||CorpusExpand.rootarafour||CorpusExpand.rootarafive=:root")
 
+
+    fun getQuranCorpusWbwbyRoot(root: String): List<QuranCorpusWbw>
     @Transaction
     @Query("SELECT * FROM CorpusExpand JOIN wbw ON wbw.id = CorpusExpand.id where corpusexpand.surah=:surahid and corpusexpand.ayah=:ayahid")
 
@@ -93,6 +97,12 @@ where CorpusExpand.surah=1 and CorpusExpand.ayah=1 and CorpusExpand.wordno=2
     fun getsurahayahVerseslist(surahid: Int, ayahid: Int): List<QuranEntity>
     @Query("SELECT * FROM qurans where surah=:surahid")
     fun getQuranVersesBySurahl(surahid: Int):  List<QuranEntity>
+
+    @Query("SELECT * FROM qurans where surah=:surahid")
+    fun getquranbyRoot(surahid: Int):  List<QuranEntity>
+
+
+
     @Query("select * from qurans where  surah =:sura and page = :pageno order by ayah")
     fun getAyahsByPagel(sura: Int, pageno: Int): LiveData<List<QuranEntity>>
 

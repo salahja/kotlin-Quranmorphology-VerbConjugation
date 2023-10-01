@@ -85,6 +85,7 @@ import com.example.mushafconsolidated.settingsimport.Constants
 import com.example.mushafconsolidatedimport.ParticleColorScheme
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.QuranGrammarApplication
+import com.example.voiceai.VoiceRecognitionActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -111,6 +112,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
     private var bundles: Bundle? = null
     private lateinit var mainViewModel: QuranVIewModel
     private var corpusSurahWord: List<QuranCorpusWbw>? = null
+
     private var newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
     private lateinit var newflowAyahWordAdapter: newFlowAyahWordAdapter
     lateinit var binding: NewFragmentReadingBinding
@@ -508,7 +510,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
             if (item.itemId == R.id.search) {
                 drawerLayout.closeDrawers()
                 materialToolbar.title = "Root Word Search"
-                val search = Intent(this, SearchKeyBoardAct::class.java)
+                val search = Intent(this, VoiceRecognitionActivity::class.java)
                 startActivity(search)
             }
             if (item.itemId == R.id.searchtopic) {

@@ -22,6 +22,7 @@ class RootWordDetails {
     var wordcount: Int = 0
     var surah: Int = 0
     var ayah: Int = 0
+    var wordno: Int=0
     var rootarabic: String? = null
     var en: String? = null
     var abjadname: String? = null
@@ -46,6 +47,7 @@ class RootWordDetails {
         wordcount: Int,
         surah: Int,
         ayah: Int,
+        wordno:Int,
         rootarabic: String?,
         en: String?,
         abjadname: String?,
@@ -68,6 +70,7 @@ class RootWordDetails {
         this.wordcount = wordcount
         this.surah = surah
         this.ayah = ayah
+        this.wordno=wordno
         this.rootarabic = rootarabic
         this.en = en
         this.abjadname = abjadname

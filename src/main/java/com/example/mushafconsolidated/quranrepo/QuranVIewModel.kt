@@ -374,6 +374,7 @@ class QuranVIewModel(
         return allquran
     }
 
+
     fun getQuranCorpusWbwbysurah(cid: Int): LiveData<List<QuranCorpusWbw>> {
 
 
@@ -384,6 +385,21 @@ class QuranVIewModel(
 
         return qurancorpus
     }
+    fun getQuranCorpusWbwbyroot(root: String): LiveData<List<QuranCorpusWbw>> {
+
+
+        viewModelScope.launch {
+            qurancorpus.value = newrepository.getQuranCorpusWbwbyroot(root)
+        }
+
+
+        return qurancorpus
+    }
+
+
+
+
+
     fun getQuranCorpusWbwbysurahAyah(cid: Int,aid : Int): LiveData<List<QuranCorpusWbw>> {
 
 

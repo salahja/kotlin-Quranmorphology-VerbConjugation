@@ -149,9 +149,12 @@ class QuranRepository(
 
 
     fun getQuranCorpusWbwbysurah(cid: Int): List<QuranCorpusWbw> = qurandao.getQuranCorpusWbwbysurah(cid)
-
+    fun getQuranCorpusWbwbyroot(root: String): List<QuranCorpusWbw> = qurandao .getQuranCorpusWbwbyRoot(root)
     fun getQuranCorpusWbwbysurahAyah(cid : Int,aid : Int): List<QuranCorpusWbw> = qurandao.getQuranCorpusWbwSurhAyah(cid,aid)
     fun getsurahbychap(cid: Int): List<QuranEntity> = qurandao.getQuranVersesBySurahl(cid)
+
+
+
     fun getsurahbyayahlist(cid: Int,ayid : Int):List<QuranEntity> = qurandao.getsurahayahVerseslist(cid,ayid)
     fun getHansRoot(cid: String): List<hanslexicon> = hansdao.getHansDefinitionl(cid)
     fun getLanesRoot(cid: String): List<lanerootdictionary> = lanesdao.getLanesRootDefinition(cid)
