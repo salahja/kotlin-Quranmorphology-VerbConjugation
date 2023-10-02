@@ -1,8 +1,6 @@
 package com.example.mushafconsolidated.fragments
 
 
-
-
 import android.content.Context
 import android.text.SpannableStringBuilder
 import com.example.mushafconsolidated.Entities.NounCorpus
@@ -20,12 +18,13 @@ open class NewQuranMorphologyDetails(
     corpusNounWord: ArrayList<NounCorpus>?,
     verbCorpuses: ArrayList<VerbCorpus>?,
     context: Context?
-                                    ) {
+) {
     open var form = 0
     open var Thulathi: String? = null
 
     // --Commented out by Inspection (16/08/23, 1:44 pm):private CorpusWbwWord word;
     private var corpusNoun: ArrayList<NounCorpus>? = corpusNounWord
+
     //  private var corpusSurahWord: ArrayList<NewCorpusExpandWbwPOJO>? = null
     private var corpusSurahWord: ArrayList<QuranCorpusWbw>? = null
     private var verbcorpusform: ArrayList<VerbCorpus>? = verbCorpuses
@@ -53,12 +52,14 @@ open class NewQuranMorphologyDetails(
                         when (thulathibab.length) {
                             0 -> vbdetail["thulathi"] =
                                 null
+
                             1 -> {
                                 val s: String? = verbcorpusform!![0].thulathibab
                                 val sb = getThulathiName(s)
                                 vbdetail["thulathi"] = sb.toString()
                                 vbdetail["wazan"] = thulathibab
                             }
+
                             else -> {
                                 thulathibab.length
                                 val s = thulathibab.substring(0, 1)
@@ -123,23 +124,51 @@ open class NewQuranMorphologyDetails(
 
 
 
-                            if(  corpusSurahWord!![0].corpus.wordcount==3){
-                                if(corpusSurahWord!![0].corpus.detailsone!!.contains("EMPH") && corpusSurahWord!![0].corpus.detailsone!!.contains("EMPH")){
-                                    vbdetail["emph"]="EMPH"
-                                }
 
-                            }
+                        if (corpusSurahWord!![0].corpus.detailsone!!.contains("SUFFIX|+n:EMPH") || corpusSurahWord!![0].corpus.detailstwo!!.contains(
+                                "SUFFIX|+n:EMPH"
+                            )
+                            || corpusSurahWord!![0].corpus.detailsthree!!.contains("SUFFIX|+n:EMPH") || corpusSurahWord!![0].corpus.detailsfour!!.contains(
+                                "SUFFIX|+n:EMPH"
+                            )
+                            || corpusSurahWord!![0].corpus.detailsfour!!.contains("SUFFIX|+n:EMPH")
+                        ) {
+                            vbdetail["emph"] = "EMPH"
+                        }
+
 
                     }
 
                     "JUS" -> {
                         vbdetail["mood"] = verbfeaturesenglisharabic.JUS
                         vbdetail["verbmood"] = "Jussive"
+
+                        if (corpusSurahWord!![0].corpus.detailsone!!.contains("SUFFIX|+n:EMPH") || corpusSurahWord!![0].corpus.detailstwo!!.contains(
+                                "SUFFIX|+n:EMPH"
+                            )
+                            || corpusSurahWord!![0].corpus.detailsthree!!.contains("SUFFIX|+n:EMPH") || corpusSurahWord!![0].corpus.detailsfour!!.contains(
+                                "SUFFIX|+n:EMPH"
+                            )
+                            || corpusSurahWord!![0].corpus.detailsfour!!.contains("SUFFIX|+n:EMPH")
+                        ) {
+                            vbdetail["emph"] = "EMPH"
+                        }
                     }
 
                     "SUBJ" -> {
                         vbdetail["mood"] = verbfeaturesenglisharabic.SUBJ
                         vbdetail["verbmood"] = "Subjunctive"
+
+                        if (corpusSurahWord!![0].corpus.detailsone!!.contains("SUFFIX|+n:EMPH") || corpusSurahWord!![0].corpus.detailstwo!!.contains(
+                                "SUFFIX|+n:EMPH"
+                            )
+                            || corpusSurahWord!![0].corpus.detailsthree!!.contains("SUFFIX|+n:EMPH") || corpusSurahWord!![0].corpus.detailsfour!!.contains(
+                                "SUFFIX|+n:EMPH"
+                            )
+                            || corpusSurahWord!![0].corpus.detailsfour!!.contains("SUFFIX|+n:EMPH")
+                        ) {
+                            vbdetail["emph"] = "EMPH"
+                        }
                     }
 
                 }
@@ -195,14 +224,15 @@ open class NewQuranMorphologyDetails(
             )
             //    wordbdetail["wordtranslation"] =
             //       SpannableStringBuilder.valueOf(corpusSurahWord!!.get(0).wbw.en)
-            val arabicword: String = corpusSurahWord!![0].corpus.araone+(corpusSurahWord!![0].corpus.aratwo+(
-                    corpusSurahWord!![0].corpus.arathree
-                            +(
-                            corpusSurahWord!![0].corpus.arafour
-                                    +(corpusSurahWord!![0].corpus.arafour)+ corpusSurahWord!![0].corpus.arafive
-                            )
-                    )
-                    )
+            val arabicword: String =
+                corpusSurahWord!![0].corpus.araone + (corpusSurahWord!![0].corpus.aratwo + (
+                        corpusSurahWord!![0].corpus.arathree
+                                + (
+                                corpusSurahWord!![0].corpus.arafour
+                                        + (corpusSurahWord!![0].corpus.arafour) + corpusSurahWord!![0].corpus.arafive
+                                )
+                        )
+                        )
             wordbdetail["arabicword"] = SpannableStringBuilder.valueOf(arabicword)
             if (corpusNoun!!.size > 0) {
                 if (corpusNoun!![0].proptwo.equals(CorpusConstants.NominalsProp.PCPL)) {
@@ -220,7 +250,7 @@ open class NewQuranMorphologyDetails(
                     if (corpusNoun!![0].proptwo.equals("PCPL")) {
                         wordbdetail["PCPL"] =
                             SpannableStringBuilder.valueOf(
-                                corpusNoun!![0].propone+(
+                                corpusNoun!![0].propone + (
                                         corpusNoun!![0].proptwo
                                         )
                             )
@@ -463,12 +493,12 @@ open class NewQuranMorphologyDetails(
         wordbdetail: HashMap<String, SpannableStringBuilder?>
     ) {
         if (corpusSurahWord.size > 0) {
-            if (corpusSurahWord[0].corpus.wordcount=== 1) {
+            if (corpusSurahWord[0].corpus.wordcount === 1) {
                 if (corpusSurahWord[0].corpus.rootaraone!!.isNotEmpty()) {
                     wordbdetail["root"] =
                         SpannableStringBuilder.valueOf(corpusSurahWord[0].corpus.rootaraone!!)
                 }
-            } else if (corpusSurahWord[0].corpus.wordcount=== 2) {
+            } else if (corpusSurahWord[0].corpus.wordcount === 2) {
                 if (corpusSurahWord[0].corpus.rootaraone!!.isNotEmpty()) {
                     wordbdetail["root"] =
                         SpannableStringBuilder.valueOf(corpusSurahWord[0].corpus.rootaraone!!)
@@ -476,7 +506,7 @@ open class NewQuranMorphologyDetails(
                     wordbdetail["root"] =
                         SpannableStringBuilder.valueOf(corpusSurahWord[0].corpus.rootaratwo)
                 }
-            } else if (corpusSurahWord[0].corpus.wordcount=== 3) {
+            } else if (corpusSurahWord[0].corpus.wordcount === 3) {
                 if (corpusSurahWord[0].corpus.rootaraone!!.isNotEmpty()) {
                     wordbdetail["root"] =
                         SpannableStringBuilder.valueOf(corpusSurahWord[0].corpus.rootaraone!!)
@@ -487,7 +517,7 @@ open class NewQuranMorphologyDetails(
                     wordbdetail["root"] =
                         SpannableStringBuilder.valueOf(corpusSurahWord[0].corpus.rootarathree)
                 }
-            } else if (corpusSurahWord[0].corpus.wordcount=== 4) {
+            } else if (corpusSurahWord[0].corpus.wordcount === 4) {
                 if (corpusSurahWord[0].corpus.rootaraone!!.isNotEmpty()) {
                     wordbdetail["root"] =
                         SpannableStringBuilder.valueOf(corpusSurahWord[0].corpus.rootaraone!!)
@@ -501,7 +531,7 @@ open class NewQuranMorphologyDetails(
                     wordbdetail["root"] =
                         SpannableStringBuilder.valueOf(corpusSurahWord[0].corpus.rootarafour)
                 }
-            } else if (corpusSurahWord[0].corpus.wordcount=== 5) {
+            } else if (corpusSurahWord[0].corpus.wordcount === 5) {
                 if (corpusSurahWord[0].corpus.rootaraone!!.isNotEmpty()) {
                     wordbdetail["root"] =
                         SpannableStringBuilder.valueOf(corpusSurahWord[0].corpus.rootaraone!!)
@@ -536,7 +566,7 @@ open class NewQuranMorphologyDetails(
         val arathree: String = corpusSurahWord[0].corpus.arathree!!
         val arafour: String = corpusSurahWord[0].corpus.arafour!!
         val arafive: String = corpusSurahWord[0].corpus.arafive!!
-        if (corpusSurahWord[0].corpus.wordcount=== 1) {
+        if (corpusSurahWord[0].corpus.wordcount === 1) {
             //noun yelllo
             //verb cyan
             //
@@ -551,7 +581,7 @@ open class NewQuranMorphologyDetails(
             if (corpusSurahWord[0].corpus.detailsone!!.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
             }
-        } else if (corpusSurahWord[0].corpus.wordcount=== 2) {
+        } else if (corpusSurahWord[0].corpus.wordcount === 2) {
             wordbdetail["lemma"] = SpannableStringBuilder.valueOf(
                 corpusSurahWord[0].corpus.lemaraone + corpusSurahWord[0].corpus.lemaratwo
             )
@@ -583,7 +613,7 @@ open class NewQuranMorphologyDetails(
             )
             wordbdetail["word"] = SpannableStringBuilder.valueOf(spannableString)
             wordbdetail["worddetails"] = SpannableStringBuilder.valueOf(tagspannables)
-        } else if (corpusSurahWord[0].corpus.wordcount=== 3) {
+        } else if (corpusSurahWord[0].corpus.wordcount === 3) {
             val sb = StringBuilder()
             wordbdetail["lemma"] = SpannableStringBuilder.valueOf(
                 (corpusSurahWord[0].corpus.lemaraone + corpusSurahWord[0].corpus.lemaratwo +
@@ -591,7 +621,7 @@ open class NewQuranMorphologyDetails(
             )
             val one: Int = corpusSurahWord[0].corpus.araone!!.length //2
             val two: Int = corpusSurahWord[0].corpus.aratwo!!.length //3
-            var expandTagsthree=""
+            var expandTagsthree = ""
             val expandTagsone = expandTags(
                 corpusSurahWord[0].corpus.tagone!!
             )
@@ -600,12 +630,12 @@ open class NewQuranMorphologyDetails(
             )
 
             expandTagsthree =
-                if( corpusSurahWord[0].corpus.detailsthree!!.contains("SUFFIX|+n:EMPH")){
+                if (corpusSurahWord[0].corpus.detailsthree!!.contains("SUFFIX|+n:EMPH")) {
                     "EMPH – emphatic suffix nūn"
-                }else {
+                } else {
                     expandTags(
                         corpusSurahWord[0].corpus.tagthree!!
-                              )
+                    )
                 }
 
 
@@ -640,7 +670,7 @@ open class NewQuranMorphologyDetails(
             } else if (corpusSurahWord[0].corpus.detailsthree!!.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
             }
-        } else if (corpusSurahWord[0].corpus.wordcount=== 4) {
+        } else if (corpusSurahWord[0].corpus.wordcount === 4) {
             wordbdetail["lemma"] = SpannableStringBuilder.valueOf(
                 (corpusSurahWord[0].corpus.lemaraone + corpusSurahWord[0].corpus.lemaratwo +
                         corpusSurahWord[0].corpus.lemarathree)
@@ -689,7 +719,7 @@ open class NewQuranMorphologyDetails(
             } else if (corpusSurahWord[0].corpus.detailsfour!!.contains("SP:kaAn")) {
                 wordbdetail["spkana"] = SpannableStringBuilder.valueOf("spkana")
             }
-        } else if (corpusSurahWord[0].corpus.wordcount=== 5) {
+        } else if (corpusSurahWord[0].corpus.wordcount === 5) {
             val expandTagsone = expandTags(
                 corpusSurahWord[0].corpus.tagone!!
             )
@@ -757,7 +787,7 @@ open class NewQuranMorphologyDetails(
         corpusSurahWord: ArrayList<QuranCorpusWbw>?,
         wordbdetail: HashMap<String, SpannableStringBuilder?>
     ) {
-        if (corpusSurahWord!![0].corpus.wordcount=== 1) {
+        if (corpusSurahWord!![0].corpus.wordcount === 1) {
             if (corpusSurahWord!![0].corpus.tagone.equals("PRON")) {
                 //   String[] parts = corpusSurahWord.get(0).getDetailsone().toString().split("\"|");
                 val gendernumber: String =
@@ -767,7 +797,7 @@ open class NewQuranMorphologyDetails(
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
-        } else if (corpusSurahWord!![0].corpus.wordcount=== 2) {
+        } else if (corpusSurahWord!![0].corpus.wordcount === 2) {
             if (corpusSurahWord!![0].corpus.tagtwo.equals("PRON")) {
                 val gendernumber: String =
                     corpusSurahWord[0].corpus.detailstwo!!.replace("^.*?(\\w+)\\W*$", "$1")
@@ -775,7 +805,7 @@ open class NewQuranMorphologyDetails(
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
-        } else if (corpusSurahWord!![0].corpus.wordcount=== 3) {
+        } else if (corpusSurahWord!![0].corpus.wordcount === 3) {
             if (corpusSurahWord!![0].corpus.tagthree.equals("PRON")) {
                 //   String[] parts = corpusSurahWord.get(0).corpus.getDetailsthree().toString().split("|");
                 val gendernumber: String =
@@ -784,14 +814,14 @@ open class NewQuranMorphologyDetails(
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
-        } else if (corpusSurahWord!![0].corpus.wordcount=== 4) {
+        } else if (corpusSurahWord!![0].corpus.wordcount === 4) {
             if (corpusSurahWord!![0].corpus.tagfour.equals("PRON")) {
                 val parts: List<String> = corpusSurahWord[0].corpus.detailsfour!!.split("\\|")
                 val gendernumber = parts[parts.size - 1]
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
-        } else if (corpusSurahWord!![0].corpus.wordcount=== 5) {
+        } else if (corpusSurahWord!![0].corpus.wordcount === 5) {
             if (corpusSurahWord!![0].corpus.tagfive.equals("PRON")) {
                 val parts: List<String> = corpusSurahWord[0].corpus.detailsfive!!.split("\\|")
                 val gendernumber = parts[parts.size - 1]
@@ -805,7 +835,7 @@ open class NewQuranMorphologyDetails(
         corpusSurahWord: ArrayList<QuranCorpusWbw>?,
         wordbdetail: HashMap<String, SpannableStringBuilder>
     ) {
-        if (corpusSurahWord!![0].corpus.wordcount=== 1) {
+        if (corpusSurahWord!![0].corpus.wordcount === 1) {
             if (corpusSurahWord!![0].corpus.tagone.equals("PRON")) {
                 //   String[] parts = corpusSurahWord.get(0).corpus.getDetailsone().toString().split("\"|");
                 val gendernumber: String =
@@ -823,7 +853,7 @@ open class NewQuranMorphologyDetails(
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
-        } else if (corpusSurahWord!![0].corpus.wordcount=== 3) {
+        } else if (corpusSurahWord!![0].corpus.wordcount === 3) {
             if (corpusSurahWord!![0].corpus.tagthree.equals("PRON")) {
                 //   String[] parts = corpusSurahWord!!.get(0).corpus.getDetailsthree().toString().split("|");
                 val gendernumber: String =
@@ -832,14 +862,14 @@ open class NewQuranMorphologyDetails(
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
-        } else if (corpusSurahWord!![0].corpus.wordcount=== 4) {
+        } else if (corpusSurahWord!![0].corpus.wordcount === 4) {
             if (corpusSurahWord!![0].corpus.tagfour.equals("PRON")) {
                 val parts: List<String> = corpusSurahWord[0].corpus.detailsfour!!.split("\\|")
                 val gendernumber = parts[parts.size - 1]
                 val builder = getGenderNumberdetails(gendernumber)
                 wordbdetail["PRON"] = SpannableStringBuilder.valueOf(builder)
             }
-        } else if (corpusSurahWord!![0].corpus.wordcount=== 5) {
+        } else if (corpusSurahWord!![0].corpus.wordcount === 5) {
             if (corpusSurahWord!![0].corpus.tagfive.equals("PRON")) {
                 val parts: List<String> = corpusSurahWord[0].corpus.detailsfive!!.split("\\|")
                 val gendernumber = parts[parts.size - 1]

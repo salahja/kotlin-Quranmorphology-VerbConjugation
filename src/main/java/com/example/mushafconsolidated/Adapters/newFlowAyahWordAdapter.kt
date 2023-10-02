@@ -1011,11 +1011,11 @@ class newFlowAyahWordAdapter(
     private fun storepreferences(entity: QuranEntity) {
         val pref = context.getSharedPreferences("lastread", Context.MODE_PRIVATE)
         val editor = pref.edit()
-        editor.putInt(Constant.CHAPTER, entity.surah)
+        editor.putInt(Constant.SURAH_ID, entity.surah)
         editor.putInt(Constant.AYAH_ID, entity.ayah)
         editor.putString(Constant.SURAH_ARABIC_NAME, SurahName)
         editor.apply()
-        //  editor.commit();
+        editor.commit();
     }
 
     private fun setChapterInfo(holder: ItemViewAdapter, verse: ArrayList<NewQuranCorpusWbw>?) {

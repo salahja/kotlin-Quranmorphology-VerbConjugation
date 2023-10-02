@@ -230,7 +230,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
         val ayakursi = view.findViewById<TextView>(R.id.ayatkursi)
         val pref = Objects.requireNonNull(requireContext())
             .getSharedPreferences("lastread", Context.MODE_PRIVATE)
-        lastreadchapterno = pref.getInt(Constant.CHAPTER, 1)
+        lastreadchapterno = pref.getInt(Constant.SURAH_ID, 1)
         lastreadverseno = pref.getInt(Constant.AYAH_ID, 1)
         val sbss = StringBuilder()
         sbss.append("Last read").append(":").append("Surah").append(lastreadchapterno).append(" ")
@@ -257,12 +257,17 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
             val intent =
                 Intent(QuranGrammarApplication.context!!, QuranGrammarAct::class.java)
             //  Intent intent = new Intent(DarkThemeApplication.context!!, ReadingSurahPartActivity.class);
-            intent.putExtra("chapter", lastreadchapterno)
+            intent.putExtra(SURAH_ID, lastreadchapterno)
             intent.putExtra("chapterorpart", true)
             intent.putExtra("partname", allAnaChapters[lastreadchapterno - 1].abjadname)
             intent.putExtra(Constant.AYAH_ID, lastreadverseno)
             intent.putExtra(Constant.AYAHNUMBER, lastreadverseno)
             startActivity(intent)
+
+
+
+
+
         }
         kahaf.setOnClickListener { v: View? ->
             val intent = Intent(

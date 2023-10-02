@@ -172,54 +172,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
     var chapterno = 0
     private lateinit var parentRecyclerView: RecyclerView
     private var mushafview = false
-    /*   private val viewModelS: MazeedViewModel by viewModels {
-           MazeedViewModelFactoryies(
-               (this.application as QuranGrammarApplication).database.quranDao()
-           )
-       }
-   */
-    /*
-       @Deprecated("Deprecated in Java")
-        override fun onBackPressed() {
-           val hasCategory = getIntent().hasCategory(Intent.CATEGORY_LAUNCHER)
-           supportFragmentManager.restoreBackStack("SURAH")
-           super.onBackPressed()
-          // val fragments: NewSurahDisplayFrag =  supportFragmentManager.findFragmentByTag("SURAH") as NewSurahDisplayFrag
 
-          // val fragment = supportFragmentManager.findFragmentByTag("SURAH")
-          //  if (fragment !is IOnBackPressed || !(fragment as IOnBackPressed).onBackPressed()) {
-          //      super.onBackPressed()
-          //  }
-            //  finish();
-        }
-
-    */
-    /*    override fun onBackPressed() {
-      //  super.onBackPressed()
-        //   super.onBackPressed()
-        val setIntent = Intent(Intent.ACTION_MAIN)
-        setIntent.addCategory(Intent.CATEGORY_HOME)
-        setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(setIntent)
-    //    super.onBackPressed();
-    }*/
-    /*override fun onBackPressed() {
-
-    val fms = this
-        ?.supportFragmentManager
-    if (fms != null) {
-        fms.popBackStack()
-    }
-//    return
-    val fm: android.app.FragmentManager? = fragmentManager
-
-    for (entry in 0 until fm!!.backStackEntryCount) {
-        Log.i(TAG, "Found fragment: " + fm!!.getBackStackEntryAt(entry).id)
-    }
-
-    super.onBackPressed()
-
-}*/
     override fun onBackPressed() {
         val myFragment: NewSurahDisplayFrag? =
             supportFragmentManager.findFragmentByTag(SURAHFRAGTAG) as NewSurahDisplayFrag?
@@ -329,12 +282,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
         bundles = intent.extras
         if (bundles!=null) {
             bundles = intent.extras
-            //   if (bundle != null) {
-            val lastread = bundles!!.getString(Constant.QURAN_VERB_ROOT)
-            if (null != lastread && lastread == "quran") {
-                getpreferences()
-                chapterorpart = true
-            } else {
+
                 val chapter = bundles!!.getInt(Constant.SURAH_ID, 1)
                 mushafview = bundles!!.getBoolean("passages", false)
                 val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
@@ -353,7 +301,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 bundles = null
                 bundle = null
                 SetTranslation()
-            }
+
         } else {
             initView()
             initnavigation()
@@ -551,7 +499,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
 
     private fun getpreferences() {
         val pref = applicationContext.getSharedPreferences("lastread", MODE_PRIVATE)
-        chapterno = pref.getInt(Constant.CHAPTER, 1)
+        chapterno = pref.getInt(Constant.SURAH_ID, 1)
         verseNo = pref.getInt(Constant.AYAH_ID, 1)
         surahname = pref.getString(Constant.SURAH_ARABIC_NAME, "")
         surahArabicName = surahname.toString()

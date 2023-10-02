@@ -15,8 +15,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant.AYAH_ID
-import com.example.Constant.CHAPTER
 import com.example.Constant.SURAH_ARABIC_NAME
+import com.example.Constant.SURAH_ID
 import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
@@ -411,11 +411,11 @@ class LineMushaAudioAdapter(
     private fun storepreferences(entity: QuranEntity) {
         val pref = context.getSharedPreferences("lastread", Context.MODE_PRIVATE)
         val editor = pref.edit()
-        editor.putInt(CHAPTER, entity.surah)
+        editor.putInt(SURAH_ID, entity.surah)
         editor.putInt(AYAH_ID, entity.ayah)
         editor.putString(SURAH_ARABIC_NAME, SurahName)
         editor.apply()
-        //  editor.commit();
+   editor.commit();
     }
 
     inner class ItemViewAdapter internal constructor(view: View, viewType: Int) :
