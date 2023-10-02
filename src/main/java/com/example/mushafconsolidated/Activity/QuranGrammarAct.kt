@@ -314,15 +314,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
             isMakkiMadani = list[chapterno - 1].ismakki
             rukucount = list[chapterno - 1].rukucount
             surahArabicName = surahname.toString()
-            //    SetTranslation();
-            /*         val fragmentManager = supportFragmentManager
-                     val transaction = fragmentManager.beginTransaction()
-                     transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
-                     val newCustomFragment = NewSurahDisplayFrag.newInstance()
-                     transaction.replace(R.id.frame_container, newCustomFragment)
-                     transaction.addToBackStack("surah")
-                     transaction.commit()
-         */
+
 
             supportFragmentManager.commit {
                 replace<NewSurahDisplayFrag>(R.id.frame_container_qurangrammar,SURAHFRAGTAG)
@@ -593,21 +585,22 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
 
             override fun onNothingSelected(adapterView: AdapterView<*>?) {}
         }
-        ok.setOnClickListener { }
+
         ok.setOnClickListener {
             jumpDialog.dismiss()
+            verseNo=verseNumber
             //    soraList.get(suraNumber).getAbjadname();
-            this@QuranGrammarAct.surahArabicName =
+             surahArabicName =
                 (suraNumber.toString() + "-" + soraList[suraNumber - 1].nameenglish + "-" + soraList[suraNumber - 1].abjadname)
-            this@QuranGrammarAct.surahArabicName = (soraList[suraNumber - 1].abjadname)
+            surahArabicName = (soraList[suraNumber - 1].abjadname)
             //  ayahIndex.getInputType();
             //   val text = ayahIndex.text
-            this@QuranGrammarAct.versescount = (soraList[suraNumber - 1].versescount)
-            this@QuranGrammarAct.isMakkiMadani = (soraList[suraNumber - 1].ismakki)
-            this@QuranGrammarAct.rukucount = (soraList[suraNumber - 1].rukucount)
-            this@QuranGrammarAct.currentSelectSurah = (suraNumber)
+           versescount = (soraList[suraNumber - 1].versescount)
+             isMakkiMadani = (soraList[suraNumber - 1].ismakki)
+          rukucount = (soraList[suraNumber - 1].rukucount)
+           currentSelectSurah = suraNumber
             //  setVerse_no(verseNumber);
-            this@QuranGrammarAct.chapterno = (suraNumber)
+               //      chapterno = suraNumber
 
             parentRecyclerView = findViewById(R.id.overlayViewRecyclerView)
 
@@ -619,7 +612,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
 
 
             parentRecyclerView = findViewById(R.id.overlayViewRecyclerView)
-            if (currentSelectSurah == surah_id) {
+            if (currentSelectSurah == this.chapterno) {
                 parentRecyclerView.post {
                     parentRecyclerView.scrollToPosition(
                         verseNo
@@ -627,8 +620,12 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 }
             } else {
                 jumptostatus = true
-                this@QuranGrammarAct.surahorpart = (currentSelectSurah)
-                this@QuranGrammarAct.surah_id = (currentSelectSurah)
+
+
+                surahorpart = currentSelectSurah
+                surah_id = currentSelectSurah
+                this.chapterno = currentSelectSurah
+
                 ExecuteSurahWordByWord()
                 //     asyncTaskcorpus = new refactoringcurrentSurahSyncWordByWord().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
@@ -881,8 +878,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
         dialog: AlertDialog,
         ex: CoroutineScope,
         corpus: CorpusUtilityorig,
-        listener: OnItemClickListenerOnLong,
-                       ) {
+        listener: OnItemClickListenerOnLong,) {
         runOnUiThread { dialog.show() }
         ex.launch {
             mafoolbihiwords = mainViewModel.getMafoolSurah(chapterno).value
@@ -944,6 +940,11 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
             header.add(chapterno.toString())
             header.add(surahArabicName)
             HightLightKeyWord()
+            runOnUiThread {
+                dialog.dismiss()
+            }
+
+
             val viewmodel: QuranVIewModel by viewModels()
             if (!mushafview) {
                 // viewmodel.getVersesBySurahLive(chapterno).observe(this, {
@@ -972,11 +973,9 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 parentRecyclerView.post { parentRecyclerView.scrollToPosition(verseNo) }
                 //   })
             }
-            runOnUiThread {
-                dialog.dismiss()
-            }
+
         }
-        //}
+
     }
 
     private fun HightLightKeyWord() {

@@ -121,7 +121,7 @@ class ActivitySettings : BaseActivity(),
         } else if (pref.key == "Exit") {
             val readingintent = intent
             finish()
-            startActivity(readingintent)
+
         }
         return true
     }
