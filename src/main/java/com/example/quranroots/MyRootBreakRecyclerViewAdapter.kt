@@ -1,5 +1,6 @@
 package com.example.quranroots
 
+import android.preference.PreferenceManager
 import android.text.SpannableString
 import android.text.TextUtils
 import android.view.Gravity
@@ -14,8 +15,10 @@ import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.fragments.refWordMorphologyDetails
 import com.example.mushafconsolidated.model.QuranCorpusWbw
+import com.example.mushafconsolidatedimport.Config
 import com.example.utility.CorpusUtilityorig.Companion.NewSetWordSpan
 import com.example.utility.QuranGrammarApplication
+import com.example.utility.QuranGrammarApplication.Companion.context
 import com.google.android.material.chip.Chip
 import com.tooltip.Tooltip
 import org.sj.conjugator.interfaces.OnItemClickListener
@@ -32,6 +35,20 @@ class MyRootBreakRecyclerViewAdapter(
     private lateinit var quranCorpusWbw: QuranCorpusWbw
     private lateinit var wordDetails: RootWordDetails
     private lateinit var mItemClickListener: OnItemClickListener
+    private var arabicfontSize: Int = 0
+    private var translationfontsize: Int = 0
+    private var defaultfont: Boolean = false
+    init {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
+            context
+        )
+        sharedPreferences.getBoolean(Config.SHOW_Erab, Config.defaultShowErab)
+
+        arabicfontSize = sharedPreferences.getInt("pref_font_arabic_key", 18)
+        translationfontsize = sharedPreferences.getInt("pref_font_englsh_key", 18)
+        defaultfont = sharedPreferences.getBoolean("default_font", true)
+
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
@@ -59,12 +76,22 @@ class MyRootBreakRecyclerViewAdapter(
         // charSequence=TextUtils.concat(sb);
         //   sb.append(lughat.getSurah()).append(":").append(lughat.getAyah()).append(":").append(lughat.getArabic()).append("-").append(lughat.getAbjadname());
         holder.arabicroot_detail.text = charSequence
+        setTextSizes(holder)
 /*
         holder.arabicroot_detail.setOnLongClickListener(View.OnLongClickListener {
 
 
         })*/
     }
+
+
+    private fun setTextSizes(holder:ViewHolder) {
+        if (!defaultfont) {
+            holder.arabicroot_detail.textSize = arabicfontSize.toFloat()
+   
+        }
+    }
+
 
     override fun getItemCount(): Int {
         return rootWordDetails.size
