@@ -48,7 +48,18 @@
 
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/bottomcompose"
+        android:icon="@drawable/ic_action_play"
+        android:title="@string/bottomnav"
 
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/surahcompose"
+        android:icon="@drawable/sura_1"
+        android:title="@string/SelectSurah"
+
+        app:showAsAction="always" />
     <item
         android:id="@+id/searchtopic"
         android:contentDescription="@string/content_description_one"

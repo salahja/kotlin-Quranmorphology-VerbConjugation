@@ -19,6 +19,7 @@ open class ConjugationResult(
 
     //القائمة بعد  الادغام والاعلال والهمزة
     var finalResult: List<*>
+
     var madhiMudharay: MadhiMudharay = MadhiMudharay()
     var faelMafool: FaelMafool = FaelMafool()
 

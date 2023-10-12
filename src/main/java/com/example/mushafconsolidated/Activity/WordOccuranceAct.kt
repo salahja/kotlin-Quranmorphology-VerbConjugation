@@ -116,7 +116,7 @@ open class WordOccuranceAct : BaseActivity() {
         val ex = Executors.newSingleThreadExecutor()
         ex.execute {
             runOnUiThread { dialog!!.show() }
-            //  occurances = utils.getNounOccuranceBreakVerses(root);
+
             val vroot = root!!.indexOf("ء")
             var nounroot: String? = ""
             val verb = root!!.indexOf("ا")

@@ -37,6 +37,7 @@ import com.example.mushafconsolidated.Entities.qurandictionary
 import com.example.mushafconsolidated.Entities.quranexplorer
 import com.example.mushafconsolidated.Entities.wbwentity
 import com.example.mushafconsolidated.model.Juz
+import com.example.mushafconsolidated.model.QuranCorpusWbw
 import database.entity.AllahNames
 import sj.hisnul.entity.hduanamesEnt
 
@@ -70,6 +71,12 @@ class Utils {
     fun getMudhafSurahNew(id: Int): List<NewMudhafEntity?>? {
         return database.NewMudhafDao().getMudhafSurah(id)
     }
+
+
+    fun getQuranCorpusWbwbysurah(id: Int): List<QuranCorpusWbw> {
+        return database.QuranDao().getQuranCorpusWbwbysurah(id)
+    }
+
 
     fun getMudhafSurahAyahNew(id: Int, aid: Int): List<NewMudhafEntity>? {
         return database.NewMudhafDao().getMudhafSurahAyah(id, aid)
@@ -492,6 +499,14 @@ class Utils {
     fun getQuranbySurah(id: Int): List<QuranEntity>? {
         return database.QuranDao().getQuranVersesBySurah(id)
     }
+    fun getVerbBreakUps(id: String): List<VerbCorpus>{
+        return database.VerbCorpusDao().getVerbBreakUp(id)
+    }
+
+    fun getNounBreakups(id: String): List<NounCorpus>{
+        return database.NounCorpusDao().getNounBreakup(id)
+    }
+
 
 
     fun getAyahsByPageQuran(surah: Int, pageno: Int): List<QuranEntity?>? {

@@ -1327,7 +1327,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
 
         val corpus = CorpusUtilityorig(this)
-        newnewadapterlist = corpus.composeWBWCollection(allofQuran, corpusSurahWord)
+        newnewadapterlist = CorpusUtilityorig.composeWBWCollection(allofQuran, corpusSurahWord)
 
 
 

@@ -3,8 +3,8 @@ package com.example.mushafconsolidated.DAO
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.RewriteQueriesToDropUnusedColumns
+import androidx.room.Transaction
 import com.example.mushafconsolidated.Entities.NounCorpus
-
 
 
 @Dao
@@ -23,6 +23,9 @@ interface NounCorpusDao {
     @Query("SELECT count(root_a), * FROM nouncorpus where root_a=:verbroot group by lemma_a,root_a,tag,propone,proptwo")
 
     fun allnounscount(verbroot :String): List<NounCorpus>
+    @Transaction
+    @Query("SELECT count(root_a) as count,root_a,lemma_a,araword,surah,ayah,wordno,token,words,tag,propone,proptwo,form,lemma,root,gendernumber,type,cases,details,id  FROM nouncorpus where root_a=:root group by root_a,form order by surah,ayah")
+    fun getNounBreakup(root: String): List<NounCorpus>
 
 /*    @RawQuery(observedEntities = arrayOf(CorpusExpandWbwPOJO::class))
     fun getALL(query: SupportSQLiteQuery?): LiveData<List<CorpusExpandWbwPOJO>>*/

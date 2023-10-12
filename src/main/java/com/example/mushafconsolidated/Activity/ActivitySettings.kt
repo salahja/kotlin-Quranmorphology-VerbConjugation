@@ -9,7 +9,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SeekBarPreference
 import com.example.Constant
-
+import com.example.Constant.SURAHFRAGTAG
 import com.example.mushafconsolidated.Activity.QuranGrammarAct
 import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.BottomOptionDialog
@@ -50,6 +50,16 @@ class ActivitySettings : BaseActivity(),
 
     override fun onBackPressed() {
         super.onBackPressed()
+        val fragments: MutableList<android.app.Fragment>? = fragmentManager.fragments
+     val   activeFragment = fragments!!?.get(fragments.size - 1)
+
+        val lastOrNull = this.supportFragmentManager.fragments.lastOrNull()
+
+        if (lastOrNull != null) {
+            val findFragmentByTag = lastOrNull.childFragmentManager.findFragmentByTag(SURAHFRAGTAG)
+            println(findFragmentByTag)
+        }
+
         val readingintent = intent
         finish()
         startActivity(readingintent)
@@ -57,10 +67,15 @@ class ActivitySettings : BaseActivity(),
 
     override fun getIntent(): Intent {
         val pref = applicationContext.getSharedPreferences("lastread", MODE_PRIVATE)
-        val surahname = pref.getString(Constant.SURAH_ARABIC_NAME, "")
+
+     var surahname = pref.getString(Constant.SURAH_ARABIC_NAME, "")
+      //  var surahArabicName = surahname.toString()
+
+
+
         val readingintent = Intent(this, QuranGrammarAct::class.java)
-        readingintent.putExtra(Constant.MUFRADATFRAGTAG, false)
-        readingintent.putExtra(Constant.CHAPTER, pref.getInt(Constant.CHAPTER, 1))
+
+        readingintent.putExtra(Constant.SURAH_ID, pref.getInt(Constant.SURAH_ID, 1))
         readingintent.putExtra(Constant.AYAH_ID, pref.getInt(Constant.AYAH_ID, 1))
         readingintent.putExtra(Constant.SURAH_ARABIC_NAME, surahname)
         return readingintent
@@ -121,7 +136,7 @@ class ActivitySettings : BaseActivity(),
         } else if (pref.key == "Exit") {
             val readingintent = intent
             finish()
-
+            startActivity(readingintent)
         }
         return true
     }

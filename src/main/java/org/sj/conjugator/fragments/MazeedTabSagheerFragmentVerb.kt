@@ -100,13 +100,6 @@ class MazeedTabSagheerFragmentVerb(private val context: Context) : Fragment() {
         ss.nahiamrone = (listing[2][1] as AmrNahiAmr).anta!!.replace("[", "").replace("]", "")
         ss.ismfael = (listing[1][0] as FaelMafool).nomsinM!!.replace("[", "").replace("]", "")
         ss.ismmafool = (listing[1][1] as FaelMafool).nomsinF!!.replace("[", "").replace("]", "")
-
-
-
-
-
-
-
         ss.ismalaone =  ""
         ss.ismalatwo =  ""
         ss.ismalathree =  ""

@@ -57,6 +57,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant
 import com.example.Constant.SURAHFRAGTAG
+import com.example.compose.BottomCompose
 import com.example.mushafconsolidated.BottomOptionDialog
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.BookMarks
@@ -83,6 +84,7 @@ import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.example.mushafconsolidated.settingsimport.Constants
 import com.example.mushafconsolidatedimport.ParticleColorScheme
+import com.example.surahdisplaycompose.SurahComposeAct
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.QuranGrammarApplication
 import com.example.voiceai.VoiceRecognitionActivity
@@ -240,6 +242,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
         val preferences = shared.getString("themepref", "dark")
         super.onCreate(savedInstanceState)
         binding = NewFragmentReadingBinding.inflate(layoutInflater)
+
         mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
         val view = binding.root
         setContentView(view)
@@ -319,7 +322,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
             supportFragmentManager.commit {
                 replace<NewSurahDisplayFrag>(R.id.frame_container_qurangrammar,SURAHFRAGTAG)
                 setReorderingAllowed(true)
-                addToBackStack("SURAH")
+                addToBackStack(null)
                 setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
                 supportFragmentManager.saveBackStack("replacement")
             }
@@ -453,23 +456,26 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 val search = Intent(this, VoiceRecognitionActivity::class.java)
                 startActivity(search)
             }
+            if (item.itemId == R.id.surahcompose) {
+                drawerLayout.closeDrawers()
+                materialToolbar.title = "Topics"
+                val searchs = Intent(this, SurahComposeAct::class.java)
+                startActivity(searchs)
+            }
+            if (item.itemId == R.id.bottomcompose) {
+                drawerLayout.closeDrawers()
+                materialToolbar.title = "Topics"
+                val searchs = Intent(this, BottomCompose::class.java)
+                startActivity(searchs)
+            }
+
+
+
             if (item.itemId == R.id.searchtopic) {
                 drawerLayout.closeDrawers()
                 materialToolbar.title = "Topics"
                 val searchs = Intent(this, QuranTopicSearchActivity::class.java)
-                startActivity(searchs)
-            }
-            /*       if (item.itemId == R.id.setting) {
-                   drawerLayout.closeDrawers()
-                     materialToolbar!!.title = "Prayer"
-                     val pray = Intent(this@QuranGrammarAct, MainTwoActivityPrayer::class.java)
-                     startActivity(pray)
-            }*/
-            if (item.itemId == R.id.searchtopic) {
-                drawerLayout.closeDrawers()
-                materialToolbar.title = "Topics"
-                //      val searchs = Intent(this, QuranTopicSearchActivity::class.java)
-                //     startActivity(searchs)
+                   startActivity(searchs)
             }
             false
         }
@@ -890,9 +896,13 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
 
 
             allofQuran = mainViewModel.getquranbySUrah(chapterno).value
+
+
+
+
             corpusSurahWord = mainViewModel.getQuranCorpusWbwbysurah(chapterno).value
 
-            newnewadapterlist = corpus.composeWBWCollection(allofQuran, corpusSurahWord)
+            newnewadapterlist = CorpusUtilityorig.composeWBWCollection(allofQuran, corpusSurahWord)
 
 
 

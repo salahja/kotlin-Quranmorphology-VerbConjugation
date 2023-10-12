@@ -368,7 +368,10 @@
     <string name="title_activity_quran_verb_root_detail_host">QuranVerbRootDetailHostActivity
     </string>
     <string name="title_quranverbroot_list">QuranVerbItems</string>
-    <string name="title_quranverbroot_detail">QuranVerbRoot Detail</string>>
+    <string name="title_quranverbroot_detail">QuranVerbRoot Detail</string>
+    <string name="grid_icon">grid</string>
+    <string name="menu">menu\n</string>
+    <string name="bottomnav">BottomAapBar</string>>
 
 
 </resources>

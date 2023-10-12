@@ -21,7 +21,7 @@ open class BaseActivity : AppCompatActivity() {
     // }
     protected fun switchTheme(currenttheme: String?) {
         when (currenttheme) {
-            BaseActivity.Companion.LIGHT_THEME -> setTheme(R.style.AppTheme)
+            BaseActivity.Companion.LIGHT_THEME -> setTheme(R.style.AppThemebrow)
             BaseActivity.Companion.DARK_THEME -> setTheme(R.style.Theme_Black)
             BaseActivity.Companion.DARK_BLUE -> setTheme(R.style.AppTheme_materialdarkblue)
             BaseActivity.Companion.DARK_GREEN -> setTheme(R.style.AppTheme_DarkGreen)

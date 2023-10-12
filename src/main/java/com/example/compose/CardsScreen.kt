@@ -36,6 +36,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDirection
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -61,6 +62,7 @@ const val EXPANSTION_TRANSITION_DURATION = 300
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalCoroutinesApi
 @Composable
+
 fun CardsScreen(viewModel: CardsViewModel) {
 
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
@@ -101,24 +103,6 @@ fun CardsScreen(viewModel: CardsViewModel) {
 
 
         }
-/*
-
-     TopAppBar(
-            title = {
-                Text(text = "Word Occurance" )
-            },
-            navigationIcon = {
-                IconButton(onClick = { }) {
-                  //  Icon(imageVector = Icons.Default.AddLink, contentDescription = "")
-                    Icon(Icons.Rounded.ArrowBack, "")
-                }
-            },
-       //  backgroundColor = Color.Transparent,
-           //    contentColor = Color.Gray,
-          // elevation = 2.dp
-        )
-
-*/
 
 
 
@@ -127,6 +111,7 @@ fun CardsScreen(viewModel: CardsViewModel) {
 }
 
 @Composable
+@Preview
 fun DetailTopAppBar(onBackPressed: ()-> Unit ={} ) {
   TopAppBar(title =  {
       Text(text="Word Occurance") },
@@ -145,10 +130,8 @@ fun DetailTopAppBar(onBackPressed: ()-> Unit ={} ) {
 
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
+
 fun ExpandableCard(
-
-
-
     card: ExpandableCardModelSpannableLists,
     onCardArrowClick: () -> Unit,
     expanded: Boolean,
@@ -242,6 +225,7 @@ fun CardTitle(title: String) {
 }
 
 @Composable
+
 fun CardArrow(
     degrees: Float,
     onClick: () -> Unit,
@@ -271,9 +255,14 @@ fun CenterAlignedText() {
             .wrapContentHeight(),
     )
 }
-
+@Preview
+@Composable
+fun MyViewPreview() {
+    ExpandableContent("LIMMA", card = ArrayList<SpannableString>(),true)
+}
 
 @Composable
+
 fun ExpandableContent(
 
 

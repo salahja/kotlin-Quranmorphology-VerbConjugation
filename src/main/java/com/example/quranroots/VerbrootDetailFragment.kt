@@ -101,6 +101,7 @@ class VerbrootDetailFragment
                 }
                 val intent = Intent(activity, RootBreakupAct::class.java)
                 dataBundle.putString(QURAN_VERB_ROOT, bmark)
+                dataBundle.putBoolean("isverb",true)
                 intent.putExtras(dataBundle)
                 startActivity(intent)
             }

@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +36,7 @@ import com.example.Constant.WORDNUMBER
 import com.example.Constant.particlespanDark
 import com.example.mushafconsolidated.Activity.LughatWordDetailsAct
 import com.example.mushafconsolidated.Adapters.NounVerbOccuranceListAdapter
+import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
 import com.example.mushafconsolidated.Entities.CorpusNounWbwOccurance
 import com.example.mushafconsolidated.Entities.CorpusVerbWbwOccurance
 import com.example.mushafconsolidated.Entities.NounCorpusBreakup
@@ -45,14 +47,11 @@ import com.example.mushafconsolidated.Entities.VerbCorpusBreakup
 import com.example.mushafconsolidated.Entities.VerbWazan
 import com.example.mushafconsolidated.Entities.hanslexicon
 import com.example.mushafconsolidated.Entities.lanelexicon
-import com.example.mushafconsolidated.Entities.qurandictionary
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.databinding.ActivityRootBreakupBinding
 import com.example.mushafconsolidated.fragments.QuranMorphologyDetails
-import com.example.mushafconsolidated.fragments.TopicDetailsFrag
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet
-import com.example.mushafconsolidated.model.NewQuranCorpusWbw
 import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.example.utility.CorpusUtilityorig
@@ -68,6 +67,7 @@ import java.util.regex.Pattern
 
 
 class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener {
+    private lateinit var allChapters: LiveData<List<ChaptersAnaEntity>>
     private lateinit var binding: ActivityRootBreakupBinding
     lateinit var shared: SharedPreferences
     private var firstcolortat = 0
@@ -76,7 +76,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
     private var fourcolortag = 0
     private lateinit var root: String
     private lateinit var wordorverb: String
-    private lateinit var verbCorpusArrayList: ArrayList<VerbCorpusBreakup>
+        private lateinit var verbCorpusArrayList: ArrayList<VerbCorpusBreakup>
     private var occurances: ArrayList<CorpusNounWbwOccurance>? = null
     private lateinit var nounCorpusArrayList: ArrayList<NounCorpusBreakup>
     private lateinit var expandableListView: ExpandableListView
@@ -93,11 +93,13 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
     private lateinit var utils: Utils
     private lateinit var lanes: Chip
     private var rootdetails: ArrayList<RootWordDetails>? = null
+
     private var verbdetails: ArrayList<RootVerbDetails>? = null
-    private var newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
+
     private var corpusSurahWord: List<QuranCorpusWbw>? = null
     private var allofQuran: List<QuranEntity>? = null
     private lateinit var mainViewModel: QuranVIewModel
+    var isverb=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRootBreakupBinding.inflate(layoutInflater)
@@ -111,6 +113,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
         val rootoccurance: TextView = binding.rootoccurance
 
         root = bundle.getStringExtra(QURAN_VERB_ROOT)!!
+     isverb=   bundle.getBooleanExtra("isverb",false)
         rootoccurance.text = root
 
         lanes.setOnClickListener(this)
@@ -145,24 +148,28 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
         val recyclerView: RecyclerView = binding.rootbreakup
         if (bundle.extras != null) {
             val bundles = intent.extras
-            //   if (bundle != null) {
+
             root = bundles!!.getString(QURAN_VERB_ROOT)!!
             wordorverb = bundles.getString(WORDDETAILS)!!
         }
         mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
         utils = Utils(this)
-        rootdetails = utils.getRootDetails(root) as ArrayList<RootWordDetails>?
+        val indexOf = root.indexOf("ء")
+        if(indexOf!=-1){
+            root=root.replace("ء","ا")
+        }
+     //   rootdetails = utils.getRootDetails(root) as ArrayList<RootWordDetails>?
         val corpus = CorpusUtilityorig(this)
-     //   allofQuran = mainViewModel.getquranbySUrah(chapterno).value
+
         corpusSurahWord = mainViewModel.getQuranCorpusWbwbyroot(root).value
 
-       // newnewadapterlist = corpus.composeWBWCollection(allofQuran, corpusSurahWord)
+
 
         val sb = StringBuilder()
-        sb.append(root).append(" ").append("Ocurrance").append(" ").append(rootdetails!!.size)
+        sb.append(root).append(" ").append("Ocurrance").append(" ").append(corpusSurahWord!!.size)
         rootoccurance.text = sb.toString()
-        val allroots: java.util.ArrayList<qurandictionary?>? =
-            utils.getQuranDictionarybyroot(root) as java.util.ArrayList<qurandictionary?>?
+
+         allChapters = mainViewModel.getAllChapters()
         if (root == "ACC" || root == "LOC" || root == "T") {
             occurances =
                 utils.getnounoccuranceHarfNasbZarf(root) as ArrayList<CorpusNounWbwOccurance>?
@@ -177,23 +184,29 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
         var verbDetailsRecAdapter: VerbDetailsRecAdapter? = null
         if (wordorverb == "word") {
             recyclerView.layoutManager = GridLayoutManager(this, 2)
-            myRootBreakRecyclerViewAdapter = MyRootBreakRecyclerViewAdapter(rootdetails!!,corpusSurahWord)
+            myRootBreakRecyclerViewAdapter = MyRootBreakRecyclerViewAdapter(corpusSurahWord,allChapters)
             recyclerView.adapter = myRootBreakRecyclerViewAdapter
             myRootBreakRecyclerViewAdapter.SetOnItemClickListener(object : OnItemClickListener {
                 override fun onItemClick(v: View?, position: Int) {
-                    val wordDetails = rootdetails!![position]
+                    val wordDetails = corpusSurahWord!![position]
+
                     val datas = HashMap<String, String>()
                     val newbundle = Bundle()
-                    newbundle.putInt(SURAH_ID, wordDetails.surah)
-                    newbundle.putInt(AYAH_ID, wordDetails.ayah)
-                    newbundle.putString(SURAH_ARABIC_NAME, wordDetails.namearabic)
-                    newbundle.putString(ARABICWORD, wordDetails.arabic)
-                    newbundle.putString(WORDMEANING, wordDetails.en)
+                    newbundle.putInt(SURAH_ID, wordDetails.corpus.surah)
+                    newbundle.putInt(AYAH_ID, wordDetails.corpus.ayah)
+
+                    newbundle.putString(SURAH_ARABIC_NAME,allChapters.value!!.get(wordDetails.corpus.surah).namearabic)
+
+
+
+                    newbundle.putString(ARABICWORD, wordDetails.corpus.araone+wordDetails.corpus.aratwo+
+                    wordDetails.corpus.arathree+wordDetails.corpus.arafour+wordDetails.corpus.arafive)
+                    newbundle.putString(WORDMEANING, wordDetails.wbw.en)
                     newbundle.putSerializable("map", datas)
-                /*    val intents = Intent(this@RootBreakupAct, TopicDetailAct::class.java)
+                    val intents = Intent(this@RootBreakupAct, TopicDetailAct::class.java)
                     intents.putExtras(newbundle)
                     startActivity(intents)
-*/
+
                 //    dataBundle.putSerializable("map", datas)
 
                  /*   val fragmentManagers = supportFragmentManager
@@ -206,13 +219,13 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                     transactions.commit()*/
                 
 
-                    val item = TopicDetailsFrag()
+             /*       val item = TopicDetailsFrag()
                     val fragmentManager = supportFragmentManager
                     item.arguments = newbundle
 
                     fragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out).show(item)
-
+*/
 
 
 
@@ -224,7 +237,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
             })
         } else {
             recyclerView.layoutManager = GridLayoutManager(this, 1)
-            recyclerView.adapter = myRootBreakRecyclerViewAdapter
+          //  recyclerView.adapter = myRootBreakRecyclerViewAdapter
             verbdetails = utils.getRootVerbDetails(root) as ArrayList<RootVerbDetails>?
             verbDetailsRecAdapter = VerbDetailsRecAdapter(verbdetails!!)
             recyclerView.adapter = verbDetailsRecAdapter
@@ -308,6 +321,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
         }
         //    rootDictionary.get(0).getHansweir();
     }
+
 
     private fun ExecuteNounOcurrance() {
         shared = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)

@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
 import com.example.mushafconsolidated.Entities.RootWordDetails
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
@@ -28,8 +30,8 @@ import org.sj.conjugator.interfaces.OnItemClickListener
  * TODO: Replace the implementation with code for your data type.
  */
 class MyRootBreakRecyclerViewAdapter(
-    private val rootWordDetails: ArrayList<RootWordDetails>,
-    private val   corpusSurahWord: List<QuranCorpusWbw>?
+    private val corpusSurahWord: List<QuranCorpusWbw>?,
+    private val chapters: LiveData<List<ChaptersAnaEntity>>
 ) :
     RecyclerView.Adapter<MyRootBreakRecyclerViewAdapter.ViewHolder>() {
     private lateinit var quranCorpusWbw: QuranCorpusWbw
@@ -61,16 +63,17 @@ class MyRootBreakRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-          wordDetails = rootWordDetails[position]
+
           quranCorpusWbw = corpusSurahWord!![position]
         val sb = StringBuilder()
         val spannableString = NewSetWordSpan(
-            wordDetails.tagone, wordDetails.tagtwo, wordDetails.tagthree, wordDetails.tagfour, wordDetails.tagfive,
-            wordDetails.araone!!, wordDetails.aratwo!!, wordDetails.arathree!!, wordDetails.arafour!!, wordDetails.arafive!!
+            quranCorpusWbw.corpus.tagone, quranCorpusWbw.corpus.tagtwo, quranCorpusWbw.corpus.tagthree, quranCorpusWbw.corpus.tagfour, quranCorpusWbw.corpus.tagfive,
+            quranCorpusWbw.corpus.araone!!, quranCorpusWbw.corpus.aratwo!!, quranCorpusWbw.corpus.arathree!!, quranCorpusWbw.corpus.arafour!!, quranCorpusWbw.corpus.arafive!!
         )
+
         //  sb.append(lughat.getSurah()).append("   ").append(lughat.getNamearabic()).append(lughat.getAyah()).append(" ").append(lughat.getArabic());
-        sb.append(wordDetails.ayah).append("  ").append(wordDetails.namearabic).append("   ")
-            .append(wordDetails.surah).append(" ").append(wordDetails.en)
+        sb.append(quranCorpusWbw.corpus.ayah).append("  ").append(chapters.value!!.get(quranCorpusWbw.corpus.surah).namearabic).append("   ")
+            .append(quranCorpusWbw.corpus.surah).append(" ").append(quranCorpusWbw.wbw.en)
         val sbs = SpannableString(sb)
         val charSequence = TextUtils.concat(spannableString, sb)
         // charSequence=TextUtils.concat(sb);
@@ -94,7 +97,7 @@ class MyRootBreakRecyclerViewAdapter(
 
 
     override fun getItemCount(): Int {
-        return rootWordDetails.size
+        return corpusSurahWord!!.size
     }
 
     fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
@@ -121,15 +124,15 @@ class MyRootBreakRecyclerViewAdapter(
             arabicroot_detail.setOnLongClickListener(View.OnLongClickListener {view
                 val utils = Utils(QuranGrammarApplication.context!!)
                 val verbCorpusRootWords =
-                    utils.getQuranRoot(wordDetails.surah, wordDetails.ayah, wordDetails.wordno)
+                    utils.getQuranRoot(quranCorpusWbw.corpus.surah, quranCorpusWbw.corpus.ayah, quranCorpusWbw.corpus.wordno)
                 if (verbCorpusRootWords!!.isNotEmpty() && verbCorpusRootWords[0]!!.tag == "V") {
                     //    vbdetail = ams.getVerbDetails();
                     print("check")
                 }
                 val corpusNounWord =
-                    utils.getQuranNouns(wordDetails.surah, wordDetails.ayah, wordDetails.wordno)
+                    utils.getQuranNouns(quranCorpusWbw.corpus.surah, quranCorpusWbw.corpus.ayah, quranCorpusWbw.corpus.wordno)
                 val verbCorpusRootWord =
-                    utils.getQuranRoot(wordDetails.surah, wordDetails.ayah, wordDetails.wordno)
+                    utils.getQuranRoot(quranCorpusWbw.corpus.surah, quranCorpusWbw.corpus.ayah, quranCorpusWbw.corpus.wordno)
                 val qm = refWordMorphologyDetails(
                     quranCorpusWbw.corpus,
                     corpusNounWord!!, verbCorpusRootWord!!

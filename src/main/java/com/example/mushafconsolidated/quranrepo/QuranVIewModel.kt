@@ -335,6 +335,7 @@ class QuranVIewModel(
 
         return chapters
     }
+
     fun getbadalSurah(cid: Int): MutableLiveData<List<BadalErabNotesEnt>> {
         viewModelScope.launch {
             badal.value = newrepository.getbadalnotes(cid)

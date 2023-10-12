@@ -6,7 +6,6 @@ import androidx.room.RawQuery
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.example.mushafconsolidated.Entities.CorpusExpandWbwPOJO
-import com.example.mushafconsolidated.Entities.CorpusNounWbwGrouping
 import com.example.mushafconsolidated.Entities.CorpusNounWbwOccurance
 import com.example.mushafconsolidated.Entities.CorpusVerbWbwOccurance
 import com.example.mushafconsolidated.Entities.KanaPOJO
@@ -45,8 +44,7 @@ interface RawDao {
     @RawQuery
     fun getnounoccurancebysurahayah(query: SupportSQLiteQuery): List<CorpusNounWbwOccurance?>?
 
-    @RawQuery
-    fun getNounGroups(query: SupportSQLiteQuery): List<CorpusNounWbwGrouping?>?
+
 
     @RawQuery
     fun getCorpusWbw(query: SupportSQLiteQuery): List<CorpusExpandWbwPOJO?>?
