@@ -1099,6 +1099,22 @@ class CorpusUtilityorig(private var context: Context?) {
             return str
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ////
         @JvmStatic
         fun NewSetWordSpan(
             tagone: String?,
@@ -1238,73 +1254,7 @@ class CorpusUtilityorig(private var context: Context?) {
                     SpannableString(araone.trim { it <= ' ' } + aratwo.trim { it <= ' ' } + arathree.trim { it <= ' ' } + arafour.trim { it <= ' ' } + arafive.trim { it <= ' ' })
             }
             return str
-        }// "Emphatic lām prefix(لام التوكيد) ",
-
-        // "Imperative lāmprefix(لام الامر)",
-        // "Purpose lāmprefix(لام التعليل)",
-        // "	Subordinating conjunction(حرف مصدري)",
-        // "	Accusative particle(حرف نصب)",
-        // "	Answer particle	(حرف جواب)",
-        // "Particle of cause	(حرف سببية)",
-        // "Particle of certainty	(حرف تحقيق)",
-        // "Circumstantial particle	(حرف حال)",
-        // "Coordinating conjunction(حرف عطف)",
-        // "Conditional particle(حرف شرط)",
-        // "	Amendment particle(حرف استدراك)	",
-        // "	Aversion particle	(حرف ردع)",
-        // "	Comitative particle	(واو المعية)",
-        // "	Equalization particle(حرف تسوية)",
-        // "	Exhortation particle(حرف تحضيض)",
-        // "	Explanation particle(حرف تفصيل)",
-        // "	Exceptive particle	(أداة استثناء)",
-        // "	Future particle	(حرف استقبال)",
-        // "	Inceptive particle	(حرف ابتداء)",
-        // "	Particle of interpretation(حرف تفسير)",
-        // "	Retraction particle	(حرف اضراب)",
-        // "Preventive particle	(حرف كاف)",
-        // "	Vocative particle	(حرف نداء)",
-        // "	Quranic initials(	(حروف مقطعة	";
-        // "Interogative particle	(حرف استفهام)",
-        // "	Negative particle(حرف نفي)",
-        // "	Prohibition particle(حرف نهي)",
-        // "	Resumption particle	(حرف استئنافية)",
-        // "	Restriction particle(أداة حصر)",
-        // "Result particle(حرف واقع في جواب الشرط)",
-        // "	Supplemental particle	(حرف زائد)",
-        // "	Surprise particle	(حرف فجاءة)",
-        // "Emphatic lām prefix(لام التوكيد) ",
-        // "Imperative lāmprefix(لام الامر)",
-        // "Purpose lāmprefix(لام التعليل)",
-        // "	Subordinating conjunction(حرف مصدري)",
-        // "	Accusative particle(حرف نصب)",
-        // "	Answer particle	(حرف جواب)",
-        // "Particle of cause	(حرف سببية)",
-        // "Particle of certainty	(حرف تحقيق)",
-        // "Circumstantial particle	(حرف حال)",
-        // "Coordinating conjunction(حرف عطف)",
-        // "Conditional particle(حرف شرط)",
-        // "	Amendment particle(حرف استدراك)	",
-        // "	Aversion particle	(حرف ردع)",
-        // "	Comitative particle	(واو المعية)",
-        // "	Equalization particle(حرف تسوية)",
-        // "	Exhortation particle(حرف تحضيض)",
-        // "	Explanation particle(حرف تفصيل)",
-        // "	Exceptive particle	(أداة استثناء)",
-        // "	Future particle	(حرف استقبال)",
-        // "	Inceptive particle	(حرف ابتداء)",
-        // "	Particle of interpretation(حرف تفسير)",
-        // "	Retraction particle	(حرف اضراب)",
-        // "Preventive particle	(حرف كاف)",
-        // "	Vocative particle	(حرف نداء)",
-        // "	Quranic initials(	(حروف مقطعة	";
-        // "Interogative particle	(حرف استفهام)",
-        // "	Negative particle(حرف نفي)",
-        // "	Prohibition particle(حرف نهي)",
-        // "	Resumption particle	(حرف استئنافية)",
-        // "	Restriction particle(أداة حصر)",
-        // "Result particle(حرف واقع في جواب الشرط)",
-        // "	Supplemental particle	(حرف زائد)",
-        // "	Surprise particle	(حرف فجاءة)",
+        }
         @JvmStatic
         val stringForegroundColorSpanMap: Map<String?, ForegroundColorSpan>
             get() {

@@ -680,3 +680,10 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
 
     companion object
 }
+/*
+
+   val dataBundle = Bundle()
+     dataBundle.putString(QURAN_VERB_WAZAN, wazan)
+     intent.putExtras(dataBundle)
+
+ */

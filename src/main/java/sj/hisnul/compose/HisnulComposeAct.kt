@@ -25,7 +25,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.compose.BooksScreen
 import com.example.compose.MoviesScreen
 import com.example.compose.MusicScreen
 import com.example.compose.ProfileScreen
@@ -83,7 +82,7 @@ fun Navigation(navController: NavHostController) {
             MoviesScreen()
         }
         composable(NavigationItem.Books.route) {
-            BooksScreen()
+            MainScreen()
         }
         composable(NavigationItem.Profile.route) {
             ProfileScreen()

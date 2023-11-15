@@ -82,32 +82,32 @@ class MazeedTabSagheerFragmentVerb(private val context: Context) : Fragment() {
 
     private fun initMazeedAdapterNew() {
         val sarfSagheerMazeedArray: ArrayList<*> = ArrayList<Any?>()
-        val listing: ArrayList<ArrayList<*>> =
+        val mujarrad: ArrayList<ArrayList<*>> =
             GatherAll.instance.getMazeedListing(verbmood, verbroot, augmentedFormula)
-        val any = listing[0][0]
+        val any = mujarrad[0][0]
         val ss = SarfSagheer()
-        ss.weakness =(listing[3][0] as VerbDetails).verbtype
-        ss.wazanname =(listing[3][0] as VerbDetails).babname
-        ss.verbroot = (listing[3][0] as VerbDetails).verbroot
+        ss.weakness =(mujarrad[3][0] as VerbDetails).verbtype
+        ss.wazanname =(mujarrad[3][0] as VerbDetails).babname
+        ss.verbroot = (mujarrad[3][0] as VerbDetails).verbroot
 
 
-        ss.madhi =(listing[0][0] as MadhiMudharay).hua!!.replace("[", "").replace("]", "")
+        ss.madhi =(mujarrad[0][0] as MadhiMudharay).hua!!.replace("[", "").replace("]", "")
 
-        ss.madhimajhool = (listing[0][1] as MadhiMudharay).hua!!.replace("[", "").replace("]", "")
-        ss.mudharay = (listing[0][2] as MadhiMudharay).hua!!.replace("[", "").replace("]", "")
-        ss.mudharaymajhool =(listing[0][3] as MadhiMudharay).hua!!.replace("[", "").replace("]", "")
-        ss.amrone =(listing[2][0] as AmrNahiAmr).anta!!.replace("[", "").replace("]", "")
-        ss.nahiamrone = (listing[2][1] as AmrNahiAmr).anta!!.replace("[", "").replace("]", "")
-        ss.ismfael = (listing[1][0] as FaelMafool).nomsinM!!.replace("[", "").replace("]", "")
-        ss.ismmafool = (listing[1][1] as FaelMafool).nomsinF!!.replace("[", "").replace("]", "")
+        ss.madhimajhool = (mujarrad[0][1] as MadhiMudharay).hua!!.replace("[", "").replace("]", "")
+        ss.mudharay = (mujarrad[0][2] as MadhiMudharay).hua!!.replace("[", "").replace("]", "")
+        ss.mudharaymajhool =(mujarrad[0][3] as MadhiMudharay).hua!!.replace("[", "").replace("]", "")
+        ss.amrone =(mujarrad[2][0] as AmrNahiAmr).anta!!.replace("[", "").replace("]", "")
+        ss.nahiamrone = (mujarrad[2][1] as AmrNahiAmr).anta!!.replace("[", "").replace("]", "")
+        ss.ismfael = (mujarrad[1][0] as FaelMafool).nomsinM!!.replace("[", "").replace("]", "")
+        ss.ismmafool = (mujarrad[1][1] as FaelMafool).nomsinF!!.replace("[", "").replace("]", "")
         ss.ismalaone =  ""
         ss.ismalatwo =  ""
         ss.ismalathree =  ""
         ss.zarfone =  ""
         ss.zarftwo =  ""
         ss.zarfthree =  ""
-        ss.verbtype =(listing[3][0] as VerbDetails).verbtype
-        ss.wazan = (listing[3][0] as VerbDetails).babname
+        ss.verbtype =(mujarrad[3][0] as VerbDetails).verbtype
+        ss.wazan = (mujarrad[3][0] as VerbDetails).babname
         ssagheer = ArrayList()
         ssagheer!!.add(ss)
         sarfsagheerAdapter = SarfMujarradSarfSagheerListingAdapter(ssagheer!!, requireActivity())

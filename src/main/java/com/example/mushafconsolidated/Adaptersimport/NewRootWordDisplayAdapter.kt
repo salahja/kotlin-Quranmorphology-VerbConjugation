@@ -386,7 +386,7 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
 
 
         //    holder.wordView.setText(worddetails.get("word"));
-        val vb: StringBuilder  = StringBuilder ()
+
         val pron: StringBuilder  = StringBuilder ()
         holder.lemma.text = vbdetail["lemma"]
         //   holder.wordView.setTextSize(arabicFontsize);
@@ -410,6 +410,7 @@ class NewRootWordDisplayAdapter : RecyclerView.Adapter<NewRootWordDisplayAdapter
             holder.pronoundetails.text = pron.toString()
             //  holder.pronoundetails.setTextSize(arabicFontsize);
         }
+        val vb: StringBuilder  = StringBuilder ()
         vb.append("V-")
         if (vbdetail["thulathi"] != null) {
             vb.append(vbdetail["thulathi"])

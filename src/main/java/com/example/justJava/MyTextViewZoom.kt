@@ -144,7 +144,7 @@ class MyTextViewZoom : Activity(), OnTouchListener {
         const val NONE = 0
         const val DRAG = 1
         const val ZOOM = 2
-        private const val TAG = "Touch"
+        const val TAG = "Touch"
         private const val MIN_ZOOM = 1f
         private const val MAX_ZOOM = 1f
     }

@@ -38,7 +38,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WordOccuranceLoading(
+fun LoadingData(
     isDisplayed:Boolean,
     cornerRadius: Dp = 16.dp,
     progressIndicatorColor: Color = Color(0xFF35898f),
@@ -134,5 +134,5 @@ private fun ProgressIndicatorLoading(
 @Preview(name = "DataLoadingCIrcular")
 @Composable
 private fun PreviewDataLoadingCIrcular() {
-    WordOccuranceLoading(isDisplayed = true)
+    LoadingData(isDisplayed = true)
 }

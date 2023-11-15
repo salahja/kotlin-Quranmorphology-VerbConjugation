@@ -9,7 +9,6 @@ import android.os.Environment
 import android.preference.PreferenceManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.window.layout.WindowMetricsCalculator
@@ -54,7 +53,9 @@ class MainActivity : BaseActivity() {
             sp.edit().putInt("spl", SPL).apply()
         }
         newquran = File("$FILEPATH/$DATABASENAME")
-        if (!hasPermission) {
+        validateFilesAndDownload()
+        //les api33
+  /*      if (!hasPermission) {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
@@ -66,7 +67,7 @@ class MainActivity : BaseActivity() {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-        }
+        }*/
         //  PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
     }
 

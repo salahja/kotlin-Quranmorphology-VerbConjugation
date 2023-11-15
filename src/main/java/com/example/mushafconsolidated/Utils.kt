@@ -76,6 +76,9 @@ class Utils {
     fun getQuranCorpusWbwbysurah(id: Int): List<QuranCorpusWbw> {
         return database.QuranDao().getQuranCorpusWbwbysurah(id)
     }
+    fun getQuranCorpusWord(id: Int,aid :Int,wid:Int): List<QuranCorpusWbw> {
+        return database.QuranDao().getQuranCorpusWbw(id,aid,wid)
+    }
 
 
     fun getMudhafSurahAyahNew(id: Int, aid: Int): List<NewMudhafEntity>? {
@@ -468,7 +471,7 @@ class Utils {
         firstwordindex: Int,
         lastwordindex: Int,
     ): List<wbwentity>? {
-        return database.wbwDao().getwbwQuranbTranslation(sid, aid, firstwordindex, lastwordindex)
+        return database.wbwDao().getwbwQuranbTranslationbyrange(sid, aid, firstwordindex, lastwordindex)
     }
 
     fun getNounBreakup(tid: String): List<NounCorpusBreakup>? {

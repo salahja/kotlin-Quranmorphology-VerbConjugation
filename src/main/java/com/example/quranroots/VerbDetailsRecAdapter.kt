@@ -41,8 +41,7 @@ class VerbDetailsRecAdapter(private val mValues: ArrayList<RootVerbDetails>) :
             .append(lughat.surah).append(" ").append(lughat.en)
         val sbs = SpannableString(sb)
         val charSequence = TextUtils.concat(spannableString, sb)
-        // charSequence=TextUtils.concat(sb);
-        //   sb.append(lughat.getSurah()).append(":").append(lughat.getAyah()).append(":").append(lughat.getArabic()).append("-").append(lughat.getAbjadname());
+
         holder.arabicsurahname.text = charSequence
         holder.arabicsurahname.text = lughat.namearabic
         var sa = StringBuilder()

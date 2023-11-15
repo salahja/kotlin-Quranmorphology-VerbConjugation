@@ -26,6 +26,7 @@ import com.example.Constant.RUKUCOUNT
 import com.example.Constant.SURAHNAME
 import com.example.Constant.SURAH_ID
 import com.example.Constant.VERSESCOUNT
+import com.example.compose.ComposeAct
 import com.example.mushafconsolidated.Activity.QuranGrammarAct
 import com.example.mushafconsolidated.Activity.ShowMushafActivity
 import com.example.mushafconsolidated.Adaptersimport.JuzSurahDisplayAdapter
@@ -44,7 +45,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.textview.MaterialTextView
 import database.NamesGridImageAct
-import org.sj.conjugator.activity.ConjugatorAct
 import sj.hisnul.activity.HisnulBottomACT
 import java.util.Objects
 
@@ -332,7 +332,7 @@ class NewSurahDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
                 transaction.commit()
             }
             if (item.itemId == R.id.conjugationnav) {
-                val conjugatorintent = Intent(activity, ConjugatorAct::class.java)
+                val conjugatorintent = Intent(activity, ComposeAct::class.java)
                 startActivity(conjugatorintent)
             }
             if (item.itemId == R.id.dua) {

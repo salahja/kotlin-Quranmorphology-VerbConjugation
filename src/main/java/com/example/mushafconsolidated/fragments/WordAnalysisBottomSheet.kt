@@ -236,9 +236,6 @@ class WordAnalysisBottomSheet : DialogFragment() {
 
 
 
-
-
-
         if (tameezWord != null) {
             if (tameezWord.isNotEmpty()) {
                 wordbdetail["tameez"] = SpannableStringBuilder.valueOf("yes")

@@ -48,8 +48,8 @@ import com.codelab.basics.ui.theme.cardExpandedBackgroundColor
 import com.codelab.basics.ui.theme.qalam
 import com.example.compose.CardsViewModel
 import com.example.compose.ExpandableCardModelSpannableLists
+import com.example.compose.LoadingData
 import com.example.compose.VerseOccuranceModel
-import com.example.compose.WordOccuranceLoading
 import com.example.mushafconsolidated.R
 import com.example.utility.QuranGrammarApplication.Companion.context
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -69,7 +69,7 @@ fun CardsScreen(viewModel: CardsViewModel) {
         context!!
     )
 
-    var loading = viewModel.loading.value
+    var loading: Boolean
 
     //grammatically colred word default font
     val arabic_font_selection =
@@ -91,7 +91,7 @@ fun CardsScreen(viewModel: CardsViewModel) {
     ) { paddingValues ->
         val copyProgress: MutableState<Float> = remember { mutableStateOf(0.0f) }
         loading = viewModel.loading.value
-        WordOccuranceLoading(isDisplayed = loading)
+        LoadingData(isDisplayed = loading)
         LazyColumn(Modifier.padding(paddingValues)) {
             items(cards, ExpandableCardModelSpannableLists::id) { card ->
                 ExpandableCard(

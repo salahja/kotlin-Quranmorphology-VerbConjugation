@@ -99,7 +99,7 @@ import kotlinx.coroutines.launch
 import org.ahocorasick.trie.Trie
 import org.sj.conjugator.activity.BaseActivity
 import org.sj.conjugator.activity.ConjugatorAct
-import sj.hisnul.activity.HisnulBottomACT
+import sj.hisnul.compose.HisnulComposeAct
 import sj.hisnul.fragments.NamesDetail
 import wheel.OnWheelChangedListener
 import wheel.WheelView
@@ -374,8 +374,8 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
             }
             if (item.itemId == R.id.dua) {
                 materialToolbar.title = "Hisnul Muslim-Dua;s"
-                val searchintent = Intent(this@QuranGrammarAct, HisnulBottomACT::class.java)
-                //  val searchintent = Intent(this@QuranGrammarAct, HisnulComposeAct::class.java)
+              //  val searchintent = Intent(this@QuranGrammarAct, ComposeAct::class.java)
+                 val searchintent = Intent(this@QuranGrammarAct, HisnulComposeAct::class.java)
                 startActivity(searchintent)
             }
             if (item.itemId == R.id.names) {
