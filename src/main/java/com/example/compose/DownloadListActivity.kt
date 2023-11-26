@@ -29,6 +29,7 @@ import com.tonyodev.fetch2.FetchListener
 import com.tonyodev.fetch2.NetworkType
 import com.tonyodev.fetch2.Request
 import com.tonyodev.fetch2core.Downloader.FileDownloaderType
+import com.tonyodev.fetch2okhttp.OkHttpDownloader
 
 
 import java.io.File
@@ -251,8 +252,8 @@ class DownloadListActivity : AppCompatActivity(), ActionListener {
 }
  fun createDownloadLinks(): List<String> {
     val repository= Utils(QuranGrammarApplication.context)
-    val chap = repository.getSingleChapter(72)
-    val quranbySurah: List<QuranEntity?>? = repository.getQuranbySurah(72)
+    val chap = repository.getSingleChapter(12)
+    val quranbySurah: List<QuranEntity?>? = repository.getQuranbySurah(12)
  //   surahselected = surah
     //   int ayaID=0;
     var counter = 0

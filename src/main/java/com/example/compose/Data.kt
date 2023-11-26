@@ -51,17 +51,39 @@ object Data {
         return Uri.parse(url).lastPathSegment!!
     }
     @JvmStatic
-    fun getGameUpdates(context: Context): List<Request> {
+    fun getGameUpdates(context: Context, Links: List<String>, filepath: String): List<Request> {
         val requests: MutableList<Request> = ArrayList()
         val url = "http://speedtest.ftp.otenet.gr/files/test100k.db"
-        for (i in 0..9) {
+        for (sampleUrl in Links) {
+            val request = Request(sampleUrl, getFilePath(sampleUrl, context,filepath))
+            request.priority = Priority.HIGH
+            //val request = Request(sampleUrl, filepath)
+            requests.add(request)
+        }
+ /*       for (i in 0..9) {
             val filePath = getSaveDir(context) + "/gameAssets/" + "asset_" + i + ".asset"
             val request = Request(url, filePath)
             request.priority = Priority.HIGH
             requests.add(request)
-        }
+        }*/
         return requests
     }
+
+    @JvmStatic
+    fun getGameUpdates(context: Context): MutableList<Request> {
+        val requests: MutableList<Request> = ArrayList()
+        val url = "http://speedtest.ftp.otenet.gr/files/test100k.db"
+
+            for (i in 0..9) {
+                   val filePath = getSaveDir(context) + "/gameAssets/" + "asset_" + i + ".asset"
+                   val request = Request(url, filePath)
+                   request.priority = Priority.HIGH
+                   requests.add(request)
+               }
+        return requests
+    }
+
+
     @JvmStatic
     fun getSaveDir(context: Context): String {
         return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString() + "/fetch"

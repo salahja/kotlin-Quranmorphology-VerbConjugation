@@ -114,7 +114,7 @@
         </activity>
 
         <activity
-            android:name="com.example.compose.GameFilesActivity"
+            android:name="com.example.compose.RxFilesActivity"
             android:parentActivityName=".Activity.MainActivity"
             android:screenOrientation="portrait">
             <meta-data
