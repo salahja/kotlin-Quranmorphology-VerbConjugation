@@ -1432,6 +1432,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
         override fun onTracksChanged(tracks: Tracks) {
             //   updateButtonVisibility();
+
             assert(player != null)
             val currentTracks = player!!.currentTracks
             currenttrack = player!!.currentMediaItemIndex
@@ -1961,8 +1962,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
             // String app_folder_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/Audio/" + readerID;
             val app_folder_path =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
-                    .toString() + "/audio/" + readerID
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).toString() + "/audio/" + readerID
             val f = File(app_folder_path)
             val path = f.absolutePath
             val file = File(path)

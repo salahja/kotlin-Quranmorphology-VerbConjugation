@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.window.layout.WindowMetricsCalculator
+import com.example.compose.GameFilesActivity
 import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.settingsimport.Constants.Companion.DATABASENAME
@@ -146,7 +147,7 @@ class MainActivity : BaseActivity() {
                 fullQuranPages = new ArrayList<>(pages);
             PageAdapter pageAdapter=new PageAdapter(pages,this);
             recview.setAdapter(pageAdapter);*/
-            val homeactivity = Intent(this@MainActivity, QuranGrammarAct::class.java)
+            val homeactivity = Intent(this@MainActivity, GameFilesActivity::class.java)
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             startActivity(homeactivity)
             finish();
