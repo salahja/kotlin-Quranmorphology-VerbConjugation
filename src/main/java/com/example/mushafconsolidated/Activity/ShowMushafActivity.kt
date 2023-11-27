@@ -415,7 +415,11 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             startButton!!.visibility = View.VISIBLE
             downloadFooter.visibility = View.GONE
             normalFooter.visibility = View.GONE
+
+
+            initializePlayer()
             playerFooter.visibility = View.VISIBLE
+            audio_settings_bottom.visibility = View.GONE
 
         }
     }
@@ -2215,7 +2219,20 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             startButton!!.setVisibility(View.GONE)
             labelTextView!!.setText(R.string.fetch_started)
             progressBar!!.visibility=View.VISIBLE
-         reset()
+            if(rxFetch!!.isClosed){
+                val fetchConfiguration: FetchConfiguration = FetchConfiguration.Builder(this).build()
+                //    rxFetch = RxFetch.Impl.getInstance(fetchConfiguration);
+                RxFetch.setDefaultRxInstanceConfiguration(fetchConfiguration)
+
+                //  rxFetch.Impl.setDefaultFetchConfiguration(config);
+                rxFetch = RxFetch.getDefaultRxInstance()
+                reset()
+
+            }else{
+                reset()
+            }
+
+
             enqueueFiles(Links,app_folder_path)
  /*
             startButton!!.setOnClickListener(View.OnClickListener { v: View? ->
@@ -2255,7 +2272,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     override fun onDestroy() {
         super.onDestroy()
         rxFetch!!.deleteAll()
-        rxFetch!!.close()
+     //   rxFetch!!.close()
         if (enqueueDisposable != null && !enqueueDisposable!!.isDisposed) {
             enqueueDisposable!!.dispose()
         }
