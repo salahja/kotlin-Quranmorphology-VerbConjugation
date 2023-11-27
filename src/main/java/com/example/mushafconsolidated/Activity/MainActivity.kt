@@ -9,10 +9,10 @@ import android.os.Environment
 import android.preference.PreferenceManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.window.layout.WindowMetricsCalculator
-import com.example.compose.RxFilesActivity
 import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.settingsimport.Constants.Companion.DATABASENAME
@@ -56,7 +56,7 @@ class MainActivity : BaseActivity() {
         newquran = File("$FILEPATH/$DATABASENAME")
         validateFilesAndDownload()
         //les api33
-  /*      if (!hasPermission) {
+       if (!hasPermission) {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
@@ -68,7 +68,7 @@ class MainActivity : BaseActivity() {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-        }*/
+        }
         //  PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
     }
 
@@ -147,7 +147,7 @@ class MainActivity : BaseActivity() {
                 fullQuranPages = new ArrayList<>(pages);
             PageAdapter pageAdapter=new PageAdapter(pages,this);
             recview.setAdapter(pageAdapter);*/
-            val homeactivity = Intent(this@MainActivity, RxFilesActivity::class.java)
+            val homeactivity = Intent(this@MainActivity, QuranGrammarAct::class.java)
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             startActivity(homeactivity)
             finish();

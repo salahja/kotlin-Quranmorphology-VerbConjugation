@@ -44,7 +44,7 @@ object Data {
         val uri = Uri.parse(url)
         val fileName = uri.lastPathSegment
         val dir = getSaveDir(context)
-        return "$filepath/$fileName"
+        return "$dir/$fileName"
     }
     @JvmStatic
     fun getNameFromUrl(url: String?): String {

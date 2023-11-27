@@ -1,10 +1,7 @@
 package com.example.compose;
 
 
-import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.ArrayMap;
 import android.view.View;
@@ -61,7 +58,7 @@ public class GameFilesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_files);
+        setContentView(R.layout.rxfetch_progress);
         setUpViews();
         FetchConfiguration fetchConfiguration = new FetchConfiguration.Builder(this).build();
      //    rxFetch = RxFetch.Impl.getInstance(fetchConfiguration);
@@ -78,7 +75,8 @@ public class GameFilesActivity extends AppCompatActivity {
         startButton = findViewById(R.id.startButton);
         labelTextView = findViewById(R.id.labelTextView);
         mainView = findViewById(R.id.activity_loading);
-        startButton.setOnClickListener(v -> {
+        enqueueFiles();
+       /* startButton.setOnClickListener(v -> {
             final String label = (String) startButton.getText();
             final Context context = GameFilesActivity.this;
             if (label.equals(context.getString(R.string.reset))) {
@@ -90,7 +88,7 @@ public class GameFilesActivity extends AppCompatActivity {
                 labelTextView.setText(R.string.fetch_started);
                 checkStoragePermission();
             }
-        });
+        });*/
     }
 
     @Override
@@ -130,12 +128,8 @@ public class GameFilesActivity extends AppCompatActivity {
     }
 
     private void checkStoragePermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
-            enqueueFiles();
-        } else {
-            enqueueFiles();
-        }
+       // requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+        enqueueFiles();
     }
 
     @Override

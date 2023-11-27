@@ -252,8 +252,8 @@ class DownloadListActivity : AppCompatActivity(), ActionListener {
 }
  fun createDownloadLinks(): List<String> {
     val repository= Utils(QuranGrammarApplication.context)
-    val chap = repository.getSingleChapter(12)
-    val quranbySurah: List<QuranEntity?>? = repository.getQuranbySurah(12)
+    val chap = repository.getSingleChapter(13)
+    val quranbySurah: List<QuranEntity?>? = repository.getQuranbySurah(13)
  //   surahselected = surah
     //   int ayaID=0;
     var counter = 0

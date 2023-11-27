@@ -6,7 +6,6 @@ package com.example.compose
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.util.ArrayMap
@@ -48,14 +47,15 @@ class RxFilesActivity : AppCompatActivity() {
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).toString() + "/audio/" + 20
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game_files)
-        setUpViews()
+        setContentView(R.layout.rxfetch_progress)
+
         val fetchConfiguration: FetchConfiguration = FetchConfiguration.Builder(this).build()
         //    rxFetch = RxFetch.Impl.getInstance(fetchConfiguration);
         setDefaultRxInstanceConfiguration(fetchConfiguration)
         //  rxFetch.Impl.setDefaultFetchConfiguration(config);
         rxFetch = getDefaultRxInstance()
         Links= createDownloadLinks()
+        setUpViews()
         reset()
     }
 
@@ -65,7 +65,9 @@ class RxFilesActivity : AppCompatActivity() {
         startButton = findViewById(R.id.startButton)
         labelTextView = findViewById(R.id.labelTextView)
         mainView = findViewById(R.id.activity_loading)
-        startButton!!.setOnClickListener(View.OnClickListener { v: View? ->
+        labelTextView!!.setText(R.string.fetch_started)
+
+       startButton!!.setOnClickListener(View.OnClickListener { v: View? ->
             val label = startButton!!.getText() as String
             val context: Context = this@RxFilesActivity
             if (label == context.getString(R.string.reset)) {
@@ -117,15 +119,11 @@ class RxFilesActivity : AppCompatActivity() {
     }
 
     private fun checkStoragePermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                STORAGE_PERMISSION_CODE
-            )
-            enqueueFiles()
-        } else {
-            enqueueFiles()
-        }
+        requestPermissions(
+            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            STORAGE_PERMISSION_CODE
+        )
+        enqueueFiles()
     }
 
     override fun onRequestPermissionsResult(
@@ -235,7 +233,7 @@ class RxFilesActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val STORAGE_PERMISSION_CODE = 400
-        private const val groupId = 12
+        const val STORAGE_PERMISSION_CODE = 400
+        const val groupId = 12
     }
 }
