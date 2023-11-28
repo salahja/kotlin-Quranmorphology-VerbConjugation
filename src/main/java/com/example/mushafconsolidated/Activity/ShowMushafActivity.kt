@@ -107,6 +107,7 @@ import java.util.Locale
 import java.util.Objects
 import kotlin.math.max
 
+
 class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnClickListener,
     FullscreenButtonClickListener {
     private lateinit var filepath: String
@@ -2348,11 +2349,16 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             updateUIWithProgress()
         }
 
+
         override fun onError(download: Download, error: Error, throwable: Throwable?) {
             super.onError(download, error, throwable)
             reset()
-            Snackbar.make(mainView!!, error.name, Snackbar.LENGTH_INDEFINITE)
-                .show()
+            if(error.name.equals("REQUEST_NOT_SUCCESSFUL")){
+                Snackbar.make(mainView!!, error.name +" "+"RETRY", Snackbar.LENGTH_LONG).show()
+                DownloadIfnotPlay()
+            }
+
+
         }
 
         override fun onProgress(

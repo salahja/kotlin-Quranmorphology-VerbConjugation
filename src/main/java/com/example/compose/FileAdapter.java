@@ -28,9 +28,9 @@ import java.util.List;
 public final class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> {
 
     @NonNull
-    private final List<DownloadData> downloads = new ArrayList<>();
+     final List<DownloadData> downloads = new ArrayList<>();
     @NonNull
-    private final ActionListener actionListener;
+     final ActionListener actionListener;
 
     FileAdapter(@NonNull final ActionListener actionListener) {
         this.actionListener = actionListener;

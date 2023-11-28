@@ -147,7 +147,9 @@ class MainActivity : BaseActivity() {
                 fullQuranPages = new ArrayList<>(pages);
             PageAdapter pageAdapter=new PageAdapter(pages,this);
             recview.setAdapter(pageAdapter);*/
-            val homeactivity = Intent(this@MainActivity, QuranGrammarAct::class.java)
+       val homeactivity = Intent(this@MainActivity, QuranGrammarAct::class.java)
+          //  val homeactivity = Intent(this@MainActivity, DownloadListActivity::class.java)
+
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             startActivity(homeactivity)
             finish();
