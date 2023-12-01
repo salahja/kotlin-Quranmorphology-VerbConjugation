@@ -8,12 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.R.layout
-
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -36,7 +34,7 @@ class WbwTranslationListPrefrence : BottomSheetDialogFragment() {
     var mItemClickListener: OnItemClickListener? = null
     var radioGroup: RadioGroup? = null
     private var fontQuranAdapter: WbwTranslationListPrefrence.FontQuranAdapter? = null
-    lateinit var frameLayout: RelativeLayout
+ //   lateinit var frameLayout: RelativeLayout
     fun setOnItemClickListener(mItemClickListener: OnItemClickListener?) {
         this.mItemClickListener = mItemClickListener
     }
@@ -79,7 +77,7 @@ class WbwTranslationListPrefrence : BottomSheetDialogFragment() {
             wbwbangla = itemView.findViewById(R.id.wbwbangla)
             wbwurdu = itemView.findViewById(R.id.wbwurdu)
             wbwindonesia = itemView.findViewById(R.id.wbwindonesia)
-            frameLayout = itemView.findViewById(R.id.bottomSheet)
+            //frameLayout = itemView.findViewById(R.id.bottomSheet)
             itemView.setOnClickListener(this)
             wbwen.setOnClickListener {
                 val editor: SharedPreferences.Editor =

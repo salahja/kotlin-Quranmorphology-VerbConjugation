@@ -10,7 +10,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
@@ -47,6 +46,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant.CHAPTER
 import com.example.Constant.SURAH_ARABIC_NAME
 import com.example.compose.RxFilesActivity
+import com.example.mushafconsolidated.Activity.Data.getFileUrlUpdates
+import com.example.mushafconsolidated.Activity.Data.getSaveDirs
 import com.example.mushafconsolidated.Activityimport.AyahCoordinate
 import com.example.mushafconsolidated.Activityimport.BaseActivity
 import com.example.mushafconsolidated.Adapters.LineMushaAudioAdapter
@@ -93,7 +94,6 @@ import com.tonyodev.fetch2.Download
 import com.tonyodev.fetch2.Error
 import com.tonyodev.fetch2.FetchConfiguration
 import com.tonyodev.fetch2.FetchListener
-import com.tonyodev.fetch2.Priority
 import com.tonyodev.fetch2.Request
 import com.tonyodev.fetch2.getErrorFromThrowable
 import com.tonyodev.fetch2rx.RxFetch
@@ -246,18 +246,11 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.vfour_expandable_newactivity_show_ayahs)
-        //    ButterKnife.bind(this);
-        //    QuranGrammarApplication.appContext = ShowMushafActivity.this;
-        //  intentmyservice = new Intent(this, AudioService.class);
-        val fetchConfiguration: FetchConfiguration = FetchConfiguration.Builder(this).build()
-        //    rxFetch = RxFetch.Impl.getInstance(fetchConfiguration);
-        RxFetch.setDefaultRxInstanceConfiguration(fetchConfiguration)
 
-        //  rxFetch.Impl.setDefaultFetchConfiguration(config);
+        val fetchConfiguration: FetchConfiguration = FetchConfiguration.Builder(this).build()
+        RxFetch.setDefaultRxInstanceConfiguration(fetchConfiguration)
         rxFetch = RxFetch.getDefaultRxInstance()
-     //   rxFetch!!.retry(id = 3)
-       // Links= com.example.compose.createDownloadLinks()
-        setUpViews()
+         setUpViews()
         reset()
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         val intent = Intent(BROADCAST_SEEKBAR)
@@ -352,11 +345,11 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     }
 
 
-    private fun enqueueFiles(Links: ArrayList<String>, filepath: String) {
+     fun enqueueFiles(Links: ArrayList<String>, filepath: String) {
        // readerID=getReaderId()
         val requestList = getFileUrlUpdates(this, Links, filepath,readerID.toString())
         for (request in requestList) {
-            request.groupId = RxFilesActivity.groupId
+            request.groupId = groupId
         }
         enqueueDisposable =
             rxFetch!!.enqueue(requestList).flowable.subscribe({ updatedRequests: List<Pair<Request, Error?>> ->
@@ -373,35 +366,11 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     }
 
 
-    fun getFileUrlUpdates(context: Context, Links: List<String>, filepath: String,readerid:String): List<Request> {
-        val requests: MutableList<Request> = ArrayList()
-        val url = "http://speedtest.ftp.otenet.gr/files/test100k.db"
-        for (sampleUrl in Links) {
-            val request = Request(sampleUrl, getFilePath(sampleUrl, context, filepath,readerid))
-            request.priority = Priority.HIGH
-            //val request = Request(sampleUrl, filepath)
-            requests.add(request)
-        }
-        /*       for (i in 0..9) {
-                   val filePath = getSaveDir(context) + "/gameAssets/" + "asset_" + i + ".asset"
-                   val request = Request(url, filePath)
-                   request.priority = Priority.HIGH
-                   requests.add(request)
-               }*/
-        return requests
-    }
 
 
-    private fun getFilePath(url: String, context: Context, filepath: String, readerid: String): String {
-        val uri = Uri.parse(url)
-        val fileName = uri.lastPathSegment
-        val dir = getSaveDirs(context,readerid)
-        return "$dir/$fileName"
-    }
 
-    private fun getSaveDirs(context: Context, readerid: String): Any {
-        return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString() + "/fetch/"+readerid
-    }
+
+
 
     private fun updateUIWithProgress() {
         val totalFiles = fileProgressMap.size
@@ -1331,7 +1300,9 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             marray = if (isjuz) {
                 createMediaItemsJuz()
             } else {
-                createMediaItemsrx()
+
+             createMediaItemsrx()
+
             }
             //urrah      marray = createMediaItems();
             if (marray.isEmpty()) {
@@ -1801,6 +1772,9 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         startrange.setOnClickListener(this)
         llStartRange = (findViewById<LinearLayout>(R.id.llStartRange))!!
         llStartRange.setOnClickListener(this)
+
+        readers = (findViewById<Spinner>(R.id.selectReaders))!!
+
         endrange.setOnClickListener(this)
         llEndRange = (findViewById<LinearLayout>(R.id.llEndRange))!!
         llEndRange.setOnClickListener {
@@ -1817,6 +1791,23 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 SurahAyahPicker(false, starttrue)
             }
         })
+
+
+
+        readers.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View,
+                position: Int,
+                id: Long,
+            ) {
+                readerName = readers.selectedItem.toString()
+                getReaderAudioLink(readerName)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
         playiv = findViewById<ImageView>(R.id.play)
         playiv.setOnClickListener(this)
         audio_settings_bottom = findViewById(R.id.audio_settings_bottom)

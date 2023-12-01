@@ -65,8 +65,9 @@ class NewSurahDisplayAdapter(
         val defaultfont = sharedPreferences.getBoolean("default_font", true)
         val surahIsmakki: Int = surah.ismakki
         val cno: Int = surah.chapterid
-        //  holder.tvsurahleft.setText(sb);
-        holder.tvsurahleft.text = surah.nameenglish
+        val te=cno.toString()+" "+surah.nameenglish;
+
+        holder.tvsurahleft.text =te
         if (!defaultfont) {
             holder.tvsurahleft.textSize = SharedPref.SeekarabicFontsize().toFloat()
         }

@@ -558,7 +558,7 @@ class GrammerFragmentsBottomSheet : BottomSheetDialogFragment() {
             "bn" -> sb.append(tr.bn)
             "id" -> sb.append(tr.id)
         }
-        sb.append(" ")
+       // sb.append(" ")
         return sb
     }
 
