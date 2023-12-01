@@ -588,6 +588,9 @@ class Utils {
         return  database.VerbCorpusDao().getQuranVerbsByfirstletter(id)
     }
 
+    fun getQuranCorpusWbwSurhAyah(cid: Int,aid:Int,wid:Int): List<QuranCorpusWbw> {
+        return  database.QuranDao().getQuranCorpusWbw(cid,aid,wid)
+    }
 
     companion object {
         private const val TAG: String = "Utils"

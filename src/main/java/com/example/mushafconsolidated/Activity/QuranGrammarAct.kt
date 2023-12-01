@@ -74,7 +74,6 @@ import com.example.mushafconsolidated.ajroomiya.NewAjroomiyaDetailHostActivity
 import com.example.mushafconsolidated.databinding.NewFragmentReadingBinding
 import com.example.mushafconsolidated.fragments.BookMarkCreateFrag
 import com.example.mushafconsolidated.fragments.BookmarkFragment
-import com.example.mushafconsolidated.fragments.GrammerFragmentsBottomSheet
 import com.example.mushafconsolidated.fragments.NewSurahDisplayFrag
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet
 import com.example.mushafconsolidated.fragments.newFlowAyahWordAdapter
@@ -84,6 +83,7 @@ import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.example.mushafconsolidated.settingsimport.Constants
 import com.example.mushafconsolidatedimport.ParticleColorScheme
+import com.example.sentenceanalysis.SentenceGrammarAnalysis
 import com.example.surahdisplaycompose.SurahComposeAct
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.QuranGrammarApplication
@@ -1163,7 +1163,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
     }
 
     private fun LoadItemList(dataBundle: Bundle, word: QuranEntity) {
-        val builder = AlertDialog.Builder(this)
+   /*     val builder = AlertDialog.Builder(this)
         builder.setCancelable(false) // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_dialog)
         val item = GrammerFragmentsBottomSheet()
@@ -1176,7 +1176,17 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
         val data =
             arrayOf(word.surah.toString(), word.ayah.toString(), word.translation, 1.toString())
         GrammerFragmentsBottomSheet.newInstance(data)
-            .show(supportFragmentManager, WordAnalysisBottomSheet.TAG)
+            .show(supportFragmentManager, WordAnalysisBottomSheet.TAG)*/
+
+
+        val homeactivity = Intent(this@QuranGrammarAct, SentenceGrammarAnalysis::class.java)
+        homeactivity.putExtras(dataBundle!!)
+        //  val homeactivity = Intent(this@MainActivity, DownloadListActivity::class.java)
+
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        startActivity(homeactivity)
+    //    finish();
+
     }
 
     override fun onItemClick(v: View, position: Int) {
@@ -1214,6 +1224,10 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
             //   transactions.show(item);
             BookMarkCreateFrag.newInstance(data)
                 .show(this@QuranGrammarAct.supportFragmentManager, WordAnalysisBottomSheet.TAG)
+
+
+
+
         }
         if (tag == "arrowforward") {
             val currentsurah = quranEntity.surah
@@ -1388,7 +1402,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
             }
             val dataBundle = Bundle()
             dataBundle.putInt(Constant.SURAH_ID, word.surah)
-            dataBundle.putInt(Constant.AYAHNUMBER, Math.toIntExact(word.ayah.toLong()))
+            dataBundle.putInt(Constant.AYAH_ID, Math.toIntExact(word.ayah.toLong()))
             LoadItemList(dataBundle, word)
         }
     }
