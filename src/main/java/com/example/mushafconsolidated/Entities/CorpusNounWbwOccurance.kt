@@ -6,7 +6,7 @@ import com.example.mushafconsolidated.model.WordSpan
 
 
 class CorpusNounWbwOccurance {
-    
+
     @Ignore
     var verses: SpannableString? = null
 
@@ -46,23 +46,19 @@ class CorpusNounWbwOccurance {
     var en_jalalayn: String? = null
     var en_arberry: String? = null
 
-    
-    
+
     @Ignore
     var spannableNoun: SpannableString? = null
 
-    
-    
+
     @Ignore
     var lemma: String? = null
 
-    
-    
+
     @Ignore
     var lemmacount: Int = 0
 
-    
-    
+
     @Ignore
     var arabicword: String? = null
 

@@ -45,7 +45,7 @@ class PinsFragment constructor() : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_bookmark, container, false)
         val utils: Utils = Utils(activity)
 
-       val vmodel: QuranVIewModel by viewModels()
+        val vmodel: QuranVIewModel by viewModels()
         bookmarksShowAdapter = BookmarksShowAdapter(activity)
         vmodel.getBookmarks().observe(viewLifecycleOwner, Observer {
 
@@ -68,9 +68,9 @@ class PinsFragment constructor() : Fragment() {
             object : SwipeToDeleteCallback(activity) {
                 public override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
                     val position: Int = viewHolder.adapterPosition
-                  /*  val item: BookMarks? =
-                        bookmarksShowAdapter!!.getBookMarkArrayList()?.get(position)*/
-                    val item: BookMarks?  = bookmarksShowAdapter!!.getItem(position)
+                    /*  val item: BookMarks? =
+                          bookmarksShowAdapter!!.getBookMarkArrayList()?.get(position)*/
+                    val item: BookMarks? = bookmarksShowAdapter!!.getItem(position)
                     //   final int code = item.hashCode();
                     bookmarksShowAdapter!!.getItemId(position)
                     bookmarksShowAdapter!!.removeItem(position)
@@ -83,7 +83,7 @@ class PinsFragment constructor() : Fragment() {
                     snackbar.setAction(
                         "UNDO",
                         View.OnClickListener { view: View? -> mRecview!!.scrollToPosition(position) }
-                                      )
+                    )
                     snackbar.setActionTextColor(Color.CYAN)
                     snackbar.show()
                     bookmarksShowAdapter!!.bookChapterno

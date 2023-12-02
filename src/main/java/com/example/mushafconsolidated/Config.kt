@@ -6,25 +6,6 @@ import android.preference.PreferenceManager
 import android.util.Log
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
 class Config constructor() {
     // public String lang;
     var rtl: Boolean = false

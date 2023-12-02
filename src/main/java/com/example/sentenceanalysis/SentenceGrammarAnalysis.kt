@@ -18,7 +18,7 @@ import com.example.compose.CardsViewModel
 import com.skyyo.expandablelist.theme.AppTheme
 
 
-class SentenceGrammarAnalysis() : AppCompatActivity() {
+class SentenceGrammarAnalysis : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -28,40 +28,41 @@ class SentenceGrammarAnalysis() : AppCompatActivity() {
     private val cardsViewModel by viewModels<CardsViewModel>()
     private lateinit var shared: SharedPreferences
     var root: String? = null
-    var thememode=false;
- //   private val viewModel by viewModels<ExpandableListViewModel>()
+    var thememode = false
+
+    //   private val viewModel by viewModels<ExpandableListViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             val bundle: Bundle? = intent.extras
             val sura = bundle?.getInt(Constant.SURAH_ID)
             val ayah = bundle?.getInt(Constant.AYAH_ID)
-            this.shared = PreferenceManager.getDefaultSharedPreferences(this@SentenceGrammarAnalysis)
+            this.shared =
+                PreferenceManager.getDefaultSharedPreferences(this@SentenceGrammarAnalysis)
             val preferences = shared.getString("themepref", "dark")
 
             var systemInDarkTheme = isSystemInDarkTheme()
             if (preferences == "dark" || preferences == "blue" || preferences == "green") {
-                thememode=true
-                systemInDarkTheme=true
-            }else{
-                thememode=false
-                systemInDarkTheme=false
+                thememode = true
+                systemInDarkTheme = true
+            } else {
+                thememode = false
+                systemInDarkTheme = false
             }
 
             val versemodel: ExpandableVerseViewModel = viewModel(factory = sura?.let {
                 VerseAnalysisFctory(
-                    it,ayah!!,thememode,0)
+                    it, ayah!!, thememode, 0
+                )
             })
             //   VerseAnalysisScreen(versemodel,navController,  chapterid, verseid,)
-
 
 
             AppTheme(systemInDarkTheme) {
                 Surface(color = MaterialTheme.colors.background) {
 
 
-                    newVerseAnalysisCardsScreen(versemodel)
-
+                    NewVerseAnalysisCardsScreen(versemodel)
 
 
                 }
@@ -74,12 +75,11 @@ class SentenceGrammarAnalysis() : AppCompatActivity() {
     }
 
 
-
 }
 
 class VerseAnalysisFctory(
-    private val chapterid:Int,
-    private val verseid:Int,
+    private val chapterid: Int,
+    private val verseid: Int,
     private val thememode: Boolean,
     private val wbwchoice: Int
 
@@ -87,6 +87,6 @@ class VerseAnalysisFctory(
 ) :
     ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T =
-        ExpandableVerseViewModel(chapterid,verseid,thememode,wbwchoice) as T
+        ExpandableVerseViewModel(chapterid, verseid, thememode, wbwchoice) as T
 }
 

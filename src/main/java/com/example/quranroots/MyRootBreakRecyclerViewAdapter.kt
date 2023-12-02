@@ -40,6 +40,7 @@ class MyRootBreakRecyclerViewAdapter(
     private var arabicfontSize: Int = 0
     private var translationfontsize: Int = 0
     private var defaultfont: Boolean = false
+
     init {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
             context
@@ -64,15 +65,24 @@ class MyRootBreakRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-          quranCorpusWbw = corpusSurahWord!![position]
+        quranCorpusWbw = corpusSurahWord!![position]
         val sb = StringBuilder()
         val spannableString = NewSetWordSpan(
-            quranCorpusWbw.corpus.tagone, quranCorpusWbw.corpus.tagtwo, quranCorpusWbw.corpus.tagthree, quranCorpusWbw.corpus.tagfour, quranCorpusWbw.corpus.tagfive,
-            quranCorpusWbw.corpus.araone!!, quranCorpusWbw.corpus.aratwo!!, quranCorpusWbw.corpus.arathree!!, quranCorpusWbw.corpus.arafour!!, quranCorpusWbw.corpus.arafive!!
+            quranCorpusWbw.corpus.tagone,
+            quranCorpusWbw.corpus.tagtwo,
+            quranCorpusWbw.corpus.tagthree,
+            quranCorpusWbw.corpus.tagfour,
+            quranCorpusWbw.corpus.tagfive,
+            quranCorpusWbw.corpus.araone!!,
+            quranCorpusWbw.corpus.aratwo!!,
+            quranCorpusWbw.corpus.arathree!!,
+            quranCorpusWbw.corpus.arafour!!,
+            quranCorpusWbw.corpus.arafive!!
         )
 
         //  sb.append(lughat.getSurah()).append("   ").append(lughat.getNamearabic()).append(lughat.getAyah()).append(" ").append(lughat.getArabic());
-        sb.append(quranCorpusWbw.corpus.ayah).append("  ").append(chapters.value!!.get(quranCorpusWbw.corpus.surah).namearabic).append("   ")
+        sb.append(quranCorpusWbw.corpus.ayah).append("  ")
+            .append(chapters.value!!.get(quranCorpusWbw.corpus.surah).namearabic).append("   ")
             .append(quranCorpusWbw.corpus.surah).append(" ").append(quranCorpusWbw.wbw.en)
         val sbs = SpannableString(sb)
         val charSequence = TextUtils.concat(spannableString, sb)
@@ -80,18 +90,18 @@ class MyRootBreakRecyclerViewAdapter(
         //   sb.append(lughat.getSurah()).append(":").append(lughat.getAyah()).append(":").append(lughat.getArabic()).append("-").append(lughat.getAbjadname());
         holder.arabicroot_detail.text = charSequence
         setTextSizes(holder)
-/*
-        holder.arabicroot_detail.setOnLongClickListener(View.OnLongClickListener {
+        /*
+                holder.arabicroot_detail.setOnLongClickListener(View.OnLongClickListener {
 
 
-        })*/
+                })*/
     }
 
 
-    private fun setTextSizes(holder:ViewHolder) {
+    private fun setTextSizes(holder: ViewHolder) {
         if (!defaultfont) {
             holder.arabicroot_detail.textSize = arabicfontSize.toFloat()
-   
+
         }
     }
 
@@ -121,34 +131,56 @@ class MyRootBreakRecyclerViewAdapter(
             arabicroot_detail.tag = "root"
             arabicroot_detail.setOnClickListener(this)
             view.setOnClickListener(this)
-            arabicroot_detail.setOnLongClickListener(View.OnLongClickListener {view
+            arabicroot_detail.setOnLongClickListener(View.OnLongClickListener {
+                view
                 val utils = Utils(QuranGrammarApplication.context!!)
                 val verbCorpusRootWords =
-                    utils.getQuranRoot(quranCorpusWbw.corpus.surah, quranCorpusWbw.corpus.ayah, quranCorpusWbw.corpus.wordno)
+                    utils.getQuranRoot(
+                        quranCorpusWbw.corpus.surah,
+                        quranCorpusWbw.corpus.ayah,
+                        quranCorpusWbw.corpus.wordno
+                    )
                 if (verbCorpusRootWords!!.isNotEmpty() && verbCorpusRootWords[0]!!.tag == "V") {
                     //    vbdetail = ams.getVerbDetails();
                     print("check")
                 }
                 val corpusNounWord =
-                    utils.getQuranNouns(quranCorpusWbw.corpus.surah, quranCorpusWbw.corpus.ayah, quranCorpusWbw.corpus.wordno)
+                    utils.getQuranNouns(
+                        quranCorpusWbw.corpus.surah,
+                        quranCorpusWbw.corpus.ayah,
+                        quranCorpusWbw.corpus.wordno
+                    )
                 val verbCorpusRootWord =
-                    utils.getQuranRoot(quranCorpusWbw.corpus.surah, quranCorpusWbw.corpus.ayah, quranCorpusWbw.corpus.wordno)
+                    utils.getQuranRoot(
+                        quranCorpusWbw.corpus.surah,
+                        quranCorpusWbw.corpus.ayah,
+                        quranCorpusWbw.corpus.wordno
+                    )
                 val qm = refWordMorphologyDetails(
                     quranCorpusWbw.corpus,
                     corpusNounWord!!, verbCorpusRootWord!!
                 )
-                val sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(
-                    QuranGrammarApplication.context!!
-                )
+                val sharedPreferences =
+                    androidx.preference.PreferenceManager.getDefaultSharedPreferences(
+                        QuranGrammarApplication.context!!
+                    )
                 val isNightmode = sharedPreferences!!.getString("themepref", "dark").toString()
                 val workBreakDown = qm.workBreakDown
                 var color =
-                    ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.background_color_light_brown)
+                    ContextCompat.getColor(
+                        QuranGrammarApplication.context!!,
+                        R.color.background_color_light_brown
+                    )
                 when (isNightmode) {
                     "dark", "blue", "green" -> color =
-                        ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.background_color)
+                        ContextCompat.getColor(
+                            QuranGrammarApplication.context!!,
+                            R.color.background_color
+                        )
 
-                    "brown" -> color = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.neutral0)
+                    "brown" -> color =
+                        ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.neutral0)
+
                     "light" ->                             //  case "white":
                         color = ContextCompat.getColor(
                             QuranGrammarApplication.context!!,
@@ -164,8 +196,8 @@ class MyRootBreakRecyclerViewAdapter(
                     .setCornerRadius(20f)
                     .setGravity(Gravity.TOP)
                     .setArrowEnabled(true)
-                 .setBackgroundColor(color)
-                     .setText(workBreakDown)
+                    .setBackgroundColor(color)
+                    .setText(workBreakDown)
                 builder.show()
 
                 return@OnLongClickListener true
@@ -177,7 +209,6 @@ class MyRootBreakRecyclerViewAdapter(
                 mItemClickListener.onItemClick(v, layoutPosition)
             }
         }
-
 
 
     }

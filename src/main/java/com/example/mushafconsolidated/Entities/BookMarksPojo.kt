@@ -1,5 +1,5 @@
-
 package com.example.mushafconsolidated.DAO
+
 class BookMarksPojo() {
     var id: Int = 0
     var header: String? = null

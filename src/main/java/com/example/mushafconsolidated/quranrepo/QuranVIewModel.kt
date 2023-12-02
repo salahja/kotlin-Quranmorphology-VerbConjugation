@@ -40,7 +40,7 @@ class QuranVIewModel(
 
 
     private var allquran: MutableLiveData<List<QuranEntity>> = MutableLiveData()
-    private val qurancorpus:MutableLiveData<List<QuranCorpusWbw>> = MutableLiveData()
+    private val qurancorpus: MutableLiveData<List<QuranCorpusWbw>> = MutableLiveData()
     private var sursumm: LiveData<List<surahsummary>> = MutableLiveData()
     private var chapters: LiveData<List<ChaptersAnaEntity>> = MutableLiveData()
     private var chapterslist: MutableLiveData<List<ChaptersAnaEntity>> = MutableLiveData()
@@ -81,7 +81,7 @@ class QuranVIewModel(
 
     var lughat: MutableLiveData<List<lughat>> = MutableLiveData()
     private var grammarules: MutableLiveData<List<GrammarRules>> = MutableLiveData()
-  //  getQuranCorpusWbwBysurah
+    //  getQuranCorpusWbwBysurah
 
     fun getGramarRulesbyHarf(root: String): LiveData<List<GrammarRules>> {
         grammarules.value = newrepository.grammarrulesDao.getGrammarRulesByHarf(root)
@@ -108,7 +108,12 @@ class QuranVIewModel(
     fun getwbwQuranTranslationRange(surahid: Int, ayahid: Int, startindex: Int, endindex: Int):
             LiveData<List<wbwentity>> {
         wbw.value =
-            this.newrepository.wbwdao.getwbwQuranbTranslationbyrange(surahid, ayahid, startindex, endindex)
+            this.newrepository.wbwdao.getwbwQuranbTranslationbyrange(
+                surahid,
+                ayahid,
+                startindex,
+                endindex
+            )
         return wbw
 
     }
@@ -191,12 +196,11 @@ class QuranVIewModel(
         corpuswbwlist.value = this.newrepository.getQuranCorpusWbw(cid, aid, wid)
         return corpuswbwlist
     }
+
     fun getQuranCorpusWbwBysurah(cid: Int): MutableLiveData<List<QuranCorpusWbw>> {
         corpuswbwlist.value = this.newrepository.getQuranCorpusWbwBysurah(cid)
         return corpuswbwlist
     }
-
-
 
 
     fun getQuranRootBySurahAyahWord(
@@ -303,7 +307,6 @@ class QuranVIewModel(
     }
 
 
-
     fun getMafoolSurah(cid: Int): MutableLiveData<List<MafoolBihi>> {
         viewModelScope.launch {
             mafoolb.value = newrepository.getMafoolbihiSurah(cid)
@@ -358,12 +361,13 @@ class QuranVIewModel(
 
 
         viewModelScope.launch {
-            allquran.value= newrepository.getsurahbyayah(cid, ayid)
+            allquran.value = newrepository.getsurahbyayah(cid, ayid)
         }
 
 
         return allquran
     }
+
     fun getquranbySUrah(cid: Int): LiveData<List<QuranEntity>> {
 
 
@@ -386,6 +390,7 @@ class QuranVIewModel(
 
         return qurancorpus
     }
+
     fun getQuranCorpusWbwbyroot(root: String): LiveData<List<QuranCorpusWbw>> {
 
 
@@ -398,14 +403,11 @@ class QuranVIewModel(
     }
 
 
-
-
-
-    fun getQuranCorpusWbwbysurahAyah(cid: Int,aid : Int): LiveData<List<QuranCorpusWbw>> {
+    fun getQuranCorpusWbwbysurahAyah(cid: Int, aid: Int): LiveData<List<QuranCorpusWbw>> {
 
 
         viewModelScope.launch {
-            qurancorpus.value = newrepository.getQuranCorpusWbwbysurahAyah(cid,aid)
+            qurancorpus.value = newrepository.getQuranCorpusWbwbysurahAyah(cid, aid)
         }
 
 

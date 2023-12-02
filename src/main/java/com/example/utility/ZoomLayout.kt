@@ -14,8 +14,8 @@ import kotlin.math.min
 import kotlin.math.sign
 
 class ZoomLayout : FrameLayout, OnScaleGestureListener {
-    private var mode:  ZoomLayout.Mode =
-      ZoomLayout.Mode.NONE
+    private var mode: ZoomLayout.Mode =
+        ZoomLayout.Mode.NONE
     private var scale = 1.0f
     private var lastScaleFactor = 0f
 
@@ -64,11 +64,11 @@ class ZoomLayout : FrameLayout, OnScaleGestureListener {
                         scale *= 2.0f
                         restore = true
                     }
-                    mode =ZoomLayout.Mode.ZOOM
+                    mode = ZoomLayout.Mode.ZOOM
                     firstTouch = false
                 } else {
-                    if (scale >ZoomLayout.Companion.MIN_ZOOM) {
-                        mode =ZoomLayout.Mode.DRAG
+                    if (scale > ZoomLayout.Companion.MIN_ZOOM) {
+                        mode = ZoomLayout.Mode.DRAG
                         startX = motionEvent.x - prevDx
                         startY = motionEvent.y - prevDy
                     }
@@ -76,7 +76,7 @@ class ZoomLayout : FrameLayout, OnScaleGestureListener {
                     time = System.currentTimeMillis()
                 }
 
-                MotionEvent.ACTION_MOVE -> if (mode ==ZoomLayout.Mode.DRAG) {
+                MotionEvent.ACTION_MOVE -> if (mode == ZoomLayout.Mode.DRAG) {
                     dx = motionEvent.x - startX
                     dy = motionEvent.y - startY
                 }
@@ -89,13 +89,13 @@ class ZoomLayout : FrameLayout, OnScaleGestureListener {
 
                 MotionEvent.ACTION_UP -> {
                     Log.i(ZoomLayout.Companion.TAG, "UP")
-                    mode =ZoomLayout.Mode.NONE
+                    mode = ZoomLayout.Mode.NONE
                     prevDx = dx
                     prevDy = dy
                 }
             }
             scaleDetector.onTouchEvent(motionEvent)
-            if (mode ==ZoomLayout.Mode.DRAG && scale >=ZoomLayout.Companion.MIN_ZOOM || mode ==ZoomLayout.Mode.ZOOM) {
+            if (mode == ZoomLayout.Mode.DRAG && scale >= ZoomLayout.Companion.MIN_ZOOM || mode == ZoomLayout.Mode.ZOOM) {
                 parent.requestDisallowInterceptTouchEvent(true)
                 val maxDx = child().width - child().width / scale / 2 * scale
                 val maxDy = child().height - child().height / scale / 2 * scale
@@ -128,7 +128,7 @@ class ZoomLayout : FrameLayout, OnScaleGestureListener {
             scale *= scaleFactor
             scale = max(
                 MIN_ZOOM,
-                min(scale,MAX_ZOOM)
+                min(scale, MAX_ZOOM)
             )
             lastScaleFactor = scaleFactor
         } else {

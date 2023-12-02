@@ -58,44 +58,44 @@ import com.example.surahdisplaycompose.SurahViewModel
 
 
 private val items = listOf(
-  Icons.Filled.Check,
-  Icons.Filled.Close,
-  Icons.Filled.ThumbUp,
-  Icons.Filled.Build,
-  Icons.Filled.Delete,
-  Icons.Filled.Home,
-  Icons.Filled.Close,
-  Icons.Filled.ThumbUp,
-  Icons.Filled.Build,
-  Icons.Filled.ThumbUp,
+    Icons.Filled.Check,
+    Icons.Filled.Close,
+    Icons.Filled.ThumbUp,
+    Icons.Filled.Build,
+    Icons.Filled.Delete,
+    Icons.Filled.Home,
+    Icons.Filled.Close,
+    Icons.Filled.ThumbUp,
+    Icons.Filled.Build,
+    Icons.Filled.ThumbUp,
 )
 
 @Composable
 
 fun GridScreen(viewModel: SurahViewModel) {
-  LazyVerticalGrid(
-    modifier = Modifier.fillMaxSize(),
-    columns = GridCells.Fixed(3),
-    content = {
-      items(items.size) { index ->
-        GridIcon(items[index])
-      }
-    }
-  )
+    LazyVerticalGrid(
+        modifier = Modifier.fillMaxSize(),
+        columns = GridCells.Fixed(3),
+        content = {
+            items(items.size) { index ->
+                GridIcon(items[index])
+            }
+        }
+    )
 
 //  BackButtonHandler {
- //   JetFundamentalsRouter.navigateTo(Screen.Navigation)
-  //}
+    //   JetFundamentalsRouter.navigateTo(Screen.Navigation)
+    //}
 }
 
 @Composable
 fun GridIcon(iconResource: ImageVector) {
-  Icon(
-    imageVector = iconResource,
-    tint = colorResource(R.color.colorPrimary),
-    contentDescription = stringResource(R.string.grid_icon),
-    modifier = Modifier
-      .size(80.dp)
-      .padding(20.dp)
-  )
+    Icon(
+        imageVector = iconResource,
+        tint = colorResource(R.color.colorPrimary),
+        contentDescription = stringResource(R.string.grid_icon),
+        modifier = Modifier
+            .size(80.dp)
+            .padding(20.dp)
+    )
 }

@@ -48,12 +48,11 @@ import kotlinx.coroutines.CoroutineScope
 class SurahComposeAct : BaseActivity() {
 
 
-    private lateinit  var allAnaChapters: List<ChaptersAnaEntity?>
+    private lateinit var allAnaChapters: List<ChaptersAnaEntity?>
     private lateinit var imgs: TypedArray
 
 
- //val darkTheme = themeViewModel.darkTheme.observeAsState(initial = true)
-
+    //val darkTheme = themeViewModel.darkTheme.observeAsState(initial = true)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,13 +90,13 @@ class SurahComposeAct : BaseActivity() {
     fun MyScaffold() {
         val scaffoldState: ScaffoldState = rememberScaffoldState()
         val scope: CoroutineScope = rememberCoroutineScope()
-        val navController : NavHostController = NavHostController(this)
+        val navController: NavHostController = NavHostController(this)
         Scaffold(
             scaffoldState = scaffoldState,
 
-            content={GridScreens()},
+            content = { GridScreens() },
             topBar = { MyTopAppBar(scaffoldState = scaffoldState, scope = scope) },
-            bottomBar = {   MainScreen() }
+            bottomBar = { MainScreen() }
 
         )
     }
@@ -175,8 +174,7 @@ class SurahComposeAct : BaseActivity() {
                         .height(30.dp)
                         .width(30.dp),
 
-                )
-
+                    )
 
 
             }

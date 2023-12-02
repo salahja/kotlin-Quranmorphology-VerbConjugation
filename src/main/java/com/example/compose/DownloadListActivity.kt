@@ -43,7 +43,6 @@ import java.io.File
 import java.util.Collections
 
 
-
 class DownloadListActivity : AppCompatActivity(), ActionListener {
     val titleTextView: TextView? = null
     val statusTextView: TextView? = null
@@ -56,10 +55,11 @@ class DownloadListActivity : AppCompatActivity(), ActionListener {
     private var mainView: View? = null
     private var fileAdapter: FileAdapter? = null
     private var fetch: Fetch? = null
-    private lateinit var Links:List<String>
+    private lateinit var Links: List<String>
     private val actionListener: ActionListener? = null
     val filepath =
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).toString() + "/audio/" + 20
+        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
+            .toString() + "/audio/" + 20
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,7 +97,7 @@ class DownloadListActivity : AppCompatActivity(), ActionListener {
                     fileAdapter!!.addDownload(download!!)
                 }*/
         }.addListener(fetchListener)
-        for(download in downloads)    {
+        for (download in downloads) {
             var url = ""
             if (download != null) {
                 url = download.download!!.url
@@ -147,7 +147,7 @@ class DownloadListActivity : AppCompatActivity(), ActionListener {
                 downloadedBytesPerSecondTextView!!.setText(
                     FUtils.getDownloadSpeedString(
                         this,
-                        download. downloadedBytesPerSecond
+                        download.downloadedBytesPerSecond
                     )
                 )
             }
@@ -224,6 +224,7 @@ class DownloadListActivity : AppCompatActivity(), ActionListener {
             else -> "Unknown"
         }
     }
+
     private fun setUpViews() {
         val networkSwitch = findViewById<SwitchCompat>(R.id.networkSwitch)
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
@@ -239,7 +240,6 @@ class DownloadListActivity : AppCompatActivity(), ActionListener {
         fileAdapter = FileAdapter(this)
         recyclerView.adapter = fileAdapter
     }
-
 
 
     override fun onStart() {
@@ -261,7 +261,7 @@ class DownloadListActivity : AppCompatActivity(), ActionListener {
                     fileAdapter!!.addDownload(download!!)
                 }*/
         }.addListener(fetchListener)
-        for(download in downloads)    {
+        for (download in downloads) {
             var url = ""
             if (download != null) {
                 url = download.download!!.url
@@ -311,7 +311,7 @@ class DownloadListActivity : AppCompatActivity(), ActionListener {
                 downloadedBytesPerSecondTextView!!.setText(
                     FUtils.getDownloadSpeedString(
                         this,
-                        download. downloadedBytesPerSecond
+                        download.downloadedBytesPerSecond
                     )
                 )
             }
@@ -479,12 +479,6 @@ class DownloadListActivity : AppCompatActivity(), ActionListener {
         }
 
 
-
-
-
-
-
-
         override fun onPaused(download: Download) {
             updates(
                 download,
@@ -559,16 +553,12 @@ class DownloadListActivity : AppCompatActivity(), ActionListener {
      */
 
     private fun enqueueDownloads() {
-        val requests = Data.getFetchRequestWithGroupId(GROUP_ID, this,Links,filepath)
-        fetch!!.enqueue(requests,  { updatedRequests: List<Pair<Request?, Error?>?>? -> })
-
-
-
+        val requests = Data.getFetchRequestWithGroupId(GROUP_ID, this, Links, filepath)
+        fetch!!.enqueue(requests, { updatedRequests: List<Pair<Request?, Error?>?>? -> })
 
 
     }
     ;
-
 
 
     override fun onPauseDownload(id: Int) {
@@ -618,7 +608,7 @@ class DownloadDatass {
 }
 
 fun createDownloadLinks(): List<String> {
-    val repository= Utils(QuranGrammarApplication.context)
+    val repository = Utils(QuranGrammarApplication.context)
     val chap = repository.getSingleChapter(13)
     val quranbySurah: List<QuranEntity?>? = repository.getQuranbySurah(13)
     //   surahselected = surah
@@ -629,7 +619,7 @@ fun createDownloadLinks(): List<String> {
     //   ayaList.add(0, new Aya(1, 1, 1));
     //loop for all page ayat
 //check if readerID is 0
-    val  readersList = repository.qaris
+    val readersList = repository.qaris
     var readerID = 0
     lateinit var downloadLink: String
     lateinit var readerName: String
@@ -711,10 +701,6 @@ class DownloadDatas {
 
     companion object
 }
-
-
-
-
 
 
 /*

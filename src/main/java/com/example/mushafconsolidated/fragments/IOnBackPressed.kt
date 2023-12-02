@@ -1,23 +1,5 @@
 package com.example.mushafconsolidated.fragments
 
- 
-
- 
-
- 
-
- 
-
-
-
-
-
-
- 
-
- 
-
- 
 
 open interface IOnBackPressed {
     /**

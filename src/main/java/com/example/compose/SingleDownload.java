@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 
-public class SingleDownload extends AppCompatActivity  {
+public class SingleDownload extends AppCompatActivity {
 
     private static final int STORAGE_PERMISSION_CODE = 100;
 
@@ -44,7 +44,7 @@ public class SingleDownload extends AppCompatActivity  {
 
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         FetchConfiguration fetchConfiguration = new FetchConfiguration.Builder(this)
@@ -146,7 +146,6 @@ public class SingleDownload extends AppCompatActivity  {
 
 
 //Remove listener when done.
-
 
 
 }

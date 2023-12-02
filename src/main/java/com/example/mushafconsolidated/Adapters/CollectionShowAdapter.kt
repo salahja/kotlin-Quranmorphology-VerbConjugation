@@ -84,7 +84,7 @@ class CollectionShowAdapter : RecyclerView.Adapter<CollectionShowAdapter.ViewHol
             holder.header.text = bookMark.header + "(" + bookMark.count + " aya;s" + ")"
             //   holder.header.setText(bookMark.getHeader());
         }
-       // holder.datestamp.setText(bookMark.getDatetime())
+        // holder.datestamp.setText(bookMark.getDatetime())
         holder.suraName.text = bookMark.surahname
         holder.chapterno.text = bookMark.chapterno.toString()
         holder.verseno.text = bookMark.verseno + ""
@@ -109,7 +109,7 @@ class CollectionShowAdapter : RecyclerView.Adapter<CollectionShowAdapter.ViewHol
     }
 
     fun removeItem(position: Int) {
-      //  bookMarkArrayList.removeAt(position)
+        //  bookMarkArrayList.removeAt(position)
 
         notifyItemRemoved(position)
     }
@@ -130,6 +130,7 @@ class CollectionShowAdapter : RecyclerView.Adapter<CollectionShowAdapter.ViewHol
         val verseno: TextView
         val pinicon: ImageView
         val collectionicon: ImageView
+
         //val cardView: CardView
         var chapterno: TextView
         var header: TextView

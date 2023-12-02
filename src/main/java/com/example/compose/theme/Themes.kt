@@ -24,7 +24,7 @@ fun ComposeSettingsTheme(
             }
         } else {
             if (darkThemePreference) {
-              //   DarkColorsNew
+                //   DarkColorsNew
                 DarkColors
             } else {
                 //   LightColorsNew

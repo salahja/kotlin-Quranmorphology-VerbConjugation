@@ -21,7 +21,6 @@ import com.example.mushafconsolidated.fragments.WbwTranslationListPrefrence
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet
 
 
-
 class ActivitySettings : BaseActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     // RelativeLayout layoutBottomSheet;
@@ -51,7 +50,7 @@ class ActivitySettings : BaseActivity(),
     override fun onBackPressed() {
         super.onBackPressed()
         val fragments: MutableList<android.app.Fragment>? = fragmentManager.fragments
-     val   activeFragment = fragments!!?.get(fragments.size - 1)
+        val activeFragment = fragments!!?.get(fragments.size - 1)
 
         val lastOrNull = this.supportFragmentManager.fragments.lastOrNull()
 
@@ -68,9 +67,8 @@ class ActivitySettings : BaseActivity(),
     override fun getIntent(): Intent {
         val pref = applicationContext.getSharedPreferences("lastread", MODE_PRIVATE)
 
-     var surahname = pref.getString(Constant.SURAH_ARABIC_NAME, "")
-      //  var surahArabicName = surahname.toString()
-
+        var surahname = pref.getString(Constant.SURAH_ARABIC_NAME, "")
+        //  var surahArabicName = surahname.toString()
 
 
         val readingintent = Intent(this, QuranGrammarAct::class.java)

@@ -47,65 +47,66 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.mushafconsolidated.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+
 @Composable
 @Preview
 fun ScaffoldScreen() {
-  MyScaffold()
+    MyScaffold()
 
- // BackButtonHandler {
- //   JetFundamentalsRouter.navigateTo(Screen.Navigation)
- // }
+    // BackButtonHandler {
+    //   JetFundamentalsRouter.navigateTo(Screen.Navigation)
+    // }
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 @Preview
 fun MyScaffold() {
-  val scaffoldState: ScaffoldState = rememberScaffoldState()
-  val scope: CoroutineScope = rememberCoroutineScope()
+    val scaffoldState: ScaffoldState = rememberScaffoldState()
+    val scope: CoroutineScope = rememberCoroutineScope()
 
-  Scaffold(
-    scaffoldState = scaffoldState,
-    contentColor = colors.primary,
-     content={ MyRow()},
-    topBar = { MyTopAppBar(scaffoldState = scaffoldState, scope = scope) },
-    bottomBar = { MyBottomAppBar() }
+    Scaffold(
+        scaffoldState = scaffoldState,
+        contentColor = colors.primary,
+        content = { MyRow() },
+        topBar = { MyTopAppBar(scaffoldState = scaffoldState, scope = scope) },
+        bottomBar = { MyBottomAppBar() }
 
-  )
+    )
 }
 
 @Composable
 
 fun MyTopAppBar(scaffoldState: ScaffoldState, scope: CoroutineScope) {
 
-  val drawerState = scaffoldState.drawerState
+    val drawerState = scaffoldState.drawerState
 
-  TopAppBar(
-    navigationIcon = {
-      IconButton(
-        content = {
-          Icon(
-            Icons.Default.Menu,
+    TopAppBar(
+        navigationIcon = {
+            IconButton(
+                content = {
+                    Icon(
+                        Icons.Default.Menu,
 
-            contentDescription = stringResource(R.string.menu)
-          )
+                        contentDescription = stringResource(R.string.menu)
+                    )
+                },
+                onClick = {
+                    scope.launch { if (drawerState.isClosed) drawerState.open() else drawerState.close() }
+                }
+            )
         },
-        onClick = {
-          scope.launch { if (drawerState.isClosed) drawerState.open() else drawerState.close() }
-        }
-      )
-    },
-    title = { Text(text = stringResource(id = R.string.app_name),   ) },
-    backgroundColor = MaterialTheme.colorScheme.primaryContainer,
-  )
+        title = { Text(text = stringResource(id = R.string.app_name)) },
+        backgroundColor = MaterialTheme.colorScheme.primaryContainer,
+    )
 }
 
 @Composable
 @Preview
 fun MyBottomAppBar() {
-  BottomAppBar(
-    content = {},
-     backgroundColor = MaterialTheme.colorScheme.primaryContainer,
-  )
+    BottomAppBar(
+        content = {},
+        backgroundColor = MaterialTheme.colorScheme.primaryContainer,
+    )
 }
 

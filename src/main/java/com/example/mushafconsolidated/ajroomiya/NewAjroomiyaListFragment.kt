@@ -62,7 +62,7 @@ class NewAjroomiyaListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View{
+    ): View {
         binding = NewFragmentAjroomiyaListBinding.inflate(inflater, container, false)
         return binding!!.root
     }
@@ -87,19 +87,17 @@ class NewAjroomiyaListFragment : Fragment() {
             //      Navigation.findNavController(itemDetailFragmentContainer)
             //            .navigate(R.id.fragment_grammarrule_detail, arguments);
             //   } else {
-          //  findNavController(itemView).navigate(R.id.ajroomiya_detail_fragment, arguments)
+            //  findNavController(itemView).navigate(R.id.ajroomiya_detail_fragment, arguments)
 
 
             val fragvsi = NewAjroomiyaDetailFragment()
-             fragvsi.arguments=bundle1
+            fragvsi.arguments = bundle1
             val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             transaction.replace(R.id.frame_container, fragvsi, "items")
             //     transaction.addToBackStack("setting");
             transaction.addToBackStack("items")
             transaction.commit()
-
-
 
 
         }
@@ -143,24 +141,25 @@ class NewAjroomiyaListFragment : Fragment() {
         private val mValues: List<GrammarRules?>,
         private val mOnClickListener: View.OnClickListener,
         private val mOnContextClickListener: View.OnContextClickListener,
-                                               ) : RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
+    ) : RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val binding: GrammarruleListContentBinding = GrammarruleListContentBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-                                                                                              )
+            )
             return ViewHolder(binding)
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val id = mValues[position]!!.id
             val s = id.toString()
-            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context!!)
+            val sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context!!)
             val theme = sharedPreferences.getString("themepref", "dark")
-           // holder.mIdView.text = s
+            // holder.mIdView.text = s
             //   holder.mContentView.setText(mValues.get(position).getHarf());
-            val str= mValues[position]!!.worddetails!!.replace("\n", " ")
+            val str = mValues[position]!!.worddetails!!.replace("\n", " ")
             holder.mContentView.text = str
             //    holder.mContentView.setText(HtmlCompat.fromHtml(mValues.get(position).getWorddetails() ,0));
             holder.itemView.tag = mValues[position]
@@ -168,13 +167,13 @@ class NewAjroomiyaListFragment : Fragment() {
             holder.itemView.setOnContextClickListener(mOnContextClickListener)
             if (theme == "green") {
                 holder.cardview.setCardBackgroundColor(context!!.resources.getColor(R.color.mdgreen_theme_dark_onPrimary))
-            } else if(theme=="blue"){
+            } else if (theme == "blue") {
                 holder.cardview.setBackgroundColor(
                     ContextCompat.getColor(
                         context!!,
                         R.color.bg_surface_dark_blue
-                                          )
-                                                  )
+                    )
+                )
             }
 
         }
@@ -189,12 +188,12 @@ class NewAjroomiyaListFragment : Fragment() {
 
             //  val mIdView: TextView
             val mContentView: TextView
-       //     val cardView: CardView
+            //     val cardView: CardView
 
             init {
-               // mIdView = binding.idText
+                // mIdView = binding.idText
                 mContentView = binding.content
-                cardview=binding.cardview
+                cardview = binding.cardview
 
             }
         }

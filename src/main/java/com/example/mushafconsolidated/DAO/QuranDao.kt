@@ -30,27 +30,24 @@ interface QuranDao {
 
 
     fun getQuranCorpusWbwbyRoot(root: String): List<QuranCorpusWbw>
+
     @Transaction
     @Query("SELECT * FROM CorpusExpand JOIN wbw ON wbw.id = CorpusExpand.id where corpusexpand.surah=:surahid and corpusexpand.ayah=:ayahid")
 
     fun getQuranCorpusWbwSurhAyah(surahid: Int, ayahid: Int): List<QuranCorpusWbw>
 
 
-
-/*
-    @Transaction
-    @Query("SELECT * FROM qurans,CorpusExpand,wbw where CorpusExpand.surah=:surahid and CorpusExpand.ayah=:ayahid and CorpusExpand.wordno=:wordno")
-    fun getQuranCorpusWbw(surahid: Int,ayahid: Int,wordno: Int): List<QuranCorpusWbw>
-*/
-
+    /*
+        @Transaction
+        @Query("SELECT * FROM qurans,CorpusExpand,wbw where CorpusExpand.surah=:surahid and CorpusExpand.ayah=:ayahid and CorpusExpand.wordno=:wordno")
+        fun getQuranCorpusWbw(surahid: Int,ayahid: Int,wordno: Int): List<QuranCorpusWbw>
+    */
 
 
-   /* @Transaction
-    @Query("  SELECT * FROM qurans,CorpusExpand,wbw,nouncorpus JOIN corpusexpand ON CorpusExpand.id = qurans.docid JOIN wbw ON wbw.id = corpusexpand.id  join nouncorpus on wbw.id=nouncorpus.id where corpusexpand.surah=:surahid and corpusexpand.ayah=:ayahid and corpusexpand.wordno=:wordno")
-    fun getQuranCorpusWbwNounCorpus(surahid: Int,ayahid: Int,wordno: Int): List<QuranCorpusWbwNounBreakup>
-*/
-
-
+    /* @Transaction
+     @Query("  SELECT * FROM qurans,CorpusExpand,wbw,nouncorpus JOIN corpusexpand ON CorpusExpand.id = qurans.docid JOIN wbw ON wbw.id = corpusexpand.id  join nouncorpus on wbw.id=nouncorpus.id where corpusexpand.surah=:surahid and corpusexpand.ayah=:ayahid and corpusexpand.wordno=:wordno")
+     fun getQuranCorpusWbwNounCorpus(surahid: Int,ayahid: Int,wordno: Int): List<QuranCorpusWbwNounBreakup>
+ */
 
 
     /*
@@ -82,9 +79,6 @@ where CorpusExpand.surah=1 and CorpusExpand.ayah=1 and CorpusExpand.wordno=2
     //
 
 
-
-
-
     @Query("SELECT * FROM qurans order by surah,ayah")
     fun allQuranl(): LiveData<List<QuranEntity>>
 
@@ -93,14 +87,15 @@ where CorpusExpand.surah=1 and CorpusExpand.ayah=1 and CorpusExpand.wordno=2
 
     @Query("SELECT * FROM qurans where surah=:surahid and ayah=:ayahid")
     fun getsurahayahVersesl(surahid: Int, ayahid: Int): List<QuranEntity>
+
     @Query("SELECT * FROM qurans where surah=:surahid and ayah=:ayahid")
     fun getsurahayahVerseslist(surahid: Int, ayahid: Int): List<QuranEntity>
-    @Query("SELECT * FROM qurans where surah=:surahid")
-    fun getQuranVersesBySurahl(surahid: Int):  List<QuranEntity>
 
     @Query("SELECT * FROM qurans where surah=:surahid")
-    fun getquranbyRoot(surahid: Int):  List<QuranEntity>
+    fun getQuranVersesBySurahl(surahid: Int): List<QuranEntity>
 
+    @Query("SELECT * FROM qurans where surah=:surahid")
+    fun getquranbyRoot(surahid: Int): List<QuranEntity>
 
 
     @Query("select * from qurans where  surah =:sura and page = :pageno order by ayah")
@@ -113,16 +108,11 @@ where CorpusExpand.surah=1 and CorpusExpand.ayah=1 and CorpusExpand.wordno=2
     fun getQuranbySurahAyahrangel(surahid: Int, from: Int, toid: Int): LiveData<List<QuranEntity>>
 
 
-
-
-
-
-
     //getQuranbySurahAyahrange
     //select * from qurans where ayah>=50 and ayah<=78 and surah=9
 
-  /*  @Query("select page from qurans where surah = :pos order by ayah limit 1 ")
-    fun getSuraStartpage(pos: Int): Int*/
+    /*  @Query("select page from qurans where surah = :pos order by ayah limit 1 ")
+      fun getSuraStartpage(pos: Int): Int*/
 
 
     /* @Query("select * from qurans where docid  between :start and :end")

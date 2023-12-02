@@ -80,7 +80,7 @@ class Dictionary_frag(lughatWordDetailsAct: LughatWordDetailsAct, language: Stri
                 .supportFragmentManager
             fm.popBackStack()
         }
-        val utils = Utils(QuranGrammarApplication. context)
+        val utils = Utils(QuranGrammarApplication.context)
         assert(dataBundle != null)
         var verbroot = dataBundle!!.getString(Constant.QURAN_VERB_ROOT)
         val arabicword = dataBundle.getString("arabicword")
@@ -221,7 +221,7 @@ class Dictionary_frag(lughatWordDetailsAct: LughatWordDetailsAct, language: Stri
             if (hansdictionary != null) {
                 if (hansdictionary.isEmpty()) {
 
-                          hansdictionary = mainViewModel.getHans(probableRoot.toString()).value
+                    hansdictionary = mainViewModel.getHans(probableRoot.toString()).value
                 }
             }
             if (hansdictionary != null) {
@@ -242,99 +242,104 @@ class Dictionary_frag(lughatWordDetailsAct: LughatWordDetailsAct, language: Stri
             hanssb.append("</html")
             worddifinition.add(hanssb.toString())
         } else {
-            dictionary = utils.getRootDictionary(vocabroot!!.trim { it <= ' ' }) as ArrayList<lughat>?
-          //  utils.grammarRules
+            dictionary =
+                utils.getRootDictionary(vocabroot!!.trim { it <= ' ' }) as ArrayList<lughat>?
+            //  utils.grammarRules
         }
         recyclerView = view.findViewById(R.id.sarfrecview)
         val ska: WordLughatAdapter
         val lanesLexiconAdapter: LexiconAdapter
         when (language) {
             "imperative" -> {
-                val isimperative =mainViewModel.getGramarRulesbyHarf("Imperative").value
-               //     utils.getGrammarRulesByRules("Imperative")
+                val isimperative = mainViewModel.getGramarRulesbyHarf("Imperative").value
+                //     utils.getGrammarRulesByRules("Imperative")
                 worddifinition.add(isimperative!![0].detailsrules)
-                lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
+                lanesLexiconAdapter = LexiconAdapter(worddifinition, requireContext(), language)
                 recyclerView.adapter = lanesLexiconAdapter
             }
 
             "genetivenoun" -> {
-                val ismmajroor: List<GrammarRules?>?=mainViewModel.getGramarRulesbyHarf("genetivenoun").value
-                 //   utils.getGrammarRulesByRules("genetivenoun")
+                val ismmajroor: List<GrammarRules?>? =
+                    mainViewModel.getGramarRulesbyHarf("genetivenoun").value
+                //   utils.getGrammarRulesByRules("genetivenoun")
                 worddifinition.add(ismmajroor?.get(0)!!.detailsrules)
-                lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
+                lanesLexiconAdapter = LexiconAdapter(worddifinition, requireContext(), language)
                 recyclerView.adapter = lanesLexiconAdapter
             }
 
             "accusativenoun" -> {
-                val ismmansub: List<GrammarRules?>? =mainViewModel.getGramarRulesbyHarf("accusativenoun").value
+                val ismmansub: List<GrammarRules?>? =
+                    mainViewModel.getGramarRulesbyHarf("accusativenoun").value
                 //    utils.getGrammarRulesByRules("accusativenoun")
                 worddifinition.add(ismmansub!![0]!!.detailsrules)
-                lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
+                lanesLexiconAdapter = LexiconAdapter(worddifinition, requireContext(), language)
                 recyclerView.adapter = lanesLexiconAdapter
             }
 
             "nominativenoun" -> {
-                val ismmarfu: List<GrammarRules?>? = mainViewModel.getGramarRulesbyHarf("nomnouns").value
+                val ismmarfu: List<GrammarRules?>? =
+                    mainViewModel.getGramarRulesbyHarf("nomnouns").value
 
 
                 worddifinition.add(ismmarfu!![0]!!.detailsrules)
-                lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
+                lanesLexiconAdapter = LexiconAdapter(worddifinition, requireContext(), language)
                 recyclerView.adapter = lanesLexiconAdapter
             }
 
             "relative" -> {
-                val rel: List<GrammarRules?>? =mainViewModel.getGramarRulesbyHarf("relative").value
+                val rel: List<GrammarRules?>? = mainViewModel.getGramarRulesbyHarf("relative").value
                 //    utils.getGrammarRulesByRules("relative")
                 worddifinition.add(rel!![0]!!.detailsrules)
-                lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
+                lanesLexiconAdapter = LexiconAdapter(worddifinition, requireContext(), language)
                 recyclerView.adapter = lanesLexiconAdapter
             }
 
             "demonstrative" -> {
-                val dem: List<GrammarRules?>? =mainViewModel.getGramarRulesbyHarf("dem").value
-               //     utils.getGrammarRulesByRules("dem")
+                val dem: List<GrammarRules?>? = mainViewModel.getGramarRulesbyHarf("dem").value
+                //     utils.getGrammarRulesByRules("dem")
                 worddifinition.add(dem!![0]!!.detailsrules)
-                lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
+                lanesLexiconAdapter = LexiconAdapter(worddifinition, requireContext(), language)
                 recyclerView.adapter = lanesLexiconAdapter
             }
 
             "Subjunctive" -> {
-                val nasab: List<GrammarRules?>? =mainViewModel.getGramarRulesbyHarf("nasab").value
-             //       utils.getGrammarRulesByRules("nasab")
+                val nasab: List<GrammarRules?>? = mainViewModel.getGramarRulesbyHarf("nasab").value
+                //       utils.getGrammarRulesByRules("nasab")
                 worddifinition.add(nasab!![0]!!.detailsrules)
                 lanesLexiconAdapter = LexiconAdapter(worddifinition, requireContext(), language)
                 recyclerView.adapter = lanesLexiconAdapter
             }
 
             "Jussive" -> {
-                val jazam: List<GrammarRules?>? =mainViewModel.getGramarRulesbyHarf("jazam").value
-               //     utils.getGrammarRulesByRules("jazam")
+                val jazam: List<GrammarRules?>? = mainViewModel.getGramarRulesbyHarf("jazam").value
+                //     utils.getGrammarRulesByRules("jazam")
                 worddifinition.add(jazam!![0]!!.detailsrules)
                 lanesLexiconAdapter = LexiconAdapter(worddifinition, requireContext(), language)
                 recyclerView.adapter = lanesLexiconAdapter
             }
 
             "preposition" -> {
-                val jarr: List<GrammarRules?>? =mainViewModel.getGramarRulesbyHarf("jar").value
-               //     utils.getGrammarRulesByRules("jarr")
+                val jarr: List<GrammarRules?>? = mainViewModel.getGramarRulesbyHarf("jar").value
+                //     utils.getGrammarRulesByRules("jarr")
                 worddifinition.add(jarr!![0]!!.detailsrules)
-                lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
+                lanesLexiconAdapter = LexiconAdapter(worddifinition, requireContext(), language)
                 recyclerView.adapter = lanesLexiconAdapter
             }
 
             "conditonal" -> {
-                val shart: List<GrammarRules?>? =mainViewModel.getGramarRulesbyHarf("shart").value
-             //       utils.getGrammarRulesByRules("shart")
+                val shart: List<GrammarRules?>? = mainViewModel.getGramarRulesbyHarf("shart").value
+                //       utils.getGrammarRulesByRules("shart")
                 worddifinition.add(shart!![0]!!.detailsrules)
-                lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
+                lanesLexiconAdapter = LexiconAdapter(worddifinition, requireContext(), language)
                 recyclerView.adapter = lanesLexiconAdapter
             }
 
             "accusative" -> {
-                val nasab: List<GrammarRules?>? =mainViewModel.getGramarRulesbyHarf("kanainna").value
-          //      = utils.getGrammarRulesByRules("kanainna")
+                val nasab: List<GrammarRules?>? =
+                    mainViewModel.getGramarRulesbyHarf("kanainna").value
+                //      = utils.getGrammarRulesByRules("kanainna")
                 worddifinition.add(nasab!![0]!!.detailsrules)
-                lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
+                lanesLexiconAdapter = LexiconAdapter(worddifinition, requireContext(), language)
                 recyclerView.adapter = lanesLexiconAdapter
             }
 
@@ -342,17 +347,17 @@ class Dictionary_frag(lughatWordDetailsAct: LughatWordDetailsAct, language: Stri
                 if (worddifinition.isEmpty()) {
                     worddifinition.add("Word not Updated")
                 }
-                lanesLexiconAdapter = LexiconAdapter(worddifinition,  requireContext(), language)
+                lanesLexiconAdapter = LexiconAdapter(worddifinition, requireContext(), language)
                 recyclerView.adapter = lanesLexiconAdapter
             }
 
             else -> {
-                ska = WordLughatAdapter(dictionary,  requireContext(), language)
+                ska = WordLughatAdapter(dictionary, requireContext(), language)
                 recyclerView.adapter = ska
             }
         }
         recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager( requireContext())
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         return view
     }
 

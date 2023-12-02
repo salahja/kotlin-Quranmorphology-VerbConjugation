@@ -25,11 +25,10 @@ import com.example.mushafconsolidated.R
 // Set of Material typography styles to start with
 
 
-    val qalam = FontFamily(
-        Font(R.font.alqalam),
+val qalam = FontFamily(
+    Font(R.font.alqalam),
 
-)
-
+    )
 
 
 /* Other default text styles to override

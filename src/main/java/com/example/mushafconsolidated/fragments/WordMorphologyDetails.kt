@@ -59,12 +59,15 @@ class WordMorphologyDetails : QuranMorphologyDetails {
                         word.tagfour!!, word.tagfive!!, " ", " ", "", "", expandTagsone
                     )
                 }
+
                 2 -> {
                     val tagtwo: String = word.tagtwo!!
                     val tagone: String = word.tagone!!
                     var expandTagsone: String = expandTags(tagone)
-                    val tagnounone: Boolean = (tagone == "N") || (tagone == "ADJ") || (tagone == "PN")
-                    val tagnountwo: Boolean = (tagtwo == "N") || (tagtwo == "ADJ") || (tagtwo == "PN")
+                    val tagnounone: Boolean =
+                        (tagone == "N") || (tagone == "ADJ") || (tagone == "PN")
+                    val tagnountwo: Boolean =
+                        (tagtwo == "N") || (tagtwo == "ADJ") || (tagtwo == "PN")
                     var expandTagstwo: String = expandTags(tagtwo)
                     if (tagnounone) {
                         expandTagsone = getNounDetails(word.detailsone)
@@ -81,8 +84,9 @@ class WordMorphologyDetails : QuranMorphologyDetails {
                         word.tagfour!!, word.tagfive!!, " ", " ", "", expandTagstwo, expandTagsone
                     )
                 }
+
                 3 -> {
-                    val sb: StringBuilder  = StringBuilder()
+                    val sb: StringBuilder = StringBuilder()
                     var expandTagsone: String =
                         expandTags(word.tagone!!)
                     var expandTagstwo: String =
@@ -92,8 +96,10 @@ class WordMorphologyDetails : QuranMorphologyDetails {
                     val tagtwo: String = word.tagtwo!!
                     val tagone: String = word.tagone!!
                     val tagthree: String = word.tagthree!!
-                    val tagnounone: Boolean = (tagone == "N") || (tagone == "ADJ") || (tagone == "PN")
-                    val tagnountwo: Boolean = (tagtwo == "N") || (tagtwo == "ADJ") || (tagtwo == "PN")
+                    val tagnounone: Boolean =
+                        (tagone == "N") || (tagone == "ADJ") || (tagone == "PN")
+                    val tagnountwo: Boolean =
+                        (tagtwo == "N") || (tagtwo == "ADJ") || (tagtwo == "PN")
                     val tagnounthree: Boolean =
                         (tagthree == "N") || (tagthree == "ADJ") || (tagthree == "PN")
                     if (tagnounone) {
@@ -132,8 +138,9 @@ class WordMorphologyDetails : QuranMorphologyDetails {
                         expandTagsone
                     )
                 }
+
                 4 -> {
-                    val sb: StringBuilder  = java.lang.StringBuilder ()
+                    val sb: StringBuilder = java.lang.StringBuilder()
                     var expandTagsone: String =
                         expandTags(word.tagone!!)
                     var expandTagstwo: String =
@@ -146,8 +153,10 @@ class WordMorphologyDetails : QuranMorphologyDetails {
                     val tagone: String = word.tagone!!
                     val tagthree: String = word.tagthree!!
                     val tagfour: String = word.tagfour!!
-                    val tagnounone: Boolean = (tagone == "N") || (tagone == "ADJ") || (tagone == "PN")
-                    val tagnountwo: Boolean = (tagtwo == "N") || (tagtwo == "ADJ") || (tagtwo == "PN")
+                    val tagnounone: Boolean =
+                        (tagone == "N") || (tagone == "ADJ") || (tagone == "PN")
+                    val tagnountwo: Boolean =
+                        (tagtwo == "N") || (tagtwo == "ADJ") || (tagtwo == "PN")
                     val tagnounthree: Boolean =
                         (tagthree == "N") || (tagthree == "ADJ") || (tagthree == "PN")
                     val tagnounfour: Boolean =
@@ -193,8 +202,9 @@ class WordMorphologyDetails : QuranMorphologyDetails {
                         expandTagsone
                     )
                 }
+
                 5 -> {
-                    val sb: StringBuilder  = java.lang.StringBuilder()
+                    val sb: StringBuilder = java.lang.StringBuilder()
                     var expandTagsone: String =
                         expandTags(word.tagone!!)
                     var expandTagstwo: String =
@@ -253,9 +263,9 @@ class WordMorphologyDetails : QuranMorphologyDetails {
         val split: Array<String> =
             wordetails!!.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val wordbdetail: HashMap<String, SpannableStringBuilder?> = HashMap()
-        val sb: StringBuilder  = java.lang.StringBuilder ()
+        val sb: StringBuilder = java.lang.StringBuilder()
         getNdetails(corpusNounWord, wordbdetail, sb)
-        val genderNumberdetails1: String  =
+        val genderNumberdetails1: String =
             getGenderNumberdetails(
                 corpusNounWord!![0].gendernumber
             ).toString()

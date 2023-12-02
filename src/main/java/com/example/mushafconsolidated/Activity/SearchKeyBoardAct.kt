@@ -270,13 +270,13 @@ class SearchKeyBoardAct : BaseActivity(), View.OnClickListener {
                 if (TextUtils.isEmpty(selectedText)) inputConnection.deleteSurroundingText(
                     1,
                     0
-                                                                                          ) else inputConnection.commitText("", 1)
+                ) else inputConnection.commitText("", 1)
             }
 
             R.id.key_AC -> inputConnection.deleteSurroundingText(
                 beforeCursorText!!.length,
                 afterCursorText!!.length
-                                                                )
+            )
 
             else -> inputConnectionCommitText(view)
         }
@@ -321,7 +321,7 @@ class SearchKeyBoardAct : BaseActivity(), View.OnClickListener {
         //   Intent intent = new Intent(getActivity(), NounOccuranceAsynKAct.class);
         //   Intent intent = new Intent(getActivity(), NounOccuranceAsynKAct.class);
         //   Intent intent = new Intent(getActivity(), NounOccuranceAsynKAct.class);
- 
+
 
         val intent = Intent(this@SearchKeyBoardAct, KeyboardSearchResult::class.java)
         //   getTypedValues();

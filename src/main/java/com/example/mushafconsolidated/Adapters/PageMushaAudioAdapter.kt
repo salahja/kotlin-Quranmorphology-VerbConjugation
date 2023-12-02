@@ -196,7 +196,7 @@ class PageMushaAudioAdapter(
             holder.quran_textView.setText(
                 getSpannable(builder.toString()),
                 TextView.BufferType.SPANNABLE
-                                         )
+            )
             holder.quran_textView.typeface = custom_font
             if (!defaultfont) {
                 holder.quran_textView.textSize = arabicfontSize.toFloat()

@@ -13,27 +13,24 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CircularProgress(
     modifier: Modifier = Modifier,
-            isDisplayed:Boolean
+    isDisplayed: Boolean
 ) {
-    if(isDisplayed){
-       Row(  modifier = Modifier
-           .fillMaxWidth()
-           .padding(50.dp),
-           horizontalArrangement = Arrangement.Center
+    if (isDisplayed) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(50.dp),
+            horizontalArrangement = Arrangement.Center
 
-           ){
+        ) {
 
-           CircularProgressIndicator(
-               color= MaterialTheme.colorScheme.primary
-           )
-       }
-
-
-
+            CircularProgressIndicator(
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
 
 
     }
-
 
 
 }

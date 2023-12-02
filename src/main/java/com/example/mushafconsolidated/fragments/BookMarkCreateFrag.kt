@@ -1,6 +1,6 @@
 package com.example.mushafconsolidated.fragments
 
- 
+
 import android.app.Dialog
 import android.content.DialogInterface
 import android.graphics.Color
@@ -38,7 +38,7 @@ import com.google.android.material.snackbar.Snackbar
 </pre> *
  */
 class BookMarkCreateFrag : BottomSheetDialogFragment(), OnItemClickListener,
-                           View.OnClickListener {
+    View.OnClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var suraname: String
     private var chapter: Int = 0
@@ -75,7 +75,7 @@ class BookMarkCreateFrag : BottomSheetDialogFragment(), OnItemClickListener,
         val details: ArrayList<String> = ArrayList()
         val utils: Utils = Utils(activity)
         collectionC = utils.collectionC
-   //     val bookmarkCreateAdapter = BookmarkCreateAdapter(collectionC as List<BookMarksPojo>?)
+        //     val bookmarkCreateAdapter = BookmarkCreateAdapter(collectionC as List<BookMarksPojo>?)
         val bookmarkCreateAdapter = BookmarkCreateAdapter(collectionC as List<BookMarksPojo>?)
         newcollection = view.findViewById(R.id.newcollection)
         addtocollection = view.findViewById(R.id.addtocollection)
@@ -85,7 +85,7 @@ class BookMarkCreateFrag : BottomSheetDialogFragment(), OnItemClickListener,
         newcollection.setOnClickListener { v ->
             val dialogPicker = AlertDialog.Builder(
                 activity!!
-                                                  )
+            )
             val dlg: Dialog = Dialog(requireActivity())
             //  AlertDialog dialog =  .create();
             //      soraList = utils.getAllAnaChapters();
@@ -96,13 +96,13 @@ class BookMarkCreateFrag : BottomSheetDialogFragment(), OnItemClickListener,
             val mTextView: EditText = view.findViewById(R.id.tvFolderName)
             dialogPicker.setPositiveButton(
                 "Done"
-                                          ) { dialogInterface: DialogInterface?, i: Int ->
+            ) { dialogInterface: DialogInterface?, i: Int ->
                 val str: String = mTextView.text.toString()
                 bookMarkSelected(v, selectedposition, str)
             }
             dialogPicker.setNegativeButton(
                 "Cancel"
-                                          ) { dialogInterface: DialogInterface?, i: Int -> }
+            ) { dialogInterface: DialogInterface?, i: Int -> }
             dialogPicker.show()
         }
         addtocollection.setOnClickListener { v ->
@@ -111,7 +111,7 @@ class BookMarkCreateFrag : BottomSheetDialogFragment(), OnItemClickListener,
                 v,
                 bookMarksPojo.getChapterno().toInt(),
                 bookMarksPojo.header.toString()
-                            )
+            )
         }
 
 
@@ -174,17 +174,17 @@ class BookMarkCreateFrag : BottomSheetDialogFragment(), OnItemClickListener,
 
         //  position = flowAyahWordAdapter.getAdapterposition();
         val en = BookMarks()
-        en.header=text
+        en.header = text
 
 
-        en.chapterno=(chapter.toString())
-        en.verseno=(verse.toString())
-        en.surahname=(suraname)
+        en.chapterno = (chapter.toString())
+        en.verseno = (verse.toString())
+        en.surahname = (suraname)
         //     Utils utils = new Utils(ReadingSurahPartActivity.this);
         //     Utils utils = new Utils(ReadingSurahPartActivity.this);
         val vm: QuranVIewModel by viewModels()
-       // val utils = Utils(context)
-       // utils.insertBookMark(en)
+        // val utils = Utils(context)
+        // utils.insertBookMark(en)
         vm.Insertbookmark(en)
         //     View view = findViewById(R.id.bookmark);
         //     View view = findViewById(R.id.bookmark);

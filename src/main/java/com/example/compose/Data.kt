@@ -7,7 +7,7 @@ import com.tonyodev.fetch2.Priority
 import com.tonyodev.fetch2.Request
 
 object Data {
-     val sampleUrls = arrayOf(
+    val sampleUrls = arrayOf(
         "http://speedtest.ftp.otenet.gr/files/test100Mb.db",
         "https://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_stereo.avi",
         "http://media.mongodb.org/zips.json",
@@ -16,10 +16,14 @@ object Data {
         "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
     )
 
-    private fun getFetchRequests(context: Context, Links: List<String>, filepath: String): List<Request> {
+    private fun getFetchRequests(
+        context: Context,
+        Links: List<String>,
+        filepath: String
+    ): List<Request> {
         val requests: MutableList<Request> = ArrayList()
         for (sampleUrl in Links) {
-            val request = Request(sampleUrl, getFilePath(sampleUrl, context,filepath))
+            val request = Request(sampleUrl, getFilePath(sampleUrl, context, filepath))
             //val request = Request(sampleUrl, filepath)
             requests.add(request)
         }
@@ -33,7 +37,7 @@ object Data {
         Links: List<String>,
         filepath: String
     ): List<Request> {
-        val requests = getFetchRequests(context,Links,filepath)
+        val requests = getFetchRequests(context, Links, filepath)
         for (request in requests) {
             request.groupId = groupId
         }
@@ -46,26 +50,28 @@ object Data {
         val dir = getSaveDir(context)
         return "$dir/$fileName"
     }
+
     @JvmStatic
     fun getNameFromUrl(url: String?): String {
         return Uri.parse(url).lastPathSegment!!
     }
+
     @JvmStatic
     fun getGameUpdates(context: Context, Links: List<String>, filepath: String): List<Request> {
         val requests: MutableList<Request> = ArrayList()
         val url = "http://speedtest.ftp.otenet.gr/files/test100k.db"
         for (sampleUrl in Links) {
-            val request = Request(sampleUrl, getFilePath(sampleUrl, context,filepath))
+            val request = Request(sampleUrl, getFilePath(sampleUrl, context, filepath))
             request.priority = Priority.HIGH
             //val request = Request(sampleUrl, filepath)
             requests.add(request)
         }
- /*       for (i in 0..9) {
-            val filePath = getSaveDir(context) + "/gameAssets/" + "asset_" + i + ".asset"
-            val request = Request(url, filePath)
-            request.priority = Priority.HIGH
-            requests.add(request)
-        }*/
+        /*       for (i in 0..9) {
+                   val filePath = getSaveDir(context) + "/gameAssets/" + "asset_" + i + ".asset"
+                   val request = Request(url, filePath)
+                   request.priority = Priority.HIGH
+                   requests.add(request)
+               }*/
         return requests
     }
 
@@ -74,12 +80,12 @@ object Data {
         val requests: MutableList<Request> = ArrayList()
         val url = "http://speedtest.ftp.otenet.gr/files/test100k.db"
 
-            for (i in 0..9) {
-                   val filePath = getSaveDir(context) + "/gameAssets/" + "asset_" + i + ".asset"
-                   val request = Request(url, filePath)
-                   request.priority = Priority.HIGH
-                   requests.add(request)
-               }
+        for (i in 0..9) {
+            val filePath = getSaveDir(context) + "/gameAssets/" + "asset_" + i + ".asset"
+            val request = Request(url, filePath)
+            request.priority = Priority.HIGH
+            requests.add(request)
+        }
         return requests
     }
 

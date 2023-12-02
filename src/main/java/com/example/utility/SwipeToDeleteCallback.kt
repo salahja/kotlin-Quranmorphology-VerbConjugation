@@ -26,7 +26,8 @@ abstract class SwipeToDeleteCallback(val mContext: FragmentActivity?) : ItemTouc
         backgroundColor = Color.parseColor("#b80f0a")
         mClearPaint = Paint()
         mClearPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
-        deleteDrawable = ContextCompat.getDrawable(QuranGrammarApplication.context!!, R.drawable.ic_delete)
+        deleteDrawable =
+            ContextCompat.getDrawable(QuranGrammarApplication.context!!, R.drawable.ic_delete)
         intrinsicWidth = deleteDrawable!!.intrinsicWidth
         intrinsicHeight = deleteDrawable.intrinsicHeight
     }

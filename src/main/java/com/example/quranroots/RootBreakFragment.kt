@@ -28,6 +28,7 @@ class RootBreakFragment
             root = requireArguments().getString(QURAN_VERB_ROOT)
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +42,7 @@ class RootBreakFragment
         recyclerView.layoutManager = GridLayoutManager(context, 3)
         return view
     }
+
     companion object {
         // TODO: Customize parameter initialization
         fun newInstance(rootword: String?): RootBreakFragment {

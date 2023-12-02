@@ -65,10 +65,11 @@ object PlaceholderContent {
         strings: ArrayList<String>
     ): ArrayList<String> {
         val builder = StringBuilder()
-        val searchs= "$s%";
+        val searchs = "$s%";
         //%
-        val util=Utils(QuranGrammarApplication.context!!)
-        val letter: ArrayList<qurandictionary> = util.getByfirstletter(searchs) as ArrayList<qurandictionary>
+        val util = Utils(QuranGrammarApplication.context!!)
+        val letter: ArrayList<qurandictionary> =
+            util.getByfirstletter(searchs) as ArrayList<qurandictionary>
         //val letter: ArrayList<VerbCorpus> = util.getQuranVerbsByfirstletter(searchs) as ArrayList<VerbCorpus>
         for (qurandictionary in letter) {
             strings.add(qurandictionary.rootarabic)

@@ -47,8 +47,6 @@ class ParticleColorScheme : BottomSheetDialogFragment() {
     }
 
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //  recyclerView.setLayoutManager(new LinearLayoutManager(context!!));
         val mLayoutManager: GridLayoutManager = GridLayoutManager(activity, 2)
@@ -57,7 +55,7 @@ class ParticleColorScheme : BottomSheetDialogFragment() {
         recyclerView.layoutManager = mLayoutManager
         val spanhash = CorpusUtilityorig.stringForegroundColorSpanMap
         textView = view.findViewById(R.id.Colortv)
-        val particle: java.util.ArrayList<String?>? =null
+        val particle: java.util.ArrayList<String?>? = null
         particle?.add("PN = \"Proper Noun(اسم علم)\",")
         particle?.add("ADJ = \"Adjective(صفة)")
         particle?.add("V =Verb(فعل)")
@@ -135,7 +133,7 @@ class ParticleColorScheme : BottomSheetDialogFragment() {
     private class ColorSchemeAdapter(
         spanhash: Map<String?, ForegroundColorSpan>,
         private var particle: java.util.ArrayList<String?>?
-                                    ) :
+    ) :
         RecyclerView.Adapter<ViewHolder>() {
         private var mItemCount: String? = null
         private var spanhash: Map<String?, ForegroundColorSpan>? = spanhash

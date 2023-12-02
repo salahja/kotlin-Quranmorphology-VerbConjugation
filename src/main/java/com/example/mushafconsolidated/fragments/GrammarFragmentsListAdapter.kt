@@ -39,11 +39,12 @@ class GrammarFragmentsListAdapter(
         if (convertView == null) {
             val layoutInflater = context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            convertView = layoutInflater.inflate(R.layout.list_grammar_item, parent,false)
+            convertView = layoutInflater.inflate(R.layout.list_grammar_item, parent, false)
         }
         val mequran =
             Typeface.createFromAsset(QuranGrammarApplication.context!!.assets, "Roboto.ttf")
-        val expandedListTextView = convertView?.findViewById<View>(R.id.expandedListItem) as TextView
+        val expandedListTextView =
+            convertView?.findViewById<View>(R.id.expandedListItem) as TextView
         expandedListTextView.text = expandedListText as CharSequence?
         //    expandedListTextView.setTypeface(mequran);
         return convertView
@@ -71,12 +72,12 @@ class GrammarFragmentsListAdapter(
         convertView: View?,
         parent: ViewGroup
     ): View {
-        var convertView : View? =null
+        var convertView: View? = null
         val listTitle = getGroup(listPosition) as String
         if (convertView == null) {
             val layoutInflater =
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            convertView = layoutInflater.inflate(R.layout.list_group, parent,false)
+            convertView = layoutInflater.inflate(R.layout.list_group, parent, false)
         }
         val listTitleTextView = convertView
             ?.findViewById<View>(R.id.listTitle) as TextView

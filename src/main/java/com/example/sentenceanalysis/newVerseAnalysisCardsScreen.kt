@@ -35,6 +35,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -64,8 +65,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 @Composable
 
-fun newVerseAnalysisCardsScreen
-            (
+fun NewVerseAnalysisCardsScreen(
 
 
     viewModel: ExpandableVerseViewModel,
@@ -92,7 +92,6 @@ fun newVerseAnalysisCardsScreen
     var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
 
 
-
     val bgColour = remember {
         Color(ContextCompat.getColor(context, R.color.colorDayNightWhite))
     }
@@ -101,7 +100,7 @@ fun newVerseAnalysisCardsScreen
         Modifier.background(bgColour)
 
     ) { paddingValues ->
-        val copyProgress: MutableState<Float> = remember { mutableStateOf(0.0f) }
+        val copyProgress: MutableState<Float> = remember { mutableFloatStateOf(0.0f) }
         //   loading = viewModel.loading.value
         //   WordOccuranceLoading(isDisplayed = loading)
         LazyColumn(Modifier.padding(paddingValues)) {
@@ -179,9 +178,9 @@ fun ExpandableVerseCard(
         //backgroundColor = cardBgColor,
         //  contentColor = contentColour,
 
-       /* colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-        ),*/
+        /* colors = CardDefaults.cardColors(
+             containerColor = MaterialTheme.colorScheme.primaryContainer,
+         ),*/
         elevation = CardDefaults.cardElevation(
             defaultElevation = 10.dp
         ),
@@ -207,12 +206,11 @@ fun ExpandableVerseCard(
 
 
             //   MyScreen(visible = expanded)
-            ExpandableVerseContent( card.result, visible = expanded)
+            ExpandableVerseContent(card.result, visible = expanded)
             //     ExpandableContent( visible = expanded)
         }
     }
 }
-
 
 
 @Composable
@@ -301,19 +299,6 @@ fun ExpandableVerseContent(
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @Composable

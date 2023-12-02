@@ -1,5 +1,3 @@
-
-
 import android.content.ClipData
 import android.content.ClipDescription
 import android.os.Bundle
@@ -51,7 +49,7 @@ class VerbrootListFragment : Fragment() {
             }
             false
         }
-    private  var binding: FragmentVerbrootListBinding?=null
+    private var binding: FragmentVerbrootListBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -91,14 +89,14 @@ class VerbrootListFragment : Fragment() {
     private class SimpleItemRecyclerViewAdapter(
         private val mValues: List<VerbHolderContent.ItemHolder>,
         private val mItemDetailFragmentContainer: View?, private val iswordorverb: String?
-                                               ) :
+    ) :
         RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val binding = VerbrootListContentBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-                                                              )
+            )
             return ViewHolder(binding)
         }
 
@@ -175,7 +173,7 @@ class VerbrootListFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding= null
+        binding = null
     }
 
     companion object {

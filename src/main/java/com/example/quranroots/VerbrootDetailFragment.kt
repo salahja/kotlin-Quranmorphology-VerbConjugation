@@ -47,15 +47,15 @@ class VerbrootDetailFragment
             }
         }
     }
-    private  var binding: FragmentVerbrootDetailsListBinding? = null
+
+    private var binding: FragmentVerbrootDetailsListBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentVerbrootDetailsListBinding.inflate(inflater, container, false)
         val bundle = this.arguments
-      //  iswordorverb = bundle!!.getString(WORDDETAILS)
-
+        //  iswordorverb = bundle!!.getString(WORDDETAILS)
 
 
         val recyclerView: RecyclerView = binding!!.verbrootDetaillistRec
@@ -82,7 +82,7 @@ class VerbrootDetailFragment
 
     override fun onDestroyView() {
         super.onDestroyView()
-         binding= null
+        binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -101,7 +101,7 @@ class VerbrootDetailFragment
                 }
                 val intent = Intent(activity, RootBreakupAct::class.java)
                 dataBundle.putString(QURAN_VERB_ROOT, bmark)
-                dataBundle.putBoolean("isverb",true)
+                dataBundle.putBoolean("isverb", true)
                 intent.putExtras(dataBundle)
                 startActivity(intent)
             }

@@ -63,7 +63,7 @@ class TopicDetailAct : BaseActivity(), OnItemClickListenerOnLong {
 
     private lateinit var newcorpusayahWordArrayList: ArrayList<QuranCorpusWbw>
     private lateinit var arrayofquran: ArrayList<ArrayList<QuranEntity>>
-    private lateinit var arrayofadapterlist: ArrayList<LinkedHashMap<Int,ArrayList<NewQuranCorpusWbw>>>
+    private lateinit var arrayofadapterlist: ArrayList<LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>>
 
     // --Commented out by Inspection (24/10/22, 10:04 PM):private int chapterno;
     // --Commented out by Inspection START (24/10/22, 10:03 PM):
@@ -114,7 +114,7 @@ class TopicDetailAct : BaseActivity(), OnItemClickListenerOnLong {
         if (bundle.extras != null) {
             val bundles: Bundle = intent.extras!!
             val map = bundle.getSerializableExtra("map") as HashMap<String, String>?
-            var surahname=""
+            var surahname = ""
             val surahArrays = resources.getStringArray(R.array.surahdetails)
 
             if (map!!.size != 0) {
@@ -122,16 +122,19 @@ class TopicDetailAct : BaseActivity(), OnItemClickListenerOnLong {
                 //  LinkedHashMap map = (LinkedHashMap) bundles.get("map");
                 val keys: Set<String> = map.keys
                 corpusayahWordArrayList = ArrayList()
-                arrayofquran=ArrayList()
-                arrayofadapterlist=ArrayList()
-                val scope:CoroutineScope
-                val builder = AlertDialog.Builder(this, com.google.android.material.R.style.ThemeOverlay_Material3_Dialog)
+                arrayofquran = ArrayList()
+                arrayofadapterlist = ArrayList()
+                val scope: CoroutineScope
+                val builder = AlertDialog.Builder(
+                    this,
+                    com.google.android.material.R.style.ThemeOverlay_Material3_Dialog
+                )
                 builder.setCancelable(false) // if you want user to wait for some process to finish,
                 builder.setView(R.layout.layout_loading_dialog)
                 val dialog = builder.create()
                 runOnUiThread { dialog.show() }
                 val listener: OnItemClickListenerOnLong = this
-                scope=CoroutineScope(Dispatchers.Main)
+                scope = CoroutineScope(Dispatchers.Main)
                 scope.launch {
                     for (key: String in keys) {
                         val splits = map[key]
@@ -151,7 +154,12 @@ class TopicDetailAct : BaseActivity(), OnItemClickListenerOnLong {
 
 
                         flowAyahWordAdapter =
-                            NewTopicFlowAyahWordAdapter(arrayofadapterlist, listener,arrayofquran,surahArrays)
+                            NewTopicFlowAyahWordAdapter(
+                                arrayofadapterlist,
+                                listener,
+                                arrayofquran,
+                                surahArrays
+                            )
 
                         val parentRecyclerView: RecyclerView = findViewById(R.id.recycler_view)
                         parentRecyclerView.layoutManager = linearLayoutManager
@@ -169,18 +177,20 @@ class TopicDetailAct : BaseActivity(), OnItemClickListenerOnLong {
                 corpusayahWordArrayList = ArrayList()
 
                 mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
-                allofQuran = mainViewModel.getsurahayahVerses(surah,ayah).value as ArrayList<QuranEntity>?
-                corpusSurahWord = mainViewModel.getQuranCorpusWbwbysurahAyah(surah,ayah).value
+                allofQuran =
+                    mainViewModel.getsurahayahVerses(surah, ayah).value as ArrayList<QuranEntity>?
+                corpusSurahWord = mainViewModel.getQuranCorpusWbwbysurahAyah(surah, ayah).value
                 val corpus = CorpusUtilityorig(this)
-                newnewadapterlist = CorpusUtilityorig.composeWBWCollection(allofQuran, corpusSurahWord)
+                newnewadapterlist =
+                    CorpusUtilityorig.composeWBWCollection(allofQuran, corpusSurahWord)
                 allofQuran?.let { arrayofquran.add(it) }
-                corpus.setKana(newnewadapterlist, surah,ayah,newnewadapterlist.size)
+                corpus.setKana(newnewadapterlist, surah, ayah, newnewadapterlist.size)
 
-                corpus.setMudhafFromDB(newnewadapterlist,surah,ayah,newnewadapterlist.size)
-                corpus.SetMousufSifaDB(newnewadapterlist,surah,ayah,newnewadapterlist.size)
-                corpus.setKana(newnewadapterlist,surah,ayah,newnewadapterlist.size)
-                corpus.setShart(newnewadapterlist,surah,ayah,newnewadapterlist.size)
-                corpus.newnewHarfNasbDb(newnewadapterlist,surah,ayah,newnewadapterlist.size)
+                corpus.setMudhafFromDB(newnewadapterlist, surah, ayah, newnewadapterlist.size)
+                corpus.SetMousufSifaDB(newnewadapterlist, surah, ayah, newnewadapterlist.size)
+                corpus.setKana(newnewadapterlist, surah, ayah, newnewadapterlist.size)
+                corpus.setShart(newnewadapterlist, surah, ayah, newnewadapterlist.size)
+                corpus.newnewHarfNasbDb(newnewadapterlist, surah, ayah, newnewadapterlist.size)
 
                 arrayofadapterlist.add(newnewadapterlist)
                 //    final Object o6 = wbwa.get(verseglobal).get(0);
@@ -188,7 +198,12 @@ class TopicDetailAct : BaseActivity(), OnItemClickListenerOnLong {
 
                 val listener: OnItemClickListenerOnLong = this
                 flowAyahWordAdapter =
-                    NewTopicFlowAyahWordAdapter(arrayofadapterlist, listener,arrayofquran,surahArrays)
+                    NewTopicFlowAyahWordAdapter(
+                        arrayofadapterlist,
+                        listener,
+                        arrayofquran,
+                        surahArrays
+                    )
                 val linearLayoutManager = LinearLayoutManager(this)
                 val parentRecyclerView: RecyclerView = findViewById(R.id.recycler_view)
                 parentRecyclerView.layoutManager = linearLayoutManager
@@ -204,36 +219,36 @@ class TopicDetailAct : BaseActivity(), OnItemClickListenerOnLong {
     }
 
 
-
     private fun getwbwy(str: String, header: String) {
         val ss = str.split(":".toRegex()).dropLastWhile { it.isEmpty() }
             .toTypedArray()
         val suraid = ss[0].trim { it <= ' ' }.toInt()
         val ayah = ss[1].trim { it <= ' ' }.toInt()
         //    preparewbwarray(header, suraid, ayah)
-        newpreparewbwarray(header,suraid,ayah)
+        newpreparewbwarray(header, suraid, ayah)
     }
+
     private fun newpreparewbwarray(header: String?, suraid: Int, ayah: Int) {
         val utils = Utils(this@TopicDetailAct)
         //  CorpusWbwWord word = new CorpusWbwWord();
         val ayahWord = CorpusAyahWord()
         val wordArrayList = ArrayList<CorpusWbwWord>()
-     //   val wbw: List<CorpusExpandWbwPOJO> = utils.getCorpusWbwBySurahAyahtopic(suraid, ayah)
+        //   val wbw: List<CorpusExpandWbwPOJO> = utils.getCorpusWbwBySurahAyahtopic(suraid, ayah)
 
 
         mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
-        allofQuran = mainViewModel.getsurahayahVerses(suraid,ayah).value as ArrayList<QuranEntity>?
-        corpusSurahWord = mainViewModel.getQuranCorpusWbwbysurahAyah(suraid,ayah).value
+        allofQuran = mainViewModel.getsurahayahVerses(suraid, ayah).value as ArrayList<QuranEntity>?
+        corpusSurahWord = mainViewModel.getQuranCorpusWbwbysurahAyah(suraid, ayah).value
         val corpus = CorpusUtilityorig(this)
         newnewadapterlist = CorpusUtilityorig.composeWBWCollection(allofQuran, corpusSurahWord)
         allofQuran?.let { arrayofquran.add(it) }
-        corpus.setKana(newnewadapterlist, suraid,ayah,newnewadapterlist.size)
+        corpus.setKana(newnewadapterlist, suraid, ayah, newnewadapterlist.size)
 
-        corpus.setMudhafFromDB(newnewadapterlist,suraid,ayah,newnewadapterlist.size)
-        corpus.SetMousufSifaDB(newnewadapterlist,suraid,ayah,newnewadapterlist.size)
-        corpus.setKana(newnewadapterlist,suraid,ayah,newnewadapterlist.size)
-        corpus.setShart(newnewadapterlist,suraid,ayah,newnewadapterlist.size)
-        corpus.newnewHarfNasbDb(newnewadapterlist,suraid,ayah,newnewadapterlist.size)
+        corpus.setMudhafFromDB(newnewadapterlist, suraid, ayah, newnewadapterlist.size)
+        corpus.SetMousufSifaDB(newnewadapterlist, suraid, ayah, newnewadapterlist.size)
+        corpus.setKana(newnewadapterlist, suraid, ayah, newnewadapterlist.size)
+        corpus.setShart(newnewadapterlist, suraid, ayah, newnewadapterlist.size)
+        corpus.newnewHarfNasbDb(newnewadapterlist, suraid, ayah, newnewadapterlist.size)
 
         arrayofadapterlist.add(newnewadapterlist)
         //    final Object o6 = wbwa.get(verseglobal).get(0);
@@ -339,7 +354,7 @@ class TopicDetailAct : BaseActivity(), OnItemClickListenerOnLong {
                 arrayofquran[position].get(0)
             }
             val dataBundle = Bundle()
-            dataBundle.putInt(SURAH_ID,arrayofquran[position].get(0).surah)
+            dataBundle.putInt(SURAH_ID, arrayofquran[position].get(0).surah)
             dataBundle.putInt(AYAHNUMBER, arrayofquran[position].get(0).ayah)
             LoadItemList(dataBundle, word)
         }

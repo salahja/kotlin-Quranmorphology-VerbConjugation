@@ -81,7 +81,7 @@ import java.io.File
  *///@Database(entities= {VerseEntit.class,ErabEntity.class,ChaptersAnaEntity.class},version= 1)
 //orig     entities = [lanerootdictionary::class, Qari::class, Cities::class, Countries::class, hcategory::class, hduadetails::class, hduanames::class, surahsummary::class, quranexplorer::class, AllahNamesDetails::class, AllahNames::class, DuaGroup::class, DuaDetails::class, MafoolMutlaqEnt::class, BadalErabNotesEnt::class, HalEnt::class, MafoolBihi::class, LiajlihiEnt::class, TameezEnt::class, GrammarRules::class, hanslexicon::class, qurandictionary::class, lanelexicon::class, lughat::class, NewNasbEntity::class, NewShartEntity::class, NewKanaEntity::class, NewMudhafEntity::class, SifaEntity::class, wbwentity::class, NounCorpus::class, VerbCorpus::class, QuranEntity::class, CorpusEntity::class, BookMarks::class, ChaptersAnaEntity::class],
 @Database(
-    entities = [hduadetailsEnt::class, hduanamesEnt::class, hcategoryEnt::class,AllahNamesDetails::class,lanerootdictionary::class, Qari::class, surahsummary::class, quranexplorer::class, AllahNames::class, MafoolMutlaqEnt::class, BadalErabNotesEnt::class, HalEnt::class, MafoolBihi::class, LiajlihiEnt::class, TameezEnt::class, GrammarRules::class, hanslexicon::class, qurandictionary::class, lanelexicon::class, lughat::class, NewNasbEntity::class, NewShartEntity::class, NewKanaEntity::class, NewMudhafEntity::class, SifaEntity::class, wbwentity::class, NounCorpus::class, VerbCorpus::class, QuranEntity::class, CorpusEntity::class, BookMarks::class, ChaptersAnaEntity::class],
+    entities = [hduadetailsEnt::class, hduanamesEnt::class, hcategoryEnt::class, AllahNamesDetails::class, lanerootdictionary::class, Qari::class, surahsummary::class, quranexplorer::class, AllahNames::class, MafoolMutlaqEnt::class, BadalErabNotesEnt::class, HalEnt::class, MafoolBihi::class, LiajlihiEnt::class, TameezEnt::class, GrammarRules::class, hanslexicon::class, qurandictionary::class, lanelexicon::class, lughat::class, NewNasbEntity::class, NewShartEntity::class, NewKanaEntity::class, NewMudhafEntity::class, SifaEntity::class, wbwentity::class, NounCorpus::class, VerbCorpus::class, QuranEntity::class, CorpusEntity::class, BookMarks::class, ChaptersAnaEntity::class],
     version = 1
 )
 abstract class QuranAppDatabase : RoomDatabase() {
@@ -319,11 +319,10 @@ abstract class QuranAppDatabase : RoomDatabase() {
     abstract fun gethDuaCategoryDao(): hDuaCategoryDao
 
 
-
-/*
-    abstract fun CountryDao(): CountryDao?
-    abstract fun CitiesDAO(): CitiesDAO?
-*/
+    /*
+        abstract fun CountryDao(): CountryDao?
+        abstract fun CitiesDAO(): CitiesDAO?
+    */
 
 
     companion object {
@@ -336,7 +335,6 @@ abstract class QuranAppDatabase : RoomDatabase() {
         }
 
 
-
         private var quranAppDatabaseInstance: QuranAppDatabase? = null
 
         @Synchronized
@@ -347,16 +345,16 @@ abstract class QuranAppDatabase : RoomDatabase() {
                 )
             if (null == quranAppDatabaseInstance) {
                 val mainDatabase = File("$FILEPATH/$DATABASENAME")
-   /*     quranAppDatabaseInstanceasset = Room.databaseBuilder(
-                    context,
-                    QuranAppDatabase::class.java, "qurangrammar.db"
-                )
-                    .createFromAsset("databases/qurangrammar.db")
-                    .fallbackToDestructiveMigration()
-                    .addCallback(initialCallBack)
-                    .allowMainThreadQueries()
-                    .build()
-*/
+                /*     quranAppDatabaseInstanceasset = Room.databaseBuilder(
+                                 context,
+                                 QuranAppDatabase::class.java, "qurangrammar.db"
+                             )
+                                 .createFromAsset("databases/qurangrammar.db")
+                                 .fallbackToDestructiveMigration()
+                                 .addCallback(initialCallBack)
+                                 .allowMainThreadQueries()
+                                 .build()
+             */
 
 
 
@@ -370,8 +368,8 @@ abstract class QuranAppDatabase : RoomDatabase() {
                     .build()
 
             }
-             return quranAppDatabaseInstance
-        //    return quranAppDatabaseInstanceasset;
+            return quranAppDatabaseInstance
+            //    return quranAppDatabaseInstanceasset;
         }
     }
 }

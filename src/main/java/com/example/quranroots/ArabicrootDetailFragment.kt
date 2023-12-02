@@ -40,7 +40,7 @@ class ArabicrootDetailFragment
     private val mTextView: TextView? = null
     private var rootsArrayList = ArrayList<String>()
     private var adapter: RootDetailAdapter? = null
-    var binding:FragmentVerbrootDetailsListBinding?=null
+    var binding: FragmentVerbrootDetailsListBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         assert(arguments != null)
@@ -60,16 +60,13 @@ class ArabicrootDetailFragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View
-    {
+    ): View {
         binding = FragmentVerbrootDetailsListBinding.inflate(inflater, container, false)
 
         val view: View =
             inflater.inflate(R.layout.fragment_arabicroot_details_list, container, false)
 
         val recyclerView: RecyclerView = binding!!.verbrootDetaillistRec
-
-
 
 
         var layoutManager = LinearLayoutManager(activity)
@@ -93,7 +90,7 @@ class ArabicrootDetailFragment
 
     override fun onDestroyView() {
         super.onDestroyView()
-         binding  = null
+        binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

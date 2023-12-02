@@ -61,9 +61,9 @@ public class GameFilesActivity extends AppCompatActivity {
         setContentView(R.layout.rxfetch_progress);
         setUpViews();
         FetchConfiguration fetchConfiguration = new FetchConfiguration.Builder(this).build();
-     //    rxFetch = RxFetch.Impl.getInstance(fetchConfiguration);
+        //    rxFetch = RxFetch.Impl.getInstance(fetchConfiguration);
         rxFetch.Impl.setDefaultRxInstanceConfiguration(fetchConfiguration);
-      //  rxFetch.Impl.setDefaultFetchConfiguration(config);
+        //  rxFetch.Impl.setDefaultFetchConfiguration(config);
         rxFetch = RxFetch.Impl.getDefaultRxInstance();
 
         reset();
@@ -128,7 +128,7 @@ public class GameFilesActivity extends AppCompatActivity {
     }
 
     private void checkStoragePermission() {
-       // requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+        // requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
         enqueueFiles();
     }
 

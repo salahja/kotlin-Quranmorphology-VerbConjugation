@@ -16,7 +16,7 @@ object Data {
         "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
     )
 
-     fun getFetchRequests(context: Context): List<Request> {
+    fun getFetchRequests(context: Context): List<Request> {
         val requests: MutableList<Request> = ArrayList()
         for (sampleUrl in sampleUrls) {
             val request = Request(sampleUrl, getFilePath(sampleUrl, context))
@@ -60,21 +60,28 @@ object Data {
         return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString() + "/fetch"
     }
 
-     fun getFilePath(url: String, context: Context, filepath: String, readerid: String): String {
+    fun getFilePath(url: String, context: Context, filepath: String, readerid: String): String {
         val uri = Uri.parse(url)
         val fileName = uri.lastPathSegment
-        val dir = getSaveDirs(context,readerid)
+        val dir = getSaveDirs(context, readerid)
         return "$dir/$fileName"
     }
 
     fun getSaveDirs(context: Context, readerid: String): Any {
-        return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString() + "/fetch/"+readerid
+        return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+            .toString() + "/fetch/" + readerid
     }
-    fun getFileUrlUpdates(context: Context, Links: List<String>, filepath: String,readerid:String): List<Request> {
+
+    fun getFileUrlUpdates(
+        context: Context,
+        Links: List<String>,
+        filepath: String,
+        readerid: String
+    ): List<Request> {
         val requests: MutableList<Request> = ArrayList()
         val url = "http://speedtest.ftp.otenet.gr/files/test100k.db"
         for (sampleUrl in Links) {
-            val request = Request(sampleUrl, getFilePath(sampleUrl, context, filepath,readerid))
+            val request = Request(sampleUrl, getFilePath(sampleUrl, context, filepath, readerid))
             request.priority = Priority.HIGH
             //val request = Request(sampleUrl, filepath)
             requests.add(request)
@@ -82,5 +89,5 @@ object Data {
 
         return requests
     }
- 
+
 }

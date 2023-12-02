@@ -1,5 +1,5 @@
-
 package com.example.mushafconsolidated.Entities
+
 import android.text.SpannableString
 import androidx.room.Entity
 import androidx.room.Ignore

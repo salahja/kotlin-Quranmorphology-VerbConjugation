@@ -42,6 +42,7 @@ class QuranTopicSearchActivity : BaseActivity(), OnItemClickListenerOnLong {
 
         }
     }
+
     override fun onResume() {
         super.onResume()
         btnSelection.show()
@@ -96,7 +97,7 @@ class QuranTopicSearchActivity : BaseActivity(), OnItemClickListenerOnLong {
             //  extracted(data, titles);
             val dataBundle = Bundle()
 
-            if(data.isNotEmpty()){
+            if (data.isNotEmpty()) {
 
                 btnSelection.hide()
 
@@ -117,6 +118,7 @@ class QuranTopicSearchActivity : BaseActivity(), OnItemClickListenerOnLong {
             }
         })
     }
+
     override fun onBackPressed() {
         super.onBackPressed()
         btnSelection.show()
@@ -132,7 +134,7 @@ class QuranTopicSearchActivity : BaseActivity(), OnItemClickListenerOnLong {
         searchView?.setSearchableInfo(
             searchManager
                 .getSearchableInfo(componentName)
-                                     )
+        )
         searchView!!.maxWidth = Int.MAX_VALUE
         searchView.queryHint = "Type something…"
         val sear = ContextCompat.getDrawable(this, drawable.custom_search_box)

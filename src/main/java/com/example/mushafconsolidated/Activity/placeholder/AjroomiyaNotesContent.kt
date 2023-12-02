@@ -41,7 +41,7 @@ object AjroomiyaNotesContent {
         val rules: List<GrammarRules?>? =
             util.grammarRules
         if (rules != null) {
-            for (s  in rules) {
+            for (s in rules) {
                 addItems(s!!)
             }
         }
@@ -65,12 +65,12 @@ object AjroomiyaNotesContent {
     }
 
     private fun makeDetails(position: Int): String {
-        val sb  = StringBuilder ()
+        val sb = StringBuilder()
             .append("Details about Item: ").append(position)
         for (i in 0 until position) {
             sb.append("\nMore details information here.")
         }
-        return  sb.toString()
+        return sb.toString()
     }
 
     /**

@@ -1,4 +1,5 @@
 package com.example.mushafconsolidated.Entities
+
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
@@ -30,7 +31,27 @@ class NounCorpus {
     var id: Int
     var details: String
 
-    constructor(root_a: String?, lemma_a: String?, araword: String?, surah: Int, ayah: Int, wordno: Int, token: Int, words: String?, tag: String, propone: String?, proptwo: String?, form: String?, lemma: String?, root: String?, gendernumber: String?, type: String?, cases: String?, id: Int, details: String) {
+    constructor(
+        root_a: String?,
+        lemma_a: String?,
+        araword: String?,
+        surah: Int,
+        ayah: Int,
+        wordno: Int,
+        token: Int,
+        words: String?,
+        tag: String,
+        propone: String?,
+        proptwo: String?,
+        form: String?,
+        lemma: String?,
+        root: String?,
+        gendernumber: String?,
+        type: String?,
+        cases: String?,
+        id: Int,
+        details: String
+    ) {
         this.root_a = root_a
         this.lemma_a = lemma_a
         this.araword = araword
@@ -53,7 +74,28 @@ class NounCorpus {
     }
 
     @Ignore
-    constructor(count: Int, root_a: String?, lemma_a: String?, araword: String?, surah: Int, ayah: Int, wordno: Int, token: Int, words: String?, tag: String, propone: String?, proptwo: String?, form: String?, lemma: String?, root: String?, gendernumber: String?, type: String?, cases: String?, id: Int, details: String) {
+    constructor(
+        count: Int,
+        root_a: String?,
+        lemma_a: String?,
+        araword: String?,
+        surah: Int,
+        ayah: Int,
+        wordno: Int,
+        token: Int,
+        words: String?,
+        tag: String,
+        propone: String?,
+        proptwo: String?,
+        form: String?,
+        lemma: String?,
+        root: String?,
+        gendernumber: String?,
+        type: String?,
+        cases: String?,
+        id: Int,
+        details: String
+    ) {
         this.count = count
         this.root_a = root_a
         this.lemma_a = lemma_a

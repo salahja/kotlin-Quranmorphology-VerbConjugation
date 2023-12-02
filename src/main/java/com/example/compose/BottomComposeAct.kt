@@ -16,11 +16,12 @@ import com.skyyo.expandablelist.theme.AppTheme
 
 
 class BottomComposeAct : AppCompatActivity() {
-   // val darkTheme = themeViewModel.darkTheme.observeAsState(initial = true)
+    // val darkTheme = themeViewModel.darkTheme.observeAsState(initial = true)
     private val cardsViewModel by viewModels<CardsViewModel>()
 
     var root: String? = null
- //   private val viewModel by viewModels<ExpandableListViewModel>()
+
+    //   private val viewModel by viewModels<ExpandableListViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -32,14 +33,13 @@ class BottomComposeAct : AppCompatActivity() {
             )
 
 
-            val navController :NavHostController= NavHostController(this)
+            val navController: NavHostController = NavHostController(this)
 
             AppTheme {
                 Surface(color = MaterialTheme.colorScheme.background) {
 
 
-                        BottomNavigationDemo(navController)
-
+                    BottomNavigationDemo(navController)
 
 
                 }
@@ -60,7 +60,7 @@ class BottomComposeAct : AppCompatActivity() {
         ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
 
-            return CardsViewModel(mApplication, verbroot,nounroot,isharf) as T
+            return CardsViewModel(mApplication, verbroot, nounroot, isharf) as T
         }
     }
 }

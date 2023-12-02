@@ -56,7 +56,7 @@ class MainActivity : BaseActivity() {
         newquran = File("$FILEPATH/$DATABASENAME")
         validateFilesAndDownload()
         //les api33
-       if (!hasPermission) {
+        if (!hasPermission) {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
@@ -147,8 +147,8 @@ class MainActivity : BaseActivity() {
                 fullQuranPages = new ArrayList<>(pages);
             PageAdapter pageAdapter=new PageAdapter(pages,this);
             recview.setAdapter(pageAdapter);*/
-           val homeactivity = Intent(this@MainActivity, QuranGrammarAct::class.java)
-          //  val homeactivity = Intent(this@MainActivity, DownloadListActivity::class.java)
+            val homeactivity = Intent(this@MainActivity, QuranGrammarAct::class.java)
+            //  val homeactivity = Intent(this@MainActivity, DownloadListActivity::class.java)
 
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             startActivity(homeactivity)
@@ -229,7 +229,9 @@ class MainActivity : BaseActivity() {
                                 while (zis.nextEntry.also { ze = it } != null) {
                                     val file = File(targetDirectory, ze.name)
                                     val dir = if (ze.isDirectory) file else file.parentFile
-                                    if (!dir.isDirectory && !dir.mkdirs()) throw FileNotFoundException("Failed to ensure directory: " + dir.absolutePath)
+                                    if (!dir.isDirectory && !dir.mkdirs()) throw FileNotFoundException(
+                                        "Failed to ensure directory: " + dir.absolutePath
+                                    )
                                     if (ze.isDirectory) continue
                                     FileOutputStream(file).use { fout ->
                                         progress += 1
@@ -241,7 +243,7 @@ class MainActivity : BaseActivity() {
                                     }
                                 }
                             }
-                        }catch (e:NullPointerException){
+                        } catch (e: NullPointerException) {
                             println("check")
                         }
                     } catch (e: IOException) {

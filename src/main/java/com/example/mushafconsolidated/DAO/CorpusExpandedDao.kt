@@ -31,6 +31,6 @@ interface CorpusExpandedDao {
 
 
     @Query("SELECT * FROM CorpusExpand WHERE surah=:id")
-    fun getVersesBySurahLive(id: Int): LiveData< List<CorpusEntity>>
+    fun getVersesBySurahLive(id: Int): LiveData<List<CorpusEntity>>
 
 }

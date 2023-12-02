@@ -1,23 +1,6 @@
 package com.example.mushafconsolidated.Adaptersimport
 
 
- 
-
- 
-
- 
-
- 
- 
- 
-  
- 
- 
- 
-
- 
-
-
 open interface Data {
     companion object {
         val SURA_NAMES: Array<String> = arrayOf(

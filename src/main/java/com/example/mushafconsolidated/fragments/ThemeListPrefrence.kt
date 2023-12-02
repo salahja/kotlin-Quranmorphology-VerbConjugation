@@ -83,7 +83,7 @@ class ThemeListPrefrence constructor() : BottomSheetDialogFragment() {
             dark_blue = itemView.findViewById(R.id.Dark_Blue)
             green = itemView.findViewById(R.id.green)
             brown = itemView.findViewById(R.id.Brown)
-          //  frameLayout = itemView.findViewById(R.id.bottomSheet)
+            //  frameLayout = itemView.findViewById(R.id.bottomSheet)
             itemView.setOnClickListener(this)
             purple.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {

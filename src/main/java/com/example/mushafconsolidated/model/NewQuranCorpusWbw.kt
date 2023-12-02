@@ -1,8 +1,6 @@
 package com.example.mushafconsolidated.model
 
 
-
-
 import android.text.SpannableString
 import androidx.room.Embedded
 import androidx.room.Ignore

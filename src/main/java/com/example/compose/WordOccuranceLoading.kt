@@ -39,7 +39,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoadingData(
-    isDisplayed:Boolean,
+    isDisplayed: Boolean,
     cornerRadius: Dp = 16.dp,
     progressIndicatorColor: Color = Color(0xFF35898f),
     progressIndicatorSize: Dp = 80.dp
@@ -126,9 +126,6 @@ private fun ProgressIndicatorLoading(
         color = Color.White // Set background color
     )
 }
-
-
-
 
 
 @Preview(name = "DataLoadingCIrcular")

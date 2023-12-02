@@ -1,5 +1,3 @@
-
-
 import android.util.Log
 import com.example.Constant
 import kotlinx.coroutines.CancellationException
@@ -57,10 +55,13 @@ abstract class CoroutinesAsyncTask<Params, Progress, Result>(private val taskNam
 
         if (status != Constant.Constant.Status.PENDING) {
             when (status) {
-                Constant.Constant.  Status.RUNNING -> throw IllegalStateException("Cannot execute task:" + " the task is already running.")
-                Constant.Constant. Status.FINISHED -> throw IllegalStateException("Cannot execute task:"
-                        + " the task has already been executed "
-                        + "(a task can be executed only once)")
+                Constant.Constant.Status.RUNNING -> throw IllegalStateException("Cannot execute task:" + " the task is already running.")
+                Constant.Constant.Status.FINISHED -> throw IllegalStateException(
+                    "Cannot execute task:"
+                            + " the task has already been executed "
+                            + "(a task can be executed only once)"
+                )
+
                 else -> {
                 }
             }

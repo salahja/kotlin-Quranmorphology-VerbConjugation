@@ -3,7 +3,6 @@
 package com.example.compose
 
 
-
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
@@ -34,13 +33,6 @@ import com.example.mushafconsolidated.model.NewQuranCorpusWbw
 import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.QuranGrammarApplication
-
-
-
-
-
-
-
 
 
 @Composable
@@ -122,79 +114,78 @@ fun VerseList(
 
 
     {
-        RightToLeftLayout{
+        RightToLeftLayout {
 
 
-        FlowRow(
+            FlowRow(
 
 
-       verticalArrangement = Arrangement.Top,
-       horizontalArrangement = Arrangement.SpaceEvenly,
-            maxItemsInEachRow=6,
-            modifier = Modifier
-                .fillMaxWidth()
+                verticalArrangement = Arrangement.Top,
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                maxItemsInEachRow = 6,
+                modifier = Modifier
+                    .fillMaxWidth()
 
-                .padding(
-                    horizontal = 10.dp,
-                    vertical = 8.dp
-                )
-
-
-        ) {
-            if (wbw != null) {
-                var counter = 0
-                //  for (counter in wbw.size - 1 downTo 0) {
-                wbw.forEach {
+                    .padding(
+                        horizontal = 10.dp,
+                        vertical = 8.dp
+                    )
 
 
-                    val str =
-                        wbw!![counter].corpus!!.araone.toString() + wbw!![counter].corpus!!.aratwo.toString() +
-                                wbw!![counter].corpus!!.arathree.toString() + wbw!![counter].corpus!!.arafour.toString() +
-                                wbw!![counter].corpus!!.arafive.toString()  + "\n" +  "\n" + wbw[counter++].wbw?.en.toString()
+            ) {
+                if (wbw != null) {
+                    var counter = 0
+                    //  for (counter in wbw.size - 1 downTo 0) {
+                    wbw.forEach {
 
 
-                  /*  Text(
-
-                        text = str, style = MaterialTheme.typography.headlineSmall.copy(
-                            fontWeight = FontWeight.Light,
-                            textDirection = TextDirection.Rtl,
-
-                            textAlign = TextAlign.Justify,
-
-                            fontFamily = qalam
-
-                        )
-                    )*/
+                        val str =
+                            wbw!![counter].corpus!!.araone.toString() + wbw!![counter].corpus!!.aratwo.toString() +
+                                    wbw!![counter].corpus!!.arathree.toString() + wbw!![counter].corpus!!.arafour.toString() +
+                                    wbw!![counter].corpus!!.arafive.toString() + "\n" + "\n" + wbw[counter++].wbw?.en.toString()
 
 
-                    ClickableText(
-                        text = AnnotatedString(str) ,
-                        onClick = {
-                            Log.d(MyTextViewZoom.TAG, "mode=ZOOM")
-                            navController.navigate(NavigationItem.Books.route)
+                        /*  Text(
 
-                        })
+                              text = str, style = MaterialTheme.typography.headlineSmall.copy(
+                                  fontWeight = FontWeight.Light,
+                                  textDirection = TextDirection.Rtl,
+
+                                  textAlign = TextAlign.Justify,
+
+                                  fontFamily = qalam
+
+                              )
+                          )*/
 
 
+                        ClickableText(
+                            text = AnnotatedString(str),
+                            onClick = {
+                                Log.d(MyTextViewZoom.TAG, "mode=ZOOM")
+                                navController.navigate(NavigationItem.Books.route)
 
-                    /*
+                            })
 
 
-                                       Text(
-                                           text = strs, style = MaterialTheme.typography.headlineSmall.copy(
-                                               fontWeight = FontWeight.Light,
-                                               textDirection = TextDirection.Ltr,
-                                               textAlign = TextAlign.Center,
-                                               fontFamily = qalam
+                        /*
 
+
+                                           Text(
+                                               text = strs, style = MaterialTheme.typography.headlineSmall.copy(
+                                                   fontWeight = FontWeight.Light,
+                                                   textDirection = TextDirection.Ltr,
+                                                   textAlign = TextAlign.Center,
+                                                   fontFamily = qalam
+
+                                               )
                                            )
-                                       )
-                    */
+                        */
 
 
+                    }
                 }
             }
-        }
 
         }
         Row(

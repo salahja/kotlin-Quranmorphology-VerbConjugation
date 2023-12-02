@@ -57,7 +57,7 @@ class ArabicrootListFragment : Fragment() {
             }
             false
         }
-    private  var binding: FragmentArabicrootListBinding?=null
+    private var binding: FragmentArabicrootListBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -68,10 +68,12 @@ class ArabicrootListFragment : Fragment() {
         iswordorverb = bundle!!.getString(WORDDETAILS)
         return binding!!.root
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        binding  = null
+        binding = null
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         ViewCompat.addOnUnhandledKeyEventListener(view, unhandledKeyEventListenerCompat)
@@ -98,7 +100,7 @@ class ArabicrootListFragment : Fragment() {
     private class SimpleItemRecyclerViewAdapter(
         private val mValues: List<PlaceholderContent.PlaceholderItem>,
         private val mItemDetailFragmentContainer: View?, private val iswordorverb: String?
-                                               ) :
+    ) :
         RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val binding = ArabicrootListContentBinding.inflate(

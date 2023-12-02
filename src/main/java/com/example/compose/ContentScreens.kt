@@ -194,42 +194,44 @@ fun GridScreens(navController: NavHostController) {
         columns = GridCells.Fixed(2),
         content = {
             items(allAnaChapters!!.size) { index ->
-                GridList(allAnaChapters[index], imgs,navController)
+                GridList(allAnaChapters[index], imgs, navController)
             }
         }
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-private @Composable
+private
+@Composable
 
-fun GridList(surahModelList: ChaptersAnaEntity?, imgs: TypedArray, navController: NavHostController, ) {
+fun GridList(
+    surahModelList: ChaptersAnaEntity?,
+    imgs: TypedArray,
+    navController: NavHostController,
+) {
     val img = imgs.getDrawable(surahModelList!!.chapterid.toInt() - 1)
     val darkThemeEnabled = isDarkThemeEnabled
 
     Card(
 
-     //   onCardArrowClick = { viewModel.onCardArrowClicked(card.id) },
- /*       onClick = { surahModelList.chapterid
+        //   onCardArrowClick = { viewModel.onCardArrowClicked(card.id) },
+        /*       onClick = { surahModelList.chapterid
 
-            navController.navigate(NavigationItem.Music.route)
+                   navController.navigate(NavigationItem.Music.route)
 
 
-        },*/
+               },*/
         onClick = {
 
             navController.navigate(
                 NavigationItem.Music.route
-             //   "detail/{uId}" //Just modify your route accordingly
+                    //   "detail/{uId}" //Just modify your route accordingly
                     .replace(
                         oldValue = "{uId}",
                         newValue = "1"
                     )
             )
         },
-
-
-
 
 
         colors = CardDefaults.cardColors(
@@ -273,7 +275,7 @@ fun GridList(surahModelList: ChaptersAnaEntity?, imgs: TypedArray, navController
             )
 
 
-            if(!darkThemeEnabled){
+            if (!darkThemeEnabled) {
                 AsyncImage(
 
                     model = img,
@@ -284,7 +286,7 @@ fun GridList(surahModelList: ChaptersAnaEntity?, imgs: TypedArray, navController
                         .width(30.dp),
 
                     )
-            }else{
+            } else {
                 AsyncImage(
 
                     model = img,
@@ -298,7 +300,6 @@ fun GridList(surahModelList: ChaptersAnaEntity?, imgs: TypedArray, navController
             }
 
 
-
         }
     }
 
@@ -310,6 +311,7 @@ fun GridList(surahModelList: ChaptersAnaEntity?, imgs: TypedArray, navController
     fun BottomDialog() {
         //Lets create list to show in bottom sheet
         data class BottomSheetItem(val title: String, val icon: ImageVector)
+
         val bottomSheetItems = listOf(
             BottomSheetItem(title = "Notification", icon = Icons.Default.Notifications),
             BottomSheetItem(title = "Mail", icon = Icons.Default.MailOutline),
@@ -376,7 +378,12 @@ fun GridList(surahModelList: ChaptersAnaEntity?, imgs: TypedArray, navController
 
                         //.background(Color(0xFF6650a4))
                         .background(
-                            brush = Brush.linearGradient(colors = listOf(Color(0xFF8E2DE2), Color(0xFF4A00E0))),
+                            brush = Brush.linearGradient(
+                                colors = listOf(
+                                    Color(0xFF8E2DE2),
+                                    Color(0xFF4A00E0)
+                                )
+                            ),
                             // shape = RoundedCornerShape(cornerRadius)
                         )
                         .padding(16.dp),

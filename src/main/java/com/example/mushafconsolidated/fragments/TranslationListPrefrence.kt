@@ -18,7 +18,7 @@ import com.example.mushafconsolidated.R.layout
 import com.example.mushafconsolidated.Utils
 
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
- 
+
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
@@ -108,7 +108,7 @@ class TranslationListPrefrence constructor() : BottomSheetDialogFragment() {
             en_jalalayn = itemView.findViewById(R.id.en_jalalayn)
             ur_jalalayn = itemView.findViewById(R.id.ur_jalalayn)
             en_erberry = itemView.findViewById(R.id.en_arberry)
-         //   frameLayout = itemView.findViewById(R.id.bottomSheet)
+            //   frameLayout = itemView.findViewById(R.id.bottomSheet)
             itemView.setOnClickListener(this)
             en_sahih.setOnClickListener(object : View.OnClickListener {
                 public override fun onClick(v: View?) {

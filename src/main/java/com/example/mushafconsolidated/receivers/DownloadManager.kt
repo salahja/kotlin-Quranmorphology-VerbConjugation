@@ -178,8 +178,8 @@ class DownloadManager : AsyncTask<String?, Long?, Boolean> {
      * @param url the download url
      * @return flag download success or not
      */
-      @Deprecated("Deprecated in Java")
-      override fun doInBackground(vararg url: String?): Boolean {
+    @Deprecated("Deprecated in Java")
+    override fun doInBackground(vararg url: String?): Boolean {
         try {
             return if (downloadLinks != null) {
                 multiDownload(downloadLinks!!, url[1])
@@ -217,8 +217,9 @@ class DownloadManager : AsyncTask<String?, Long?, Boolean> {
         //new http connection
         val cacheSize = 10 * 1024 * 1024 // 10 MiB
         val cache = Cache(context!!.cacheDir, cacheSize.toLong())
-        val httpClient: OkHttpClient = OkHttpClient.Builder().cache(cache).connectTimeout(15, TimeUnit.MINUTES)
-            .readTimeout(15, TimeUnit.MINUTES).build()
+        val httpClient: OkHttpClient =
+            OkHttpClient.Builder().cache(cache).connectTimeout(15, TimeUnit.MINUTES)
+                .readTimeout(15, TimeUnit.MINUTES).build()
         //private OkHttpClient mOkHttpClient;
         val request: Request = Request.Builder()
             .url(link)
@@ -323,7 +324,8 @@ class DownloadManager : AsyncTask<String?, Long?, Boolean> {
 
             //new http connection
             val httpClient: OkHttpClient =
-                OkHttpClient.Builder().connectTimeout(15, TimeUnit.MINUTES).readTimeout(15, TimeUnit.MINUTES)
+                OkHttpClient.Builder().connectTimeout(15, TimeUnit.MINUTES)
+                    .readTimeout(15, TimeUnit.MINUTES)
                     .build()
             val call = httpClient.newCall(Request.Builder().url(linkItem).get().build())
             val response = call.execute()
@@ -373,8 +375,8 @@ class DownloadManager : AsyncTask<String?, Long?, Boolean> {
      *
      * @param values download information values
      */
-     @Deprecated("Deprecated in Java")
-     override fun onProgressUpdate(vararg values: Long?) {
+    @Deprecated("Deprecated in Java")
+    override fun onProgressUpdate(vararg values: Long?) {
         if (downloadProgressBar != null) {
             downloadProgressBar!!.max = values[1]!!.toInt()
             downloadProgressBar!!.progress = values[0]!!.toInt()

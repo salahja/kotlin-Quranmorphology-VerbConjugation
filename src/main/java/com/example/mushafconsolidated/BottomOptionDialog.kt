@@ -35,7 +35,7 @@ class BottomOptionDialog : BottomSheetDialogFragment() {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
 
-            name =arguments?.getString("name")
+            name = arguments?.getString("name")
             chap_id = arguments?.getInt("chap_id")!!
             verse_id = arguments?.getInt("verse_no")!!
         }
@@ -44,7 +44,7 @@ class BottomOptionDialog : BottomSheetDialogFragment() {
         //  setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_Material3_BottomSheetDialog);
     }
 
-   lateinit var mItemClickListener: OnItemClickListener
+    lateinit var mItemClickListener: OnItemClickListener
     var radioGroup: RadioGroup? = null
     private var fontQuranAdapter: FontQuranAdapter? = null
     fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
@@ -114,7 +114,7 @@ class BottomOptionDialog : BottomSheetDialogFragment() {
                 //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                 editor.putString("quranFont", "me_quran.ttf")
                 editor.apply()
-              //  dismiss()
+                //  dismiss()
             }
             ivShare.setOnClickListener {
                 val editor =
@@ -123,7 +123,7 @@ class BottomOptionDialog : BottomSheetDialogFragment() {
                 //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                 editor.putString("quranFont", "Pdms.ttf")
                 editor.apply()
-             //   dismiss()
+                //   dismiss()
             }
         }
 
@@ -142,7 +142,6 @@ class BottomOptionDialog : BottomSheetDialogFragment() {
             viewType: Int
         ): ViewHolder {
             return ViewHolder(LayoutInflater.from(parent.context!!), parent)
-
 
 
         }

@@ -97,10 +97,12 @@ public enum class FlowCrossAxisAlignment {
      * Place children such that their center is in the middle of the cross axis.
      */
     Center,
+
     /**
      * Place children such that their start edge is aligned to the start edge of the cross axis.
      */
     Start,
+
     /**
      * Place children such that their end edge is aligned to the end edge of the cross axis.
      */
@@ -126,6 +128,7 @@ private fun Flow(
 ) {
     fun Placeable.mainAxisSize() =
         if (orientation == LayoutOrientation.Horizontal) width else height
+
     fun Placeable.crossAxisSize() =
         if (orientation == LayoutOrientation.Horizontal) height else width
 
@@ -231,6 +234,7 @@ private fun Flow(
                             mainAxisPositions
                         )
                     }
+
                     LayoutOrientation.Vertical -> with(alignment.toVerticalArrangement()) {
                         arrange(mainAxisLayoutSize, childrenMainAxisSizes, mainAxisPositions)
                     }
@@ -242,6 +246,7 @@ private fun Flow(
                         FlowCrossAxisAlignment.Start -> 0
                         FlowCrossAxisAlignment.End ->
                             crossAxisSizes[i] - crossAxisSize
+
                         FlowCrossAxisAlignment.Center ->
                             Alignment.Center.align(
                                 IntSize.Zero,
@@ -264,6 +269,7 @@ private fun Flow(
                             x = when (layoutDirection) {
                                 LayoutDirection.Ltr ->
                                     crossAxisPosition
+
                                 LayoutDirection.Rtl ->
                                     crossAxisLayoutSize - crossAxisPosition - crossAxisSize
                             },
@@ -306,6 +312,7 @@ public enum class SizeMode {
      * subject to the incoming layout constraints.
      */
     Wrap,
+
     /**
      * Maximize the amount of free space by expanding to fill the available space,
      * subject to the incoming layout constraints.

@@ -371,7 +371,7 @@ class SentenceQuranMorphologyDetails(
             wordbdetail["wordtranslation"] =
                 SpannableStringBuilder.valueOf(corpusSurahWord[index].en)
             val arabicword =
-                corpusSurahWord[index].araone + corpusSurahWord[index].aratwo + corpusSurahWord[index].arathree+corpusSurahWord[index].arafour + corpusSurahWord[index].arafour
+                corpusSurahWord[index].araone + corpusSurahWord[index].aratwo + corpusSurahWord[index].arathree + corpusSurahWord[index].arafour + corpusSurahWord[index].arafour
             if (corpusNoun.size > 0) {
                 if (corpusNoun[0].proptwo == CorpusConstants.NominalsProp.PCPL) {
                     val form = corpusNoun[0].form

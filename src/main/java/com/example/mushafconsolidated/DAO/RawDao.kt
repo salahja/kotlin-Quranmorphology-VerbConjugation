@@ -45,10 +45,8 @@ interface RawDao {
     fun getnounoccurancebysurahayah(query: SupportSQLiteQuery): List<CorpusNounWbwOccurance?>?
 
 
-
     @RawQuery
     fun getCorpusWbw(query: SupportSQLiteQuery): List<CorpusExpandWbwPOJO?>?
-
 
 
     @RawQuery
@@ -94,11 +92,11 @@ interface RawDao {
     @RawQuery
     fun getCorpusWbwfortameez(query: SupportSQLiteQuery): List<CorpusExpandWbwPOJO?>?
 
-  @RawQuery
+    @RawQuery
     fun getDuaCATNAMES(query: SupportSQLiteQuery): List<hduanamesEnt>
 
-/*    @RawQuery
-    fun getLocinfo(query: SupportSQLiteQuery): LocationInfo?*/
+    /*    @RawQuery
+        fun getLocinfo(query: SupportSQLiteQuery): LocationInfo?*/
 
     @RawQuery
     fun getCollectionCount(query: SupportSQLiteQuery): List<BookMarksPojo?>?

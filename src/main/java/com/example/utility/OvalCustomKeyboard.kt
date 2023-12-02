@@ -16,9 +16,6 @@ import com.example.mushafconsolidated.R
 import com.google.android.material.button.MaterialButton
 
 
-
-
-
 class OvalCustomKeyboard : LinearLayout, View.OnClickListener {
     private val keyValues = SparseArray<String>()
 
@@ -57,13 +54,13 @@ class OvalCustomKeyboard : LinearLayout, View.OnClickListener {
     //  private com.sjconjugatortwo.keyboard.KeyBoardInitActivity InitActivity;
     private val radioText: String? = null
 
-/*
-    constructor(keyBoardInitActivity: ConjugatorAct?) : super(keyBoardInitActivity) {
-        mycontext = keyBoardInitActivity
-    }
-*/
+    /*
+        constructor(keyBoardInitActivity: ConjugatorAct?) : super(keyBoardInitActivity) {
+            mycontext = keyBoardInitActivity
+        }
+    */
 
-  //  constructor(context: ConjugatorAct?, s: String?) : super(context) {}
+    //  constructor(context: ConjugatorAct?, s: String?) : super(context) {}
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         init(context)
     }
@@ -199,7 +196,7 @@ class OvalCustomKeyboard : LinearLayout, View.OnClickListener {
         // val applicationContext: Context = ConjugatorAct.getContextOfApplication()
         //   GRadioGroup gr=new GRadioGroup(nasara,zaraba,samia,fatha,karuma,hasiba);
         val sp = QuranGrammarApplication.context!!.getSharedPreferences("key", 0)
-       val babs = sp.getString("bab", "")
+        val babs = sp.getString("bab", "")
         val dataBundle = Bundle()
         dataBundle.putString(QURAN_VERB_WAZAN, radioText)
         dataBundle.putString(QURAN_VERB_WAZAN, babs)

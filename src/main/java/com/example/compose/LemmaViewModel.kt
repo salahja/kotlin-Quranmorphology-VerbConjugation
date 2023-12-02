@@ -16,44 +16,44 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class LemmaViewModel(application: Application,lemmarabic:String) : AndroidViewModel(application) {
+class LemmaViewModel(application: Application, lemmarabic: String) : AndroidViewModel(application) {
     val alldua: MutableLiveData<List<NounCorpusBreakup>> = MutableLiveData()
 
     private val lemmalist: MutableLiveData<List<NounCorpusBreakup>> = MutableLiveData()
 
     private lateinit var util: Utils
-   // var lemmarabic: String = "حمد"
+
+    // var lemmarabic: String = "حمد"
     var lemmarabic: String = lemmarabic
     private val _words = MutableLiveData(listOf<VerseOccuranceModel>())
     val words: MutableLiveData<List<VerseOccuranceModel>> get() = _words
 
 
-
-    var counter=0;
+    var counter = 0;
 
     private var nounBreakup: ArrayList<NounCorpusBreakup>? = null
     private var verbBreakup: ArrayList<VerbCorpusBreakup>? = null
-    init {
-                util = Utils(application)
-                //     nounBreakup = util.getNounBreakup(lemmarabic) as ArrayList<NounCorpusBreakup>?
-                //    verbBreakup= util.getVerbBreakUp(lemmarabic) as ArrayList<VerbCorpusBreakup>?
-                nounBreakup = lemmarabic.trim()
-                    .let { util.getNounBreakup(it) } as ArrayList<NounCorpusBreakup>?
 
-                verbBreakup = lemmarabic.trim()
-                    .let { util.getVerbBreakUp(it) } as ArrayList<VerbCorpusBreakup>?
-                true
+    init {
+        util = Utils(application)
+        //     nounBreakup = util.getNounBreakup(lemmarabic) as ArrayList<NounCorpusBreakup>?
+        //    verbBreakup= util.getVerbBreakUp(lemmarabic) as ArrayList<VerbCorpusBreakup>?
+        nounBreakup = lemmarabic.trim()
+            .let { util.getNounBreakup(it) } as ArrayList<NounCorpusBreakup>?
+
+        verbBreakup = lemmarabic.trim()
+            .let { util.getVerbBreakUp(it) } as ArrayList<VerbCorpusBreakup>?
+        true
     }
 
-    fun getlemmalist(lemma : String):
+    fun getlemmalist(lemma: String):
             LiveData<List<NounCorpusBreakup>> {
-        lemmalist.value =util.getNounBreakup(lemma)
+        lemmalist.value = util.getNounBreakup(lemma)
 
 
         return lemmalist
 
     }
-
 
 
     public fun loadLists(lemmarabic: String) {
@@ -62,27 +62,25 @@ class LemmaViewModel(application: Application,lemmarabic:String) : AndroidViewMo
                 val testList = arrayListOf<VerseOccuranceModel>()
 
 
-
-                val nouns: ArrayList<CorpusNounWbwOccurance> =             util.getNounOccuranceBreakVerses(lemmarabic)
-                                as ArrayList<CorpusNounWbwOccurance>
+                val nouns: ArrayList<CorpusNounWbwOccurance> =
+                    util.getNounOccuranceBreakVerses(lemmarabic)
+                            as ArrayList<CorpusNounWbwOccurance>
 
                 val verses: ArrayList<CorpusVerbWbwOccurance> =
                     util.getVerbOccuranceBreakVerses(lemmarabic)
                             as ArrayList<CorpusVerbWbwOccurance>
 
-                    val lists :ArrayList<String> =  ArrayList<String>()
+                val lists: ArrayList<String> = ArrayList<String>()
 
-                 for(ver in nouns){
-                     val sb = StringBuilder()
-                     sb.append(ver.surah).append(":").append(ver.ayah)
-                     sb.append(ver.qurantext)
-                         lists.add(sb.toString())
+                for (ver in nouns) {
+                    val sb = StringBuilder()
+                    sb.append(ver.surah).append(":").append(ver.ayah)
+                    sb.append(ver.qurantext)
+                    lists.add(sb.toString())
 
-                     testList += VerseOccuranceModel(lists)
+                    testList += VerseOccuranceModel(lists)
 
-                 }
-
-
+                }
 
 
 
@@ -90,21 +88,23 @@ class LemmaViewModel(application: Application,lemmarabic:String) : AndroidViewMo
 
 
 
-                    for(ver in verses){
-                        val sb = StringBuilder()
-                        sb.append(ver.surah).append(":").append(ver.ayah)
-                        sb.append(ver.qurantext)
-                        lists.add(sb.toString())
-
-                        testList += VerseOccuranceModel(lists)
-
-                    }
 
 
-                _words.value=testList
+                for (ver in verses) {
+                    val sb = StringBuilder()
+                    sb.append(ver.surah).append(":").append(ver.ayah)
+                    sb.append(ver.qurantext)
+                    lists.add(sb.toString())
+
+                    testList += VerseOccuranceModel(lists)
+
+                }
 
 
-             //   _words.add(testList)
+                _words.value = testList
+
+
+                //   _words.add(testList)
                 /* repeat(20) { testList += VerseOccuranceModel(id = it, title = "Card $it") }
                  _cards.emit(testList)*/
             }

@@ -1,4 +1,5 @@
 package com.example.mushafconsolidated.Entities
+
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
@@ -28,7 +29,7 @@ class oVerbCorpus constructor(
     @field:PrimaryKey(
         autoGenerate = true
     ) var id: Int
-){
+) {
 
 
 }

@@ -1,5 +1,3 @@
-
-
 import android.annotation.SuppressLint
 import android.text.SpannableString
 import androidx.compose.animation.*
@@ -55,7 +53,7 @@ import com.example.utility.QuranGrammarApplication.Companion.context
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
-var lemmarabic: String?=null
+var lemmarabic: String? = null
 var words: List<VerseOccuranceModel>? = null
 const val EXPANSTION_TRANSITION_DURATION = 300
 
@@ -74,19 +72,20 @@ fun CardsScreen(viewModel: CardsViewModel) {
     //grammatically colred word default font
     val arabic_font_selection =
         sharedPreferences.getString("Arabic_Font_Selection", "quranicfontregular.ttf")
-   // val words by wordoccuranceModel.words.collectAsStateWithLifecycle()
+    // val words by wordoccuranceModel.words.collectAsStateWithLifecycle()
     val cards by viewModel.cards.collectAsStateWithLifecycle()
     val expandedCardIds by viewModel.expandedCardIdsList.collectAsStateWithLifecycle()
     val context = LocalContext.current
     var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
-    viewModel.open.value=true
+    viewModel.open.value = true
 
 
     val bgColour = remember {
         Color(ContextCompat.getColor(context, R.color.colorDayNightWhite))
     }
 
-    Scaffold(Modifier.background(bgColour)
+    Scaffold(
+        Modifier.background(bgColour)
 
     ) { paddingValues ->
         val copyProgress: MutableState<Float> = remember { mutableStateOf(0.0f) }
@@ -105,23 +104,22 @@ fun CardsScreen(viewModel: CardsViewModel) {
         }
 
 
-
-
     }
 }
 
 @Composable
 @Preview
-fun DetailTopAppBar(onBackPressed: ()-> Unit ={} ) {
-  TopAppBar(title =  {
-      Text(text="Word Occurance") },
-    navigationIcon = {
-        IconButton(onClick = { onBackPressed() } ) {
-         //   Icon(ImageVector = Icons.Default.ArrowBack,contentDescription="" ,Modifier.padding(10.dp),color = Color.Red)
+fun DetailTopAppBar(onBackPressed: () -> Unit = {}) {
+    TopAppBar(title = {
+        Text(text = "Word Occurance")
+    },
+        navigationIcon = {
+            IconButton(onClick = { onBackPressed() }) {
+                //   Icon(ImageVector = Icons.Default.ArrowBack,contentDescription="" ,Modifier.padding(10.dp),color = Color.Red)
+
+            }
 
         }
-
-  }
     )
 
 
@@ -177,7 +175,7 @@ fun ExpandableCard(
     }
 
     Card(
-         //backgroundColor = cardBgColor,
+        //backgroundColor = cardBgColor,
         //  contentColor = contentColour,
 
         colors = CardDefaults.cardColors(
@@ -194,9 +192,10 @@ fun ExpandableCard(
                 vertical = 8.dp
             )
     ) {
-        Column (horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth(),
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth(),
 
-         ){
+            ) {
             Box {
                 CardArrow(
                     degrees = arrowRotationDegree,
@@ -205,9 +204,9 @@ fun ExpandableCard(
                 CardTitle(title = card.title)
             }
 
-            lemmarabic=card.lemma
-         //   MyScreen(visible = expanded)
-            ExpandableContent(card.lemma,card.vlist, visible = expanded)
+            lemmarabic = card.lemma
+            //   MyScreen(visible = expanded)
+            ExpandableContent(card.lemma, card.vlist, visible = expanded)
             //     ExpandableContent( visible = expanded)
         }
     }
@@ -255,10 +254,11 @@ fun CenterAlignedText() {
             .wrapContentHeight(),
     )
 }
+
 @Preview
 @Composable
 fun MyViewPreview() {
-    ExpandableContent("LIMMA", card = ArrayList<SpannableString>(),true)
+    ExpandableContent("LIMMA", card = ArrayList<SpannableString>(), true)
 }
 
 @Composable
@@ -266,21 +266,19 @@ fun MyViewPreview() {
 fun ExpandableContent(
 
 
-    lemma:String,
+    lemma: String,
     card: ArrayList<SpannableString>,
     visible: Boolean = true,
 //    viewModel: LemmaViewModel = viewModel(),
 
 
-
-
 //  viewModel: Any = viewModel<LemmaViewModel>()
 
 ) {
-   // val versemodel= viewModel(modelClass = DuaViewModel::class.java)
-   // val versstate=versemodel.state
-   // val duanames = versstate.duanames
-  //  versemodel.state.duanames.filterbyid()
+    // val versemodel= viewModel(modelClass = DuaViewModel::class.java)
+    // val versstate=versemodel.state
+    // val duanames = versstate.duanames
+    //  versemodel.state.duanames.filterbyid()
 
     val enterTransition = remember {
         expandVertically(
@@ -350,7 +348,6 @@ fun ExpandableContent(
 
         }*/
     }
-
 
 
 }

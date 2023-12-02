@@ -13,7 +13,6 @@ object ConfigPreferences {
     private const val MAIN_CONFIG = "application_settings"
 
 
-
     fun setLastPlayedAudio(
         context: Context,
         audioPlayed: ArrayList<AudioPlayed?>?,
@@ -39,8 +38,6 @@ object ConfigPreferences {
         val json = sharedPreferences.getString(surah, "")
         return gson.fromJson(json, AudioPositionSaved::class.java)
     }
-
-
 
 
 }

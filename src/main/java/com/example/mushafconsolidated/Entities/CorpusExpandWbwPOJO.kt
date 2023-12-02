@@ -1,5 +1,5 @@
-
 package com.example.mushafconsolidated.Entities
+
 import androidx.room.PrimaryKey
 
 //primaryKeys ={"translation_id","verse_id"}

@@ -11,7 +11,6 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import com.example.mushafconsolidated.R
 import com.google.android.material.button.MaterialButton
 import kotlin.math.hypot

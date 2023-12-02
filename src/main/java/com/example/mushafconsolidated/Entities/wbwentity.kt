@@ -1,4 +1,5 @@
 package com.example.mushafconsolidated.Entities
+
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

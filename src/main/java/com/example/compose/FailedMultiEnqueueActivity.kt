@@ -25,7 +25,7 @@ class FailedMultiEnqueueActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_multi_enqueue)
         Links = createDownloadLinks()
-      val  mainFetchConfiguration = FetchConfiguration.Builder(this)
+        val mainFetchConfiguration = FetchConfiguration.Builder(this)
             .setDownloadConcurrentLimit(4) // Allows Fetch to download 4 downloads in Parallel.
             .enableLogging(true)
             .build()
@@ -38,11 +38,13 @@ class FailedMultiEnqueueActivity : AppCompatActivity() {
             .build()
         fetch = getInstance(fetchConfiguration)
         fetch!!.setGlobalNetworkType(NetworkType.ALL)
-   val     readerID=21
+        val readerID = 21
         val filepath =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).toString() + "/audio/" + ShowMushafActivity.readerID
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
+                .toString() + "/audio/" + ShowMushafActivity.readerID
         val requestLists: List<Request> = ArrayList()
-        val requestList = getFileUrlUpdates(this, Links!!, filepath, ShowMushafActivity.readerID.toString())
+        val requestList =
+            getFileUrlUpdates(this, Links!!, filepath, ShowMushafActivity.readerID.toString())
         val groupId = "MySampleGroup".hashCode()
         for (i in requestList.indices) {
             requestLists[i].groupId = groupId
@@ -50,19 +52,19 @@ class FailedMultiEnqueueActivity : AppCompatActivity() {
         }
 
 
-
-
-
-
-
     }
 
 
-    fun getFileUrlUpdates(context: Context, Links: List<String>, filepath: String, readerid:String): List<Request> {
+    fun getFileUrlUpdates(
+        context: Context,
+        Links: List<String>,
+        filepath: String,
+        readerid: String
+    ): List<Request> {
         val requests: MutableList<Request> = ArrayList()
         val url = "http://speedtest.ftp.otenet.gr/files/test100k.db"
         for (sampleUrl in Links) {
-            val request = Request(sampleUrl, getFilePath(sampleUrl, context, filepath,readerid))
+            val request = Request(sampleUrl, getFilePath(sampleUrl, context, filepath, readerid))
             request.priority = Priority.HIGH
             //val request = Request(sampleUrl, filepath)
             requests.add(request)
@@ -76,18 +78,22 @@ class FailedMultiEnqueueActivity : AppCompatActivity() {
         return requests
     }
 
-    private fun getFilePath(url: String, context: Context, filepath: String, readerid: String): String {
+    private fun getFilePath(
+        url: String,
+        context: Context,
+        filepath: String,
+        readerid: String
+    ): String {
         val uri = Uri.parse(url)
         val fileName = uri.lastPathSegment
-        val dir = getSaveDirs(context,readerid)
+        val dir = getSaveDirs(context, readerid)
         return "$dir/$fileName"
     }
 
     private fun getSaveDirs(context: Context, readerid: String): Any {
-        return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString() + "/fetch/"+readerid
+        return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+            .toString() + "/fetch/" + readerid
     }
-
-
 
 
     override fun onDestroy() {

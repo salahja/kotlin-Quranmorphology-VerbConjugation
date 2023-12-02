@@ -1,19 +1,6 @@
-
 package com.example.mushafconsolidated.model
 
 import android.text.SpannableString
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 class CorpusAyahWord {

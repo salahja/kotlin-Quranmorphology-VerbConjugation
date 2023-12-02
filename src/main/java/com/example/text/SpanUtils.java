@@ -20,17 +20,17 @@ public final class SpanUtils {
     }
 
     public static CharSequence createSpannable(CharSequence source, Pattern pattern, CharacterStyle... styles) {
-        SpannableString spannableString  = new SpannableString (source);
+        SpannableString spannableString = new SpannableString(source);
         Matcher matcher = pattern.matcher(source);
         while (matcher.find()) {
             int start = matcher.start();
             int end = matcher.end();
-            applyStylesToSpannable(spannableString , start, end, styles);
+            applyStylesToSpannable(spannableString, start, end, styles);
         }
-        return spannableString ;
+        return spannableString;
     }
 
-    private static SpannableString  applyStylesToSpannable(SpannableString  source, int start, int end, CharacterStyle... styles) {
+    private static SpannableString applyStylesToSpannable(SpannableString source, int start, int end, CharacterStyle... styles) {
         for (CharacterStyle style : styles) {
             source.setSpan(CharacterStyle.wrap(style), start, end, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         }

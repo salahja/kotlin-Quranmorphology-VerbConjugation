@@ -21,7 +21,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
  * in two-pane mode (on larger screen devices) or self-contained
  * on handsets.
  */
-class   NewAjroomiyaDetailFragment
+class NewAjroomiyaDetailFragment
 /**
  * Mandatory empty constructor for the fragment manager to instantiate the
  * fragment (e.g. upon screen orientation changes).
@@ -61,8 +61,8 @@ class   NewAjroomiyaDetailFragment
             inflater.inflate(R.layout.new_fragment_ajroomiya_detail, container, false)
         //   binding = FragmentGrammarruleDetailBinding.inflate(inflater, container, false);
         //  View rootView = binding.getRoot();
-       mToolbarLayout = rootView.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)
-         mTextView = rootView.findViewById<WebView>(R.id.ajroomiya_detail)
+        mToolbarLayout = rootView.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)
+        mTextView = rootView.findViewById<WebView>(R.id.ajroomiya_detail)
         val webSettings = mTextView.settings
         webSettings.javaScriptEnabled = true
         //  mTextView.setInitialScale(1);
@@ -98,8 +98,6 @@ class   NewAjroomiyaDetailFragment
          */
         const val ARG_ITEM_ID = "item_id"
     }
-
-
 
 
 }

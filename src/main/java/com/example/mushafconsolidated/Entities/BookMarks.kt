@@ -20,22 +20,22 @@ class BookMarks constructor(
 ) {
 
     @Ignore
-    var count: String? =null
-    constructor() : this("dummy title", "dummy author", "dummy abstract", "","",0)
+    var count: String? = null
 
-/*
-      constructor(
+    constructor() : this("dummy title", "dummy author", "dummy abstract", "", "", 0)
+
+    /*
+          constructor(
 
 
-            header: String?,
-            verseno: String,
-            chapterno: String,
-            surahname: String,
-            datetime: String?,
+                header: String?,
+                verseno: String,
+                chapterno: String,
+                surahname: String,
+                datetime: String?,
 
-            count: String?
-        ) : this(header, verseno, chapterno, surahname, datetime, count) */
-
+                count: String?
+            ) : this(header, verseno, chapterno, surahname, datetime, count) */
 
 
 }

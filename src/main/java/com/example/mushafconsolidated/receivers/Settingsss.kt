@@ -7,23 +7,6 @@ import android.net.NetworkInfo
 import android.util.DisplayMetrics
 import com.example.utility.QuranGrammarApplication
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-  
- 
- 
- 
- 
- 
- 
 
 object Settingsss {
     /**

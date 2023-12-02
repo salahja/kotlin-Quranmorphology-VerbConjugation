@@ -372,7 +372,6 @@ class LughatWordDetailsAct : BaseActivity() {
         } else if (isAugmentedWazan) {
 
 
-
             if (SharedPref.language == "en" && verbmood == "Jussive") {
                 languages[0] = "lanes"
                 languages[1] = "hans"
@@ -531,9 +530,9 @@ class LughatWordDetailsAct : BaseActivity() {
                 fragv.arguments = dataBundle
                 return fragv.newInstance()
             }
-       /*     val fragv = FragmentVerb()
-            fragv.arguments = dataBundle
-            return fragv.newInstance()*/
+            /*     val fragv = FragmentVerb()
+                 fragv.arguments = dataBundle
+                 return fragv.newInstance()*/
             return TODO("Provide the return value")
         }
 
@@ -732,9 +731,9 @@ class LughatWordDetailsAct : BaseActivity() {
                 fragv.arguments = dataBundle
                 return fragv.newInstance()
             }
-           /* val fragv = FragmentVerb()
-            fragv.arguments = dataBundle
-            return fragv.newInstance()*/
+            /* val fragv = FragmentVerb()
+             fragv.arguments = dataBundle
+             return fragv.newInstance()*/
             return TODO("Provide the return value")
         }
 

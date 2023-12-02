@@ -8,23 +8,6 @@ import com.example.mushafconsolidated.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
-
-
- 
-
-
-
- 
- 
- 
-  
- 
- 
- 
-
- 
-
-
 class CustomBottomSheetDialogFragment constructor() : BottomSheetDialogFragment() {
     public override fun onCreateView(
         inflater: LayoutInflater,

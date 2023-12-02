@@ -27,8 +27,6 @@ import java.text.NumberFormat
 import java.util.Locale
 
 
-
-
 class LineMushaAudioAdapter(
     var context: Context,
     private val allofQuran: List<QuranEntity?>?,
@@ -229,7 +227,7 @@ class LineMushaAudioAdapter(
         showWordByword: Boolean,
         whichtranslation: String?,
         showKathir: Boolean,
-                            ) {
+    ) {
         //   holder.flowwbw.setBackgroundColor(R.style.Theme_DarkBlue);
         var entity: QuranEntity? = null
 
@@ -415,7 +413,7 @@ class LineMushaAudioAdapter(
         editor.putInt(AYAH_ID, entity.ayah)
         editor.putString(SURAH_ARABIC_NAME, SurahName)
         editor.apply()
-   editor.commit();
+        editor.commit();
     }
 
     inner class ItemViewAdapter internal constructor(view: View, viewType: Int) :
@@ -424,7 +422,6 @@ class LineMushaAudioAdapter(
         lateinit var kathir_translation: TextView
         lateinit var quran_transliteration: TextView
         lateinit var translate_textView: TextView
-
 
 
         lateinit var surah_info: TextView
@@ -460,9 +457,9 @@ class LineMushaAudioAdapter(
                 //     kathir_note = view.findViewById(R.id.kathir_note);
                 rukuview = view.findViewById(R.id.rukuview)
                 sajdaverse = view.findViewById(R.id.sajda)
-               // makkimadaniicon = view.findViewById(R.id.makkimadaniicon)
+                // makkimadaniicon = view.findViewById(R.id.makkimadaniicon)
                 translate_textViewnote = view.findViewById(R.id.translate_textViewnote)
-            //    surah_info = view.findViewById(R.id.chaptername)
+                //    surah_info = view.findViewById(R.id.chaptername)
                 //    verse_idTextView = view.findViewById(R.id.verse_id_textView);
                 translate_textView = view.findViewById(R.id.translate_textView)
 

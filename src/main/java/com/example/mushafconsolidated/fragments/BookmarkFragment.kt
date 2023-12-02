@@ -70,7 +70,7 @@ internal class BookmarkFragment : Fragment() {
         applicationTitle.text = getString(R.string.bookmarkst)
         val listener: OnItemClickListener? = null
 
-       //  List<BookMarks> bookmarks = new DatabaseAccess().getBookmarks();
+        //  List<BookMarks> bookmarks = new DatabaseAccess().getBookmarks();
         bookmarksShowAdapter = BookmarksShowAdapter(activity)
         layoutManager = LinearLayoutManager(activity)
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
@@ -88,37 +88,37 @@ internal class BookmarkFragment : Fragment() {
         })
         return view
     }
-/*
-    private fun enableSwipeToDeleteAndUndo() {
-        val swipeToDeleteCallback: SwipeToDeleteCallback =
-            object : SwipeToDeleteCallback(activity) {
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
-                    val position = viewHolder.adapterPosition
-                    val item = bookmarksShowAdapter!!.bookMarkArrayList!![position]!!
-                    //   final int code = item.hashCode();
-                    bookmarksShowAdapter!!.getItemId(position)
-                    bookmarksShowAdapter!!.removeItem(position)
-                    val snackbar = Snackbar
-                        .make(
-                            coordinatorLayout!!,
-                            "Item was removed from the list.",
-                            Snackbar.LENGTH_LONG
-                        )
-                    snackbar.setAction("UNDO") { //     bookmarksShowAdapter.restoreItem(item, position);
-                        mRecview!!.scrollToPosition(position)
+    /*
+        private fun enableSwipeToDeleteAndUndo() {
+            val swipeToDeleteCallback: SwipeToDeleteCallback =
+                object : SwipeToDeleteCallback(activity) {
+                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
+                        val position = viewHolder.adapterPosition
+                        val item = bookmarksShowAdapter!!.bookMarkArrayList!![position]!!
+                        //   final int code = item.hashCode();
+                        bookmarksShowAdapter!!.getItemId(position)
+                        bookmarksShowAdapter!!.removeItem(position)
+                        val snackbar = Snackbar
+                            .make(
+                                coordinatorLayout!!,
+                                "Item was removed from the list.",
+                                Snackbar.LENGTH_LONG
+                            )
+                        snackbar.setAction("UNDO") { //     bookmarksShowAdapter.restoreItem(item, position);
+                            mRecview!!.scrollToPosition(position)
+                        }
+                        snackbar.setActionTextColor(Color.CYAN)
+                        snackbar.show()
+                        val itemId = bookmarksShowAdapter!!.getItemId(position)
+                        val bookmarkid = bookmarksShowAdapter!!.bookmarid
+                        bookmarksShowAdapter!!.bookChapterno
+                        //      bookmarksShowAdapter.getBookMarkArrayList(bookmarkid)
+                        Utils.deleteBookMarks(item)
                     }
-                    snackbar.setActionTextColor(Color.CYAN)
-                    snackbar.show()
-                    val itemId = bookmarksShowAdapter!!.getItemId(position)
-                    val bookmarkid = bookmarksShowAdapter!!.bookmarid
-                    bookmarksShowAdapter!!.bookChapterno
-                    //      bookmarksShowAdapter.getBookMarkArrayList(bookmarkid)
-                    Utils.deleteBookMarks(item)
                 }
-            }
-        val itemTouchhelper = ItemTouchHelper(swipeToDeleteCallback)
-        itemTouchhelper.attachToRecyclerView(mRecview)
-    }*/
+            val itemTouchhelper = ItemTouchHelper(swipeToDeleteCallback)
+            itemTouchhelper.attachToRecyclerView(mRecview)
+        }*/
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

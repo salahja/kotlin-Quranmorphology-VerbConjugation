@@ -28,8 +28,7 @@ class CorpusVerbWbwOccurance {
     var wordno: Int = 0
     var wordcount: Int = 0
 
-    
-    
+
     @Ignore
     var quranversesSpannable: SpannableString? = null
     var qurantext: String? = null
@@ -61,13 +60,11 @@ class CorpusVerbWbwOccurance {
     var en_jalalayn: String? = null
     var en_arberry: String? = null
 
-    
-    
+
     @Ignore
     var verses: SpannableString? = null
 
-    
-    
+
     @Ignore
     var spannedarabicverb: SpannableString? = null
 

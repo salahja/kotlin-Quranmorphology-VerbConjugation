@@ -17,7 +17,6 @@ import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 
 
-
 class WordLughatAdapter(
     private var worddictorary: ArrayList<lughat>?,
     private var context: Context?,

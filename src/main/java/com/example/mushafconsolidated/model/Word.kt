@@ -1,5 +1,5 @@
-
 package com.example.mushafconsolidated.model
+
 class Word {
 
 

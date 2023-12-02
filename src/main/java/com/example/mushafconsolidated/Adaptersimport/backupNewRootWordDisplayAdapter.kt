@@ -37,7 +37,7 @@ import org.sj.conjugator.fragments.SarfSagheer
 
 
 class backupNewRootWordDisplayAdapter(
-    private  var context: Context,
+    private var context: Context,
     haliaSentence: ArrayList<HalEnt>?,
     tameez: ArrayList<TameezEnt>?,
     mafoolbihi: ArrayList<MafoolBihi>?,
@@ -56,7 +56,7 @@ class backupNewRootWordDisplayAdapter(
     mazeedSarfSagheer: Boolean,
     thulathiSarfSagheer: Boolean,
     sarfSagheerList: ArrayList<SarfSagheer>?
-                                     ) :
+) :
     RecyclerView.Adapter<backupNewRootWordDisplayAdapter.ItemViewAdapter>() {
     var mItemClickListener: OnItemClickListener? = null
     private val alaheader: String = "اِسْم الآلَة"
@@ -67,7 +67,7 @@ class backupNewRootWordDisplayAdapter(
     private var weaknesscolor: Int = 0
     private var wazancolor: Int = 0
     private var isSarfSagheerMazeed: Boolean = mazeedSarfSagheer
-     private var isviewtype =2
+    private var isviewtype = 2
 
     private var isSarfSagheerThulahi: Boolean = thulathiSarfSagheer
     private var isverbconjugation: Boolean = isverbconjugaton
@@ -76,22 +76,22 @@ class backupNewRootWordDisplayAdapter(
     private var isnoun: Boolean = noun
     private lateinit var worddetails: HashMap<String, SpannableStringBuilder?>
     private lateinit var vbdetail: HashMap<String, String?>
-    private  var corpusexpand: ArrayList<QuranCorpusWbw> = corpusSurahWord
+    private var corpusexpand: ArrayList<QuranCorpusWbw> = corpusSurahWord
     private lateinit var ismfaelmafool: ArrayList<ArrayList<*>>
     private var sarfsagheer: java.util.ArrayList<SarfSagheer>? = sarfSagheerList
     private lateinit var spannable: SpannableStringBuilder
-    private lateinit  var worddictorary: ArrayList<lughat>
-    private lateinit var wazannumberslist: ArrayList<String> 
-   
-   private lateinit var sagheer: SarfSagheer
-    private  var mafoolbihi: ArrayList<MafoolBihi>? =null
-    private  var tameez: ArrayList<TameezEnt>? =null
+    private lateinit var worddictorary: ArrayList<lughat>
+    private lateinit var wazannumberslist: ArrayList<String>
+
+    private lateinit var sagheer: SarfSagheer
+    private var mafoolbihi: ArrayList<MafoolBihi>? = null
+    private var tameez: ArrayList<TameezEnt>? = null
     private lateinit var haliaSentence: ArrayList<HalEnt>
 
     // private ArrayList<GrammarWordEntity> grammarArayList = new ArrayList<>();
-  //new  private lateinit var sarfsagheer: ArrayList<SarfSagheer>
-    private  var mutlaq: ArrayList<MafoolMutlaqEnt>?   =null
-    private  var liajlihi: ArrayList<LiajlihiEnt>? = liajlihiEntArrayList
+    //new  private lateinit var sarfsagheer: ArrayList<SarfSagheer>
+    private var mutlaq: ArrayList<MafoolMutlaqEnt>? = null
+    private var liajlihi: ArrayList<LiajlihiEnt>? = liajlihiEntArrayList
     private lateinit var sharedPreferences: SharedPreferences
 
     init {
@@ -115,21 +115,22 @@ class backupNewRootWordDisplayAdapter(
     ): backupNewRootWordDisplayAdapter.ItemViewAdapter {
         val view: View
         if (isverbconjugation) {
-          isviewtype=1
+            isviewtype = 1
             view = LayoutInflater.from(parent.context!!)
                 .inflate(R.layout.qaris_view_word_details, parent, false)
         } else if (particples) {
-            isviewtype=2
+            isviewtype = 2
             view = LayoutInflater.from(parent.context!!)
                 .inflate(R.layout.wordbottomsheetismfaelmafoolsktraditional, parent, false)
             //    view = LayoutInflater.from(parent.context!!).inflate(R.layout.qaris_view_word_details, parent, false);
         } else {
-            isviewtype=1
+            isviewtype = 1
             view = LayoutInflater.from(parent.context!!)
                 .inflate(R.layout.qaris_view_word_details, parent, false)
         }
-        return ItemViewAdapter(view,viewType)
+        return ItemViewAdapter(view, viewType)
     }
+
     fun SetOnItemClickListener(mItemClickListener: OnItemClickListener?) {
         this.mItemClickListener = mItemClickListener
     }
@@ -257,7 +258,7 @@ class backupNewRootWordDisplayAdapter(
         //  String replace = word.toString().replace("\n", "<br/>").replace("\\n", "<br/>");
         holder.translationView.textSize = arabicFontsize!!.toFloat()
         //    holder.wordView.chipBackgroundColor = getColorStateList
-     
+
 
         //    holder.wordView.chipBackgroundColor = getColorStateList
         val mafoolbihiverb = SpannableStringBuilder()
@@ -265,8 +266,8 @@ class backupNewRootWordDisplayAdapter(
         val tameezwordspan = SpannableStringBuilder()
         val ajlihiwordspan = SpannableStringBuilder()
         val mutlaqwordspan = SpannableStringBuilder()
-        
-        
+
+
         if (tameez!!.isNotEmpty()) {
             tameezwordspan.append("(").append("تمييز").append(")")
             tameezwordspan.append(tameez!![0].word)
@@ -318,7 +319,7 @@ class backupNewRootWordDisplayAdapter(
             if (!b) {
                 mafoolbihiverb.append(mafoolbihi!![0].word)
                 objectpronoun =
-                    SpannableStringBuilder .valueOf(mafoolbihi!![0].objectpronoun)
+                    SpannableStringBuilder.valueOf(mafoolbihi!![0].objectpronoun)
                 objectpronoun.append("(").append("مفعول به").append(")")
                 mafoolbihiverb.setSpan(
                     spanhash["V"],
@@ -369,8 +370,8 @@ class backupNewRootWordDisplayAdapter(
 
 
         //    holder.wordView.setText(worddetails.get("word"));
-        val vb: StringBuilder  = StringBuilder ()
-        val pron: StringBuilder  = StringBuilder ()
+        val vb: StringBuilder = StringBuilder()
+        val pron: StringBuilder = StringBuilder()
         holder.lemma.text = vbdetail["lemma"]
         //   holder.wordView.setTextSize(arabicFontsize);
         //   holder.lemma.setTextSize(arabicFontsize);
@@ -429,43 +430,45 @@ class backupNewRootWordDisplayAdapter(
         holder.wdetailstv.textSize = 16f
         if (worddetails["lemma"] != null || worddetails["lemma"]!!.isNotEmpty()) {
             holder.lemma.visibility = View.VISIBLE
-            holder.lemma.text = backupNewRootWordDisplayAdapter .LEMMA + worddetails["lemma"]
+            holder.lemma.text = backupNewRootWordDisplayAdapter.LEMMA + worddetails["lemma"]
             //        holder.lemma.setTextSize(arabicFontsize);
         }
         if (worddetails["root"] != null) {
-            holder.rootView.text = backupNewRootWordDisplayAdapter.ROOTWORDSTRING + worddetails["root"]
+            holder.rootView.text =
+                backupNewRootWordDisplayAdapter.ROOTWORDSTRING + worddetails["root"]
             //    holder.rootView.setTextSize(arabicFontsize);
         }
         if (vbdetail["root"] != null) {
             holder.rootView.text = backupNewRootWordDisplayAdapter.ROOTWORDSTRING + vbdetail["root"]
             //    holder.rootView.setTextSize(arabicFontsize);
         }
-       if (isSarfSagheerMazeed || isSarfSagheerThulahi) {
-            val zarf: StringBuilder  = StringBuilder ()
-            val ismala: StringBuilder  = StringBuilder ()
-           holder.mamaroof?.text = sagheer.madhi
-           holder.mumaroof?.text = sagheer.mudharay
-           holder.ismfail?.text = sagheer.ismfael
-           holder.mamajhool?.text = sagheer.madhimajhool
-           holder.mumajhool?.text = sagheer.mudharaymajhool
-           holder.ismmafool?.text = sagheer.ismmafool
-           holder.amr?.text = sagheer.amrone
-           holder.nahiamr?.text = sagheer.nahiamrone
-           holder.ismzarfheader?.text = zarfheader
-           holder.ismalaheader?.text = alaheader
+        if (isSarfSagheerMazeed || isSarfSagheerThulahi) {
+            val zarf: StringBuilder = StringBuilder()
+            val ismala: StringBuilder = StringBuilder()
+            holder.mamaroof?.text = sagheer.madhi
+            holder.mumaroof?.text = sagheer.mudharay
+            holder.ismfail?.text = sagheer.ismfael
+            holder.mamajhool?.text = sagheer.madhimajhool
+            holder.mumajhool?.text = sagheer.mudharaymajhool
+            holder.ismmafool?.text = sagheer.ismmafool
+            holder.amr?.text = sagheer.amrone
+            holder.nahiamr?.text = sagheer.nahiamrone
+            holder.ismzarfheader?.text = zarfheader
+            holder.ismalaheader?.text = alaheader
             ismala.append(sagheer.ismalaone as CharSequence?).append(", ").append(
                 sagheer.ismalatwo
-                                                                                 ).append(", ").append(
-                sagheer.ismalathree)
+            ).append(", ").append(
+                sagheer.ismalathree
+            )
             zarf.append(sagheer.zarfone as CharSequence?).append(", ")
                 .append(sagheer.zarftwo).append(", ").append(
-                sagheer.zarfthree
-                                                            )
-           holder.ismzarf?.text = zarf
-           holder.ismala?.text = ismala
-           holder.weaknessname?.text = sagheer.weakness
-           holder.rootword?.text = sagheer.verbroot
-           holder.babdetails?.text = sagheer.wazanname
+                    sagheer.zarfthree
+                )
+            holder.ismzarf?.text = zarf
+            holder.ismala?.text = ismala
+            holder.weaknessname?.text = sagheer.weakness
+            holder.rootword?.text = sagheer.verbroot
+            holder.babdetails?.text = sagheer.wazanname
         }
         fontSizeSelection(holder)
         Fonttypeface(holder)
@@ -553,7 +556,7 @@ class backupNewRootWordDisplayAdapter(
 
     private fun ismFael(
         holder: backupNewRootWordDisplayAdapter.ItemViewAdapter,
-                       ) {
+    ) {
         val iisone: String = ismfaelmafool[0][0].toString() //isone);
         val iistwo: String = ismfaelmafool[0][2].toString() //istwo);
         val iisthree: String = ismfaelmafool[0][4].toString() //isthree);
@@ -578,7 +581,7 @@ class backupNewRootWordDisplayAdapter(
 
     private fun ismFaelFem(
         holder: backupNewRootWordDisplayAdapter.ItemViewAdapter,
-                          ) {
+    ) {
         val iisone: String = ismfaelmafool[1][1].toString() //isone);
         val iistwo: String = ismfaelmafool[1][3].toString() //istwo);
         val iisthree: String = ismfaelmafool[1][5].toString() //isthree);
@@ -626,7 +629,7 @@ class backupNewRootWordDisplayAdapter(
 
     private fun ismMafool(
         holder: backupNewRootWordDisplayAdapter.ItemViewAdapter,
-                         ) {
+    ) {
         val smafone: String = ismfaelmafool[0][0].toString()
         val smaftwo: String = ismfaelmafool[0][2].toString() //imaftwo);
         val smafthree: String = ismfaelmafool[0][4].toString() //imafthree);
@@ -963,8 +966,9 @@ class backupNewRootWordDisplayAdapter(
         val nom3: TextView?
         val acc3: TextView?
         val gen3: TextView?
-        private var wordDictionary: TextView?=null
-        var moodrules: TextView?=null
+        private var wordDictionary: TextView? = null
+        var moodrules: TextView? = null
+
         //  val triroot: Chip
         // // val paradigm: Chip
         //  val rootdetails: Chip
@@ -980,21 +984,21 @@ class backupNewRootWordDisplayAdapter(
         val rootView: TextView
         val quranverseShart: TextView
         val spannableverse: TextView
-        var rootword: TextView?=null
-        var wazan: TextView?=null
-        var ismzarfheader: TextView?=null
-        var ismalaheader: TextView?=null
-        var masdaro: TextView?=null
-        var masdart: TextView?=null
-        var babdetails: TextView?=null
-        var weaknessname: TextView?=null
-        var weaknesstype: TextView?=null
-        var mafoolat: TextView?=null
-        var liajlihitv: TextView?=null
-        var mutlaqtv: TextView?=null
+        var rootword: TextView? = null
+        var wazan: TextView? = null
+        var ismzarfheader: TextView? = null
+        var ismalaheader: TextView? = null
+        var masdaro: TextView? = null
+        var masdart: TextView? = null
+        var babdetails: TextView? = null
+        var weaknessname: TextView? = null
+        var weaknesstype: TextView? = null
+        var mafoolat: TextView? = null
+        var liajlihitv: TextView? = null
+        var mutlaqtv: TextView? = null
         val sheet: View
         val wordView: Chip
-        var haliaSentence: TextView?=null
+        var haliaSentence: TextView? = null
         private val darkThemeBacground: MaterialCardView
 
         //  ListView list;
@@ -1011,8 +1015,9 @@ class backupNewRootWordDisplayAdapter(
         val verbconjugationbtn: TextView
         val nounoccurancebtn: TextView
         val tameeztv: TextView?
+
         //val expandable: ConstraintLayout
-        private var ifverborpart: MaterialCardView?=null
+        private var ifverborpart: MaterialCardView? = null
 
         init {
 
@@ -1032,7 +1037,7 @@ class backupNewRootWordDisplayAdapter(
             verbconjugationbtn = view.findViewById(R.id.verbconjugationbtn)
             //   verbOccurancebtn = view.findViewById(R.id.verboccurance);
             nounoccurancebtn = view.findViewById(R.id.wordoccurance)
-           rootword = view.findViewById(R.id.weaknesstype)
+            rootword = view.findViewById(R.id.weaknesstype)
             ismzarfheader = view.findViewById(R.id.ismzarfheader)
             pronoundetails = view.findViewById(R.id.pronoundetails)
             noundetails = view.findViewById(R.id.noundetails)
@@ -1197,6 +1202,7 @@ class backupNewRootWordDisplayAdapter(
             }
         }
     }
+
     companion object {
         private const val TAG: String = "VerseDisplayAdapter"
         private const val ROOTWORDSTRING: String = "Root Word:-"

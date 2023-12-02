@@ -83,7 +83,7 @@ class MovableExtendedFloatingActionButton : ExtendedFloatingActionButton, OnTouc
             val upDY = upRawY - downRawY
             if (abs(upDX) < CLICK_DRAG_TOLERANCE && abs(
                     upDY
-                                                       ) < CLICK_DRAG_TOLERANCE
+                ) < CLICK_DRAG_TOLERANCE
             ) { // A click
                 performClick()
             } else { // A drag

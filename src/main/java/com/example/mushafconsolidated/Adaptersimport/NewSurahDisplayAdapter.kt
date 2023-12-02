@@ -28,9 +28,11 @@ import java.util.Locale
 class NewSurahDisplayAdapter(
     private val context: Context?,
 
-) :
+    ) :
     RecyclerView.Adapter<NewSurahDisplayAdapter.ItemViewAdapter>(), Filterable {
-    constructor(context: Context?, allAnaChapters: java.util.ArrayList<ChaptersAnaEntity>) : this(context){
+    constructor(context: Context?, allAnaChapters: java.util.ArrayList<ChaptersAnaEntity>) : this(
+        context
+    ) {
         listonearray = allAnaChapters
         chapterfilered = allAnaChapters
     }
@@ -39,7 +41,6 @@ class NewSurahDisplayAdapter(
     var mItemClickListener: OnItemClickListener? = null
     private lateinit var listonearray: List<ChaptersAnaEntity>
     private lateinit var chapterfilered: List<ChaptersAnaEntity>
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewAdapter {
@@ -65,9 +66,9 @@ class NewSurahDisplayAdapter(
         val defaultfont = sharedPreferences.getBoolean("default_font", true)
         val surahIsmakki: Int = surah.ismakki
         val cno: Int = surah.chapterid
-        val te=cno.toString()+" "+surah.nameenglish;
+        val te = cno.toString() + " " + surah.nameenglish;
 
-        holder.tvsurahleft.text =te
+        holder.tvsurahleft.text = te
         if (!defaultfont) {
             holder.tvsurahleft.textSize = SharedPref.SeekarabicFontsize().toFloat()
         }
@@ -82,7 +83,7 @@ class NewSurahDisplayAdapter(
         }
         if (theme == "green") {
             holder.surahcardview.setCardBackgroundColor(context.resources.getColor(R.color.mdgreen_theme_dark_onPrimary))
-        } else if(theme=="blue"){
+        } else if (theme == "blue") {
             holder.surahcardview.setCardBackgroundColor(context.resources.getColor(R.color.colorPrimaryDarkBlueLight))
         }
         if (theme == "dark" || theme == "blue" || theme == "green") {
@@ -139,7 +140,7 @@ class NewSurahDisplayAdapter(
                                     charString.lowercase(
                                         Locale.getDefault()
                                     )
-                                                                                   )
+                                )
                             ) {
                                 filteredList.add(details)
                             }

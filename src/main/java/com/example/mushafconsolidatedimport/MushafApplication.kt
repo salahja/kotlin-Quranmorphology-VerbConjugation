@@ -5,24 +5,6 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 
 
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
 class MushafApplication : Application() {
     private fun setAppContext(mAppContext: Context) {
         MushafApplication.appContext = mAppContext

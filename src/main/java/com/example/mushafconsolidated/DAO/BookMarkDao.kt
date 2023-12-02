@@ -18,8 +18,8 @@ interface BookMarkDao {
     @Query("SELECT * FROM bookmark ORDER BY datetime")
     fun getBookMarksLive(): LiveData<List<BookMarks>>
 
-    @Query( "select  count(*) as count,id, chapterno,verseno,surahname from bookmark where header != \"pins\" group by header")
-    fun getCollectionbygroupsLive():  LiveData<List<BookMarks>>
+    @Query("select  count(*) as count,id, chapterno,verseno,surahname from bookmark where header != \"pins\" group by header")
+    fun getCollectionbygroupsLive(): LiveData<List<BookMarks>>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -29,14 +29,16 @@ interface BookMarkDao {
     suspend fun insertBookmarkl(entity: BookMarks?)
 
 
-    @Query( "select  count(*) as count,id, chapterno,verseno,surahname from bookmark where header != \"pins\" group by header")
+    @Query("select  count(*) as count,id, chapterno,verseno,surahname from bookmark where header != \"pins\" group by header")
     fun getCollectionbygroups(): List<BookMarks?>?
 
 
     @Delete
-   fun deletebookmark(bookMarks: BookMarks?)
+    fun deletebookmark(bookMarks: BookMarks?)
+
     @Delete
- suspend   fun deletebookmarkl(bookMarks: BookMarks?)
+    suspend fun deletebookmarkl(bookMarks: BookMarks?)
+
     @Query("Delete from bookmark")
     fun deleteAllBookMakrs()
 
@@ -53,5 +55,5 @@ interface BookMarkDao {
     fun deleteCollection(str: String?): Int
 
     @Query(" delete from bookmark where header=:str ")
- suspend   fun deleteCollectionl(str: String?): Int
+    suspend fun deleteCollectionl(str: String?): Int
 }

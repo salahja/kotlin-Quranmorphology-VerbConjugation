@@ -6,23 +6,6 @@ import com.example.mushafconsolidated.R.string
 import java.io.File
 
 
- 
-
- 
-
- 
-
- 
- 
- 
-  
- 
- 
- 
-
- 
-
-
 object QuranValidateSources {
     /**
      * Function to validate aya found or not
@@ -92,11 +75,6 @@ object QuranValidateSources {
     }
 
 
-
-
-
-
-
     fun validateAyaAudiorx(context: Context, reader: Int, aya: Int, sura: Int): Boolean {
 
         //create file name from aya id and sura id
@@ -106,12 +84,13 @@ object QuranValidateSources {
         var ayaID: String = aya.toString() + ""
         if (suraLength == 1) suraID = "00$sura" else if (suraLength == 2) suraID = "0$sura"
         if (ayaLength == 1) ayaID = "00$aya" else if (ayaLength == 2) ayaID = "0$aya"
-        val dir = getSaveDirs(context,reader)
+        val dir = getSaveDirs(context, reader)
         //     return "$dir/$fileName"
 
         //Audio file path
         ///storage/emulated/0/Misapplication/Audio/1/8.mp3
-        val filepath=dir.toString()+"/"+suraID+ayaID+ AudioAppConstants.Extensions.Companion.MP3
+        val filepath =
+            dir.toString() + "/" + suraID + ayaID + AudioAppConstants.Extensions.Companion.MP3
         //Audio file path
         ///storage/emulated/0/Mushafapplication/Audio/1/8.mp3
         val app_folder_path: String =
@@ -127,28 +106,20 @@ object QuranValidateSources {
                 + AudioAppConstants.Extensions.Companion.MP3)
 
         //check file found or not
-     //   val file: File = File(app_folder_path)
+        //   val file: File = File(app_folder_path)
         val file: File = File(filepath)
-         if(file.length()== 0.toLong()){
-             return false
-         }
+        if (file.length() == 0.toLong()) {
+            return false
+        }
         if (!file.exists()) return false
         return true
     }
 
 
-
-
-
-
-
-
-
     private fun getSaveDirs(context: Context, reader: Int): Any {
-        return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString() + "/fetch/" +reader
+        return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+            .toString() + "/fetch/" + reader
     }
-
-
 
 
 }

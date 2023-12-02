@@ -1,8 +1,6 @@
 package com.example.compose
 
 
-
-
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
@@ -42,9 +40,11 @@ class RxFilesActivity : AppCompatActivity() {
     private var rxFetch: RxFetch? = null
     private var enqueueDisposable: Disposable? = null
     private var resumeDisposable: Disposable? = null
-    private lateinit var Links:List<String>
+    private lateinit var Links: List<String>
     val filepath =
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).toString() + "/audio/" + 20
+        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
+            .toString() + "/audio/" + 20
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.rxfetch_progress)
@@ -54,7 +54,7 @@ class RxFilesActivity : AppCompatActivity() {
         setDefaultRxInstanceConfiguration(fetchConfiguration)
         //  rxFetch.Impl.setDefaultFetchConfiguration(config);
         rxFetch = getDefaultRxInstance()
-        Links= createDownloadLinks()
+        Links = createDownloadLinks()
         setUpViews()
         reset()
     }
@@ -67,7 +67,7 @@ class RxFilesActivity : AppCompatActivity() {
         mainView = findViewById(R.id.activity_loading)
         labelTextView!!.setText(R.string.fetch_started)
 
-       startButton!!.setOnClickListener(View.OnClickListener { v: View? ->
+        startButton!!.setOnClickListener(View.OnClickListener { v: View? ->
             val label = startButton!!.getText() as String
             val context: Context = this@RxFilesActivity
             if (label == context.getString(R.string.reset)) {
@@ -190,7 +190,7 @@ class RxFilesActivity : AppCompatActivity() {
     }
 
     private fun enqueueFiles() {
-        val requestList = getGameUpdates(this,Links,filepath)
+        val requestList = getGameUpdates(this, Links, filepath)
         for (request in requestList) {
             request.groupId = groupId
         }

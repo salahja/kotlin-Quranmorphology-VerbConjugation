@@ -48,8 +48,8 @@ class NounVerbOccuranceListAdapter(
         parent: ViewGroup,
     ): View {
         //  SpannableString expandedListText = (SpannableString) getChild(listPosition, expandedListPosition);
-      //  var convertView: View?=convertView
-        var convertView : View? =null
+        //  var convertView: View?=convertView
+        var convertView: View? = null
         //    var convertView = convertView
         val child = getChild(listPosition, expandedListPosition)
         if (convertView == null) {
@@ -60,7 +60,8 @@ class NounVerbOccuranceListAdapter(
         val mequran =
             Typeface.createFromAsset(QuranGrammarApplication.context!!.assets, "Taha.ttf")
         //  Typeface mequran = Typeface.createFromAsset(DarkThemeApplication.getContext().getAssets(), quranfont);
-        val expandedListTextView = convertView!!.findViewById<View>(R.id.expandedListItem) as TextView
+        val expandedListTextView =
+            convertView!!.findViewById<View>(R.id.expandedListItem) as TextView
         val expandedListTextViewlane = convertView
             .findViewById<View>(R.id.expandedListItemverb) as TextView
         val contains = false

@@ -107,7 +107,6 @@ import com.codelab.basics.ui.theme.md_theme_light_tertiary
 import com.codelab.basics.ui.theme.md_theme_light_tertiaryContainer
 
 
-
 val LightColors = lightColorScheme(
     primary = brownmd_theme_light_primary,
     onPrimary = brownmd_theme_light_onPrimary,
@@ -310,17 +309,6 @@ val DarkThemeColors = darkColorScheme(
 */
 
 
-
-
-
-
-
-
-
-
-
-
-
 /*
 @Composable
 fun JetRedditTheme(
@@ -427,18 +415,6 @@ val DarkColors = darkColorScheme(
 )
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 @Composable
 fun AppThemes(content: @Composable () -> Unit) {
     val isDarkThemeEnabled = isSystemInDarkTheme() || AppThemeSettings.isDarkThemeEnabled
@@ -455,11 +431,6 @@ object AppThemeSettings {
 }
 
 
-
-
-
-
-
 @Composable
 fun AppTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
@@ -471,6 +442,7 @@ fun AppTheme(
             if (useDarkTheme) dynamicDarkColorScheme(context)
             else dynamicLightColorScheme(context)
         }
+
         useDarkTheme -> DarkColors
         else -> LightColors
     }
@@ -480,7 +452,8 @@ fun AppTheme(
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colors.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = useDarkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars =
+                useDarkTheme
         }
     }
 

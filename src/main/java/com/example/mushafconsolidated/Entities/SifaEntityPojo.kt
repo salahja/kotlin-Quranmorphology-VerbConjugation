@@ -1,20 +1,7 @@
 package com.example.mushafconsolidated.Entities
+
 import android.text.SpannableString
 import androidx.room.Ignore
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //primaryKeys ={"translation_id","verse_id"}

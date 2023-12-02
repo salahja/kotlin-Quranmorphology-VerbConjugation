@@ -28,22 +28,22 @@ import sj.hisnul.newepository.Graph
 import java.util.Locale
 
 class QuranGrammarApplication : Application() {
-/*
-    private val applicationScope = CoroutineScope(SupervisorJob())
-    val database by lazy { QuranAppDatabase.getInstance(this) }
-    val repository by lazy { DuaInfoRepository(database!!.gethDuaCategoryDao(),
+    /*
+        private val applicationScope = CoroutineScope(SupervisorJob())
+        val database by lazy { QuranAppDatabase.getInstance(this) }
+        val repository by lazy { DuaInfoRepository(database!!.gethDuaCategoryDao(),
 
-    ) }*/
+        ) }*/
 
 
-  //  val repository by lazy { DuaInfoRepository(database.hDuaNamesDao()) }
+    //  val repository by lazy { DuaInfoRepository(database.hDuaNamesDao()) }
     /** By using lazy the database and the repository are only created when they're needed
      * rather than when the application starts
      **/
     //val database: AppDatabase by lazy { AppDatabase.getDatabase(this) }
 
 //    val database: QuranAppDatabase by lazy { QuranAppDatabase.getDatabase(this) }
-   // val repository by lazy { MazeedInfoRepository(database.MazeedDao()) }
+    // val repository by lazy { MazeedInfoRepository(database.MazeedDao()) }
     override fun onCreate() {
         super.onCreate()
 

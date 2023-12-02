@@ -28,7 +28,7 @@ import kotlinx.coroutines.withContext
 class SurahViewModel(
     mApplication: Application,
 
-) : ViewModel() {
+    ) : ViewModel() {
     val builder = AlertDialog.Builder(mApplication)
     var listss: ArrayList<String> = ArrayList<String>()
     val dialog = builder.create()
@@ -42,9 +42,11 @@ class SurahViewModel(
 
 
     val cards: StateFlow<List<SurahModelList>> get() = _cards
-  //  private val _expandedCardIdsList = MutableStateFlow(listOf<Int>())
+
+    //  private val _expandedCardIdsList = MutableStateFlow(listOf<Int>())
     var counter = 0;
- //   val expandedCardIdsList: StateFlow<List<Int>> get() = _expandedCardIdsList
+
+    //   val expandedCardIdsList: StateFlow<List<Int>> get() = _expandedCardIdsList
     private var nounCorpusArrayList: ArrayList<NounCorpusBreakup>? = null
     private var verbCorpusArray: ArrayList<VerbCorpusBreakup>? = null
     private var occurances: ArrayList<CorpusNounWbwOccurance>? = null
@@ -56,8 +58,7 @@ class SurahViewModel(
         var job = Job()
         util = Utils(mApplication)
 
-            surahlist()
-
+        surahlist()
 
 
     }
@@ -70,22 +71,12 @@ class SurahViewModel(
                 surahlist = util.getAllAnaChapters() as ArrayList<ChaptersAnaEntity>?
 
 
-
-
-
-
-
-
-
             }
             //    closeDialog()
 
         }
 
     }
-
-
-
 
 
     fun startThread() {

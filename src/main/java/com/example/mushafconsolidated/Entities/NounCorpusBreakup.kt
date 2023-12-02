@@ -1,10 +1,11 @@
 package com.example.mushafconsolidated.Entities
+
 import android.text.SpannableString
 import androidx.room.Ignore
 
 data class NounCorpusBreakup(
     var count: Int,
-    var id:Int,
+    var id: Int,
     var root_a: String?,
     var lemma_a: String?,
     var araword: String?,

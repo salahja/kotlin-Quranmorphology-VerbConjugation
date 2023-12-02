@@ -52,7 +52,8 @@ class BookmarkCreateAdapter(collectionC: List<BookMarksPojo>?) :
         val shared =
             PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context)
         if (null != collections) {
-            itemholder.collectiondetails.text = collections.header+(collections.count+("-")+("aya's)"))
+            itemholder.collectiondetails.text =
+                collections.header + (collections.count + ("-") + ("aya's)"))
             itemholder.collectiondetails.visibility = View.VISIBLE
             itemholder.collectionimage.visibility = View.VISIBLE
         } else {

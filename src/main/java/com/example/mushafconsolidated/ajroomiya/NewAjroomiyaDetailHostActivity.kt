@@ -11,7 +11,6 @@ import com.example.mushafconsolidated.databinding.NewActivityAjroomiyaDetailBind
 class NewAjroomiyaDetailHostActivity : BaseActivity() {
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,9 +36,6 @@ class NewAjroomiyaDetailHostActivity : BaseActivity() {
         //     transaction.addToBackStack("setting");
         transaction.addToBackStack("items")
         transaction.commit()
-
-
-
 
 
     }

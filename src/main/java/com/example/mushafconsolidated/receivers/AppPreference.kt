@@ -7,23 +7,6 @@ import com.example.mushafconsolidated.R.id
 
 import com.example.utility.QuranGrammarApplication
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-  
- 
- 
- 
- 
- 
- 
 
 object AppPreference {
     /**
@@ -36,7 +19,7 @@ object AppPreference {
             QuranGrammarApplication.instance?.getSharedPreferences(
                 AudioAppConstants.Preferences.Companion.CONFIG,
                 Context.MODE_PRIVATE
-                                                                  )
+            )
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -99,7 +82,10 @@ object AppPreference {
         get() {
             val preferences: SharedPreferences? = AppPreference.OpenConfigPreferences()
             val downloadStatues: Int =
-                preferences!!.getInt(AudioAppConstants.Preferences.Companion.DOWNLOAD_STATUS_TEXT, -1)
+                preferences!!.getInt(
+                    AudioAppConstants.Preferences.Companion.DOWNLOAD_STATUS_TEXT,
+                    -1
+                )
             return downloadStatues
         }
     /**
@@ -204,7 +190,10 @@ object AppPreference {
         get() {
             val preferences: SharedPreferences? = AppPreference.OpenConfigPreferences()
             val type: Int =
-                preferences!!.getInt(AudioAppConstants.Preferences.Companion.DEFAULT_EXPLANATION, -1)
+                preferences!!.getInt(
+                    AudioAppConstants.Preferences.Companion.DEFAULT_EXPLANATION,
+                    -1
+                )
             return type
         }
         set(tafseerID) {

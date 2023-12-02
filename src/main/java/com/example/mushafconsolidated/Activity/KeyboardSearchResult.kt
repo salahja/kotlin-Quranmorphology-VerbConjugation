@@ -9,6 +9,7 @@ class KeyboardSearchResult : WordOccuranceAct() {
         super.onCreate(savedInstanceState)
         executeDictionary()
     }
+
     private fun executeDictionary() {
         //  ArrayList<lanelexicon> lanesDifinition = utils.getLanesDifinition(root);
         //  ArrayList<SpannableString> lanesdifinition ;

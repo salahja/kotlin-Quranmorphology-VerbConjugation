@@ -1,6 +1,6 @@
 package com.example.mushafconsolidated.fragments
 
- 
+
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -26,12 +26,10 @@ import com.example.utility.SwipeToDeleteCallback
 import com.google.android.material.snackbar.Snackbar
 
 
-
-
 class CollectionFrag constructor() : Fragment() {
     var coordinatorLayout: CoordinatorLayout? = null
     var layoutManager: RecyclerView.LayoutManager? = null
-   private lateinit var collectionShowAdapter: CollectionShowAdapter
+    private lateinit var collectionShowAdapter: CollectionShowAdapter
     private lateinit var mRecview: RecyclerView
     public override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,9 +38,9 @@ class CollectionFrag constructor() : Fragment() {
     ): View? {
         //    View root!!View = inflater.inflate(R.layout.activity_collection, container, false);
         val view: View = inflater.inflate(R.layout.fragment_bookmark_collection, container, false)
-       // val utils: Utils = Utils(getActivity())
-      //  val bookMarksNew: List<BookMarksPojo?>? = utils.collectionC
- //       val bookMarksNew = utils.getCollectionbygroups()
+        // val utils: Utils = Utils(getActivity())
+        //  val bookMarksNew: List<BookMarksPojo?>? = utils.collectionC
+        //       val bookMarksNew = utils.getCollectionbygroups()
 
         val vmodel: QuranVIewModel by viewModels()
         //vmodel.getBookmarksCollection().value
@@ -55,7 +53,7 @@ class CollectionFrag constructor() : Fragment() {
             mRecview.layoutManager = layoutManager
             //    bookmarksShowAdapter.setBookMarkArrayList((ArrayList<String>) bookmarstringarray);
 
-            collectionShowAdapter.bookMarkArrayList= it
+            collectionShowAdapter.bookMarkArrayList = it
 
             mRecview.adapter = collectionShowAdapter
             //    mRecview.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -104,9 +102,9 @@ class CollectionFrag constructor() : Fragment() {
                     //  butils.deleteBookmarks(bookmarid);
                     val vm: QuranVIewModel by viewModels()
                     item.header?.let { vm.deleteCollection(it) }
-                  /*  if (item != null) {
-                        Utils.Companion.deleteCollection(item.header)
-                    }*/
+                    /*  if (item != null) {
+                          Utils.Companion.deleteCollection(item.header)
+                      }*/
                 }
             }
         val itemTouchhelper: ItemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)

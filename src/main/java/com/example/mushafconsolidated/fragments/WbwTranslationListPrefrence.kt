@@ -34,7 +34,8 @@ class WbwTranslationListPrefrence : BottomSheetDialogFragment() {
     var mItemClickListener: OnItemClickListener? = null
     var radioGroup: RadioGroup? = null
     private var fontQuranAdapter: WbwTranslationListPrefrence.FontQuranAdapter? = null
- //   lateinit var frameLayout: RelativeLayout
+
+    //   lateinit var frameLayout: RelativeLayout
     fun setOnItemClickListener(mItemClickListener: OnItemClickListener?) {
         this.mItemClickListener = mItemClickListener
     }

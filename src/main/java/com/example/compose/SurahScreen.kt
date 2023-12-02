@@ -1,5 +1,3 @@
-
-
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
@@ -36,10 +34,6 @@ import com.example.utility.QuranGrammarApplication.Companion.context
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
-
-
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalCoroutinesApi
 @Composable
@@ -53,22 +47,23 @@ fun SurahScreen(viewModel: SurahViewModel) {
     //grammatically colred word default font
     val arabic_font_selection =
         sharedPreferences.getString("Arabic_Font_Selection", "quranicfontregular.ttf")
-   // val words by wordoccuranceModel.words.collectAsStateWithLifecycle()
+    // val words by wordoccuranceModel.words.collectAsStateWithLifecycle()
     val cards by viewModel.cards.collectAsStateWithLifecycle()
- //   val expandedCardIds by viewModel.sur.collectAsStateWithLifecycle()
+    //   val expandedCardIds by viewModel.sur.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
-    viewModel.open.value=true
+    viewModel.open.value = true
 
 
     val bgColour = remember {
         Color(ContextCompat.getColor(context, R.color.colorDayNightWhite))
     }
 
-    Scaffold(Modifier.background(bgColour)
+    Scaffold(
+        Modifier.background(bgColour)
 
     ) { paddingValues ->
-      //  val copyProgress: MutableState<Float> = remember { mutableStateOf(0.0f) }
+        //  val copyProgress: MutableState<Float> = remember { mutableStateOf(0.0f) }
 
 
         LazyColumn(Modifier.padding(paddingValues)) {
@@ -84,13 +79,13 @@ fun SurahScreen(viewModel: SurahViewModel) {
         }
 
 
-
     }
 }
+
 @Preview
 @Composable
 fun MyViewPreviews() {
-    ElevatedCardExample( cards = ArrayList<SurahModelList>())
+    ElevatedCardExample(cards = ArrayList<SurahModelList>())
 }
 
 
@@ -112,50 +107,49 @@ fun ElevatedCardExample(cards: List<SurahModelList>) {
         Row {
 
 
-
             cards.forEach { surah ->
 
-                    Text(
+                Text(
 
-                        text = surah.id.toString(),
-                        color = Color.Black,
-                        maxLines = 1,
-                        textAlign = TextAlign.Center,
-                        style = TextStyle(
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 16.sp,
-                            letterSpacing = 0.15.sp
-                        )
-
-
+                    text = surah.id.toString(),
+                    color = Color.Black,
+                    maxLines = 1,
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 16.sp,
+                        letterSpacing = 0.15.sp
                     )
-                    Text(
-                        text = surah.arabicSurahname.toString(),
-                        color = Color.Black,
-                        maxLines = 1,
-                        style = TextStyle(
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 16.sp,
-                            letterSpacing = 0.15.sp
-                        )
-                    )
-                    Text(
-                        text = surah.englishsurahname.toString(),
-                        color = Color.Black,
-                        maxLines = 1,
-                        style = TextStyle(
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 16.sp,
-                            letterSpacing = 0.15.sp
-                        )
-                    )
-                }
 
 
-                // on below line we are specifying
-                // divider for each list item
-                androidx.compose.material3.Divider(color = Color.Red, thickness = 3.dp)
+                )
+                Text(
+                    text = surah.arabicSurahname.toString(),
+                    color = Color.Black,
+                    maxLines = 1,
+                    style = TextStyle(
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 16.sp,
+                        letterSpacing = 0.15.sp
+                    )
+                )
+                Text(
+                    text = surah.englishsurahname.toString(),
+                    color = Color.Black,
+                    maxLines = 1,
+                    style = TextStyle(
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 16.sp,
+                        letterSpacing = 0.15.sp
+                    )
+                )
             }
+
+
+            // on below line we are specifying
+            // divider for each list item
+            androidx.compose.material3.Divider(color = Color.Red, thickness = 3.dp)
+        }
 
         androidx.compose.material3.Divider()
 
@@ -177,45 +171,31 @@ fun ElevatedCardExample(cards: List<SurahModelList>) {
             content = {
 
 
-                    items(cards.size) {
-                        Card(
-                            backgroundColor = Color.Red,
-                            modifier = Modifier
-                                .padding(4.dp)
-                                .fillMaxWidth(),
-                            elevation = 8.dp,
+                items(cards.size) {
+                    Card(
+                        backgroundColor = Color.Red,
+                        modifier = Modifier
+                            .padding(4.dp)
+                            .fillMaxWidth(),
+                        elevation = 8.dp,
+                    )
+                    {
+                        Text(
+                            text = "$it",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 30.sp,
+                            color = Color(0xFFFFFFFF),
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(16.dp)
                         )
-                        {
-                            Text(
-                                text = "$it",
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 30.sp,
-                                color = Color(0xFFFFFFFF),
-                                textAlign = TextAlign.Center,
-                                modifier = Modifier.padding(16.dp)
-                            )
-                        }
                     }
-                })
-
-
-
-
-
-
-
+                }
+            })
 
 
     }
 
 }
-
-
-
-
-
-
-
 
 
 @Composable
@@ -234,7 +214,6 @@ fun GridScreen(cards: List<SurahModelList>) {
 }
 
 @Composable
-
 
 
 fun GridIcon(cards: SurahModelList) {

@@ -1,16 +1,11 @@
 package com.example.mushafconsolidated.Activity
 
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
-import android.view.WindowInsets
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
-import androidx.lifecycle.Observer
 import com.example.Constant.AYAH_ID
 import com.example.Constant.SURAH_ARABIC_NAME
 import com.example.Constant.SURAH_ID
@@ -48,7 +43,7 @@ class TafsirFullscreenActivity : BaseActivity() {
             setSupportActionBar(materialToolbar)
             supportActionBar?.setDisplayShowHomeEnabled(true)
         }
-        val viewmodel : QuranVIewModel by viewModels()
+        val viewmodel: QuranVIewModel by viewModels()
 
         viewmodel.getsurahayahVerses(sura!!, ayah!!).observe(this) {
             //   val list: List<QuranEntity?>? = Utils.getsurahayahVerses(sura!!, ayah!!)

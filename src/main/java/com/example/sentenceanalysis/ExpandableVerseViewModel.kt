@@ -4,8 +4,6 @@ import Utility.ArabicLiterals
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
-import android.widget.ExpandableListView
-import androidx.appcompat.app.AlertDialog
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -38,7 +36,6 @@ class ExpandableVerseViewModel(
 ) : ViewModel() {
     private val itemsList = MutableStateFlow(listOf<VerseAnalysisModel>())
     private var quran: List<QuranEntity>? = null
-    private var whichwbw: String? = null
 
     //  val model: QuranVIewModel by viewModels()
     private var dark: Boolean = false
@@ -46,20 +43,11 @@ class ExpandableVerseViewModel(
     private var corpusSurahWord: List<QuranCorpusWbw>? = null
 
 
-    private var isverbconjugaton = false
-    private var participles = false
-    lateinit var expandableListView: ExpandableListView
-    var expandableListTitle: List<String>? = null
-    var expandableListDetail: LinkedHashMap<String, List<AnnotatedString>>? = null
-    private var kanaExpandableListDetail: List<SpannableString>? = null
     var vbdetail = HashMap<String, String>()
     var wordbdetail: HashMap<String, SpannableStringBuilder>? = null
-    private var showGrammarFragments = false
-    private var ThulathiMazeedConjugatonList: ArrayList<ArrayList<*>>? = null
     var sarf: SarfSagheerPOJO? = null
-    private var dialog: AlertDialog? = null
     private val _expandedCardIdsList = MutableStateFlow(listOf<Int>())
-    var counter = 0;
+    var counter = 0
     val expandedCardIdsList: StateFlow<List<Int>> get() = _expandedCardIdsList
 
     data class VerseAnalysisModel(
@@ -71,7 +59,6 @@ class ExpandableVerseViewModel(
     val items: StateFlow<List<VerseAnalysisModel>> get() = itemsList
 
     private val itemIdsList = MutableStateFlow(listOf<Int>())
-    val itemIds: StateFlow<List<Int>> get() = itemIdsList
 
 
     init {
@@ -123,7 +110,7 @@ class ExpandableVerseViewModel(
                 setNewNasb(harfnasbarray, thememode, wbwchoice, chapterid, verseid)
 
                 val kanaarray: MutableList<AnnotatedString> = ArrayList()
-                newsetKana(kanaarray, thememode, wbwchoice, chapterid, verseid)
+                newsetKana(kanaarray, wbwchoice, chapterid, verseid)
 
 
                 val verse: MutableList<AnnotatedString> = ArrayList()
@@ -139,13 +126,13 @@ class ExpandableVerseViewModel(
                 testList += VerseAnalysisModel(
                     1,
                     "verse",
-                    verse!!
+                    verse
                 )
 
                 testList += VerseAnalysisModel(
                     2,
                     "Translation",
-                    translation!!
+                    translation
                 )
                 itemsList.emit(testList)
 
@@ -153,7 +140,7 @@ class ExpandableVerseViewModel(
                     testList += VerseAnalysisModel(
                         3,
                         "Possessive Construction (إضافَة)",
-                        mudhafarray!!
+                        mudhafarray
                     )
                     itemsList.emit(testList)
                 }
@@ -161,7 +148,7 @@ class ExpandableVerseViewModel(
                     testList += VerseAnalysisModel(
                         4,
                         "Adjective Phrases(مرکب توصیفی)",
-                        mausoofsifaarray!!
+                        mausoofsifaarray
                     )
                     itemsList.emit(testList)
 
@@ -170,7 +157,7 @@ class ExpandableVerseViewModel(
                     testList += VerseAnalysisModel(
                         5,
                         "Condition/ (جُمْلةُ الشَّرْطِ)",
-                        shartarray!!
+                        shartarray
                     )
                     itemsList.emit(testList)
                 }
@@ -179,7 +166,7 @@ class ExpandableVerseViewModel(
                     testList += VerseAnalysisModel(
                         6,
                         "The Particle inna (ان واخواتها",
-                        harfnasbarray!!
+                        harfnasbarray
                     )
                     itemsList.emit(testList)
                 }
@@ -188,7 +175,7 @@ class ExpandableVerseViewModel(
                     testList += VerseAnalysisModel(
                         7,
                         "Verb kāna/كان واخواتها",
-                        kanaarray!!
+                        kanaarray
                     )
                     itemsList.emit(testList)
                 }
@@ -200,7 +187,6 @@ class ExpandableVerseViewModel(
 
     private fun newsetKana(
         kanaarray: MutableList<AnnotatedString>,
-        thememode: Boolean,
         wbwchoice: Int,
         chapterid: Int,
         ayanumber: Int
@@ -271,15 +257,15 @@ class ExpandableVerseViewModel(
                     val sourcetwo = harfismspannable
                     val sourcethree = khabarofversespannable
                     val tagonestyle = SpanStyle(
-                        color = harfkana!!,
+                        color = harfkana,
                         textDecoration = TextDecoration.Underline
                     )
                     val tagtwostyle = SpanStyle(
-                        color = kanaism!!,
+                        color = kanaism,
                         textDecoration = TextDecoration.Underline
                     )
                     val tagthreestyle = SpanStyle(
-                        color = kanakhbar!!,
+                        color = kanakhbar,
                         textDecoration = TextDecoration.Underline
                     )
                     val space = AnnotatedString(" ")
@@ -336,12 +322,16 @@ class ExpandableVerseViewModel(
                         for (w in wbwayah) {
                             StringBuilder()
                             val temp: StringBuilder = getSelectedTranslation(w!!, wbwchoice)
-                            if (w.wordno == harfword) {
-                                sb.append(temp.append(" "))
-                            } else if (w.wordno in ismSword..ismEword) {
-                                sb.append(temp).append(" ")
-                            } else if (w.wordno in khabarSword..habarEword) {
-                                ismorkhabarsb.append(temp).append(" ")
+                            when (w.wordno) {
+                                harfword -> {
+                                    sb.append(temp.append(" "))
+                                }
+                                in ismSword..ismEword -> {
+                                    sb.append(temp).append(" ")
+                                }
+                                in khabarSword..habarEword -> {
+                                    ismorkhabarsb.append(temp).append(" ")
+                                }
                             }
                         }
                     }
@@ -363,12 +353,12 @@ class ExpandableVerseViewModel(
 
                     val sourcetwo = khabarofversespannable
                     val tagonestyle = SpanStyle(
-                        color = harfkana!!,
+                        color = harfkana,
                         textDecoration = TextDecoration.Underline
                     )
 
                     val tagthreestyle = SpanStyle(
-                        color = kanakhbar!!,
+                        color = kanakhbar,
                         textDecoration = TextDecoration.Underline
                     )
                     val space = AnnotatedString(" ")
@@ -461,12 +451,12 @@ class ExpandableVerseViewModel(
 
                     val sourcetwo = harfismspannable
                     val tagonestyle = SpanStyle(
-                        color = harfkana!!,
+                        color = harfkana,
                         textDecoration = TextDecoration.Underline
                     )
 
                     val tagtwostyle = SpanStyle(
-                        color = kanaism!!,
+                        color = kanaism,
                         textDecoration = TextDecoration.Underline
                     )
                     val space = AnnotatedString(" ")
@@ -542,7 +532,7 @@ class ExpandableVerseViewModel(
                     val sourceone = harfspannble
 
                     val tagonestyle = SpanStyle(
-                        color = harfkana!!,
+                        color = harfkana,
                         textDecoration = TextDecoration.Underline
                     )
 
@@ -578,7 +568,7 @@ class ExpandableVerseViewModel(
         list: List<wbwentity>?
     ) {
         when (wbwchoice) {
-            0 -> sb.append(list!!.get(0).en).append(".......")
+            0 -> sb.append(list!![0].en).append(".......")
             1 -> sb.append(list!![0].ur).append(".......")
             2 -> sb.append(list!![0].bn).append(".......")
             3 -> sb.append(list!![0].id).append(".......")
@@ -673,15 +663,15 @@ class ExpandableVerseViewModel(
                     val sourcetwo = harfismspannable + space
                     val sourcethree = khabarofversespannable
                     val tagonestyle = SpanStyle(
-                        color = tagcolorone!!,
+                        color = tagcolorone,
                         textDecoration = TextDecoration.Underline
                     )
                     val tagtwostyle = SpanStyle(
-                        color = tagcolortwo!!,
+                        color = tagcolortwo,
                         textDecoration = TextDecoration.Underline
                     )
                     val tagthreestyle = SpanStyle(
-                        color = tagcolorthree!!,
+                        color = tagcolorthree,
                         textDecoration = TextDecoration.Underline
                     )
 
@@ -765,15 +755,15 @@ class ExpandableVerseViewModel(
                     val sourceone = harfspannble
                     val sourcetwo = khabarofversespannable
                     val tagonestyle = SpanStyle(
-                        color = tagcolorone!!,
+                        color = tagcolorone,
                         textDecoration = TextDecoration.Underline
                     )
                     val tagtwostyle = SpanStyle(
-                        color = tagcolortwo!!,
+                        color = tagcolortwo,
                         textDecoration = TextDecoration.Underline
                     )
                     val tagthreestyle = SpanStyle(
-                        color = tagcolorthree!!,
+                        color = tagcolorthree,
                         textDecoration = TextDecoration.Underline
                     )
                     val space = AnnotatedString(" ")
@@ -857,10 +847,10 @@ class ExpandableVerseViewModel(
                         }
                         sb.append(list!![0].en).append(".......")
                         when (wbwchoice) {
-                            0 -> sb.append(list!!.get(0).en).append(".......")
-                            1 -> sb.append(list!![0].ur).append(".......")
-                            2 -> sb.append(list!![0].bn).append(".......")
-                            3 -> sb.append(list!![0].id).append(".......")
+                            0 -> sb.append(list[0].en).append(".......")
+                            1 -> sb.append(list[0].ur).append(".......")
+                            2 -> sb.append(list[0].bn).append(".......")
+                            3 -> sb.append(list[0].id).append(".......")
                         }
 
 
@@ -885,15 +875,15 @@ class ExpandableVerseViewModel(
                     val sourceone = harfspannble
                     val sourcetwo = harfismspannable
                     val tagonestyle = SpanStyle(
-                        color = tagcolorone!!,
+                        color = tagcolorone,
                         textDecoration = TextDecoration.Underline
                     )
                     val tagtwostyle = SpanStyle(
-                        color = tagcolortwo!!,
+                        color = tagcolortwo,
                         textDecoration = TextDecoration.Underline
                     )
                     val tagthreestyle = SpanStyle(
-                        color = tagcolorthree!!,
+                        color = tagcolorthree,
                         textDecoration = TextDecoration.Underline
                     )
                     val space = AnnotatedString(" ")
@@ -968,7 +958,7 @@ class ExpandableVerseViewModel(
 
                     builder.append(sourceone)
                     val tagonestyle = SpanStyle(
-                        color = tagcolorone!!,
+                        color = tagcolorone,
                         textDecoration = TextDecoration.Underline
                     )
                     builder.addStyle(tagonestyle, 0, harfofverse.length)
@@ -1011,10 +1001,10 @@ class ExpandableVerseViewModel(
         val sifabySurahAyah: List<SifaEntity>? =
             utils.getSifabySurahAyah(chapterid, ayanumber)
         var tagcolor: Color? = null
-        if (thememode) {
-            tagcolor = ComposeConstant.sifaspansDark
+        tagcolor = if (thememode) {
+            ComposeConstant.sifaspansDark
         } else {
-            tagcolor = ComposeConstant.sifaspansLight
+            ComposeConstant.sifaspansLight
 
         }
 
@@ -1134,9 +1124,8 @@ class ExpandableVerseViewModel(
 
     val kana: List<SpannableString>
         get() {
-            val kanaarray: MutableList<SpannableString> = ArrayList()
             //newsetKana(kanaarray)
-            return kanaarray
+            return ArrayList()
         }
 
     private fun newSetShart(
@@ -1172,7 +1161,7 @@ class ExpandableVerseViewModel(
             tagcolorthree = Color(Constant.WHOTPINK)
         }
 
-        if(ayanumber==23){
+        if (ayanumber == 23) {
             println("check")
         }
         if (shart != null) {
@@ -1214,15 +1203,15 @@ class ExpandableVerseViewModel(
                     val sourcetwo = shartspoannable + space
                     val sourcethree = jawabshartspannable
                     val tagonestyle = SpanStyle(
-                        color = tagcolorone!!,
+                        color = tagcolorone,
                         textDecoration = TextDecoration.Underline
                     )
                     val tagtwostyle = SpanStyle(
-                        color = tagcolortwo!!,
+                        color = tagcolortwo,
                         textDecoration = TextDecoration.Underline
                     )
                     val tagthreestyle = SpanStyle(
-                        color = tagcolorthree!!,
+                        color = tagcolorthree,
                         textDecoration = TextDecoration.Underline
                     )
                     builder.append(quranverses)
@@ -1310,11 +1299,11 @@ class ExpandableVerseViewModel(
                     val sourceone = harfspannble
                     val sourcetwo = shartspoannable
                     val tagonestyle = SpanStyle(
-                        color = tagcolorone!!,
+                        color = tagcolorone,
                         textDecoration = TextDecoration.Underline
                     )
                     val tagtwostyle = SpanStyle(
-                        color = tagcolortwo!!,
+                        color = tagcolortwo,
                         textDecoration = TextDecoration.Underline
                     )
 
@@ -1326,7 +1315,7 @@ class ExpandableVerseViewModel(
                     builder.addStyle(tagtwostyle, 0, shartofverse.length)
 
 
-                    val annotatedString = harfspannble +space+ shartspoannable
+                    val annotatedString = harfspannble + space + shartspoannable
 
 
                     val charSequence = TextUtils.concat(harfspannble, " ", shartspoannable)
@@ -1372,7 +1361,7 @@ class ExpandableVerseViewModel(
                     val sourceone = harfspannble
 
                     val tagonestyle = SpanStyle(
-                        color = tagcolorone!!,
+                        color = tagcolorone,
                         textDecoration = TextDecoration.Underline
                     )
 
@@ -1407,11 +1396,11 @@ class ExpandableVerseViewModel(
         val mudhafSurahAyah: List<NewMudhafEntity>? =
             utils.getMudhafSurahAyahNew(chapterid, verseid)
         var tagonecolor: Color? = null
-        if (thememode) {
-            tagonecolor = Color(ComposeConstant.WBURNTUMBER)
+        tagonecolor = if (thememode) {
+            Color(ComposeConstant.WBURNTUMBER)
 
         } else {
-            tagonecolor = Color(ComposeConstant.MIDNIGHTBLUE)
+            Color(ComposeConstant.MIDNIGHTBLUE)
         }
 
         if (mudhafSurahAyah != null) {
@@ -1487,7 +1476,7 @@ class ExpandableVerseViewModel(
         list: List<wbwentity>?
     ) {
         when (wbwchoice) {
-            0 -> sb.append(list!!.get(0).en).append(".......")
+            0 -> sb.append(list!![0].en).append(".......")
             1 -> sb.append(list!![0].ur).append(".......")
             2 -> sb.append(list!![0].bn).append(".......")
             3 -> sb.append(list!![0].id).append(".......")
@@ -1502,7 +1491,7 @@ class ExpandableVerseViewModel(
             2 -> sb.append(tr.bn)
             3 -> sb.append(tr.id)
         }
-         sb.append(" ")
+        sb.append(" ")
         return sb
     }
 

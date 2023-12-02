@@ -1,7 +1,6 @@
 package com.example.mushafconsolidated.Adapters
 
 
-
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.TypedArray
@@ -114,14 +113,13 @@ class BookmarksShowAdapter : RecyclerView.Adapter<BookmarksShowAdapter.ViewHolde
     }
 
     fun removeItem(position: Int) {
-    //    bookMarkArrayList.removeAt(position)
+        //    bookMarkArrayList.removeAt(position)
         notifyItemRemoved(position)
     }
 
     fun getItem(position: Int): BookMarks? {
         return bookMarkArrayList!![position]
     }
-
 
 
     // public void restoreItem(ArrayList<BookMarks> item, int position) {
@@ -135,6 +133,7 @@ class BookmarksShowAdapter : RecyclerView.Adapter<BookmarksShowAdapter.ViewHolde
         val suraName: TextView
         val verseno: TextView
         val surahicon: ImageView
+
         //val cardView: CardView
         var chapterno: TextView
         val header: TextView
@@ -144,7 +143,7 @@ class BookmarksShowAdapter : RecyclerView.Adapter<BookmarksShowAdapter.ViewHolde
             itemView.setOnClickListener(this)
             header = view.findViewById(R.id.header)
             surahicon = view.findViewById(R.id.surahicon)
-          //  cardView = view.findViewById(R.id.cardview)
+            //  cardView = view.findViewById(R.id.cardview)
             datestamp = view.findViewById(R.id.date)
             chapterno = view.findViewById(R.id.chapterno)
             suraName = view.findViewById<View>(R.id.surahname) as TextView

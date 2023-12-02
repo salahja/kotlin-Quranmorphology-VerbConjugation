@@ -12,7 +12,7 @@ import com.example.utility.QuranGrammarApplication
  * TODO: Replace all uses of this class before publishing your app.
  */
 object PlaceholderContent {
-    private var searchs: String? =null
+    private var searchs: String? = null
 
     /**
      * An array of sample (placeholder) items.
@@ -45,7 +45,7 @@ object PlaceholderContent {
         return ItemHolder(
             position.toString(),
             array[position], makeDetailso(position, array[position], ArrayList()), ArrayList()
-                         )
+        )
     }
 
     private fun makeDetails(position: Int): ArrayList<String> {
@@ -64,21 +64,21 @@ object PlaceholderContent {
         position: Int,
         s: String,
         strings: ArrayList<String>
-                            ): ArrayList<String> {
+    ): ArrayList<String> {
         val builder = StringBuilder()
         val indexOf = s.indexOf("ا")
-        var fstr=""
-        if(indexOf!=-1){
-            fstr=  s.replace("ا","ء")
-        }else
-        {
-            fstr=s
+        var fstr = ""
+        if (indexOf != -1) {
+            fstr = s.replace("ا", "ء")
+        } else {
+            fstr = s
         }
-        searchs= "$fstr%";
+        searchs = "$fstr%";
         //%
-        val util= Utils(QuranGrammarApplication.context!!)
+        val util = Utils(QuranGrammarApplication.context!!)
         //  val letter: ArrayList<qurandictionary> = util.getByfirstletter(searchs) as ArrayList<qurandictionary>
-        val letter: ArrayList<VerbCorpus> = util.getQuranVerbsByfirstletter(searchs!!) as ArrayList<VerbCorpus>
+        val letter: ArrayList<VerbCorpus> =
+            util.getQuranVerbsByfirstletter(searchs!!) as ArrayList<VerbCorpus>
         for (verb in letter) {
             strings.add(verb.root_a!!)
             //    builder.append(qurandictionary.getRootarabic()).append("\n");
@@ -99,7 +99,7 @@ object PlaceholderContent {
         val content: String,
         val details: ArrayList<String>,
         rootsArrayList: ArrayList<String>
-                    ) {
+    ) {
         private var rootsArrayList = ArrayList<String>()
 
         init {

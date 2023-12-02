@@ -1,22 +1,5 @@
 package com.example.mushafconsolidated.Activityimport
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-  
- 
- 
- 
- 
- 
- 
 
 class AyahCoordinate {
     var start: Int? = null

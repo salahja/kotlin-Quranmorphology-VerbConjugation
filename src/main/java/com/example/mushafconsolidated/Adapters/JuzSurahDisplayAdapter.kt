@@ -22,7 +22,6 @@ class JuzSurahDisplayAdapter(private val context: Context?, private val JuzArray
     RecyclerView.Adapter<JuzSurahDisplayAdapter.ItemViewAdapter>() {
 
 
-
     var mItemClickListener: OnItemClickListener? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewAdapter {
         val view: View

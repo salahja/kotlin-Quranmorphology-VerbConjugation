@@ -9,12 +9,13 @@ import androidx.core.content.ContextCompat
 import com.example.mushafconsolidated.R
 import com.example.utility.QuranGrammarApplication
 
-object  ComposeConstant {
+object ComposeConstant {
 
 
     private val PURPLE = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.purple)
     val PURPLES = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.purples)
-    private val PeachPuff = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.PeachPuff)
+    private val PeachPuff =
+        ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.PeachPuff)
     val BBLUE = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.RoyalBlue)
     val BCYAN = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.cyan)
     val BYELLOW = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.yellow)
@@ -44,19 +45,24 @@ object  ComposeConstant {
     val DARKMAGENTA =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.DarkMagenta)
     private val TEAL400 = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.teal400)
-    private val ORANGE100 = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.orange100)
-    private val LIGHTPINK = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.LightPink)
-    private val CYANLIGHT = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.cyan_light)
+    private val ORANGE100 =
+        ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.orange100)
+    private val LIGHTPINK =
+        ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.LightPink)
+    private val CYANLIGHT =
+        ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.cyan_light)
     val MUSLIMMATE =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.colorMuslimMate)
     val CYANLIGHTEST =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.cyan_lightest)
-    private val ORANGERED = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.OrangeRed)
+    private val ORANGERED =
+        ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.OrangeRed)
     val GREENYELLOW =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.GreenYellow)
     private val HOTPINK = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.HotPink)
     private val SALMON = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.Salmon)
-    private val BROWN = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.LightSlateGray)
+    private val BROWN =
+        ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.LightSlateGray)
     private val MEDIUMSLATEBLUE =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.MediumSlateBlue)
     private val DarkTurquoise =
@@ -117,6 +123,7 @@ object  ComposeConstant {
     var ammendedparticle = Color(WHOTPINK)
     var supplementspanLight = Color(WHOTPINK)
     var sifaspansLight = Color(WBURNTUMBER)
+
     // var sifaspanLight = Color(CYANLIGHTEST)
     var mudhafspanLight = Color(CYANLIGHT)
     var mudhafspansLight = BackgroundColorSpan(MIDNIGHTBLUE)
@@ -151,8 +158,10 @@ object  ComposeConstant {
         }
     }
     var verbalnounspanDark = Color(WHOTPINK)
+
     //   var nounspanDark = Color(MARIGOLD)
     var nounspanDark = Color(android.graphics.Color.YELLOW)
+
     //    public static Color nounspanDark = new Color(MARIGOLD);
     var sifaspansDark = Color(CYANLIGHTEST)
     var sifaspanDark = BackgroundColorSpan(CYANLIGHTEST)
@@ -192,7 +201,6 @@ object  ComposeConstant {
     var surprisespanDark = Color(DarkTurquoise)
     var restrictivespanDark = Color(Fuchsia)
     var certainityspanDark = Color(DeepPink)
-
 
 
     //  EMPH = "Emphatic lām prefix(لام التوكيد) ",

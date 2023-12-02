@@ -4,8 +4,6 @@ package com.example.mushafconsolidated.model
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
- 
-
 
 
 /**

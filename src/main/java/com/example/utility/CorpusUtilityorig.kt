@@ -27,10 +27,11 @@ import com.example.mushafconsolidated.model.QuranCorpusWbw
 import java.util.regex.Pattern
 
 class CorpusUtilityorig(private var context: Context?) {
-    var ayah=0
-    constructor(context: Context, suraid: Int, ayah: Int) : this(context){
+    var ayah = 0
 
-        this.ayah=ayah
+    constructor(context: Context, suraid: Int, ayah: Int) : this(context) {
+
+        this.ayah = ayah
     }
 
     // --Commented out by Inspection (15/08/23, 4:17 pm):final ArrayList<MousufSifa> NEWmousufSifaArrayList = new ArrayList<>();
@@ -49,9 +50,9 @@ class CorpusUtilityorig(private var context: Context?) {
         surah_id: Int,
         ayah: Int,
         size: Int,
-                       ) {
+    ) {
         val utils = Utils(QuranGrammarApplication.context!!)
-        val surah = utils.getSifabySurahAyah(surah_id,ayah)
+        val surah = utils.getSifabySurahAyah(surah_id, ayah)
         //  SpannableStringBuilder spannableverse = null;
         // SpannableString spannableString = null;
 //todo 2 188 iza ahudu
@@ -62,7 +63,7 @@ class CorpusUtilityorig(private var context: Context?) {
             val indexstart = sifaEntity.startindex
             val indexend = sifaEntity.endindex
             //  sifaspans = new BackgroundColorSpan(WBURNTUMBER);
-            SifaSpansSetup(corpusayahWordArrayList, sifaEntity, indexstart, indexend,size)
+            SifaSpansSetup(corpusayahWordArrayList, sifaEntity, indexstart, indexend, size)
         }
     }
 
@@ -72,12 +73,12 @@ class CorpusUtilityorig(private var context: Context?) {
         indexstart: Int,
         indexend: Int,
         size: Int,
-                              ) {
+    ) {
         val spannableverse: SpannableString
         try {
             //  spannableverse = corpusayahWordArrayList[sifaEntity.ayah - 1].spannableverse!!
             spannableverse =
-                corpusayahWordArrayList[size-1]!![0].spannableverse!!
+                corpusayahWordArrayList[size - 1]!![0].spannableverse!!
             //spannableString = SpannableString.valueOf(corpusayahWordArrayList.get(sifaEntity.getAyah() - 1).getSpannableverse());
             try {
                 if (indexstart == 0 || indexstart > 0) {
@@ -92,15 +93,13 @@ class CorpusUtilityorig(private var context: Context?) {
                         indexstart,
                         indexend,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                     //   spannableverse.setSpan(new UnderlineSpan(),indexstart, indexend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
-            }
-            catch (e: IndexOutOfBoundsException) {
+            } catch (e: IndexOutOfBoundsException) {
                 //System.out.println(e.getMessage());
             }
-        }
-        catch (e: IndexOutOfBoundsException) {
+        } catch (e: IndexOutOfBoundsException) {
             //System.out.println(e.getMessage());
         }
     }
@@ -110,9 +109,9 @@ class CorpusUtilityorig(private var context: Context?) {
         surah_id: Int,
         ayah: Int,
         size: Int,
-                        ) {
+    ) {
         val utils = Utils(QuranGrammarApplication.context!!)
-        val harfnasb = utils.getHarfNasbIndicesSurahAyah(surah_id,ayah)
+        val harfnasb = utils.getHarfNasbIndicesSurahAyah(surah_id, ayah)
         //TODO SURA10 7 INNA ISM INNALIZINA(0,5,6,9 AND KHABR IN 10;8 oolika(0,12,len33)
         if (surah_id == 2 || surah_id == 3 || surah_id == 4 || surah_id == 5 || surah_id == 6 || surah_id == 7 || surah_id == 8 || surah_id == 9 || surah_id == 10 || surah_id == 59 || surah_id == 60 || surah_id == 61 || surah_id == 62 || surah_id == 63 || surah_id == 64 || surah_id == 65 || surah_id == 66 || surah_id == 67 || surah_id == 68 || surah_id == 69 || surah_id == 70 || surah_id == 71 || surah_id == 72 || surah_id == 73 || surah_id == 74 || surah_id == 75 || surah_id == 76 || surah_id == 77 || surah_id == 78 || surah_id in 79..114) {
             var spannableverse: SpannableString
@@ -139,9 +138,8 @@ class CorpusUtilityorig(private var context: Context?) {
                         indexstart,
                         indexend,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
-                }
-                catch (e: IndexOutOfBoundsException) {
+                    )
+                } catch (e: IndexOutOfBoundsException) {
                     //    System.out.println(nasb.getSurah() + ":" + nasb.getAyah());
                     err.add(nasb.surah.toString() + ":" + nasb.ayah)
                 }
@@ -157,9 +155,8 @@ class CorpusUtilityorig(private var context: Context?) {
                         ismstartindex,
                         ismendindex,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
-                }
-                catch (e: IndexOutOfBoundsException) {
+                    )
+                } catch (e: IndexOutOfBoundsException) {
                     //     System.out.println(nasb.getSurah() + ":" + nasb.getAyah());
                     err.add(nasb.surah.toString() + ":" + nasb.ayah)
                 }
@@ -174,9 +171,8 @@ class CorpusUtilityorig(private var context: Context?) {
                         khabarstart,
                         khabarend,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
-                }
-                catch (e: IndexOutOfBoundsException) {
+                    )
+                } catch (e: IndexOutOfBoundsException) {
                     //   System.out.println(nasb.getSurah() + ":" + nasb.getAyah());
                     err.add(nasb.surah.toString() + ":" + nasb.ayah)
                 }
@@ -189,9 +185,9 @@ class CorpusUtilityorig(private var context: Context?) {
         surah_id: Int,
         ayah: Int,
         size: Int,
-                       ) {
+    ) {
         val utils = Utils(QuranGrammarApplication.context!!)
-        val surah = utils.getMudhafSurahAyahNew(surah_id,ayah)
+        val surah = utils.getMudhafSurahAyahNew(surah_id, ayah)
 //todo 2 188 iza ahudu
         //todo 9;92 UNCERTAIN
         //TODO 9:94 JAWABHARMAHDOOF 9 95 JAWABHSARMAHODFF
@@ -207,7 +203,7 @@ class CorpusUtilityorig(private var context: Context?) {
                 indexstart,
                 indexend,
                 size
-                            )
+            )
         }
     }
 
@@ -218,15 +214,15 @@ class CorpusUtilityorig(private var context: Context?) {
         indexstart: Int,
         indexend: Int,
         size: Int,
-                                ) {
+    ) {
         lateinit var spannableverse: SpannableString
 
         try {
             //   spannableverse = corpusayahWordArrayList!!.get(0)!!.get(0).spannableverse
             //  spannableverse = corpusayahWordArrayList[sifaEntity.ayah - 1].spannableverse!!
             try {
-                spannableverse = corpusayahWordArrayList[size- 1]?.get(0)!!.spannableverse!!
-            }catch (e:NullPointerException) {
+                spannableverse = corpusayahWordArrayList[size - 1]?.get(0)!!.spannableverse!!
+            } catch (e: NullPointerException) {
 
                 println(e.localizedMessage)
                 println(corpusayahWordArrayList[0]?.get(0)?.corpus!!.ayah)
@@ -246,15 +242,13 @@ class CorpusUtilityorig(private var context: Context?) {
                         indexstart,
                         indexend,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                     //   spannableverse.setSpan(new UnderlineSpan(),indexstart, indexend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
-            }
-            catch (e: IndexOutOfBoundsException) {
+            } catch (e: IndexOutOfBoundsException) {
                 //System.out.println(e.getMessage());
             }
-        }
-        catch (e: IndexOutOfBoundsException) {
+        } catch (e: IndexOutOfBoundsException) {
             //System.out.println(e.getMessage());
         }
     }
@@ -264,9 +258,9 @@ class CorpusUtilityorig(private var context: Context?) {
         surah_id: Int,
         ayah: Int,
         size: Int,
-                ) {
+    ) {
         val utils = Utils(QuranGrammarApplication.context!!)
-        val surah = utils.getShartSurahAyahNew(surah_id,ayah)
+        val surah = utils.getShartSurahAyahNew(surah_id, ayah)
         //  final ArrayList<ShartEntity> surah = utils.getShartSurah(surah_id);
         //TO 9;118 IZA IN THE MEANING OF HEENA AND 9 122 IZA AS HEENA
         if (surah_id in 2..10 || surah_id in 58..114) {
@@ -278,8 +272,7 @@ class CorpusUtilityorig(private var context: Context?) {
                 val jawabstartindex = shart.jawabshartindexstart
                 val jawabendindex = shart.jawabshartindexend
                 try {
-                }
-                catch (e: ArrayIndexOutOfBoundsException) {
+                } catch (e: ArrayIndexOutOfBoundsException) {
                     println(shart.surah.toString() + " " + shart.ayah)
                 }
                 //   spanIt(SpanType.BGCOLOR,spannableString, shart, indexstart, indexend, shartsindex, sharteindex, jawabstartindex, jawabendindex);
@@ -293,7 +286,7 @@ class CorpusUtilityorig(private var context: Context?) {
                     jawabstartindex,
                     jawabendindex,
                     size
-                            )
+                )
             }
         }
     }
@@ -308,7 +301,7 @@ class CorpusUtilityorig(private var context: Context?) {
         jawabstartindex: Int,
         jawabendindex: Int,
         size: Int,
-                            ) {
+    ) {
         val spannableverse: SpannableString
         if (dark) {
             Constant.harfshartspanDark = ForegroundColorSpan(Constant.GOLD)
@@ -330,13 +323,13 @@ class CorpusUtilityorig(private var context: Context?) {
                         indexstart,
                         indexend,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                     spannableverse.setSpan(
                         UnderlineSpan(),
                         indexstart,
                         indexend,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                 }
                 if (shartsindex == 0 || shartsindex > 0) {
                     spannableverse.setSpan(
@@ -344,13 +337,13 @@ class CorpusUtilityorig(private var context: Context?) {
                         shartsindex,
                         sharteindex,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                     spannableverse.setSpan(
                         UnderlineSpan(),
                         shartsindex,
                         sharteindex,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                 }
                 if (jawabstartindex == 0 || jawabstartindex > 0) {
                     val myDrawable =
@@ -360,26 +353,24 @@ class CorpusUtilityorig(private var context: Context?) {
                         0,
                         myDrawable.intrinsicWidth,
                         myDrawable.intrinsicHeight
-                                        )
+                    )
                     spannableverse.setSpan(
                         Constant.jawabshartspanDark,
                         jawabstartindex,
                         jawabendindex,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                     spannableverse.setSpan(
                         UnderlineSpan(),
                         jawabstartindex,
                         jawabendindex,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                 }
-            }
-            catch (e: IndexOutOfBoundsException) {
+            } catch (e: IndexOutOfBoundsException) {
                 //System.out.println(e.getMessage());
             }
-        }
-        catch (e: IndexOutOfBoundsException) {
+        } catch (e: IndexOutOfBoundsException) {
             //System.out.println(e.getMessage());
         }
     }
@@ -389,11 +380,11 @@ class CorpusUtilityorig(private var context: Context?) {
         surah_id: Int,
         ayah: Int,
         size: Int,
-               ) {
+    ) {
         val utils = Utils(
             context!!.applicationContext
-                         )
-        val kanalist = utils.getKananewSurahAyah(surah_id,ayah)
+        )
+        val kanalist = utils.getKananewSurahAyah(surah_id, ayah)
         val harfkana: ForegroundColorSpan
         val kanaism: ForegroundColorSpan
         val kanakhbar: ForegroundColorSpan
@@ -410,7 +401,7 @@ class CorpusUtilityorig(private var context: Context?) {
             for (kana in kanalist!!) {
                 //     val spannableverse = corpusayahWordArrayList[kana!!.ayah - 1].spannableverse
                 val spannableverse =
-                    corpusayahWordArrayList[size- 1]!![0].spannableverse!!
+                    corpusayahWordArrayList[size - 1]!![0].spannableverse!!
                 try {
                     if (spannableverse != null) {
                         spannableverse.setSpan(
@@ -418,7 +409,7 @@ class CorpusUtilityorig(private var context: Context?) {
                             kana.indexstart,
                             kana.indexend,
                             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                              )
+                        )
                     }
                     //    shart.setSpannedverse(spannableverse);
                     if (spannableverse != null) {
@@ -427,7 +418,7 @@ class CorpusUtilityorig(private var context: Context?) {
                             kana.khabarstart,
                             kana.khabarend,
                             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                              )
+                        )
                     }
                     //   shart.setSpannedverse(spannableverse);
                     if (spannableverse != null) {
@@ -436,11 +427,10 @@ class CorpusUtilityorig(private var context: Context?) {
                             kana.ismkanastart,
                             kana.ismkanaend,
                             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                              )
+                        )
                     }
                     //   shart.setSpannedverse(spannableverse);
-                }
-                catch (e: IndexOutOfBoundsException) {
+                } catch (e: IndexOutOfBoundsException) {
                     //System.out.println(e.getMessage());
                 }
             }
@@ -448,13 +438,12 @@ class CorpusUtilityorig(private var context: Context?) {
     }
 
 
-
 //overload
 
     fun SetMousufSifaDB(
         corpusayahWordArrayList: LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>,
         surah_id: Int,
-                       ) {
+    ) {
         val utils = Utils(QuranGrammarApplication.context!!)
         val surah = utils.getSifabySurah(surah_id)
         //  SpannableStringBuilder spannableverse = null;
@@ -476,7 +465,7 @@ class CorpusUtilityorig(private var context: Context?) {
         sifaEntity: SifaEntity,
         indexstart: Int,
         indexend: Int,
-                              ) {
+    ) {
         val spannableverse: SpannableString
         try {
             //  spannableverse = corpusayahWordArrayList[sifaEntity.ayah - 1].spannableverse!!
@@ -496,15 +485,13 @@ class CorpusUtilityorig(private var context: Context?) {
                         indexstart,
                         indexend,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                     //   spannableverse.setSpan(new UnderlineSpan(),indexstart, indexend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
-            }
-            catch (e: IndexOutOfBoundsException) {
+            } catch (e: IndexOutOfBoundsException) {
                 //System.out.println(e.getMessage());
             }
-        }
-        catch (e: IndexOutOfBoundsException) {
+        } catch (e: IndexOutOfBoundsException) {
             //System.out.println(e.getMessage());
         }
     }
@@ -512,7 +499,7 @@ class CorpusUtilityorig(private var context: Context?) {
     fun newnewHarfNasbDb(
         corpusayahWordArrayList: LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>,
         surah_id: Int,
-                        ) {
+    ) {
         val utils = Utils(QuranGrammarApplication.context!!)
         val harfnasb = utils.getHarfNasbIndexesnew(surah_id)
         //TODO SURA10 7 INNA ISM INNALIZINA(0,5,6,9 AND KHABR IN 10;8 oolika(0,12,len33)
@@ -541,9 +528,8 @@ class CorpusUtilityorig(private var context: Context?) {
                         indexstart,
                         indexend,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
-                }
-                catch (e: IndexOutOfBoundsException) {
+                    )
+                } catch (e: IndexOutOfBoundsException) {
                     //    System.out.println(nasb.getSurah() + ":" + nasb.getAyah());
                     err.add(nasb.surah.toString() + ":" + nasb.ayah)
                 }
@@ -559,9 +545,8 @@ class CorpusUtilityorig(private var context: Context?) {
                         ismstartindex,
                         ismendindex,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
-                }
-                catch (e: IndexOutOfBoundsException) {
+                    )
+                } catch (e: IndexOutOfBoundsException) {
                     //     System.out.println(nasb.getSurah() + ":" + nasb.getAyah());
                     err.add(nasb.surah.toString() + ":" + nasb.ayah)
                 }
@@ -576,9 +561,8 @@ class CorpusUtilityorig(private var context: Context?) {
                         khabarstart,
                         khabarend,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
-                }
-                catch (e: IndexOutOfBoundsException) {
+                    )
+                } catch (e: IndexOutOfBoundsException) {
                     //   System.out.println(nasb.getSurah() + ":" + nasb.getAyah());
                     err.add(nasb.surah.toString() + ":" + nasb.ayah)
                 }
@@ -589,7 +573,7 @@ class CorpusUtilityorig(private var context: Context?) {
     fun setMudhafFromDB(
         corpusayahWordArrayList: LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>,
         surah_id: Int,
-                       ) {
+    ) {
         val utils = Utils(QuranGrammarApplication.context!!)
         val surah = utils.getMudhafSurahNew(surah_id)
 //todo 2 188 iza ahudu
@@ -606,7 +590,7 @@ class CorpusUtilityorig(private var context: Context?) {
                 mudhafen,
                 indexstart,
                 indexend
-                            )
+            )
         }
     }
 
@@ -616,15 +600,16 @@ class CorpusUtilityorig(private var context: Context?) {
         mudhafen: NewMudhafEntity,
         indexstart: Int,
         indexend: Int,
-                                ) {
+    ) {
         lateinit var spannableverse: SpannableString
 
         try {
             //   spannableverse = corpusayahWordArrayList!!.get(0)!!.get(0).spannableverse
             //  spannableverse = corpusayahWordArrayList[sifaEntity.ayah - 1].spannableverse!!
             try {
-                spannableverse = corpusayahWordArrayList[mudhafen.ayah - 1]?.get(0)!!.spannableverse!!
-            }catch (e:NullPointerException) {
+                spannableverse =
+                    corpusayahWordArrayList[mudhafen.ayah - 1]?.get(0)!!.spannableverse!!
+            } catch (e: NullPointerException) {
 
                 println(e.localizedMessage)
                 println(corpusayahWordArrayList[0]?.get(0)?.corpus!!.ayah)
@@ -644,15 +629,13 @@ class CorpusUtilityorig(private var context: Context?) {
                         indexstart,
                         indexend,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                     //   spannableverse.setSpan(new UnderlineSpan(),indexstart, indexend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
-            }
-            catch (e: IndexOutOfBoundsException) {
+            } catch (e: IndexOutOfBoundsException) {
                 //System.out.println(e.getMessage());
             }
-        }
-        catch (e: IndexOutOfBoundsException) {
+        } catch (e: IndexOutOfBoundsException) {
             //System.out.println(e.getMessage());
         }
     }
@@ -660,7 +643,7 @@ class CorpusUtilityorig(private var context: Context?) {
     fun setShart(
         corpusayahWordArrayList: LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>,
         surah_id: Int,
-                ) {
+    ) {
         val utils = Utils(QuranGrammarApplication.context!!)
         val surah = utils.getShartSurahNew(surah_id)
         //  final ArrayList<ShartEntity> surah = utils.getShartSurah(surah_id);
@@ -674,8 +657,7 @@ class CorpusUtilityorig(private var context: Context?) {
                 val jawabstartindex = shart.jawabshartindexstart
                 val jawabendindex = shart.jawabshartindexend
                 try {
-                }
-                catch (e: ArrayIndexOutOfBoundsException) {
+                } catch (e: ArrayIndexOutOfBoundsException) {
                     println(shart.surah.toString() + " " + shart.ayah)
                 }
                 //   spanIt(SpanType.BGCOLOR,spannableString, shart, indexstart, indexend, shartsindex, sharteindex, jawabstartindex, jawabendindex);
@@ -688,7 +670,7 @@ class CorpusUtilityorig(private var context: Context?) {
                     sharteindex,
                     jawabstartindex,
                     jawabendindex
-                            )
+                )
             }
         }
     }
@@ -702,7 +684,7 @@ class CorpusUtilityorig(private var context: Context?) {
         sharteindex: Int,
         jawabstartindex: Int,
         jawabendindex: Int,
-                            ) {
+    ) {
         val spannableverse: SpannableString
         if (dark) {
             Constant.harfshartspanDark = ForegroundColorSpan(Constant.GOLD)
@@ -724,13 +706,13 @@ class CorpusUtilityorig(private var context: Context?) {
                         indexstart,
                         indexend,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                     spannableverse.setSpan(
                         UnderlineSpan(),
                         indexstart,
                         indexend,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                 }
                 if (shartsindex == 0 || shartsindex > 0) {
                     spannableverse.setSpan(
@@ -738,13 +720,13 @@ class CorpusUtilityorig(private var context: Context?) {
                         shartsindex,
                         sharteindex,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                     spannableverse.setSpan(
                         UnderlineSpan(),
                         shartsindex,
                         sharteindex,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                 }
                 if (jawabstartindex == 0 || jawabstartindex > 0) {
                     val myDrawable =
@@ -754,26 +736,24 @@ class CorpusUtilityorig(private var context: Context?) {
                         0,
                         myDrawable.intrinsicWidth,
                         myDrawable.intrinsicHeight
-                                        )
+                    )
                     spannableverse.setSpan(
                         Constant.jawabshartspanDark,
                         jawabstartindex,
                         jawabendindex,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                     spannableverse.setSpan(
                         UnderlineSpan(),
                         jawabstartindex,
                         jawabendindex,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                          )
+                    )
                 }
-            }
-            catch (e: IndexOutOfBoundsException) {
+            } catch (e: IndexOutOfBoundsException) {
                 //System.out.println(e.getMessage());
             }
-        }
-        catch (e: IndexOutOfBoundsException) {
+        } catch (e: IndexOutOfBoundsException) {
             //System.out.println(e.getMessage());
         }
     }
@@ -781,10 +761,10 @@ class CorpusUtilityorig(private var context: Context?) {
     fun setKana(
         corpusayahWordArrayList: LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>,
         surah_id: Int,
-               ) {
+    ) {
         val utils = Utils(
             context!!.applicationContext
-                         )
+        )
         val kanalist = utils.getKananew(surah_id)
         val harfkana: ForegroundColorSpan
         val kanaism: ForegroundColorSpan
@@ -810,7 +790,7 @@ class CorpusUtilityorig(private var context: Context?) {
                             kana.indexstart,
                             kana.indexend,
                             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                              )
+                        )
                     }
                     //    shart.setSpannedverse(spannableverse);
                     if (spannableverse != null) {
@@ -819,7 +799,7 @@ class CorpusUtilityorig(private var context: Context?) {
                             kana.khabarstart,
                             kana.khabarend,
                             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                              )
+                        )
                     }
                     //   shart.setSpannedverse(spannableverse);
                     if (spannableverse != null) {
@@ -828,11 +808,10 @@ class CorpusUtilityorig(private var context: Context?) {
                             kana.ismkanastart,
                             kana.ismkanaend,
                             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                              )
+                        )
                     }
                     //   shart.setSpannedverse(spannableverse);
-                }
-                catch (e: IndexOutOfBoundsException) {
+                } catch (e: IndexOutOfBoundsException) {
                     //System.out.println(e.getMessage());
                 }
             }
@@ -855,7 +834,7 @@ class CorpusUtilityorig(private var context: Context?) {
             arathree: String,
             aratwo: String,
             araone: String,
-                             ): SpannableString? {
+        ): SpannableString? {
             var arafive = arafive
             var arafour = arafour
             var arathree = arathree
@@ -891,16 +870,33 @@ class CorpusUtilityorig(private var context: Context?) {
                     //   Set<String> strings = spanhash.keySet();
                     str =
                         SpannableString(araone.trim { it <= ' ' } + aratwo.trim { it <= ' ' } + arathree.trim { it <= ' ' })
-                    str.setSpan(spanhash[tagone], 0, araone.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    str.setSpan(
+                        spanhash[tagone],
+                        0,
+                        araone.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
                 }
+
                 2 -> {
                     val strone = SpannableString(araone.trim { it <= ' ' })
                     val strtwo = SpannableString(aratwo.trim { it <= ' ' })
-                    strtwo.setSpan(spanhash[tagtwo], 0, aratwo.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    strone.setSpan(spanhash[tagone], 0, araone.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    strtwo.setSpan(
+                        spanhash[tagtwo],
+                        0,
+                        aratwo.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    strone.setSpan(
+                        spanhash[tagone],
+                        0,
+                        araone.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
                     val charSequence = TextUtils.concat(strtwo, strone)
                     str = SpannableString(charSequence)
                 }
+
                 3 -> {
                     spanhash[tagone]
                     val strone = SpannableString(araone.trim { it <= ' ' })
@@ -911,12 +907,23 @@ class CorpusUtilityorig(private var context: Context?) {
                         0,
                         arathree.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                    )
-                    strtwo.setSpan(spanhash[tagtwo], 0, aratwo.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    strone.setSpan(spanhash[tagone], 0, araone.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    )
+                    strtwo.setSpan(
+                        spanhash[tagtwo],
+                        0,
+                        aratwo.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    strone.setSpan(
+                        spanhash[tagone],
+                        0,
+                        araone.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
                     val charSequence = TextUtils.concat(strthree, strtwo, strone)
                     str = SpannableString(charSequence)
                 }
+
                 4 -> {
                     //  str = new SpannableString(arafour.trim() + arathree.trim() + aratwo.trim() + araone.trim());
                     val strone = SpannableString(araone.trim { it <= ' ' })
@@ -928,18 +935,29 @@ class CorpusUtilityorig(private var context: Context?) {
                         0,
                         arafour.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                   )
+                    )
                     strthree.setSpan(
                         spanhash[tagthree],
                         0,
                         arathree.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                    )
-                    strtwo.setSpan(spanhash[tagtwo], 0, aratwo.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    strone.setSpan(spanhash[tagone], 0, araone.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    )
+                    strtwo.setSpan(
+                        spanhash[tagtwo],
+                        0,
+                        aratwo.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    strone.setSpan(
+                        spanhash[tagone],
+                        0,
+                        araone.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
                     val charSequence = TextUtils.concat(strfour, strthree, strtwo, strone)
                     str = SpannableString(charSequence)
                 }
+
                 5 -> {
                     val strone = SpannableString(araone.trim { it <= ' ' })
                     val strtwo = SpannableString(aratwo.trim { it <= ' ' })
@@ -951,31 +969,31 @@ class CorpusUtilityorig(private var context: Context?) {
                         0,
                         arafive.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                   )
+                    )
                     strfour.setSpan(
                         spanhash[tagtwo],
                         0,
                         arafour.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                   )
+                    )
                     strthree.setSpan(
                         spanhash[tagthree],
                         0,
                         arathree.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                    )
+                    )
                     strtwo.setSpan(
                         spanhash[tagfour],
                         0,
                         aratwo.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                  )
+                    )
                     strone.setSpan(
                         spanhash[tagfive],
                         0,
                         araone.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                                  )
+                    )
                     val charSequence = TextUtils.concat(strone, strtwo, strthree, strfour, strfive)
                     str = SpannableString(charSequence)
                 }
@@ -987,7 +1005,7 @@ class CorpusUtilityorig(private var context: Context?) {
         fun ColorizeRootword(
             tagone: String, tagtwo: String, tagthree: String, tagfour: String, tagfive: String,
             rootword: String,
-                            ): SpannableString? {
+        ): SpannableString? {
             var str: SpannableString? = null
             var tagcounter = 0
             val b = tagone.isNotEmpty()
@@ -1025,7 +1043,7 @@ class CorpusUtilityorig(private var context: Context?) {
                         0,
                         rootword.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                               )
+                    )
                 } else if (tagtwo == "N" || tagtwo == "ADJ" || tagtwo == "PN" || tagtwo == "V") {
                     str = SpannableString(rootword.trim { it <= ' ' })
                     str.setSpan(
@@ -1033,7 +1051,7 @@ class CorpusUtilityorig(private var context: Context?) {
                         0,
                         rootword.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                               )
+                    )
                 }
             } else if (tagcounter == 3) {
                 if (tagone == "N" || tagone == "ADJ" || tagone == "PN" || tagone == "V") {
@@ -1043,7 +1061,7 @@ class CorpusUtilityorig(private var context: Context?) {
                         0,
                         rootword.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                               )
+                    )
                 } else if (tagtwo == "N" || tagtwo == "ADJ" || tagtwo == "PN" || tagtwo == "V") {
                     str = SpannableString(rootword.trim { it <= ' ' })
                     str.setSpan(
@@ -1051,7 +1069,7 @@ class CorpusUtilityorig(private var context: Context?) {
                         0,
                         rootword.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                               )
+                    )
                 } else if (tagthree == "N" || tagthree == "ADJ" || tagthree == "PN" || tagthree == "V") {
                     str = SpannableString(rootword.trim { it <= ' ' })
                     str.setSpan(
@@ -1059,7 +1077,7 @@ class CorpusUtilityorig(private var context: Context?) {
                         0,
                         rootword.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                               )
+                    )
                 }
             } else if (tagcounter == 4) {
                 if (tagone == "N" || tagone == "ADJ" || tagone == "PN" || tagone == "V") {
@@ -1069,7 +1087,7 @@ class CorpusUtilityorig(private var context: Context?) {
                         0,
                         rootword.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                               )
+                    )
                 } else if (tagtwo == "N" || tagtwo == "ADJ" || tagtwo == "PN" || tagtwo == "V") {
                     str = SpannableString(rootword.trim { it <= ' ' })
                     str.setSpan(
@@ -1077,7 +1095,7 @@ class CorpusUtilityorig(private var context: Context?) {
                         0,
                         rootword.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                               )
+                    )
                 } else if (tagthree == "N" || tagthree == "ADJ" || tagthree == "PN" || tagthree == "V") {
                     str = SpannableString(rootword.trim { it <= ' ' })
                     str.setSpan(
@@ -1085,7 +1103,7 @@ class CorpusUtilityorig(private var context: Context?) {
                         0,
                         rootword.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                               )
+                    )
                 } else if (tagfour == "N" || tagfour == "ADJ" || tagfour == "PN" || tagfour == "V") {
                     str = SpannableString(rootword.trim { it <= ' ' })
                     str.setSpan(
@@ -1093,25 +1111,11 @@ class CorpusUtilityorig(private var context: Context?) {
                         0,
                         rootword.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                               )
+                    )
                 }
             }
             return str
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         ////
@@ -1127,7 +1131,7 @@ class CorpusUtilityorig(private var context: Context?) {
             arathree: String,
             arafour: String,
             arafive: String,
-                          ): SpannableString {
+        ): SpannableString {
             var araone = araone
             var aratwo = aratwo
             var arathree = arathree
@@ -1180,7 +1184,7 @@ class CorpusUtilityorig(private var context: Context?) {
                     araone.length,
                     araone.length + aratwo.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
             } else if (tagcounter == 3) {
                 spanhash[tagone]
                 str =
@@ -1191,13 +1195,13 @@ class CorpusUtilityorig(private var context: Context?) {
                     araone.length,
                     araone.length + aratwo.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
                 str.setSpan(
                     spanhash[tagthree],
                     araone.length + aratwo.length,
                     araone.length + aratwo.length + arathree.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
             } else if (tagcounter == 4) {
                 str =
                     SpannableString(araone.trim { it <= ' ' } + aratwo.trim { it <= ' ' } + arathree.trim { it <= ' ' } + arafour.trim { it <= ' ' })
@@ -1207,19 +1211,19 @@ class CorpusUtilityorig(private var context: Context?) {
                     araone.length,
                     araone.length + aratwo.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
                 str.setSpan(
                     spanhash[tagthree],
                     araone.length + aratwo.length,
                     araone.length + aratwo.length + arathree.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
                 str.setSpan(
                     spanhash[tagfour],
                     araone.length + aratwo.length + arathree.length,
                     araone.length + aratwo.length + arathree.length + arafour.trim { it <= ' ' }.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
                 //    str.setSpan(attachedpronoun, araone.length() + aratwo.length() + arathree.length() + arafour.length(), araone.length() + aratwo.length() + arathree.length() + arafour.trim().length() + arafive.trim().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             } else if (tagcounter == 5) {
                 str =
@@ -1230,31 +1234,32 @@ class CorpusUtilityorig(private var context: Context?) {
                     araone.length,
                     araone.length + aratwo.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
                 str.setSpan(
                     spanhash[tagthree],
                     araone.length + aratwo.length,
                     araone.length + aratwo.length + arathree.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
                 str.setSpan(
                     spanhash[tagfour],
                     araone.length + aratwo.length + arathree.length,
                     araone.length + aratwo.length + arathree.length + arafour.trim { it <= ' ' }.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
                 str.setSpan(
                     spanhash[tagfive],
                     araone.length + aratwo.length + arathree.length + arafour.length,
                     araone.length + aratwo.length + arathree.length + arafour.trim { it <= ' ' }.length + arafive.trim { it <= ' ' }.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
             } else {
                 str =
                     SpannableString(araone.trim { it <= ' ' } + aratwo.trim { it <= ' ' } + arathree.trim { it <= ' ' } + arafour.trim { it <= ' ' } + arafive.trim { it <= ' ' })
             }
             return str
         }
+
         @JvmStatic
         val stringForegroundColorSpanMap: Map<String?, ForegroundColorSpan>
             get() {
@@ -1437,19 +1442,19 @@ class CorpusUtilityorig(private var context: Context?) {
                         indexOf,
                         indexOf + wordlen,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                               )
+                    )
                 } else {
                     str.setSpan(
                         ForegroundColorSpan(
                             ContextCompat.getColor(
                                 QuranGrammarApplication.context!!,
                                 R.color.midnightblue
-                                                  )
-                                           ),
+                            )
+                        ),
                         indexOf,
                         indexOf + wordlen,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                               )
+                    )
                 }
             } else {
                 str = SpannableString(quranverses)
@@ -1480,7 +1485,7 @@ class CorpusUtilityorig(private var context: Context?) {
                     start,
                     end,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                                 )
+                )
             }
             //endregion
             return spannable
@@ -1497,7 +1502,7 @@ class CorpusUtilityorig(private var context: Context?) {
             arathree: String,
             arafour: String,
             arafive: String,
-                              ): SpannableStringBuilder {
+        ): SpannableStringBuilder {
             var araone = araone
             var aratwo = aratwo
             var arathree = arathree
@@ -1559,13 +1564,13 @@ class CorpusUtilityorig(private var context: Context?) {
                     araone.length,
                     araone.length + aratwo.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
                 str.setSpan(
                     spanhash[tagthree],
                     araone.length + aratwo.length,
                     araone.length + aratwo.length + arathree.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
             } else if (tagcounter == 4) {
                 str =
                     SpannableStringBuilder(araone.trim { it <= ' ' } + aratwo.trim { it <= ' ' } + arathree.trim { it <= ' ' } + arafour.trim { it <= ' ' })
@@ -1575,19 +1580,19 @@ class CorpusUtilityorig(private var context: Context?) {
                     araone.length,
                     araone.length + aratwo.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
                 str.setSpan(
                     spanhash[tagthree],
                     araone.length + aratwo.length,
                     araone.length + aratwo.length + arathree.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
                 str.setSpan(
                     spanhash[tagfour],
                     araone.length + aratwo.length + arathree.length,
                     araone.length + aratwo.length + arathree.length + arafour.trim { it <= ' ' }.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
                 //    str.setSpan(attachedpronoun, araone.length() + aratwo.length() + arathree.length() + arafour.length(), araone.length() + aratwo.length() + arathree.length() + arafour.trim().length() + arafive.trim().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             } else if (tagcounter == 5) {
                 str =
@@ -1598,25 +1603,25 @@ class CorpusUtilityorig(private var context: Context?) {
                     araone.length,
                     araone.length + aratwo.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
                 str.setSpan(
                     spanhash[tagthree],
                     araone.length + aratwo.length,
                     araone.length + aratwo.length + arathree.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
                 str.setSpan(
                     spanhash[tagfour],
                     araone.length + aratwo.length + arathree.length,
                     araone.length + aratwo.length + arathree.length + arafour.trim { it <= ' ' }.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
                 str.setSpan(
                     spanhash[tagfive],
                     araone.length + aratwo.length + arathree.length + arafour.length,
                     araone.length + aratwo.length + arathree.length + arafour.trim { it <= ' ' }.length + arafive.trim { it <= ' ' }.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                           )
+                )
             } else {
                 str =
                     SpannableStringBuilder(araone.trim { it <= ' ' } + aratwo.trim { it <= ' ' } + arathree.trim { it <= ' ' } + arafour.trim { it <= ' ' } + arafive.trim { it <= ' ' })
@@ -1624,12 +1629,13 @@ class CorpusUtilityorig(private var context: Context?) {
             return str
         }
 
-        fun composeWBWCollection(allofQuran: List<QuranEntity>?, corpusSurahWord: List<QuranCorpusWbw>?): LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>> {
+        fun composeWBWCollection(
+            allofQuran: List<QuranEntity>?,
+            corpusSurahWord: List<QuranCorpusWbw>?
+        ): LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>> {
 
-             val newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
+            val newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
             var qurancorpusarray = ArrayList<NewQuranCorpusWbw>()
-
-
 
 
             var aindex = 0
@@ -1645,15 +1651,15 @@ class CorpusUtilityorig(private var context: Context?) {
                             break
                         }
 
-                        ayahWord.spannableverse = SpannableString.valueOf(allofQuran[aindex].qurantext)
+                        ayahWord.spannableverse =
+                            SpannableString.valueOf(allofQuran[aindex].qurantext)
                         ayahWord.wbw = corpusSurahWord[secondindex].wbw
                         ayahWord.corpus = corpusSurahWord[secondindex++].corpus
                         qurancorpusarray.add(ayahWord)
 
                         ayahWord = NewQuranCorpusWbw()
                     }
-                }
-                catch (e: IndexOutOfBoundsException) {
+                } catch (e: IndexOutOfBoundsException) {
                     println(e.message)
                 }
 
@@ -1665,14 +1671,10 @@ class CorpusUtilityorig(private var context: Context?) {
                 aindex++
             }
 
-          return  newnewadapterlist
+            return newnewadapterlist
 
         }
     }
-
-
-
-
 
 
 }

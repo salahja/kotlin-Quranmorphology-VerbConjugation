@@ -1,22 +1,5 @@
 package com.example.mushafconsolidated.receiversimport
 
- 
-
- 
-
- 
-
- 
- 
- 
- 
-  
- 
- 
- 
- 
- 
- 
 
 open interface AudioAppConstants {
     open interface General {

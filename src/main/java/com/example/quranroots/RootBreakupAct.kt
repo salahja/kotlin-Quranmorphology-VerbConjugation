@@ -76,7 +76,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
     private var fourcolortag = 0
     private lateinit var root: String
     private lateinit var wordorverb: String
-        private lateinit var verbCorpusArrayList: ArrayList<VerbCorpusBreakup>
+    private lateinit var verbCorpusArrayList: ArrayList<VerbCorpusBreakup>
     private var occurances: ArrayList<CorpusNounWbwOccurance>? = null
     private lateinit var nounCorpusArrayList: ArrayList<NounCorpusBreakup>
     private lateinit var expandableListView: ExpandableListView
@@ -99,7 +99,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
     private var corpusSurahWord: List<QuranCorpusWbw>? = null
     private var allofQuran: List<QuranEntity>? = null
     private lateinit var mainViewModel: QuranVIewModel
-    var isverb=false
+    var isverb = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRootBreakupBinding.inflate(layoutInflater)
@@ -113,7 +113,7 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
         val rootoccurance: TextView = binding.rootoccurance
 
         root = bundle.getStringExtra(QURAN_VERB_ROOT)!!
-     isverb=   bundle.getBooleanExtra("isverb",false)
+        isverb = bundle.getBooleanExtra("isverb", false)
         rootoccurance.text = root
 
         lanes.setOnClickListener(this)
@@ -155,21 +155,20 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
         mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
         utils = Utils(this)
         val indexOf = root.indexOf("ء")
-        if(indexOf!=-1){
-            root=root.replace("ء","ا")
+        if (indexOf != -1) {
+            root = root.replace("ء", "ا")
         }
-     //   rootdetails = utils.getRootDetails(root) as ArrayList<RootWordDetails>?
+        //   rootdetails = utils.getRootDetails(root) as ArrayList<RootWordDetails>?
         val corpus = CorpusUtilityorig(this)
 
         corpusSurahWord = mainViewModel.getQuranCorpusWbwbyroot(root).value
-
 
 
         val sb = StringBuilder()
         sb.append(root).append(" ").append("Ocurrance").append(" ").append(corpusSurahWord!!.size)
         rootoccurance.text = sb.toString()
 
-         allChapters = mainViewModel.getAllChapters()
+        allChapters = mainViewModel.getAllChapters()
         if (root == "ACC" || root == "LOC" || root == "T") {
             occurances =
                 utils.getnounoccuranceHarfNasbZarf(root) as ArrayList<CorpusNounWbwOccurance>?
@@ -184,7 +183,8 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
         var verbDetailsRecAdapter: VerbDetailsRecAdapter? = null
         if (wordorverb == "word") {
             recyclerView.layoutManager = GridLayoutManager(this, 2)
-            myRootBreakRecyclerViewAdapter = MyRootBreakRecyclerViewAdapter(corpusSurahWord,allChapters)
+            myRootBreakRecyclerViewAdapter =
+                MyRootBreakRecyclerViewAdapter(corpusSurahWord, allChapters)
             recyclerView.adapter = myRootBreakRecyclerViewAdapter
             myRootBreakRecyclerViewAdapter.SetOnItemClickListener(object : OnItemClickListener {
                 override fun onItemClick(v: View?, position: Int) {
@@ -195,49 +195,49 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                     newbundle.putInt(SURAH_ID, wordDetails.corpus.surah)
                     newbundle.putInt(AYAH_ID, wordDetails.corpus.ayah)
 
-                    newbundle.putString(SURAH_ARABIC_NAME,allChapters.value!!.get(wordDetails.corpus.surah).namearabic)
+                    newbundle.putString(
+                        SURAH_ARABIC_NAME,
+                        allChapters.value!!.get(wordDetails.corpus.surah).namearabic
+                    )
 
 
 
-                    newbundle.putString(ARABICWORD, wordDetails.corpus.araone+wordDetails.corpus.aratwo+
-                    wordDetails.corpus.arathree+wordDetails.corpus.arafour+wordDetails.corpus.arafive)
+                    newbundle.putString(
+                        ARABICWORD, wordDetails.corpus.araone + wordDetails.corpus.aratwo +
+                                wordDetails.corpus.arathree + wordDetails.corpus.arafour + wordDetails.corpus.arafive
+                    )
                     newbundle.putString(WORDMEANING, wordDetails.wbw.en)
                     newbundle.putSerializable("map", datas)
                     val intents = Intent(this@RootBreakupAct, TopicDetailAct::class.java)
                     intents.putExtras(newbundle)
                     startActivity(intents)
 
-                //    dataBundle.putSerializable("map", datas)
+                    //    dataBundle.putSerializable("map", datas)
 
-                 /*   val fragmentManagers = supportFragmentManager
-                    val transactions = fragmentManagers.beginTransaction()
-                    transactions.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
-                    val fragvsi = TopicDetailsFrag.newInstance(newbundle)
-                    fragvsi.arguments = newbundle
-                    transactions.add(R.id.frame_container, fragvsi)
-                    transactions.addToBackStack(null)
-                    transactions.commit()*/
-                
-
-             /*       val item = TopicDetailsFrag()
-                    val fragmentManager = supportFragmentManager
-                    item.arguments = newbundle
-
-                    fragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out).show(item)
-*/
+                    /*   val fragmentManagers = supportFragmentManager
+                       val transactions = fragmentManagers.beginTransaction()
+                       transactions.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
+                       val fragvsi = TopicDetailsFrag.newInstance(newbundle)
+                       fragvsi.arguments = newbundle
+                       transactions.add(R.id.frame_container, fragvsi)
+                       transactions.addToBackStack(null)
+                       transactions.commit()*/
 
 
+                    /*       val item = TopicDetailsFrag()
+                           val fragmentManager = supportFragmentManager
+                           item.arguments = newbundle
 
-
-
+                           fragmentManager.beginTransaction()
+                               .setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out).show(item)
+       */
 
 
                 }
             })
         } else {
             recyclerView.layoutManager = GridLayoutManager(this, 1)
-          //  recyclerView.adapter = myRootBreakRecyclerViewAdapter
+            //  recyclerView.adapter = myRootBreakRecyclerViewAdapter
             verbdetails = utils.getRootVerbDetails(root) as ArrayList<RootVerbDetails>?
             verbDetailsRecAdapter = VerbDetailsRecAdapter(verbdetails!!)
             recyclerView.adapter = verbDetailsRecAdapter
@@ -288,28 +288,23 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                             startActivity(intents)
 
 
-/*
-                            val fragmentManagers = supportFragmentManager
-                            val transactions = fragmentManagers.beginTransaction()
-                            transactions.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
-                            val fragvsi = TopicDetailsFrag.newInstance(newbundle)
-                            fragvsi.arguments = newbundle
-                            transactions.add(R.id.frame_container, fragvsi)
-                            transactions.addToBackStack(null)
-                            transactions.commit()*/
+                            /*
+                                                        val fragmentManagers = supportFragmentManager
+                                                        val transactions = fragmentManagers.beginTransaction()
+                                                        transactions.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
+                                                        val fragvsi = TopicDetailsFrag.newInstance(newbundle)
+                                                        fragvsi.arguments = newbundle
+                                                        transactions.add(R.id.frame_container, fragvsi)
+                                                        transactions.addToBackStack(null)
+                                                        transactions.commit()*/
 
 
-                        /*    val topfrag: TopicDetailsFrag = TopicDetailsFrag.newInstance(newbundle)
-                            topfrag.show(
-                                supportFragmentManager,
-                                TopicDetailsFrag.TAG
-                            )
-*/
-
-
-
-
-
+                            /*    val topfrag: TopicDetailsFrag = TopicDetailsFrag.newInstance(newbundle)
+                                topfrag.show(
+                                    supportFragmentManager,
+                                    TopicDetailsFrag.TAG
+                                )
+    */
 
 
                         }
@@ -368,9 +363,11 @@ class RootBreakupAct : BaseActivity(), OnItemClickListener, View.OnClickListener
                         "en_sahih" -> {
                             trans = SpannableString.valueOf(vers.translation)
                         }
+
                         "ur_jalalayn" -> {
                             trans = SpannableString.valueOf(vers.ur_jalalayn)
                         }
+
                         "en_jalalayn" -> {
                             trans = SpannableString.valueOf(vers.en_jalalayn)
                         }
