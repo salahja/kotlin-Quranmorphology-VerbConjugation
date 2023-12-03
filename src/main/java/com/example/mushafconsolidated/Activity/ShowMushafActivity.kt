@@ -1,6 +1,7 @@
 package com.example.mushafconsolidated.Activity
 
-import AudioPlayed
+import Utility.AudioPlayed
+import Utility.AudioPrefrence
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -65,7 +66,6 @@ import com.example.mushafconsolidated.receiversimport.FileManager
 import com.example.mushafconsolidated.receiversimport.QuranValidateSources
 import com.example.mushafconsolidated.receiversimport.Settingsss
 import com.example.mushafconsolidated.settingsimport.Constants
-import com.example.utility.ConfigPreferences
 import com.example.utility.FlowLayout
 import com.example.utility.MovableFloatingActionButton
 import com.example.utility.QuranGrammarApplication
@@ -255,6 +255,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         val intent = Intent(BROADCAST_SEEKBAR)
         getpreferences()
+
         //   lastPlayed
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         isNightmode = sharedPreferences.getString("themepref", "dark")!!
@@ -277,6 +278,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
             //       showMessage(String.valueOf(pos));D
         }
+        getLastPlayed()
         //endregion
         playerView = findViewById(R.id.player_view)
         playerView.requestFocus()
@@ -314,6 +316,22 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
                 .toString() + "/audio/" + readerID
     }
+
+    private fun getLastPlayed() {
+
+        val aplayed = AudioPrefrence.getLastPlayedAudio(this, surah.toString())
+        if (aplayed != null) {
+       //     resumelastplayed = aplayed["ayah"]
+            val get = aplayed.get("ayah")
+            resumelastplayed=get.asInt
+          //  resumelastplayed=1
+        }
+        else{
+            resumelastplayed=1
+        }
+    }
+
+
 
     private fun setUpViews() {
         progressTextView = findViewById(R.id.progressTextView)
@@ -2274,14 +2292,16 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         if (resumeDisposable != null && !resumeDisposable!!.isDisposed) {
             resumeDisposable!!.dispose()
         }
-        releasePlayer()
+     //   releasePlayer()
         handler.removeCallbacks(sendUpdatesToUI)
         handler.removeCallbacks(sendUpdatesToUIPassage)
         if (currenttrack != 0) {
             val pref: SharedPreferences = getSharedPreferences("lastaya", MODE_PRIVATE)
             val editor = pref.edit()
             editor.putInt("lastaya", currenttrack)
-            val ap: ArrayList<AudioPlayed?>? = null
+
+
+            val ap: ArrayList<AudioPlayed> = ArrayList<AudioPlayed>()
             val audioPlayed = AudioPlayed()
             audioPlayed.surah = surah
             audioPlayed.ayah = currenttrack
@@ -2301,7 +2321,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             }
             ap?.add(audioPlayed)
             editor.apply()
-            ConfigPreferences.setLastPlayedAudio(this, ap, surah.toString())
+            AudioPrefrence.setLastPlayedAudio(this, ap, surah.toString())
         }
         //unregister broadcast for download ayat
         /*     LocalBroadcastManager.getInstance(this@ShowMushafActivity)

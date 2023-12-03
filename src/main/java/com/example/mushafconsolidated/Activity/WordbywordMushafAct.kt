@@ -1,7 +1,8 @@
 package com.example.mushafconsolidated.Activity
 
 
-import AudioPlayed
+import Utility.AudioPlayed
+import Utility.AudioPrefrence
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
@@ -57,7 +58,6 @@ import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.Entities.TameezEnt
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
-
 import com.example.mushafconsolidated.fragments.newFlowAyahWordAdapter
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.model.CorpusAyahWord
@@ -70,7 +70,6 @@ import com.example.mushafconsolidated.receiversimport.FileManager
 import com.example.mushafconsolidated.receiversimport.QuranValidateSources
 import com.example.mushafconsolidated.receiversimport.Settingsss
 import com.example.mushafconsolidated.settingsimport.Constants
-import com.example.utility.ConfigPreferences
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.MovableFloatingActionButton
 import com.google.android.exoplayer2.C
@@ -1947,7 +1946,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             val editor = pref.edit()
             editor.putInt("lastaya", currenttrack)
             editor.putInt("trackposition", hlights[currenttrack]!![0].passage!!)
-            val ap: ArrayList<AudioPlayed?>? = null
+            val ap: java.util.ArrayList<AudioPlayed> = java.util.ArrayList<AudioPlayed>()
             val audioPlayed = AudioPlayed()
             audioPlayed.surah = surah
             audioPlayed.ayah = currenttrack
@@ -1955,7 +1954,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             audioPlayed.trackposition = (hlights[currenttrack]?.get(0)!!.passage!!)
             ap?.add(audioPlayed)
             editor.apply()
-            ConfigPreferences.setLastPlayedAudio(this, ap, surah.toString())
+            AudioPrefrence.setLastPlayedAudio(this, ap, surah.toString())
         }
         //unregister broadcast for download ayat
 
