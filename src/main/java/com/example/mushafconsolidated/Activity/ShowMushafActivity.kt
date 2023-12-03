@@ -1139,7 +1139,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             }
         }
     }
-    private val sendUpdatesToUIPassage: Runnable = object : Runnable {
+    private val sendUpdatesToUIPassages: Runnable = object : Runnable {
         // int currentAdapterP=hlights.get(currenttrack-1).get(0).passage;
         override fun run() {
             val holder: RecyclerView.ViewHolder?
@@ -1154,22 +1154,14 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                         hlights[currenttrack]
                     )[0].passage!!
                 )
-                if (currenttrack < Objects.requireNonNull<ArrayList<AyahCoordinate>>(
-                        hlights[hlights.size]
-                    )[0].passage!!
-                ) recyclerView.post {
+                if (currenttrack < Objects.requireNonNull<ArrayList<AyahCoordinate>>(hlights[hlights.size])[0].passage!!) recyclerView.post {
                     recyclerView.scrollToPosition(
                         Objects.requireNonNull<ArrayList<AyahCoordinate>>(
                             hlights[currenttrack + 1]
                         )[0].passage!!
                     )
                 } else {
-                    recyclerView.post {
-                        recyclerView.scrollToPosition(
-                            Objects.requireNonNull<ArrayList<AyahCoordinate>>(
-                                hlights[currenttrack]
-                            )[0].passage!!
-                        )
+                    recyclerView.post {recyclerView.scrollToPosition(Objects.requireNonNull<ArrayList<AyahCoordinate>>(hlights[currenttrack])[0].passage!! )
                     }
                 }
             } else {
@@ -1226,10 +1218,11 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 }
             }
             var holderp: RecyclerView.ViewHolder? = null
+
+
+
             if (currenttrack > 1) {
-                val pos: Int = Objects.requireNonNull<ArrayList<AyahCoordinate>>(
-                    hlights[currenttrack - 1]
-                )[0].passage!!
+                val pos: Int = Objects.requireNonNull<ArrayList<AyahCoordinate>>(hlights[currenttrack - 1])[0].passage!!
                 holderp = recyclerView.findViewHolderForAdapterPosition(pos)!!
             }
             //   RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(1);
@@ -1282,6 +1275,160 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             }
         }
     }
+
+
+    private val sendUpdatesToUIPassage: Runnable = object : Runnable {
+        val trackchange = false
+
+        // int currentAdapterP=hlights.get(currenttrack-1).get(0).getPassage();
+        override fun run() {
+            val holder: RecyclerView.ViewHolder?
+            val ab = java.lang.StringBuilder()
+            ab.append("Aya").append(":").append(currenttrack).append(" ").append("of")
+                .append(versescount)
+            ayaprogress.text = ab.toString()
+            if (hlights[currenttrack] != null) {
+                holder = recyclerView.findViewHolderForAdapterPosition(
+                    Objects.requireNonNull<java.util.ArrayList<AyahCoordinate>?>(
+                        hlights[currenttrack]
+                    )[0].passage!!
+                )
+                if (currenttrack < Objects.requireNonNull<java.util.ArrayList<AyahCoordinate>?>(
+                        hlights[hlights.size]
+                    )[0].passage!!
+                ) recyclerView.post {
+                    recyclerView.scrollToPosition(
+                        Objects.requireNonNull<java.util.ArrayList<AyahCoordinate>?>(
+                            hlights[currenttrack + 1]
+                        )[0].passage!!
+                    )
+                } else {
+                    recyclerView.post {
+                        recyclerView.scrollToPosition(
+                            Objects.requireNonNull<java.util.ArrayList<AyahCoordinate>?>(
+                                hlights[currenttrack]
+                            )[0].passage!!
+                        )
+                    }
+                }
+            } else {
+                holder = recyclerView.findViewHolderForAdapterPosition(
+                    Objects.requireNonNull<java.util.ArrayList<AyahCoordinate>?>(
+                        hlights[currenttrack + 1]
+                    )[0].passage!!
+                )
+                if (currenttrack < Objects.requireNonNull<java.util.ArrayList<AyahCoordinate>?>(
+                        hlights[hlights.size]
+                    )[0].passage!!
+                ) recyclerView.post {
+                    recyclerView.scrollToPosition(
+                        Objects.requireNonNull<java.util.ArrayList<AyahCoordinate>?>(
+                            hlights[currenttrack + 1]
+                        )[0].passage!!
+                    )
+                }
+                currenttrack++
+            }
+            if (null != holder) {
+                try {
+                    //      int drawingCacheBackgroundColor = holder.itemView.findViewById(R.id.rukuview).getDrawingCacheBackgroundColor();
+                    if (holder.itemView.findViewById<View?>(R.id.quran_textView) != null) {
+                        if (isNightmode == "light") {
+
+                            //    holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
+                            val textView =
+                                holder.itemView.findViewById<TextView>(R.id.quran_textView)
+                            val odd_item_bg_brown = R.color.odd_item_bg_brown
+                            setVerseHighLight(textView, Color.RED)
+                        } else if (isNightmode == "brown") {
+
+                            //    holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
+                            val textView =
+                                holder.itemView.findViewById<TextView>(R.id.quran_textView)
+                            setVerseHighLight(textView, Color.BLUE)
+                        } else {
+                            val textView =
+                                holder.itemView.findViewById<TextView>(R.id.quran_textView)
+                            setVerseHighLight(textView, Color.CYAN)
+
+                            //   holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Constant.MUSLIMMATE);
+                        }
+                    } else if (holder.itemView.findViewById<View?>(R.id.rukuview) != null) {
+                        println("rukuvue")
+                    }
+                } catch (exception: java.lang.NullPointerException) {
+                    Toast.makeText(
+                        this@ShowMushafActivity,
+                        "null pointer udapte",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            var holderp: RecyclerView.ViewHolder? = null
+            if (currenttrack > 1) {
+                val pos: Int = Objects.requireNonNull<java.util.ArrayList<AyahCoordinate>?>(
+                    hlights[currenttrack - 1]
+                )[0].passage!!
+                holderp = recyclerView.findViewHolderForAdapterPosition(pos)
+            }
+            //   RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(1);
+            val temp = 2
+            if (null != holderp) {
+                try {
+                    val arrayList = java.util.ArrayList<String>()
+                    val fl = FlowLayout(this@ShowMushafActivity, arrayList)
+                    val arrayList1 = fl.arrayList
+                    fl.getChildAt(ayah)
+                    val drawingCacheBackgroundColor =
+                        holderp.itemView.findViewById<View>(R.id.quran_textView).drawingCacheBackgroundColor
+                    if (holderp.itemView.findViewById<View?>(R.id.quran_textView) != null) {
+                        //    holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
+                        holderp.itemView.findViewById<View>(R.id.quran_textView)
+                            .setBackgroundColor(drawingCacheBackgroundColor)
+                    }
+                } catch (exception: java.lang.NullPointerException) {
+                    Toast.makeText(
+                        this@ShowMushafActivity,
+                        "UPDATE HIGHLIGHTED",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
+            handler.postDelayed(this, 5000)
+        }
+
+        private fun setVerseHighLight(textView: TextView, foreGroundcoloer: Int) {
+            val str = textView.text.toString()
+            val span = SpannableStringBuilder(str)
+            try {
+                span.setSpan(
+                    ForegroundColorSpan(foreGroundcoloer),
+                    Objects.requireNonNull<java.util.ArrayList<AyahCoordinate>?>(
+                        hlights[currenttrack]
+                    )[0].start!!,
+                    Objects.requireNonNull<java.util.ArrayList<AyahCoordinate>?>(
+                        hlights[currenttrack]
+                    )[0].end!!,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                textView.text = span
+                val split = str.split("\n".toRegex()).dropLastWhile { it.isEmpty() }
+                    .toTypedArray()
+            } catch (exception: java.lang.IndexOutOfBoundsException) {
+                println(exception)
+            }
+        }
+    }
+
+
+
+
+
+
+
+
 
     private fun releasePlayer() {
         if (player != null) {
@@ -1377,6 +1524,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             //   qariname.setText(readerName);
             player!!.prepare()
             if (resume) {
+                recyclerView.post { recyclerView.scrollToPosition(currenttrack)}
                 player!!.seekToDefaultPosition(resumelastplayed)
             }
             if (audioSettingBottomBehaviour.state == BottomSheetBehavior.STATE_EXPANDED) {
