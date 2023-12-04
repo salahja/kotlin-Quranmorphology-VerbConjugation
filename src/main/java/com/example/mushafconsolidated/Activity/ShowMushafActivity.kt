@@ -1524,7 +1524,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             //   qariname.setText(readerName);
             player!!.prepare()
             if (resume) {
-                recyclerView.post { recyclerView.scrollToPosition(currenttrack)}
+             //   recyclerView.post { recyclerView.scrollToPosition(currenttrack)}
                 player!!.seekToDefaultPosition(resumelastplayed)
             }
             if (audioSettingBottomBehaviour.state == BottomSheetBehavior.STATE_EXPANDED) {
