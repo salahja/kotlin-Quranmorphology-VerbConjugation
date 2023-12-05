@@ -345,11 +345,10 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         if (aplayed != null) {
             //     resumelastplayed = aplayed["ayah"]
             val get = aplayed.get("ayah")
-            resumelastplayed=get.asInt
+            resumelastplayed = get.asInt
             //  resumelastplayed=1
-        }
-        else{
-            resumelastplayed=1
+        } else {
+            resumelastplayed = 1
         }
     }
 
@@ -976,7 +975,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 //   qariname.setText(readerName);
                 player!!.prepare()
                 if (resume) {
-                    recyclerView.post { recyclerView.scrollToPosition(currenttrack)}
+                    recyclerView.post { recyclerView.scrollToPosition(currenttrack) }
                     player!!.seekToDefaultPosition(resumelastplayed)
                 }
                 if (audioSettingBottomBehaviour.state == BottomSheetBehavior.STATE_EXPANDED) {
@@ -1503,7 +1502,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         val ex = Executors.newSingleThreadExecutor()
         ex.execute {
             //do inbackground
-           // bysurah(dialog, ex)
+            // bysurah(dialog, ex)
             bysurah(dialog, scope, corpus, listener)
         }
     }
@@ -1618,8 +1617,6 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
 
         }
-
-
 
 
     }
@@ -1998,7 +1995,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             ayah = ayah1 - 1
             DownloadIfnotPlay()
             isSingle = false
-        }else{
+        } else {
             qurangrammarmenu(v, position)
         }
     }
@@ -2015,7 +2012,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         val colorsentence = view.findViewById<SwitchCompat>(R.id.colorized)
 
 
-          if (tag == "overflowbottom") {
+        if (tag == "overflowbottom") {
             val chapterno = corpusSurahWord!![position - 1].corpus.surah
             val verse = corpusSurahWord!![position - 1].corpus.ayah
             val name = surahNameArabic
@@ -2102,6 +2099,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     private fun initDialogComponents(position: Int) {
 
     }
+
     private fun takeScreenShot(view: View) {
         val date = Date()
         val format = DateFormat.format("MM-dd-yyyy_hh:mm:ss", date)
@@ -2116,7 +2114,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             val bitmap = getBitmapFromView(view, color)
             val imageFile = File(path)
             val fileOutputStream = FileOutputStream(imageFile)
-          //  bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream)
+            //  bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream)
             fileOutputStream.flush()
             fileOutputStream.close()
             shareScreenShot(imageFile)
@@ -2159,6 +2157,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         //    finish();
 
     }
+
     override fun onDestroy() {
         super.onDestroy()
         rxFetch!!.deleteAll()
