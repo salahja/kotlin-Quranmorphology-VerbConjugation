@@ -15,6 +15,7 @@ import com.example.mushafconsolidated.Entities.NewCorpusExpandWbwPOJO
 import com.example.mushafconsolidated.Entities.NounCorpusBreakup
 import com.example.mushafconsolidated.Entities.RootVerbDetails
 import com.example.mushafconsolidated.Entities.RootWordDetails
+import com.example.mushafconsolidated.Entities.ShartListingPojo
 import com.example.mushafconsolidated.Entities.ShartPOJO
 import com.example.mushafconsolidated.Entities.SifaEntityPojo
 import com.example.mushafconsolidated.Entities.SifaPOJO
@@ -52,6 +53,8 @@ interface RawDao {
     @RawQuery
     fun getCorpusWbwSurahAyah(query: SupportSQLiteQuery): List<CorpusExpandWbwPOJO>
 
+    @RawQuery
+    fun getShartListing(query: SupportSQLiteQuery): List<ShartListingPojo>
     @RawQuery
     fun getSifaIndexes(query: SupportSQLiteQuery): List<SifaEntityPojo?>?
 

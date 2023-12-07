@@ -7,6 +7,7 @@ import Utility.AudioPrefrence
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.app.Service
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -16,6 +17,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
+import android.os.IBinder
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.BackgroundColorSpan
@@ -2267,6 +2269,12 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             //check if the internet is opened
             DownLoadIfNot(internetStatus, Links as ArrayList<String>)
         } else {
+         //   val intent = Intent(this@ShowMushafActivity, exoservice::class.java)
+         //   intent.putStringArrayListExtra(AudioAppConstants.Download.DOWNLOAD_LINKS, marray)
+         //   intent.putExtra(AudioAppConstants.Download.DOWNLOAD_LOCATION, app_folder_path)
+
+         //   startService(intent)
+
             initializePlayer()
             playerFooter.visibility = View.VISIBLE
             audio_settings_bottom.visibility = View.GONE
@@ -2403,10 +2411,10 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                  .unregisterReceiver(downloadPageAya)*/
         //stop flag of auto start
         startBeforeDownload = false
-        if (player != null) {
+    /*    if (player != null) {
             player!!.release()
         }
-
+*/
         // finish();
     }
 
@@ -2491,6 +2499,24 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             //stop download service
             stopService(Intent(this, DownloadService::class.java))
         }
+    }
+}
+
+class exoservice : Service(){
+    override fun onBind(p0: Intent?): IBinder? {
+        TODO("Not yet implemented")
+    }
+
+    override fun onStart(intent: Intent?, startId: Int) {
+        super.onStart(intent, startId)
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        return super.onStartCommand(intent, flags, startId)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }
 

@@ -654,8 +654,7 @@ class ConjugatorAct : BaseActivity(), View.OnClickListener {
 
     private fun InitDiaalog(root: String, wazan: String, verbtype: String) {
         val dataBundle = Bundle()
-        val selectedRadioButton: RadioButton =
-            findViewById(verbmood.getCheckedRadioButtonId())
+        val selectedRadioButton: RadioButton =findViewById(verbmood.getCheckedRadioButtonId())
         //get RadioButton text
         val selected: String = selectedRadioButton.text.toString()
         // display it as Toast to the user

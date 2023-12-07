@@ -1,5 +1,7 @@
 package com.example.mushafconsolidated.Entities
 
+import android.text.SpannableString
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 //primaryKeys ={"translation_id","verse_id"}
@@ -34,7 +36,8 @@ class CorpusExpandWbwPOJO constructor(
     var passage_no: Int = 0
     var ar_irab_two: String? = null
     var tafsir_kathir: String? = null
-
+    @Ignore
+    var spannableVerse: SpannableString? = null
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
     var en_transliteration: String? = null

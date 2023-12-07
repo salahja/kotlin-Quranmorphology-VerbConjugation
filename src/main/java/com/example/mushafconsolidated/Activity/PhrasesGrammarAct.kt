@@ -16,6 +16,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.format.DateFormat
@@ -57,25 +58,31 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant
 import com.example.Constant.SURAHFRAGTAG
+import com.example.compose.BottomCompose
 import com.example.mushafconsolidated.BottomOptionDialog
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
+import com.example.mushafconsolidated.Entities.CorpusExpandWbwPOJO
 import com.example.mushafconsolidated.Entities.HalEnt
 import com.example.mushafconsolidated.Entities.LiajlihiEnt
 import com.example.mushafconsolidated.Entities.MafoolBihi
 import com.example.mushafconsolidated.Entities.MafoolMutlaqEnt
 import com.example.mushafconsolidated.Entities.QuranEntity
+import com.example.mushafconsolidated.Entities.ShartListingPojo
 import com.example.mushafconsolidated.Entities.TameezEnt
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.SurahSummary
+import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.ajroomiya.NewAjroomiyaDetailHostActivity
-import com.example.mushafconsolidated.databinding.NewFragmentReadingBinding
+import com.example.mushafconsolidated.databinding.PhrasesNewFragmentReadingBinding
 import com.example.mushafconsolidated.fragments.BookMarkCreateFrag
 import com.example.mushafconsolidated.fragments.BookmarkFragment
 import com.example.mushafconsolidated.fragments.NewSurahDisplayFrag
+import com.example.mushafconsolidated.fragments.PhrasesDisplayFrag
+import com.example.mushafconsolidated.fragments.PhrasesFlowAdapter
+import com.example.mushafconsolidated.fragments.ShartPhrasesFlowAdapter
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet
-import com.example.mushafconsolidated.fragments.newFlowAyahWordAdapter
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.model.NewQuranCorpusWbw
 import com.example.mushafconsolidated.model.QuranCorpusWbw
@@ -86,6 +93,7 @@ import com.example.sentenceanalysis.SentenceGrammarAnalysis
 import com.example.surahdisplaycompose.SurahComposeAct
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.QuranGrammarApplication
+import com.example.utility.QuranGrammarApplication.Companion.context
 import com.example.voiceai.VoiceRecognitionActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -108,15 +116,18 @@ import java.io.IOException
 import java.util.Date
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
-class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
+class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnClickListener {
+    private lateinit var accusativesSentences: List<CorpusExpandWbwPOJO>
+    private lateinit var shartSentences:List<ShartListingPojo>
     private var bundle: Intent? = null
     private var bundles: Bundle? = null
     private lateinit var mainViewModel: QuranVIewModel
     private var corpusSurahWord: List<QuranCorpusWbw>? = null
 
     private var newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
-    private lateinit var newflowAyahWordAdapter: newFlowAyahWordAdapter
-    lateinit var binding: NewFragmentReadingBinding
+    private lateinit var newflowAyahWordAdapter: PhrasesFlowAdapter
+    private lateinit var shartFlowAdapter: ShartPhrasesFlowAdapter
+    lateinit var binding: PhrasesNewFragmentReadingBinding
     private lateinit var surahWheelDisplayData: Array<String>
     private lateinit var ayahWheelDisplayData: Array<String>
     private lateinit var btnBottomSheet: FloatingActionButton
@@ -139,6 +150,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
 
     // --Commented out by Inspection (13/08/23, 4:31 pm):RelativeLayout layoutBottomSheet;
     var versescount = 0
+    var harf=""
     private var chapterorpart = false
 
     // --Commented out by Inspection (14/08/21, 7:26 PM):ChipNavigationBar chipNavigationBar;
@@ -176,6 +188,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
     private lateinit var parentRecyclerView: RecyclerView
     private var mushafview = false
 
+  //  lateinit var rdamiri: RadioButton
     override fun onBackPressed() {
         val myFragment: NewSurahDisplayFrag? =
             supportFragmentManager.findFragmentByTag(SURAHFRAGTAG) as NewSurahDisplayFrag?
@@ -239,10 +252,10 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
-        this.shared = PreferenceManager.getDefaultSharedPreferences(this@QuranGrammarAct)
+        this.shared = PreferenceManager.getDefaultSharedPreferences(this@PhrasesGrammarAct)
         val preferences = shared.getString("themepref", "dark")
         super.onCreate(savedInstanceState)
-        binding = NewFragmentReadingBinding.inflate(layoutInflater)
+        binding = PhrasesNewFragmentReadingBinding.inflate(layoutInflater)
 
         mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
         val view = binding.root
@@ -251,6 +264,8 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
         // Get a reference to the ViewModel scoped to its Activity
         //    setContentView(R.layout.new_fragment_reading)
         materialToolbar = binding.toolbarmain
+
+
 
 
 
@@ -272,7 +287,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
             brokenPlurarColoragainstBlack = prefs.getInt("brokenwhite", Constant.DARKMAGENTA)
         }
         if (isFirstTime) {
-            val intents = Intent(this@QuranGrammarAct, ActivitySettings::class.java)
+            val intents = Intent(this@PhrasesGrammarAct, ActivitySettings::class.java)
             startActivity(intents)
         }
         android.preference.PreferenceManager.setDefaultValues(this, R.xml.preferences, false)
@@ -286,7 +301,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
         bundles = intent.extras
         if (bundles != null) {
             bundles = intent.extras
-
+      harf=      bundles!!.getString(Constant.HARF,"")
             val chapter = bundles!!.getInt(Constant.SURAH_ID, 1)
             mushafview = bundles!!.getBoolean("passages", false)
             val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
@@ -321,7 +336,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
 
 
             supportFragmentManager.commit {
-                replace<NewSurahDisplayFrag>(R.id.frame_container_qurangrammar, SURAHFRAGTAG)
+                replace<PhrasesDisplayFrag>(R.id.frame_container_qurangrammar, SURAHFRAGTAG)
                 setReorderingAllowed(true)
                 addToBackStack(null)
                 setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
@@ -357,31 +372,31 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 val fragmentManager = supportFragmentManager
                 val transaction = fragmentManager.beginTransaction()
                 transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
-                val newCustomFragment = NewSurahDisplayFrag.newInstance()
+                val newCustomFragment = PhrasesDisplayFrag.newInstance()
                 transaction.replace(R.id.frame_container_qurangrammar, newCustomFragment)
                 transaction.addToBackStack(null)
                 transaction.commit()
                 navigationView.setCheckedItem(R.id.surahnav)
             }
             if (item.itemId == R.id.mushafview) {
-                val settingints = Intent(this@QuranGrammarAct, ShowMushafActivity::class.java)
+                val settingints = Intent(this@PhrasesGrammarAct, ShowMushafActivity::class.java)
 
                 startActivity(settingints)
             }
             if (item.itemId == R.id.conjugationnav) {
                 materialToolbar.title = "Conjugator"
-                val conjugatorintent = Intent(this@QuranGrammarAct, ConjugatorAct::class.java)
+                val conjugatorintent = Intent(this@PhrasesGrammarAct, ConjugatorAct::class.java)
                 startActivity(conjugatorintent)
             }
             if (item.itemId == R.id.dua) {
                 materialToolbar.title = "Hisnul Muslim-Dua;s"
                 //  val searchintent = Intent(this@QuranGrammarAct, ComposeAct::class.java)
-                val searchintent = Intent(this@QuranGrammarAct, HisnulComposeAct::class.java)
+                val searchintent = Intent(this@PhrasesGrammarAct, HisnulComposeAct::class.java)
                 startActivity(searchintent)
             }
             if (item.itemId == R.id.names) {
                 materialToolbar.title = "Quran Audio"
-                val settingint = Intent(this@QuranGrammarAct, NamesGridImageAct::class.java)
+                val settingint = Intent(this@PhrasesGrammarAct, NamesGridImageAct::class.java)
                 settingint.putExtra(Constants.SURAH_INDEX, chapterno)
                 startActivity(settingint)
             }
@@ -464,15 +479,10 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 startActivity(searchs)
             }
             if (item.itemId == R.id.bottomcompose) {
-        /*        drawerLayout.closeDrawers()
+                drawerLayout.closeDrawers()
                 materialToolbar.title = "Topics"
                 val searchs = Intent(this, BottomCompose::class.java)
-                startActivity(searchs)*/
-
-                val conjugatorintent = Intent(this@QuranGrammarAct, PhrasesGrammarAct::class.java)
-
-                startActivity(conjugatorintent)
-
+                startActivity(searchs)
             }
 
 
@@ -570,7 +580,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                     numbers[i - 1] = i.toString() + ""
                 }
                 verseAdapter1 = ArrayAdapter<String?>(
-                    this@QuranGrammarAct,
+                    this@PhrasesGrammarAct,
                     R.layout.spinner_layout_larg, numbers
                 )
                 verses.adapter = verseAdapter1
@@ -657,9 +667,9 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
         val surahArrays = resources.getStringArray(R.array.surahdetails)
         val versearrays = resources.getStringArray(R.array.versescounts)
         val intarrays = resources.getIntArray(R.array.versescount)
-        val dialogPicker = AlertDialog.Builder(this@QuranGrammarAct)
+        val dialogPicker = AlertDialog.Builder(this@PhrasesGrammarAct)
         val soraList = mainViewModel.loadListschapter().value as ArrayList<ChaptersAnaEntity>
-        val inflater = this@QuranGrammarAct.layoutInflater
+        val inflater = this@PhrasesGrammarAct.layoutInflater
         val view = inflater.inflate(R.layout.activity_wheel_t, null)
         //  View view = inflater.inflate(R.layout.activity_wheel, null);
         dialogPicker.setView(view)
@@ -766,20 +776,20 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         alertDialog.show()
         val buttonPositive = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
-        buttonPositive.setTextColor(ContextCompat.getColor(this@QuranGrammarAct, R.color.green))
+        buttonPositive.setTextColor(ContextCompat.getColor(this@PhrasesGrammarAct, R.color.green))
         val buttonNegative = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
-        buttonNegative.setTextColor(ContextCompat.getColor(this@QuranGrammarAct, R.color.red))
+        buttonNegative.setTextColor(ContextCompat.getColor(this@PhrasesGrammarAct, R.color.red))
         when (preferences) {
             "light", "brown" -> {
                 buttonPositive.setTextColor(
                     ContextCompat.getColor(
-                        this@QuranGrammarAct,
+                        this@PhrasesGrammarAct,
                         R.color.colorMuslimMate
                     )
                 )
                 buttonNegative.setTextColor(
                     ContextCompat.getColor(
-                        this@QuranGrammarAct,
+                        this@PhrasesGrammarAct,
                         R.color.red
                     )
                 )
@@ -788,13 +798,13 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
             "blue" -> {
                 buttonPositive.setTextColor(
                     ContextCompat.getColor(
-                        this@QuranGrammarAct,
+                        this@PhrasesGrammarAct,
                         R.color.yellow
                     )
                 )
                 buttonNegative.setTextColor(
                     ContextCompat.getColor(
-                        this@QuranGrammarAct,
+                        this@PhrasesGrammarAct,
                         R.color.Goldenrod
                     )
                 )
@@ -803,13 +813,13 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
             "green" -> {
                 buttonPositive.setTextColor(
                     ContextCompat.getColor(
-                        this@QuranGrammarAct,
+                        this@PhrasesGrammarAct,
                         R.color.yellow
                     )
                 )
                 buttonNegative.setTextColor(
                     ContextCompat.getColor(
-                        this@QuranGrammarAct,
+                        this@PhrasesGrammarAct,
                         R.color.cyan_light
                     )
                 )
@@ -893,14 +903,24 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
     ) {
         runOnUiThread { dialog.show() }
         ex.launch {
-            mafoolbihiwords = mainViewModel.getMafoolSurah(chapterno).value
-            Jumlahaliya = mainViewModel.getHalsurah(chapterno).value
-            Tammezent = mainViewModel.getTameezsurah(chapterno).value
-            Liajlihient = mainViewModel.getLiajlihiSurah(chapterno).value
-            Mutlaqent = mainViewModel.getMutlaqSurah(chapterno).value
-            BadalErabNotesEnt = mainViewModel.getbadalSurah(chapterno).value
+            val util= Utils(context)
+           if(harf.equals("inna")) {
+               accusativesSentences = util.getaccusatives(chapterno)
+               for (ac in accusativesSentences) {
+                   ac.spannableVerse= SpannableString(ac.qurantext)
+               }
+               corpus.HarfNasbDb(newnewadapterlist,chapterno,accusativesSentences)
 
+           } else if(harf.equals("shart")){
+               shartSentences = util.getShart(chapterno)
+               for (ac in shartSentences) {
+                   ac.spannableVerse= SpannableString(ac.qurantext)
+               }
+               corpus.setShartDisplay(shartSentences)
+               accusativesSentences= emptyList()
+               HightLightKeyWord(shartSentences)
 
+           }
             allofQuran = mainViewModel.getquranbySUrah(chapterno).value
 
 
@@ -912,38 +932,6 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
 
 
 
-            if (kana) {
-                newnewadapterlist.let { corpus.setKana(it, chapterno) }
-            }
-            if (shart) {
-                newnewadapterlist.let { corpus.setShart(it, chapterno) }
-            }
-            if (mudhaf) {
-                newnewadapterlist.let {
-                    corpus.setMudhafFromDB(
-                        it,
-                        chapterno
-                    )
-                }
-                //   corpusayahWordArrayList?.get(0)?.let { corpus.setMudhafFromDB(it, chapterno) }
-            }
-            if (mausoof) {
-                newnewadapterlist.let {
-                    corpus.SetMousufSifaDB(
-                        it,
-                        chapterno
-                    )
-                }
-                //  corpus.NewMAOUSOOFSIFA(corpusayahWordArrayList);
-            }
-            if (harfnasb) {
-                newnewadapterlist.let {
-                    corpus.newnewHarfNasbDb(
-                        it,
-                        chapterno
-                    )
-                }
-            }
             //
             parentRecyclerView = binding.overlayViewRecyclerView
 
@@ -955,17 +943,19 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
             header.add(versescount.toString())
             header.add(chapterno.toString())
             header.add(surahArabicName)
-            HightLightKeyWord()
+
             runOnUiThread {
                 dialog.dismiss()
             }
 
 
             val viewmodel: QuranVIewModel by viewModels()
-            if (!mushafview) {
+            if (accusativesSentences.isNotEmpty()) {
                 // viewmodel.getVersesBySurahLive(chapterno).observe(this, {
                 //    allofQuran=it
-                newflowAyahWordAdapter = newFlowAyahWordAdapter(
+                newflowAyahWordAdapter = PhrasesFlowAdapter(
+
+                    accusativesSentences,
                     false,
                     Mutlaqent,
                     Tammezent,
@@ -976,25 +966,55 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                     header,
                     allofQuran,
                     newnewadapterlist,
-                    this@QuranGrammarAct,
+                    this@PhrasesGrammarAct,
                     surahArabicName,
                     isMakkiMadani,
                     listener
                 )
 
-                newflowAyahWordAdapter.addContext(this@QuranGrammarAct)
+                newflowAyahWordAdapter.addContext(this@PhrasesGrammarAct)
                 parentRecyclerView.setHasFixedSize(true)
                 parentRecyclerView.adapter = newflowAyahWordAdapter
                 //   flowAyahWordAdapter.notifyDataSetChanged()
                 parentRecyclerView.post { parentRecyclerView.scrollToPosition(verseNo) }
                 //   })
+            } else{
+                shartFlowAdapter = ShartPhrasesFlowAdapter(
+
+                    shartSentences,
+                    false,
+                    Mutlaqent,
+                    Tammezent,
+                    BadalErabNotesEnt,
+                    Liajlihient,
+                    Jumlahaliya,
+                    mafoolbihiwords,
+                    header,
+                    allofQuran,
+                    newnewadapterlist,
+                    this@PhrasesGrammarAct,
+                    surahArabicName,
+                    isMakkiMadani,
+                    listener
+                )
+
+                shartFlowAdapter.addContext(this@PhrasesGrammarAct)
+                parentRecyclerView.setHasFixedSize(true)
+                parentRecyclerView.adapter = shartFlowAdapter
+                //   flowAyahWordAdapter.notifyDataSetChanged()
+                parentRecyclerView.post { parentRecyclerView.scrollToPosition(verseNo) }
+
+
+
+
+
             }
 
         }
 
     }
 
-    private fun HightLightKeyWord() {
+    private fun HightLightKeyWord(shartSentences: List<ShartListingPojo>) {
         val inshartiastr = "«إِنْ» شرطية"
         val izazarfshartsrt = "وإذا ظرف يتضمن معنى الشرط"
         val izashartiastr = "«إِذا» ظرف يتضمن معنى الشرط"
@@ -1059,7 +1079,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
         mafoolbihi.add("مفعول به.(")
         mafoolbihi.add("في محل نصب مفعول")
         mafoolbihi.add("مفعول")
-        for (pojo in allofQuran!!) {
+        for (pojo in shartSentences!!) {
             //  String ar_irab_two = pojo.getAr_irab_two();
             val ar_irab_two = pojo.ar_irab_two
             val str = SpannableStringBuilder(ar_irab_two)
@@ -1185,7 +1205,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                  .show(supportFragmentManager, WordAnalysisBottomSheet.TAG)*/
 
 
-        val homeactivity = Intent(this@QuranGrammarAct, SentenceGrammarAnalysis::class.java)
+        val homeactivity = Intent(this@PhrasesGrammarAct, SentenceGrammarAnalysis::class.java)
         homeactivity.putExtras(dataBundle!!)
         //  val homeactivity = Intent(this@MainActivity, DownloadListActivity::class.java)
 
@@ -1228,7 +1248,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
             //    item.setdata(root!!WordMeanings,wbwRootwords,grammarRootsCombined);
             //   transactions.show(item);
             BookMarkCreateFrag.newInstance(data)
-                .show(this@QuranGrammarAct.supportFragmentManager, WordAnalysisBottomSheet.TAG)
+                .show(this@PhrasesGrammarAct.supportFragmentManager, WordAnalysisBottomSheet.TAG)
 
 
         }
@@ -1283,7 +1303,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
         } else if (tag == "colorize") {
             if (colortag) {
                 val editor =
-                    android.preference.PreferenceManager.getDefaultSharedPreferences(this@QuranGrammarAct)
+                    android.preference.PreferenceManager.getDefaultSharedPreferences(this@PhrasesGrammarAct)
                         .edit()
                 //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                 editor.putBoolean("colortag", false)
@@ -1291,7 +1311,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 ReloadActivity(colorsentence)
             } else {
                 val editor =
-                    android.preference.PreferenceManager.getDefaultSharedPreferences(this@QuranGrammarAct)
+                    android.preference.PreferenceManager.getDefaultSharedPreferences(this@PhrasesGrammarAct)
                         .edit()
                 //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                 editor.putBoolean("colortag", true)
@@ -1304,7 +1324,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
             val name = surahArabicName
             val data = arrayOf(chapterno.toString(), verse.toString(), name)
             BottomOptionDialog.newInstance(data)
-                .show(this@QuranGrammarAct.supportFragmentManager, WordAnalysisBottomSheet.TAG)
+                .show(this@PhrasesGrammarAct.supportFragmentManager, WordAnalysisBottomSheet.TAG)
         } else if (tag == "jumptofb") {
             initDialogComponents(position)
         } else if (tag == "sharefb") {
@@ -1328,7 +1348,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 override fun onMenuItemSelected(menu: MenuBuilder, item: MenuItem): Boolean {
                     if (item.itemId == R.id.actionTafsir) { // Handle option1 Click
                         val readingintent =
-                            Intent(this@QuranGrammarAct, TafsirFullscreenActivity::class.java)
+                            Intent(this@PhrasesGrammarAct, TafsirFullscreenActivity::class.java)
                         val chapterno = corpusSurahWord!![position - 1].corpus.surah
                         val verse = corpusSurahWord!![position - 1].corpus.ayah
                         readingintent.putExtra(Constant.SURAH_ID, chapterno)
@@ -1356,7 +1376,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                     }
                     if (item.itemId == R.id.ivHelp) { // Handle option2 Click
                         ParticleColorScheme.newInstance().show(
-                            this@QuranGrammarAct.supportFragmentManager,
+                            this@PhrasesGrammarAct.supportFragmentManager,
                             WordAnalysisBottomSheet.TAG
                         )
                         optionsMenu.dismiss()
@@ -1366,7 +1386,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                         if (colortag) {
                             val editor =
                                 android.preference.PreferenceManager.getDefaultSharedPreferences(
-                                    this@QuranGrammarAct
+                                    this@PhrasesGrammarAct
                                 )
                                     .edit()
                             //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
@@ -1376,7 +1396,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                         } else {
                             val editor =
                                 android.preference.PreferenceManager.getDefaultSharedPreferences(
-                                    this@QuranGrammarAct
+                                    this@PhrasesGrammarAct
                                 )
                                     .edit()
                             //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
@@ -1396,7 +1416,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
         } else if (tag == "help_img") {
             println("check")
             ParticleColorScheme.newInstance()
-                .show(this@QuranGrammarAct.supportFragmentManager, WordAnalysisBottomSheet.TAG)
+                .show(this@PhrasesGrammarAct.supportFragmentManager, WordAnalysisBottomSheet.TAG)
         } else if (tag == "qurantext") {
             val word: QuranEntity = if (position != 0) {
                 allofQuran!![position - 1]
@@ -1531,8 +1551,30 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
     }
 
     private fun initView() {
+/*        kanard=  binding.kana
+        innard=binding.inna
+        shartrd=binding.shart
+        mudhafrd=binding.mudhaf
+        mousufrd=binding.maousuf
+        innard.setOnClickListener(this)
+        kanard.setOnClickListener(this)
+        shartrd.setOnClickListener(this)
+        mudhafrd.setOnClickListener(this)
+        mousufrd.setOnClickListener(this)*/
         val linearLayoutManager = LinearLayoutManager(applicationContext)
         btnBottomSheet = binding.fab
+/*
+        innard.setOnClickListener(View.OnClickListener {
+
+            println("check")
+        })
+
+        kanard.setOnClickListener(View.OnClickListener {
+
+            println("check")
+        })
+*/
+
         val verlayViewRecyclerView = findViewById<RecyclerView>(R.id.overlayViewRecyclerView)
         verlayViewRecyclerView.layoutManager = linearLayoutManager
         // bookmarkchip.setOnClickListener(v -> CheckStringLENGTHS());
@@ -1571,6 +1613,10 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
         }*/
     companion object {
         private const val TAG = "fragment"
+    }
+
+    override fun onClick(p0: View?) {
+        TODO("Not yet implemented")
     }
 }
 

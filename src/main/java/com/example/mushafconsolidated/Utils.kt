@@ -23,6 +23,7 @@ import com.example.mushafconsolidated.Entities.Qari
 import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.Entities.RootVerbDetails
 import com.example.mushafconsolidated.Entities.RootWordDetails
+import com.example.mushafconsolidated.Entities.ShartListingPojo
 import com.example.mushafconsolidated.Entities.SifaEntity
 import com.example.mushafconsolidated.Entities.VerbCorpus
 import com.example.mushafconsolidated.Entities.VerbCorpusBreakup
@@ -119,7 +120,22 @@ class Utils {
         }
     }
 
-    fun getCorpusWbwBySurahAyahtopic(tid: Int, aid: Int): List<CorpusExpandWbwPOJO> {
+    fun getShart(tid:Int):List<ShartListingPojo>{
+        val sqlshart:String=("select newshart.surah,newshart.ayah,newshart.indexstart,newshart.indexend,newshart.shartindexstart,newshart.shartindexend,\n" +
+                "newshart.jawabshartindexstart,newshart.jawabshartindexend,newshart.harfwordno,newshart.shartstatwordno,newshart.shartendwordno,\n" +
+                "newshart.jawabstartwordno,newshart.jawabendwordno,qurans.page,qurans.passage_no,qurans.qurantext,qurans.has_prostration,qurans.translation,\n" +
+                "qurans.en_transliteration,qurans.en_arberry,qurans.en_jalalayn,qurans.ur_jalalayn,qurans.tafsir_kathir,qurans.ur_junagarhi,qurans.ar_irab_two\n" +
+                " from newshart,qurans where newshart.surah=qurans.surah and newshart.ayah=qurans.ayah and " +
+                "newshart.surah ==  \""
+                + tid + "\"")
+
+        val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlshart)
+        //  List<Book> result = booksDao.getBooks(query);
+        return database.RawDao().getShartListing(query)
+
+
+    }
+    fun getConditional(tid: Int): List<CorpusExpandWbwPOJO> {
         val sqlverb: String =
             ("SELECT CorpusExpand.rootaraone || rootaratwo || rootarathree || rootarafour || rootarafive AS root_a,\n" +
                     "       CorpusExpand.surah,\n" +
@@ -160,9 +176,64 @@ class Utils {
                     "       wbw\n" +
                     " WHERE CorpusExpand.surah == \""
                     + tid + "\""
-                    + "AND CorpusExpand.ayah== \""
-                    + aid + "\""
                     + "AND \n" +
+                    "(CorpusExpand.tagone=\"T\" OR CorpusExpand.tagtwo=\"T\" OR CorpusExpand.tagthree=\"T\"\tOR CorpusExpand.tagfour=\"T\" or CorpusExpand.tagfive=\"T\" or CorpusExpand.tagone=\"COND\" OR CorpusExpand.tagtwo=\"COND\" OR CorpusExpand.tagthree=\"COND\"\tOR CorpusExpand.tagfour=\"COND\" or CorpusExpand.tagfive=\"COND\") AND \n"+
+                    "       corpusexpand.surah = wbw.surah AND \n" +
+                    "       corpusexpand.ayah = wbw.ayah AND \n" +
+                    "       corpusexpand.wordno = wbw.wordno AND\n" +
+                    "       corpusexpand.surah = qurans.surah AND \n" +
+                    "       corpusexpand.ayah = qurans.ayah  \n" +
+                    " ORDER BY corpusexpand.surah,\n" +
+                    "          corpusexpand.ayah")
+        val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlverb)
+        //  List<Book> result = booksDao.getBooks(query);
+        return database.RawDao().getCorpusWbwSurahAyah(query)
+    }
+
+
+    fun getaccusatives(tid: Int): List<CorpusExpandWbwPOJO> {
+        val sqlverb: String =
+            ("SELECT CorpusExpand.rootaraone || rootaratwo || rootarathree || rootarafour || rootarafive AS root_a,\n" +
+                    "       CorpusExpand.surah,\n" +
+                    "       CorpusExpand.ayah,\n" +
+                    "       CorpusExpand.wordno,\n" +
+                    "       CorpusExpand.wordcount,\n" +
+                    "       Qurans.translation,\n" +
+                    "       Qurans.passage_no,\n" +
+                    "       Qurans.ar_irab_two,\n" +
+                    "       Qurans.tafsir_kathir,\n" +
+                    "       Qurans.en_transliteration,\n" +
+                    "       Qurans.en_jalalayn,\n" +
+                    "       Qurans.en_arberry,\n" +
+                    "       Qurans.ur_jalalayn,\n" +
+                    "       Qurans.ur_junagarhi,\n" +
+                    "       CorpusExpand.araone,\n" +
+                    "       CorpusExpand.aratwo,\n" +
+                    "       CorpusExpand.arathree,\n" +
+                    "       CorpusExpand.arafour,\n" +
+                    "       CorpusExpand.arafive,\n" +
+                    "       CorpusExpand.tagone,\n" +
+                    "       CorpusExpand.tagtwo,\n" +
+                    "       CorpusExpand.tagthree,\n" +
+                    "       CorpusExpand.tagfour,\n" +
+                    "       CorpusExpand.tagfive,\n" +
+                    "       CorpusExpand.detailsone,\n" +
+                    "       CorpusExpand.detailstwo,\n" +
+                    "       CorpusExpand.detailsthree,\n" +
+                    "       CorpusExpand.detailsfour,\n" +
+                    "       CorpusExpand.detailsfive,\n" +
+                    "       wbw.en,\n" +
+                    "       wbw.bn,\n" +
+                    "       wbw.[in],\n" +
+                    "       wbw.ur,\n" +
+                    "       qurans.qurantext\n" +
+                    "  FROM corpusexpand,\n" +
+                    "       qurans,\n" +
+                    "       wbw\n" +
+                    " WHERE CorpusExpand.surah == \""
+                    + tid + "\""
+                    + "AND \n" +
+                    "(CorpusExpand.tagone=\"ACC\" OR CorpusExpand.tagtwo=\"ACC\" OR CorpusExpand.tagthree=\"ACC\"\tOR CorpusExpand.tagfour=\"ACC\" or CorpusExpand.tagfive=\"ACC\") AND \n"+
                     "       corpusexpand.surah = wbw.surah AND \n" +
                     "       corpusexpand.ayah = wbw.ayah AND \n" +
                     "       corpusexpand.wordno = wbw.wordno AND\n" +

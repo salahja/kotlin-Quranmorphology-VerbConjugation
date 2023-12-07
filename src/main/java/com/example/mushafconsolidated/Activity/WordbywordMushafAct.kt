@@ -2161,7 +2161,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     override fun onDestroy() {
         super.onDestroy()
         rxFetch!!.deleteAll()
-        rxFetch!!.close()
+     //   rxFetch!!.close()
         //   rxFetch!!.close()
         if (enqueueDisposable != null && !enqueueDisposable!!.isDisposed) {
             enqueueDisposable!!.dispose()

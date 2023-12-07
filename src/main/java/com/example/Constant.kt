@@ -145,6 +145,7 @@ object Constant {
     const val WORDNUMBER = "wordnumber"
     const val AYAH_ID = "ayah_id"
     const val SURAH_ID = "surah_id"
+    const val HARF="harf"
     const val RECKT = "reckt"
     const val ISMAKKI = "ismakki"
     const val OVAL = "oval"
