@@ -83,6 +83,7 @@ import com.example.mushafconsolidated.settingsimport.Constants
 import com.example.mushafconsolidatedimport.ParticleColorScheme
 import com.example.sentenceanalysis.SentenceGrammarAnalysis
 import com.example.utility.CorpusUtilityorig
+import com.example.utility.CorpusUtilityorig.Companion.HightLightKeyWord
 import com.example.utility.MovableFloatingActionButton
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayer
@@ -922,7 +923,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 qariname.text = str
                 player!!.play()
             } else {
-                //      myPlayer mp=new myPlayer(ShowMushafActivity.this,surah);
+                //      myPlayer mp=new myPlayer(this,surah);
                 marray = createMediaItemsrx()
                 if (marray.isEmpty()) {
                     return false
@@ -1020,14 +1021,14 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 ayaLocations.add(
                     FileManager.createAyaAudioLinkLocation(
                         this,
-                        ShowMushafActivity.readerID,
+                        readerID,
                         ayaItem!!.ayah,
                         ayaItem.surah
                     )
                 )
                 val location = FileManager.createAyaAudioLinkLocation(
                     this,
-                    ShowMushafActivity.readerID,
+                    readerID,
                     ayaItem.ayah,
                     ayaItem.surah
                 )
@@ -1043,14 +1044,14 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 ayaLocations.add(
                     FileManager.createAyaAudioLinkLocation(
                         this,
-                        ShowMushafActivity.readerID,
+                        readerID,
                         ayaItem!!.ayah,
                         ayaItem.surah
                     )
                 )
                 val location = FileManager.createAyaAudioLinkLocation(
                     this,
-                    ShowMushafActivity.readerID,
+                    readerID,
                     ayaItem.ayah,
                     ayaItem.surah
                 )
@@ -1060,19 +1061,19 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             val quranbySurah: List<QuranEntity?>? = repository.getQuranbySurah(
                 surahselected
             )
-            val dir = getSaveDirs(this, ShowMushafActivity.readerID.toString())
+            val dir = getSaveDirs(this, readerID.toString())
             for (ayaItem in quranbySurah!!) {
                 /*      ayaLocations.add(
                           FileManager.createAyaAudioLinkLocation(
                               this,
-                              ShowMushafActivity.readerID,
+                              readerID,
                               ayaItem!!.ayah,
                               ayaItem.surah
                           )
                       )*/
                 val location = FileManager.createAyaAudioLinkLocationrx(
                     this,
-                    ShowMushafActivity.readerID,
+                    readerID,
                     ayaItem!!.ayah,
                     ayaItem!!.surah,
                     dir.toString()
@@ -1345,8 +1346,8 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 position: Int,
                 id: Long,
             ) {
-                ShowMushafActivity.readerName = readers.selectedItem.toString()
-                getReaderAudioLink(ShowMushafActivity.readerName)
+                readerName = readers.selectedItem.toString()
+                getReaderAudioLink(readerName)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -1589,7 +1590,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             manager.orientation = LinearLayoutManager.VERTICAL
             recyclerView.setHasFixedSize(true)
             manager.orientation = LinearLayoutManager.VERTICAL
-
+            HightLightKeyWord(allofQuran)
 
             // recyclerView.setItemAnimator(new DefaultItemAnimator());
             recyclerView.layoutManager = manager
@@ -1630,6 +1631,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 break
             } else if (reader.name_english == readerName) {
                 downloadLink = reader.url
+                audioType = reader.audiotype
                 readerID = reader.id
                 break
             }
@@ -1731,7 +1733,8 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 "00" + chap[0]!!.chapterid else if (suraLength == 2) suraID =
                 "0" + chap[0]!!.chapterid
             counter++
-            val s = downloadLink + chap[0]!!.chapterid + AudioAppConstants.Extensions.MP3
+
+            val s = downloadLink + suraID+ AudioAppConstants.Extensions.MP3
             downloadLin.add(s)
             Log.d("DownloadLinks", downloadLink + suraID + AudioAppConstants.Extensions.MP3)
         }
@@ -1749,11 +1752,11 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         //   ayaList.add(0, new Aya(1, 1, 1));
         //loop for all page ayat
 //check if readerID is 0
-        if (ShowMushafActivity.readerID == 0) {
+        if (readerID == 0) {
             for (qari in readersList) {
                 if (qari.name_english == selectedqari) {
-                    ShowMushafActivity.readerID = qari.id
-                    ShowMushafActivity.downloadLink = qari.url
+                    readerID = qari.id
+                    downloadLink = qari.url
                     break
                 }
             }
@@ -1763,7 +1766,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 //validate if aya download or not
                 if (!QuranValidateSources.validateAyaAudiorx(
                         this,
-                        ShowMushafActivity.readerID,
+                        readerID,
                         ayaItem!!.ayah,
                         ayaItem.surah
                     )
@@ -1795,10 +1798,10 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                     counter++
                     //add aya link to list
                     //chec
-                    downloadLinks.add(ShowMushafActivity.downloadLink + suraID + ayaID + AudioAppConstants.Extensions.MP3)
+                    downloadLinks.add(downloadLink + suraID + ayaID + AudioAppConstants.Extensions.MP3)
                     Log.d(
                         "DownloadLinks",
-                        ShowMushafActivity.downloadLink + suraID + ayaID + AudioAppConstants.Extensions.MP3
+                        downloadLink + suraID + ayaID + AudioAppConstants.Extensions.MP3
                     )
                 }
             }
@@ -1814,7 +1817,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             downloadFooter.visibility = View.GONE
             //    normalFooter.visibility = View.VISIBLE
             //stop flag of auto start audio after download
-            ShowMushafActivity.startBeforeDownload = false
+            startBeforeDownload = false
             //stop download service
             stopService(Intent(this, DownloadService::class.java))
         }
@@ -1870,12 +1873,12 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             // String app_folder_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/Audio/" + readerID;
             val app_folder_path =
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
-                    .toString() + "/audio/" + ShowMushafActivity.readerID
+                    .toString() + "/audio/" + readerID
             val f = File(app_folder_path)
             val path = f.absolutePath
             val file = File(path)
             if (!file.exists()) file.mkdirs()
-            ShowMushafActivity.startBeforeDownload = true
+            startBeforeDownload = true
             startButton!!.setVisibility(View.GONE)
             labelTextView!!.setText(R.string.fetch_started)
             progressBar!!.visibility = View.VISIBLE
@@ -1920,7 +1923,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     private fun enqueueFiles(Links: ArrayList<String>, filepath: String) {
         // readerID=getReaderId()
         val requestList =
-            getFileUrlUpdates(this, Links, filepath, ShowMushafActivity.readerID.toString())
+            getFileUrlUpdates(this, Links, filepath, readerID.toString())
         for (request in requestList) {
             request.groupId = RxFilesActivity.groupId
         }
@@ -2019,8 +2022,6 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             val data = arrayOf(chapterno.toString(), verse.toString(), name)
             BottomOptionDialog.newInstance(data)
                 .show(this@WordbywordMushafAct.supportFragmentManager, WordAnalysisBottomSheet.TAG)
-        } else if (tag == "jumptofb") {
-            initDialogComponents(position)
         } else if (tag == "sharefb") {
             takeScreenShot(window.decorView)
         } else if (tag == "helpfb") {
@@ -2053,25 +2054,12 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                         return true
                     }
 
-                    if (item.itemId == R.id.jumpto) { // Handle option2 Click
-                        //  SurahAyahPicker();
-                        initDialogComponents(position)
-                        optionsMenu.dismiss()
-                        return true
-                    }
-                    if (item.itemId == R.id.action_share) {
+                     if (item.itemId == R.id.action_share) {
                         takeScreenShot(window.decorView)
                         optionsMenu.dismiss()
                         return true
                     }
-                    if (item.itemId == R.id.ivHelp) { // Handle option2 Click
-                        ParticleColorScheme.newInstance().show(
-                            this@WordbywordMushafAct.supportFragmentManager,
-                            WordAnalysisBottomSheet.TAG
-                        )
-                        optionsMenu.dismiss()
-                        return true
-                    }
+
 
                     return false
                 }
