@@ -1695,7 +1695,8 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                     readerID,
                     ayaItem.ayah,
                     ayaItem.surah,
-                    dir.toString()
+                    dir.toString(),
+                    audioType
                 )
                 marray.add(MediaItem.fromUri(location))
             }

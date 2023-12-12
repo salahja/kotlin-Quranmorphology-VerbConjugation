@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import com.example.Constant
 import com.example.justJava.FrameSpan
 import com.example.mushafconsolidated.Entities.CorpusExpandWbwPOJO
+import com.example.mushafconsolidated.Entities.NasbListingPojo
 import com.example.mushafconsolidated.Entities.NewMudhafEntity
 import com.example.mushafconsolidated.Entities.NewShartEntity
 import com.example.mushafconsolidated.Entities.QuranEntity
@@ -26,6 +27,7 @@ import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.model.NewQuranCorpusWbw
 import com.example.mushafconsolidated.model.QuranCorpusWbw
+import org.ahocorasick.trie.Trie
 import java.util.regex.Pattern
 
 class CorpusUtilityorig(private var context: Context?) {
@@ -500,18 +502,17 @@ class CorpusUtilityorig(private var context: Context?) {
 
 
     fun HarfNasbDb(
-        corpusayahWordArrayList: LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>,
-        surah_id: Int,
-        accusativesSentences: List<CorpusExpandWbwPOJO>,
+
+
+        accusativesSentences: List<NasbListingPojo>,
     ) {
-        val utils = Utils(QuranGrammarApplication.context!!)
-        val harfnasb = utils.getHarfNasbIndexesnew(surah_id)
+
+
         var counter=0
-        //TODO SURA10 7 INNA ISM INNALIZINA(0,5,6,9 AND KHABR IN 10;8 oolika(0,12,len33)
-        if (surah_id == 2 || surah_id == 3 || surah_id == 4 || surah_id == 5 || surah_id == 6 || surah_id == 7 || surah_id == 8 || surah_id == 9 || surah_id == 10 || surah_id == 59 || surah_id == 60 || surah_id == 61 || surah_id == 62 || surah_id == 63 || surah_id == 64 || surah_id == 65 || surah_id == 66 || surah_id == 67 || surah_id == 68 || surah_id == 69 || surah_id == 70 || surah_id == 71 || surah_id == 72 || surah_id == 73 || surah_id == 74 || surah_id == 75 || surah_id == 76 || surah_id == 77 || surah_id == 78 || surah_id in 79..114) {
+
             var spannableverse: SpannableString
             val err = ArrayList<String>()
-            for (nasb in harfnasb!!) {
+            for (nasb in accusativesSentences!!) {
                 val indexstart = nasb!!.indexstart
                 val indexend = nasb.indexend
                 val ismstartindex = nasb.ismstart
@@ -520,33 +521,20 @@ class CorpusUtilityorig(private var context: Context?) {
                 val khabarend = nasb.khabarend
                 var ayahequals=false
 
-                counter++
-                try {
-                     ayahequals = nasb.ayah == accusativesSentences[counter - 1].ayah
-                }catch (e:IndexOutOfBoundsException){
-
+                if (dark) {
+                    Constant.harfinnaspanDark = ForegroundColorSpan(Color.GREEN)
+                } else {
+                    Constant.harfinnaspanDark =
+                        ForegroundColorSpan(Constant.KASHMIRIGREEN)
                 }
-                if(!ayahequals) {
-                    counter++
-                }
-
-
-                //  spannableverse = corpusayahWordArrayList[nasb.ayah - 1].spannableverse!!
-          /*      spannableverse =
-                    corpusayahWordArrayList[nasb.ayah - 1]!![0].spannableverse!!*/
                 try {
-                    val get = accusativesSentences.get(nasb.ayah)
-                    if(nasb.ayah==accusativesSentences[counter-1].ayah) {
 
 
-                        spannableverse = accusativesSentences[counter - 1].spannableVerse!!
+
+
+                        spannableverse = nasb.spannableVerse!!
                         try {
-                            if (dark) {
-                                Constant.harfinnaspanDark = ForegroundColorSpan(Color.GREEN)
-                            } else {
-                                Constant.harfinnaspanDark =
-                                    ForegroundColorSpan(Constant.KASHMIRIGREEN)
-                            }
+
                             //  harfinnaspanDark=new ForegroundColorSpan(GREEN);
                             spannableverse.setSpan(
                                 Constant.harfinnaspanDark,
@@ -593,7 +581,7 @@ class CorpusUtilityorig(private var context: Context?) {
                             //   System.out.println(nasb.getSurah() + ":" + nasb.getAyah());
                             err.add(nasb.surah.toString() + ":" + nasb.ayah)
                         }
-                    }
+
                 } catch (e:IndexOutOfBoundsException){
                     println("check")
                 }
@@ -601,7 +589,7 @@ class CorpusUtilityorig(private var context: Context?) {
 
 
             }
-        }
+
     }
 
 
@@ -1412,8 +1400,201 @@ class CorpusUtilityorig(private var context: Context?) {
             }
             return str
         }
-
-
+        @JvmStatic
+        fun HightLightKeyWord(allofQuran: List<QuranEntity>?) {
+             var mudhafColoragainstBlack = 0
+             var mausofColoragainstBlack = 0
+             var sifatColoragainstBlack = 0
+             var brokenPlurarColoragainstBlack = 0
+             var shartagainstback = 0
+            val prefs =
+                android.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context)
+            val preferences = prefs.getString("themepref", "dark")
+            if (preferences == "dark" || preferences == "blue" || preferences == "green") {
+                shartagainstback = prefs.getInt("shartback", Color.GREEN)
+                mausofColoragainstBlack = prefs.getInt("mausoofblack", Color.RED)
+                mudhafColoragainstBlack = prefs.getInt("mudhafblack", Color.CYAN)
+                sifatColoragainstBlack = prefs.getInt("sifatblack", Color.YELLOW)
+                brokenPlurarColoragainstBlack = prefs.getInt("brokenblack", Color.GREEN)
+            } else {
+                shartagainstback = prefs.getInt("shartback", Constant.INDIGO)
+                mudhafColoragainstBlack = prefs.getInt("mausoofwhite", Color.GREEN)
+                mausofColoragainstBlack = prefs.getInt("mudhafwhite", Constant.MIDNIGHTBLUE)
+                sifatColoragainstBlack = prefs.getInt("sifatwhite", Constant.ORANGE400)
+                brokenPlurarColoragainstBlack = prefs.getInt("brokenwhite", Constant.DARKMAGENTA)
+            }
+            val inshartiastr = "«إِنْ» شرطية"
+            val izazarfshartsrt = "وإذا ظرف يتضمن معنى الشرط"
+            val izashartiastr = "«إِذا» ظرف يتضمن معنى الشرط"
+            val jawabshartstr = "جواب شرط"
+            val jawabsharttwostr = "لجواب الشرط"
+            val jawabalshart = "جواب الشرط"
+            val jawab = "جواب"
+            val shart = ArrayList<String>()
+            val mutlaq = ArrayList<String>()
+            mutlaq.add("مطلق")
+            mutlaq.add("مفعولا مطلقا")
+            mutlaq.add("مفعولا مطلقا،")
+            mutlaq.add("مطلق.")
+            mutlaq.add("")
+            shart.add(inshartiastr)
+            shart.add(izazarfshartsrt)
+            shart.add(izashartiastr)
+            shart.add(jawabshartstr)
+            shart.add(jawabsharttwostr)
+            shart.add(jawabalshart)
+            shart.add(jawab)
+            shart.add("شرطية")
+            shart.add("شرطية.")
+            shart.add("ظرف متضمن معنى الشرط")
+            shart.add("وإذا ظرف زمان يتضمن معنى الشرط")
+            shart.add("ظرف زمان يتضمن معنى الشرط")
+            shart.add("ولو حرف شرط غير جازم")
+            shart.add("حرف شرط غير جازم")
+            shart.add("اللام واقعة في جواب لو")
+            shart.add("حرف شرط جازم")
+            shart.add("الشرطية")
+            val mudhafilahistr = "مضاف إليه"
+            val sifastr = "صفة"
+            val mudhaflenght = mudhafilahistr.length
+            val sifalength = sifastr.length
+            val hal = ArrayList<String>()
+            hal.add("في محل نصب حال")
+            hal.add("في محل نصب حال.")
+            hal.add("والجملة حالية")
+            hal.add("والجملة حالية.")
+            hal.add("حالية")
+            hal.add("حالية.")
+            hal.add("حالية:")
+            hal.add("حال")
+            hal.add("حال:")
+            hal.add("حال.")
+            hal.add("الواو حالية")
+            val tameez = ArrayList<String>()
+            tameez.add("تمييز")
+            tameez.add("تمييز.")
+            tameez.add("التمييز")
+            val badal = ArrayList<String>()
+            badal.add("بدل")
+            badal.add("بدل.")
+            val ajilihi = ArrayList<String>()
+            ajilihi.add("مفعول لأجله")
+            ajilihi.add("لأجله")
+            ajilihi.add("لأجله.")
+            val mafoolbihi = ArrayList<String>()
+            mafoolbihi.add("مفعول به")
+            mafoolbihi.add("مفعول به.")
+            mafoolbihi.add("مفعول به.(")
+            mafoolbihi.add("في محل نصب مفعول")
+            mafoolbihi.add("مفعول")
+            for (pojo in allofQuran!!) {
+                //  String ar_irab_two = pojo.getAr_irab_two();
+                val ar_irab_two = pojo.ar_irab_two
+                val str = SpannableStringBuilder(ar_irab_two)
+                val mudhaftrie = Trie.builder().onlyWholeWords().addKeywords(mudhafilahistr).build()
+                val mudhafemit = mudhaftrie.parseText(ar_irab_two)
+                val sifatrie = Trie.builder().onlyWholeWords().addKeywords(sifastr).build()
+                val sifaemit = sifatrie.parseText(ar_irab_two)
+                val jawabsharttwotrie =
+                    Trie.builder().onlyWholeWords().addKeywords(jawabsharttwostr).build()
+                val jawabsharttwoemit = jawabsharttwotrie.parseText(ar_irab_two)
+                val trieBuilder =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(shart).build()
+                val emits = trieBuilder.parseText(ar_irab_two)
+                val mutlaqbuilder =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(mutlaq).build()
+                val mutlaqemits = mutlaqbuilder.parseText(ar_irab_two)
+                val haltrie =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(hal).build()
+                val halemits = haltrie.parseText(ar_irab_two)
+                val tameeztrie =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(tameez).build()
+                val tameezemit = tameeztrie.parseText(ar_irab_two)
+                val badaltrie =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(badal).build()
+                val badalemit = badaltrie.parseText(ar_irab_two)
+                val ajilihitrie =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(ajilihi).build()
+                val ajilihiemit = ajilihitrie.parseText(ar_irab_two)
+                val mafoolbihitri =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(mafoolbihi).build()
+                val mafoolbihiemit = mafoolbihitri.parseText(ar_irab_two)
+                for (emit in mafoolbihiemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(sifatColoragainstBlack),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in ajilihiemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(sifatColoragainstBlack),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in tameezemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(sifatColoragainstBlack),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in badalemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(sifatColoragainstBlack),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in halemits) {
+                    str.setSpan(
+                        ForegroundColorSpan(shartagainstback),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in emits) {
+                    str.setSpan(
+                        ForegroundColorSpan(shartagainstback),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in mutlaqemits) {
+                    str.setSpan(
+                        ForegroundColorSpan(shartagainstback),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in mudhafemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(mausofColoragainstBlack),
+                        emit.start,
+                        emit.start + mudhaflenght,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in sifaemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(mudhafColoragainstBlack),
+                        emit.start,
+                        emit.start + sifalength,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                //    colorerab.get(0).setErabspnabble(str);
+                pojo.erabspnabble = str
+            }
+        }
         ////
         @JvmStatic
         fun NewSetWordSpan(

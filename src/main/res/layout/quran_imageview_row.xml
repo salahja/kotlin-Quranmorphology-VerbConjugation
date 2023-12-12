@@ -81,7 +81,7 @@
             android:id="@+id/tafsirfb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fabSize="mini"
+            app:fabSize="normal"
             app:fabCustomSize="@dimen/fabsize"
             android:tooltipText="Tafsir Ibne Kathir"
             android:src="@drawable/tafsir"

@@ -56,7 +56,6 @@ import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.model.NewQuranCorpusWbw
 import com.example.mushafconsolidatedimport.Config
-import com.example.mushafconsolidatedimport.ParticleColorScheme
 import com.example.utility.AnimationUtility
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.FlowLayout
@@ -1233,36 +1232,22 @@ class newFlowAyahWordAdapter(
                         isFABOpen = true
                         fabmenu.animate().rotationBy(180f)
                         if (!isaudio) {
+
+
+
+
                             tafsir.visibility = View.VISIBLE
                             tafsir.animate().translationX(
-                                -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_55)
-                            )
-                            tafsir.animate().rotationBy(360f)
-                            tafsir.animate().duration = 1500
-
-
-
-                            jumptofb.visibility = View.VISIBLE
-                            jumptofb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_105)
                             )
-                            jumptofb.animate().rotationBy(360f)
-                            bookmarfb.visibility = View.VISIBLE
-                            bookmarfb.animate().translationX(
-                                -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_155)
-                            )
-                            bookmarfb.animate().rotationBy(360f)
-                            bookmarfb.animate().duration = 600
+                            tafsir.animate().rotationBy(360f)
+
                             summbaryfb.visibility = View.VISIBLE
                             summbaryfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_205)
                             )
                             summbaryfb.animate().rotationBy(360f)
-                            helpfb.visibility = View.VISIBLE
-                            helpfb.animate().translationX(
-                                -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_255)
-                            )
-                            helpfb.animate().rotationBy(360f)
+
                             sharescreenfb.visibility = View.VISIBLE
                             sharescreenfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_305)
@@ -1276,33 +1261,19 @@ class newFlowAyahWordAdapter(
                             collectionfb.animate().rotationBy(360f)
                             collectionfb.animate().duration = 500
                         } else {
+
                             tafsir.visibility = View.VISIBLE
                             tafsir.animate().translationX(
-                                -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_55)
-                            )
-                            tafsir.animate().rotationBy(360f)
-                            tafsir.animate().duration = 1500
-                            jumptofb.visibility = View.VISIBLE
-                            jumptofb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.audio_105)
                             )
-                            jumptofb.animate().rotationBy(360f)
-                            bookmarfb.visibility = View.VISIBLE
-                            bookmarfb.animate().translationX(
-                                -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.audio_155)
-                            )
-                            bookmarfb.animate().rotationBy(360f)
-                            bookmarfb.animate().duration = 600
+                            tafsir.animate().rotationBy(360f)
+
                             summbaryfb.visibility = View.VISIBLE
                             summbaryfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.audio_205)
                             )
                             summbaryfb.animate().rotationBy(360f)
-                            helpfb.visibility = View.VISIBLE
-                            helpfb.animate().translationX(
-                                -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.audio_255)
-                            )
-                            helpfb.animate().rotationBy(360f)
+
                             sharescreenfb.visibility = View.VISIBLE
                             sharescreenfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.audio_305)
@@ -1337,13 +1308,7 @@ class newFlowAyahWordAdapter(
                                 NamesDetail.TAG
                             )
                         }
-                        helpfb.setOnClickListener { v: View? ->
-                            closeFABMenu()
-                            ParticleColorScheme.newInstance().show(
-                                (context as AppCompatActivity).supportFragmentManager,
-                                WordAnalysisBottomSheet.TAG
-                            )
-                        }
+
                         sharescreenfb.setOnClickListener(object : View.OnClickListener {
                             override fun onClick(v: View) {
                                 closeFABMenu()

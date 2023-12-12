@@ -42,11 +42,11 @@ import androidx.transition.TransitionManager
 import com.example.Constant
 import com.example.mushafconsolidated.Activity.TafsirFullscreenActivity
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
-import com.example.mushafconsolidated.Entities.CorpusExpandWbwPOJO
 import com.example.mushafconsolidated.Entities.HalEnt
 import com.example.mushafconsolidated.Entities.LiajlihiEnt
 import com.example.mushafconsolidated.Entities.MafoolBihi
 import com.example.mushafconsolidated.Entities.MafoolMutlaqEnt
+import com.example.mushafconsolidated.Entities.NasbListingPojo
 import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.Entities.TameezEnt
 import com.example.mushafconsolidated.Entities.wbwentity
@@ -76,7 +76,7 @@ import java.util.Date
 //public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnItemClickListenerOnLong {
 class PhrasesFlowAdapter(
 
-    private var accusativesSentences: List<CorpusExpandWbwPOJO>,
+    private var accusativesSentences: List<NasbListingPojo>,
     isaudio: Boolean,
     private val mutlaqent: List<MafoolMutlaqEnt?>?,
     private val tameezEnts: List<TameezEnt?>?,
@@ -403,15 +403,16 @@ class PhrasesFlowAdapter(
             holder.translate_textView.visibility = View.VISIBLE
             holder.translate_textViewnote.visibility = View.VISIBLE
         }
+
         if (showErab) {
             holder.erabexpand.visibility = View.VISIBLE
             if (entity != null) {
                 if (entity.ar_irab_two.isNullOrBlank()) {
-                    holder.erab_textView.text = entity.ar_irab_two
+                    holder.erab_textView.text = entity.erabspnabble
 
 
                 } else {
-                    holder.erab_textView.text = entity.ar_irab_two
+                    holder.erab_textView.text = entity.erabspnabble
                 }
             }
             //
@@ -421,6 +422,8 @@ class PhrasesFlowAdapter(
         } else {
             holder.erabexpand.visibility = View.GONE
         }
+
+
         setTextSizes(holder)
     }
 

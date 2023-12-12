@@ -13,6 +13,7 @@ import com.example.mushafconsolidated.Entities.CorpusExpandWbwPOJO
 import com.example.mushafconsolidated.Entities.CorpusNounWbwOccurance
 import com.example.mushafconsolidated.Entities.CorpusVerbWbwOccurance
 import com.example.mushafconsolidated.Entities.GrammarRules
+import com.example.mushafconsolidated.Entities.NasbListingPojo
 import com.example.mushafconsolidated.Entities.NewKanaEntity
 import com.example.mushafconsolidated.Entities.NewMudhafEntity
 import com.example.mushafconsolidated.Entities.NewNasbEntity
@@ -25,6 +26,7 @@ import com.example.mushafconsolidated.Entities.RootVerbDetails
 import com.example.mushafconsolidated.Entities.RootWordDetails
 import com.example.mushafconsolidated.Entities.ShartListingPojo
 import com.example.mushafconsolidated.Entities.SifaEntity
+import com.example.mushafconsolidated.Entities.SifaListingPojo
 import com.example.mushafconsolidated.Entities.VerbCorpus
 import com.example.mushafconsolidated.Entities.VerbCorpusBreakup
 import com.example.mushafconsolidated.Entities.hanslexicon
@@ -135,6 +137,38 @@ class Utils {
 
 
     }
+
+    fun getNasb(tid:Int):List<NasbListingPojo>{
+        val sqlshart:String=("select newnasb.surah,newnasb.ayah,newnasb.indexstart,newnasb.indexend,newnasb.ismstart,newnasb.ismend,\n" +
+                "newnasb.khabarstart,newnasb.khabarend,newnasb.harfwordno,newnasb.ismstartwordno,newnasb.ismendwordno,\n" +
+                "newnasb.khabarstartwordno,newnasb.khabarendwordno,newnasb.mahdoof,qurans.page,qurans.passage_no,qurans.qurantext,qurans.has_prostration,qurans.translation,\n" +
+                "qurans.en_transliteration,qurans.en_arberry,qurans.en_jalalayn,qurans.ur_jalalayn,qurans.tafsir_kathir,qurans.ur_junagarhi,qurans.ar_irab_two\n" +
+                " from newnasb,qurans where newnasb.surah=qurans.surah and newnasb.ayah=qurans.ayah and " +
+                "newnasb.surah ==  \""
+                + tid + "\"")
+
+        val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlshart)
+        //  List<Book> result = booksDao.getBooks(query);
+        return database.RawDao().getNasbListing(query)
+
+
+    }
+
+    fun getSIfa(tid:Int):List<SifaListingPojo>{
+        val sqlshart:String=("select  sifa.surah,sifa.ayah,sifa.startindex,sifa.endindex,sifa.wordno,qurans.en_arberry,qurans.en_jalalayn,qurans.ur_jalalayn,qurans.tafsir_kathir,qurans.ur_junagarhi,qurans.ar_irab_two\n" +
+                " from newnasb,qurans where newnasb.surah=qurans.surah and newnasb.ayah=qurans.ayah and " +
+                "newnasb.surah ==  \""
+                + tid + "\"")
+
+        val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlshart)
+        //  List<Book> result = booksDao.getBooks(query);
+        return database.RawDao().getSifaListing(query)
+
+
+    }
+
+
+
     fun getConditional(tid: Int): List<CorpusExpandWbwPOJO> {
         val sqlverb: String =
             ("SELECT CorpusExpand.rootaraone || rootaratwo || rootarathree || rootarafour || rootarafive AS root_a,\n" +

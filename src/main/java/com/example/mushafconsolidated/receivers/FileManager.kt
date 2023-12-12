@@ -29,7 +29,8 @@ object FileManager {
         reader: Int,
         aya: Int,
         sura: Int,
-        dir: String
+        dir: String,
+        audioType: Int
     ): String {
         //create file name from aya id and sura id
         val suraLength: Int = sura.toString().trim({ it <= ' ' }).length
@@ -38,9 +39,16 @@ object FileManager {
         var ayaID: String = aya.toString() + ""
         if (suraLength == 1) suraID = "00" + sura else if (suraLength == 2) suraID = "0" + sura
         if (ayaLength == 1) ayaID = "00" + aya else if (ayaLength == 2) ayaID = "0" + aya
+        var filepath = ""
+        if (audioType == 0) {
+            filepath = dir + "/" + suraID + ayaID + AudioAppConstants.Extensions.Companion.MP3
+        } else if (audioType == 2) {
 
-        val filepath = dir + "/" + suraID + ayaID + AudioAppConstants.Extensions.Companion.MP3
+            filepath = dir + "/" + suraID + AudioAppConstants.Extensions.Companion.MP3
+        }
         return filepath
+
+
         /*  return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
               .toString() + "/audio/" + reader + "/" + suraID + ayaID + AudioAppConstants.Extensions.Companion.MP3*/
 

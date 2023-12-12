@@ -63,11 +63,11 @@ import com.example.mushafconsolidated.BottomOptionDialog
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.BookMarks
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity
-import com.example.mushafconsolidated.Entities.CorpusExpandWbwPOJO
 import com.example.mushafconsolidated.Entities.HalEnt
 import com.example.mushafconsolidated.Entities.LiajlihiEnt
 import com.example.mushafconsolidated.Entities.MafoolBihi
 import com.example.mushafconsolidated.Entities.MafoolMutlaqEnt
+import com.example.mushafconsolidated.Entities.NasbListingPojo
 import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.Entities.ShartListingPojo
 import com.example.mushafconsolidated.Entities.TameezEnt
@@ -117,7 +117,7 @@ import java.util.Date
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnClickListener {
-    private lateinit var accusativesSentences: List<CorpusExpandWbwPOJO>
+    private lateinit var accusativesSentences: List<NasbListingPojo>
     private lateinit var shartSentences:List<ShartListingPojo>
     private var bundle: Intent? = null
     private var bundles: Bundle? = null
@@ -904,12 +904,15 @@ class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnCli
         runOnUiThread { dialog.show() }
         ex.launch {
             val util= Utils(context)
+            shartSentences= emptyList();
+            accusativesSentences= emptyList()
            if(harf.equals("inna")) {
-               accusativesSentences = util.getaccusatives(chapterno)
+               accusativesSentences = util.getNasb(chapterno)
                for (ac in accusativesSentences) {
                    ac.spannableVerse= SpannableString(ac.qurantext)
                }
-               corpus.HarfNasbDb(newnewadapterlist,chapterno,accusativesSentences)
+               corpus.HarfNasbDb(accusativesSentences)
+               HightLightKeyWord(shartSentences,accusativesSentences)
 
            } else if(harf.equals("shart")){
                shartSentences = util.getShart(chapterno)
@@ -917,8 +920,8 @@ class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnCli
                    ac.spannableVerse= SpannableString(ac.qurantext)
                }
                corpus.setShartDisplay(shartSentences)
-               accusativesSentences= emptyList()
-               HightLightKeyWord(shartSentences)
+
+               HightLightKeyWord(shartSentences,accusativesSentences)
 
            }
             allofQuran = mainViewModel.getquranbySUrah(chapterno).value
@@ -1014,7 +1017,10 @@ class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnCli
 
     }
 
-    private fun HightLightKeyWord(shartSentences: List<ShartListingPojo>) {
+    private fun HightLightKeyWord(
+        shartSentences: List<ShartListingPojo>,
+        accusativesSentences: List<NasbListingPojo>
+    ) {
         val inshartiastr = "«إِنْ» شرطية"
         val izazarfshartsrt = "وإذا ظرف يتضمن معنى الشرط"
         val izashartiastr = "«إِذا» ظرف يتضمن معنى الشرط"
@@ -1079,10 +1085,12 @@ class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnCli
         mafoolbihi.add("مفعول به.(")
         mafoolbihi.add("في محل نصب مفعول")
         mafoolbihi.add("مفعول")
+        if (shartSentences.isNotEmpty()){
         for (pojo in shartSentences!!) {
             //  String ar_irab_two = pojo.getAr_irab_two();
             val ar_irab_two = pojo.ar_irab_two
-            val str = SpannableStringBuilder(ar_irab_two)
+            val strstr = ar_irab_two!!.replace("\n", "-")
+            val str = SpannableStringBuilder(strstr)
             val mudhaftrie = Trie.builder().onlyWholeWords().addKeywords(mudhafilahistr).build()
             val mudhafemit = mudhaftrie.parseText(ar_irab_two)
             val sifatrie = Trie.builder().onlyWholeWords().addKeywords(sifastr).build()
@@ -1185,7 +1193,118 @@ class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnCli
             }
             //    colorerab.get(0).setErabspnabble(str);
             pojo.erabspnabble = str
-        }
+        }}
+        if (accusativesSentences.isNotEmpty()){
+            for (pojo in accusativesSentences!!) {
+                //  String ar_irab_two = pojo.getAr_irab_two();
+                val ar_irab_two = pojo.ar_irab_two
+                val strstr = ar_irab_two!!.replace("\n", "-")
+                val str = SpannableStringBuilder(strstr)
+                val mudhaftrie = Trie.builder().onlyWholeWords().addKeywords(mudhafilahistr).build()
+                val mudhafemit = mudhaftrie.parseText(ar_irab_two)
+                val sifatrie = Trie.builder().onlyWholeWords().addKeywords(sifastr).build()
+                val sifaemit = sifatrie.parseText(ar_irab_two)
+                val jawabsharttwotrie =
+                    Trie.builder().onlyWholeWords().addKeywords(jawabsharttwostr).build()
+                val jawabsharttwoemit = jawabsharttwotrie.parseText(ar_irab_two)
+                val trieBuilder =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(shart).build()
+                val emits = trieBuilder.parseText(ar_irab_two)
+                val mutlaqbuilder =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(mutlaq).build()
+                val mutlaqemits = mutlaqbuilder.parseText(ar_irab_two)
+                val haltrie =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(hal).build()
+                val halemits = haltrie.parseText(ar_irab_two)
+                val tameeztrie =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(tameez).build()
+                val tameezemit = tameeztrie.parseText(ar_irab_two)
+                val badaltrie =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(badal).build()
+                val badalemit = badaltrie.parseText(ar_irab_two)
+                val ajilihitrie =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(ajilihi).build()
+                val ajilihiemit = ajilihitrie.parseText(ar_irab_two)
+                val mafoolbihitri =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(mafoolbihi)
+                        .build()
+                val mafoolbihiemit = mafoolbihitri.parseText(ar_irab_two)
+                for (emit in mafoolbihiemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(sifatColoragainstBlack),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in ajilihiemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(sifatColoragainstBlack),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in tameezemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(sifatColoragainstBlack),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in badalemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(sifatColoragainstBlack),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in halemits) {
+                    str.setSpan(
+                        ForegroundColorSpan(shartagainstback),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in emits) {
+                    str.setSpan(
+                        ForegroundColorSpan(shartagainstback),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in mutlaqemits) {
+                    str.setSpan(
+                        ForegroundColorSpan(shartagainstback),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in mudhafemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(mausofColoragainstBlack),
+                        emit.start,
+                        emit.start + mudhaflenght,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in sifaemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(mudhafColoragainstBlack),
+                        emit.start,
+                        emit.start + sifalength,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                //    colorerab.get(0).setErabspnabble(str);
+                pojo.erabspnabble = str
+            }
+    }
     }
 
     private fun LoadItemList(dataBundle: Bundle, word: QuranEntity) {

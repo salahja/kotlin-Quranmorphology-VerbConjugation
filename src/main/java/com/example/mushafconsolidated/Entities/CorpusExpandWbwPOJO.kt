@@ -1,6 +1,7 @@
 package com.example.mushafconsolidated.Entities
 
 import android.text.SpannableString
+import android.text.SpannableStringBuilder
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
@@ -38,6 +39,8 @@ class CorpusExpandWbwPOJO constructor(
     var tafsir_kathir: String? = null
     @Ignore
     var spannableVerse: SpannableString? = null
+    @Ignore
+    var erabspnabble: SpannableStringBuilder? = null
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
     var en_transliteration: String? = null

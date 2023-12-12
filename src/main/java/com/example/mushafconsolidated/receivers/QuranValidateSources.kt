@@ -52,8 +52,9 @@ object QuranValidateSources {
         val suraLength: Int = sura.toString().trim { it <= ' ' }.length
         var suraID: String = sura.toString() + ""
         if (suraLength == 1) suraID = "00$sura" else if (suraLength == 2) suraID = "0$sura"
-
-
+        val dir = getSaveDirs(context, reader)
+        val filepath =
+            dir.toString() + "/" + suraID +  AudioAppConstants.Extensions.Companion.MP3
         //Audio file path
         ///storage/emulated/0/Mushafapplication/Audio/1/8.mp3
         val app_folder_path: String =
@@ -69,7 +70,7 @@ object QuranValidateSources {
                 + AudioAppConstants.Extensions.Companion.MP3)
 
         //check file found or not
-        val file: File = File(app_folder_path)
+        val file: File = File(filepath)
         if (!file.exists()) return false
         return true
     }

@@ -10,6 +10,7 @@ import com.example.mushafconsolidated.Entities.CorpusNounWbwOccurance
 import com.example.mushafconsolidated.Entities.CorpusVerbWbwOccurance
 import com.example.mushafconsolidated.Entities.KanaPOJO
 import com.example.mushafconsolidated.Entities.MudhafPOJO
+import com.example.mushafconsolidated.Entities.NasbListingPojo
 import com.example.mushafconsolidated.Entities.NasbPOJO
 import com.example.mushafconsolidated.Entities.NewCorpusExpandWbwPOJO
 import com.example.mushafconsolidated.Entities.NounCorpusBreakup
@@ -18,6 +19,7 @@ import com.example.mushafconsolidated.Entities.RootWordDetails
 import com.example.mushafconsolidated.Entities.ShartListingPojo
 import com.example.mushafconsolidated.Entities.ShartPOJO
 import com.example.mushafconsolidated.Entities.SifaEntityPojo
+import com.example.mushafconsolidated.Entities.SifaListingPojo
 import com.example.mushafconsolidated.Entities.SifaPOJO
 import com.example.mushafconsolidated.Entities.TameezPOJO
 import com.example.mushafconsolidated.Entities.TameezPojoList
@@ -55,6 +57,14 @@ interface RawDao {
 
     @RawQuery
     fun getShartListing(query: SupportSQLiteQuery): List<ShartListingPojo>
+
+
+
+
+    @RawQuery
+    fun getSifaListing(query: SupportSQLiteQuery): List<SifaListingPojo>
+    @RawQuery
+    fun getNasbListing(query: SupportSQLiteQuery): List<NasbListingPojo>
     @RawQuery
     fun getSifaIndexes(query: SupportSQLiteQuery): List<SifaEntityPojo?>?
 

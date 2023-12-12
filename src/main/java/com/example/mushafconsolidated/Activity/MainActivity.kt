@@ -258,7 +258,7 @@ class MainActivity : BaseActivity() {
                         }
                     }
                     ex.shutdown()
-                    dialog.dismiss()
+//                    dialog.dismiss()
                     val zipintent = Intent(this@MainActivity, QuranGrammarAct::class.java)
                     startActivity(zipintent)
                     finish()
