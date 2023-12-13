@@ -165,7 +165,7 @@ class MainActivity : BaseActivity() {
         val dialog = builder.create()
         ex.execute(object : Runnable {
             override fun run() {
-                runOnUiThread { dialog.show() }
+               // runOnUiThread { dialog.show() }
                 val canWrie = canWriteInSDCard()
                 if (canWrie) {
                     try {

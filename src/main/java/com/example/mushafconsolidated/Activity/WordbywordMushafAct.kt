@@ -726,236 +726,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 verseno[0] = text.toInt()
             }
     }
-    fun surahAyahPickers(isrefresh: Boolean, starttrue: Boolean) {
-        val mTextView: TextView
-        val chapterWheel: WheelView
-        val verseWheel: WheelView
-        var wvDay: WheelView
-        val utils = Utils(this@WordbywordMushafAct)
-        val mYear = arrayOf(arrayOfNulls<String>(1))
-        val mMonth = arrayOfNulls<String>(1)
-        surahWheelDisplayData = arrayOf("")
-        ayahWheelDisplayData = arrayOf("")
-        val current = arrayOf<ArrayList<Any>>(ArrayList())
 
-        var mDay: Int
-        val chapterno = IntArray(1)
-        val verseno = IntArray(1)
-        val surahArrays: Array<String> = resources.getStringArray(R.array.surahdetails)
-        val versearrays: Array<String> = resources.getStringArray(R.array.versescounts)
-        val intarrays: IntArray = resources.getIntArray(R.array.versescount)
-        //     final AlertDialog.Builder dialogPicker = new AlertDialog.Builder(this);
-        val dialogPicker = AlertDialog.Builder(this@WordbywordMushafAct)
-        val dlg = Dialog(this@WordbywordMushafAct)
-        //  AlertDialog dialog = builder.create();
-        val soraList: List<ChaptersAnaEntity?>? = utils.getAllAnaChapters()
-        val inflater: LayoutInflater = this@WordbywordMushafAct.layoutInflater
-        val view = inflater.inflate(R.layout.activity_wheel_t, null)
-        //  View view = inflater.inflate(R.layout.activity_wheel, null);
-        dialogPicker.setView(view)
-        mTextView = view.findViewById(R.id.textView2)
-        chapterWheel = view.findViewById(R.id.wv_year)
-        verseWheel = view.findViewById(R.id.wv_month)
-        chapterWheel.setEntries(*surahArrays)
-        chapterWheel.currentIndex = surahselected - 1
-        //set wheel initial state
-        val initial = true
-        if (initial) {
-            val text = chapterWheel.getItem(surahselected - 1) as String
-            surahWheelDisplayData[0] = text
-            val chapno = text.split(" ".toRegex()).dropLastWhile { it.isEmpty() }
-                .toTypedArray()
-            chapterno[0] = chapno[0].toInt()
-            verseno[0] = 1
-            current[0] = ArrayList()
-            val intarray: Int = if (surahselected != 0) {
-                intarrays[surahselected - 1]
-            } else {
-                7
-            }
-            for (i in 1..intarray) {
-                current[0].add(i.toString())
-            }
-            verseWheel.setEntries(current)
-            val texts = surahWheelDisplayData[0] + "/" + ayahWheelDisplayData[0]
-            //   = mYear[0]+ mMonth[0];
-            mTextView.text = texts
-        }
-
-//        wvDay = (WheelView) view.findViewById(R.id.wv_day);
-        val vcount = versearrays[surahselected - 1].toInt()
-        for (i in 1..vcount) {
-            current[0].add(i.toString())
-        }
-        verseWheel.setEntries(current)
-        verseWheel.currentIndex = ayah
-        dialogPicker.setPositiveButton("Done") { dialogInterface: DialogInterface?, i: Int ->
-            var sura = ""
-
-            //   setSurahArabicName(suraNumber + "-" + soraList.get(suraNumber - 1).getNameenglish() + "-" + soraList.get(suraNumber - 1).getAbjadname());
-            if (chapterno[0] == 0) {
-                surahselected = surah
-            } else {
-                sura = soraList!![chapterno[0] - 1]!!.chapterid.toString()
-                surahselected = soraList[chapterno[0] - 1]!!.chapterid
-                surahNameEnglish = soraList[chapterno[0] - 1]!!.nameenglish
-                surahNameArabic = soraList[chapterno[0] - 1]!!.namearabic
-                val pref: SharedPreferences = getSharedPreferences("lastreadmushaf", MODE_PRIVATE)
-                val editor = pref.edit()
-                editor.putInt(CHAPTER, sura.toInt())
-                //  editor.putInt("page", page.getAyahItemsquran().get(0).getPage());
-                editor.putString(SURAH_ARABIC_NAME, soraList[chapterno[0] - 1]!!.namearabic)
-                editor.apply()
-            }
-            val verse = verseno[0]
-
-            // setSurahselected(Integer.parseInt(sura));
-            ayah = verse
-            val aya = verseno[0].toString()
-            if (isrefresh && starttrue) {
-                releasePlayer()
-                RefreshActivity(sura, aya, false)
-            } else if (starttrue) {
-                updateStartRange(verse)
-            } else {
-                updateEndRange(verse)
-            }
-        }
-        dialogPicker.setNegativeButton(
-            "Cancel"
-        ) { dialogInterface: DialogInterface?, i: Int -> }
-        val alertDialog = dialogPicker.create()
-        val preferences = sharedPreferences.getString("themepref", "dark")
-        val db = ContextCompat.getColor(this, R.color.odd_item_bg_dark_blue_light)
-        if (preferences == "light") {
-            //    alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onSecondary);
-            alertDialog.window!!.setBackgroundDrawableResource(R.color.background_color_light_brown)
-            //   alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onTertiary);
-
-            //
-        } else if (preferences == "brown") {
-            alertDialog.window!!.setBackgroundDrawableResource(R.color.background_color_light_brown)
-            //  cardview.setCardBackgroundColor(ORANGE100);
-        } else if (preferences == "blue") {
-            alertDialog.window!!.setBackgroundDrawableResource(R.color.prussianblue)
-            //  cardview.setCardBackgroundColor(db);
-        } else if (preferences == "green") {
-            alertDialog.window!!.setBackgroundDrawableResource(R.color.mdgreen_theme_dark_onPrimary)
-            //  cardview.setCardBackgroundColor(MUSLIMMATE);
-        }
-        val lp = WindowManager.LayoutParams()
-        lp.copyFrom(alertDialog.window!!.attributes)
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
-
-        //   alertDialog.show();
-        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        val wmlp = alertDialog.window!!.attributes
-        alertDialog.show()
-        val buttonPositive = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
-        buttonPositive.setTextColor(ContextCompat.getColor(this@WordbywordMushafAct, R.color.green))
-        val buttonNegative = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
-        buttonNegative.setTextColor(ContextCompat.getColor(this@WordbywordMushafAct, R.color.red))
-        if (preferences == "light") {
-            buttonPositive.setTextColor(
-                ContextCompat.getColor(
-                    this@WordbywordMushafAct,
-                    R.color.colorMuslimMate
-                )
-            )
-            buttonNegative.setTextColor(
-                ContextCompat.getColor(
-                    this@WordbywordMushafAct,
-                    R.color.red
-                )
-            )
-        } else if (preferences == "brown") {
-            buttonPositive.setTextColor(
-                ContextCompat.getColor(
-                    this@WordbywordMushafAct,
-                    R.color.colorMuslimMate
-                )
-            )
-            buttonNegative.setTextColor(
-                ContextCompat.getColor(
-                    this@WordbywordMushafAct,
-                    R.color.red
-                )
-            )
-            //  cardview.setCardBackgroundColor(ORANGE100);
-        } else if (preferences == "blue") {
-            buttonPositive.setTextColor(
-                ContextCompat.getColor(
-                    this@WordbywordMushafAct,
-                    R.color.yellow
-                )
-            )
-            buttonNegative.setTextColor(
-                ContextCompat.getColor(
-                    this@WordbywordMushafAct,
-                    R.color.Goldenrod
-                )
-            )
-            //  cardview.setCardBackgroundColor(db);
-        } else if (preferences == "green") {
-            buttonPositive.setTextColor(
-                ContextCompat.getColor(
-                    this@WordbywordMushafAct,
-                    R.color.yellow
-                )
-            )
-            buttonNegative.setTextColor(
-                ContextCompat.getColor(
-                    this@WordbywordMushafAct,
-                    R.color.cyan_light
-                )
-            )
-            //  cardview.setCardBackgroundColor(MUSLIMMATE);
-        }
-
-        //  wmlp.gravity = Gravity.TOP | Gravity.CENTER;
-        alertDialog.window!!.attributes = lp
-        alertDialog.window!!.setGravity(Gravity.TOP)
-        chapterWheel.onWheelChangedListener = object : OnWheelChangedListener {
-            override fun onChanged(wheel: WheelView, oldIndex: Int, newIndex: Int) {
-                val text = chapterWheel.getItem(newIndex) as String
-                surahWheelDisplayData[0] = text
-                val chapno = text.split(" ".toRegex()).dropLastWhile { it.isEmpty() }
-                    .toTypedArray()
-                chapterno[0] = chapno[0].toInt()
-                verseno[0] = 1
-                updateVerses(newIndex)
-                updateTextView()
-                //    updateTextView();
-            }
-
-            private fun updateVerses(newIndex: Int) {
-                current[0] = ArrayList()
-                val intarray: Int = if (newIndex != 0) {
-                    intarrays[newIndex]
-                } else {
-                    7
-                }
-                for (i in 1..intarray) {
-                    current[0].add(i.toString())
-                }
-                verseWheel.setEntries(current)
-                updateTextView()
-            }
-
-            private fun updateTextView() {
-                val text = surahWheelDisplayData[0] + "/" + ayahWheelDisplayData[0]
-                //   = mYear[0]+ mMonth[0];
-                mTextView.text = text
-            }
-        }
-        verseWheel.onWheelChangedListener =
-            OnWheelChangedListener { wheel, oldIndex, newIndex ->
-                val text = verseWheel.getItem(newIndex) as String
-                ayahWheelDisplayData[0] = text
-                verseno[0] = text.toInt()
-            }
-    }
 
     private fun updateEndRange(verse: Int) {
         val st = StringBuilder()
@@ -1005,7 +776,11 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         override fun run() {
             var holder: RecyclerView.ViewHolder? = null
             holder = recyclerView.findViewHolderForAdapterPosition(currenttrack)
-            recyclerView.post { recyclerView.scrollToPosition(currenttrack) }
+            if( player!=null && player!!.isPlaying ){
+                recyclerView.post {
+                    recyclerView.scrollToPosition(currenttrack)
+                }
+            }
             val ab = StringBuilder()
             ab.append("Aya").append(":").append(currenttrack).append(" ").append("of").append(
                 versescount
@@ -1083,7 +858,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             }
 
             //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
-            handler.postDelayed(this, 1500)
+            handler.postDelayed(this, 1200)
         }
     }
 
@@ -1488,7 +1263,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             }
             singleline = true
             //    NewsendUpdatesToUIPassage.run();
-            if (player!!.isPlaying || player!!.playWhenReady) {
+          if (player!!.isPlaying || player!!.playWhenReady) {
                 SinglesendUpdatesToUI.run()
                 //   sendUpdatesToUI.run();
             } else {
@@ -1705,15 +1480,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             resume = true
             DownloadIfnotPlay()
         }
-        /*       canceldownload.setOnClickListener {
-                   downloadFooter.visibility = View.GONE
-                   //  normalFooter.setVisibility(View.VISIBLE);
-                   //stop flag of auto start audio after download
-                   startBeforeDownload = false
-                   //stop download service
-                   stopService(Intent(this@WordbywordMushafAct, DownloadService::class.java))
-               }
-       */
+
         // to preserver quran direction from right to left
         recyclerView.layoutDirection = View.LAYOUT_DIRECTION_RTL
     }
@@ -1890,6 +1657,9 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     override fun onPause() {
 //        mSensorManager.unregisterListener(this);
         super.onPause()
+        if(!rxFetch!!.isClosed) {
+            rxFetch!!.removeListener(fetchListener)
+        }
         audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
         playerFooter.visibility = View.VISIBLE
         if (player != null) {
@@ -1923,40 +1693,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             }
     }
 
-    /*    private val downloadPageAya: BroadcastReceiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context, intent: Intent) {
-                val value = intent.getLongExtra(AudioAppConstants.Download.NUMBER, 0).toInt()
-                val max = intent.getLongExtra(AudioAppConstants.Download.MAX, 0).toInt()
-                val status = intent.getStringExtra(AudioAppConstants.Download.DOWNLOAD)
-                if (status != null) {
-                    if (status == AudioAppConstants.Download.IN_DOWNLOAD) {
-                        downloadFooter.visibility = View.VISIBLE
-                        //  normalFooter.setVisibility(View.GONE);
-                        playerFooter.visibility = View.GONE
-                        mediaPlayerDownloadProgress.max = max
-                        mediaPlayerDownloadProgress.progress = value
-                    } else if (status == AudioAppConstants.Download.FAILED) {
-                        mediaPlayerDownloadProgress.max = 1
-                        mediaPlayerDownloadProgress.progress = 1
-                    } else if (status == AudioAppConstants.Download.SUCCESS) {
-                        mediaPlayerDownloadProgress.max = 1
-                        mediaPlayerDownloadProgress.progress = 1
-                        //check if you auto play after download
-                        if (startBeforeDownload) {
-                            //change views
-                            downloadFooter.visibility = View.GONE
-                            //    normalFooter.setVisibility(View.GONE);
-                            playerFooter.visibility = View.VISIBLE
-                            initializePlayer()
-                        } else {
-                            downloadFooter.visibility = View.GONE
-                            //   normalFooter.setVisibility(View.GONE);
-                            playerFooter.visibility = View.GONE
-                        }
-                    }
-                }
-            }
-        }*/
+
 
     private fun createDownloadLink(): List<String> {
         val chap: List<ChaptersAnaEntity?>? = repository.getSingleChapter(surah)
@@ -2397,8 +2134,13 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     override fun onDestroy() {
         super.onDestroy()
-        rxFetch!!.deleteAll()
-        //   rxFetch!!.close()
+
+        if(!rxFetch!!.isClosed){
+            rxFetch!!.deleteAll()
+            rxFetch!!.close()
+
+        }
+
         //   rxFetch!!.close()
         if (enqueueDisposable != null && !enqueueDisposable!!.isDisposed) {
             enqueueDisposable!!.dispose()

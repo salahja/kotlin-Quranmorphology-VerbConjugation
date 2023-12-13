@@ -661,6 +661,22 @@ class newFlowAyahWordAdapter(
         } else {
             holder.erabexpand.visibility = View.GONE
         }
+
+        if (showErab) {
+            holder.erabexpanden.visibility = View.VISIBLE
+            if (entity != null) {
+
+                    holder.erab_textViewen.text = entity.en_irab
+
+            }
+            //
+            holder.erab_textViewen.typeface = custom_font
+            //     holder.erab_textView.setVisibility(View.VISIBLE);
+            holder.erab_textViewnoteen.visibility = View.VISIBLE
+        } else {
+            holder.erabexpanden.visibility = View.GONE
+        }
+
         setTextSizes(holder)
     }
 
@@ -1090,6 +1106,8 @@ class newFlowAyahWordAdapter(
         //   public TextView erab_textView;
         lateinit var erab_textView: TextView
         lateinit var surah_info: TextView
+        lateinit var erab_textViewen: TextView
+
         lateinit var mafoolbihi: TextView
         private lateinit var erab_notes: TextView
         lateinit var quran_textView: MaterialTextView
@@ -1097,12 +1115,22 @@ class newFlowAyahWordAdapter(
         lateinit var quran_jalalaynnote: TextView
         lateinit var erab_textViewnote: TextView
         lateinit var translate_textViewnote: TextView
+
+        lateinit var erab_textViewnoteen: TextView
+        lateinit var translate_textViewnoteen: TextView
+
+
+
         lateinit var bookmark: ImageView
         lateinit var jumpto: ImageView
         private lateinit var ivSummary: ImageView
         lateinit var ivBismillah: ImageView
         lateinit var erabexpand: ImageView
+
+        lateinit var erabexpanden: ImageView
+
         private lateinit var erab_notes_expand: ImageView
+        private lateinit var erab_notes_expanden: ImageView
         lateinit var tvSura: TextView
         lateinit var tvRukus: TextView
         lateinit var tvVerses: TextView
@@ -1163,6 +1191,9 @@ class newFlowAyahWordAdapter(
                 quran_jalalaynnote = view.findViewById(R.id.quran_jalalaynnote)
                 translate_textViewnote = view.findViewById(R.id.translate_textViewnote)
                 erab_textViewnote = view.findViewById(R.id.erab_textViewnote)
+
+             //   translate_textViewnoteen = view.findViewById(R.id.translate_textViewnoteen)
+                erab_textViewnoteen = view.findViewById(R.id.erab_textViewnoteen)
                 quran_transliteration = view.findViewById(R.id.quran_transliteration)
                 quran_jalalayn = view.findViewById(R.id.quran_jalalayn)
                 surah_info = view.findViewById(R.id.chaptername)
@@ -1170,12 +1201,16 @@ class newFlowAyahWordAdapter(
                 flow_word_by_word = view.findViewById(R.id.flow_word_by_word)
                 translate_textView = view.findViewById(R.id.translate_textView)
                 erab_textView = view.findViewById(R.id.erab_textView)
+                erab_textViewen= view.findViewById(R.id.erab_textViewen)
                 //     erab_textView.setTextIsSelectable(true);
                 quran_textView = view.findViewById(R.id.quran_textView)
                 erab_notes = view.findViewById(R.id.erab_notes)
                 //     bookmark = view.findViewById(R.id.bookmarkView);
                 erabexpand = view.findViewById(R.id.erabexpand)
+                erabexpanden = view.findViewById(R.id.erabexpanden)
+
                 erab_notes_expand = view.findViewById(R.id.erab_img)
+                erab_notes_expanden=view.findViewById(R.id.erab_img)
 //                expandImageButton = view.findViewById(R.id.expandImageButton)
                 quran_textView.setOnClickListener(this)
                 quran_textView.tag = "qurantext"
@@ -1429,6 +1464,18 @@ class newFlowAyahWordAdapter(
                         AnimationUtility.AnimateArrow(90.0f, erabexpand)
                     } else {
                         erab_textView.visibility = View.GONE
+                        AnimationUtility.AnimateArrow(0.0f, erabexpand)
+                        //   Fader.slide_down(context,expandImageButton);
+                    }
+                }
+
+                erabexpanden.setOnClickListener { view1: View? ->
+                    if (erab_textViewen.visibility == View.GONE) {
+                        erab_textViewen.visibility = View.VISIBLE
+                        //  AnimationUtility.slide_down(context, erabexpand);
+                        AnimationUtility.AnimateArrow(90.0f, erabexpand)
+                    } else {
+                        erab_textViewen.visibility = View.GONE
                         AnimationUtility.AnimateArrow(0.0f, erabexpand)
                         //   Fader.slide_down(context,expandImageButton);
                     }

@@ -35,6 +35,7 @@ class QuranEntity constructor(
     var ur_jalalayn: String,
     var ur_junagarhi: String,
     var tafsir_kathir: String,
+    var en_irab: String,
     @field:PrimaryKey(
         autoGenerate = true
     ) var docid: Int,

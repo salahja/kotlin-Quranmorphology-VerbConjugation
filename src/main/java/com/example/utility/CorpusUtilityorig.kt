@@ -1489,7 +1489,7 @@ class CorpusUtilityorig(private var context: Context?) {
             mafoolbihi.add("مفعول")
             for (pojo in allofQuran!!) {
                 //  String ar_irab_two = pojo.getAr_irab_two();
-                val ar_irab_two = pojo.ar_irab_two
+                val ar_irab_two = pojo.ar_irab_two.replace("\n","");
                 val str = SpannableStringBuilder(ar_irab_two)
                 val mudhaftrie = Trie.builder().onlyWholeWords().addKeywords(mudhafilahistr).build()
                 val mudhafemit = mudhaftrie.parseText(ar_irab_two)
@@ -1592,6 +1592,7 @@ class CorpusUtilityorig(private var context: Context?) {
                     )
                 }
                 //    colorerab.get(0).setErabspnabble(str);
+
                 pojo.erabspnabble = str
             }
         }

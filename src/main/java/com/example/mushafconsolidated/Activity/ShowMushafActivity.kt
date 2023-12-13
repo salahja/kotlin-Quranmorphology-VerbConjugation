@@ -2090,7 +2090,11 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
     override fun onPause() {
 //        mSensorManager.unregisterListener(this);
         super.onPause()
-        rxFetch!!.removeListener(fetchListener)
+
+        if(!rxFetch!!.isClosed) {
+            rxFetch!!.removeListener(fetchListener)
+        }
+
         //unregister broadcast for download ayat
 //        LocalBroadcastManager.getInstance(this).unregisterReceiver(downloadPageAya)
         //stop flag of auto start
@@ -2368,7 +2372,15 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
     override fun onDestroy() {
         super.onDestroy()
-        rxFetch!!.deleteAll()
+
+
+        if(!rxFetch!!.isClosed){
+            rxFetch!!.deleteAll()
+            rxFetch!!.close()
+
+        }
+
+
         //   rxFetch!!.close()
         if (enqueueDisposable != null && !enqueueDisposable!!.isDisposed) {
             enqueueDisposable!!.dispose()
