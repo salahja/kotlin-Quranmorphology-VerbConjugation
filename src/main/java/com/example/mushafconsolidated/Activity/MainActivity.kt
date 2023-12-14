@@ -4,6 +4,7 @@ package com.example.mushafconsolidated.Activity
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.preference.PreferenceManager
@@ -30,7 +31,7 @@ import java.util.zip.ZipInputStream
 
 class MainActivity : BaseActivity() {
     private var newquran: File? = null
-    private var recview: RecyclerView? = null
+    var recview: RecyclerView? = null
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
     }
@@ -40,7 +41,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         val hasPermission = ContextCompat.checkSelfPermission(
             this,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
         ) == PackageManager.PERMISSION_GRANTED
         computeWindowSizeClasses()
         //  setContentView(R.layout.fragment_reading);
@@ -54,15 +55,21 @@ class MainActivity : BaseActivity() {
             sp.edit().putInt("spl", SPL).apply()
         }
         newquran = File("$FILEPATH/$DATABASENAME")
-        validateFilesAndDownload()
-        //les api33
-        if (!hasPermission) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                REQUEST_WRITE_STORAGE
-            )
-        } else {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S) {
+            if (!hasPermission) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    REQUEST_WRITE_STORAGE
+                )
+            } else {
+                try {
+                    validateFilesAndDownload()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        } else{
             try {
                 validateFilesAndDownload()
             } catch (e: IOException) {
@@ -75,7 +82,7 @@ class MainActivity : BaseActivity() {
     private fun computeWindowSizeClasses() {
         val metrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this)
         val editor = PreferenceManager.getDefaultSharedPreferences(this@MainActivity).edit()
-        val widthDp: Float = metrics.bounds.width() / resources.displayMetrics.density
+        val widthDp = metrics.bounds.width() / resources.displayMetrics.density
         if (widthDp < 600f) {
             editor.putString("width", "compactWidth")
             editor.apply()
@@ -87,8 +94,9 @@ class MainActivity : BaseActivity() {
             editor.putString("width", "expandedWidth")
             editor.apply()
         }
-        val heightDp: Float = metrics.bounds.height() / resources.displayMetrics.density
-        val heightWindowSizeClass: WindowSizeClass = if (heightDp < 480f) {
+        val heightDp = metrics.bounds.height() / resources.displayMetrics.density
+        val heightWindowSizeClass: WindowSizeClass
+        heightWindowSizeClass = if (heightDp < 480f) {
             WindowSizeClass.COMPACT
         } else if (heightDp < 900f) {
             WindowSizeClass.MEDIUM
@@ -106,7 +114,7 @@ class MainActivity : BaseActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         //check if permission had taken or not
         if (requestCode == REQUEST_WRITE_STORAGE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //valid to download or not
                 try {
                     validateFilesAndDownload()
@@ -115,7 +123,7 @@ class MainActivity : BaseActivity() {
                 }
             } else {
                 Toast.makeText(this, getString(R.string.permission), Toast.LENGTH_LONG).show()
-                this@MainActivity.finish()
+                finish()
             }
         }
     }
@@ -148,11 +156,8 @@ class MainActivity : BaseActivity() {
             PageAdapter pageAdapter=new PageAdapter(pages,this);
             recview.setAdapter(pageAdapter);*/
             val homeactivity = Intent(this@MainActivity, QuranGrammarAct::class.java)
-            //  val homeactivity = Intent(this@MainActivity, DownloadListActivity::class.java)
-
-            intent.addCategory(Intent.CATEGORY_LAUNCHER);
             startActivity(homeactivity)
-            finish();
+            //   MainActivity.this.finish();
             //   initnavigation();
         }
     }
@@ -165,7 +170,7 @@ class MainActivity : BaseActivity() {
         val dialog = builder.create()
         ex.execute(object : Runnable {
             override fun run() {
-               // runOnUiThread { dialog.show() }
+                runOnUiThread { dialog.show() }
                 val canWrie = canWriteInSDCard()
                 if (canWrie) {
                     try {
@@ -224,27 +229,22 @@ class MainActivity : BaseActivity() {
                         var ze: ZipEntry
                         var count: Int
                         val buffer = ByteArray(8192)
-                        try {
-                            if (zis != null) {
-                                while (zis.nextEntry.also { ze = it } != null) {
-                                    val file = File(targetDirectory, ze.name)
-                                    val dir = if (ze.isDirectory) file else file.parentFile
-                                    if (!dir.isDirectory && !dir.mkdirs()) throw FileNotFoundException(
-                                        "Failed to ensure directory: " + dir.absolutePath
-                                    )
-                                    if (ze.isDirectory) continue
-                                    FileOutputStream(file).use { fout ->
-                                        progress += 1
-                                        while (zis.read(buffer).also { count = it } != -1) {
-                                            fout.write(buffer, 0, count)
-                                            progress += 1
-                                            //   progressBarDD.setProgress(progress);
-                                        }
-                                    }
+                        while (zis!!.nextEntry.also { ze = it } != null) {
+                            val file = File(targetDirectory, ze.name)
+                            val dir =
+                                if (ze.isDirectory) file else file.parentFile
+                            if (!dir.isDirectory && !dir.mkdirs()) throw FileNotFoundException(
+                                "Failed to ensure directory: " + dir.absolutePath
+                            )
+                            if (ze.isDirectory) continue
+                            FileOutputStream(file).use { fout ->
+                                progress += 1
+                                while (zis.read(buffer).also { count = it } != -1) {
+                                    fout.write(buffer, 0, count)
+                                    progress += 1
+                                    //   progressBarDD.setProgress(progress);
                                 }
                             }
-                        } catch (e: NullPointerException) {
-                            println("check")
                         }
                     } catch (e: IOException) {
                         e.printStackTrace()
@@ -258,7 +258,7 @@ class MainActivity : BaseActivity() {
                         }
                     }
                     ex.shutdown()
-//                    dialog.dismiss()
+                    dialog.dismiss()
                     val zipintent = Intent(this@MainActivity, QuranGrammarAct::class.java)
                     startActivity(zipintent)
                     finish()
@@ -271,6 +271,19 @@ class MainActivity : BaseActivity() {
             }
         })
     }
+
+    val defaultSaveRootPath: Boolean
+        get() {
+            var useExternalStorage = false
+            val mounted = Environment.getExternalStorageState() == "mounted"
+            val freeSpace = Environment.getExternalStorageDirectory().freeSpace
+            if (mounted) {
+                if (freeSpace > 0) {
+                    useExternalStorage = true
+                }
+            }
+            return useExternalStorage
+        }
 
     enum class WindowSizeClass {
         COMPACT, MEDIUM, EXPANDED

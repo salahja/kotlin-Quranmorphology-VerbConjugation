@@ -858,7 +858,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             }
 
             //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
-            handler.postDelayed(this, 1200)
+            handler.postDelayed(this, 500)
         }
     }
 
