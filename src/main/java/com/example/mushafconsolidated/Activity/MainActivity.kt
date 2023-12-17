@@ -229,23 +229,34 @@ class MainActivity : BaseActivity() {
                         var ze: ZipEntry
                         var count: Int
                         val buffer = ByteArray(8192)
-                        while (zis!!.nextEntry.also { ze = it } != null) {
-                            val file = File(targetDirectory, ze.name)
-                            val dir =
-                                if (ze.isDirectory) file else file.parentFile
-                            if (!dir.isDirectory && !dir.mkdirs()) throw FileNotFoundException(
-                                "Failed to ensure directory: " + dir.absolutePath
-                            )
-                            if (ze.isDirectory) continue
-                            FileOutputStream(file).use { fout ->
-                                progress += 1
-                                while (zis.read(buffer).also { count = it } != -1) {
-                                    fout.write(buffer, 0, count)
-                                    progress += 1
-                                    //   progressBarDD.setProgress(progress);
-                                }
-                            }
-                        }
+                             try {
+                                 while (zis!!.nextEntry.also { ze = it } != null) {
+                                     val file = File(targetDirectory, ze.name)
+                                     val dir =
+                                         if (ze.isDirectory) file else file.parentFile
+                                     if (!dir.isDirectory && !dir.mkdirs()) throw FileNotFoundException(
+                                         "Failed to ensure directory: " + dir.absolutePath
+                                     )
+                                     if (ze.isDirectory) continue
+                                     FileOutputStream(file).use { fout ->
+                                         progress += 1
+                                         while (zis.read(buffer).also { count = it } != -1) {
+                                             fout.write(buffer, 0, count)
+                                             progress += 1
+                                             //   progressBarDD.setProgress(progress);
+                                         }
+                                     }
+                                 }
+                             } catch (ex:NullPointerException){
+                                 try {
+                                     zis!!.close()
+                                     mainDatabasesZIP.delete()
+                                     //     progressBarDD.dismiss();
+                                 } catch (e: IOException) {
+                                     e.printStackTrace()
+                                 }
+                             }
+
                     } catch (e: IOException) {
                         e.printStackTrace()
                     } finally {

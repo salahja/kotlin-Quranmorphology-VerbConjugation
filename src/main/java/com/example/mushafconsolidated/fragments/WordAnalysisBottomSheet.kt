@@ -198,7 +198,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
         val corpusSurahWord = mainViewModel.getQuranCorpusWbw(chapterid, ayanumber, wordno).value
 
 
-        val quran = mainViewModel.getsurahayahVerseslist(chapterid, ayanumber).value
+   val quran = mainViewModel.getsurahayahVerseslist(chapterid, ayanumber).value
         val corpusNounWord = mainViewModel.getNouncorpus(chapterid, ayanumber, wordno).value
 
         val verbCorpusRootWord =

@@ -670,7 +670,7 @@ class newFlowAyahWordAdapter(
 
             }
             //
-            holder.erab_textViewen.typeface = custom_font
+         //   holder.erab_textViewen.typeface = custom_font
             //     holder.erab_textView.setVisibility(View.VISIBLE);
             holder.erab_textViewnoteen.visibility = View.VISIBLE
         } else {

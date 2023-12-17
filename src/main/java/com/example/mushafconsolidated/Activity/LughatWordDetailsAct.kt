@@ -121,6 +121,7 @@ class LughatWordDetailsAct : BaseActivity() {
     private var isonlyarabicword = false
     private var isVerbMajzoom = false
     private var isVerbMansub = false
+    private var isVerbEmpha = false
     private var isnoun = false
     private var isHarf = false
     private var nouncase: String? = null
@@ -192,6 +193,7 @@ class LughatWordDetailsAct : BaseActivity() {
                 "Jussive" -> isVerbMajzoom = true
                 "Subjunctive" -> isVerbMansub = true
                 "Indicative" -> isVerbMarfu = true
+                "Emphasized"->isVerbEmpha=true
             }
         } catch (e: NullPointerException) {
             println(e.message)
@@ -358,7 +360,7 @@ class LughatWordDetailsAct : BaseActivity() {
                 ) { tab: TabLayout.Tab, position: Int ->
                     tab.text = thulathientitlesmansub[position]
                 }.attach()
-            } else if (SharedPref.language == "en" && verbmood == "Indicative") {
+            } else if (SharedPref.language == "en" && (verbmood == "Indicative" || verbmood=="Emphasized")) {
                 languages[0] = "lanes"
                 languages[1] = "hans"
                 languages[2] = "english"
@@ -496,7 +498,7 @@ class LughatWordDetailsAct : BaseActivity() {
                 return getdictionary(position)
             } else if (ismujarrad && isparticple && (isIsmMajroor || isIsmMansub || isIsmMarfu)) {
                 return getMujarradParticiple(position)
-            } else if (ismujarrad && (isVerbMajzoom || isVerbMansub)) {
+            } else if (ismujarrad && (isVerbMajzoom || isVerbMansub||isVerbEmpha)) {
                 return getMujarradMajzoomOrMansub(position)
             } else if (ismujarrad && isVerbMarfu && !isimperative) {
                 return getMujarradMarfuu(position)
@@ -504,7 +506,7 @@ class LughatWordDetailsAct : BaseActivity() {
                 return getMazeedMajzoomOrMarfuImp(position)
             } else if (ismujarrad && (isVerbMajzoom || isimperative)) {
                 return getMujarradImperative(position)
-            } else if (isAugmentedWazan && (isVerbMajzoom || isVerbMansub)) {
+            } else if (isAugmentedWazan && (isVerbMajzoom || isVerbMansub||isVerbEmpha)) {
                 return getMazeedMajzoomOrMarfu(position)
             } else if (isAugmentedWazan && isVerbMarfu) {
                 return getMazeedMarfu(position)
