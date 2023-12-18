@@ -109,7 +109,9 @@ object QuranValidateSources {
         //check file found or not
         //   val file: File = File(app_folder_path)
         val file: File = File(filepath)
-        if (file.length() == 0.toLong()) {
+        if (file.length() == 0.toLong())
+        {
+            file.delete()
             return false
         }
         if (!file.exists()) return false

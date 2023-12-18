@@ -133,6 +133,8 @@ import kotlin.math.max
 
 class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnClickListener,
     FullscreenButtonClickListener {
+
+
     // private UpdateMafoolFlowAyahWordAdapter flowAyahWordAdapter;
     private lateinit var mainViewModel: QuranVIewModel
     private var corpusSurahWord: List<QuranCorpusWbw>? = null
@@ -490,6 +492,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             }
         }
     }
+
     fun surahAyahPicker(isrefresh: Boolean, starttrue: Boolean) {
         val rangevalues = ArrayList<Int>()
         val mTextView: TextView
@@ -600,14 +603,17 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
                 //
             }
+
             "brown" -> {
                 alertDialog.window!!.setBackgroundDrawableResource(R.color.background_color_light_brown)
                 //  cardview.setCardBackgroundColor(ORANGE100);
             }
+
             "blue" -> {
                 alertDialog.window!!.setBackgroundDrawableResource(R.color.prussianblue)
                 //  cardview.setCardBackgroundColor(db);
             }
+
             "green" -> {
                 alertDialog.window!!.setBackgroundDrawableResource(R.color.mdgreen_theme_dark_onPrimary)
                 //  cardview.setCardBackgroundColor(MUSLIMMATE);
@@ -776,7 +782,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         override fun run() {
             var holder: RecyclerView.ViewHolder? = null
             holder = recyclerView.findViewHolderForAdapterPosition(currenttrack)
-            if( player!=null && player!!.isPlaying ){
+            if (player != null && player!!.isPlaying) {
                 recyclerView.post {
                     recyclerView.scrollToPosition(currenttrack)
                 }
@@ -875,6 +881,43 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     override fun onStop() {
         super.onStop()
+        if (isDownloading) {
+            val builder = AlertDialog.Builder(this)
+            //set title for alert dialog
+            builder.setTitle(R.string.dialogTitle)
+            //set message for alert dialog
+            builder.setMessage(
+                resources.getString(
+                    R.string.complete_over,
+                    completedFiles,
+                    totalFiles
+                )
+            )
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+            //performing positive action
+            builder.setPositiveButton("Yes") { dialogInterface, which ->
+                Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
+            }
+            //performing cancel action
+            builder.setNeutralButton("Cancel") { dialogInterface, which ->
+                Toast.makeText(
+                    applicationContext,
+                    "clicked cancel\n operation cancel",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            //performing negative action
+            builder.setNegativeButton("No") { dialogInterface, which ->
+                Toast.makeText(applicationContext, "clicked No", Toast.LENGTH_LONG).show()
+            }
+            // Create the AlertDialog
+            val alertDialog: AlertDialog = builder.create()
+            // Set other dialog properties
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+
+        }
         when {
             Util.SDK_INT > 23 -> {
                 //      this.releasePlayer();
@@ -1015,6 +1058,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     private fun createMediaItemsrx(): MutableList<MediaItem> {
         val repository = Utils(this)
+        var quranbySurah: List<QuranEntity?>? = null
         val chap: List<ChaptersAnaEntity?>? = repository.getSingleChapter(
             surahselected
         )
@@ -1068,7 +1112,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 marray.add(MediaItem.fromUri(location))
             }
         } else {
-            val quranbySurah: List<QuranEntity?>? = repository.getQuranbySurah(
+            quranbySurah = repository.getQuranbySurah(
                 surahselected
             )
             val dir = getSaveDirs(this, readerID.toString())
@@ -1090,14 +1134,16 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                         dir.toString(),
                         audioType
                     )
-                    marray.add(MediaItem.fromUri(location))
+                    if (location.length > 0) {
+                        marray.add(MediaItem.fromUri(location))
+                    }
                 }
-            } else if(audioType==2){
+            } else if (audioType == 2) {
                 val location = FileManager.createAyaAudioLinkLocationrx(
                     this,
                     readerID,
-                   0,
-                  surahselected,
+                    0,
+                    surahselected,
                     dir.toString(),
                     audioType
                 )
@@ -1105,6 +1151,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
             }
         }
+
         return marray
     }
 
@@ -1263,7 +1310,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             }
             singleline = true
             //    NewsendUpdatesToUIPassage.run();
-          if (player!!.isPlaying || player!!.playWhenReady) {
+            if (player!!.isPlaying || player!!.playWhenReady) {
                 SinglesendUpdatesToUI.run()
                 //   sendUpdatesToUI.run();
             } else {
@@ -1656,8 +1703,48 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     override fun onPause() {
 //        mSensorManager.unregisterListener(this);
+
+
+        if (isDownloading) {
+            val builder = AlertDialog.Builder(this)
+            //set title for alert dialog
+            builder.setTitle(R.string.dialogTitle)
+            //set message for alert dialog
+            builder.setMessage(
+                resources.getString(
+                    R.string.complete_over,
+                    completedFiles,
+                    totalFiles
+                )
+            )
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+            //performing positive action
+            builder.setPositiveButton("Yes") { dialogInterface, which ->
+                Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
+            }
+            //performing cancel action
+            builder.setNeutralButton("Cancel") { dialogInterface, which ->
+                Toast.makeText(
+                    applicationContext,
+                    "clicked cancel\n operation cancel",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            //performing negative action
+            builder.setNegativeButton("No") { dialogInterface, which ->
+                Toast.makeText(applicationContext, "clicked No", Toast.LENGTH_LONG).show()
+            }
+            // Create the AlertDialog
+            val alertDialog: AlertDialog = builder.create()
+            // Set other dialog properties
+            alertDialog.setCancelable(false)
+              alertDialog.show()
+
+        }
         super.onPause()
-        if(!rxFetch!!.isClosed) {
+
+        if (!rxFetch!!.isClosed) {
             rxFetch!!.removeListener(fetchListener)
         }
         audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
@@ -1674,8 +1761,9 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     override fun onResume() {
         super.onResume()
-        rxFetch!!.addListener(fetchListener)
-        resumeDisposable =
+    //    rxFetch!!.addListener(fetchListener)
+
+    /*    resumeDisposable =
             rxFetch!!.getDownloadsInGroup(RxFilesActivity.groupId).flowable.subscribe(
                 { downloads: List<Download> ->
                     for (download in downloads) {
@@ -1690,9 +1778,8 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                     throwable!!
                 )
                 Timber.d("GamesFilesActivity Error: %1\$s", error)
-            }
+            }*/
     }
-
 
 
     private fun createDownloadLink(): List<String> {
@@ -1882,7 +1969,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 reset()
             }
 
-
+            rxFetch!!.addListener(fetchListener)
             enqueueFiles(Links, app_folder_path)
             /*
                        startButton!!.setOnClickListener(View.OnClickListener { v: View? ->
@@ -1908,6 +1995,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
     private fun enqueueFiles(Links: ArrayList<String>, filepath: String) {
         // readerID=getReaderId()
+        isDownloading = true;
         val requestList =
             getFileUrlUpdates(this, Links, filepath, readerID.toString())
         for (request in requestList) {
@@ -1929,8 +2017,8 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
 
 
     private fun updateUIWithProgress() {
-        val totalFiles = fileProgressMap.size
-        val completedFiles = completedFileCount
+        totalFiles = fileProgressMap.size
+        completedFiles = completedFileCount
         progressTextView!!.text =
             resources.getString(R.string.complete_over, completedFiles, totalFiles)
         val progress = downloadProgress
@@ -1941,9 +2029,9 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
             startButton!!.visibility = View.VISIBLE
             downloadFooter.visibility = View.GONE
             //     normalFooter.visibility = View.GONE
+            isDownloading = false
 
-
-            initializePlayer()
+         //   initializePlayer()
             playerFooter.visibility = View.VISIBLE
             audio_settings_bottom.visibility = View.GONE
 
@@ -2135,7 +2223,8 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
     override fun onDestroy() {
         super.onDestroy()
 
-        if(!rxFetch!!.isClosed){
+
+        if (!rxFetch!!.isClosed) {
             rxFetch!!.deleteAll()
             rxFetch!!.close()
 
@@ -2237,6 +2326,9 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         var downloadLink: String? = null
         var readerName: String? = null
         var startBeforeDownload = false
+        var isDownloading = false
+        var completedFiles = 0
+        var totalFiles = 0
         private const val TAG = "ShowMushafActivity"
     }
 }

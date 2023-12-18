@@ -2,6 +2,7 @@ package com.example.mushafconsolidated.receiversimport
 
 import android.content.Context
 import android.os.Environment
+import java.io.File
 
 
 object FileManager {
@@ -46,7 +47,14 @@ object FileManager {
 
             filepath = dir + "/" + suraID + AudioAppConstants.Extensions.Companion.MP3
         }
-        return filepath
+        val file: File = File(filepath)
+        if (file.length() == 0.toLong()) {
+
+            return ""
+        }else {
+            return filepath
+        }
+
 
 
         /*  return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
