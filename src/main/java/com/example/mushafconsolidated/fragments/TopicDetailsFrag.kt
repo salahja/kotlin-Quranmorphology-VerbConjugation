@@ -13,7 +13,6 @@ import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +30,7 @@ import com.example.mushafconsolidated.model.CorpusWbwWord
 import com.example.mushafconsolidated.model.NewQuranCorpusWbw
 import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
+import com.example.sentenceanalysis.SentenceGrammarAnalysis
 import com.example.utility.CorpusUtilityorig
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
@@ -110,7 +110,9 @@ class TopicDetailsFrag : DialogFragment(), OnItemClickListenerOnLong {
                     val split = splits!!.split(",".toRegex()).dropLastWhile { it.isEmpty() }
                         .toTypedArray()
                     for (s: String in split) {
-                        getwbwy(s, key)
+                        if(!s.contains("null")) {
+                            getwbwy(s, key)
+                        }
                     }
                 }
                 requireActivity().runOnUiThread {
@@ -180,10 +182,12 @@ class TopicDetailsFrag : DialogFragment(), OnItemClickListenerOnLong {
     private fun getwbwy(str: String, header: String) {
         val ss = str.split(":".toRegex()).dropLastWhile { it.isEmpty() }
             .toTypedArray()
-        val suraid = ss[0].trim { it <= ' ' }.toInt()
-        val ayah = ss[1].trim { it <= ' ' }.toInt()
-        //    preparewbwarray(header, suraid, ayah)
-        newpreparewbwarray(header, suraid, ayah)
+
+            val suraid = ss[0].trim { it <= ' ' }.toInt()
+            val ayah = ss[1].trim { it <= ' ' }.toInt()
+            //    preparewbwarray(header, suraid, ayah)
+            newpreparewbwarray(header, suraid, ayah)
+
     }
 
     private fun newpreparewbwarray(header: String?, suraid: Int, ayah: Int) {
@@ -323,7 +327,7 @@ class TopicDetailsFrag : DialogFragment(), OnItemClickListenerOnLong {
     }
 
     private fun LoadItemList(dataBundle: Bundle, word: QuranEntity) {
-        val builder = AlertDialog.Builder(requireContext())
+       /* val builder = AlertDialog.Builder(requireContext())
         builder.setCancelable(false) // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_dialog)
         val item = GrammerFragmentsBottomSheet()
@@ -339,7 +343,19 @@ class TopicDetailsFrag : DialogFragment(), OnItemClickListenerOnLong {
             .setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out)
         transactions.show(item)
         GrammerFragmentsBottomSheet.newInstance(data)
-            .show(childFragmentManager, WordAnalysisBottomSheet.TAG)
+            .show(childFragmentManager, WordAnalysisBottomSheet.TAG)*/
+        val dataBundle = Bundle()
+        dataBundle.putInt(Constant.SURAH_ID, word.surah)
+        dataBundle.putInt(Constant.AYAH_ID, Math.toIntExact(word.ayah.toLong()))
+        //LoadItemList(dataBundle, word)
+        val homeactivity = Intent(activity, SentenceGrammarAnalysis::class.java)
+        homeactivity.putExtras(dataBundle!!)
+        //  val homeactivity = Intent(this@MainActivity, DownloadListActivity::class.java)
+
+       // intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        startActivity(homeactivity)
+
+
     }
 
     private fun bookMarkSelected(position: Int, bookmarkview: View?) {

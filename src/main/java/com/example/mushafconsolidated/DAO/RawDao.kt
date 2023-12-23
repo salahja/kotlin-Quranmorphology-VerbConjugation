@@ -59,8 +59,6 @@ interface RawDao {
     fun getShartListing(query: SupportSQLiteQuery): List<ShartListingPojo>
 
 
-
-
     @RawQuery
     fun getSifaListing(query: SupportSQLiteQuery): List<SifaListingPojo>
     @RawQuery

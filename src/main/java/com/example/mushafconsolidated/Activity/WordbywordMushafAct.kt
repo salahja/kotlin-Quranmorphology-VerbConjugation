@@ -1015,9 +1015,15 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 val haveStartPosition = startItemIndex != C.INDEX_UNSET
 
                 if (rangeRecitation) {
-                    marrayrange = marray.subList(versestartrange, verseendrange)
+                     if(verseendrange==0){
+                         verseendrange=versescount
+                     }
+                    if(versestartrange>0){
+                        versestartrange--
+                    }
+                    marray = marray.subList(versestartrange, verseendrange)
                     player!!.setMediaItems(
-                        marrayrange as MutableList<MediaItem>,  /* resetPosition= */
+                        marray as MutableList<MediaItem>,  /* resetPosition= */
                         !haveStartPosition
                     )
                 } else {
@@ -1028,9 +1034,15 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 qariname.text = str
                 //   qariname.setText(readerName);
                 player!!.prepare()
+                if(rangeRecitation){
+                    recyclerView.post { recyclerView.scrollToPosition(versestartrange) }
+                    player!!.seekToDefaultPosition(versestartrange)
+                    player!!.play()
+                }
                 if (resume) {
                     recyclerView.post { recyclerView.scrollToPosition(currenttrack) }
                     player!!.seekToDefaultPosition(resumelastplayed)
+
                 }
                 if (audioSettingBottomBehaviour.state == BottomSheetBehavior.STATE_EXPANDED) {
                     audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -1372,6 +1384,8 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         qariname = findViewById(R.id.lqari)
         //buffering = (ImageView) findViewById(R.id.exo_buffering);
         val chooseDisplaytype: SwitchCompat = findViewById(R.id.chooseDisplaytype)
+        val singledisplay:LinearLayout=findViewById(R.id.display)
+        singledisplay.visibility=View.GONE
         chooseDisplaytype.setOnClickListener(this)
         playfb = findViewById(R.id.playfb)
         playfb.setOnClickListener(this)
@@ -1471,7 +1485,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
                 versescount
             )
             startrange.text = st.toString()
-            startrange.text = stt.toString()
+        //    startrange.text = stt.toString()
         }
         val manager = LinearLayoutManager(this)
         manager.orientation = LinearLayoutManager.VERTICAL

@@ -74,7 +74,7 @@ class NewSurahDisplayAdapter(
         }
         //
         val drawable = imgs?.getDrawable(cno - 1)
-        imgs?.recycle()
+    //    imgs?.recycle()
         holder.ivsurahicon.setImageDrawable(drawable)
         if (surahIsmakki == 1) {
             holder.makkimadaniIcon.setImageResource(R.drawable.ic_makkah_foreground)

@@ -721,6 +721,7 @@ class ExpandableVerseViewModel(
                                 val temp: StringBuilder = getSelectedTranslation(w!!, wbwchoice)
                                 sb.append(temp).append(" ")
                             }
+                            hasbarray.add(AnnotatedString(sb.toString()))
                         }
                     } else {
                         val wbwayah: List<wbwentity?>? = utils.getwbwQuranBySurahAyah(
@@ -746,7 +747,7 @@ class ExpandableVerseViewModel(
                         sb.append(khabarsb)
                         hasbarray.add(AnnotatedString(sb.toString()))
                     }
-                    hasbarray.add(AnnotatedString(sb.toString()))
+                  //  hasbarray.add(AnnotatedString(sb.toString()))
                     //  CharSequence first = TextUtils.concat(harfspannble," ",shartofverse);
                 } else if (d) {
                     harfspannble = AnnotatedString(harfofverse)

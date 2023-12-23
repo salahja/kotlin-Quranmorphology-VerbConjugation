@@ -137,6 +137,21 @@ class Utils {
 
 
     }
+    fun getSifalisting(tid:Int):List<SifaListingPojo>{
+        val sqlshart:String=("select sifa.surah,sifa.ayah,sifa.startindex,sifa.endindex,sifa.wordno,qurans.page,qurans.passage_no,qurans.qurantext,qurans.has_prostration,qurans.translation,\n" +
+                "qurans.en_transliteration,qurans.en_arberry,qurans.en_jalalayn,qurans.ur_jalalayn,qurans.tafsir_kathir,qurans.ur_junagarhi,qurans.ar_irab_two\n" +
+                " from sifa,qurans where sifa.surah=qurans.surah and sifa.ayah=qurans.ayah and sifa.surah ==  \""
+                + tid + "\"")
+
+        val query: SimpleSQLiteQuery = SimpleSQLiteQuery(sqlshart)
+        //  List<Book> result = booksDao.getBooks(query);
+        return database.RawDao().getSifaListing(query)
+
+
+    }
+
+
+
 
     fun getNasb(tid:Int):List<NasbListingPojo>{
         val sqlshart:String=("select newnasb.surah,newnasb.ayah,newnasb.indexstart,newnasb.indexend,newnasb.ismstart,newnasb.ismend,\n" +

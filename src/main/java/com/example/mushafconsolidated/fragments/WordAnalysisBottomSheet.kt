@@ -65,6 +65,7 @@ import com.example.mushafconsolidated.intrfaceimport.OnItemClickListener
 import com.example.mushafconsolidated.model.QuranCorpusWbw
 import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.example.mushafconsolidatedimport.VerbFormsDialogFrag
+import com.example.utility.CorpusUtilityorig
 import com.example.utility.CorpusUtilityorig.Companion.getSpancolor
 import com.example.utility.QuranGrammarApplication
 import com.google.android.material.button.MaterialButton
@@ -169,6 +170,12 @@ class WordAnalysisBottomSheet : DialogFragment() {
         }
         val dark =
             themepreference == "dark" || themepreference == "blue" || themepreference == "green"
+        lateinit var scope: CoroutineScope
+        rwAdapter = NewRootWordDisplayAdapter(requireContext())
+        val corpus = CorpusUtilityorig(requireContext())
+        scope = CoroutineScope(Dispatchers.Main)
+
+
 
         val models: QuranVIewModel by viewModels()
         val ex = Executors.newSingleThreadExecutor()
@@ -176,10 +183,10 @@ class WordAnalysisBottomSheet : DialogFragment() {
         builder.setCancelable(false) // if you want user to wait for some process to finish,
         builder.setView(layout.layout_loading_dialog)
         dialog = builder.create()
-        val scope: CoroutineScope
-        scope = CoroutineScope(Dispatchers.Main)
-        val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
-        rwAdapter = NewRootWordDisplayAdapter(requireContext())
+       // val scope: CoroutineScope
+       // scope = CoroutineScope(Dispatchers.Main)
+        val mainViewModel = ViewModelProvider(requireActivity())[QuranVIewModel::class.java]
+
         // requireActivity().runOnUiThread { dialog.show() }
         //    scope.launch {
 
@@ -645,7 +652,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
 
             recyclerView.adapter = rwAdapter
         }
-        //  }scope
+
 
         return view
     }
@@ -1000,7 +1007,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 } else if (viewVerbConjugation != null) {
                     text = (viewVerbConjugation as MaterialButton).text
                     if (text.toString() == "Click for Verb Conjugation") {
-                        if (isroot && isconjugation) {
+                        if (isroot && isconjugation || isparticple) {
                             val dataBundle = Bundle()
                             //      ArrayList arrayList = ThulathiMazeedConjugatonList.get(position);
                             //   arrayList.get(0).ge

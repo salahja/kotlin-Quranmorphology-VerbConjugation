@@ -330,7 +330,7 @@ class PhrasesDisplayFrag : Fragment(), SearchView.OnQueryTextListener {
                     "Kana" -> settingint.putExtra(Constant.HARF, "kana")
                     "Mudhaf" -> settingint.putExtra(Constant.HARF, "mudhaf")
                     "Shart" -> settingint.putExtra(Constant.HARF, "shart")
-                    "Mausuf" -> settingint.putExtra(Constant.HARF, "mausuf")
+                    "Mausouf" -> settingint.putExtra(Constant.HARF, "mausuf")
                 }
 
                 settingint.putExtra(SURAH_ID, item.chapterid)

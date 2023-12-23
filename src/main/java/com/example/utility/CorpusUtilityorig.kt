@@ -23,6 +23,7 @@ import com.example.mushafconsolidated.Entities.NewShartEntity
 import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.Entities.ShartListingPojo
 import com.example.mushafconsolidated.Entities.SifaEntity
+import com.example.mushafconsolidated.Entities.SifaListingPojo
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.Utils
 import com.example.mushafconsolidated.model.NewQuranCorpusWbw
@@ -500,6 +501,40 @@ class CorpusUtilityorig(private var context: Context?) {
         }
     }
 
+    fun SetsifaListing(
+
+      sifa:  List<SifaListingPojo>,
+
+
+    ) {
+        if (dark) {
+            Constant.sifaspansDark = BackgroundColorSpan(Constant.WBURNTUMBER)
+        } else {
+            Constant.sifaspansDark = BackgroundColorSpan(Constant.CYANLIGHTEST)
+        }
+        var spannableverse: SpannableString
+        for (sif in sifa!!) {
+          val    indexstart=sif.startindex
+            val indexend=sif.endindex
+            spannableverse = sif.spannableVerse!!
+            try {
+            spannableverse.setSpan(
+                Constant.sifaspansDark,
+                indexstart,
+                indexend,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            } catch (e: IndexOutOfBoundsException) {
+                //System.out.println(e.getMessage());
+            }
+
+        }
+
+
+
+
+
+    }
 
     fun HarfNasbDb(
 
@@ -712,6 +747,8 @@ class CorpusUtilityorig(private var context: Context?) {
                 println(e.localizedMessage)
                 println(corpusayahWordArrayList[0]?.get(0)?.corpus!!.ayah)
                 println(corpusayahWordArrayList[mudhafen.ayah]?.get(0)!!.corpus!!.ayah)
+                spannableverse =
+                    corpusayahWordArrayList[mudhafen.ayah]?.get(0)!!.spannableverse!!
             }
 
             // spannableString = SpannableString.valueOf(corpusayahWordArrayList.get(mudhafen.getAyah() - 1).getSpannableverse());

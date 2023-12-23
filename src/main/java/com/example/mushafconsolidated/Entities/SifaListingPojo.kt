@@ -28,7 +28,8 @@ class SifaListingPojo constructor(){
     var spannableVerse: SpannableString? = null
     @Ignore
     var erabspnabble: SpannableStringBuilder? = null
-
+    @Ignore
+    var sifatranslation: SpannableStringBuilder? = null
 
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

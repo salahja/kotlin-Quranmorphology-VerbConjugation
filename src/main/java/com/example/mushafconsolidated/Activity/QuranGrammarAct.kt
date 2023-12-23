@@ -80,11 +80,9 @@ import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.example.mushafconsolidated.settingsimport.Constants
 import com.example.mushafconsolidatedimport.ParticleColorScheme
 import com.example.sentenceanalysis.SentenceGrammarAnalysis
-import com.example.surahdisplaycompose.SurahComposeAct
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.CorpusUtilityorig.Companion.HightLightKeyWord
 import com.example.utility.QuranGrammarApplication
-import com.example.voiceai.VoiceRecognitionActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -170,6 +168,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
     private lateinit var parentRecyclerView: RecyclerView
     private var mushafview = false
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val myFragment: NewSurahDisplayFrag? =
             supportFragmentManager.findFragmentByTag(SURAHFRAGTAG) as NewSurahDisplayFrag?
@@ -428,28 +427,16 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 transaction.addToBackStack(null)
                 transaction.commit()
             }
-            if (item.itemId == R.id.jumptoverse) {
+            if (item.itemId == R.id.ajroomiya_detail) {
                 drawerLayout.closeDrawers()
                 val grammar = Intent(this, NewAjroomiyaDetailHostActivity::class.java)
                 startActivity(grammar)
             }
-            if (item.itemId == R.id.search) {
-                drawerLayout.closeDrawers()
-                materialToolbar.title = "Root Word Search"
-                val search = Intent(this, VoiceRecognitionActivity::class.java)
-                startActivity(search)
-            }
-            if (item.itemId == R.id.surahcompose) {
+            if (item.itemId == R.id.phrases) {
+
                 drawerLayout.closeDrawers()
                 materialToolbar.title = "Topics"
-                val searchs = Intent(this, SurahComposeAct::class.java)
-                startActivity(searchs)
-            }
-            if (item.itemId == R.id.bottomcompose) {
-        /*        drawerLayout.closeDrawers()
-                materialToolbar.title = "Topics"
-                val searchs = Intent(this, BottomCompose::class.java)
-                startActivity(searchs)*/
+
 
                 val conjugatorintent = Intent(this@QuranGrammarAct, PhrasesGrammarAct::class.java)
 
@@ -457,7 +444,14 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
 
             }
 
+            if (item.itemId == R.id.settings) {
+                drawerLayout.closeDrawers()
+                materialToolbar.title = "Settings"
+                val settingint = Intent(this, ActivitySettings::class.java)
+                startActivity(settingint)
 
+
+            }
 
             if (item.itemId == R.id.searchtopic) {
                 drawerLayout.closeDrawers()
@@ -582,6 +576,7 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
 
         ok.setOnClickListener {
             jumpDialog.dismiss()
+
             verseNo = verseNumber
             //    soraList.get(suraNumber).getAbjadname();
             surahArabicName =
@@ -620,7 +615,11 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 surah_id = currentSelectSurah
                 this.chapterno = currentSelectSurah
 
-                ExecuteSurahWordByWord()
+
+
+
+
+            ExecuteSurahWordByWord()
                 //     asyncTaskcorpus = new refactoringcurrentSurahSyncWordByWord().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
         }
@@ -698,12 +697,30 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 rukucount = soraList[chapterno[0]].rukucount
                 currentSelectSurah = soraList[chapterno[0]].chapterid
                 this.chapterno = soraList[chapterno[0]].chapterid
-                println(soraList[chapterno[0]].chapterid)
-                println(this.chapterno)
+             //   println(soraList[chapterno[0]].chapterid)
+                println("chapterno"+this.chapterno)
                 println(this.chapterno)
             }
             parentRecyclerView = binding.overlayViewRecyclerView
-            //
+            val myFragment: NewSurahDisplayFrag? =
+                supportFragmentManager.findFragmentByTag(SURAHFRAGTAG) as NewSurahDisplayFrag?
+
+
+            val mngr = getSystemService(ACTIVITY_SERVICE) as ActivityManager
+            val taskList = mngr.getRunningTasks(10)
+            val baseActivity = taskList.get(0).baseActivity
+            val contains = taskList.get(0).baseActivity!!.className.contains("QuranGrammar")
+            if (myFragment != null && myFragment.isVisible() ){
+                val settingint = Intent(this, QuranGrammarAct::class.java)
+                settingint.putExtra(Constant.SURAH_ID, this.chapterno)
+
+                                    settingint.putExtra(Constant.RUKUCOUNT, rukucount)
+                                    settingint.putExtra(Constant.ISMAKKI, isMakkiMadani)
+                                    settingint.putExtra(Constant.VERSESCOUNT, versescount)
+                                    settingint.putExtra(Constant.SURAHNAME, surahArabicName)
+                startActivity(settingint)
+            }else
+
             if (currentSelectSurah == this.chapterno) {
                 parentRecyclerView.post { parentRecyclerView.scrollToPosition(verseNo) }
             } else {
@@ -711,8 +728,8 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
                 surahorpart = currentSelectSurah
                 surah_id = currentSelectSurah
                 this.chapterno = currentSelectSurah
-                println(soraList[chapterno[0]].chapterid)
-                println(this.chapterno)
+//                println(soraList[chapterno[0]].chapterid)
+                println("chapterno"+this.chapterno)
                 println(this.chapterno)
                 ExecuteSurahWordByWord()
                 //     asyncTaskcorpus = new refactoringcurrentSurahSyncWordByWord().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -1385,3 +1402,30 @@ class QuranGrammarAct : BaseActivity(), OnItemClickListenerOnLong {
 }
 
 
+/*       if (item.itemId == R.id.search) {
+            drawerLayout.closeDrawers()
+            materialToolbar.title = "Root Word Search"
+            val search = Intent(this, VoiceRecognitionActivity::class.java)
+            startActivity(search)
+        }
+        if (item.itemId == R.id.surahcompose) {
+            drawerLayout.closeDrawers()
+            materialToolbar.title = "Topics"
+            val searchs = Intent(this, SurahComposeAct::class.java)
+            startActivity(searchs)
+        }*/
+/*
+            if (item.itemId == R.id.bottomcompose) {
+        */
+/*        drawerLayout.closeDrawers()
+                materialToolbar.title = "Topics"
+                val searchs = Intent(this, BottomCompose::class.java)
+                startActivity(searchs)*//*
+
+
+                val conjugatorintent = Intent(this@QuranGrammarAct, PhrasesGrammarAct::class.java)
+
+                startActivity(conjugatorintent)
+
+            }
+*/

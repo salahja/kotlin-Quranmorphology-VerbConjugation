@@ -403,7 +403,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             normalFooter.visibility = View.GONE
 
 
-            initializePlayer()
+        //    initializePlayer()
             playerFooter.visibility = View.VISIBLE
             audio_settings_bottom.visibility = View.GONE
 
@@ -1515,13 +1515,17 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 if (verseendrange == 0) {
                     verseendrange = versescount
                 }
-                if (versestartrange != 0) {
-                    marrayrange = marray.subList(versestartrange, verseendrange)
+                if(versestartrange>0){
+                    versestartrange--
+                }
+
+
+                    marray = marray.subList(versestartrange, verseendrange)
                     player!!.setMediaItems(
-                        marrayrange as MutableList<MediaItem>,  /* resetPosition= */
+                        marray as MutableList<MediaItem>,  /* resetPosition= */
                         !haveStartPosition
                     )
-                }
+
             } else {
                 player!!.setMediaItems(marray,  /* resetPosition= */!haveStartPosition)
             }
@@ -1529,6 +1533,11 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             qariname.text = str
             //   qariname.setText(readerName);
             player!!.prepare()
+            if(rangeRecitation){
+                recyclerView.post { recyclerView.scrollToPosition(versestartrange) }
+                player!!.seekToDefaultPosition(versestartrange)
+                player!!.play()
+            }
             if (resume) {
              //   recyclerView.post { recyclerView.scrollToPosition(currenttrack)}
                 player!!.seekToDefaultPosition(resumelastplayed)
@@ -1954,7 +1963,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                 versescount
             )
             startrange.text = st.toString()
-            startrange.text = stt.toString()
+      //      startrange.text = stt.toString()
         }
         val manager = LinearLayoutManager(this)
         manager.orientation = LinearLayoutManager.VERTICAL
@@ -2103,7 +2112,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
 
     override fun onResume() {
         super.onResume()
-        rxFetch!!.addListener(fetchListener)
+     /*   rxFetch!!.addListener(fetchListener)
         resumeDisposable =
             rxFetch!!.getDownloadsInGroup(RxFilesActivity.groupId).flowable.subscribe(
                 { downloads: List<Download> ->
@@ -2119,7 +2128,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
                     throwable!!
                 )
                 Timber.d("GamesFilesActivity Error: %1\$s", error)
-            }
+            }*/
     }
 
 
@@ -2332,7 +2341,7 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
             } else {
                 reset()
             }
-
+            rxFetch!!.addListener(fetchListener)
 
             enqueueFiles(Links, app_folder_path)
             /*

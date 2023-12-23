@@ -58,7 +58,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.Constant
 import com.example.Constant.SURAHFRAGTAG
-import com.example.compose.BottomCompose
 import com.example.mushafconsolidated.BottomOptionDialog
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt
 import com.example.mushafconsolidated.Entities.BookMarks
@@ -70,6 +69,7 @@ import com.example.mushafconsolidated.Entities.MafoolMutlaqEnt
 import com.example.mushafconsolidated.Entities.NasbListingPojo
 import com.example.mushafconsolidated.Entities.QuranEntity
 import com.example.mushafconsolidated.Entities.ShartListingPojo
+import com.example.mushafconsolidated.Entities.SifaListingPojo
 import com.example.mushafconsolidated.Entities.TameezEnt
 import com.example.mushafconsolidated.R
 import com.example.mushafconsolidated.SurahSummary
@@ -82,6 +82,7 @@ import com.example.mushafconsolidated.fragments.NewSurahDisplayFrag
 import com.example.mushafconsolidated.fragments.PhrasesDisplayFrag
 import com.example.mushafconsolidated.fragments.PhrasesFlowAdapter
 import com.example.mushafconsolidated.fragments.ShartPhrasesFlowAdapter
+import com.example.mushafconsolidated.fragments.SifaPhrasesFlowAdapter
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet
 import com.example.mushafconsolidated.intrfaceimport.OnItemClickListenerOnLong
 import com.example.mushafconsolidated.model.NewQuranCorpusWbw
@@ -90,7 +91,6 @@ import com.example.mushafconsolidated.quranrepo.QuranVIewModel
 import com.example.mushafconsolidated.settingsimport.Constants
 import com.example.mushafconsolidatedimport.ParticleColorScheme
 import com.example.sentenceanalysis.SentenceGrammarAnalysis
-import com.example.surahdisplaycompose.SurahComposeAct
 import com.example.utility.CorpusUtilityorig
 import com.example.utility.QuranGrammarApplication
 import com.example.utility.QuranGrammarApplication.Companion.context
@@ -119,6 +119,7 @@ import java.util.Date
 class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnClickListener {
     private lateinit var accusativesSentences: List<NasbListingPojo>
     private lateinit var shartSentences:List<ShartListingPojo>
+    private lateinit var sifaSentences:List<SifaListingPojo>
     private var bundle: Intent? = null
     private var bundles: Bundle? = null
     private lateinit var mainViewModel: QuranVIewModel
@@ -127,6 +128,7 @@ class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnCli
     private var newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
     private lateinit var newflowAyahWordAdapter: PhrasesFlowAdapter
     private lateinit var shartFlowAdapter: ShartPhrasesFlowAdapter
+    private lateinit var sifFlowAdapter: SifaPhrasesFlowAdapter
     lateinit var binding: PhrasesNewFragmentReadingBinding
     private lateinit var surahWheelDisplayData: Array<String>
     private lateinit var ayahWheelDisplayData: Array<String>
@@ -301,7 +303,7 @@ class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnCli
         bundles = intent.extras
         if (bundles != null) {
             bundles = intent.extras
-      harf=      bundles!!.getString(Constant.HARF,"")
+           harf=      bundles!!.getString(Constant.HARF,"")
             val chapter = bundles!!.getInt(Constant.SURAH_ID, 1)
             mushafview = bundles!!.getBoolean("passages", false)
             val mainViewModel = ViewModelProvider(this)[QuranVIewModel::class.java]
@@ -472,7 +474,7 @@ class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnCli
                 val search = Intent(this, VoiceRecognitionActivity::class.java)
                 startActivity(search)
             }
-            if (item.itemId == R.id.surahcompose) {
+     /*       if (item.itemId == R.id.surahcompose) {
                 drawerLayout.closeDrawers()
                 materialToolbar.title = "Topics"
                 val searchs = Intent(this, SurahComposeAct::class.java)
@@ -484,7 +486,7 @@ class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnCli
                 val searchs = Intent(this, BottomCompose::class.java)
                 startActivity(searchs)
             }
-
+*/
 
 
             if (item.itemId == R.id.searchtopic) {
@@ -906,13 +908,14 @@ class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnCli
             val util= Utils(context)
             shartSentences= emptyList();
             accusativesSentences= emptyList()
+            sifaSentences= emptyList()
            if(harf.equals("inna")) {
                accusativesSentences = util.getNasb(chapterno)
                for (ac in accusativesSentences) {
                    ac.spannableVerse= SpannableString(ac.qurantext)
                }
                corpus.HarfNasbDb(accusativesSentences)
-               HightLightKeyWord(shartSentences,accusativesSentences)
+               HightLightKeyWord(shartSentences, accusativesSentences, sifaSentences)
 
            } else if(harf.equals("shart")){
                shartSentences = util.getShart(chapterno)
@@ -921,7 +924,17 @@ class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnCli
                }
                corpus.setShartDisplay(shartSentences)
 
-               HightLightKeyWord(shartSentences,accusativesSentences)
+               HightLightKeyWord(shartSentences, accusativesSentences, sifaSentences)
+
+           }else if(harf.equals("mausuf")){
+               sifaSentences = util.getSifalisting(chapterno)
+               for (ac in sifaSentences) {
+                   ac.spannableVerse= SpannableString(ac.qurantext)
+               }
+               corpus.SetsifaListing(sifaSentences)
+
+               HightLightKeyWord(shartSentences,accusativesSentences,sifaSentences)
+
 
            }
             allofQuran = mainViewModel.getquranbySUrah(chapterno).value
@@ -953,7 +966,34 @@ class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnCli
 
 
             val viewmodel: QuranVIewModel by viewModels()
-            if (accusativesSentences.isNotEmpty()) {
+
+            if(sifaSentences.isNotEmpty()){
+                sifFlowAdapter= SifaPhrasesFlowAdapter(
+
+                    sifaSentences,
+                    false,
+                    Mutlaqent,
+                    Tammezent,
+                    BadalErabNotesEnt,
+                    Liajlihient,
+                    Jumlahaliya,
+                    mafoolbihiwords,
+                    header,
+                    allofQuran,
+                    newnewadapterlist,
+                    this@PhrasesGrammarAct,
+                    surahArabicName,
+                    isMakkiMadani,
+                    listener
+
+                )
+                sifFlowAdapter.addContext(this@PhrasesGrammarAct)
+                parentRecyclerView.setHasFixedSize(true)
+                parentRecyclerView.adapter = sifFlowAdapter
+                //   flowAyahWordAdapter.notifyDataSetChanged()
+                parentRecyclerView.post { parentRecyclerView.scrollToPosition(verseNo) }
+            }
+          else  if (accusativesSentences.isNotEmpty()) {
                 // viewmodel.getVersesBySurahLive(chapterno).observe(this, {
                 //    allofQuran=it
                 newflowAyahWordAdapter = PhrasesFlowAdapter(
@@ -1019,7 +1059,8 @@ class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnCli
 
     private fun HightLightKeyWord(
         shartSentences: List<ShartListingPojo>,
-        accusativesSentences: List<NasbListingPojo>
+        accusativesSentences: List<NasbListingPojo>,
+        sifaSentences: List<SifaListingPojo>
     ) {
         val inshartiastr = "«إِنْ» شرطية"
         val izazarfshartsrt = "وإذا ظرف يتضمن معنى الشرط"
@@ -1305,6 +1346,117 @@ class PhrasesGrammarAct : BaseActivity(), OnItemClickListenerOnLong , View.OnCli
                 pojo.erabspnabble = str
             }
     }
+        if (sifaSentences.isNotEmpty()){
+            for (pojo in sifaSentences!!) {
+                //  String ar_irab_two = pojo.getAr_irab_two();
+                val ar_irab_two = pojo.ar_irab_two
+                val strstr = ar_irab_two!!.replace("\n", "-")
+                val str = SpannableStringBuilder(strstr)
+                val mudhaftrie = Trie.builder().onlyWholeWords().addKeywords(mudhafilahistr).build()
+                val mudhafemit = mudhaftrie.parseText(ar_irab_two)
+                val sifatrie = Trie.builder().onlyWholeWords().addKeywords(sifastr).build()
+                val sifaemit = sifatrie.parseText(ar_irab_two)
+                val jawabsharttwotrie =
+                    Trie.builder().onlyWholeWords().addKeywords(jawabsharttwostr).build()
+                val jawabsharttwoemit = jawabsharttwotrie.parseText(ar_irab_two)
+                val trieBuilder =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(shart).build()
+                val emits = trieBuilder.parseText(ar_irab_two)
+                val mutlaqbuilder =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(mutlaq).build()
+                val mutlaqemits = mutlaqbuilder.parseText(ar_irab_two)
+                val haltrie =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(hal).build()
+                val halemits = haltrie.parseText(ar_irab_two)
+                val tameeztrie =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(tameez).build()
+                val tameezemit = tameeztrie.parseText(ar_irab_two)
+                val badaltrie =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(badal).build()
+                val badalemit = badaltrie.parseText(ar_irab_two)
+                val ajilihitrie =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(ajilihi).build()
+                val ajilihiemit = ajilihitrie.parseText(ar_irab_two)
+                val mafoolbihitri =
+                    Trie.builder().onlyWholeWordsWhiteSpaceSeparated().addKeywords(mafoolbihi)
+                        .build()
+                val mafoolbihiemit = mafoolbihitri.parseText(ar_irab_two)
+                for (emit in mafoolbihiemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(sifatColoragainstBlack),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in ajilihiemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(sifatColoragainstBlack),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in tameezemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(sifatColoragainstBlack),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in badalemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(sifatColoragainstBlack),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in halemits) {
+                    str.setSpan(
+                        ForegroundColorSpan(shartagainstback),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in emits) {
+                    str.setSpan(
+                        ForegroundColorSpan(shartagainstback),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in mutlaqemits) {
+                    str.setSpan(
+                        ForegroundColorSpan(shartagainstback),
+                        emit.start,
+                        emit.start + emit.keyword.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in mudhafemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(mausofColoragainstBlack),
+                        emit.start,
+                        emit.start + mudhaflenght,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                for (emit in sifaemit) {
+                    str.setSpan(
+                        ForegroundColorSpan(mudhafColoragainstBlack),
+                        emit.start,
+                        emit.start + sifalength,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                //    colorerab.get(0).setErabspnabble(str);
+                pojo.erabspnabble = str
+            }
+        }
     }
 
     private fun LoadItemList(dataBundle: Bundle, word: QuranEntity) {
