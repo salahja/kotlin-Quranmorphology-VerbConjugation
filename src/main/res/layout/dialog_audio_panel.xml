@@ -218,7 +218,7 @@
                 android:background="?selectableItemBackground"
                 android:focusable="true"
                 android:orientation="horizontal"
-                android:padding="@dimen/space_3">
+                android:padding="@dimen/space_4">
 
                 <com.google.android.material.textview.MaterialTextView
 

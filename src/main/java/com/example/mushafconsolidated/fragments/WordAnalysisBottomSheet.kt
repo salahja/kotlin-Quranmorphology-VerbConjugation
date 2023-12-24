@@ -232,7 +232,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
 
         //if any true..good for verb conjugation
         if (!(vbdetail.isEmpty() || !Objects.requireNonNull(vbdetail["tense"])
-                ?.contains("Imperative")!!)
+            ?.contains("Imperative")!!)
         ) {
             isimperative = true
         }

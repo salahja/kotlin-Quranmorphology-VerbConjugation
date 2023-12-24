@@ -198,7 +198,7 @@ object Constant {
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.DarkMagenta)
     private val TEAL400 = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.teal400)
     private val ORANGE100 =
-        ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.orange100)
+        ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.orange400)
     private val LIGHTPINK =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.LightPink)
     private val CYANLIGHT =
@@ -218,7 +218,7 @@ object Constant {
     private val MEDIUMSLATEBLUE =
         ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.MediumSlateBlue)
     private val DarkTurquoise =
-        ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.Lavender)
+        ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.prussianblue)
     val DeepPink = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.DeepPink)
     private val Fuchsia = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.Fuchsia)
     val pinkshade = ContextCompat.getColor(QuranGrammarApplication.context!!, R.color.pinkshade)

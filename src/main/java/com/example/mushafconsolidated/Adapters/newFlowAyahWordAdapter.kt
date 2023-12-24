@@ -1244,7 +1244,7 @@ class newFlowAyahWordAdapter(
                 tafsir.tag = "tafsir"
                 jumptofb.tag = "jumptofb"
                 bookmarfb.tag = "bookmarfb"
-                helpfb.tag = "help"
+                helpfb.tag = "help_img"
                 summbaryfb.tag = "summaryfb"
                 sharescreenfb.tag = "sharefb"
                 view.setOnClickListener(this)
@@ -1267,34 +1267,55 @@ class newFlowAyahWordAdapter(
                         isFABOpen = true
                         fabmenu.animate().rotationBy(180f)
                         if (!isaudio) {
-
-
-
-
                             tafsir.visibility = View.VISIBLE
                             tafsir.animate().translationX(
+                                -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_55)
+                            )
+
+                            tafsir.animate().rotationBy(360f)
+                            tafsir.animate().duration = 1500
+
+
+
+                            jumptofb.visibility = View.VISIBLE
+                            jumptofb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_105)
                             )
-                            tafsir.animate().rotationBy(360f)
 
+                            jumptofb.animate().rotationBy(360f)
+                            bookmarfb.visibility = View.VISIBLE
+                            bookmarfb.animate().translationX(
+                                -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_155)
+                            )
+
+                            bookmarfb.animate().rotationBy(360f)
+                            bookmarfb.animate().duration = 600
                             summbaryfb.visibility = View.VISIBLE
                             summbaryfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_205)
                             )
-                            summbaryfb.animate().rotationBy(360f)
 
+                            summbaryfb.animate().rotationBy(360f)
+                            helpfb.visibility = View.VISIBLE
+                            helpfb.animate().translationX(
+                                -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_255)
+                            )
+
+                            helpfb.animate().rotationBy(360f)
                             sharescreenfb.visibility = View.VISIBLE
                             sharescreenfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_305)
                             )
+
                             sharescreenfb.animate().rotationBy(360f)
                             sharescreenfb.animate().duration = 500
-                            collectionfb.visibility = View.VISIBLE
+                          /*  collectionfb.visibility = View.VISIBLE
                             collectionfb.animate().translationX(
                                 -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_405)
                             )
+
                             collectionfb.animate().rotationBy(360f)
-                            collectionfb.animate().duration = 500
+                            collectionfb.animate().duration = 500*/
                         } else {
 
                             tafsir.visibility = View.VISIBLE
@@ -1442,8 +1463,8 @@ class newFlowAyahWordAdapter(
                         helpfb.animate().translationX(0f)
                         sharescreenfb.animate().translationX(0f)
                         sharescreenfb.animate().rotationBy(360f)
-                        collectionfb.animate().translationX(0f)
-                        collectionfb.animate().rotationBy(360f)
+                       // collectionfb.animate().translationX(0f)
+                      //  collectionfb.animate().rotationBy(360f)
                     }
                 })
                 mafoolatarow.setOnClickListener { view1: View? ->

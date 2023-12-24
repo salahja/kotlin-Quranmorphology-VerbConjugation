@@ -55,50 +55,68 @@ class ParticleColorScheme : BottomSheetDialogFragment() {
         recyclerView.layoutManager = mLayoutManager
         val spanhash = CorpusUtilityorig.stringForegroundColorSpanMap
         textView = view.findViewById(R.id.Colortv)
-        val particle: java.util.ArrayList<String?>? = null
+        val particle: MutableList<String> = ArrayList()
+
+
         particle?.add("PN = \"Proper Noun(اسم علم)\",")
         particle?.add("ADJ = \"Adjective(صفة)")
         particle?.add("V =Verb(فعل)")
         particle?.add("N =Noun")
         particle?.add(" PRON = Pronouns(ضمير)")
-        particle?.add("DEM = Demonstrative Pronoun(اسم اشارة)")
         particle?.add(" REL =  Relative Pronoun(اسم موصول)")
         particle?.add("T =  Time Adverb(ظرف زمان)")
         particle?.add("  LOC =  Location Adverb(ظرف مكان)")
-        particle?.add("DET  determiner()")
-        particle?.add("EMPH  Emphatic lām prefix(لام التوكيد) ")
-        particle?.add("IMPV  Imperative lāmprefix(لام الامر)")
-        particle?.add("PRP  Purpose lāmprefix(لام التعليل)")
-        particle?.add("CONJ  Coordinating conjunction(حرف عطف)")
-        particle?.add("SUB  	Subordinating conjunction(حرف مصدري)")
+
         particle?.add("ACC  	Accusative particle(حرف نصب)")
         particle?.add("AMD  	Amendment particle(حرف استدراك)	")
         particle?.add("ANS  	Answer particle	(حرف جواب)")
         particle?.add("AVR  	Aversion particle	(حرف ردع)")
+
+
         particle?.add("CAUS  Particle of cause	(حرف سببية)")
         particle?.add("CERT  Particle of certainty	(حرف تحقيق)")
         particle?.add("CIRC  Circumstantial particle	(حرف حال)")
         particle?.add("COM  	Comitative particle	(واو المعية)")
         particle?.add("COND  Conditional particle(حرف شرط)")
+        particle?.add("CONJ  Coordinating conjunction(حرف عطف)")
+        particle?.add("DEM = Demonstrative Pronoun(اسم اشارة)")
+        particle?.add("DET  determiner()")
+
+        particle?.add("EMPH  Emphatic lām prefix(لام التوكيد) ")
         particle?.add("EQ  	Equalization particle(حرف تسوية)")
         particle?.add("EXH  	Exhortation particle(حرف تحضيض)")
         particle?.add("EXL  	Explanation particle(حرف تفصيل)")
         particle?.add("EXP  	Exceptive particle	(أداة استثناء)")
         particle?.add("FUT  	Future particle	(حرف استقبال)")
+        particle?.add("INL  	Quranic initials(	(حروف مقطعة	")
         particle?.add("INC  	Inceptive particle	(حرف ابتداء)")
         particle?.add("INT  	Particle of interpretation(حرف تفسير)")
         particle?.add("INTG  Interogative particle	(حرف استفهام)")
-        particle?.add("NEG  	Negative particle(حرف نفي)")
+
         particle?.add("PREV  Preventive particle	(حرف كاف)")
+        particle?.add ("P  Prepositions(حرف جر)")
+
+
         particle?.add("PRO  	Prohibition particle(حرف نهي)")
         particle?.add("REM  	Resumption particle	(حرف استئنافية)")
         particle?.add("RES  	Restriction particle(أداة حصر)")
         particle?.add("RET  	Retraction particle	(حرف اضراب)")
         particle?.add("RSLT  Result particle(حرف واقع في جواب الشرط)")
+
+
+
+        particle?.add("NEG  	Negative particle(حرف نفي)")
+        particle?.add("SUB  	Subordinating conjunction(حرف مصدري)")
         particle?.add("SUP  	Supplemental particle	(حرف زائد)")
         particle?.add("SUR  	Surprise particle	(حرف فجاءة)")
         particle?.add("VOC  	Vocative particle	(حرف نداء)")
-        particle?.add("INL  	Quranic initials(	(حروف مقطعة	")
+        particle?.add("IMPV  Imperative lāmprefix(لام الامر)")
+        particle?.add("PRP  Purpose lāmprefix(لام التعليل)")
+
+
+
+
+
         val details: ArrayList<String> = ArrayList()
         val sample: String = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ"
         colorSchemeAdapter = ColorSchemeAdapter(spanhash, particle)
@@ -132,7 +150,7 @@ class ParticleColorScheme : BottomSheetDialogFragment() {
 
     private class ColorSchemeAdapter(
         spanhash: Map<String?, ForegroundColorSpan>,
-        private var particle: java.util.ArrayList<String?>?
+        private var particle: MutableList<String>
     ) :
         RecyclerView.Adapter<ViewHolder>() {
         private var mItemCount: String? = null
@@ -157,8 +175,16 @@ class ParticleColorScheme : BottomSheetDialogFragment() {
             holder.text.textSize = 20f
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            TODO("Not yet implemented")
+
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): ParticleColorScheme.ViewHolder {
+            return ParticleColorScheme.ViewHolder(
+                LayoutInflater.from(
+                    parent.context
+                ), parent
+            )
         }
 
         override fun getItemCount(): Int {

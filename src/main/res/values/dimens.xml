@@ -18,6 +18,7 @@
     <dimen name="lineWidth">0.2dp</dimen>
 
     <dimen name="space_3">16.0dip</dimen>
+    <dimen name="space_4">50.0dip</dimen>
     <!--
     Because the window insets on round devices are larger than 15dp, this padding only applies
     to square screens.
