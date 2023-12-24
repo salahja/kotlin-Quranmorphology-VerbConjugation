@@ -81,7 +81,6 @@ import org.sj.verbConjugation.FaelMafool
 import org.sj.verbConjugation.MadhiMudharay
 import org.sj.verbConjugation.VerbDetails
 import java.util.Objects
-import java.util.concurrent.Executors
 
 
 /**
@@ -90,9 +89,14 @@ import java.util.concurrent.Executors
  * @constructor Create empty Word analysis bottom sheet
  */
 class WordAnalysisBottomSheet : DialogFragment() {
+    private lateinit var recyclerView: RecyclerView
     private val sarfSagheerList = ArrayList<SarfSagheer>()
-
-
+    var mafoolbihi : List<MafoolBihi> = ArrayList()
+    var haliaSentence : List<HalEnt> = ArrayList()
+    var tameezWord : List<TameezEnt> = ArrayList()
+    var liajlihiEntArrayList :  List<LiajlihiEnt> = ArrayList()
+    var mutlaqword : List<MafoolMutlaqEnt> = ArrayList()
+ var corpusSurahWord: List<QuranCorpusWbw> = ArrayList()
     private val wazannumberslist = ArrayList<String>()
     private var rwAdapter: NewRootWordDisplayAdapter? = null
     var chapterid = 0
@@ -108,7 +112,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
     // --Commented out by Inspection (11/01/22, 8:24 AM):HashMap<Integer, HashMap<String, SpannableStringBuilder>> wordetailsall = new HashMap<>();
     // --Commented out by Inspection (11/01/22, 8:35 AM):HashMap<Integer, HashMap<String, String>> verbdetailsall = new HashMap<>();
     var vbdetail = HashMap<String, String?>()
-    lateinit var wordbdetail: HashMap<String, SpannableStringBuilder?>
+     var wordbdetail = HashMap<String, SpannableStringBuilder?>()
     private var showGrammarFragments = false
     var isroot = false
     var isarabicword = false
@@ -153,7 +157,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
         val prefs =
             PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.context!!)
         themepreference = prefs.getString("theme", "dark")
-        val recyclerView = view.findViewById<RecyclerView>(R.id.wordByWordRecyclerView)
+         recyclerView = view.findViewById<RecyclerView>(R.id.wordByWordRecyclerView)
         recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
         val bundle = this.requireArguments()
@@ -170,47 +174,32 @@ class WordAnalysisBottomSheet : DialogFragment() {
         }
         val dark =
             themepreference == "dark" || themepreference == "blue" || themepreference == "green"
-        lateinit var scope: CoroutineScope
-        rwAdapter = NewRootWordDisplayAdapter(requireContext())
-        val corpus = CorpusUtilityorig(requireContext())
-        scope = CoroutineScope(Dispatchers.Main)
+    //    rwAdapter = NewRootWordDisplayAdapter(requireContext())
 
-
-
-        val models: QuranVIewModel by viewModels()
-        val ex = Executors.newSingleThreadExecutor()
         val builder = AlertDialog.Builder(requireActivity())
         builder.setCancelable(false) // if you want user to wait for some process to finish,
         builder.setView(layout.layout_loading_dialog)
         dialog = builder.create()
-       // val scope: CoroutineScope
-       // scope = CoroutineScope(Dispatchers.Main)
+        val models: QuranVIewModel by viewModels()
+        val scope = CoroutineScope(Dispatchers.Main)
         val mainViewModel = ViewModelProvider(requireActivity())[QuranVIewModel::class.java]
 
-        // requireActivity().runOnUiThread { dialog.show() }
-        //    scope.launch {
+            // ex.shutdown()
+            dialog.show()
 
+       // scope.launch {
 
-        Objects.requireNonNull(requireActivity())
-            .runOnUiThread { dialog.show() }
+          /*  Objects.requireNonNull(requireActivity())
+                .runOnUiThread {
+                    dialog.show()
+                }*/
 
-
-        val mafoolbihi = mainViewModel.getMafoolbihiword(chapterid, ayanumber, wordno).value
-        val haliaSentence = mainViewModel.gethalsurahayah(chapterid, ayanumber).value
-        val tameezWord = mainViewModel.getTameezword(chapterid, ayanumber, wordno).value
-        val liajlihiEntArrayList = mainViewModel.getAjlihiword(chapterid, ayanumber, wordno).value
-        val mutlaqword = mainViewModel.getMutlaqWOrd(chapterid, ayanumber, wordno).value
-        //  val    BadalErabNotesEnt  = mainViewModel.getbadalSurah(chapterid, ayanumber,wordno).value
-
-        val corpusSurahWord = mainViewModel.getQuranCorpusWbw(chapterid, ayanumber, wordno).value
-
-
-   val quran = mainViewModel.getsurahayahVerseslist(chapterid, ayanumber).value
+        val quran = mainViewModel.getsurahayahVerseslist(chapterid, ayanumber).value
         val corpusNounWord = mainViewModel.getNouncorpus(chapterid, ayanumber, wordno).value
 
         val verbCorpusRootWord =
             mainViewModel.getVerbRootBySurahAyahWord(chapterid, ayanumber, wordno).value
-
+         corpusSurahWord = mainViewModel.getQuranCorpusWbw(chapterid, ayanumber, wordno).value!!
 
         val am = NewQuranMorphologyDetails(
             corpusSurahWord!!,
@@ -218,8 +207,6 @@ class WordAnalysisBottomSheet : DialogFragment() {
             verbCorpusRootWord as ArrayList<VerbCorpus>?,
             context
         )
-
-
 
         vb = VerbWazan()
         wordbdetail = am.wordDetails
@@ -232,12 +219,19 @@ class WordAnalysisBottomSheet : DialogFragment() {
 
         //if any true..good for verb conjugation
         if (!(vbdetail.isEmpty() || !Objects.requireNonNull(vbdetail["tense"])
-            ?.contains("Imperative")!!)
+                ?.contains("Imperative")!!)
         ) {
             isimperative = true
         }
 
 
+
+             mafoolbihi = mainViewModel.getMafoolbihiword(chapterid, ayanumber, wordno).value!!
+             haliaSentence = mainViewModel.gethalsurahayah(chapterid, ayanumber).value!!
+             tameezWord = mainViewModel.getTameezword(chapterid, ayanumber, wordno).value!!
+             liajlihiEntArrayList = mainViewModel.getAjlihiword(chapterid, ayanumber, wordno).value!!
+             mutlaqword = mainViewModel.getMutlaqWOrd(chapterid, ayanumber, wordno).value!!
+            //  val    BadalErabNotesEnt  = mainViewModel.getbadalSurah(chapterid, ayanumber,wordno).value
 
         if (tameezWord != null) {
             if (tameezWord.isNotEmpty()) {
@@ -299,11 +293,7 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 ismazeed = true
             }
         }
-        //      root= vbdetail.get("root");
 
-        /*
-
-         */
         if (ismujarrad && !isparticple) {
             mujarradwazan = vbdetail["wazan"].toString()
             verbmood = if (vbdetail["emph"] != null) {
@@ -357,17 +347,6 @@ class WordAnalysisBottomSheet : DialogFragment() {
 
             ss.verbtype = (listing[3][0] as VerbDetails).mazeedormujarad
             ss.wazan = (listing[3][0] as VerbDetails).wazannumberorname
-
-
-            /*
-                        ss.ismalaone = (listing[0][11].toString())
-                        ss.ismalatwo = (listing[0][12].toString())
-                        ss.ismalathree = (listing[0][13].toString())
-                        ss.zarfone = (listing[0][14].toString())
-                        ss.zarftwo = (listing[0][15].toString())
-                        ss.zarfthree = (listing[0][16].toString())
-                    */
-
             sarfSagheerList.add(ss)
             isroot = true
             isThulathiSarfSagheer = true
@@ -610,10 +589,30 @@ class WordAnalysisBottomSheet : DialogFragment() {
             setMudhaf(models)
             setKana(models)
         }
+
+
+
+        val corpus = CorpusUtilityorig(requireContext())
+
+
+
+
+
+
+
+
+        // requireActivity().runOnUiThread { dialog.show() }
+        //    scope.launch {
+
+
         requireActivity().runOnUiThread {
             // ex.shutdown()
             dialog.dismiss()
         }
+
+
+
+
         if (showGrammarFragments) {
             GrammarFragmentsListAdapter(
                 requireContext(),
@@ -643,15 +642,10 @@ class WordAnalysisBottomSheet : DialogFragment() {
                 isThulathiSarfSagheer,
                 sarfSagheerList
             )
-
-
-
-
-
-
-
             recyclerView.adapter = rwAdapter
         }
+
+       // }//scope
 
 
         return view
@@ -836,7 +830,6 @@ class WordAnalysisBottomSheet : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         rwAdapter!!.SetOnItemClickListener(object : OnItemClickListener {
             @SuppressLint("SuspiciousIndentation")

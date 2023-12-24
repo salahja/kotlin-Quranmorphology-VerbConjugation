@@ -299,10 +299,10 @@ class ShowMushafActivity : BaseActivity(), OnItemClickListenerOnLong, View.OnCli
         }
         val bottomsheetexoplayer: RelativeLayout = findViewById(R.id.footerplayer)
         exoplayerBottomBehaviour = BottomSheetBehavior.from(bottomsheetexoplayer)
-        exoplayerBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
+        exoplayerBottomBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
         val playerbottomsheet: RelativeLayout = findViewById(R.id.audio_settings_bottom)
         audioSettingBottomBehaviour = BottomSheetBehavior.from(playerbottomsheet)
-        audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
+        audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
         recyclerView = findViewById(R.id.rvAyahsPages)
         initSpinner()
         if (!singleline) {

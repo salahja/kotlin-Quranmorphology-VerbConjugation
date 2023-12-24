@@ -98,7 +98,7 @@ class Dictionary_frag(lughatWordDetailsAct: LughatWordDetailsAct, language: Stri
         } else if (language == "lanes") {
             val indexOfHamza = verbroot!!.indexOf(ArabicLiterals.Hamza)
             if (indexOfHamza != -1) {
-                verbroot = verbroot.replace(
+                lanesroot = verbroot.replace(
                     ArabicLiterals.Hamza.toRegex(),
                     ArabicLiterals.LALIF
                 )

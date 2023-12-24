@@ -323,7 +323,7 @@ class WordbywordMushafAct : BaseActivity(), OnItemClickListenerOnLong, View.OnCl
         }
         val bottomsheetexoplayer: RelativeLayout = findViewById(R.id.footerplayer)
         exoplayerBottomBehaviour = BottomSheetBehavior.from(bottomsheetexoplayer)
-        exoplayerBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
+        exoplayerBottomBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
         val playerbottomsheet: RelativeLayout = findViewById(R.id.audio_settings_bottom)
         audioSettingBottomBehaviour = BottomSheetBehavior.from(playerbottomsheet)
         audioSettingBottomBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
