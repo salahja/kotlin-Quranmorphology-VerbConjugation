@@ -564,7 +564,7 @@ class LughatWordDetailsAct : BaseActivity() {
                 val fragv = Dictionary_frag(this@LughatWordDetailsAct, languages[4].toString())
                 fragv.arguments = dataBundle
                 return fragv.newInstance()
-            } /*else if (position == 5) {
+            } else if (position == 5) {
                 val fragv = FragmentVerb()
                 fragv.arguments = dataBundle
                 return fragv.newInstance()
@@ -582,7 +582,7 @@ class LughatWordDetailsAct : BaseActivity() {
                 return fragvsi.newInstance()
             }
             val fragv = FragmentVerb()
-            fragv.arguments = dataBundle*/
+            fragv.arguments = dataBundle
             //return fragv.newInstance()
             return TODO("Provide the return value")
         }

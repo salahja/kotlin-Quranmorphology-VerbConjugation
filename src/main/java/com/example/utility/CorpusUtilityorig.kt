@@ -1139,6 +1139,51 @@ class CorpusUtilityorig(private var context: Context?) {
         }
     }
 
+    fun composeWBWCollection(
+        allofQuran: List<QuranEntity>?,
+        corpusSurahWord: List<QuranCorpusWbw>?
+    ): LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>> {
+
+        val newnewadapterlist = LinkedHashMap<Int, ArrayList<NewQuranCorpusWbw>>()
+        var qurancorpusarray = ArrayList<NewQuranCorpusWbw>()
+
+
+        var aindex = 0
+        var secondindex = 0
+
+        while (aindex <= allofQuran!!.size) {
+
+            var ayahWord = NewQuranCorpusWbw()
+
+            try {
+                while (corpusSurahWord!![secondindex].corpus.ayah <= allofQuran[aindex].ayah) {
+                    if (corpusSurahWord[secondindex].corpus.ayah != allofQuran[aindex].ayah) {
+                        break
+                    }
+
+                    ayahWord.spannableverse =
+                        SpannableString.valueOf(allofQuran[aindex].qurantext)
+                    ayahWord.wbw = corpusSurahWord[secondindex].wbw
+                    ayahWord.corpus = corpusSurahWord[secondindex++].corpus
+                    qurancorpusarray.add(ayahWord)
+
+                    ayahWord = NewQuranCorpusWbw()
+                }
+            } catch (e: IndexOutOfBoundsException) {
+                println(e.message)
+            }
+
+            if (qurancorpusarray.isNotEmpty()) {
+                newnewadapterlist[aindex] = qurancorpusarray
+                val ayahWord = NewQuranCorpusWbw()
+            }
+            qurancorpusarray = ArrayList()
+            aindex++
+        }
+
+        return newnewadapterlist
+
+    }
 
     companion object {
         private var dark = true

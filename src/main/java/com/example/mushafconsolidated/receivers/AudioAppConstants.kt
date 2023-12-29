@@ -33,6 +33,7 @@ open interface AudioAppConstants {
             const val MP3: String = ".mp3"
             const val ZIP: String = ".zip"
             const val SQLITE: String = ".sqlite"
+            const val JSON: String = ".json"
         }
     }
 

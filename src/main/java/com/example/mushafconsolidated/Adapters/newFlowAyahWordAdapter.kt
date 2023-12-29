@@ -90,6 +90,7 @@ class newFlowAyahWordAdapter(
     listener: OnItemClickListenerOnLong?,
 ) : RecyclerView.Adapter<newFlowAyahWordAdapter.ItemViewAdapter>() //implements OnItemClickListenerOnLong {
 {
+    private var wordByWordDisplay: Boolean=false
     private var ayahWord: ArrayList<NewQuranCorpusWbw>? = null
     private var defaultfont: Boolean = false
     private var isFABOpen = false
@@ -186,7 +187,7 @@ class newFlowAyahWordAdapter(
             QuranGrammarApplication.context!!.assets,
             FONTS_LOCATION_PATH
         )
-
+        wordByWordDisplay=  sharedPreferences.getBoolean("wordByWordDisplay", false)
         val showrootkey = sharedPreferences.getBoolean("showrootkey", true)
         val showErab = sharedPreferences.getBoolean("showErabKey", true)
         val showWordColor = sharedPreferences.getBoolean("colortag", true)
@@ -666,11 +667,11 @@ class newFlowAyahWordAdapter(
             holder.erabexpanden.visibility = View.VISIBLE
             if (entity != null) {
 
-                    holder.erab_textViewen.text = entity.en_irab
+                holder.erab_textViewen.text = entity.en_irab
 
             }
             //
-         //   holder.erab_textViewen.typeface = custom_font
+            //   holder.erab_textViewen.typeface = custom_font
             //     holder.erab_textView.setVisibility(View.VISIBLE);
             holder.erab_textViewnoteen.visibility = View.VISIBLE
         } else {
@@ -765,7 +766,7 @@ class newFlowAyahWordAdapter(
 
 
 
-
+      //arabicTv
 
             if (showWordColor) {
                 //        word.getRootword();
@@ -775,14 +776,28 @@ class newFlowAyahWordAdapter(
                 val spannedword: SpannableString = getSpannedWords(word)
                 //   arabic.setText(fixArabic(String.valueOf(spannedword)));
                 if (showWbwTranslation) {
-                    arabicTv.text = spannedword
-                    arabicTv.visibility = View.VISIBLE
-                } else {
+                    if(wordByWordDisplay) {
+                        arabicChipview.text = spannedword
+                        arabicChipview.visibility = View.VISIBLE
+                    }else{
+                        arabicTv.text = spannedword
+                        arabicTv.visibility = View.VISIBLE
+                    }
+                } /*else {
                     arabicChipview.text = spannedword
                     arabicChipview.visibility = View.VISIBLE
-                }
+                }*/
             } else {
-                arabicChipview.text = rootwords
+                if (showWbwTranslation) {
+                    arabicChipview.text =
+                        word.corpus!!.araone + word.corpus!!.aratwo + word.corpus!!.arathree + word.corpus!!.arafour + word.corpus!!.arafive
+                    arabicChipview.visibility = View.VISIBLE
+                }else{
+                    arabicTv.text =
+                        word.corpus!!.araone + word.corpus!!.aratwo + word.corpus!!.arathree + word.corpus!!.arafour + word.corpus!!.arafive
+                    arabicTv.visibility = View.VISIBLE
+
+                }
             }
             rootword.text = spannedroot
             rootword.textSize = arabicfontSize.toFloat()
@@ -819,7 +834,7 @@ class newFlowAyahWordAdapter(
             }
             holder.flow_word_by_word.addView(view)
             view.isLongClickable = true
-            if (!showWbwTranslation) {
+         //   if (!showWbwTranslation) {
                 arabicChipview.setOnLongClickListener { v ->
                     val utils = Utils(QuranGrammarApplication.context!!)
                     val verbCorpusRootWords =
@@ -893,7 +908,7 @@ class newFlowAyahWordAdapter(
                     dataBundle.putString(Constant.SURAH_ARABIC_NAME, SurahName)
                     LoadItemList(dataBundle, word.wbw!!)
                 }
-            } else {
+         //   } else {
                 view.setOnLongClickListener { v: View? ->
                     val utils = Utils(QuranGrammarApplication.context!!)
                     val verbCorpusRootWords =
@@ -972,7 +987,7 @@ class newFlowAyahWordAdapter(
                     dataBundle.putString(Constant.SURAH_ARABIC_NAME, SurahName)
                     LoadItemList(dataBundle, word.wbw!!)
                 }
-            }
+           // }
 
 
         }
@@ -1120,7 +1135,6 @@ class newFlowAyahWordAdapter(
         lateinit var translate_textViewnoteen: TextView
 
 
-
         lateinit var bookmark: ImageView
         lateinit var jumpto: ImageView
         private lateinit var ivSummary: ImageView
@@ -1192,7 +1206,7 @@ class newFlowAyahWordAdapter(
                 translate_textViewnote = view.findViewById(R.id.translate_textViewnote)
                 erab_textViewnote = view.findViewById(R.id.erab_textViewnote)
 
-             //   translate_textViewnoteen = view.findViewById(R.id.translate_textViewnoteen)
+                //   translate_textViewnoteen = view.findViewById(R.id.translate_textViewnoteen)
                 erab_textViewnoteen = view.findViewById(R.id.erab_textViewnoteen)
                 quran_transliteration = view.findViewById(R.id.quran_transliteration)
                 quran_jalalayn = view.findViewById(R.id.quran_jalalayn)
@@ -1201,7 +1215,7 @@ class newFlowAyahWordAdapter(
                 flow_word_by_word = view.findViewById(R.id.flow_word_by_word)
                 translate_textView = view.findViewById(R.id.translate_textView)
                 erab_textView = view.findViewById(R.id.erab_textView)
-                erab_textViewen= view.findViewById(R.id.erab_textViewen)
+                erab_textViewen = view.findViewById(R.id.erab_textViewen)
                 //     erab_textView.setTextIsSelectable(true);
                 quran_textView = view.findViewById(R.id.quran_textView)
                 erab_notes = view.findViewById(R.id.erab_notes)
@@ -1210,7 +1224,7 @@ class newFlowAyahWordAdapter(
                 erabexpanden = view.findViewById(R.id.erabexpanden)
 
                 erab_notes_expand = view.findViewById(R.id.erab_img)
-                erab_notes_expanden=view.findViewById(R.id.erab_img)
+                erab_notes_expanden = view.findViewById(R.id.erab_img)
 //                expandImageButton = view.findViewById(R.id.expandImageButton)
                 quran_textView.setOnClickListener(this)
                 quran_textView.tag = "qurantext"
@@ -1309,13 +1323,13 @@ class newFlowAyahWordAdapter(
 
                             sharescreenfb.animate().rotationBy(360f)
                             sharescreenfb.animate().duration = 500
-                          /*  collectionfb.visibility = View.VISIBLE
-                            collectionfb.animate().translationX(
-                                -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_405)
-                            )
+                            /*  collectionfb.visibility = View.VISIBLE
+                              collectionfb.animate().translationX(
+                                  -QuranGrammarApplication.instance!!.resources.getDimension(R.dimen.standard_405)
+                              )
 
-                            collectionfb.animate().rotationBy(360f)
-                            collectionfb.animate().duration = 500*/
+                              collectionfb.animate().rotationBy(360f)
+                              collectionfb.animate().duration = 500*/
                         } else {
 
                             tafsir.visibility = View.VISIBLE
@@ -1463,8 +1477,8 @@ class newFlowAyahWordAdapter(
                         helpfb.animate().translationX(0f)
                         sharescreenfb.animate().translationX(0f)
                         sharescreenfb.animate().rotationBy(360f)
-                       // collectionfb.animate().translationX(0f)
-                      //  collectionfb.animate().rotationBy(360f)
+                        // collectionfb.animate().translationX(0f)
+                        //  collectionfb.animate().rotationBy(360f)
                     }
                 })
                 mafoolatarow.setOnClickListener { view1: View? ->

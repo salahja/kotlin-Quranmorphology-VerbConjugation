@@ -74,6 +74,12 @@
         app:icon="@drawable/ic_baseline_translate_24" />
 
     <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/prefs_show_wordbyworddisplay"
+        android:title="Word Transalation Display Chip"
+        app:icon="@drawable/baseline_display_settings_24" />
+
+    <SwitchPreference
         android:defaultValue="true"
         android:key="@string/prefs_show_colortag"
         android:title="Color Grammatical Words/Phrases"

@@ -119,10 +119,13 @@ object QuranValidateSources {
     }
 
 
-    private fun getSaveDirs(context: Context, reader: Int): Any {
+    fun getSaveDirs(context: Context, reader: Int): Any {
         return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
             .toString() + "/fetch/" + reader
     }
-
+    fun getSaveSurahDirs(context: Context, reader: String): Any {
+        return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+            .toString() + "/fetch/" + reader
+    }
 
 }

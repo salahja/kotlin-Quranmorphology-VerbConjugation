@@ -9,6 +9,6 @@
     <string name="prefs_show_translation" translatable="false">showTranslationKey</string>
     <string name="prefs_show_erab" translatable="false">showErabKey</string>
     <string name="prefs_show_wordbyword" translatable="false">wordByWord</string>
-
+    <string name="prefs_show_wordbyworddisplay" translatable="false">wordByWordDisplay</string>
 
 </resources>

@@ -3,6 +3,8 @@ package com.example.mushafconsolidated.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
+import com.example.mushafconsolidated.receiversimport.AudioAppConstants
+import com.example.mushafconsolidated.receiversimport.QuranValidateSources.getSaveSurahDirs
 import com.tonyodev.fetch2.Priority
 import com.tonyodev.fetch2.Request
 
@@ -64,6 +66,12 @@ object Data {
         val uri = Uri.parse(url)
         val fileName = uri.lastPathSegment
         val dir = getSaveDirs(context, readerid)
+        return "$dir/$fileName"
+    }
+    fun getFilePathJson(context: Context, filepath: String, readerid: String, jsonString: String): String {
+
+        val fileName = readerid+ AudioAppConstants.Extensions.Companion.JSON
+        val dir = getSaveSurahDirs(context, readerid)
         return "$dir/$fileName"
     }
 

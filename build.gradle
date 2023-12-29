@@ -91,7 +91,8 @@ task wrapper(type: Wrapper) {
 
 dependencies {
  //new
-
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.0.1")
     //tony
     implementation "androidx.tonyodev.fetch2:xfetch2:3.1.6"
     implementation "androidx.tonyodev.fetch2okhttp:xfetch2okhttp:3.1.6"
